@@ -1,0 +1,24 @@
+//
+// F6A SETTINGS
+//
+
+// Global
+
+$base-color: #A9014B;
+$dark-color: darken($base-color, 15%);
+$light-color: lighten($base-color, 15%);
+
+$secondary-color: #f4f4f4;
+$dark-secondary-color: darken($secondary-color, 15%);
+$light-secondary-color: lighten($secondary-color, 15%);
+
+// Typography
+
+$base-font-size: 16px;
+$line-height: 1.3;
+
+// Grid
+
+$group-width: 62.5rem;
+$block-gutter: 1.875rem;
+$total-columns: 12;
