@@ -167,6 +167,11 @@
   }
 }
 
+.collapsed.block,
+.group.collapsed > .block {
+		padding: 0;
+}
+
 .container {
 	max-width: 1000px;
 	margin: 0 auto;

@@ -31,3 +31,8 @@ nav {
 .img-bucket {
 	background: $secondary-color;
 }
+
+#slidey-panel.small-6:target {
+	transition: flex-basis 300ms ease;
+	flex-basis: 0%;
+}
