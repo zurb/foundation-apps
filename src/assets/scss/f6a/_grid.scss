@@ -28,7 +28,8 @@
 	padding: 1rem;
 	position: relative;
 
-	border: 1px solid #eee;
+	// border: 1px solid #eee;
+	overflow: hidden;
 
 	@for $i from 1 through $total-columns {
 	  &.small-#{$i} {
@@ -63,7 +64,12 @@
 	flex-flow: row wrap;
 	padding: 0;
 
-	border: 1px solid #eee;
+	// border: 1px solid #eee;
+
+	&.centered {
+		margin-left: auto;
+		margin-right: auto;
+	}
 
 	@for $i from 1 through $total-columns {
 	  &.small-#{$i} {
@@ -90,7 +96,7 @@
 		}
   }
 
-	&.scrollable { overflow-x: scroll; flex-flow: row nowrap; }
+	&.scrollable { overflow-x: scroll; flex-flow: row nowrap; -webkit-overflow-scrolling: touch; }
 	&.scrollable-stack { overflow-y: scroll; flex-flow: row wrap; height: 100%; 
 		&>.block:not([class*="small-"]) { flex-basis: 100%; }
 	}

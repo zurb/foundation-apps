@@ -35,10 +35,7 @@ module.exports = function(grunt) {
 
     sass: {
       options: {
-        includePaths: [
-        'bower_components/foundation/scss',
-        'bower_components/normalize-css/normalize.scss'
-        ]
+        // includePaths: [ 'bower_components/normalize-css/normalize.scss' ]
       },
       dist: {
         options: {

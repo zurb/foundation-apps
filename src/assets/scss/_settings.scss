@@ -4,11 +4,26 @@
 
 // Global
 
+$bondi-blue: #008CBA; 		
+$white-lilac: #E7E7E7; 	
+$cinnabar: #F04124; 			
+$cornflower: #A0D3E8; 				
+$sea-green: #43AC6A;		
+$carrot: #F08A24;
+$slate: #708090; 		
+
+$primary-color: $bondi-blue;
+$secondary-color: $white-lilac;
+$alert-color: $cinnabar;
+$info-color: $cornflower;
+$success-color: $sea-green;
+$warning-color: $carrot;
+$dark-color: $slate;
+
 $base-color: #A9014B;
-$dark-color: darken($base-color, 15%);
 $light-color: lighten($base-color, 15%);
 
-$secondary-color: #f4f4f4;
+
 $dark-secondary-color: darken($secondary-color, 15%);
 $light-secondary-color: lighten($secondary-color, 15%);
 

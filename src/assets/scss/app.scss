@@ -10,3 +10,24 @@
 	"f6a/forms",
 	"f6a/grid",
 	"f6a/buttons";
+
+.panel {
+	background: #eee;
+	padding: 20px;
+}
+
+.band {
+	background: #EEE;
+}
+
+nav {
+	background: $slate;
+	color: $secondary-color;
+	h1 {
+		font-size: 1rem;
+	}
+}
+
+.img-bucket {
+	background: $secondary-color;
+}
