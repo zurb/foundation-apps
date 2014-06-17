@@ -1,6 +1,6 @@
-# Foundation Motion UI 
+# Foundation 6 WIP 
 
-Super secret project to integrate animations into Foundation!
+Work in progress for Foundation 6!
 
 ## Requirements
 
