@@ -10,7 +10,8 @@
     "grunt-newer": "~0.7.0",
     "grunt-contrib-clean": "~0.5.0",
     "grunt-contrib-copy": "~0.5.0",
-    "grunt-contrib-uglify": "~0.2.7"
+    "grunt-contrib-uglify": "~0.2.7",
+    "grunt-autoprefixer": "~0.7.5"
   },
   "dependencies": {
     "highlight.js": "~7.5.0"

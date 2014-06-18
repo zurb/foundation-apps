@@ -1,11 +1,13 @@
+
+
 .frame {
 	margin: 0;
 	height: 100vh;
 	display: flex;
-	flex-flow: row nowrap;
+	flex-flow: row nowrap; 
 
 	&.stack { 
-		flex-flow: column nowrap;
+		flex-flow: column nowrap; 
 	}
 
 	&.unstack { 
@@ -55,6 +57,10 @@
 		  }
 		}
   }
+}
+
+.block, .group {
+	transition: all 300ms ease;
 }
 
 .group {

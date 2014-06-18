@@ -32,7 +32,12 @@ nav {
 	background: $secondary-color;
 }
 
-#slidey-panel.small-6:target {
-	transition: flex-basis 300ms ease;
-	flex-basis: 0%;
+
+.slide-panel {
+	position: absolute;
+	display: flex;
+	bottom:0;
+	width: 100%;
+	height: 200px;
+	z-index: 100;
 }
