@@ -40,8 +40,8 @@ module.exports = function(grunt) {
       single_file: {
         expand: true,
         flatten: true,
-        src: 'dist/assets/css/src/app.css', // -> src/css/file1.css, src/css/file2.css
-        dest: 'dist/assets/css/' // -> dest/css/file1.css, dest/css/file2.css
+        src: 'dist/assets/css/src/app.css',
+        dest: 'dist/assets/css/'
       }
     },
 
