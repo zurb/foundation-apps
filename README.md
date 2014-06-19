@@ -1,6 +1,6 @@
-# Foundation 6 WIP 
+# Foundation for Apps WIP 
 
-Work in progress for Foundation 6!
+Work in progress for Foundation for Apps. At this time we will only be accepting issues and PRs from the core team, as we work toward an initial release. Thanks!
 
 ## Requirements
 
