@@ -23,6 +23,32 @@
 
 }
 
+.block, .group {
+	transition: all 300ms ease;
+
+	@for $i from 0 through $total-columns {
+	  &.small-order-#{$i} {
+	    order: $i;
+	  }
+	}
+
+	@media #{$medium-up} {
+    @for $i from 0 through $total-columns {
+		  &.medium-order-#{$i} {
+		    order: $i;
+		  }
+		}
+  }
+
+  @media #{$large-up} {
+    @for $i from 0 through $total-columns {
+		  &.large-order-#{$i} {
+		    order: $i;
+		  }
+		}
+  }
+}
+
 .block {
 	flex: 1 1 auto;
 	padding: 1rem;
@@ -55,10 +81,6 @@
 		  }
 		}
   }
-}
-
-.block, .group {
-	transition: all 300ms ease;
 }
 
 .group {
