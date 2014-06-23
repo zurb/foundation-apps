@@ -1,0 +1,36 @@
+h1, h2, h3, h4, h5, h6 {
+	font-family: 'Lato', sans-serif;
+	font-weight: 300;
+
+	small {
+		font-size: 1rem;
+		font-weight: 500;
+		color: #aaa;
+		display: block;
+	}
+
+	&:last-child {
+		margin-bottom: 0;
+	}
+}
+
+
+#docs {
+	background: rgb(7,60,86);
+	margin-bottom: 3rem;
+
+	h1, h2, h3, h4, h5, h6 {
+		color: #fff;
+
+		small { color: rgba(255,255,255,0.5); }
+	}
+}
+
+.docs.container {
+	max-width: 800px;
+}
+
+section.docs {
+
+
+}

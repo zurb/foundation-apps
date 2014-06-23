@@ -30,6 +30,17 @@ module.exports = function(grunt) {
         cwd: 'src/pages/',
         src: '**/*.html',
         dest: 'dist/'
+      },
+      docs: {
+        options: {
+          partials: ['src/includes/*.html'],
+          helpers: ['src/helpers/*.js'],
+          layout: 'src/layouts/docs.html'
+        },
+        expand: true,
+        cwd: 'src/pages/',
+        src: '**/index.html',
+        dest: 'docs/'
       }
     },
 
@@ -55,7 +66,8 @@ module.exports = function(grunt) {
           line_comments: 'true'
         },
         files: {
-          'dist/assets/css/src/app.css': 'src/assets/scss/app.scss'
+          'dist/assets/css/src/app.css': 'src/assets/scss/app.scss',
+          'dist/assets/css/src/docs.css': 'src/assets/scss/docs.scss'
         }        
       }
     },
