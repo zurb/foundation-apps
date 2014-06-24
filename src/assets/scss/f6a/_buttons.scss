@@ -26,3 +26,21 @@
 		}
 	}
 }
+
+.solidify .button {
+	background: $debian-red;
+	color: #FFF;
+	&:hover { 
+		background: darken($debian-red, 10%); 
+		color: #fff; 
+	}
+}
+
+.influence .button {
+	background: $dull-cyan;
+	color: #FFF;
+	&:hover { 
+		background: darken($dull-cyan, 10%); 
+		color: #fff; 
+	}
+}

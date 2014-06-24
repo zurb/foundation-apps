@@ -2,7 +2,7 @@
 // F6A SETTINGS
 //
 
-// Global
+// Foundation Colors
 
 $bondi-blue: #008CBA; 		
 $white-lilac: #E7E7E7; 	
@@ -12,6 +12,13 @@ $sea-green: #43AC6A;
 $carrot: #F08A24;
 $slate: #708090; 		
 
+// ZURBapp Colors
+$dull-cyan: #3CADBF; // Influence
+$inch-worm: #B8D30B; // Verify
+$debian-red: #C9025C; // Solidify
+$summer-heat: #FFB134; // Notable 
+
+// Application Colors
 $primary-color: $bondi-blue;
 $secondary-color: $white-lilac;
 $alert-color: $cinnabar;
@@ -20,7 +27,7 @@ $success-color: $sea-green;
 $warning-color: $carrot;
 $dark-color: $slate;
 
-$base-color: #A9014B;
+$base-color: $primary-color;
 $light-color: lighten($base-color, 15%);
 
 
