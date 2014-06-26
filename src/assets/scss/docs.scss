@@ -31,6 +31,13 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 section.docs {
+	h4 { border-top: 1px solid #eee; padding-top: 1rem; }
+}
 
+footer {
+	background: rgb(7,60,86);
+	padding: 1rem 0;
 
+	p { color: rgba(#fff, 0.5); margin: 0; padding: 0; }
+	a { color: #fff; }
 }
