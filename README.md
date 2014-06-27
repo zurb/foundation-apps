@@ -1,6 +1,6 @@
 # Foundation for Apps WIP 
 
-Work in progress for Foundation for Apps. At this time we will only be accepting issues and PRs from the core team, as we work toward an initial release. Thanks!
+Work in progress for Foundation for Apps. At this time we will only be accepting PRs from the core team, as we work toward an initial release. Thanks!
 
 ## Requirements
 
@@ -14,15 +14,15 @@ You'll need to have the following items installed before continuing.
 ## Quickstart
 
 Clone this repository:
-`git clone git@github.com:zurb/foundation-libsass-template.git`
+`git clone git@github.com:zurb/foundation-apps.git`
 
 Navigate into the directory:
-`cd foundation-libsass-template`
+`cd foundation-apps`
 
 Install all the dependincies:
 `npm install && bower install`
 
-While you're working on your project, run:
+While you're working on the project, run:
 
 `grunt`
 
@@ -31,6 +31,7 @@ This will assemble all the pages and compile the Sass. You're set!
 ## Directory Structure
 
 * `dist`: Static pages are assembled here. This is where you should view the site in your browser. **Don't edit these files directly. They will be overwritten!**
+* `docs`: Our humble guide to the new grid. This is just a quick overview at this point, and will get expanded out considerably before the release. Generated from `src/pages/index.html`. **Don't edit these files directly. They will be overwritten!**
 * `src`: This is the directory you'll work in. 
 * `src/assets`: All assets (scss, images, fonts, js, etc) go here.
 * `src/assets/scss/_settings.scss`: Foundation configuration settings go in here
