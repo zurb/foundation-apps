@@ -1,6 +1,6 @@
 # Foundation for Apps WIP 
 
-Work in progress for Foundation for Apps. At this time we will only be accepting PRs from the core team, as we work toward an initial release. Thanks!
+Work in progress for Foundation for Apps. At this time we will only be accepting PRs from the core team and invited contributors, as we work toward an initial release. Thanks!
 
 ## Requirements
 
@@ -40,3 +40,9 @@ The docs are generated in the `docs` directory when you run the quickstart proce
 * `src/assets`: All assets (scss, images, fonts, js, etc) go here.
 * `src/assets/scss/_settings.scss`: Foundation configuration settings go in here
 * `src/assets/scss/app.scss`: Application styles go here
+
+## Feedback
+
+If you have feedback on the grid please report issues to the Foundation for Apps repo. If there is an existing issue covering your topic please use that so we can keep the issue list clean. Pull requests are welcome from the core team and invited contributors, but be explicit (not that kind) so we know what's what. Thanks!
+
+Please note that for the moment, new issues and PRs may be closed without warning. We are, in the interest of sanity, restricting commentary and changes to the Foundation Core team. If you absolutely MUST say something and are not core team, please reach out to use on twitter @zurbfoundation. Thanks!
