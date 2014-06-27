@@ -4,11 +4,11 @@
 	display: flex;
 	flex-flow: row nowrap; 
 
-	&.stack { 
+	&.stack, &.small-stack { 
 		flex-flow: column nowrap; 
 	}
 
-	&.unstack { 
+	&.unstack, &.small-unstack { 
 		flex-flow: row nowrap;
 	}
 	
@@ -127,9 +127,9 @@
 		&>.block:not([class*="small-"]) { flex-basis: 100%; }
 	}
 
-	&.stack { flex-flow: column wrap; height: 100%; 
-		&.scrollable { overflow-y: scroll; flex-flow: column nowrap; }
-		&.scrollable-stack { overflow-x: scroll; flex-flow: column wrap; }
+	&.stack, &.small-stack { flex-flow: column wrap; height: 100%; 
+		&.scrollable, &.small-scrollable { overflow-y: scroll; flex-flow: column nowrap; }
+		&.scrollable-stack, &.small-scrollable-stack { overflow-x: scroll; flex-flow: column wrap; }
 	}
 
 	@media #{$medium-up} {
@@ -166,7 +166,7 @@
 	}
 }
 
-.stack, .medium-stack, .large-stack {
+.stack, .small-stack, .medium-stack, .large-stack {
 
 	.block { height: auto; }
 
