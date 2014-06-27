@@ -28,6 +28,10 @@ While you're working on the project, run:
 
 This will assemble all the pages and compile the Sass. You're set!
 
+## Docs
+
+The docs are generated in the `docs` directory when you run the quickstart process above.
+
 ## Directory Structure
 
 * `dist`: Static pages are assembled here. This is where you should view the site in your browser. **Don't edit these files directly. They will be overwritten!**
