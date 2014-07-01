@@ -36,10 +36,13 @@ nav {
 
 
 .slide-panel {
-	position: absolute;
-	display: flex;
-	bottom:0;
-	width: 100%;
-	height: 200px;
-	z-index: 100;
+  position: absolute;
+  display: flex;
+  bottom:0;
+  width: 100%;
+  height: 200px;
+  z-index: 100;
 }
+
+// Comment or uncomment out this line for debugging.
+// @include debug;

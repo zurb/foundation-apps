@@ -1,0 +1,171 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Welcome to Foundation</title>
+    <link rel="stylesheet" href="../dist/assets//css/src/app.css" />
+    <link rel="stylesheet" href="../dist/assets//css/src/docs.css" />
+    <link href='http://fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
+    <script src="../dist/assets//js/modernizr.js"></script>
+  </head>
+  <body>
+
+    <header id="docs">
+  <section class="docs container">
+    <div class="group">
+      <div class="small-12 block"><h1><small>Foundation for Apps Alpha</small>Grid Docs</h1></div>
+    </div>
+  </section>
+</header>
+
+<section class="docs container">
+  
+  <div class="group">
+    <div class="small-12 block">
+      <h3>Welcome!</h3>
+    </div>
+    <div class="medium-6 block">
+      <p>These are the docs for the alpha version of the Foundation for Apps grid. This is a flexbox-based grid system that supports horizontal and vertical layout and is intended to provide a more robust, app-centric way of handling layout.</p>
+    </div>
+    <div class="medium-6 block">
+      <p>If you have feedback on the grid please report issues to the Foundation for Apps repo. If there is an existing issue covering your topic please use that so we can keep the issue list clean. Pull requests are welcome from the core team and invited contributors, but be explicit (not that kind) so we know what's what. Thanks!</p>
+    </div>
+  </div>
+
+</section>
+
+<section class="docs container" id="basics">
+  
+  <div class="group">
+    <div class="small-12 block">
+      <h4>The Basics: Group and Block</h4>
+      <p>The most basic elements in the Foundation for Apps grid are the Group and Block.</p>
+    </div>
+
+    <div class="medium-4 block">
+      <h5>Groups</h5>
+      <p>Groups are layout objects that contain either more groups, or blocks. The are roughly analogous to rows in the Foundation 5 grid.</p>
+    </div>
+    <div class="medium-8 block">
+      <script src="https://gist.github.com/smileyj68/e27c010168af16e8020d.js"></script>
+    </div>
+
+    <div class="medium-4 block">
+      <h5>Nesting Groups</h5>
+      <p>Groups can contain other groups to further split the layout, much like nesting columns inside rows in previous Foundation versions.</p>
+    </div>
+    <div class="medium-8 block">
+      <script src="https://gist.github.com/smileyj68/a633a837e57313eebfef.js"></script>
+    </div>
+
+    <div class="medium-4 block">
+      <h5>Blocks</h5>
+      <p>Blocks are layout objects that contain content only. They are not a layout object, but should contain other elements and components. These are roughly analagous to columns from Foundation 5.</p>
+    </div>
+    <div class="medium-8 block">
+      <script src="https://gist.github.com/smileyj68/de3fb2b5b9061241572f.js"></script>
+    </div>
+  </div>
+
+</section>
+
+<section class="docs container" id="sizing">
+  
+  <div class="group">
+    <div class="small-12 block">
+      <h4>Sizing Elements</h4>
+      <p>Sizing elements in Foundation for Apps is done similarly to Foundation for sites, with a twelve column grid you can apply to objects.</p>
+      <p>In Foundation for Apps, however, you can apply sizes to both groups and blocks (so to rows and columns) and nest them as far down as you need.</p>
+    </div>
+
+    <div class="medium-4 block">
+      <h5>Group Sizes</h5>
+      <p>Putting sizes on a group is how we nest the grid down &mdash; you always want to use groups when you are going to put either deeper nested groups or blocks within them.</p>
+    </div>
+    <div class="medium-8 block">
+      <script src="https://gist.github.com/smileyj68/119bdb3e5782812eaaf3.js"></script>
+    </div>
+
+    <div class="medium-4 block">
+      <h5>Block Sizes</h5>
+      <p>Block sizes work like you would expect, however you are not restricted any longer to twelve columns in a row &mdash; you can have as many blocks in a group as you'd like and they will flow down as their sizes fit in twelve units.</p>
+    </div>
+    <div class="medium-8 block">
+      <script src="https://gist.github.com/smileyj68/c016f6147b8f73dd16e8.js"></script>
+    </div>
+
+    <div class="medium-4 block">
+      <h5>Nested Sizes</h5>
+      <p>When you nest groups to contain blocks, you can assign sizes to every element in that chain. The example here shows a group which has been split into two groups and in turn split into component blocks for content.</p>
+    </div>
+    <div class="medium-8 block">
+      <script src="https://gist.github.com/smileyj68/6f4b5edf5a9ba8e76099.js"></script>
+    </div>
+  </div>
+
+</section>
+
+<section class="docs container" id="stacking">
+  
+  <div class="group">
+    <div class="small-12 block">
+      <h4>Stack / Unstack</h4>
+      <p>By default, blocks will line up left to right in a group not unlike the columns inside rows of previous Foundation versions. However you now have the option to have them stack themselves vertically while still being sized along that axis.</p>
+    </div>
+
+    <div class="medium-4 block">
+      <h5>Stacking Groups and Blocks</h5>
+      <p>By adding a class of .[size]-stack to a group, the groups or blocks inside it will be aligned along the vertical or Y axis, and sizes you specify will affect the vertical height of the object rather than width.</p>
+      <p>Note: You can use `.stack` as an alias for `.small-stack`.</p>
+    </div>
+    <div class="medium-8 block">
+      <script src="https://gist.github.com/smileyj68/27c8bbfb66d0643c547a.js"></script>
+    </div>
+
+    <div class="medium-4 block">
+      <h5>Unstacking Groups and Blocks</h5>
+      <p>If for example you stack your group on small devices, but want a horizontal layout on larger devices, you can unstack them (return them to a horizontal flow) by applying a .[size]-unstack class to the group.</p>
+      <p>Note: You can use `.unstack` as an alias for `.small-unstack`.</p>
+    </div>
+    <div class="medium-8 block">
+      <script src="https://gist.github.com/smileyj68/189f0d4d4df799e8026f.js"></script>
+    </div>
+  </div>
+
+</section>
+
+<section class="docs container" id="frames">
+  
+  <div class="group">
+    <div class="small-12 block">
+      <h4>Frames</h4>
+      <p>A frame is a layout object that lives above all others, and is 100% of the width and height of the screen you're on. This allows you to carve the screen up into areas that are independently scrollable.</p>
+    </div>
+
+    <div class="medium-4 block">
+      <h5>Creating a Frame</h5>
+      <p>You can create a frame by attaching the class to the body of the page, or a div (or other block level element) inside the body. You should not put frames inside groups or blocks further down in your nesting as they are sized in viewport units.</p>
+    </div>
+    <div class="medium-8 block">
+      <script src="https://gist.github.com/smileyj68/b30a8c51de4e7826fce4.js"></script>
+    </div>
+  </div>
+
+</section>
+
+<footer>
+  <section class="docs container">
+    <div class="group">
+      <div class="small-12 block">
+        <p>These docs, like all of Foundation, are MIT-Licensed Open Source. From your friends at <a href="http://zurb.com">ZURB</a>.</p>
+      </div>
+    </div>
+  </section>
+</footer>
+
+  
+    
+    <script src="../dist/assets//js/all.js"></script>
+  </body>
+</html>
