@@ -7,7 +7,7 @@ module.exports = function(grunt) {
     assemble: {
       options: {
         flatten: false,
-        assets: 'dist/assets/',
+        assets: 'dist/assets',
         data: ['src/data/*.json'],
         marked: {
           gfm: true,
@@ -51,7 +51,7 @@ module.exports = function(grunt) {
       single_file: {
         expand: true,
         flatten: true,
-        src: 'dist/assets/css/src/app.css',
+        src: 'dist/assets/css/app.css',
         dest: 'dist/assets/css/'
       }
     },
@@ -66,8 +66,8 @@ module.exports = function(grunt) {
           line_comments: 'true'
         },
         files: {
-          'dist/assets/css/src/app.css': 'src/assets/scss/app.scss',
-          'dist/assets/css/src/docs.css': 'src/assets/scss/docs.scss'
+          'dist/assets/css/app.css': 'src/assets/scss/app.scss',
+          'dist/assets/css/docs.css': 'src/assets/scss/docs.scss'
         }        
       }
     },
