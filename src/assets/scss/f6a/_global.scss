@@ -38,6 +38,15 @@ img { max-width: 100%; display: block; }
   @return nth($range, 2);
 }
 
+// DEBUG
+// A mixin useful for debugging.
+
+@mixin debug {
+  * {
+    background:rgba(0, 0, 0, .05);
+  }
+}
+
 
 // Default breakpoints
 
