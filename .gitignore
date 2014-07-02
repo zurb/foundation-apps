@@ -3,5 +3,5 @@
 /bower_components/*
 /node_modules/*
 /dist/*
-/.sass-cache/*
 /docs/*
+/.sass-cache/*
