@@ -1,13 +1,29 @@
+<style type="text/css">
+	* { background: rgba(0,0,0,0.05); }
+</style>
+
 <div class="frame stack">
 	
 	<header class="fixed-top block">
 		This is the header. It's 80px high.
 	</header>
 
-	<div class="remainder group stack">
-		<div class="small-4 block">This is a 4 block</div>
-		<div class="small-4 block">This is a 4 block</div>
-		<div class="small-4 block">This is a 4 block</div>
+	<div class="remainder group stack" style="height: calc(100vh - 160px);">
+		<div class="small-4 block v-aligner">
+			<div class="align-top" style="width: 50%; padding: 20px;">
+				This is an aligned top item.
+			</div>
+		</div>
+		<div class="small-4 block v-aligner">
+			<div style="width: 50%; padding: 20px;">
+				This is an aligned item.
+			</div>
+		</div>
+		<div class="small-4 block v-aligner">
+			<div class="align-bottom" style="width: 50%; padding: 20px;">
+				This is an aligned bottom item.
+			</div>
+		</div>
 	</div>
 
 	<footer class="fixed-bottom block">

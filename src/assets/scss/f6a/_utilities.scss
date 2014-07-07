@@ -1,0 +1,12 @@
+// Foundation for Apps Utility Classes
+
+
+// Alignment classes, hat tip to http://philipwalton.github.io/solved-by-flexbox/demos/vertical-centering/
+.v-aligner {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	.align-top { align-self: flex-start; }
+	.align-bottom { align-self: flex-end; }
+}

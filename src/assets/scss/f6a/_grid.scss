@@ -224,17 +224,17 @@ $fixed-right-width: 100px !default;
 		  }
 		}
 
-		@if ($fixed-top) {
-			@if ($fixed-bottom) {
-				&.remainder { height: calc(100vh - #{$fixed-top-height} - #{$fixed-bottom-height}); }
-			} @else {
-				&.remainder { height: calc(100vh - #{$fixed-top-height}); }
-			}
-		} @else { 
-			@if ($fixed-bottom) {
-				&.remainder { height: calc(100vh - #{$fixed-bottom-height}); }
-			}
-		}
+		// @if ($fixed-top) {
+		// 	@if ($fixed-bottom) {
+		// 		&.remainder { height: calc(100vh - #{$fixed-top-height} - #{$fixed-bottom-height}); }
+		// 	} @else {
+		// 		&.remainder { height: calc(100vh - #{$fixed-top-height}); }
+		// 	}
+		// } @else { 
+		// 	@if ($fixed-bottom) {
+		// 		&.remainder { height: calc(100vh - #{$fixed-bottom-height}); }
+		// 	}
+		// }
 	}
 
 }
