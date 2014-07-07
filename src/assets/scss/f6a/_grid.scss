@@ -1,3 +1,16 @@
+// Grid Variables
+
+$fixed-top: true !default;
+$fixed-bottom: true !default;
+$fixed-left: false !default;
+$fixed-right: false !default;
+
+$fixed-top-height: 80px !default;
+$fixed-bottom-height: 80px !default;
+$fixed-left-width: 100px !default;
+$fixed-right-width: 100px !default;
+
+
 .frame {
 	margin: 0;
 	height: 100vh;
@@ -191,6 +204,39 @@
 		  }
 		}
   }
+}
+
+// Fixed size top / bottom and left / right
+
+.stack, .small-stack, .medium-stack, .large-stack {
+
+	.group, .block {
+		&[class*="fixed-"] { flex: 0 0 auto; }
+		
+		@if ($fixed-top) {
+		  &.fixed-top {
+		  	height: $fixed-top-height; flex-basis: $fixed-top-height;
+		  }
+		}
+		@if ($fixed-bottom) {
+		  &.fixed-bottom {
+		  	height: $fixed-bottom-height; flex-basis: $fixed-bottom-height;
+		  }
+		}
+
+		@if ($fixed-top) {
+			@if ($fixed-bottom) {
+				&.remainder { height: calc(100vh - #{$fixed-top-height} - #{$fixed-bottom-height}); }
+			} @else {
+				&.remainder { height: calc(100vh - #{$fixed-top-height}); }
+			}
+		} @else { 
+			@if ($fixed-bottom) {
+				&.remainder { height: calc(100vh - #{$fixed-bottom-height}); }
+			}
+		}
+	}
+
 }
 
 .collapsed.block,
