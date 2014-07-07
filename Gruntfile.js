@@ -44,17 +44,17 @@ module.exports = function(grunt) {
       }
     },
 
-    autoprefixer: {
-      options: {
-        browsers: ['last 2 versions']
-      },
-      single_file: {
-        expand: true,
-        flatten: true,
-        src: 'dist/assets/css/src/app.css',
-        dest: 'dist/assets/css/'
-      }
-    },
+    // autoprefixer: {
+    //   options: {
+    //     browsers: ['last 2 versions']
+    //   },
+    //   single_file: {
+    //     expand: true,
+    //     flatten: true,
+    //     src: 'dist/assets/css/src/app.css',
+    //     dest: 'dist/assets/css/'
+    //   }
+    // },
 
     sass: {
       options: {
@@ -66,8 +66,8 @@ module.exports = function(grunt) {
           line_comments: 'true'
         },
         files: {
-          'dist/assets/css/src/app.css': 'src/assets/scss/app.scss',
-          'dist/assets/css/src/docs.css': 'src/assets/scss/docs.scss'
+          'dist/assets/css/app.css': 'src/assets/scss/app.scss',
+          'dist/assets/css/docs.css': 'src/assets/scss/docs.scss'
         }        
       }
     },
@@ -99,7 +99,7 @@ module.exports = function(grunt) {
 
       sass: {
         files: 'src/assets/scss/**/*.scss',
-        tasks: ['sass', 'autoprefixer']
+        tasks: ['sass']
       },
 
       copy: {
@@ -135,7 +135,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('assemble');
   grunt.loadNpmTasks('grunt-newer');
-  grunt.loadNpmTasks('grunt-autoprefixer');
+  // grunt.loadNpmTasks('grunt-autoprefixer');
 
   grunt.registerTask('build', ['clean','sass','uglify','assemble','copy']);
   grunt.registerTask('default', ['build','watch']);
