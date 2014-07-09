@@ -137,6 +137,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-newer');
   grunt.loadNpmTasks('grunt-autoprefixer');
 
-  grunt.registerTask('build', ['clean','sass','uglify','assemble','copy']);
+  grunt.registerTask('build', ['clean','sass', 'autoprefixer','uglify','assemble','copy']);
   grunt.registerTask('default', ['build','watch']);
 }
