@@ -155,7 +155,7 @@ $fixed-right: false !default;
   }
 
 	&.scrollable { overflow-x: scroll; flex-flow: row nowrap; -webkit-overflow-scrolling: touch; }
-	&.scrollable-stack { overflow-y: scroll; flex-flow: row wrap; height: 100%; 
+	&.scrollable-stack { overflow-y: scroll; flex-flow: row wrap; height: 100%; -webkit-overflow-scrolling: touch; 
 		&>.block:not([class*="small-"]) { flex-basis: 100%; }
 	}
 
