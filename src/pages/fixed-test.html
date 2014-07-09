@@ -2,37 +2,41 @@
 	* { background: rgba(0,0,0,0.05); }
 </style>
 
-<div class="frame stack">
+<div class="frame">
 	
-	<header class="fixed-top block v-aligner">
+	<div class="fixed-left block v-aligner">
 		<ul class="inline-list">
 			<li><a href="#">Link 1</a></li>
 			<li><a href="#">Link 2</a></li>
 			<li><a href="#">Link 3</a></li>
 			<li><a href="#">Link 4</a></li>
 		</ul>
-	</header>
-
-	<div class="remainder group scrollable-stack">
-		<div class="block v-aligner" style="height: 500px;">
-			<div class="small-align-top medium-align-bottom" style="width: 100%; padding: 20px;">
-				This is an aligned top item.
-			</div>
-		</div>
-		<div class="block v-aligner" style="height: 500px;">
-			<div style="width: 100%; padding: 20px;">
-				This is an aligned item.
-			</div>
-		</div>
-		<div class="block v-aligner" style="height: 500px;">
-			<div class="small-align-bottom large-align-middle" style="width: 100%; padding: 20px;">
-				This is an aligned bottom item.
-			</div>
-		</div>
 	</div>
 
-	<footer class="fixed-bottom block">
-		This is a footer. It's 80px high.
-	</footer>
+	<div class="remainder group stack">
+
+		<div class="fixed-top block">
+			Top Block
+		</div>
+
+		<div class="remainder group scrollable-stack">
+			<div class="block v-aligner" style="height: 500px;">
+				<div class="small-align-top medium-align-bottom" style="width: 100%; padding: 20px;">
+					This is an aligned top item.
+				</div>
+			</div>
+			<div class="block v-aligner" style="height: 500px;">
+				<div style="width: 100%; padding: 20px;">
+					This is an aligned item.
+				</div>
+			</div>
+			<div class="block v-aligner" style="height: 500px;">
+				<div class="small-align-bottom large-align-middle" style="width: 100%; padding: 20px;">
+					This is an aligned bottom item.
+				</div>
+			</div>
+		</div>
+
+	</div>
 
 </div>
