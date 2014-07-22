@@ -12,21 +12,21 @@ $fixed-right: false !default;
 	display: flex;
 	flex-flow: row nowrap; 
 
-	&.stack, &.small-stack { 
+	&.vertical, &.small-vertical { 
 		flex-flow: column nowrap; 
 	}
 
-	&.unstack, &.small-unstack { 
+	&.horizontal, &.small-horizontal { 
 		flex-flow: row nowrap;
 	}
 	
 	@media #{$medium-up} {
-		&.medium-stack { flex-flow: column nowrap; }
-		&.medium-unstack { flex-flow: row nowrap; }
+		&.medium-vertical { flex-flow: column nowrap; }
+		&.medium-horizontal { flex-flow: row nowrap; }
 	}
 	@media #{$large-up} {
-		&.large-stack { flex-flow: column nowrap; }
-		&.large-unstack { flex-flow: row nowrap; }
+		&.large-vertical { flex-flow: column nowrap; }
+		&.large-horizontal { flex-flow: row nowrap; }
 	}
 
 }
@@ -135,50 +135,50 @@ $fixed-right: false !default;
   }
 
 	&.scrollable { overflow-x: scroll; flex-flow: row nowrap; -webkit-overflow-scrolling: touch; }
-	&.scrollable-stack { overflow-y: scroll; flex-flow: row wrap; height: 100%; -webkit-overflow-scrolling: touch; 
+	&.scrollable-vertical { overflow-y: scroll; flex-flow: row wrap; height: 100%; -webkit-overflow-scrolling: touch; 
 		&>.block:not([class*="small-"]) { flex-basis: 100%; }
 	}
 
-	&.stack, &.small-stack { flex-flow: column wrap; height: 100%; 
+	&.vertical, &.small-vertical { flex-flow: column wrap; height: 100%; 
 		&.scrollable, &.small-scrollable { overflow-y: scroll; flex-flow: column nowrap; }
-		&.scrollable-stack, &.small-scrollable-stack { overflow-x: scroll; flex-flow: column wrap; }
+		&.scrollable-vertical, &.small-scrollable-vertical { overflow-x: scroll; flex-flow: column wrap; }
 	}
 
 	@media #{$medium-up} {
 		&.medium-scrollable { overflow-x: scroll; flex-flow: row nowrap; }
-		&.medium-scrollable-stack { overflow-y: scroll; flex-flow: row wrap; height: 100%; 
+		&.medium-scrollable-vertical { overflow-y: scroll; flex-flow: row wrap; height: 100%; 
 			&>.block:not([class*="small-"]) { flex-basis: 100%; }
 		}
 
-		&.medium-stack { flex-flow: column wrap; height: 100%; 
+		&.medium-vertical { flex-flow: column wrap; height: 100%; 
 			&.scrollable { overflow-y: scroll; flex-flow: column nowrap; }
-			&.scrollable-stack { overflow-x: scroll; flex-flow: column wrap; }
+			&.scrollable-vertical { overflow-x: scroll; flex-flow: column wrap; }
 		}
 	}
 
 	@media #{$large-up} {
 		&.large-scrollable { overflow-x: scroll; flex-flow: row nowrap; }
-		&.large-scrollable-stack { overflow-y: scroll; flex-flow: row wrap; height: 100%; 
+		&.large-scrollable-vertical { overflow-y: scroll; flex-flow: row wrap; height: 100%; 
 			&>.block:not([class*="small-"]) { flex-basis: 100%; }
 		}
 
-		&.large-stack { flex-flow: column wrap; height: 100%; 
+		&.large-vertical { flex-flow: column wrap; height: 100%; 
 			&.scrollable { overflow-y: scroll; flex-flow: column nowrap; }
-			&.scrollable-stack { overflow-x: scroll; flex-flow: column wrap; }
+			&.scrollable-vertical { overflow-x: scroll; flex-flow: column wrap; }
 		}
 	}
 
 	@media #{$medium-up} {
-		&.medium-stack { flex-flow: column nowrap; }
-		&.medium-unstack { flex-flow: row nowrap; height: auto; }
+		&.medium-vertical { flex-flow: column nowrap; }
+		&.medium-horizontal { flex-flow: row nowrap; height: auto; }
 	}
 	@media #{$large-up} {
-		&.large-stack { flex-flow: column nowrap; }
-		&.large-unstack { flex-flow: row nowrap; height: auto; }
+		&.large-vertical { flex-flow: column nowrap; }
+		&.large-horizontal { flex-flow: row nowrap; height: auto; }
 	}
 }
 
-.stack, .small-stack, .medium-stack, .large-stack {
+.vertical, .small-vertical, .medium-vertical, .large-vertical {
 
 	.block { height: auto; }
 
@@ -235,7 +235,7 @@ $fixed-right: false !default;
 }
 
 
-.stack, .small-stack, .medium-stack, .large-stack {
+.vertical, .small-vertical, .medium-vertical, .large-vertical {
 
 	.group, .block {
 		
