@@ -1,0 +1,280 @@
+// Grid Variables
+
+$fixed-top: 80px !default;
+$fixed-bottom: false !default;
+$fixed-left: 80px !default;
+$fixed-right: false !default;
+
+
+.frame {
+	margin: 0;
+	height: 100vh;
+	display: flex;
+	flex-flow: row nowrap; 
+
+	&.vertical, &.small-vertical { 
+		flex-flow: column nowrap; 
+	}
+
+	&.horizontal, &.small-horizontal { 
+		flex-flow: row nowrap;
+	}
+	
+	@media #{$medium-up} {
+		&.medium-vertical { flex-flow: column nowrap; }
+		&.medium-horizontal { flex-flow: row nowrap; }
+	}
+	@media #{$large-up} {
+		&.large-vertical { flex-flow: column nowrap; }
+		&.large-horizontal { flex-flow: row nowrap; }
+	}
+
+}
+
+.block, .group {
+	transition: all 300ms ease;
+
+	@for $i from 0 through $total-columns {
+	  &.small-order-#{$i} {
+	    order: $i;
+	  }
+	}
+
+	@media #{$medium-up} {
+    @for $i from 0 through $total-columns {
+		  &.medium-order-#{$i} {
+		    order: $i;
+		  }
+		}
+  }
+
+  @media #{$large-up} {
+    @for $i from 0 through $total-columns {
+		  &.large-order-#{$i} {
+		    order: $i;
+		  }
+		}
+  }
+}
+
+.block {
+	flex: 1 1 auto;
+	padding: 1rem;
+	position: relative;
+	height: 100%;
+
+	// border: 1px solid #eee;
+	overflow: hidden;
+
+	@for $i from 0 through $total-columns {
+	  &.small-#{$i} {
+	    flex: 0 0 auto;
+	    flex-basis: percentage($i / $total-columns);
+	  }
+	}
+
+  @media #{$medium-up} {
+    @for $i from 0 through $total-columns {
+		  &.medium-#{$i} {
+		    flex: 0 0 auto;
+		    flex-basis: percentage($i / $total-columns);
+		  }
+		}
+  }
+
+  @media #{$large-up} {
+    @for $i from 0 through $total-columns {
+		  &.large-#{$i} {
+		    flex: 0 0 auto;
+		    flex-basis: percentage($i / $total-columns);
+		  }
+		}
+  }
+
+  &.collapse { padding: 0; }
+}
+
+.group {
+	flex: 1 1 auto;
+
+	position: relative;
+	display: flex;
+	flex-flow: row wrap;
+	padding: 0;
+
+	// border: 1px solid #eee;
+
+	&.centered {
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	@for $i from 0 through $total-columns {
+	  &.small-#{$i} {
+	    flex: 0 0 auto;
+	    flex-basis: percentage($i / $total-columns);
+	  }
+	}
+
+	@media #{$medium-up} {
+    @for $i from 0 through $total-columns {
+		  &.medium-#{$i} {
+		    flex: 0 0 auto;
+		    flex-basis: percentage($i / $total-columns);
+		  }
+		}
+  }
+
+  @media #{$large-up} {
+    @for $i from 0 through $total-columns {
+		  &.large-#{$i} {
+		    flex: 0 0 auto;
+		    flex-basis: percentage($i / $total-columns);
+		  }
+		}
+  }
+
+	&.scrollable { overflow-x: scroll; flex-flow: row nowrap; -webkit-overflow-scrolling: touch; }
+	&.scrollable-vertical { overflow-y: scroll; flex-flow: row wrap; height: 100%; -webkit-overflow-scrolling: touch; 
+		&>.block:not([class*="small-"]) { flex-basis: 100%; }
+	}
+
+	&.vertical, &.small-vertical { flex-flow: column wrap; height: 100%; 
+		&.scrollable, &.small-scrollable { overflow-y: scroll; flex-flow: column nowrap; }
+		&.scrollable-vertical, &.small-scrollable-vertical { overflow-x: scroll; flex-flow: column wrap; }
+	}
+
+	@media #{$medium-up} {
+		&.medium-scrollable { overflow-x: scroll; flex-flow: row nowrap; }
+		&.medium-scrollable-vertical { overflow-y: scroll; flex-flow: row wrap; height: 100%; 
+			&>.block:not([class*="small-"]) { flex-basis: 100%; }
+		}
+
+		&.medium-vertical { flex-flow: column wrap; height: 100%; 
+			&.scrollable { overflow-y: scroll; flex-flow: column nowrap; }
+			&.scrollable-vertical { overflow-x: scroll; flex-flow: column wrap; }
+		}
+	}
+
+	@media #{$large-up} {
+		&.large-scrollable { overflow-x: scroll; flex-flow: row nowrap; }
+		&.large-scrollable-vertical { overflow-y: scroll; flex-flow: row wrap; height: 100%; 
+			&>.block:not([class*="small-"]) { flex-basis: 100%; }
+		}
+
+		&.large-vertical { flex-flow: column wrap; height: 100%; 
+			&.scrollable { overflow-y: scroll; flex-flow: column nowrap; }
+			&.scrollable-vertical { overflow-x: scroll; flex-flow: column wrap; }
+		}
+	}
+
+	@media #{$medium-up} {
+		&.medium-vertical { flex-flow: column nowrap; }
+		&.medium-horizontal { flex-flow: row nowrap; height: auto; }
+	}
+	@media #{$large-up} {
+		&.large-vertical { flex-flow: column nowrap; }
+		&.large-horizontal { flex-flow: row nowrap; height: auto; }
+	}
+}
+
+.vertical, .small-vertical, .medium-vertical, .large-vertical {
+
+	.block { height: auto; }
+
+	@for $i from 0 through $total-columns {
+	  &>.small-#{$i} {
+	    height: percentage($i / $total-columns);
+	  }
+	}
+
+	@media #{$medium-up} {
+    @for $i from 0 through $total-columns {
+		  &>.medium-#{$i} {
+		    height: percentage($i / $total-columns);
+		  }
+		}
+  }
+
+  @media #{$large-up} {
+    @for $i from 0 through $total-columns {
+		  &>.large-#{$i} {
+		    height: percentage($i / $total-columns);
+		  }
+		}
+  }
+}
+
+// Fixed size top / bottom and left / right
+
+.group, .block {
+	&[class*="fixed-"] { flex: 0 0 auto; }
+	
+	@if ($fixed-left) {
+	  &.fixed-left {
+	  	width: $fixed-left; flex-basis: $fixed-left;
+	  }
+	}
+	@if ($fixed-right) {
+	  &.fixed-right {
+	  	width: $fixed-right; flex-basis: $fixed-right;
+	  }
+	}
+
+	@if ($fixed-left) {
+		@if ($fixed-right) {
+			&.remainder { width: calc(100vw - #{$fixed-left} - #{$fixed-right}); }
+		} @else {
+			&.remainder { width: calc(100vw - #{$fixed-left}); }
+		}
+	} @else { 
+		@if ($fixed-right) {
+			&.remainder { width: calc(100vw - #{$fixed-right}); }
+		}
+	}
+}
+
+
+.vertical, .small-vertical, .medium-vertical, .large-vertical {
+
+	.group, .block {
+		
+		@if ($fixed-top) {
+		  &.fixed-top {
+		  	height: $fixed-top; flex-basis: $fixed-top;
+		  }
+		}
+		@if ($fixed-bottom) {
+		  &.fixed-bottom {
+		  	height: $fixed-bottom; flex-basis: $fixed-bottom;
+		  }
+		}
+
+		@if ($fixed-top) {
+			@if ($fixed-bottom) {
+				&.remainder { height: calc(100vh - #{$fixed-top} - #{$fixed-bottom}); }
+			} @else {
+				&.remainder { height: calc(100vh - #{$fixed-top}); }
+			}
+		} @else { 
+			@if ($fixed-bottom) {
+				&.remainder { height: calc(100vh - #{$fixed-bottom}); }
+			}
+		}
+	}
+
+	&>.remainder { width: 100%; }
+
+}
+
+.collapsed.block,
+.group.collapsed > .block {
+		padding: 0;
+}
+
+.container {
+	max-width: 1000px;
+	margin: 0 auto;
+}
+
+img { max-width: 100%; }

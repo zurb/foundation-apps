@@ -1,0 +1,34 @@
+#docs {
+	background: rgb(7,60,86);
+	margin-bottom: 3rem;
+
+	h1, h2, h3, h4, h5, h6 {
+		color: #fff;
+
+		small { color: rgba(255,255,255,0.5); }
+	}
+}
+
+.docs.container {
+	max-width: 800px;
+}
+
+section.docs {
+	h4 { border-top: 1px solid #eee; padding-top: 1rem; }
+}
+
+footer {
+	background: rgb(7,60,86);
+	padding: 1rem 0;
+
+	p { color: rgba(#fff, 0.5); margin: 0; padding: 0; }
+	a { color: #fff; }
+}
+
+.square {
+	width: 100px;
+	height: 100px;
+	background: $info-color;
+	display: block;
+	margin-bottom: rem-calc(15); 
+}

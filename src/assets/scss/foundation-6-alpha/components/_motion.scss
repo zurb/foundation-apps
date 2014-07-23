@@ -1,0 +1,258 @@
+// ANIMATIONS
+$da: "data-animation*=";
+
+/* Hide only visually, but have it available for screenreaders: h5bp.com/v */
+@mixin visually-hidden { 
+  border: 0; 
+  clip: rect(0 0 0 0); 
+  height: 1px; 
+  margin: -1px; 
+  overflow: hidden; 
+  padding: 0; 
+  position: absolute; 
+  width: 1px; 
+}
+
+// SLIDE IN
+
+// from west
+@-webkit-keyframes slide-in-from-west {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateX(-100%);
+  }
+
+  100% {
+    opacity: 1;
+    -webkit-transform: translateX(0);
+  }
+}
+
+// from east
+@-webkit-keyframes slide-in-from-east {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateX(100%);
+  }
+
+  100% {
+    opacity: 1;
+    -webkit-transform: translateX(0);
+  }
+}
+
+// from north
+@-webkit-keyframes slide-in-from-north {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(-100%);
+  }
+
+  100% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+  }
+}
+
+// from south
+@-webkit-keyframes slide-in-from-south {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(100%);
+  }
+
+  100% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+  }
+}
+
+// from south
+@-webkit-keyframes slide-in-from-south-subtle {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(20%);
+  }
+
+  100% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+  }
+}
+
+// in-out from south
+@-webkit-keyframes slide-in-out-from-south {
+  0%, 100% {
+    opacity: 0;
+    -webkit-transform: translateY(20%);
+  }
+
+  50% {
+   opacity: 1;
+    -webkit-transform: translateY(0); 
+  }
+  
+}
+
+// SLIDE OUT 
+
+// to east
+@-webkit-keyframes slide-out-to-east {
+  0% {
+    opacity: 1;
+    -webkit-transform: translateX(0);
+  }
+
+  100% {
+    opacity: 0;
+    -webkit-transform: translateX(100%);
+  }
+}
+
+// to west
+@-webkit-keyframes slide-out-to-west {
+  0% {
+    opacity: 1;
+    -webkit-transform: translateX(0);
+  }
+
+  100% {
+    opacity: 0;
+    -webkit-transform: translateX(-100%);
+  }
+}
+
+// to south
+@-webkit-keyframes slide-out-to-south {
+  0% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+  }
+
+  100% {
+    opacity: 0;
+    -webkit-transform: translateY(20%);
+  }
+}
+
+// fade in
+@-webkit-keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+// fade in
+@-webkit-keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+// NO
+@-webkit-keyframes shake {
+  0%, 10%, 20%, 30%, 40%, 50%, 60%, 70%, 80%, 90% {
+    -webkit-transform: translateX(7%);
+  }
+  5%, 15%, 25%, 35%, 45%, 55%, 65%, 75%, 85%, 95% {
+    -webkit-transform: translateX(-7%);
+  }
+  100% { -webkit-transform: translateX(0); }
+}
+
+@-webkit-keyframes spin-cw {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@-webkit-keyframes spin-ccw {
+  to { -webkit-transform: rotate(-1turn); }
+}
+
+
+// WIGGLE 
+@-webkit-keyframes wiggle {
+
+  40%, 50%, 60% {
+    -webkit-transform: rotate(7deg);
+  }
+  35%, 45%, 55%, 65% {
+    -webkit-transform: rotate(-7deg);
+  }
+  0%, 30%, 70%, 100% { -webkit-transform: rotate(0); } 
+
+}
+
+%animation-base {
+  -webkit-animation-duration: 700ms;
+  -webkit-animation-fill-mode: forwards;
+  -webkit-backface-visibility: hidden;
+}
+
+// ANIMATION OPTIONS
+.animate {
+  @extend %animation-base;
+
+  // Animation Type
+  &[#{$da}"slide-in-from-west"] { -webkit-animation-name: slide-in-from-west; }
+  &[#{$da}"slide-in-from-east"] { -webkit-animation-name: slide-in-from-east; }
+  &[#{$da}"slide-in-from-north"] { -webkit-animation-name: slide-in-from-north; }
+  &[#{$da}"slide-in-from-south"] { -webkit-animation-name: slide-in-from-south; }
+  &[#{$da}"slide-in-from-south-subtle"] { -webkit-animation-name: slide-in-from-south-subtle; }
+  &[#{$da}"slide-out-to-east"] { -webkit-animation-name: slide-out-to-east; }
+  &[#{$da}"slide-out-to-south"] { -webkit-animation-name: slide-out-to-south; }
+  &[#{$da}"slide-out-to-west"] { -webkit-animation-name: slide-out-to-west; }
+  &[#{$da}"fade-in"] { -webkit-animation-name: fade-in; }
+  &[#{$da}"fade-out"] { -webkit-animation-name: fade-out; }
+  &[#{$da}"shake"] { -webkit-animation-name: shake; }
+  &[#{$da}"spin-cw"] { -webkit-animation-name: spin-cw; }
+  &[#{$da}"spin-ccw"] { -webkit-animation-name: spin-ccw; }
+  &[#{$da}"wiggle"] { -webkit-animation-name: wiggle; }
+
+  // Speed Modifiers
+  &[#{$da}"slow"] { -webkit-animation-duration: 1.5s; }
+  &[#{$da}"fast"] { -webkit-animation-duration: 300ms; }
+
+  // Timing Function Modifiers
+  &[#{$da}"ease"]          { -webkit-animation-timing-function: ease; }
+  &[#{$da}"ease-in"]       { -webkit-animation-timing-function: ease-in; }
+  &[#{$da}"ease-out"]      { -webkit-animation-timing-function: ease-out; }
+  &[#{$da}"ease-in-out" ]  { -webkit-animation-timing-function: ease-in-out; }
+  &[#{$da}"linear"]        { -webkit-animation-timing-function: linear; }
+
+  // Iteration Modifiers
+  &[#{$da}"infinite"]      { -webkit-animation-iteration-count: infinite; }   
+
+  // Delay Modifiers
+  &[#{$da}"delay"] { -webkit-animation-delay: 350ms; }
+
+
+}
+
+// Scale Out
+@-webkit-keyframes scale-out {
+ 0% {
+    -webkit-transform: scale(1);
+    opacity: 1;
+  }
+
+  100% {
+    -webkit-transform: scale(1.5);
+    opacity: 0;
+  }
+
+}
+
+.animate-out {
+  @extend %animation-base;
+
+  &[data-animate-out*="scale-out"] { -webkit-animation-name: scale-out; }
+}

@@ -1,20 +1,3 @@
-h1, h2, h3, h4, h5, h6 {
-	font-family: 'Lato', sans-serif;
-	font-weight: 300;
-
-	small {
-		font-size: 1rem;
-		font-weight: 500;
-		color: #aaa;
-		display: block;
-	}
-
-	&:last-child {
-		margin-bottom: 0;
-	}
-}
-
-
 #docs {
 	background: rgb(7,60,86);
 	margin-bottom: 3rem;
@@ -27,7 +10,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .docs.container {
-	max-width: 800px;
+	max-width: 1000px;
 }
 
 section.docs {
@@ -40,4 +23,12 @@ footer {
 
 	p { color: rgba(#fff, 0.5); margin: 0; padding: 0; }
 	a { color: #fff; }
+}
+
+.square {
+	width: 100px;
+	height: 100px;
+	background: $info-color;
+	display: block;
+	margin-bottom: rem-calc(15); 
 }

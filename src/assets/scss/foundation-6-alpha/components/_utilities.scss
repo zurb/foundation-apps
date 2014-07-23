@@ -1,0 +1,47 @@
+// Foundation for Apps Utility Classes
+
+
+// Vertical alignment classes, hat tip to Solved with Flexbox. http://philipwalton.github.io/solved-by-flexbox/demos/vertical-centering/
+
+.v-aligner {
+	display: flex;
+	align-items: center;
+	// justify-content: center;
+
+	.small-align-top { align-self: flex-start; }
+	.small-align-bottom { align-self: flex-end; }
+
+	@media #{$medium-up} {
+		.medium-align-top { align-self: flex-start; }
+		.medium-align-middle { align-self: center; }
+		.medium-align-bottom { align-self: flex-end; }
+	}
+	@media #{$large-up} {
+		.large-align-top { align-self: flex-start; }
+		.large-align-middle { align-self: center; }
+		.large-align-bottom { align-self: flex-end; }
+	}
+}
+
+.h-aligner {
+	margin: 0 auto;
+	display: block;
+}
+
+.fit-to-content {
+	overflow-y: auto;
+}
+
+// Horizontal float utility classes
+
+.left { float: left; }
+.right { float: right; }
+
+@media #{$medium-up} {
+	.medium-left { float: left; }
+	.medium-right { float: right; }
+}
+@media #{$large-up} {
+	.medium-left { float: left; }
+	.medium-right { float: right; }
+}

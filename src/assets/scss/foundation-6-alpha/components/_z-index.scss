@@ -1,0 +1,30 @@
+// Z-Index Variables
+// These classes allow you to easily specify the layer to which items belong
+
+$z-shadows: true !default;
+$z-shadow-size: 0.1 !default;
+$z-shadow-base: 0.2 !default;
+$z-min: 1 !default;
+$z-max: 20 !default;
+
+
+// General z-index class styles
+[class*="z-index-"] {
+	position: relative;
+	z-index: $z-min;
+
+	@if $z-shadows {
+		box-shadow: 0px (10px * $z-shadow-size) (10px * $z-shadow-size + 1) rgba(0,0,0,$z-shadow-base);
+	}
+}
+
+// Iterate and generate classes for z-index-min to z-index-max
+@for $i from $z-min through $z-max {
+  .z-index-#{$i} {
+    z-index: $i;
+
+    @if $z-shadows {
+			box-shadow: 0px (10px * $z-shadow-size + $i) (10px * $z-shadow-size + $i + 1) rgba(0,0,0,$z-shadow-base);
+		}
+  }
+}

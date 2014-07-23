@@ -1,0 +1,226 @@
+<header id="docs">
+  <section class="docs container">
+    <div class="group">
+      <div class="small-12 block">
+      <h6 class="subheader">Foundation for Apps Alpha</h6>
+      <h1>Motion UI Docs</h1>
+      </div>
+    </div>
+  </section>
+</header>
+
+
+
+
+<section class="docs container">
+  
+  <div class="group">
+  	<div class="small-12 group">
+  		<div class="small-12 block">
+	      <h3>Welcome!</h3>
+	    </div>
+	    <div class="medium-12 block">
+	      <p class="lead">These are the docs for the alpha version of the <strong>Foundation for Apps Motion UI</strong>. The goal here is to allow you to rapidly prototype animated elements that integrate seamlessly into your site!</p>
+	      <p><em><a href="">Would you like to know more?</a></em></p>
+	    </div>
+  	</div>
+    
+    
+  </div>
+
+</section>
+
+<section class="docs container">
+  
+  <div class="group">
+    <div class="small-12 group">
+
+    	<div class="small-12 block">
+{{#markdown}}
+
+#### The Basics: Adding an Animation to an Element
+
+Quickly addding an animation to an element is easy! We use the class `animate` to animate an element, and we use the attribute `data-animation` to describe how we want it to move.
+
+{{/markdown}}
+    	</div>
+
+			<div class="medium-8 block">
+
+{{#markdown}}
+
+###### Markup
+
+```html
+<div class="square" data-animation="slide-in-from-west"></div>
+```
+
+You can choose from a number of prefabricated animations:
+
+- `slide-in-from-north`
+- `slide-in-from-east`
+- `slide-in-from-south`
+- `slide-in-from-west`
+- `slide-out-to-north` *todo*
+- `slide-out-to-east`
+- `slide-out-to-south`
+- `slide-out-to-west`
+- `fade-in`
+- `fade-out`
+- `shake`
+- `spin-cw`
+- `spin-ccw`
+- `wiggle`
+
+{{/markdown}}
+
+			</div>
+			<div class="medium-4 block">
+
+{{#markdown}}
+
+###### Examples
+
+<div id="example1" class="square" data-animation="slide-in-from-west"></div>
+<span data-animation-id="example1" class="small button">Slide In</span>
+
+<div id="example2" class="square" data-animation="shake"></div>
+<span data-animation-id="example2" class="small button">Shake</span>
+
+<div id="example3" class="square" data-animation="spin-cw"></div>
+<span data-animation-id="example3" class="small button">Spin</span>
+
+{{/markdown}}
+				
+			</div>
+
+	   </div>
+	</div>
+</section>
+
+<section class="docs container">
+  
+  <div class="group">
+    <div class="small-12 group">
+
+    	<div class="small-12 block">
+{{#markdown}}
+
+#### Modifiers
+
+Don't want an out-of-the-box animation? No problemo! You have several modifiers at your disposal to get exactly the animation you want!
+
+{{/markdown}}
+    	</div>
+
+			<div class="medium-8 block">
+
+{{#markdown}}
+
+##### Speed
+
+You have three speeds to choose from. By default, animations will execute in **700ms**. You can pass `slow` or `fast` modifiers to change the speed to **1.5s** or **300ms** respectively.
+
+```html
+<div class="square" data-animation="slide-in-from-west fast"></div>
+<div class="square" data-animation="slide-in-from-west"></div>
+<div class="square" data-animation="slide-in-from-west slow"></div>
+```
+
+{{/markdown}}
+
+			</div>
+			<div class="medium-4 block">
+
+{{#markdown}}
+
+###### Examples
+
+<div id="example4" class="square" data-animation="slide-in-from-west fast"></div>
+<span data-animation-id="example4" class="small button">Fast</span>
+
+<div id="example5" class="square" data-animation="slide-in-from-west"></div>
+<span data-animation-id="example5" class="small button">Normal</span>
+
+<div id="example6" class="square" data-animation="slide-in-from-west slow"></div>
+<span data-animation-id="example6" class="small button">Slow</span>
+
+{{/markdown}}
+				
+			</div>
+
+			<div class="medium-8 block">
+
+{{#markdown}}
+
+##### Iteration Modifiers
+
+Animations will only run once by default, but you can make them repeat infinitely if you want them to!
+
+```html
+<div class="square" data-animation="slide-in-from-west infinite"></div>
+```
+
+{{/markdown}}
+
+			</div>
+			<div class="medium-4 block">
+
+{{#markdown}}
+
+###### Examples
+
+<div id="example7" class="animate square" data-animation="spin-cw ease infinite"></div>
+<label for="">Spin Ease</label>
+
+{{/markdown}}
+				
+			</div>
+
+			<div class="medium-8 block">
+
+{{#markdown}}
+
+##### Timing Function Modifiers
+
+By default all animations use `ease` for the timing function. However, this isn't always desirable so we've made other timing function modifiers available!
+
+```html
+<div class="square" data-animation="spin-cw ease infinite"></div>
+<div class="square" data-animation="spin-cw linear infinite"></div>
+```
+
+{{/markdown}}
+
+			</div>
+			<div class="medium-4 block">
+
+{{#markdown}}
+
+###### Examples
+
+<div id="example8" class="animate square" data-animation="spin-cw ease infinite"></div>
+<label for="">Spin Ease</label>
+<br>
+<br>
+<br>
+<div id="example9" class="animate square" data-animation="spin-cw linear infinite"></div>
+<label for="">Spin Linear</label>
+
+{{/markdown}}
+				
+			</div>
+
+	   </div>
+	</div>
+</section>
+
+<footer>
+  <section class="docs container">
+    <div class="group">
+      <div class="small-12 block">
+        <p>These docs, like all of Foundation, are MIT-Licensed Open Source. From your friends at <a href="http://zurb.com">ZURB</a>.</p>
+      </div>
+    </div>
+  </section>
+</footer>

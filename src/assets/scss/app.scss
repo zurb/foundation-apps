@@ -1,19 +1,18 @@
-@import "normalize";
+// CUSTOMIZE FOUNDATION
+// Customize all settings and stuff here. Yay!
+@import "settings";	
 
-@import
-	"settings";
+// FOUNDATION
+// The core of the framework. Woo!
+@import "foundation-6-alpha/foundation-6-alpha";
 
-/*COMPONENTS*/
-@import
-	"f6a/global",
-	"f6a/lists",
-	"f6a/motion",
-	"f6a/typography",
-	"f6a/forms",
-	"f6a/grid",
-	"f6a/utilities",
-	"f6a/buttons",
-	"f6a/z-index"; 
+// DOCS
+// What's up?
+@import 
+	"docs/code",
+	"docs/docs";
+
+
 
 .panel {
 	background: #eee;  
@@ -48,3 +47,12 @@ nav {
 
 // Comment or uncomment out this line for debugging.
 // @include debug;
+
+.button [class*="fi-"] { 
+	position: relative;
+	top:2px;
+}
+#img-1, #img-2 {
+	// position: absolute;
+}
+#img-1 { z-index:1;}
