@@ -14,7 +14,7 @@
 }
 
 section.docs {
-	h4 { border-top: 1px solid #eee; padding-top: 1rem; }
+	// border-bottom: 1px solid #eee; padding-top: 1rem;
 }
 
 footer {
@@ -31,4 +31,38 @@ footer {
 	background: $info-color;
 	display: block;
 	margin-bottom: rem-calc(15); 
+}
+
+.button {
+	@include button($padding:$button-sml, $radius:true);
+}
+
+hr { border-color: #EEE; }
+
+hr.contain {
+	width: calc(100% - 2rem);
+	margin: 0 auto;
+	border-color: #EEE;
+	padding-bottom: rem-calc(30);
+}
+
+h6 {
+	font-weight: bold;
+	text-transform: uppercase;
+	font-size: rem-calc(14);
+	color: lighten(black, 40%);
+}
+
+.spinner {
+	width: 100px;
+	height: 100px;
+	border: 20px solid $secondary-color;
+	border-top-color: $info-color;
+	border-radius: $global-rounded;
+}
+
+// small.msg { display: block;}
+
+input[type=text].error { 
+	border-color: $alert-color;
 }

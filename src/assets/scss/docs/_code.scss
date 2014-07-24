@@ -11,6 +11,8 @@ pre code {
   color: #333;
 }
 
+code { border-radius: $global-radius; }
+
 pre .comment,
 pre .template_comment,
 pre .diff .header,
@@ -133,7 +135,7 @@ pre { margin-bottom: 15px;
   code {
     .code-container {
       //@include border(solid, 1px, darken($panel-bg-color, 4%));
-      //border-radius: 3px;
+      border-radius: 3px;
       //background-color: darken($panel-bg-color, 2%);
       margin: 10px 0px;
       padding: 5px;

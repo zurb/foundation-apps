@@ -174,7 +174,8 @@ $da: "data-animation*=";
 }
 
 @-webkit-keyframes spin-ccw {
-  to { -webkit-transform: rotate(-1turn); }
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(-360deg); }
 }
 
 
@@ -191,50 +192,15 @@ $da: "data-animation*=";
 
 }
 
+$base-animation-duration: 700ms;
+$fast-animation-duration: 300ms;
+$slow-animation-duration: 1.5s;
+
+
 %animation-base {
-  -webkit-animation-duration: 700ms;
+  -webkit-animation-duration: $base-animation-duration;
   -webkit-animation-fill-mode: forwards;
   -webkit-backface-visibility: hidden;
-}
-
-// ANIMATION OPTIONS
-.animate {
-  @extend %animation-base;
-
-  // Animation Type
-  &[#{$da}"slide-in-from-west"] { -webkit-animation-name: slide-in-from-west; }
-  &[#{$da}"slide-in-from-east"] { -webkit-animation-name: slide-in-from-east; }
-  &[#{$da}"slide-in-from-north"] { -webkit-animation-name: slide-in-from-north; }
-  &[#{$da}"slide-in-from-south"] { -webkit-animation-name: slide-in-from-south; }
-  &[#{$da}"slide-in-from-south-subtle"] { -webkit-animation-name: slide-in-from-south-subtle; }
-  &[#{$da}"slide-out-to-east"] { -webkit-animation-name: slide-out-to-east; }
-  &[#{$da}"slide-out-to-south"] { -webkit-animation-name: slide-out-to-south; }
-  &[#{$da}"slide-out-to-west"] { -webkit-animation-name: slide-out-to-west; }
-  &[#{$da}"fade-in"] { -webkit-animation-name: fade-in; }
-  &[#{$da}"fade-out"] { -webkit-animation-name: fade-out; }
-  &[#{$da}"shake"] { -webkit-animation-name: shake; }
-  &[#{$da}"spin-cw"] { -webkit-animation-name: spin-cw; }
-  &[#{$da}"spin-ccw"] { -webkit-animation-name: spin-ccw; }
-  &[#{$da}"wiggle"] { -webkit-animation-name: wiggle; }
-
-  // Speed Modifiers
-  &[#{$da}"slow"] { -webkit-animation-duration: 1.5s; }
-  &[#{$da}"fast"] { -webkit-animation-duration: 300ms; }
-
-  // Timing Function Modifiers
-  &[#{$da}"ease"]          { -webkit-animation-timing-function: ease; }
-  &[#{$da}"ease-in"]       { -webkit-animation-timing-function: ease-in; }
-  &[#{$da}"ease-out"]      { -webkit-animation-timing-function: ease-out; }
-  &[#{$da}"ease-in-out" ]  { -webkit-animation-timing-function: ease-in-out; }
-  &[#{$da}"linear"]        { -webkit-animation-timing-function: linear; }
-
-  // Iteration Modifiers
-  &[#{$da}"infinite"]      { -webkit-animation-iteration-count: infinite; }   
-
-  // Delay Modifiers
-  &[#{$da}"delay"] { -webkit-animation-delay: 350ms; }
-
-
 }
 
 // Scale Out
@@ -256,3 +222,67 @@ $da: "data-animation*=";
 
   &[data-animate-out*="scale-out"] { -webkit-animation-name: scale-out; }
 }
+
+// INITIALLY HIDDEN?
+[#{$da}"initially-hidden"] {  
+  visibility: hidden;
+  opacity:0;
+  height:0;
+  overflow: hidden;
+  position: absolute;
+}
+
+// ANIMATION OPTIONS
+.animate {
+  -webkit-animation-duration: $base-animation-duration;
+  -webkit-animation-fill-mode: forwards;
+  -webkit-backface-visibility: hidden;
+  -webkit-transform: translateZ(0);
+
+  // unhide
+  &[#{$da}"initially-hidden"] {  
+    visibility: visible;
+    opacity: 1;
+    height: auto;
+    overflow: auto;
+    position: inherit;
+  }
+
+  // Animation Type
+  &[#{$da}"slide-in-from-west"] { -webkit-animation-name: slide-in-from-west; }
+  &[#{$da}"slide-in-from-east"] { -webkit-animation-name: slide-in-from-east; }
+  &[#{$da}"slide-in-from-north"] { -webkit-animation-name: slide-in-from-north; }
+  &[#{$da}"slide-in-from-south"] { -webkit-animation-name: slide-in-from-south; }
+  &[#{$da}"slide-in-from-south-subtle"] { -webkit-animation-name: slide-in-from-south-subtle; }
+  &[#{$da}"slide-out-to-east"] { -webkit-animation-name: slide-out-to-east; }
+  &[#{$da}"slide-out-to-south"] { -webkit-animation-name: slide-out-to-south; }
+  &[#{$da}"slide-out-to-west"] { -webkit-animation-name: slide-out-to-west; }
+  &[#{$da}"fade-in"] { -webkit-animation-name: fade-in; }
+  &[#{$da}"fade-out"] { -webkit-animation-name: fade-out; }
+  &[#{$da}"shake"] { -webkit-animation-name: shake; }
+  &[#{$da}"spin-cw"] { -webkit-animation-name: spin-cw; }
+  &[#{$da}"spin-ccw"] { -webkit-animation-name: spin-ccw; }
+  &[#{$da}"wiggle"] { -webkit-animation-name: wiggle; }
+
+  // Speed Modifiers
+  &[#{$da}"slow"] { -webkit-animation-duration: $slow-animation-duration; }
+  &[#{$da}"fast"] { -webkit-animation-duration: $fast-animation-duration; }
+
+  // Timing Function Modifiers
+  &[#{$da}"ease"]          { -webkit-animation-timing-function: ease; }
+  &[#{$da}"ease-in"]       { -webkit-animation-timing-function: ease-in; }
+  &[#{$da}"ease-out"]      { -webkit-animation-timing-function: ease-out; }
+  &[#{$da}"ease-in-out" ]  { -webkit-animation-timing-function: ease-in-out; }
+  &[#{$da}"linear"]        { -webkit-animation-timing-function: linear; }
+
+  // Iteration Modifiers
+  &[#{$da}"infinite"]      { -webkit-animation-iteration-count: infinite; }   
+
+  // Delay Modifiers
+  
+  &[#{$da}"delay"] { -webkit-animation-delay: $base-animation-duration; }
+  &[#{$da}"short-delay"] { -webkit-animation-delay: $fast-animation-duration; }
+  &[#{$da}"long-delay"] { -webkit-animation-delay: $slow-animation-duration; }
+
+}
+
