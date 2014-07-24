@@ -1,0 +1,69 @@
+// Headers are fixed top/bottom/left/right elements that work with the grid
+
+// Header Variables
+
+$fixed-top: 80px !default;
+$fixed-bottom: false !default;
+$fixed-left: 80px !default;
+$fixed-right: false !default;
+
+
+.group, .block {
+	&[class*="fixed-"] { flex: 0 0 auto; }
+	
+	@if ($fixed-left) {
+	  &.fixed-left {
+	  	width: $fixed-left; flex-basis: $fixed-left;
+	  }
+	}
+	@if ($fixed-right) {
+	  &.fixed-right {
+	  	width: $fixed-right; flex-basis: $fixed-right;
+	  }
+	}
+
+	@if ($fixed-left) {
+		@if ($fixed-right) {
+			&.remainder { width: calc(100vw - #{$fixed-left} - #{$fixed-right}); }
+		} @else {
+			&.remainder { width: calc(100vw - #{$fixed-left}); }
+		}
+	} @else { 
+		@if ($fixed-right) {
+			&.remainder { width: calc(100vw - #{$fixed-right}); }
+		}
+	}
+}
+
+
+.vertical, .small-vertical, .medium-vertical, .large-vertical {
+
+	.group, .block {
+		
+		@if ($fixed-top) {
+		  &.fixed-top {
+		  	height: $fixed-top; flex-basis: $fixed-top;
+		  }
+		}
+		@if ($fixed-bottom) {
+		  &.fixed-bottom {
+		  	height: $fixed-bottom; flex-basis: $fixed-bottom;
+		  }
+		}
+
+		@if ($fixed-top) {
+			@if ($fixed-bottom) {
+				&.remainder { height: calc(100vh - #{$fixed-top} - #{$fixed-bottom}); }
+			} @else {
+				&.remainder { height: calc(100vh - #{$fixed-top}); }
+			}
+		} @else { 
+			@if ($fixed-bottom) {
+				&.remainder { height: calc(100vh - #{$fixed-bottom}); }
+			}
+		}
+	}
+
+	&>.remainder { width: 100%; }
+
+}
