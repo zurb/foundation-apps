@@ -1,8 +1,9 @@
 // Icon Bar component
 
-$icon-bar-bg: #141414;
+$icon-bar-bg: #333;
+$icon-bar-hover-bg: $primary-color;
 $icon-bar-color: #fff;
-$icon-bar-border-color: #555;
+$icon-bar-border-color: rgba(255,255,255,0.3);
 
 
 .icon-bar {
@@ -25,19 +26,36 @@ $icon-bar-border-color: #555;
 		.icon {
 			margin-bottom: .5rem;
 			flex-grow: 0;
+			text-align: center;
+
+			img { margin: 0 auto; }
 		}
 
 		label {
 			text-align: center;
+			color: $icon-bar-color;
+		}
+
+		&:hover {
+			background: $icon-bar-hover-bg;
 		}
 	}
 
-	&.side-by-side {
+	&.icon-left {
 		a {
 			flex-flow: row nowrap;
 			align-items: center;
 
 			.icon { margin-bottom: 0; margin-right: 0.5rem; }
+		}
+	}
+
+	&.icon-right {
+		a {
+			flex-flow: row-reverse nowrap;
+			align-items: center;
+
+			.icon { margin-bottom: 0; margin-left: 0.5rem; }
 		}
 	}
 
