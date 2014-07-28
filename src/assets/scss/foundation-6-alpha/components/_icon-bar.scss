@@ -1,0 +1,72 @@
+// Icon Bar component
+
+$icon-bar-bg: #333;
+$icon-bar-hover-bg: $primary-color;
+$icon-bar-color: #fff;
+$icon-bar-border-color: rgba(255,255,255,0.3);
+
+
+.icon-bar {
+	display: flex;
+	background: $icon-bar-bg;
+	color: $icon-bar-color;
+
+	a {
+		display: inline-flex;
+		flex: 1 1 auto;
+
+		flex-flow: column nowrap;
+		align-content: center;
+
+		padding: 1rem;
+		border-left: 1px solid $icon-bar-border-color;
+
+		&:first-child { border-left: none; }
+
+		.icon {
+			margin-bottom: .5rem;
+			flex-grow: 0;
+			text-align: center;
+
+			img { margin: 0 auto; }
+		}
+
+		label {
+			text-align: center;
+			color: $icon-bar-color;
+		}
+
+		&:hover {
+			background: $icon-bar-hover-bg;
+		}
+	}
+
+	&.icon-left {
+		a {
+			flex-flow: row nowrap;
+			align-items: center;
+
+			.icon { margin-bottom: 0; margin-right: 0.5rem; }
+		}
+	}
+
+	&.icon-right {
+		a {
+			flex-flow: row-reverse nowrap;
+			align-items: center;
+
+			.icon { margin-bottom: 0; margin-left: 0.5rem; }
+		}
+	}
+
+	&.vertical {
+		flex-flow: column nowrap;
+
+		a {
+			border-left: none;
+			border-top: 1px solid $icon-bar-border-color;
+
+			&:first-child { border-top: none; }
+		}
+	}
+}
