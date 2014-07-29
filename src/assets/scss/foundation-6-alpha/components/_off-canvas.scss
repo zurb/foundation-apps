@@ -68,4 +68,13 @@ $off-canvas-west-width: 12rem !default;
 	&.active-south {
 		transform: translate3d(0, -$off-canvas-south-height, 0);
 	}
+
+	.dismiss-off-canvas { display: none; }
+	&.active-west, &.active-easy, &.active-north, &.active-west {
+		.dismiss-off-canvas {
+			display: block;
+			position: absolute;
+			top: 0; left: 0; right: 0; bottom: 0;
+		}
+	}
 }
