@@ -66,3 +66,35 @@ h6 {
 input[type=text].error { 
 	border-color: $alert-color;
 }
+
+.side-nav {
+	list-style-type: none;
+	margin:0;
+	a { color: $body-font-color; }
+	li { margin-bottom: rem-calc(10); }
+	li.active { 
+		font-weight: bold; 
+		a { color: $primary-color; }
+	}
+}
+
+.top-bar { 
+	background: $union-navy; 
+	&, #{$headers}, a { color: #FFF; }
+}
+
+.side-bar {
+	background: $secondary-color;
+}
+
+.middle-bar {
+	background: scale-color($secondary-color, $lightness: 80%);
+}
+
+.msg {
+	border-bottom: 1px solid $secondary-color;
+	&.selected {
+		box-shadow: inset 3px 0 0 0 $primary-color;
+		background: scale-color($info-color, $lightness: 70%);
+	}
+}
