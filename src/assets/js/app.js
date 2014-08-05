@@ -102,3 +102,8 @@ $('*[data-animation-id="example15"]').on('click', function(e){
     $('#example16').removeClass('animate error');
   }, 2200);
 });
+
+$('*[data-transition-id="compose-window"]').on('click', function(e){
+  e.preventDefault();
+  $('#compose-window').toggleClass('animate');
+});

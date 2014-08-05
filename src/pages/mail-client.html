@@ -10,7 +10,7 @@
 		<div class="group medium-2 side-bar"> 
 			
 			<div class="block">
-				<a href="" class="button">Compose</a>
+				<a href="#" data-transition-id="compose-window" class="button">Compose</a>
 				<ul class="side-nav">
 					<li class="active"><a href="">Inbox (2)</a></li>
 					<li><a href="">Starred</a></li>
@@ -107,7 +107,18 @@
 			</div>
 
 		</div>
-		
+
 	</div>
+
+	<div id="compose-window" class="compose">
+		<form action="" class="vertical group">
+			<div class="block small-1">To:</div>
+			<div class="block small-1">Subject: </div>
+			<div class="block small-8"><textarea style="height:100%;" name=""></textarea></div>
+			<div class="block small-2"><a href="" class="button">Send</a></div>
+		</form>
+		<a href="" class="close" data-transition-id="compose-window">&times;</a>
+	</div>
+		
 
 </div>

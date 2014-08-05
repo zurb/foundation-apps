@@ -98,3 +98,22 @@ input[type=text].error {
 		background: scale-color($info-color, $lightness: 70%);
 	}
 }
+
+.compose {
+	@include transition(slide, from-bottom);
+	height: rem-calc(500);
+	width: rem-calc(600);
+	position: absolute;
+	right: rem-calc(15);
+	bottom:0;
+	border: 1px solid $secondary-color;
+	z-index: 1000;
+	background: #FFF;
+	bottom: -20px; 
+	.close {
+		position: absolute;
+		right: rem-calc(15);
+		top: rem-calc(10);
+		font-size: rem-calc(20);
+	}
+}
