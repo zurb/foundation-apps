@@ -1,0 +1,157 @@
+%header#docs
+  .docs.container
+    .group
+      .block
+        %h1
+          %small Foundation for Apps
+          <br>
+          Interchange Web Component (Alternate Version)
+
+%main.container
+  %section
+    - # Below is not a typo, divs are explicitly done unless I specified otherwise.
+    .group
+      .block
+        %h3{ aria: { level: 2 } } Welcome!
+
+      .block
+        :markdown
+          These are the docs for the alpha version of **Foundation for Apps Interchange
+          Web Component**.
+
+          The goal here is to allow you to quickly switch out content based
+          on the dimensions of the element it's supposed to be in or the size of the
+          screen.
+        %hr.clearing
+
+  - # Note I could have kept going with just one group, but something tells me that's going to backfire for me semantically/for SEO.:
+  %section.group
+    .medium-6.block
+      %h4{ aria: { level: 3  } } The Markup
+      :markdown
+        Interchange, whether as an web component or an angular directive, is declared on your
+        web page as `<foundation-interchange>`, with a `scenarios` attribute being
+        necessary for it to know what contexts to take account throughout its use in
+        your app application.
+
+    .medium-6.group
+      %h6 Building blocks of an Interchange Element
+      %p
+        Every instance of foundation-interchange should have a `scenarios` attribute
+        with a list of scenarios to use.
+      %h6#markup{ aria: { level: 4 } } Markup
+      :preserve
+        {{#markdown}}
+          ```html
+
+            <foundation-interchange scenarios="[["small.html", element[ min-width: 400px ]], ["medium.html", element[ min-width: 800px ]], ["large.html", element[ min-width: 900px ]]]"></foundation-interchange>
+
+          ```
+        {{/markdown}}
+  %section.group
+    .medium-12.block
+      %h3{ aria: { level: 2 } } Scenarios
+      :markdown
+        Scenarios are the number of contexts you want to be considered by `Interchange`
+        to be displayed to an end user of your site. Such scenarios are surrounded by
+        square brackets.
+
+        To set up a valid list of scenarios, you must passed in a scenario consisting of
+        a `path`, and a `query`.
+
+    .medium-6.block
+      %h4{ aria: { level: 3 } } Paths
+      :markdown
+
+        The `path` parameter associated with a single scenario accepts all the typical HTML URLs you can use in a
+        HTML5 web application.
+
+        Accordingly, it inherits all the restrictions of a regular path to a resource on the web, including conforming to the Cross-Origin Resource Sharing protocol.
+    .medium-6.block
+      %h6{ aria: { level: 4 } } Cross-Origin Resource Sharing
+      %p
+        If you decide to use paths outside of your side, you must
+        make sure the site you linking content from  allows for resources from its site
+        can be use in such a way. <!-- Link to more information about cross-origin
+        resources -->
+
+    .medium-12.block
+      %h3{ aria: { level: 3 } } Queries
+      :markdown
+        In addition to specifying *what* exactly to load, interchange allows you to specify under what circumstances to do so in order of you to dynamically the approriate content for your app.
+
+        The two ways Interchange allows you to do this is through *element queries* or *media queries*.
+
+    .medium-6.block
+      %h4{ aria: { level: 4 } } Element Queries
+      :markdown
+        By default, interchange's query parameter assumes you want to do *element queries*, allowing dynamically load content based on the dimensions of the element itself throughout the application.
+
+        Accordingly—consistent with traditional CSS3 media queries— Interchange  allows you to use `min-width`, `max-width`, `width`, and
+        `height` to specify what type of query it is.
+
+        For more information about media queries on a the web, [read this Mozilla
+        Developer Article](http::/mdn.org)
+
+    .medium-6.block
+      %h6{ aria: { level: 5 } } Markup
+      :markdown
+        ```html
+          <foundation-interchange scenarios="[['default_partial.html', [max-width: 32em]], ['partial', [min-width:48em]], ['partial3.html', [min-width: 76em]]]"
+        ```
+    .medium-6.block
+      %h4{ aria: { level: 4 } } Media Queries
+      :markdown
+        Miss the old functionality of Foundation Interchange to do traditional media queries?  Have no fear, this version of Foundation Interchange inherits the old functionality of Foundation
+        Interchange through the `viewport()` property, including the original version's
+        media query keywords `small`, `medium`, `large`, and `small`
+
+    .medium-6.block
+      %h6{ aria: { level: 5 } } Markup
+      :markdown
+        ```html
+          <foundation-interchange scenarios"[['path', viewport(only screen and (min-width:400px))]]"></foundation-interchange>
+        ```
+
+    %hr.clearing
+
+  %section.group
+    .medium-12.block
+      %h3{ aria: { level: 2 } } Advanced
+      :markdown
+
+    .medium-6.block
+      %h4{ aria: { level: 3  } } Chaining multiple queries
+      :markdown
+        To chain multiple *element* queries together, they must be encapsulated by square
+        brackets.
+
+    .medium-6.block
+      :markdown
+        ```html
+          <foundation-interchange scenarios="[["partial1.html",
+        [min-width:500px][min-height:720px]]]"></foundation-interchange>
+        ```
+    .medium-6.block
+      %h4{ aria: { level: 3 } } Qualifiers
+      :markdown
+        The following qualifiers are recognized by Interchange: `:`, `<=`, `>=`, `=`, `!=` depending on type of queries they are used with.
+
+        For example,  `>=`, `>=`, and `!=` are ignored when used with `min-width`, `max-width`,
+        `min-height`, and `max-width` due to the meaning of such queries.
+
+        `width` and `height` support both.
+
+    .medium-6.block
+      %h6{ aria: { level: 4 } } Qualifers Table
+
+    .medium-6.block
+      %h6{ aria: { level: 3 } } Mix and math Queries
+      %p You may mix and match having media queries and element queries be scenarios for interchange to consider throughout the many stages of your app.
+
+      %p Do note however viewport queries run last, making them win by default if two contexts match simultaneously.
+
+
+  %section.group
+    .medium-6.block
+      %h4{ aria: { level: 2 } } Usage Examples

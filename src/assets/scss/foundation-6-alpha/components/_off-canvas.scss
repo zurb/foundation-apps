@@ -56,17 +56,49 @@ $off-canvas-west-width: 12rem !default;
 		// order: 3;
 	}
 
-	&.active-west {
-		transform: translate3d($off-canvas-west-width, 0, 0);
-	}
-	&.active-east {
-		transform: translate3d(-$off-canvas-west-width, 0, 0);
-	}
 	&.active-north {
 		transform: translate3d(0, $off-canvas-north-height, 0);
 	}
 	&.active-south {
 		transform: translate3d(0, -$off-canvas-south-height, 0);
+	}
+	&.active-east {
+		transform: translate3d(-$off-canvas-east-width, 0, 0);
+	}
+	&.active-west {
+		transform: translate3d($off-canvas-west-width, 0, 0);
+	}
+
+	// This changes the aside off canvas elements to be detached from the moving part of the body, so they stay in place as the content moves out of the way
+
+	&.detached { 
+		aside { 
+
+			z-index: 1;
+
+			// Removes the initial move of each off-canvas element
+			&.off-canvas-north { transform: none; }
+			&.off-canvas-south { transform: none; }
+			&.off-canvas-east { transform: none; }
+			&.off-canvas-west { transform: none; }
+		}
+		
+		&[class*="active-"] { transform: none; } // Removes the transform from the entire wrapper
+
+		.canvas-content { z-index: 2; background: #fff; transition: transform .15s ease-out; }
+
+		&.active-north {
+			.canvas-content { transform: translate3d(0, $off-canvas-north-height, 0); }
+		}
+		&.active-south {
+			.canvas-content { transform: translate3d(0, -$off-canvas-south-height, 0); }
+		}
+		&.active-east {
+			.canvas-content { transform: translate3d(-$off-canvas-east-width, 0, 0); }
+		}
+		&.active-west {
+			.canvas-content { transform: translate3d($off-canvas-west-width, 0, 0); }
+		}
 	}
 
 	.dismiss-off-canvas { display: none; }
