@@ -103,8 +103,7 @@
       %h4{ aria: { level: 4 } } Media Queries
       :markdown
         Miss the old functionality of Foundation Interchange to do traditional media queries?  Have no fear, this version of Foundation Interchange inherits the old functionality of Foundation
-        Interchange through the `viewport()` property, including the original version's
-        media query keywords `small`, `medium`, `large`, and `small`
+        Interchange through the `viewport()` property, including the original version's media query keywords `small`, `medium`, `large`, and `small`
 
     .medium-6.block
       %h6{ aria: { level: 5 } } Markup
@@ -151,7 +150,35 @@
 
       %p Do note however viewport queries run last, making them win by default if two contexts match simultaneously.
 
+    %hr.clearing
 
   %section.group
-    .medium-6.block
-      %h4{ aria: { level: 2 } } Usage Examples
+    .small-12.block
+      %h3{ aria: { level: 2 } } Usage Examples
+
+    .small-12.group
+      .small-6.block
+        %figure
+          %img{ src: "http://placehold.it/500x300&text=Regular Media Query"  }
+
+      .small-6.block
+        %figure.resizeable{ resize: true }
+          %img{ src: "http://placehold.it/500x300&text=Element Media Query", resize: true }
+
+    .small-6.block
+      %h4{ aria: { level: 3 } } Element Queries
+      %p Element queries allow you to have more control how your content is portrayed throughout your app.
+
+    .small-6.block
+      %figure.resizeable{ resize: true }
+        %img{ src: "http://placehold.it/500x300&text=Element Media Query", resize: true }
+
+      .group
+        .small-4.block
+          %button Button 1
+
+        .small-4.block
+          %button Button 2
+
+        .small-4.block
+          %button Button 3

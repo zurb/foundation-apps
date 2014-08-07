@@ -30,7 +30,7 @@ footer {
 	height: 100px;
 	background: $info-color;
 	display: block;
-	margin-bottom: rem-calc(15); 
+	margin-bottom: rem-calc(15);
 }
 
 .button {
@@ -63,7 +63,7 @@ h6 {
 
 // small.msg { display: block;}
 
-input[type=text].error { 
+input[type=text].error {
 	border-color: $alert-color;
 }
 
@@ -72,14 +72,14 @@ input[type=text].error {
 	margin:0;
 	a { color: $body-font-color; }
 	li { margin-bottom: rem-calc(10); }
-	li.active { 
-		font-weight: bold; 
+	li.active {
+		font-weight: bold;
 		a { color: $primary-color; }
 	}
 }
 
-.top-bar { 
-	background: $union-navy; 
+.top-bar {
+	background: $union-navy;
 	&, #{$headers}, a { color: #FFF; }
 }
 
@@ -109,11 +109,29 @@ input[type=text].error {
 	border: 1px solid $secondary-color;
 	z-index: 1000;
 	background: #FFF;
-	bottom: -20px; 
+	bottom: -20px;
 	.close {
 		position: absolute;
 		right: rem-calc(15);
 		top: rem-calc(10);
 		font-size: rem-calc(20);
 	}
+}
+
+// Kevin's Temporary Styles
+
+%reset {
+  margin: 0;
+  padding: 0;
+}
+
+figure  {
+  @extend %reset;
+}
+
+.resizeable{
+  resize: both;
+  img {
+    resize: both;
+  }
 }
