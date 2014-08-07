@@ -127,11 +127,38 @@ input[type=text].error {
 
 figure  {
   @extend %reset;
+  img {
+    display: block;
+    max-width: 100%;
+    height: 100%;
+    &.fullscreen {
+      width: 100%;
+    }
+  }
 }
 
 .resizeable{
   resize: both;
   img {
     resize: both;
+  }
+}
+
+.groupOfButtons {
+  display: flex;
+  flex-direction: row;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+  align-items: center;
+
+  margin-top: 1em;
+
+  button {
+    flex: 30%;
+
+    margin-right: 2%;
+    &:last-of-type {
+      margin-right: 0;
+    }
   }
 }
