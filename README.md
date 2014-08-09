@@ -19,7 +19,7 @@ Clone this repository:
 Navigate into the directory:
 `cd foundation-apps`
 
-Install all the dependincies:
+Install all the dependencies:
 `npm install && bower install`
 
 While you're working on the project, run:
