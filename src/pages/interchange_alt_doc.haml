@@ -171,11 +171,9 @@
 
     .small-12.block
       %figure.resizeable{ resize: true }
-        %img.fullscreen{ src: "http://placehold.it/500x300&text=Element Media Query", resize: true }
+        %img#resizableImageByButtons.fullscreen{ src: "http://placehold.it/500x300&text=Element Media Query", resize: true }
 
       .groupOfButtons
-        %button Button 1
-
-        %button Button 2
-
-        %button Button 3
+        %button#resizeImageButton1{ data: { "resize-value" => "100px" }, aria: { controls: "#resizableImageByButtons" } } Button 1
+        %button#resizeImageButton2{ data: { "resize-value" => "250px" }, aria: { controls: "#resizableImageByButtons" } } Button 2
+        %button#resizeImageButton3{ data: { "resize-value" => "300px" }, aria: { controls: "#resizableImageByButtons" } } Button 3
