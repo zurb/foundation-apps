@@ -110,12 +110,13 @@ input[type=text].error {
 	z-index: 1000;
 	background: #FFF;
 	bottom: -20px;
-	.close {
-		position: absolute;
-		right: rem-calc(15);
-		top: rem-calc(10);
-		font-size: rem-calc(20);
-	}
+
+  .close {
+    position: absolute;
+    right: rem-calc(15);
+    top: rem-calc(10);
+    font-size: rem-calc(20);
+  }
 }
 
 // Kevin's Temporary Styles
@@ -125,20 +126,27 @@ input[type=text].error {
   padding: 0;
 }
 
+%base_image_styling {
+  display: block;
+  max-width: 100%;
+  height: 100%;
+
+  &.fullscreen {
+    width: 100%;
+  }
+}
+
 figure  {
   @extend %reset;
+
   img {
-    display: block;
-    max-width: 100%;
-    height: 100%;
-    &.fullscreen {
-      width: 100%;
-    }
+    @extend %base_image_styling;
   }
 }
 
 .resizeable{
   resize: both;
+
   img {
     resize: both;
   }
@@ -150,13 +158,12 @@ figure  {
   flex-flow: row nowrap;
   justify-content: space-around;
   align-items: center;
-
   margin-top: 1em;
 
   button {
     flex: 30%;
-
     margin-right: 2%;
+
     &:last-of-type {
       margin-right: 0;
     }

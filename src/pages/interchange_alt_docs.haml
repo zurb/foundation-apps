@@ -136,13 +136,7 @@
       :markdown
         The following qualifiers are recognized by Interchange: `:`, `<=`, `>=`, `=`, `!=` depending on type of queries they are used with.
 
-        For example,  `>=`, `>=`, and `!=` are ignored when used with `min-width`, `max-width`,
-        `min-height`, and `max-width` due to the meaning of such queries.
-
-        `width` and `height` support both.
-
-    .medium-6.block
-      %h6{ aria: { level: 4 } } Qualifers Table
+        For example,  `>=`, `>=`, and `!=` are ignored when used with `min-width`, `max-width`, `min-height`, and `max-width` due to the meaning of such queries.  `width` and `height` support both.  .medium-6.block %h6{ aria: { level: 4 } } Qualifers Table
 
     .medium-6.block
       %h6{ aria: { level: 3 } } Mix and math Queries
@@ -157,13 +151,13 @@
       %h3{ aria: { level: 2 } } Usage Examples
 
     .small-12.group
-      .small-6.block
+      #interchange_example_a.small-12.medium-6.block{ aria: { role: "alert", live: "assertive", atomic: false } }
         %figure
-          %img{ src: "http://placehold.it/500x300&text=Regular Media Query"  }
+          %img.fullscreen{ src: "http://placehold.it/500x300&text=Regular Media Query"  }
 
-      .small-6.block
-        %figure.resizeable{ resize: true }
-          %img{ src: "http://placehold.it/500x300&text=Element Media Query", resize: true }
+      #interchange_example_b.small-12.medium-6.block{ aria: { role: "alert", live: "assertive", atomic: false } }
+        %figure.resizeable
+          %img.fullscreen{ src: "http://placehold.it/500x300&text=Element Media Query", resize: true }
 
     .small-12.block
       %h4{ aria: { level: 3 } } Element Queries
@@ -174,6 +168,6 @@
         %img#resizableImageByButtons.fullscreen{ src: "http://placehold.it/500x300&text=Element Media Query", resize: true }
 
       .groupOfButtons
-        %button#resizeImageButton1{ data: { "resize-value" => "100px" }, aria: { controls: "#resizableImageByButtons" } } Button 1
-        %button#resizeImageButton2{ data: { "resize-value" => "250px" }, aria: { controls: "#resizableImageByButtons" } } Button 2
-        %button#resizeImageButton3{ data: { "resize-value" => "300px" }, aria: { controls: "#resizableImageByButtons" } } Button 3
+        %button#resizeImageButton1{ data: { "resize-value" => "20vw" }, aria: { controls: "#resizableImageByButtons" } } 25vw
+        %button#resizeImageButton2{ data: { "resize-value" => "40vw" }, aria: { controls: "#resizableImageByButtons" } } 50vw
+        %button#resizeImageButton3{ data: { "resize-value" => "90vw" }, aria: { controls: "#resizableImageByButtons" } } 100vw

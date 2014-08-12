@@ -39,4 +39,13 @@
 
   })();
 
+  window.onload = function() {
+    var button1, button2, button3, image, interchange_example;
+    image = document.getElementById('resizableImageByButtons');
+    button1 = document.getElementById('resizeImageButton1');
+    button2 = document.getElementById('resizeImageButton2');
+    button3 = document.getElementById('resizeImageButton3');
+    return interchange_example = new ImageResizer(image, [button1, button2, button3], true);
+  };
+
 }).call(this);

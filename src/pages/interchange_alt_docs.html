@@ -120,13 +120,7 @@
       <h4 aria-level='3'>Qualifiers</h4>
       <p>The following qualifiers are recognized by Interchange: <code>:</code>, <code>&lt;=</code>, <code>&gt;=</code>, <code>=</code>, <code>!=</code> depending on type of queries they are used with.</p>
       
-      <p>For example,  <code>&gt;=</code>, <code>&gt;=</code>, and <code>!=</code> are ignored when used with <code>min-width</code>, <code>max-width</code>,
-      <code>min-height</code>, and <code>max-width</code> due to the meaning of such queries.</p>
-      
-      <p><code>width</code> and <code>height</code> support both.</p>
-    </div>
-    <div class='medium-6 block'>
-      <h6 aria-level='4'>Qualifers Table</h6>
+      <p>For example,  <code>&gt;=</code>, <code>&gt;=</code>, and <code>!=</code> are ignored when used with <code>min-width</code>, <code>max-width</code>, <code>min-height</code>, and <code>max-width</code> due to the meaning of such queries.  <code>width</code> and <code>height</code> support both.  .medium-6.block %h6{ aria: { level: 4 } } Qualifers Table</p>
     </div>
     <div class='medium-6 block'>
       <h6 aria-level='3'>Mix and math Queries</h6>
@@ -140,14 +134,14 @@
       <h3 aria-level='2'>Usage Examples</h3>
     </div>
     <div class='small-12 group'>
-      <div class='small-6 block'>
+      <div aria-live='assertive' aria-role='alert' class='small-12 medium-6 block' id='interchange_example_a'>
         <figure>
-          <img src='http://placehold.it/500x300&amp;text=Regular Media Query'>
+          <img class='fullscreen' src='http://placehold.it/500x300&amp;text=Regular Media Query'>
         </figure>
       </div>
-      <div class='small-6 block'>
-        <figure class='resizeable' resize>
-          <img resize src='http://placehold.it/500x300&amp;text=Element Media Query'>
+      <div aria-live='assertive' aria-role='alert' class='small-12 medium-6 block' id='interchange_example_b'>
+        <figure class='resizeable'>
+          <img class='fullscreen' resize src='http://placehold.it/500x300&amp;text=Element Media Query'>
         </figure>
       </div>
     </div>
@@ -160,9 +154,9 @@
         <img class='fullscreen' id='resizableImageByButtons' resize src='http://placehold.it/500x300&amp;text=Element Media Query'>
       </figure>
       <div class='groupOfButtons'>
-        <button aria-controls='#resizeableImageByButtons' data-resize-value='100px' id='resizeImageButton1'>Button 1</button>
-        <button aria-controls='#resizeableImageByButtons' data-resize-value='250px' id='resizeImageButton2'>Button 2</button>
-        <button aria-controls='#resizeableImageByButtons' data-resize-value='300px' id='resizeImageButton3'>Button 3</button>
+        <button aria-controls='#resizableImageByButtons' data-resize-value='20vw' id='resizeImageButton1'>25vw</button>
+        <button aria-controls='#resizableImageByButtons' data-resize-value='40vw' id='resizeImageButton2'>50vw</button>
+        <button aria-controls='#resizableImageByButtons' data-resize-value='90vw' id='resizeImageButton3'>100vw</button>
       </div>
     </div>
   </section>
