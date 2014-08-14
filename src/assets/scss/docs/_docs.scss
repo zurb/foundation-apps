@@ -100,7 +100,7 @@ input[type=text].error {
 }
 
 .compose {
-	@include motion(hinge, from-bottom, $align-flip:middle);
+	// @include slide();
 	height: rem-calc(500);
 	width: rem-calc(600);
 	position: absolute;

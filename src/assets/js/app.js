@@ -105,7 +105,6 @@ $('*[data-animation-id="example15"]').on('click', function(e){
 
 $('*[data-transition-id="compose-window"]').on('click', function(e){
   e.preventDefault();
-  $('#compose-window').toggleClass('animate');
+  $('#compose-window').toggleClass('motion');
 });
 
-$('.middle')
