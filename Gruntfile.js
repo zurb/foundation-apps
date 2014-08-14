@@ -61,10 +61,10 @@ module.exports = function(grunt) {
         // includePaths: [ 'bower_components/normalize-css/normalize.scss' ]
       },
       dist: {
-        // options: {
-        //   outputStyle: 'expanded',
-        //   line_comments: 'true'
-        // },
+        options: {
+          style: 'expanded',
+          lineNumbers: 'true'
+        },
         files: {
           'dist/assets/css/src/app.css': 'src/assets/scss/app.scss'        }        
       }
@@ -126,7 +126,7 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.loadNpmTasks('grunt-sass');
+  grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-clean');

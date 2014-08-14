@@ -272,7 +272,7 @@ $slow-animation-duration: 1.5s;
   &[#{$da}"ease"]          { -webkit-animation-timing-function: ease; }
   &[#{$da}"ease-in"]       { -webkit-animation-timing-function: ease-in; }
   &[#{$da}"ease-out"]      { -webkit-animation-timing-function: ease-out; }
-  &[#{$da}"ease-in-out" ]  { -webkit-animation-timing-function: ease-in-out; }
+  &[#{$da}"ease-in-out"]  { -webkit-animation-timing-function: ease-in-out; }
   &[#{$da}"linear"]        { -webkit-animation-timing-function: linear; }
 
   // Iteration Modifiers

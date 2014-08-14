@@ -89,9 +89,9 @@ $button-disabled-opacity: 0.7 !default;
   // these can be turned off by setting $padding:false
   @if $padding {
     padding-top: $padding / 1.5 ;
-    padding-#{$opposite-dir}: $padding * 1.5;
+    padding-#{$opposite-direction}: $padding * 1.5;
     padding-bottom: $padding / 1.35;
-    padding-#{$default-dir}: $padding * 1.5;
+    padding-#{$default-float}: $padding * 1.5;
 
     // We control the font-size based on mixin input.
     @if      $padding == $button-med { font-size: $button-font-med; }

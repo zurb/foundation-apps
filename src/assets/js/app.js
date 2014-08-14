@@ -107,3 +107,5 @@ $('*[data-transition-id="compose-window"]').on('click', function(e){
   e.preventDefault();
   $('#compose-window').toggleClass('animate');
 });
+
+$('.middle')

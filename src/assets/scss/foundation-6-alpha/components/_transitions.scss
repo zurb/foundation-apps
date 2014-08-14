@@ -2,8 +2,16 @@
 $transition-normal-duration: 700ms;
 $animate-class: "animate";
 
-$default-origin: left;
+$motion-default-origin: from-left;
+$slide-default-origin: from-left;
 
+$include-html-transition-attributes: true;
+$auto-adjust-opacity: true;
+
+$motion-default-property: transform;
+$motion-default-duration: 700ms;
+$motion-default-timing-function: ease;
+$motion-default-delay: 0;
 
 @function compact($var-1, $var-2: false, $var-3: false, $var-4: false, $var-5: false, 
   $var-6: false, $var-7: false, $var-8: false, $var-9: false, $var-10: false) {
@@ -20,149 +28,228 @@ $default-origin: left;
   @return $full;
 }
 
+
 // TRANSITION OPTIONS
 
 // Include up to 10 properties
 @mixin transition-property(
-  $property-1 : $property,  
-  $property-2 :"",  
-  $property-3 :"",  
-  $property-4 :"",  
-  $property-5 :"",  
-  $property-6 :"",  
-  $property-7 :"",  
-  $property-8 :"",  
-  $property-9 :"",  
-  $property-10:""  
+  $property-1 : $motion-default-property,  
+  $property-2 : false,  
+  $property-3 : false,  
+  $property-4 : false,  
+  $property-5 : false,  
+  $property-6 : false,  
+  $property-7 : false,  
+  $property-8 : false,  
+  $property-9 : false,  
+  $property-10: false  
 ) {
   transition-property: $property-1 $property-2 $property-3 $property-4 $property-5 $property-6 $property-7 $property-8 $property-9 $property-10;
 }
 
 // Include up to 10 durations
 @mixin transition-duration(
-  $duration-1 : $transition-normal-duration,  
-  $duration-2 :"",  
-  $duration-3 :"",  
-  $duration-4 :"",  
-  $duration-5 :"",  
-  $duration-6 :"",  
-  $duration-7 :"",  
-  $duration-8 :"",  
-  $duration-9 :"",  
-  $duration-10:""  
+  $duration-1 : $motion-default-duration,  
+  $duration-2 : false,  
+  $duration-3 : false,  
+  $duration-4 : false,  
+  $duration-5 : false,  
+  $duration-6 : false,  
+  $duration-7 : false,  
+  $duration-8 : false,  
+  $duration-9 : false,  
+  $duration-10: false  
 ) {
   transition-duration: $duration-1 $duration-2 $duration-3 $duration-4 $duration-5 $duration-6 $duration-7 $duration-8 $duration-9 $duration-10;
 }
 
-@mixin transition-base($bfv:hidden) {
-  backface-visibility: hidden;
-  transform: translateZ(0);
+// Include up to 10 timing functions
+@mixin transition-timing-function(
+  $timing-function-1 : $motion-default-timing-function,  
+  $timing-function-2 : false,  
+  $timing-function-3 : false,  
+  $timing-function-4 : false,  
+  $timing-function-5 : false,  
+  $timing-function-6 : false,  
+  $timing-function-7 : false,  
+  $timing-function-8 : false,  
+  $timing-function-9 : false,  
+  $timing-function-10: false  
+) {
+  transition-timing-function: $timing-function-1 $timing-function-2 $timing-function-3 $timing-function-4 $timing-function-5 $timing-function-6 $timing-function-7 $timing-function-8 $timing-function-9 $timing-function-10;
 }
 
+// Include up to 10 delays
+@mixin transition-delay(
+  $delay-1 : $motion-default-delay,  
+  $delay-2 : false,  
+  $delay-3 : false,  
+  $delay-4 : false,  
+  $delay-5 : false,  
+  $delay-6 : false,  
+  $delay-7 : false,  
+  $delay-8 : false,  
+  $delay-9 : false,  
+  $delay-10: false  
+) {
+  transition-delay: $delay-1 $delay-2 $delay-3 $delay-4 $delay-5 $delay-6 $delay-7 $delay-8 $delay-9 $delay-10;
+}
+
+// Include up to 10 transform functions
 @mixin transform-functions(
   $function-1 : translateZ,  
   $value-1    : 0,  
-  $function-2 :"",
-  $value-2    :"",  
-  $function-3 :"",
-  $value-3    :"",  
-  $function-4 :"",
-  $value-4    :"",  
-  $function-5 :"",
-  $value-5    :"",  
-  $function-6 :"",
-  $value-6    :"",  
-  $function-7 :"",
-  $value-7    :"",  
-  $function-8 :"",
-  $value-8    :"",  
-  $function-9 :"",
-  $value-9    :"",  
-  $function-10:"",
-  $value-10   :""
+  $function-2 : false,
+  $value-2    : false,  
+  $function-3 : false,
+  $value-3    : false,  
+  $function-4 : false,
+  $value-4    : false,  
+  $function-5 : false,
+  $value-5    : false,  
+  $function-6 : false,
+  $value-6    : false,  
+  $function-7 : false,
+  $value-7    : false,  
+  $function-8 : false,
+  $value-8    : false,  
+  $function-9 : false,
+  $value-9    : false,  
+  $function-10: false,
+  $value-10   : false
 ) {
   transform: $function-1($value-1) $function-2($value-2) $function-3($value-3) $function-4($value-4) $function-5($value-5) $function-6($value-6) $function-7($value-7) $function-8($value-8) $function-9($value-9) $function-10($value-10);
 }
 
-// destination
-@mixin transition-destination($x:0, $y:0, $rotate:0deg, $scale:1, $adjust-opacity:true) {
-  @include transform-functions(translateX, $x, translateY, $x, rotate, $rotate, scale, $scale);
-  @if $adjust-opacity == true { opacity: 1; }
-}
 
 // SLIDE
-@mixin slide ($origin: from-#{$default-origin}){
-
+@mixin slide ($origin:$slide-default-origin){
+ 
   // origin
-  @if $origin == from-top     { @include transform-functions(translateY, -100%); }
+  @if $origin == from-top     { transform: translateY(-100%); }
   @if $origin == from-right   { transform: translateX(100%); }
-  @if $origin == from-bottom  { @include transform-functions(translateY, 100%); }
+  @if $origin == from-bottom  { transform: translateY(100%); }
   @if $origin == from-left    { transform: translateX(-100%); }
   
 }
-
+ 
+// FADE
+@mixin fade($initial-opacity:0) {
+  opacity: $initial-opacity;
+}
+ 
 // HINGE
-@mixin hinge ($origin: from-#{$default-origin}, $perspective: 2000px){
+@mixin hinge ($origin: $motion-default-origin, $align-flip:edge, $perspective: 2000px){
   // origin
   @if $origin == from-top     { 
-    transform: perspective($perspective) rotateX(90deg);
-    transform-origin: top; 
+    transform: perspective($perspective) rotateX(90deg); 
+    @if $align-flip == edge {
+      transform-origin: top;
+    }
+    @else if $align-flip == middle {
+      transform-origin: center;
+    }
   }
   @if $origin == from-right   { 
     transform: perspective($perspective) rotateY(90deg); 
-    transform-origin: right;
+    @if $align-flip == edge {
+      transform-origin: right;
+    }
+    @else if $align-flip == middle {
+      transform-origin: center;
+    }
   }
   @if $origin == from-bottom  { 
     transform: perspective($perspective) rotateX(-90deg);
-    transform-origin: bottom; 
+    @if $align-flip == edge {
+      transform-origin: bottom;
+    }
+    @else if $align-flip == middle {
+      transform-origin: center;
+    } 
   }
   @if $origin == from-left { 
     transform: perspective($perspective) rotateY(-90deg); 
-    transform-origin: left;
+    @if $align-flip == edge {
+      transform-origin: left;
+    }
+    @else if $align-flip == middle {
+      transform-origin: center;
+    }
+  }
+}
+ 
+// DROP
+@mixin scale($initial-scale:1.5){
+  transform: scale($initial-scale);
+}
+
+// ZOOM
+@mixin scale($initial-scale:1.5){
+  transform: scale($initial-scale);
+}
+
+// SPIN
+@mixin spin($initial-turn:0.75turn, $dir:counterclockwise){
+  
+  @if $dir == clockwise {
+    transform: rotate(($initial-turn * -1));
+  } 
+  @else {
+    transform: rotate($initial-turn);
+  }
+}
+ 
+// DESTINATION
+@mixin transition-destination($x:0, $y:0, $rotate:0deg, $scale:1, $adjust-opacity:true) {
+  transform: translateX($x) translateY($y) rotate($rotate) scale($scale);
+  @if $adjust-opacity == true {
+    opacity: 1;
   }
 }
 
-// SCALE
-@mixin scale(){
-  transform: scale(1.5);
-}
-
-
-
 // TRANSITION MIXIN
-@mixin transition (
+@mixin motion (
   $transition-name,
-  $origin: from-#{$default-origin},
+  $origin: $motion-default-origin,
   $duration: $transition-normal-duration, 
   $timing-function: ease,
-  $adjust-opacity: true,
+  $adjust-opacity: false,
+  $align-flip: edge,
   $perspective:2000px,
-  $delay:""
+  $delay:false,
+  $initially-forward: false
 ){
-  @include transition-base();
-
+  backface-visibility: hidden;
+ 
   @if $transition-name == slide { @include slide($origin:$origin); }
-  @if $transition-name == hinge { @include hinge($origin:$origin, $perspective:$perspective); }
+  @if $transition-name == hinge { @include hinge($origin:$origin, $perspective:$perspective, $align-flip:$align-flip); }
   @if $transition-name == scale { @include scale(); }
-
+  @if $transition-name == spin  { @include spin(); }
+ 
   // duration
   transition-duration: $duration;
-
+ 
   &.#{$animate-class} {
     @include transition-destination();
   }
-
+ 
   // timing function
   transition-timing-function: $timing-function;
-
+ 
   // delay 
   transition-delay: $delay;
-
-  // transition properties
+  
   @include transition-property(transform);
+  // transition properties
+  // transition-property: transform;
   @if $adjust-opacity == true {
     opacity: 0;
-    transition-property: transform, opacity;
+    @include transition-property(transform, opacity);
+  } @else if $adjust-opacity == false {
+    transition-property: transform;
+  } @else {
+    transition-property: transform;
   }
-
+ 
 }
