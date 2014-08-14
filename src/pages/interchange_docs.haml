@@ -157,5 +157,30 @@
 
 
   %section.group
-    .medium-6.block
+    .medium-12.block
       %h4{ aria: { level: 3 } } Usage Examples
+
+    .small-12.block
+      %h3{ aria: { level: 2 } } Usage Examples
+
+    .small-12.group
+      #interchange_example_a.small-12.medium-6.block{ aria: { role:"alert", live: "assertive", atomic: false } }
+        %figure
+          %img.fullscreen{ src: "http://placehold.it/500x300&text=Regular Media Query"  }
+
+      #interchange_example_b.small-12.medium-6.block{ aria: { role:"alert", live: "assertive", atomic: false } }
+        %figure.resizeable
+          %img.fullscreen{ src: "http://placehold.it/500x300&text=Element Media Query", resize: true }
+
+    .small-12.block
+      %h4{ aria: { level: 3 } } Element Queries
+      %p Element queries allow you to have more control how your content is portrayed throughout your app.
+
+    .small-12.block
+      %figure.resizeable{ resize: true }
+        %img#resizableImageByButtons.fullscreen{ src: "http://placehold.it/500x300&text=Element Media Query", resize: true }
+
+      .groupOfButtons
+        %button#resizeImageButton1{ data: { "resize-value" => "20vw" }, aria: { controls: "#resizableImageByButtons" } } 25vw
+        %button#resizeImageButton2{ data: { "resize-value" => "40vw" }, aria: { controls: "#resizableImageByButtons" } } 50vw
+        %button#resizeImageButton3{ data: { "resize-value" => "90vw" }, aria: { controls: "#resizableImageByButtons" } } 100vw

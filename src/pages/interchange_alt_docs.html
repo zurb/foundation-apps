@@ -95,8 +95,7 @@
     <div class='medium-6 block'>
       <h4 aria-level='4'>Media Queries</h4>
       <p>Miss the old functionality of Foundation Interchange to do traditional media queries?  Have no fear, this version of Foundation Interchange inherits the old functionality of Foundation
-      Interchange through the <code>viewport()</code> property, including the original version&#39;s
-      media query keywords <code>small</code>, <code>medium</code>, <code>large</code>, and <code>small</code></p>
+      Interchange through the <code>viewport()</code> property, including the original version&#39;s media query keywords <code>small</code>, <code>medium</code>, <code>large</code>, and <code>small</code></p>
     </div>
     <div class='medium-6 block'>
       <h6 aria-level='5'>Markup</h6>
@@ -121,23 +120,44 @@
       <h4 aria-level='3'>Qualifiers</h4>
       <p>The following qualifiers are recognized by Interchange: <code>:</code>, <code>&lt;=</code>, <code>&gt;=</code>, <code>=</code>, <code>!=</code> depending on type of queries they are used with.</p>
       
-      <p>For example,  <code>&gt;=</code>, <code>&gt;=</code>, and <code>!=</code> are ignored when used with <code>min-width</code>, <code>max-width</code>,
-      <code>min-height</code>, and <code>max-width</code> due to the meaning of such queries.</p>
-      
-      <p><code>width</code> and <code>height</code> support both.</p>
-    </div>
-    <div class='medium-6 block'>
-      <h6 aria-level='4'>Qualifers Table</h6>
+      <p>For example,  <code>&gt;=</code>, <code>&gt;=</code>, and <code>!=</code> are ignored when used with <code>min-width</code>, <code>max-width</code>, <code>min-height</code>, and <code>max-width</code> due to the meaning of such queries.  <code>width</code> and <code>height</code> support both.  .medium-6.block %h6{ aria: { level: 4 } } Qualifers Table</p>
     </div>
     <div class='medium-6 block'>
       <h6 aria-level='3'>Mix and math Queries</h6>
       <p>You may mix and match having media queries and element queries be scenarios for interchange to consider throughout the many stages of your app.</p>
       <p>Do note however viewport queries run last, making them win by default if two contexts match simultaneously.</p>
     </div>
+    <hr class='clearing'>
   </section>
   <section class='group'>
-    <div class='medium-6 block'>
-      <h4 aria-level='2'>Usage Examples</h4>
+    <div class='small-12 block'>
+      <h3 aria-level='2'>Usage Examples</h3>
+    </div>
+    <div class='small-12 group'>
+      <div aria-live='assertive' aria-role='alert' class='small-12 medium-6 block' id='interchange_example_a'>
+        <figure>
+          <img class='fullscreen' src='http://placehold.it/500x300&amp;text=Regular Media Query'>
+        </figure>
+      </div>
+      <div aria-live='assertive' aria-role='alert' class='small-12 medium-6 block' id='interchange_example_b'>
+        <figure class='resizeable'>
+          <img class='fullscreen' resize src='http://placehold.it/500x300&amp;text=Element Media Query'>
+        </figure>
+      </div>
+    </div>
+    <div class='small-12 block'>
+      <h4 aria-level='3'>Element Queries</h4>
+      <p>Element queries allow you to have more control how your content is portrayed throughout your app.</p>
+    </div>
+    <div class='small-12 block'>
+      <figure class='resizeable' resize>
+        <img class='fullscreen' id='resizableImageByButtons' resize src='http://placehold.it/500x300&amp;text=Element Media Query'>
+      </figure>
+      <div class='groupOfButtons'>
+        <button aria-controls='#resizableImageByButtons' data-resize-value='20vw' id='resizeImageButton1'>25vw</button>
+        <button aria-controls='#resizableImageByButtons' data-resize-value='40vw' id='resizeImageButton2'>50vw</button>
+        <button aria-controls='#resizableImageByButtons' data-resize-value='90vw' id='resizeImageButton3'>100vw</button>
+      </div>
     </div>
   </section>
 </main>

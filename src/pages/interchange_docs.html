@@ -138,8 +138,37 @@
     </div>
   </section>
   <section class='group'>
-    <div class='medium-6 block'>
+    <div class='medium-12 block'>
       <h4 aria-level='3'>Usage Examples</h4>
+    </div>
+    <div class='small-12 block'>
+      <h3 aria-level='2'>Usage Examples</h3>
+    </div>
+    <div class='small-12 group'>
+      <div aria-live='assertive' aria-role='alert' class='small-12 medium-6 block' id='interchange_example_a'>
+        <figure>
+          <img class='fullscreen' src='http://placehold.it/500x300&amp;text=Regular Media Query'>
+        </figure>
+      </div>
+      <div aria-live='assertive' aria-role='alert' class='small-12 medium-6 block' id='interchange_example_b'>
+        <figure class='resizeable'>
+          <img class='fullscreen' resize src='http://placehold.it/500x300&amp;text=Element Media Query'>
+        </figure>
+      </div>
+    </div>
+    <div class='small-12 block'>
+      <h4 aria-level='3'>Element Queries</h4>
+      <p>Element queries allow you to have more control how your content is portrayed throughout your app.</p>
+    </div>
+    <div class='small-12 block'>
+      <figure class='resizeable' resize>
+        <img class='fullscreen' id='resizableImageByButtons' resize src='http://placehold.it/500x300&amp;text=Element Media Query'>
+      </figure>
+      <div class='groupOfButtons'>
+        <button aria-controls='#resizableImageByButtons' data-resize-value='20vw' id='resizeImageButton1'>25vw</button>
+        <button aria-controls='#resizableImageByButtons' data-resize-value='40vw' id='resizeImageButton2'>50vw</button>
+        <button aria-controls='#resizableImageByButtons' data-resize-value='90vw' id='resizeImageButton3'>100vw</button>
+      </div>
     </div>
   </section>
 </main>
