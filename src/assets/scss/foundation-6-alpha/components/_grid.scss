@@ -31,6 +31,7 @@
 .block, .group {
 	transition: all 300ms ease;
 	// border: 1px solid $secondary-color;
+	backface-visibility: hidden;
 
 	@for $i from 0 through $total-columns {
 	  &.small-order-#{$i} {

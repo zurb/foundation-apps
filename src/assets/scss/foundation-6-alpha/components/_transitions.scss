@@ -1,4 +1,22 @@
-// TRANSITION LIBRARY
+// FOUNDATION MOTION UI
+// Table of Contents
+//
+// 0. Variables
+// 1. Base Transitions
+//      a. Slide
+//      b. Fade
+//      c. Hinge
+//      d. Scale
+//      e. Spin
+// 2. Base Animations
+//      a. Shake
+//      b. Spinners
+//      c. Wiggle
+// 3. HTML Attributes
+
+// 0. Variables
+// - - - - - - - - - - - - - - - - - - - - - - - - -
+
 $transition-normal-duration: 700ms;
 $motion-class: "motion";
 
@@ -16,7 +34,7 @@ $motion-slow-duration: 1.4s;
 $motion-default-duration: 700ms;
 $motion-fast-duration: 300ms;
 
-// 1. Base Animations
+// 1. Base Transitions
 // - - - - - - - - - - - - - - - - - - - - - - - - -
 
 // SLIDE
@@ -34,6 +52,7 @@ $motion-fast-duration: 300ms;
   @if $from == bottom  { transform: translateY(100%); }
   @if $from == left    { transform: translateX(-100%); }
 
+  backface-visibility: hidden;
   transition-property: transform;
 
   @if $fade == true {
@@ -154,6 +173,11 @@ $default-hinge-dir:left;
     @warn "`$turn-origin` must be either `from-back` or `from-front`"
   }
 
+  @if $fade == true {
+    transition-property: transform, opacity;
+    opacity: 0;
+  }
+
   // duration
   transition-duration: $duration;
  
@@ -165,6 +189,7 @@ $default-hinge-dir:left;
 
   &.#{$motion-class} {
     transform: rotate(0deg);
+    opacity: 1;
   }
 
 }
@@ -242,54 +267,149 @@ $default-hinge-dir:left;
   }
 }
 
-// 2. Animation Modifiers
+
+// 2. Base Animations
 // - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// SHAKE
+@keyframes shake {
+  0%, 10%, 20%, 30%, 40%, 50%, 60%, 70%, 80%, 90% {
+    transform: translateX(7%);
+  }
+  5%, 15%, 25%, 35%, 45%, 55%, 65%, 75%, 85%, 95% {
+    transform: translateX(-7%);
+  }
+  100% { transform: translateX(0); }
+}
+
+// SPINNERS
+@keyframes spin-cw {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes spin-ccw {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(-360deg); }
+}
+
+
+// WIGGLE 
+@keyframes wiggle {
+
+  40%, 50%, 60% {
+    transform: rotate(7deg);
+  }
+  35%, 45%, 55%, 65% {
+    transform: rotate(-7deg);
+  }
+  0%, 30%, 70%, 100% { transform: rotate(0); } 
+
+}
+
+@mixin animation(
+  $animation,
+  $duration:$motion-default-duration,
+  $timing:$motion-default-timing,
+  $delay:$motion-default-delay,
+  $iterations:null
+){
+  
+  &.#{$motion-class} {
+    animation-name: $animation;
+  }
+  animation-duration: $duration; 
+  animation-timing-function: $timing;
+
+  backface-visibility: hidden;
+  transform: translate3d(0,0,0);
+  
+  @if $delay != null {
+    animation-delay: $delay;
+  }
+  @if $iterations != null {
+    animation-iteration-count: $iterations;
+  }
+  
+  @if $animation == null {
+    @warn "Please include an animation name"
+  }
+}
 
 // 3. HTML Exports
 // - - - - - - - - - - - - - - - - - - - - - - - - -
 
 @if $include-html-motion-attributes("motion") {
   $dm: "data-motion*=";
+  $da: "data-animation*=";
 
-    // Base Motion
-    [#{$dm}"slide-from-top"] { @include slide($from:top); }
-    [#{$dm}"slide-from-right"] { @include slide($from:right); }
-    [#{$dm}"slide-from-bottom"] { @include slide($from:bottom); }
-    [#{$dm}"slide-from-left"] { @include slide($from:left); }
+  // Base Motion
+  [#{$dm}"slide-from-top"]    { @include slide($from:top); }
+  [#{$dm}"slide-from-right"]  { @include slide($from:right); }
+  [#{$dm}"slide-from-bottom"] { @include slide($from:bottom); }
+  [#{$dm}"slide-from-left"]   { @include slide($from:left); }
 
-    [#{$dm}"fade"]  { @include fade();  }
+  [#{$dm}"fade"]  { @include fade();  }
 
-    [#{$dm}"hinge-from-top"] { @include hinge($from:top); }
-    [#{$dm}"hinge-from-right"] { @include hinge($from:right); }
-    [#{$dm}"hinge-from-bottom"] { @include hinge($from:bottom); }
-    [#{$dm}"hinge-from-left"] { @include hinge($from:left); }
-    [#{$dm}"hinge-from-middle-x"] { @include hinge($from:top, $origin:center); }
-    [#{$dm}"hinge-from-middle-y"] { @include hinge($from:right, $origin:center); }
+  [#{$dm}"hinge-from-top"]      { @include hinge($from:top); }
+  [#{$dm}"hinge-from-right"]    { @include hinge($from:right); }
+  [#{$dm}"hinge-from-bottom"]   { @include hinge($from:bottom); }
+  [#{$dm}"hinge-from-left"]     { @include hinge($from:left); }
+  [#{$dm}"hinge-from-middle-x"] { @include hinge($from:top, $origin:center); }
+  [#{$dm}"hinge-from-middle-y"] { @include hinge($from:right, $origin:center); }
 
-    [#{$dm}"drop"] { @include scale(); }
-    [#{$dm}"zoom"] { @include scale($from:0.5, $to:1); }
+  [#{$dm}"drop"] { @include scale(); }
+  [#{$dm}"pop"] { @include scale($from:0.5, $to:1); }
 
-    [#{$dm}"spin"]  { 
-      @include spin();  
-      &[#{$dm}"ccw"] {
-        @include spin($dir:counterclockwise);
-      }
+  [#{$dm}"spin"]  { 
+    @include spin();  
+    &[#{$dm}"ccw"] {
+      @include spin($dir:counterclockwise);
     }
+  } 
+
+  // Duration
+  [#{$dm}"slow"] { transition-duration: $motion-slow-duration; }
+  [#{$dm}"fast"] { transition-duration: $motion-fast-duration; }
+
+  // Timing
+  [#{$dm}"ease"]          { transition-timing-function: ease; }
+  [#{$dm}"ease-in"]       { transition-timing-function: ease-in; }
+  [#{$dm}"ease-out"]      { transition-timing-function: ease-out; }
+  [#{$dm}"ease-in-out"]   { transition-timing-function: ease-in-out; }
+  [#{$dm}"linear"]        { transition-timing-function: linear; }
+
+  // Delay  
+  [#{$dm}"delay"]       { transition-delay: $motion-default-duration; }
+  [#{$dm}"short-delay"] { transition-delay: $motion-fast-duration; }
+  [#{$dm}"long-delay"]  { transition-delay: $motion-slow-duration; }
+
+  [#{$dm}"shake"]       { @include animation(shake); }
+  [#{$dm}"spinner-cw"]  { @include animation(spin-cw); }
+  [#{$dm}"spinner-ccw"] { @include animation(spin-ccw); }
+  [#{$dm}"wiggle"]      { @include animation(wiggle); }
+
+  [#{$dm}"shake"],       
+  [#{$dm}"spinner-cw"], 
+  [#{$dm}"spinner-ccw"], 
+  [#{$dm}"wiggle"] { 
+    &[#{$dm}"infinite"] {
+      animation-iteration-count: infinite; 
+    }
+    &[#{$dm}"ease"]          { animation-timing-function: ease; }
+    &[#{$dm}"ease-in"]       { animation-timing-function: ease-in; }
+    &[#{$dm}"ease-out"]      { animation-timing-function: ease-out; }
+    &[#{$dm}"ease-in-out"]   { animation-timing-function: ease-in-out; }
+    &[#{$dm}"linear"]        { animation-timing-function: linear; }
 
     // Duration
-    [#{$dm}"slow"] { transition-duration: $motion-slow-duration; }
-    [#{$dm}"fast"] { transition-duration: $motion-fast-duration; }
-
-    // Timing
-    [#{$dm}"ease"]          { transition-timing-function: ease; }
-    [#{$dm}"ease-in"]       { transition-timing-function: ease-in; }
-    [#{$dm}"ease-out"]      { transition-timing-function: ease-out; }
-    [#{$dm}"ease-in-out"]   { transition-timing-function: ease-in-out; }
-    [#{$dm}"linear"]        { transition-timing-function: linear; }
+    &[#{$dm}"slow"] { animation-duration: $motion-slow-duration; }
+    &[#{$dm}"fast"] { animation-duration: $motion-fast-duration; }
 
     // Delay  
-    [#{$dm}"delay"] { transition-delay: $motion-default-duration; }
-    [#{$dm}"short-delay"] { transition-delay: $motion-fast-duration; }
-    [#{$dm}"long-delay"] { transition-delay: $motion-slow-duration; }
+    &[#{$dm}"delay"]       { animation-delay: $motion-default-duration; }
+    &[#{$dm}"short-delay"] { animation-delay: $motion-fast-duration; }
+    &[#{$dm}"long-delay"]  { animation-delay: $motion-slow-duration; }
+  }      
   
 }

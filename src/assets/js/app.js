@@ -1,88 +1,67 @@
-$('*[data-animation-id="example1"]').on('click', function(e){
+$('*[data-motion-id="example1"]').on('click', function(e){
   e.preventDefault();
-  $('#example1').addClass('animate');
-  setTimeout(function () { 
-	  $('#example1').removeClass('animate');
-	}, 1000);
+  $('#example1').toggleClass('motion');
+ //  setTimeout(function () { 
+	//   $('#example1').removeClass('motion');
+	// }, 1000);
 });
 
-$('*[data-animation-id="example2"]').on('click', function(e){
+$('*[data-motion-id="example2"]').on('click', function(e){
   e.preventDefault();
-  $('#example2').addClass('animate');
-  setTimeout(function () { 
-	  $('#example2').removeClass('animate');
-	}, 1000);
+  $('#example2').toggleClass('motion');
 });
 
-$('*[data-animation-id="example3"]').on('click', function(e){
+$('*[data-motion-id="example3"]').on('click', function(e){
   e.preventDefault();
-  $('#example3').addClass('animate');
-  setTimeout(function () { 
-	  $('#example3').removeClass('animate');
-	}, 1000);
+  $('#example3').toggleClass('motion');
 });
 
-$('*[data-animation-id="example4"]').on('click', function(e){
+$('*[data-motion-id="example4"]').on('click', function(e){
   e.preventDefault();
-  $('#example4').addClass('animate');
-  setTimeout(function () { 
-	  $('#example4').removeClass('animate');
-	}, 1000);
+  $('#example4').toggleClass('motion');
 });
 
-$('*[data-animation-id="example5"]').on('click', function(e){
+$('*[data-motion-id="example5"]').on('click', function(e){
   e.preventDefault();
-  $('#example5').addClass('animate');
-  setTimeout(function () { 
-	  $('#example5').removeClass('animate');
-	}, 1000);
+  $('#example5').toggleClass('motion');
 });
 
-$('*[data-animation-id="example6"]').on('click', function(e){
+$('*[data-motion-id="example6"]').on('click', function(e){
   e.preventDefault();
-  $('#example6').addClass('animate');
-  setTimeout(function () { 
-	  $('#example6').removeClass('animate');
-	}, 2000);
+  $('#example6').toggleClass('motion');
 });
 
-$('*[data-animation-id="example7"]').on('click', function(e){
+$('*[data-motion-id="example7"]').on('click', function(e){
   e.preventDefault();
-  $('#example7').toggleClass('animate');
+  $('#example7').toggleClass('motion');
 });
 
-$('*[data-animation-id="example8"]').on('click', function(e){
+$('*[data-motion-id="example8"]').on('click', function(e){
   e.preventDefault();
-  $('#example8').toggleClass('animate');
+  $('#example8').toggleClass('motion');
 });
 
-$('*[data-animation-id="example9"]').on('click', function(e){
+$('*[data-motion-id="example9"]').on('click', function(e){
   e.preventDefault();
-  $('#example9').toggleClass('animate');
+  $('#example9').toggleClass('motion');
 });
 
-$('*[data-animation-id="example10"]').on('click', function(e){
+$('*[data-motion-id="example10"]').on('click', function(e){
   e.preventDefault();
-  $('#example10').addClass('animate');
-  setTimeout(function () { 
-    $('#example10').removeClass('animate');
-  }, 1400);
+  $('#example10').toggleClass('motion');
+  
 });
 
-$('*[data-animation-id="example11"]').on('click', function(e){
+$('*[data-motion-id="example11"]').on('click', function(e){
   e.preventDefault();
-  $('#example11').addClass('animate');
-  setTimeout(function () { 
-    $('#example11').removeClass('animate');
-  }, 1400);
+  $('#example11').toggleClass('motion');
+  
 });
 
-$('*[data-animation-id="example12"]').on('click', function(e){
+$('*[data-motion-id="example12"]').on('click', function(e){
   e.preventDefault();
-  $('#example12').addClass('animate');
-  setTimeout(function () { 
-    $('#example12').removeClass('animate');
-  }, 2200);
+  $('#example12').toggleClass('motion');
+  
 });
 
 // $('*[data-animation-id="example13"]').on('click', function(e){
@@ -95,12 +74,8 @@ $('*[data-animation-id="example12"]').on('click', function(e){
 
 $('*[data-animation-id="example15"]').on('click', function(e){
   e.preventDefault();
-  $('#example15').addClass('animate error');
-  $('#example16').addClass('animate error');
-  setTimeout(function () { 
-    $('#example15').removeClass('animate error');
-    $('#example16').removeClass('animate error');
-  }, 2200);
+  $('#example15').toggleClass('motion error');
+  $('#example16').toggleClass('motion');
 });
 
 $('*[data-transition-id="compose-window"]').on('click', function(e){

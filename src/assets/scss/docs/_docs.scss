@@ -118,6 +118,12 @@ input[type=text].error {
     font-size: rem-calc(20);
   }
 }
+small.error {
+	background: $alert-color;
+	color: #FFF;
+	display: block;
+	padding: 5px;
+}
 
 // Kevin's Temporary Styles
 

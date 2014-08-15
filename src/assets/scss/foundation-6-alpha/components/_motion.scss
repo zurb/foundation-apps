@@ -278,8 +278,7 @@ $slow-animation-duration: 1.5s;
   // Iteration Modifiers
   &[#{$da}"infinite"]      { -webkit-animation-iteration-count: infinite; }   
 
-  // Delay Modifiers
-  
+  // Delay Modifiers 
   &[#{$da}"delay"] { -webkit-animation-delay: $base-animation-duration; }
   &[#{$da}"short-delay"] { -webkit-animation-delay: $fast-animation-duration; }
   &[#{$da}"long-delay"] { -webkit-animation-delay: $slow-animation-duration; }

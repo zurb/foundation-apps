@@ -24,7 +24,6 @@
 	    </div>
   	</div>
     
-    
   </div>
 
 </section>
@@ -38,55 +37,83 @@
 
 {{#markdown}}
 
-#### The Basics: Animating an Element
+#### Base Motion
 
-Quickly addding an animation to an element is easy! We use the class `animate` to animate an element, and we use the attribute `data-animation` to describe how we want it to move.
+Quickly addding motion to an element is easy! 
+
+1. Use the attribute `data-motion` to describe how we want an element to move. 
+2. Use the class `motion` to trigger the animation. 
+3. [There's no step 3!](http://youtu.be/6uXJlX50Lj8)
 
 {{/markdown}}
 
 			</div>
 			<div class="medium-7 group">
 
+				<div class="medium-12 block"><h6>Examples</h6></div>
+
+				<div class="medium-4 block">
+					
+					<div id="example1" class="motion square" data-motion="slide-from-left"></div>
+					<span data-motion-id="example1" class="small button">Slide</span>
+
+				</div>
+				<div class="medium-4 block">
+					
+					<div id="example2" class="motion square" data-motion="hinge-from-middle-x"></div>
+					<span data-motion-id="example2" class="small button">Hinge</span>
+
+				</div>
+				<div class="medium-4 block">
+					
+					<div id="example3" class="motion square" data-motion="spin"></div>
+					<span data-motion-id="example3" class="small button">Spin</span>
+
+				</div>
+
 				<div class="medium-12 block">
 					
 {{#markdown}}
 
-###### Animations
+You can choose from a number of basic motions:
 
-You can choose from a number of prefabricated animations:
+**Slide**
 
-`slide-in-from-north`, `slide-in-from-east`, `slide-in-from-south`, `slide-in-from-west`, `slide-out-to-north`, `slide-out-to-east`, `slide-out-to-south`, `slide-out-to-west`, `fade-in`, `fade-out`, `shake`, `spin-cw`, `spin-ccw`, `wiggle`
+`slide-from-top`, `slide-from-right`, `slide-from-bottom`, `slide-from-left`, 
 
-###### Markup
+**Hinge**
+
+`hinge-from-top`, `hinge-from-right`, `hinge-from-bottom`, `hinge-from-left`, `hinge-from-middle-x`, `hinge-from-middle-y`
+
+**Scale**
+
+`drop`, `pop`
+
+**Spin**
+
+`spin`, `spin ccw`
+
+**Fade**
+
+`fade`
+
+**Prefabricated Animations**
+
+`shake`, `spin-cw`, `spin-ccw`, `wiggle`
+
+###### Example Usage
 
 ```html
-<div class="animate" data-animation="slide-in-from-west"></div>
-<div class="animate" data-animation="shake"></div>
-<div class="animate" data-animation="spin-cw"></div>
+<div class="motion" data-motion="slide-from-left"></div>
+<div class="motion" data-motion="hinge-from-middle-x"></div>
+<div class="motion" data-motion="spin"></div>
 ```
 
 {{/markdown}}
 
 				</div>
 
-				<div class="medium-4 block">
-					
-					<div id="example1" class="square" data-animation="slide-in-from-west"></div>
-					<span data-animation-id="example1" class="small button">Slide In</span>
-
-				</div>
-				<div class="medium-4 block">
-					
-					<div id="example2" class="square" data-animation="shake"></div>
-					<span data-animation-id="example2" class="small button">Shake</span>
-
-				</div>
-				<div class="medium-4 block">
-					
-					<div id="example3" class="square" data-animation="spin-cw"></div>
-					<span data-animation-id="example3" class="small button">Spin</span>
-
-				</div>
+				
 				
 			</div>
 
@@ -123,9 +150,9 @@ You have three speeds to choose from. By default, animations will execute in **7
 ###### Markup
 
 ```html
-<div class="animate" data-animation="slide-in-from-west fast"></div>
-<div class="animate" data-animation="slide-in-from-west"></div>
-<div class="animate" data-animation="slide-in-from-west slow"></div>
+<div class="motion" data-motion="drop fast"></div>
+<div class="motion" data-motion="drop"></div>
+<div class="motion" data-motion="drop slow"></div>
 ```
 
 {{/markdown}}
@@ -134,20 +161,20 @@ You have three speeds to choose from. By default, animations will execute in **7
 
 				<div class="medium-4 block">
 				
-					<div id="example4" class="square" data-animation="slide-in-from-west fast"></div>
-					<span data-animation-id="example4" class="small button">Fast</span>
+					<div id="example4" class="motion square" data-motion="drop fast"></div>
+					<span data-motion-id="example4" class="small button">Fast</span>
 
 				</div>
 				<div class="medium-4 block">
 					
-					<div id="example5" class="square" data-animation="slide-in-from-west"></div>
-					<span data-animation-id="example5" class="small button">Normal</span>
+					<div id="example5" class="motion square" data-motion="drop"></div>
+					<span data-motion-id="example5" class="small button">Normal</span>
 
 				</div>
 				<div class="medium-4 block">
 					
-					<div id="example6" class="square" data-animation="slide-in-from-west slow"></div>
-					<span data-animation-id="example6" class="small button">Slow</span>
+					<div id="example6" class="motion square" data-motion="drop slow"></div>
+					<span data-motion-id="example6" class="small button">Slow</span>
 
 				</div>
 					
@@ -159,18 +186,18 @@ You have three speeds to choose from. By default, animations will execute in **7
 
 ##### Iteration Count
 
-Animations will only run once by default, but you can make them repeat infinitely if you want them to! Just add the `infinite` modifier!
+**This only applies to prefabricated animations.** Animations will only run once by default, but you can make them repeat infinitely if you want them to! Just add the `infinite` modifier!
 
 ###### Markup
 
 ```html
-<div class="animate" data-animation="slide-in-from-west infinite"></div>
+<div class="motion" data-motion="shake infinite"></div>
 ```
 
 {{/markdown}}
 
-					<div id="example7" class="square" data-animation="slide-in-from-west infinite"></div>
-					<span data-animation-id="example7" class="small button">Infinite Animation!</span>
+					<div id="example7" class="square" data-motion="shake infinite"></div>
+					<span data-motion-id="example7" class="small button">Infinite Animation!</span>
 
 					
 				</div>
@@ -184,7 +211,7 @@ Animations will only run once by default, but you can make them repeat infinitel
 
 ##### Timing Function
 
-By default all animations use `ease` for the timing function. However, this isn't always desirable so we've made other timing function modifiers available!
+By default all animations and transitions use `ease` for the timing function. However, this isn't always desirable so we've made other timing function modifiers available!
 
 Choose from:
 
@@ -193,8 +220,8 @@ Choose from:
 ###### Markup
 
 ```html
-<div class="animate" data-animation="spin-cw ease infinite"></div>
-<div class="animate" data-animation="spin-cw linear infinite"></div>
+<div class="motion" data-motion="spinner-cw ease infinite"></div>
+<div class="motion" data-motion="spinner-cw linear infinite"></div>
 ```
 
 {{/markdown}}
@@ -203,16 +230,16 @@ Choose from:
 
 					<div class="medium-6 block">
 					
-						<div id="example8" class="square" data-animation="spin-cw ease infinite"></div>
-						<label for=""><code>spin-cw ease infinite</code></label><br><br>
-						<span data-animation-id="example8" class="small button">Animate!</span>
+						<div id="example8" class="square" data-motion="spinner-cw ease infinite"></div>
+						<label for=""><code>spinner-cw ease infinite</code></label><br><br>
+						<span data-motion-id="example8" class="small button">Ease Spin</span>
 
 					</div>
 					<div class="medium-6 block">
 						
-						<div id="example9" class="square" data-animation="spin-cw linear infinite"></div>
-						<label for=""><code>spin-cw linear infinite</code></label><br><br>
-						<span data-animation-id="example9" class="small button">Animate!</span>
+						<div id="example9" class="square" data-motion="spinner-cw linear infinite"></div>
+						<label for=""><code>spinner-cw linear infinite</code></label><br><br>
+						<span data-motion-id="example9" class="small button">Linear Spin</span>
 
 
 					</div>
@@ -226,14 +253,14 @@ Choose from:
 
 ##### Delay
 
-You can add a delay to your animation with the `delay` modifier. By default, this is the length of the base animation duration, which is 700ms. You can also use `fast-delay` and `short-delay`.
+You can add a delay to your animation with the `delay` modifier. By default, this is the length of the base motion duration, which is 700ms. You can also use `fast-delay` and `short-delay`.
 
 ###### Markup
 
 ```html
-<div class="animate" data-animation="slide-out-to-south short-delay"></div>
-<div class="animate" data-animation="slide-out-to-south delay"></div>
-<div class="animate" data-animation="slide-out-to-south long-delay"></div>
+<div class="motion" data-motion="pop short-delay"></div>
+<div class="motion" data-motion="pop delay"></div>
+<div class="motion" data-motion="pop long-delay"></div>
 ```
 
 {{/markdown}}
@@ -242,25 +269,22 @@ You can add a delay to your animation with the `delay` modifier. By default, thi
 
 					<div class="medium-4 block">
 					
-						<div id="example10" class="square" data-animation="slide-out-to-south short-delay"></div>
-						<label for=""><code>short-delay</code></label><br><br>
-						<span data-animation-id="example10" class="small button">Animate!</span>
+						<div id="example10" class="motion square" data-motion="pop short-delay"></div>
+						<span data-motion-id="example10" class="small button">Short Delay</span>
 
 					</div>
 
 					<div class="medium-4 block">
 					
-						<div id="example11" class="square" data-animation="slide-out-to-south delay"></div>
-						<label for=""><code>delay</code></label><br><br>
-						<span data-animation-id="example11" class="small button">Animate!</span>
+						<div id="example11" class="motion square" data-motion="pop delay"></div>
+						<span data-motion-id="example11" class="small button">Delay</span>
 
 					</div>
 
 					<div class="medium-4 block">
 					
-						<div id="example12" class="square" data-animation="slide-out-to-south long-delay"></div>
-						<label for=""><code>long-delay</code></label><br><br>
-						<span data-animation-id="example12" class="small button">Animate!</span>
+						<div id="example12" class="motion square" data-motion="pop long-delay"></div>
+						<span data-motion-id="example12" class="small button">Long Delay</span>
 
 					</div>
 
@@ -309,7 +333,7 @@ You can include `data-animation` values in any order to craft complex animations
 					<label for=""><code>spin-cw linear infinite</code></label><br><br>
 
 					
-					<div id="example13" class="animate spinner" data-animation="spin-cw linear infinite"></div><br><br>
+					<div id="example13" class="motion spinner" data-motion="spinner-cw linear infinite"></div><br><br>
 
 				</div>
 
@@ -317,7 +341,7 @@ You can include `data-animation` values in any order to craft complex animations
 					
 					<h6>Attention Grabber</h6>
 					<label for=""><code>wiggle slow infinite</code></label><br><br>
-					<span id="example14" class="animate alert button" data-animation="wiggle slow infinite">Hey! Listen!</span>
+					<span id="example14" class="motion alert button" data-motion="wiggle slow infinite">Hey! Listen!</span>
 					
 
 				</div>
@@ -326,8 +350,8 @@ You can include `data-animation` values in any order to craft complex animations
 					
 					<h6>Form Feedback</h6>
 					<code>shake</code>, <code>slide-in-from-north initially-hidden</code></label><br><br>
-					<input id="example15" class="" type="text" data-animation="shake">
-					<small id="example16" class="" data-animation="slide-in-from-north initially-hidden">Sorry, invalid input</small>
+					<input id="example15" class="" style="margin:0;"type="text" data-motion="shake">
+					<small id="example16" class="error" data-motion="slide-from-top">Sorry, invalid input</small>
 					<br>
 					<span class="button" data-animation-id="example15">Submit to See Feedback</span>
 					
