@@ -363,6 +363,246 @@ You can include `data-animation` values in any order to craft complex animations
 	</div>
 </section>
 
+<section class="docs container">
+  <hr class="contain">
+  <div class="group">
+
+    <div class="small-12 group">
+			<div class="medium-5 block">
+
+{{#markdown}}
+
+#### Build with Mixins
+
+You can add motion directly with our Sass mixins for more semantic code and a finer level of control.
+
+{{/markdown}}
+
+			</div>
+			<div class="medium-7 group">
+
+				<div class="medium-12 block">
+					
+{{#markdown}}
+
+##### Motion Variables
+
+```scss
+$transition-normal-duration: 700ms;
+$motion-class: "motion";
+
+$motion-default-origin: left;
+$slide-default-dir: left;
+
+$include-html-motion-attributes: true;
+$auto-adjust-opacity: true;
+
+$motion-default-property: transform;
+$motion-default-timing: ease;
+$motion-default-delay: 0;
+
+$motion-slow-duration: 1.4s;
+$motion-default-duration: 700ms;
+$motion-fast-duration: 300ms;
+```
+
+##### Basic Mixin Usage
+
+```scss
+// Include a transition in your element
+//    
+//   transition-name: name of a transition mixin. 
+//   [ slide | fade | hinge | scale | spin ]
+@include transition-name();
+```
+
+###### Global Arguments
+
+**$duration** <br>
+Default: `$motion-default-duration // 300ms` <br>
+*Length of time in which animation executes* <br>
+Options: `<time>` 
+
+**$timing** <br>
+Default: `$motion-default-timing // ease` <br>
+*Set the motion timing function* <br>
+Options: `<timing-function>`
+
+**$delay** <br>
+Default: `$motion-default-delay // 0` <br>
+*Amount of time to elapse before the animation executes.* <br>
+Options: `<time>` 
+
+**$fade** (does not apply to prefab animations)<br>
+Default: `true` <br>
+*Control if element fades in/out with the animation*<br>
+Options: `true`, `false` 
+
+<br>
+
+##### Slide
+
+```scss
+// Slide with default settings
+@include slide();
+
+// Slide from top without fading with a 300ms delay
+@include slide(top, false, $delay:300ms);
+
+// Slide in from top with a linear timing function
+@include slide($from:right, $timing:linear);
+
+```
+
+###### Arguments
+
+**$from** <br>
+Default: `left` <br>
+*Defines the element's slide origin.* <br>
+Options: `top`, `right`, `bottom`, `left` 
+
+<br>
+
+##### Fade 
+
+```scss
+// Fade with default settings
+@include fade();
+
+// Fade from half opacity to fully opaque
+@include fade($from:0.5, $to:1);
+```
+
+**$from** <br>
+Default: `0` <br>
+*Defines the initial opacity.* <br>
+Options: `<number>` 
+
+**$to** <br>
+Default: `1` <br>
+*Defines the element destination opacity* <br>
+Options: `<number>`
+
+<br>
+
+##### Hinge 
+
+```scss
+// Hinge with default settings
+@include hinge();
+
+// Hinge from top to bottom on a center axis
+@include hinge($from:top, $axis:center)
+
+// Hinge from front to back 
+@include hinge($turn-origin:from-front)
+```
+
+**$from** <br>
+Default: `left` <br>
+*Defines the elements directional origin* <br>
+Options: `top`, `right`, `bottom`, `left` 
+
+**$axis** <br>
+Default: `edge` <br>
+*Defines where the element turns form* <br>
+Options: `edge`, `center`
+
+**$perspective** <br>
+Default: `2000px` <br>
+*Adjust the `perspective()` transform function* <br>
+Options: `<number><length>`
+
+**$turn-origin** <br>
+Default: `from-back` <br>
+*Define the z-orientation the element starts from* <br>
+Options: `from-back`, `from-front`
+
+##### Scale
+
+```scss
+// Scale with default settings
+@include scale();
+
+// Drop from large to normal size
+@include scale($from:3, $to:1);
+
+// Pop from small to normal size
+@include scale($from:0.5, $to:1);
+```
+
+**$from** <br>
+Default: `1.5` <br>
+*Defines the initial scale.* <br>
+Options: `<number>` 
+
+**$to** <br>
+Default: `1` <br>
+*Defines the destination scale.* <br>
+Options: `<number>`
+
+##### Spin
+
+```scss
+// Spin with default settings
+@include spin();
+
+// Spin counter clockwise
+@include spin($dir:counterclockwise);
+
+// Spin from 2 turns to normal orientation
+@include spin($from:2turn, $to:0);
+```
+
+**$dir** <br>
+Default: `clockwise` <br>
+*Direction of the spin* <br>
+Options: `clockwise`, `counterclockwise`  
+
+**$from** <br>
+Default: `0.75turn` <br>
+*Defines the initial turn* <br>
+Options: `<number><length>` 
+
+**$to** <br>
+Default: `0` <br>
+*Defines the destination turn* <br>
+Options: `<number><length>`
+
+##### Prefab Animations
+
+```scss
+// Include a prefab animation in your element
+//    
+//   $animation: name of an animation. 
+//   [ shake | spin-cw | spin-ccw | wiggle ]
+@include animation($animation);
+
+// Shake infinitely
+@include animation($animation:shake, $iterations:infinite);
+```
+
+**$animation** (required)<br>
+Default: none <br>
+*Choose an animation* <br>
+Options: `shake`, `spin-cw`, `spin-ccw`, `wiggle`  
+
+**$iterations** <br>
+Default: `null` <br>
+*Defines number of times the animation runs* <br>
+Options: `infinite`, `<number>`
+
+
+{{/markdown}}
+
+				</div>
+				
+			</div>
+
+	   </div>
+	</div>
+</section>
+
 <footer>
   <section class="docs container">
     <div class="group">

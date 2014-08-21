@@ -101,12 +101,10 @@ $motion-fast-duration: 300ms;
   }
 }
  
-// HINGE
-$default-hinge-dir:left;
 
 @mixin hinge (
-  $from:$default-hinge-dir, 
-  $origin:edge, 
+  $from:left, 
+  $axis:edge, 
   $perspective:2000px, 
   $turn-origin: from-back,
   $fade:true,
@@ -117,10 +115,10 @@ $default-hinge-dir:left;
 
   @if $from == top     { 
     transform: perspective($perspective) rotateX(-90deg); 
-    @if $origin == edge {
+    @if $axis == edge {
       transform-origin: top;
     }
-    @else if $origin == center {
+    @else if $axis == center {
       transform-origin: center;
     }
 
@@ -130,10 +128,10 @@ $default-hinge-dir:left;
   }
   @if $from == right   { 
     transform: perspective($perspective) rotateY(-90deg); 
-    @if $origin == edge {
+    @if $axis == edge {
       transform-origin: right;
     }
-    @else if $origin == center {
+    @else if $axis == center {
       transform-origin: center;
     }
 
@@ -143,10 +141,10 @@ $default-hinge-dir:left;
   }
   @if $from == bottom  { 
     transform: perspective($perspective) rotateX(90deg);
-    @if $origin == edge {
+    @if $axis == edge {
       transform-origin: bottom;
     }
-    @else if $origin == center {
+    @else if $axis == center {
       transform-origin: center;
     } 
 
@@ -156,10 +154,10 @@ $default-hinge-dir:left;
   }
   @if $from == left   { 
     transform: perspective($perspective) rotateY(90deg); 
-    @if $origin == edge {
+    @if $axis == edge {
       transform-origin: left;
     }
-    @else if $origin == center {
+    @else if $axis == center {
       transform-origin: center;
     }
 
@@ -355,8 +353,8 @@ $default-hinge-dir:left;
   [#{$dm}"hinge-from-right"]    { @include hinge($from:right); }
   [#{$dm}"hinge-from-bottom"]   { @include hinge($from:bottom); }
   [#{$dm}"hinge-from-left"]     { @include hinge($from:left); }
-  [#{$dm}"hinge-from-middle-x"] { @include hinge($from:top, $origin:center); }
-  [#{$dm}"hinge-from-middle-y"] { @include hinge($from:right, $origin:center); }
+  [#{$dm}"hinge-from-middle-x"] { @include hinge($from:top, $axis:center); }
+  [#{$dm}"hinge-from-middle-y"] { @include hinge($from:right, $axis:center); }
 
   [#{$dm}"drop"] { @include scale(); }
   [#{$dm}"pop"] { @include scale($from:0.5, $to:1); }
