@@ -1,0 +1,128 @@
+/*
+  BLOCK LISTS
+
+  Structure:
+
+  titles
+  lists
+*/
+
+// Container
+.block-list {
+  $padding: 0.8rem;
+  $left-padding: 1rem;
+  $font-size: 1rem;
+  $item-height: $font-size + ($padding * 2);
+  $icon-size: $item-height * 0.8;
+
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  font-size: $font-size;
+  line-height: 1;
+  user-select: none;
+
+  // Stretch to the edge of a block
+  .block > & {
+    margin-left: -1rem;
+    margin-right: -1rem;
+  }
+
+  // Title of list (optional)
+  header {
+    text-transform: uppercase;
+    color: #666;
+    font-weight: bold;
+    margin-bottom: 0.5em;
+    margin-left: $left-padding;
+    font-size: 0.8em;
+  }
+  // List container
+  ul {
+    list-style-type: none;
+    margin-left: 0;
+  }
+  // List item
+  li {
+    position: relative;
+    border-bottom: 1px solid #ccc;
+
+    &:first-child {
+      border-top: 1px solid #ccc;
+    }
+  }
+
+  // Inner elements share the same basic styles
+  a, span, label {
+    display: block;
+    padding: $padding;
+    padding-left: $left-padding;
+    color: #000;
+    line-height: 1;
+  }
+  a, label {
+    cursor: pointer;
+
+    &:hover {
+      color: #000;
+      background: #f7f7f7;
+    }
+  }
+
+  // For items that are links
+  a {
+    // Caret
+    &::after {
+      content: '\203A';
+      display: block;
+      position: absolute;
+      right: $padding;
+      top: 0;
+      line-height: $item-height;
+      font-weight: bold;
+      color: #666;
+      font-size: 1em;
+    }
+  }
+
+  // Inputs
+  input[type="checkbox"], input[type="radio"] {
+    position: absolute;
+    left: -9999px;
+
+    &:checked + label {
+      &::after {
+        content: 'Hell yeah';
+        color: $primary-color;
+        float: right;
+      }
+    }
+  }
+
+  // Labels
+  .label {
+    position: absolute;
+    color: #999;
+    top: 0;
+    right: $left-padding;
+    z-index: 1;
+    padding-right: 0;
+  }
+  a + .label {
+    padding-right: 1em;
+  }
+
+  // Lists with icons
+  &.with-icons {
+    a, span, label {
+      padding-left: ($left-padding * 2) + $icon-size;
+    }
+  }
+  li img {
+    position: absolute;
+    left: $left-padding;
+    top: $item-height * 0.1;
+    width: $icon-size;
+    height: $icon-size;
+    border-radius: 8px;
+  }
+}
