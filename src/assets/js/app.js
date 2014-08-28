@@ -83,3 +83,7 @@ $('*[data-transition-id="compose-window"]').on('click', function(e){
   $('#compose-window').toggleClass('motion');
 });
 
+$('[data-offcanvas]').click(function() {
+  $('#'+$(this).attr('data-offcanvas')).toggleClass('is-active');
+  return false;
+})

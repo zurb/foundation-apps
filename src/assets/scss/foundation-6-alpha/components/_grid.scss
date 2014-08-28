@@ -56,18 +56,26 @@
   }
 }
 
-.block {
+@mixin block {
 	flex: 1 1 auto;
 	padding: 1rem;
 	position: relative;
-	height: 100%;
-
-	// border: 1px solid #eee;
+	top: auto;
+	right: auto;
+	bottom: auto;
+	left: auto;
+	transform: none !important;
 	overflow: hidden;
+	width: auto !important;
+	height: auto !important;
+	z-index: auto !important;
 
 	&.scrollable {
 		overflow: scroll;
 	}
+  &.collapse {
+  	padding: 0;
+  }
 
 	@for $i from 0 through $total-columns {
 	  &.small-#{$i} {
@@ -93,17 +101,15 @@
 		  }
 		}
   }
-
-  &.collapse { padding: 0; }
 }
 
 .group {
 	flex: 1 1 auto;
-
 	position: relative;
 	display: flex;
 	flex-flow: row wrap;
 	padding: 0;
+	overflow: hidden;
 
 	// border: 1px solid #eee;
 
@@ -219,3 +225,78 @@
 }
 
 img { max-width: 100%; }
+
+// Off-canvas panel
+
+@mixin off-canvas-base() {
+	display: block;
+	position: absolute;
+	transition: transform 0.5s linear;
+	z-index: 100;
+	overflow-y: scroll;
+}
+@mixin off-canvas-position($direction: left, $size: 300px) {
+	@if $direction == left {
+		top: 0;
+		left: 0;
+		height: 100%;
+		transform: translateX(-100%);
+
+		&.is-active {
+			transform: translateX(0%);
+		}
+	}
+	@else if $direction == top {
+		top: 0;
+		left: 0;
+		width: 100%;
+		transform: translateY(-100%);
+
+		&.is-active {
+			transform: translateY(0%);
+		}
+	}
+
+	@if $direction == left or $direction == right {
+		width: 100%;
+		@media screen and (min-width: rem-calc($size)) {
+			width: $size;
+		}
+	}
+	@if $direction == top or $direction == bottom {
+		height: 100%;
+		@media screen and (min-height: rem-calc($size)) {
+			height: $size;
+		}
+	}
+}
+
+@mixin off-canvas($direction: left, $size: 300px) {
+	@include off-canvas-base;
+	@include off-canvas-position($direction, $size);
+}
+
+.off-canvas {
+	@include off-canvas-base;
+
+	&.left {
+		@include off-canvas-position(left);
+	}
+	&.top {
+		@include off-canvas-position(top);
+	}
+}
+
+.block, .small-block {
+	@include block;
+}
+@media #{$medium-up} {
+	.medium-block {
+		@include block;
+	}
+}
+@media #{$large-up} {
+	.large-block {
+		@include block;
+	}
+}

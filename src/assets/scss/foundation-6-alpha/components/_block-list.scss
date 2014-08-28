@@ -7,6 +7,20 @@
   lists
 */
 
+$colors: (
+  white: white,
+  black: black,
+  gray: #666,
+  light-gray: #ccc,
+  primary: blue,
+  success: green,
+  alert: orange,
+  error: red
+);
+@function color($color) {
+  @return map-get($colors, $color);
+}
+
 // Container
 .block-list {
   $padding: 0.8rem;
@@ -30,7 +44,7 @@
   // Title of list (optional)
   header {
     text-transform: uppercase;
-    color: #666;
+    color: color(gray);
     font-weight: bold;
     margin-bottom: 0.5em;
     margin-left: $left-padding;
@@ -79,7 +93,7 @@
       top: 0;
       line-height: $item-height;
       font-weight: bold;
-      color: #666;
+      color: color(gray);
       font-size: 1em;
     }
   }
@@ -94,6 +108,7 @@
         content: 'Hell yeah';
         color: $primary-color;
         float: right;
+        pointer-events: none;
       }
     }
   }
@@ -106,7 +121,10 @@
     right: $left-padding;
     z-index: 1;
     padding-right: 0;
+    padding-left: 0;
+    pointer-events: none;
   }
+  // Labels next to links move over to make room for the caret
   a + .label {
     padding-right: 1em;
   }
@@ -117,6 +135,7 @@
       padding-left: ($left-padding * 2) + $icon-size;
     }
   }
+  // Icons
   li img {
     position: absolute;
     left: $left-padding;
