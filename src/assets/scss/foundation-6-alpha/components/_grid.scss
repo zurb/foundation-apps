@@ -148,6 +148,7 @@ img { max-width: 100%; }
 	z-index: 100;
 	overflow-y: scroll;
 	padding: 1rem;
+	background: #eee;
 
 	// Box shadows
 	$shadow-distance: 3px;
@@ -155,24 +156,14 @@ img { max-width: 100%; }
 	$shadow-color: rgba(black, 0.25);
 
 	&.is-active {
-		@if $direction == left   { box-shadow: $shadow-distance 0 $shadow-size $shadow-color; }
-		@if $direction == right  { box-shadow: -$shadow-distance 0 $shadow-size $shadow-color; }
-		@if $direction == top    { box-shadow: 0 $shadow-distance $shadow-size $shadow-color; }
-		@if $direction == bottom { box-shadow: 0 -$shadow-distance $shadow-size $shadow-color; }
+		@if $direction == left        { box-shadow: $shadow-distance 0 $shadow-size $shadow-color; }
+		@else if $direction == right  { box-shadow: -$shadow-distance 0 $shadow-size $shadow-color; }
+		@else if $direction == top    { box-shadow: 0 $shadow-distance $shadow-size $shadow-color; }
+		@else if $direction == bottom { box-shadow: 0 -$shadow-distance $shadow-size $shadow-color; }
 	}
 }
 @mixin panel-position($direction: left, $size: 300px) {
-	@if $direction == left {
-		top: 0;
-		left: 0;
-		height: 100%;
-		transform: translateX(-100%);
-
-		&.is-active {
-			transform: translateX(0%);
-		}
-	}
-	@else if $direction == top {
+	@if $direction == top {
 		top: 0;
 		left: 0;
 		width: 100%;
@@ -182,7 +173,38 @@ img { max-width: 100%; }
 			transform: translateY(0%);
 		}
 	}
+	@else if $direction == right {
+		top: 0;
+		right: 0;
+		height: 100%;
+		transform: translateX(100%);
 
+		&.is-active {
+			transform: translateX(0%);
+		}
+	}
+	@else if $direction == bottom {
+		bottom: 0;
+		left: 0;
+		height: 100%;
+		transform: translateX(-100%);
+
+		&.is-active {
+			transform: translateX(0%);
+		}
+	}
+	@else if $direction == left {
+		top: 0;
+		left: 0;
+		height: 100%;
+		transform: translateX(-100%);
+
+		&.is-active {
+			transform: translateX(0%);
+		}
+	}
+}
+@mixin panel-size($direction: left, $size: 300px) {
 	// Vertical panels are always all the way tall and have a set width
 	@if $direction == left or $direction == right {
 		width: 100%;
@@ -197,7 +219,8 @@ img { max-width: 100%; }
 }
 @mixin panel($direction: left, $speed: 0.25s, $size: 300px) {
 	@include panel-base($direction, $speed);
-	@include panel-position($direction, $size);
+	@include panel-position($direction);
+	@include panel-size($direction, $size);
 }
 
 /*
