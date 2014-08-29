@@ -83,6 +83,7 @@ $('*[data-transition-id="compose-window"]').on('click', function(e){
   $('#compose-window').toggleClass('motion');
 });
 
+// Panels
 $('[data-panel-toggle]').click(function() {
   var targetPanel = $(this).attr('data-panel-toggle');
   if (targetPanel.length === 0) {
@@ -92,4 +93,9 @@ $('[data-panel-toggle]').click(function() {
     $('#'+$(this).attr('data-panel-toggle')).toggleClass('is-active');
   }
   return false;
-})
+});
+
+// Popup menus
+$('[data-popup-toggle]').click(function() {
+  $(this).next('[data-popup]').toggleClass('is-active');
+});

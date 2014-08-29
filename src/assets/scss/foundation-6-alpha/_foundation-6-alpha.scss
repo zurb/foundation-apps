@@ -24,11 +24,27 @@
 	"components/grid",
 	"components/headers",
 	"components/icon-bar",
+	"components/inline-elements",
 	"components/lists",
 	"components/motion",
 	"components/off-canvas",
+	"components/popup-menu",
 	"components/range-slider",
 	"components/tabs",
 	"components/typography",
 	"components/utilities", 
 	"components/z-index";
+
+// Settings map test
+$settings: (
+	grid: (
+		width: 1000px,
+		padding: 1rem,
+	),
+);
+
+@function setting($component, $setting) {
+	@return map-get(map-get($settings, $component), $setting);
+}
+
+@debug setting(grid, padding);

@@ -84,3 +84,13 @@ $breakpoints: (
 		}
 	}
 }
+
+// Coloring classes
+li.caution > a {
+  &, &:hover { color: $alert-color; }
+}
+li.disabled > a {
+  cursor: default;
+  &, &:hover { color: #999; }
+  &:hover { background: transparent; }
+}

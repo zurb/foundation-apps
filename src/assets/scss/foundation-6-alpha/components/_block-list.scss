@@ -29,7 +29,6 @@ $colors: (
   $item-height: $font-size + ($padding * 2);
   $icon-size: $item-height * 0.8;
 
-  margin-top: 1rem;
   margin-bottom: 1rem;
   font-size: $font-size;
   line-height: 1;
@@ -44,6 +43,7 @@ $colors: (
 
   // Title of list (optional)
   header {
+    margin-top: 1rem;
     text-transform: uppercase;
     color: color(gray);
     font-weight: bold;

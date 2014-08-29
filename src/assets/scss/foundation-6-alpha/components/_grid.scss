@@ -46,6 +46,7 @@
 */
 .group {
 	flex: 1 1 auto;
+	align-items: stretch;
 	position: relative;
 	display: flex;
 	flex-flow: row wrap;
@@ -120,6 +121,7 @@
 	height: auto !important;
 	z-index: auto !important;
 	box-shadow: none !important;
+	background: transparent;
 
 	&.scrollable {
 		overflow: scroll;

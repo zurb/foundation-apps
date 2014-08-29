@@ -1,0 +1,93 @@
+/*
+  DROPDOWN
+  Dropdowns are action sheets on smaller screens and popup menus
+*/
+
+@mixin popup-menu {
+  // Mobile style: action sheet
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 1rem;
+  background: #fff;
+  box-shadow: 0 -3px 10px rgba(black, 0.25);
+  text-align: center;
+  transform: translateY(100%);
+  transition: transform 0.25s ease-out;
+  z-index: 1000;
+
+  &.is-active {
+    transform: translateY(0%);
+  }
+
+  ul {
+    margin: 0 -1rem -1rem -1rem;
+    list-style-type: none;
+    user-select: none;
+  }
+  li {
+    border-bottom: 1px solid #ccc;
+
+    &:first-child {
+      border-top: 1px solid #ccc;
+    }
+  }
+  a {
+    display: block;
+    padding: 0.8rem;
+    line-height: 1;
+    color: black;
+
+    &:hover {
+      color: black;
+      background: #f7f7f7;
+    }
+  }
+
+  // Medium+ layout: dropdown
+  @media #{$medium-up} {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%) translateY(100%);
+    width: 300px;
+    box-shadow: 0 3px 10px rgba(black, 0.25);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease-out;
+
+    &.is-active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(100%);
+    }
+
+    // Menu tail
+    &::before, &::after {
+      content: '';
+      display: block;
+      position: absolute;
+      left: 50%;
+      top: -10px;
+      width: 0px;
+      height: 0px;
+      margin-left: -10px;
+      border-bottom: 10px solid white;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+    }
+    &::before {
+      border-bottom-color: #ccc;
+      top: -11px;
+    }
+  }
+}
+
+.popup-container {
+  position: relative;
+  display: inline-block;
+}
+.popup-menu {
+  @include popup-menu;
+}
