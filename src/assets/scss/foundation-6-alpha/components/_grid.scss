@@ -1,6 +1,10 @@
-// Grid Variables
+/*
+	THE GRID
+*/
 
-
+/*
+	Frames are containers that stretch to the full dimmensions of the browser window.
+*/
 .frame {
 	margin: 0;
 	height: 100vh;
@@ -25,84 +29,22 @@
 		&.large-vertical { flex-flow: column nowrap; }
 		&.large-horizontal { flex-flow: row nowrap; }
 	}
-
+}
+// Containers imitate the sizing of old Foundation rows.
+.container {
+	max-width: 1000px;
+	margin: 0 auto;
 }
 
+// These classes allow you to reorder content based on screen size.
 .block, .group {
 	transition: all 300ms ease;
-	// border: 1px solid $secondary-color;
 	backface-visibility: hidden;
-
-	@for $i from 0 through $total-columns {
-	  &.small-order-#{$i} {
-	    order: $i;
-	  }
-	}
-
-	@media #{$medium-up} {
-    @for $i from 0 through $total-columns {
-		  &.medium-order-#{$i} {
-		    order: $i;
-		  }
-		}
-  }
-
-  @media #{$large-up} {
-    @for $i from 0 through $total-columns {
-		  &.large-order-#{$i} {
-		    order: $i;
-		  }
-		}
-  }
 }
 
-@mixin block {
-	flex: 1 1 auto;
-	padding: 1rem;
-	position: relative;
-	top: auto;
-	right: auto;
-	bottom: auto;
-	left: auto;
-	transform: none !important;
-	overflow: hidden;
-	width: auto !important;
-	height: auto !important;
-	z-index: auto !important;
-
-	&.scrollable {
-		overflow: scroll;
-	}
-  &.collapse {
-  	padding: 0;
-  }
-
-	@for $i from 0 through $total-columns {
-	  &.small-#{$i} {
-	    flex: 0 0 auto;
-	    flex-basis: percentage($i / $total-columns);
-	  }
-	}
-
-  @media #{$medium-up} {
-    @for $i from 0 through $total-columns {
-		  &.medium-#{$i} {
-		    flex: 0 0 auto;
-		    flex-basis: percentage($i / $total-columns);
-		  }
-		}
-  }
-
-  @media #{$large-up} {
-    @for $i from 0 through $total-columns {
-		  &.large-#{$i} {
-		    flex: 0 0 auto;
-		    flex-basis: percentage($i / $total-columns);
-		  }
-		}
-  }
-}
-
+/*
+	Groups are collections of content items. They're the "rows" of Foundation for Apps.
+*/
 .group {
 	flex: 1 1 auto;
 	position: relative;
@@ -111,48 +53,31 @@
 	padding: 0;
 	overflow: hidden;
 
-	// border: 1px solid #eee;
-
+	// Centering
 	&.centered {
 		margin-left: auto;
 		margin-right: auto;
 	}
 
-	@for $i from 0 through $total-columns {
-	  &.small-#{$i} {
-	    flex: 0 0 auto;
-	    flex-basis: percentage($i / $total-columns);
-	  }
-	}
-
-	@media #{$medium-up} {
-    @for $i from 0 through $total-columns {
-		  &.medium-#{$i} {
-		    flex: 0 0 auto;
-		    flex-basis: percentage($i / $total-columns);
-		  }
-		}
-  }
-
-  @media #{$large-up} {
-    @for $i from 0 through $total-columns {
-		  &.large-#{$i} {
-		    flex: 0 0 auto;
-		    flex-basis: percentage($i / $total-columns);
-		  }
-		}
-  }
-
-	&.scrollable { overflow-x: scroll; flex-flow: row nowrap; -webkit-overflow-scrolling: touch; }
-	&.scrollable-vertical { overflow-y: scroll; flex-flow: row wrap; height: 100%; -webkit-overflow-scrolling: touch; 
-		&>.block:not([class*="small-"]) { flex-basis: 100%; }
-	}
-
+	// Vertical grids
 	&.vertical, &.small-vertical { flex-flow: column wrap; height: 100%; 
 		&.scrollable, &.small-scrollable { overflow-y: scroll; flex-flow: column nowrap; }
 		&.scrollable-vertical, &.small-scrollable-vertical { overflow-x: scroll; flex-flow: column wrap; }
 	}
+	@media #{$medium-up} {
+		&.medium-vertical { flex-flow: column nowrap; }
+		&.medium-horizontal { flex-flow: row nowrap; height: auto; }
+	}
+	@media #{$large-up} {
+		&.large-vertical { flex-flow: column nowrap; }
+		&.large-horizontal { flex-flow: row nowrap; height: auto; }
+	}
 
+	// Scrollable grids
+	&.scrollable { overflow-x: scroll; flex-flow: row nowrap; -webkit-overflow-scrolling: touch; }
+	&.scrollable-vertical { overflow-y: scroll; flex-flow: row wrap; height: 100%; -webkit-overflow-scrolling: touch; 
+		&>.block:not([class*="small-"]) { flex-basis: 100%; }
+	}
 	@media #{$medium-up} {
 		&.medium-scrollable { overflow-x: scroll; flex-flow: row nowrap; }
 		&.medium-scrollable-vertical { overflow-y: scroll; flex-flow: row wrap; height: 100%; 
@@ -164,7 +89,6 @@
 			&.scrollable-vertical { overflow-x: scroll; flex-flow: column wrap; }
 		}
 	}
-
 	@media #{$large-up} {
 		&.large-scrollable { overflow-x: scroll; flex-flow: row nowrap; }
 		&.large-scrollable-vertical { overflow-y: scroll; flex-flow: row wrap; height: 100%; 
@@ -176,19 +100,40 @@
 			&.scrollable-vertical { overflow-x: scroll; flex-flow: column wrap; }
 		}
 	}
-
-	@media #{$medium-up} {
-		&.medium-vertical { flex-flow: column nowrap; }
-		&.medium-horizontal { flex-flow: row nowrap; height: auto; }
-	}
-	@media #{$large-up} {
-		&.large-vertical { flex-flow: column nowrap; }
-		&.large-horizontal { flex-flow: row nowrap; height: auto; }
-	}
 }
 
-.vertical, .small-vertical, .medium-vertical, .large-vertical {
+/*
+	Blocks are containers for actual content. They're the "columns" of Foundation for Apps.
+*/
+@mixin block {
+	flex: 1 1 auto;
+	padding: 1rem;
+	position: relative;
+	top: auto;
+	right: auto;
+	bottom: auto;
+	left: auto;
+	overflow: hidden;
 
+	// I am a bad person
+	transform: none !important;
+	width: auto !important;
+	height: auto !important;
+	z-index: auto !important;
+	box-shadow: none !important;
+
+	&.scrollable {
+		overflow: scroll;
+	}
+  &.collapse, .group.collapse > & {
+  	padding: 0;
+  }
+}
+
+/*
+	Vertical classes for groups and frames
+*/
+.vertical, .small-vertical, .medium-vertical, .large-vertical {
 	.block { height: auto; }
 
 	@for $i from 0 through $total-columns {
@@ -214,28 +159,29 @@
   }
 }
 
-.collapsed.block,
-.group.collapsed > .block {
-		padding: 0;
-}
-
-.container {
-	max-width: 1000px;
-	margin: 0 auto;
-}
-
 img { max-width: 100%; }
 
-// Off-canvas panel
-
-@mixin off-canvas-base() {
+/*
+	Off-canvas panels
+*/
+@mixin panel-base($direction: left) {
 	display: block;
 	position: absolute;
 	transition: transform 0.5s linear;
 	z-index: 100;
 	overflow-y: scroll;
+
+	// Box shadows
+	$shadow-distance: 3px;
+	$shadow-size: 10px;
+	$shadow-color: rgba(black, 0.25);
+
+	@if $direction == left   { box-shadow: $shadow-distance 0 $shadow-size $shadow-color; }
+	@if $direction == right  { box-shadow: -$shadow-distance 0 $shadow-size $shadow-color; }
+	@if $direction == top    { box-shadow: 0 $shadow-distance $shadow-size $shadow-color; }
+	@if $direction == bottom { box-shadow: 0 -$shadow-distance $shadow-size $shadow-color; }
 }
-@mixin off-canvas-position($direction: left, $size: 300px) {
+@mixin panel-position($direction: left, $size: 300px) {
 	@if $direction == left {
 		top: 0;
 		left: 0;
@@ -270,23 +216,46 @@ img { max-width: 100%; }
 		}
 	}
 }
-
-@mixin off-canvas($direction: left, $size: 300px) {
-	@include off-canvas-base;
-	@include off-canvas-position($direction, $size);
+@mixin panel($direction: left, $size: 300px) {
+	@include panel-base($direction);
+	@include panel-position($direction, $size);
 }
 
-.off-canvas {
-	@include off-canvas-base;
+/*
+	CSS output
+*/
 
-	&.left {
-		@include off-canvas-position(left);
+.panel {
+	@include panel-base;
+
+	&-top {
+		@include panel-position(top);
 	}
-	&.top {
-		@include off-canvas-position(top);
+	&-right {
+		@include panel-position(right);
+	}
+	&-bottom {
+		@include panel-position(bottom);
+	}
+	&-left {
+		@include panel-position(left);
+	}
+}
+.small-panel {
+	@include panel-base;
+}
+@media #{$medium-up} {
+	.medium-panel {
+		@include panel;
+	}
+}
+@media #{$large-up} {
+	.large-panel {
+		@include panel;
 	}
 }
 
+// Blocks
 .block, .small-block {
 	@include block;
 }
@@ -298,5 +267,38 @@ img { max-width: 100%; }
 @media #{$large-up} {
 	.large-block {
 		@include block;
+	}
+}
+
+// Sizing and ordering classes
+@for $i from 0 through $total-columns {
+  .small-#{$i} {
+    flex: 0 0 auto;
+    flex-basis: percentage($i / $total-columns);
+  }
+  .small-order-#{$i} {
+    order: $i;
+  }
+}
+@media #{$medium-up} {
+  @for $i from 0 through $total-columns {
+	  .medium-#{$i} {
+	    flex: 0 0 auto;
+	    flex-basis: percentage($i / $total-columns);
+	  }
+	  .medium-order-#{$i} {
+	    order: $i;
+	  }
+	}
+}
+@media #{$large-up} {
+  @for $i from 0 through $total-columns {
+	  .large-#{$i} {
+	    flex: 0 0 auto;
+	    flex-basis: percentage($i / $total-columns);
+	  }
+	  .large-order-#{$i} {
+	    order: $i;
+	  }
 	}
 }
