@@ -249,39 +249,39 @@ $slow-animation-duration: 1.5s;
   }
 
   // Animation Type
-  &[#{$da}"slide-in-from-west"] { -webkit-animation-name: slide-in-from-west; }
-  &[#{$da}"slide-in-from-east"] { -webkit-animation-name: slide-in-from-east; }
-  &[#{$da}"slide-in-from-north"] { -webkit-animation-name: slide-in-from-north; }
-  &[#{$da}"slide-in-from-south"] { -webkit-animation-name: slide-in-from-south; }
-  &[#{$da}"slide-in-from-south-subtle"] { -webkit-animation-name: slide-in-from-south-subtle; }
-  &[#{$da}"slide-out-to-east"] { -webkit-animation-name: slide-out-to-east; }
-  &[#{$da}"slide-out-to-south"] { -webkit-animation-name: slide-out-to-south; }
-  &[#{$da}"slide-out-to-west"] { -webkit-animation-name: slide-out-to-west; }
-  &[#{$da}"fade-in"] { -webkit-animation-name: fade-in; }
-  &[#{$da}"fade-out"] { -webkit-animation-name: fade-out; }
-  &[#{$da}"shake"] { -webkit-animation-name: shake; }
-  &[#{$da}"spin-cw"] { -webkit-animation-name: spin-cw; }
-  &[#{$da}"spin-ccw"] { -webkit-animation-name: spin-ccw; }
-  &[#{$da}"wiggle"] { -webkit-animation-name: wiggle; }
+  &[#{$da+"slide-in-from-west"}] { -webkit-animation-name: slide-in-from-west; }
+  &[#{$da+"slide-in-from-east"}] { -webkit-animation-name: slide-in-from-east; }
+  &[#{$da+"slide-in-from-north"}] { -webkit-animation-name: slide-in-from-north; }
+  &[#{$da+"slide-in-from-south"}] { -webkit-animation-name: slide-in-from-south; }
+  &[#{$da+"slide-in-from-south-subtle"}] { -webkit-animation-name: slide-in-from-south-subtle; }
+  &[#{$da+"slide-out-to-east"}] { -webkit-animation-name: slide-out-to-east; }
+  &[#{$da+"slide-out-to-south"}] { -webkit-animation-name: slide-out-to-south; }
+  &[#{$da+"slide-out-to-west"}] { -webkit-animation-name: slide-out-to-west; }
+  &[#{$da+"fade-in"}] { -webkit-animation-name: fade-in; }
+  &[#{$da+"fade-out"}] { -webkit-animation-name: fade-out; }
+  &[#{$da+"shake"}] { -webkit-animation-name: shake; }
+  &[#{$da+"spin-cw"}] { -webkit-animation-name: spin-cw; }
+  &[#{$da+"spin-ccw"}] { -webkit-animation-name: spin-ccw; }
+  &[#{$da+"wiggle"}] { -webkit-animation-name: wiggle; }
 
   // Speed Modifiers
-  &[#{$da}"slow"] { -webkit-animation-duration: $slow-animation-duration; }
-  &[#{$da}"fast"] { -webkit-animation-duration: $fast-animation-duration; }
+  &[#{$da+"slow"}]        { -webkit-animation-duration: $slow-animation-duration; }
+  &[#{$da+"fast"}]        { -webkit-animation-duration: $fast-animation-duration; }
 
   // Timing Function Modifiers
-  &[#{$da}"ease"]          { -webkit-animation-timing-function: ease; }
-  &[#{$da}"ease-in"]       { -webkit-animation-timing-function: ease-in; }
-  &[#{$da}"ease-out"]      { -webkit-animation-timing-function: ease-out; }
-  &[#{$da}"ease-in-out"]  { -webkit-animation-timing-function: ease-in-out; }
-  &[#{$da}"linear"]        { -webkit-animation-timing-function: linear; }
+  &[#{$da+"ease"}]        { -webkit-animation-timing-function: ease; }
+  &[#{$da+"ease-in"}]     { -webkit-animation-timing-function: ease-in; }
+  &[#{$da+"ease-out"}]    { -webkit-animation-timing-function: ease-out; }
+  &[#{$da+"ease-in-out"}] { -webkit-animation-timing-function: ease-in-out; }
+  &[#{$da+"linear"}]      { -webkit-animation-timing-function: linear; }
 
   // Iteration Modifiers
-  &[#{$da}"infinite"]      { -webkit-animation-iteration-count: infinite; }   
+  &[#{$da+"infinite"}]     { -webkit-animation-iteration-count: infinite; }   
 
   // Delay Modifiers 
-  &[#{$da}"delay"] { -webkit-animation-delay: $base-animation-duration; }
-  &[#{$da}"short-delay"] { -webkit-animation-delay: $fast-animation-duration; }
-  &[#{$da}"long-delay"] { -webkit-animation-delay: $slow-animation-duration; }
+  &[#{$da+"delay"}]       { -webkit-animation-delay: $base-animation-duration; }
+  &[#{$da+"short-delay"}] { -webkit-animation-delay: $fast-animation-duration; }
+  &[#{$da+"long-delay"}]  { -webkit-animation-delay: $slow-animation-duration; }
 
 }
 

@@ -36,7 +36,8 @@ $colors: (
   user-select: none;
 
   // Stretch to the edge of a block
-  .block > &, .small-block > &, .medium-block > &, .large-block > & {
+  .block > &, .small-block > &, .medium-block > &, .large-block > &,
+  .panel > &, .small-panel > &, .medium-panel > &, .large-panel > & {
     margin-left: -1rem;
     margin-right: -1rem;
   }
@@ -63,6 +64,21 @@ $colors: (
     &:first-child {
       border-top: 1px solid #ccc;
     }
+
+    &.with-caret {
+      // Caret
+      &::after {
+        content: '\203A';
+        display: block;
+        position: absolute;
+        right: $padding;
+        top: 0;
+        line-height: $item-height;
+        font-weight: bold;
+        color: color(gray);
+        font-size: 1em;
+      }
+    }
   }
 
   // Inner elements share the same basic styles
@@ -79,22 +95,6 @@ $colors: (
     &:hover {
       color: #000;
       background: #f7f7f7;
-    }
-  }
-
-  // For items that are links
-  a {
-    // Caret
-    &::after {
-      content: '\203A';
-      display: block;
-      position: absolute;
-      right: $padding;
-      top: 0;
-      line-height: $item-height;
-      font-weight: bold;
-      color: color(gray);
-      font-size: 1em;
     }
   }
 
@@ -124,8 +124,8 @@ $colors: (
     padding-left: 0;
     pointer-events: none;
   }
-  // Labels next to links move over to make room for the caret
-  a + .label {
+  .with-caret .label {
+    // Labels next to links move over to make room for the caret
     padding-right: 1em;
   }
 

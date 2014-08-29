@@ -36,7 +36,6 @@
 	margin: 0 auto;
 }
 
-// These classes allow you to reorder content based on screen size.
 .block, .group {
 	transition: all 300ms ease;
 	backface-visibility: hidden;
@@ -134,29 +133,7 @@
 	Vertical classes for groups and frames
 */
 .vertical, .small-vertical, .medium-vertical, .large-vertical {
-	.block { height: auto; }
-
-	@for $i from 0 through $total-columns {
-	  &>.small-#{$i} {
-	    height: percentage($i / $total-columns);
-	  }
-	}
-
-	@media #{$medium-up} {
-    @for $i from 0 through $total-columns {
-		  &>.medium-#{$i} {
-		    height: percentage($i / $total-columns);
-		  }
-		}
-  }
-
-  @media #{$large-up} {
-    @for $i from 0 through $total-columns {
-		  &>.large-#{$i} {
-		    height: percentage($i / $total-columns);
-		  }
-		}
-  }
+	> .block { height: auto; }
 }
 
 img { max-width: 100%; }
@@ -206,17 +183,16 @@ img { max-width: 100%; }
 		}
 	}
 
+	// Vertical panels are always all the way tall and have a set width
 	@if $direction == left or $direction == right {
 		width: 100%;
 		@media screen and (min-width: rem-calc($size)) {
 			width: $size;
 		}
 	}
+	// (For now) horizontal panels are as big as they need to be
 	@if $direction == top or $direction == bottom {
-		height: 100%;
-		@media screen and (min-height: rem-calc($size)) {
-			height: $size;
-		}
+		height: $size;
 	}
 }
 @mixin panel($direction: left, $speed: 0.25s, $size: 300px) {
@@ -232,13 +208,13 @@ img { max-width: 100%; }
 	@include panel-base;
 
 	&-top {
-		@include panel-position(top);
+		@include panel-position(top, auto);
 	}
 	&-right {
 		@include panel-position(right);
 	}
 	&-bottom {
-		@include panel-position(bottom);
+		@include panel-position(bottom, auto);
 	}
 	&-left {
 		@include panel-position(left);
@@ -259,6 +235,7 @@ img { max-width: 100%; }
 }
 
 // Blocks
+// Right now block CSS must be output after panels for any of this madness to work
 .block, .small-block {
 	@include block;
 }
@@ -274,34 +251,17 @@ img { max-width: 100%; }
 }
 
 // Sizing and ordering classes
-@for $i from 0 through $total-columns {
-  .small-#{$i} {
-    flex: 0 0 auto;
-    flex-basis: percentage($i / $total-columns);
-  }
-  .small-order-#{$i} {
-    order: $i;
-  }
-}
-@media #{$medium-up} {
-  @for $i from 0 through $total-columns {
-	  .medium-#{$i} {
-	    flex: 0 0 auto;
-	    flex-basis: percentage($i / $total-columns);
-	  }
-	  .medium-order-#{$i} {
-	    order: $i;
-	  }
-	}
-}
-@media #{$large-up} {
-  @for $i from 0 through $total-columns {
-	  .large-#{$i} {
-	    flex: 0 0 auto;
-	    flex-basis: percentage($i / $total-columns);
-	  }
-	  .large-order-#{$i} {
-	    order: $i;
-	  }
+@each $size, $breakpoint in ('small': $small-up, 'medium': $medium-up, 'large': $large-up) {
+	@for $i from 0 through $total-columns {
+		@media #{$breakpoint} {
+			// Block sizing
+			.#{$size}-#{$i} {
+				flex: 0 0 percentage($i / $total-columns);
+			}
+			// Block ordering
+			.#{$size}-order-#{$i} {
+			  order: $i;
+			}
+		}
 	}
 }

@@ -83,7 +83,13 @@ $('*[data-transition-id="compose-window"]').on('click', function(e){
   $('#compose-window').toggleClass('motion');
 });
 
-$('[data-offcanvas]').click(function() {
-  $('#'+$(this).attr('data-offcanvas')).toggleClass('is-active');
+$('[data-panel-toggle]').click(function() {
+  var targetPanel = $(this).attr('data-panel-toggle');
+  if (targetPanel.length === 0) {
+    $(this).closest('[data-panel]').toggleClass('is-active');
+  }
+  else {
+    $('#'+$(this).attr('data-panel-toggle')).toggleClass('is-active');
+  }
   return false;
 })
