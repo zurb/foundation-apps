@@ -164,10 +164,10 @@ img { max-width: 100%; }
 /*
 	Off-canvas panels
 */
-@mixin panel-base($direction: left) {
+@mixin panel-base($direction: left, $speed: 0.25s) {
 	display: block;
 	position: absolute;
-	transition: transform 0.5s linear;
+	transition: transform $speed linear;
 	z-index: 100;
 	overflow-y: scroll;
 
@@ -176,10 +176,12 @@ img { max-width: 100%; }
 	$shadow-size: 10px;
 	$shadow-color: rgba(black, 0.25);
 
-	@if $direction == left   { box-shadow: $shadow-distance 0 $shadow-size $shadow-color; }
-	@if $direction == right  { box-shadow: -$shadow-distance 0 $shadow-size $shadow-color; }
-	@if $direction == top    { box-shadow: 0 $shadow-distance $shadow-size $shadow-color; }
-	@if $direction == bottom { box-shadow: 0 -$shadow-distance $shadow-size $shadow-color; }
+	&.is-active {
+		@if $direction == left   { box-shadow: $shadow-distance 0 $shadow-size $shadow-color; }
+		@if $direction == right  { box-shadow: -$shadow-distance 0 $shadow-size $shadow-color; }
+		@if $direction == top    { box-shadow: 0 $shadow-distance $shadow-size $shadow-color; }
+		@if $direction == bottom { box-shadow: 0 -$shadow-distance $shadow-size $shadow-color; }
+	}
 }
 @mixin panel-position($direction: left, $size: 300px) {
 	@if $direction == left {
@@ -216,8 +218,8 @@ img { max-width: 100%; }
 		}
 	}
 }
-@mixin panel($direction: left, $size: 300px) {
-	@include panel-base($direction);
+@mixin panel($direction: left, $speed: 0.25s, $size: 300px) {
+	@include panel-base($direction, $speed);
 	@include panel-position($direction, $size);
 }
 

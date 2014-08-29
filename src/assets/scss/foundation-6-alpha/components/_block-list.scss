@@ -36,7 +36,7 @@ $colors: (
   user-select: none;
 
   // Stretch to the edge of a block
-  .block > & {
+  .block > &, .small-block > &, .medium-block > &, .large-block > & {
     margin-left: -1rem;
     margin-right: -1rem;
   }
