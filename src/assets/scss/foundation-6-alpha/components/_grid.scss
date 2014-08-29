@@ -170,6 +170,7 @@ img { max-width: 100%; }
 	transition: transform $speed linear;
 	z-index: 100;
 	overflow-y: scroll;
+	padding: 1rem;
 
 	// Box shadows
 	$shadow-distance: 3px;
