@@ -32,16 +32,55 @@
 	overflow-y: auto;
 }
 
-// Horizontal float utility classes
+$breakpoints: (
+  'small': ($small-up, $small-only),
+  'medium': ($medium-up, $medium-only),
+  'large': ($large-up, $large-only),
+);
 
-.left { float: left; }
-.right { float: right; }
-
-@media #{$medium-up} {
-	.medium-left { float: left; }
-	.medium-right { float: right; }
+// Visibility
+@each $size, $breakpoint in $breakpoints {
+  @media #{nth($breakpoint, 1)} {
+    .hide-for-#{$size} {
+      display: none;
+    }
+  }
+  @media #{nth($breakpoint, 2)} {
+    .hide-for-#{$size}-only {
+      display: none;
+    }
+  }
 }
-@media #{$large-up} {
-	.medium-left { float: left; }
-	.medium-right { float: right; }
+
+// Floating
+@each $float in ('left', 'right', 'none') {
+	.float-#{$float} {
+		float: $float;
+	}
+	@each $size, $breakpoint in $breakpoints {
+	  @media #{nth($breakpoint, 1)} {
+	  	.#{$size}-float-#{$float} {
+	  		float: $float;
+	  	}
+		}
+	}
+}
+
+// Text alignment
+@each $align in ('left', 'right', 'center', 'justify') {
+	@each $size, $breakpoint in $breakpoints {
+		.text-#{$align} {
+			text-align: $align;
+		}
+		@media #{nth($breakpoint, 1)} {
+			.#{$size}-text-#{$align} {
+				text-align: $align;
+			}
+		}
+		@media #{nth($breakpoint, 2)} {
+			.#{$size}-only-text-#{$align} {
+				text-align: $align;
+			}
+		}
+	}
 }
