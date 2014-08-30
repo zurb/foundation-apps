@@ -55,12 +55,12 @@ $breakpoints: (
 // Floating
 @each $float in ('left', 'right', 'none') {
 	.float-#{$float} {
-		float: $float;
+		float: #{$float};
 	}
 	@each $size, $breakpoint in $breakpoints {
 	  @media #{nth($breakpoint, 1)} {
 	  	.#{$size}-float-#{$float} {
-	  		float: $float;
+	  		float: #{$float};
 	  	}
 		}
 	}
