@@ -1,7 +1,59 @@
+<nav class="ofc detached" id="ofc-left" data-offcanvas>
+  <section class="block-list">
+    <header>Menu</header>
+    <ul>
+      <li><a href="#">Item 1</a></li>
+      <li><a href="#">Item 2</a></li>
+      <li><a href="#">Item 3</a></li>
+      <li><a href="#">Item 4</a></li>
+      <li><a href="#">Item 5</a></li>
+    </ul>
+  </section>
+</nav>
+<nav class="ofc ofc-bottom" id="ofc-bottom" data-offcanvas>
+  <section class="block-list">
+    <header>Menu</header>
+    <ul>
+      <li><a href="#">Item 1</a></li>
+      <li><a href="#">Item 2</a></li>
+      <li><a href="#">Item 3</a></li>
+      <li><a href="#">Item 4</a></li>
+      <li><a href="#">Item 5</a></li>
+    </ul>
+  </section>
+</nav>
+<nav class="ofc ofc-right" id="ofc-right" data-offcanvas>
+  <section class="block-list">
+    <header>Menu</header>
+    <ul>
+      <li><a href="#">Item 1</a></li>
+      <li><a href="#">Item 2</a></li>
+      <li><a href="#">Item 3</a></li>
+      <li><a href="#">Item 4</a></li>
+      <li><a href="#">Item 5</a></li>
+    </ul>
+  </section>
+</nav>
+<nav class="ofc ofc-top" id="ofc-top" data-offcanvas>
+  <section class="block-list">
+    <header>Menu</header>
+    <ul>
+      <li><a href="#">Item 1</a></li>
+      <li><a href="#">Item 2</a></li>
+      <li><a href="#">Item 3</a></li>
+      <li><a href="#">Item 4</a></li>
+      <li><a href="#">Item 5</a></li>
+    </ul>
+  </section>
+</nav>
 <div class="vertical frame">
   <div class="group" style="flex: 0 0 50px">
     <div class="block" style="background: #4a5597; color: white;">
-      <span data-panel-toggle="top-menu">Menu</span>
+      <span data-offcanvas-toggle="ofc-left" style="margin-right: 1em; cursor: pointer;">Left off-canvas</span>
+      <span data-offcanvas-toggle="ofc-bottom" style="margin-right: 1em; cursor: pointer;">Bottom off-canvas</span>
+      <span data-offcanvas-toggle="ofc-right" style="margin-right: 1em; cursor: pointer;">Right off-canvas</span>
+      <span data-offcanvas-toggle="ofc-top" style="margin-right: 1em; cursor: pointer;">Top off-canvas</span>
+      <span data-panel-toggle="top-menu" style="cursor: pointer;">Top panel</span>
     </div>
   </div>
   <div class="group">
@@ -63,7 +115,7 @@
       <h2>Bro Do You Even Have the Time</h2>
       <p><time>Wed, August 12 @ 4:05PM</time></p>
 
-      <div class="popup-container">
+      <div class="popup-container" style="display: block; margin: 0 auto; text-align: center;">
         <a href="#" class="button" data-popup-toggle>Do Something</a>
         <section class="popup-menu" data-popup>
           <p>What are you doing?</p>
@@ -74,7 +126,7 @@
           </ul>
         </section>
       </div>
-      
+
       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi saepe itaque est? Odio ea officia atque nobis similique veniam debitis, delectus distinctio iure accusantium enim totam velit laboriosam cupiditate inventore!</p>
       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae deserunt repellat iure fugit, modi dignissimos consequuntur eum non vitae quae, aliquam autem alias rerum, nihil, molestiae quod. Ipsam animi, natus.</p>
     </div>

@@ -1,112 +1,114 @@
-// Off Canvas list-style-position: 
+/*
+	Off-canvas menus
+*/
 
-$off-canvas-north-height: 12rem !default;
-$off-canvas-south-height: 12rem !default;
-$off-canvas-east-width: 12rem !default;
-$off-canvas-west-width: 12rem !default;
-
-.off-canvas-wrap {
-	// display: flex;
-	// margin: 
-	// 	($off-canvas-north-height * -1)
-	// 	($off-canvas-east-width * -1)
-	// 	($off-canvas-south-height * -1)
-	// 	($off-canvas-west-width * -1);
-
-	// flex-flow: row nowrap;
-	width: 100%;
-	position: relative;
+// PH
+body {
 	overflow: hidden;
+}
 
-	transition: transform .15s ease-out;
+// Alternate off-canvas
+.ofc {
+	$size: 250px;
+	$shadow-length: 3px;
+	$shadow-size: 10px;
+	$shadow-color: rgba(0, 0, 0, 0.25);
 
-	aside {
-	
-		// flex: 0 0 auto;
-		position: absolute;
+	position: absolute;
+	background: #666;
+	color: white;
+	overflow-y: scroll;
+	transition: transform 0.25s ease-out;
+	backface-visibility: hidden;
 
-		&.off-canvas-north { 
-			height: $off-canvas-north-height; 
-			left: 0; right: 0;
-			transform: translate3d(0, -100%, 0);
-			// order: 1; 
+	// Active state
+	&.is-active {
+		transform: translate(0,0);
+	}
+
+	// Frame styles
+	& ~ .frame {
+		transform: translate(0,0,0);
+		transition: transform 0.25s ease-out;
+		backface-visibility: hidden;
+		background: white;
+	}
+
+	// Positioning
+	&, &-left, &-right {
+		width: $size;
+		height: 100%;
+	}
+	&-top, &-bottom {
+		height: $size;
+		width: 100%;
+	}
+	&, &-left {
+		top: 0;
+		left: 0;
+		box-shadow: inset -$shadow-length 0 $shadow-size $shadow-color;
+		transform: translateX(-100%);
+		&.is-active {
+			& ~ .frame { transform: translateX($size); }
 		}
-		&.off-canvas-south { 
-			height: $off-canvas-south-height; 
-			bottom: 0; left: 0; right: 0;
-			transform: translate3d(0, 100%, 0);
-			// order: 5; 
-		}
-		&.off-canvas-east { 
-			width: $off-canvas-east-width; 
-			top: 0; bottom: 0;
-			transform: translate3d(-100%, 0, 0);
-			// order: 4; 
-		}
-		&.off-canvas-west { 
-			width: $off-canvas-west-width; 
-			right: 0; top: 0; bottom: 0;
-			transform: translate3d(100%, 0, 0);
-			// order: 2; 
+	}
+	&-right {
+		left: auto;
+		top: 0;
+		right: 0;
+		box-shadow: inset $shadow-length 0 $shadow-size $shadow-color;
+		transform: translateX(100%);
+		&.is-active {
+			& ~ .frame { transform: translateX(-$size); }
 		}
 	}
-
-	.canvas-content {
-		// flex: 0 0 auto;
-		// order: 3;
+	&-top {
+		top: 0;
+		left: 0;
+		transform: translateY(-100%);
+		box-shadow: inset 0 (-$shadow-length) $shadow-size $shadow-color;
+		&.is-active {
+			& ~ .frame { transform: translateY($size); }
+		}
+	}
+	&-bottom {
+		top: auto;
+		bottom: 0;
+		left: 0;
+		transform: translateY(100%);
+		box-shadow: inset 0 $shadow-length $shadow-size $shadow-color;
+		&.is-active {
+			& ~ .frame { transform: translateY(-$size); }
+		}
 	}
 
-	&.active-north {
-		transform: translate3d(0, $off-canvas-north-height, 0);
-	}
-	&.active-south {
-		transform: translate3d(0, -$off-canvas-south-height, 0);
-	}
-	&.active-east {
-		transform: translate3d(-$off-canvas-east-width, 0, 0);
-	}
-	&.active-west {
-		transform: translate3d($off-canvas-west-width, 0, 0);
-	}
-
-	// This changes the aside off canvas elements to be detached from the moving part of the body, so they stay in place as the content moves out of the way
-
-	&.detached { 
-		aside { 
-
+	// Detached frame - stays stationary under the content
+	&.detached {
+		z-index: 0;
+		& ~ .frame {
 			z-index: 1;
+			box-shadow: 0 0 15px rgba(0,0,0,0.5);
+		}
 
-			// Removes the initial move of each off-canvas element
-			&.off-canvas-north { transform: none; }
-			&.off-canvas-south { transform: none; }
-			&.off-canvas-east { transform: none; }
-			&.off-canvas-west { transform: none; }
-		}
-		
-		&[class*="active-"] { transform: none; } // Removes the transform from the entire wrapper
-
-		.canvas-content { z-index: 2; background: #fff; transition: transform .15s ease-out; }
-
-		&.active-north {
-			.canvas-content { transform: translate3d(0, $off-canvas-north-height, 0); }
-		}
-		&.active-south {
-			.canvas-content { transform: translate3d(0, -$off-canvas-south-height, 0); }
-		}
-		&.active-east {
-			.canvas-content { transform: translate3d(-$off-canvas-east-width, 0, 0); }
-		}
-		&.active-west {
-			.canvas-content { transform: translate3d($off-canvas-west-width, 0, 0); }
+		&, &.is-active {
+			transform: none;
 		}
 	}
 
-	.dismiss-off-canvas { display: none; }
-	&.active-west, &.active-easy, &.active-north, &.active-west {
-		.dismiss-off-canvas {
-			display: block;
-			position: absolute;
-			top: 0; left: 0; right: 0; bottom: 0;
+	// Restyle lists to be darker
+	.block-list {
+		header {
+			color: #ccc;
+		}
+		li {
+			border-color: #555;
+		}
+		a {
+			color: white;
+			&:hover {
+				color: white;
+				background: #777;
+			}
 		}
 	}
 }

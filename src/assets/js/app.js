@@ -99,3 +99,13 @@ $('[data-panel-toggle]').click(function() {
 $('[data-popup-toggle]').click(function() {
   $(this).next('[data-popup]').toggleClass('is-active');
 });
+
+// Generic toggler
+$('[data-offcanvas-toggle]').click(function() {
+  var $targetCanvas = $('#'+$(this).attr('data-offcanvas-toggle'));
+
+  // Toggle the targeted menu
+  $targetCanvas.toggleClass('is-active');
+  // Close other menus
+  $('[data-offcanvas]').not($targetCanvas).removeClass('is-active');
+})
