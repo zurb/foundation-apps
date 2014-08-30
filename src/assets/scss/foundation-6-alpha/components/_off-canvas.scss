@@ -17,7 +17,8 @@ body {
 	position: absolute;
 	background: #666;
 	color: white;
-	overflow-y: scroll;
+	overflow: scroll;
+	-webkit-overflow-scrolling: touch;
 	transition: transform 0.25s ease-out;
 	backface-visibility: hidden;
 
