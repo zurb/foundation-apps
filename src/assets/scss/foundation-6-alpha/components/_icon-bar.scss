@@ -98,8 +98,9 @@ $icon-bar-border-color: rgba(255,255,255,0.3);
   &.icon-left { @extend %menu-bar-icon-left; }
   &.icon-right { @extend %menu-bar-icon-right; }
   &.icon-bottom { @extend %menu-bar-icon-bottom; }
+  &.vertical { @include vertical-menu-bar; }
 
-  @each $size, $breakpoint in ('small': $small-up, 'medium': $medium-up, 'large': $large-up) {
+  @each $size, $breakpoint in ('medium': $medium-up, 'large': $large-up) {
     @media #{$breakpoint} {
       &.#{$size}-vertical {
         @include vertical-menu-bar;
