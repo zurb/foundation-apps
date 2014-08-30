@@ -16,11 +16,6 @@ $modules: () !default;
   }
 }
 
-//
-// @functions
-//
-
-
 // RANGES
 // We use these functions to define ranges for various things, like media queries. 
 @function lower-bound($range){
@@ -87,16 +82,4 @@ $modules: () !default;
     $remValues: append($remValues, convert-to-rem(nth($values, $i), $base-value));
   }
   @return $remValues;
-}
-
-// OLD EM CALC
-// Deprecated: We'll drop support for this in 5.1.0, use rem-calc()
-@function emCalc($values){
-  @return rem-calc($values);
-}
-
-// OLD EM CALC
-// Deprecated: We'll drop support for this in 5.1.0, use rem-calc()
-@function em-calc($values){
-  @return rem-calc($values);
 }
