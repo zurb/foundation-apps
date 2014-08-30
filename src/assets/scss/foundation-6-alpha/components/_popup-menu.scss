@@ -25,6 +25,13 @@
     margin: 0 -1rem -1rem -1rem;
     list-style-type: none;
     user-select: none;
+
+    &:first-child {
+      margin-top: -1rem;
+      li:first-child {
+        border-top: 0;
+      }
+    }
   }
   li {
     border-bottom: 1px solid #ccc;
@@ -52,10 +59,11 @@
     left: 50%;
     transform: translateX(-50%) translateY(100%);
     width: 300px;
-    box-shadow: 0 3px 10px rgba(black, 0.25);
+    box-shadow: 0 0 10px rgba(black, 0.25);
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.25s ease-out;
+    border-radius: 4px;
 
     &.is-active {
       opacity: 1;
@@ -78,8 +86,8 @@
       border-right: 10px solid transparent;
     }
     &::before {
-      border-bottom-color: #ccc;
-      top: -11px;
+      border-bottom-color: rgba(black, 0.15);
+      top: -12px;
     }
   }
 }
