@@ -6,67 +6,84 @@ $icon-bar-color: #fff;
 $icon-bar-border-color: rgba(255,255,255,0.3);
 
 
+@mixin menu-bar {
+  display: flex;
+  background: $icon-bar-bg;
+  color: $icon-bar-color;
+
+  li {
+    display: inline-flex;
+    flex: 1 1 auto;
+    flex-flow: column nowrap;
+    align-content: center;
+
+    border-right: 1px solid $icon-bar-border-color;
+    &:last-child {
+      border-right: none;
+    }
+
+    a {
+      display: block;
+      padding: 1rem;
+      color: white;
+      display: inline-flex;
+      flex-flow: column nowrap;
+      align-items: center;
+      line-height: 1;
+
+      &:hover {
+        background: $icon-bar-hover-bg;
+      }
+    }
+    img {
+      width: 50px;
+      height: 50px;
+
+      & + span {
+        margin-top: 0.5rem;
+      }
+    }
+  }
+
+  &.icon-left {
+    a {
+      flex-flow: row nowrap;
+      align-items: center;
+
+      img { margin-right: 0.5rem; }
+    }
+  }
+  &.icon-right {
+    a {
+      flex-flow: row-reverse nowrap;
+      align-items: center;
+
+      img { margin-left: 0.5rem; }
+    }
+  }
+}
+@mixin vertical-menu-bar {
+  flex-flow: column nowrap;
+
+  a {
+    flex-flow: row nowrap;
+    border-left: none;
+    border-bottom: 1px solid $icon-bar-border-color;
+
+    &:last-child { border-botto: none; }
+    span { margin-top: 0; }
+    img + span { margin-left: 1rem; }
+  }
+}
+
 .icon-bar {
-	display: flex;
-	background: $icon-bar-bg;
-	color: $icon-bar-color;
+  @include menu-bar;
 
-	a {
-		display: inline-flex;
-		flex: 1 1 auto;
-
-		flex-flow: column nowrap;
-		align-content: center;
-
-		padding: 1rem;
-		border-left: 1px solid $icon-bar-border-color;
-
-		&:first-child { border-left: none; }
-
-		.icon {
-			margin-bottom: .5rem;
-			flex-grow: 0;
-			text-align: center;
-
-			img { margin: 0 auto; }
-		}
-
-		label {
-			text-align: center;
-			color: $icon-bar-color;
-		}
-
-		&:hover {
-			background: $icon-bar-hover-bg;
-		}
-	}
-
-	&.icon-left {
-		a {
-			flex-flow: row nowrap;
-			align-items: center;
-
-			.icon { margin-bottom: 0; margin-right: 0.5rem; }
-		}
-	}
-
-	&.icon-right {
-		a {
-			flex-flow: row-reverse nowrap;
-			align-items: center;
-
-			.icon { margin-bottom: 0; margin-left: 0.5rem; }
-		}
-	}
-
-	&.vertical {
-		flex-flow: column nowrap;
-
-		a {
-			border-left: none;
-			border-top: 1px solid $icon-bar-border-color;
-
-			&:first-child { border-top: none; }
-		}
-	}
+  @each $size, $breakpoint in ('small': $small-up, 'medium': $medium-up, 'large': $large-up) {
+    @media #{$breakpoint} {
+      &.#{$size}-vertical {
+        @include vertical-menu-bar;
+      }
+    }
+  }
 }
