@@ -5,47 +5,54 @@ $icon-bar-hover-bg: $primary-color;
 $icon-bar-color: #fff;
 $icon-bar-border-color: rgba(255,255,255,0.3);
 
+// Menu bar container
 %menu-bar {
   display: flex;
   background: $icon-bar-bg;
   color: $icon-bar-color;
   margin-left: 0;
   border: 0;
+  align-items: stretch;
+  list-style-type: none;
 
+  // Menu item
   li {
-    display: flex;
-    flex: 1 1 auto;
-    flex-flow: column nowrap;
-    align-items: stretch;
+    // This flex setting makes each item an equal width
+    flex: 1 0 0px;
 
+    // Borders
     border-right: 1px solid $icon-bar-border-color;
     &:last-child {
       border-right: none;
     }
 
+    // Link inside menu item
     a {
-      display: block;
+      display: flex;
+      flex-flow: column nowrap;
+      align-self: center;
+      align-items: center;
       padding: 1rem;
       color: white;
-      display: inline-flex;
-      flex-flow: column nowrap;
-      align-items: center;
       line-height: 1;
 
       &:hover {
         background: $icon-bar-hover-bg;
       }
     }
+    // Icon
     img {
       width: 25px;
       height: 25px;
 
+      // Add spacing when there's an icon and text
       & + span {
         margin-top: 0.5rem;
       }
     }
   }
 
+  // Styles to reorient the icon relative to the text
   &-icon-left {
     a {
       flex-flow: row nowrap;
@@ -69,6 +76,9 @@ $icon-bar-border-color: rgba(255,255,255,0.3);
   }
 }
 
+/*
+  Mixins
+*/
 @mixin menu-bar($icon-position: top) {
   @extend %menu-bar;
 
@@ -76,22 +86,27 @@ $icon-bar-border-color: rgba(255,255,255,0.3);
     @extend %icon-#{$icon-position};
   }
 }
+// Converts the horizontal menu bar into a vertical one
 @mixin vertical-menu-bar {
-  &-vertical {
-    flex-flow: column nowrap;
+  // Converting a flexbox row to column is the basic way to get it done
+  flex-flow: column nowrap;
 
-    a {
-      flex-flow: row nowrap;
-      border-left: none;
-      border-bottom: 1px solid $icon-bar-border-color;
+  a {
+    // By default the icon/text is side-by-side
+    flex-flow: row nowrap;
+    border-left: none;
 
-      &:last-child { border-botto: none; }
-      span { margin-top: 0; }
-      img + span { margin-left: 1rem; }
-    }
+    border-bottom: 1px solid $icon-bar-border-color;
+    &:last-child { border-botto: none; }
+    
+    span { margin-top: 0; }
+    img + span { margin-left: 1rem; }
   }
 }
 
+/*
+  CSS output
+*/
 .icon-bar {
   @include menu-bar;
 
