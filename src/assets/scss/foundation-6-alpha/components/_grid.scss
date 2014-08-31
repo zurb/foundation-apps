@@ -13,14 +13,13 @@
 	overflow: hidden;
 	position: relative;
 
+	// Orientation classes
 	&.vertical, &.small-vertical { 
 		flex-flow: column nowrap; 
 	}
-
 	&.horizontal, &.small-horizontal { 
 		flex-flow: row nowrap;
 	}
-	
 	@media #{$medium-up} {
 		&.medium-vertical { flex-flow: column nowrap; }
 		&.medium-horizontal { flex-flow: row nowrap; }
@@ -36,7 +35,8 @@
 	margin: 0 auto;
 }
 
-.block, .group {
+// This prevents flicker when grid items shift around
+.frame, .block, .group {
 	transition: all 300ms ease;
 	backface-visibility: hidden;
 }
@@ -229,6 +229,16 @@ img { max-width: 100%; }
 	CSS output
 */
 
+// This mixin prepends a string to a selector
+@mixin prepend($str) {
+	// This strips the period off the parent selector
+	$sel: str_slice(inspect(nth(&, 1)), 2);
+
+	.#{$str + '-' + $sel} {
+		@content;
+	}
+}
+
 .panel {
 	@include panel-base;
 
@@ -244,18 +254,15 @@ img { max-width: 100%; }
 	&-left {
 		@include panel-position(left);
 	}
-}
-.small-panel {
-	@include panel-base;
-}
-@media #{$medium-up} {
-	.medium-panel {
-		@include panel;
-	}
-}
-@media #{$large-up} {
-	.large-panel {
-		@include panel;
+
+	@each $size, $breakpoint in ('small': $small-up, 'medium': $medium-up, 'large': $large-up) {
+		@at-root {
+			@media #{$breakpoint} {
+				@include prepend($size) {
+					@include panel-base;	
+				}
+			}
+		}
 	}
 }
 
