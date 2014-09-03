@@ -1,6 +1,28 @@
 {
   "name": "foundation-libsass-template",
   "version": "0.0.1",
+  "description": "Foundation for Apps.",
+  "main": "Gruntfile.js",
+  "scripts": {
+    "postinstall": "bower install",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zurb/foundation-apps"
+  },
+  "keywords": [
+    "Foundation",
+    "Zurb",
+    "responsive",
+    "apps",
+    "applications"
+  ],
+  "author": "Zurb",
+  "bugs": {
+    "url": "https://github.com/zurb/foundation-apps/issues"
+  },
+  "homepage": "https://github.com/zurb/foundation-apps",
   "devDependencies": {
     "node-sass": "~0.8.0",
     "grunt": "~0.4.1",
@@ -16,5 +38,5 @@
   },
   "dependencies": {
     "highlight.js": "~7.5.0"
-  }
+  },
 }
