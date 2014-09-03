@@ -415,8 +415,8 @@ $cursor-text-value: text !default;
     }
 
     // Miscellaneous useful HTML classes
-    .left   { float: left !important; }
-    .right  { float: right !important; }
+    // .left   { float: left !important; }
+    // .right  { float: right !important; }
     .clearfix     { @include clearfix; }
     .hide         { display: none; }
 

@@ -1,0 +1,125 @@
+/*
+  Off-canvas panels
+*/
+@mixin panel-base($direction: left, $speed: 0.25s) {
+  display: block;
+  position: absolute;
+  transition: transform $speed linear;
+  z-index: 100;
+  overflow-y: scroll;
+  padding: 1rem;
+  background: #eee;
+
+  // Box shadows
+  $shadow-distance: 3px;
+  $shadow-size: 10px;
+  $shadow-color: rgba(black, 0.25);
+
+  &.is-active {
+    @if $direction == left        { box-shadow: $shadow-distance 0 $shadow-size $shadow-color; }
+    @else if $direction == right  { box-shadow: -$shadow-distance 0 $shadow-size $shadow-color; }
+    @else if $direction == top    { box-shadow: 0 $shadow-distance $shadow-size $shadow-color; }
+    @else if $direction == bottom { box-shadow: 0 -$shadow-distance $shadow-size $shadow-color; }
+  }
+}
+@mixin panel-position($direction: left, $size: 300px) {
+  @if $direction == top {
+    top: 0;
+    left: 0;
+    width: 100%;
+    transform: translateY(-100%);
+
+    &.is-active {
+      transform: translateY(0%);
+    }
+  }
+  @else if $direction == right {
+    top: 0;
+    right: 0;
+    height: 100%;
+    transform: translateX(100%);
+
+    &.is-active {
+      transform: translateX(0%);
+    }
+  }
+  @else if $direction == bottom {
+    bottom: 0;
+    left: 0;
+    height: 100%;
+    transform: translateX(-100%);
+
+    &.is-active {
+      transform: translateX(0%);
+    }
+  }
+  @else if $direction == left {
+    top: 0;
+    left: 0;
+    height: 100%;
+    transform: translateX(-100%);
+
+    &.is-active {
+      transform: translateX(0%);
+    }
+  }
+}
+@mixin panel-size($direction: left, $size: 300px) {
+  // Vertical panels are always all the way tall and have a set width
+  @if $direction == left or $direction == right {
+    width: 100%;
+    @media screen and (min-width: rem-calc($size)) {
+      width: $size;
+    }
+  }
+  // (For now) horizontal panels are as big as they need to be
+  @if $direction == top or $direction == bottom {
+    height: $size;
+  }
+}
+@mixin panel($direction: left, $speed: 0.25s, $size: 300px) {
+  @include panel-base($direction, $speed);
+  @include panel-position($direction);
+  @include panel-size($direction, $size);
+}
+
+/*
+  CSS output
+*/
+
+// This mixin prepends a string to a selector
+@mixin prepend($str) {
+  // This strips the period off the parent selector
+  $sel: str_slice(inspect(nth(&, 1)), 2);
+
+  .#{$str + '-' + $sel} {
+    @content;
+  }
+}
+
+.panel {
+  @include panel-base;
+
+  &-top {
+    @include panel-position(top, auto);
+  }
+  &-right {
+    @include panel-position(right);
+  }
+  &-bottom {
+    @include panel-position(bottom, auto);
+  }
+  &-left {
+    @include panel-position(left);
+  }
+
+  @each $size, $breakpoint in ('small': $small-up, 'medium': $medium-up, 'large': $large-up) {
+    @at-root {
+      @media #{$breakpoint} {
+        @include prepend($size) {
+          @include panel-base;  
+        }
+      }
+    }
+  }
+}

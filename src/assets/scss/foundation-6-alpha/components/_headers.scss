@@ -67,3 +67,25 @@ $fixed-right: false !default;
 	&>.remainder { width: 100%; }
 
 }
+
+.menu-bar {
+	$height: 60px;
+	display: flex;
+	flex: 0 0 auto;
+	justify-content: space-between;
+	background: $primary-color;
+
+	&, a, a:hover {
+		color: white;
+	}
+
+	.left {
+		order: 0;
+	}
+	.center {
+		order: 1;
+	}
+	.right {
+		order: 2;
+	}
+}

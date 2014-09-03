@@ -9,3 +9,19 @@
     color: #333;
   }
 }
+
+%thumbnail {
+  padding: 0.5rem;
+  box-shadow: 0 3px 15px rgba(black, 0.25);
+}
+
+img {
+  max-width: 100%;
+
+  &.thumbnail {
+    @extend %thumbnail;
+  }
+}
+ul.thumbnails > li > img {
+  @extend %thumbnail;
+}
