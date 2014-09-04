@@ -126,7 +126,7 @@
 	margin-right: -0.5rem;
 
 	// By default, each item only takes up as much space as it needs
-	> div, > li {
+	> div, > section, > li {
 		@extend .block;
 		flex: 0 0 auto;
 		padding: 0.5rem;
@@ -135,7 +135,7 @@
 	@each $size, $breakpoint in ('small': $small-up, 'medium': $medium-up, 'large': $large-up) {
 		@for $i from 1 through 6 {
 			&.#{$size}-#{$i} {
-				> div, > li {
+				> div, > section, > li {
 					flex-basis: percentage(1 / $i)
 				}
 			}
