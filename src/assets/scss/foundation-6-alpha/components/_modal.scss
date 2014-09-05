@@ -1,0 +1,40 @@
+.modal-overlay {
+	display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 9998;
+  background-color: rgba($primary-color, .8) ;
+  opacity: 0;
+  -webkit-transition: opacity 0.4s;
+
+  &.is-active {
+		display: block;
+		opacity: 1;
+  }
+}
+
+.modal {
+	display: none;
+  position: fixed;
+  left: 50%;
+  z-index: 9999;
+  width: 600px;
+  margin: 0 0 0 -300px;
+  padding: 0;
+  background: #fff;
+  opacity: 0;
+  overflow: visible;
+  -webkit-transform: scale3d(0.9,0.9,1);
+  -moz-transform: scale(0.9);
+  transform: scale(0.9);
+  -webkit-transition: opacity,-webkit-transform 0.2s,0.2s;
+	&.is-active {
+		display: block !important;
+		opacity: 1;
+    top: 50%;
+  	transform: translateY(-50%);
+	}
+}

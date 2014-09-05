@@ -32,10 +32,10 @@ $icon-bar-border-color: rgba(255,255,255,0.3);
       flex-flow: column nowrap;
       align-self: center;
       align-items: center;
-      padding: 1rem;
+      padding: .25rem;
       color: white;
       line-height: 1;
-
+      font-size:.75rem;
       &:hover {
         background: $icon-bar-hover-bg;
       }
@@ -47,7 +47,7 @@ $icon-bar-border-color: rgba(255,255,255,0.3);
 
       // Add spacing when there's an icon and text
       & + span {
-        margin-top: 0.5rem;
+        margin-top: 0.25rem;
       }
     }
   }

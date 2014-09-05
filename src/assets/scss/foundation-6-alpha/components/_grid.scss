@@ -129,7 +129,7 @@
 	> div, > section, > li {
 		@extend .block;
 		flex: 0 0 auto;
-		padding: 0.5rem;
+		padding: 1rem;
 	}
 	// Sizing classes
 	@each $size, $breakpoint in ('small': $small-up, 'medium': $medium-up, 'large': $large-up) {
