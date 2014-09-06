@@ -22,7 +22,6 @@
   left: 50%;
   z-index: 9999;
   width: 600px;
-  margin: 0 0 0 -300px;
   padding: 0;
   background: #fff;
   opacity: 0;
@@ -35,6 +34,39 @@
 		display: block !important;
 		opacity: 1;
     top: 50%;
-  	transform: translateY(-50%);
+    left: 50%;
+  	transform: translateY(-50%) translateX(-50%);
 	}
+
+  .modal-header {
+    background: $primary-color;
+    padding: 1rem;
+    position: relative;
+    .close {
+      position: absolute;
+      right:0;
+      top:0;
+      padding: 25px;
+    }
+  }
+
+  .modal-content {
+    padding: 1rem;
+  }
+
+  .modal-footer {
+    padding: 1rem;
+  }
 }
+
+
+
+
+
+
+
+
+
+
+
+
