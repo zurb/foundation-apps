@@ -4,6 +4,10 @@
 	THE GRID
 */
 
+body {
+	// overflow: hidden;
+}
+
 /*
 	Frames are containers that stretch to the full dimmensions of the browser window.
 */
@@ -13,7 +17,7 @@
 	margin: 0;
 	padding: 0;
 	position: relative;
-	flex-flow: row nowrap; 
+	flex-flow: row nowrap;
 	overflow: hidden;
 }
 // Containers imitate the sizing of old Foundation rows.
@@ -29,7 +33,6 @@
 	@extend .frame;
 	height: auto;
 	flex: 1 1 auto;
-	align-items: stretch;
 }
 
 /*
@@ -51,7 +54,7 @@
 	height: auto !important;
 	z-index: auto !important;
 	box-shadow: none !important;
-	background: transparent;
+	background: transparent !important;
 
 	// Scrollable block
 	&.scrollable {
@@ -82,20 +85,58 @@
 	}
 }
 
-// Re-orient the grid
 .frame, .group {
+	// Orientation classes
 	&.vertical, &.small-vertical {
 		flex-direction: column;
 	}
 	@media #{$medium-up} {
+		&.medium-horizontal {
+			flex-direction: row;
+		}
 		&.medium-vertical {
 			flex-direction: column;
 		}
 	}
 	@media #{$large-up} {
+		&.medium-horizontal {
+			flex-direction: row;
+		}
 		&.large-vertical {
 			flex-direction: column;
 		}
+	}
+
+	// Offsets
+	@each $size, $breakpoint in ('small': $small-up, 'medium': $medium-up, 'large': $large-up) {
+		@for $i from 1 through 11 {
+			&.#{$size}-offset-#{$i} {
+				margin-left: percentage(1 / $i);
+				.vertical > &.#{$size}-offset-#{$i} {
+					margin-left: 0;
+					margin-top: percentage(1 / $i);
+				}
+			}
+		}
+	}
+
+	// Block alignment
+	&.align-right {
+		justify-content: flex-end;
+	}
+	&.align-center {
+		justify-content: center;
+	}
+	&.align-justify {
+		justify-content: space-between;
+	}
+	&.align-spaced {
+		justify-content: space-around;
+	}
+
+	// Stretch children along cross-axis
+	&.stretch {
+		align-items: stretch;
 	}
 }
 
@@ -149,7 +190,7 @@
 		@media #{$breakpoint} {
 			// Block sizing
 			.#{$size}-#{$i} {
-				flex: 0 0 percentage($i / $total-columns);
+				flex: 0 1 percentage($i / $total-columns);
 			}
 			// Block ordering
 			.#{$size}-order-#{$i} {

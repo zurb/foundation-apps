@@ -4,7 +4,9 @@
 
 // PH
 body {
-	// overflow: hidden;
+	&.has-off-canvas {
+		// overflow: hidden;
+	}
 }
 
 // Alternate off-canvas
