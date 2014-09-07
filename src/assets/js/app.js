@@ -98,6 +98,7 @@ $('[data-panel-toggle]').click(function() {
 // Popup menus
 $('[data-popup-toggle]').click(function() {
   $(this).next('[data-popup]').toggleClass('is-active');
+  return false;
 });
 
 // Off-canvas
