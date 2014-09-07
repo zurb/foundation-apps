@@ -73,7 +73,7 @@ $fixed-right: false !default;
 	display: flex;
 	flex: 0 0 auto;
 	justify-content: space-between;
-	background: $primary-color;
+	background: $primary-color !important;
 
 	&, a, a:hover {
 		color: white;

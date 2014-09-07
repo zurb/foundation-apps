@@ -17,13 +17,8 @@ body {
 	margin: 0;
 	padding: 0;
 	position: relative;
-	flex-flow: row nowrap;
+	flex-flow: row wrap;
 	overflow: hidden;
-}
-// Containers imitate the sizing of old Foundation rows.
-.container {
-	max-width: 1000px;
-	margin: 0 auto;
 }
 
 /*
@@ -33,6 +28,12 @@ body {
 	@extend .frame;
 	height: auto;
 	flex: 1 1 auto;
+
+	// Containers imitate the sizing of old Foundation rows.
+	&.container {
+		max-width: 1200px;
+		margin: 0 auto;
+	}
 }
 
 /*
@@ -88,22 +89,22 @@ body {
 .frame, .group {
 	// Orientation classes
 	&.vertical, &.small-vertical {
-		flex-direction: column;
+		flex-flow: column nowrap;
 	}
 	@media #{$medium-up} {
 		&.medium-horizontal {
-			flex-direction: row;
+			flex-flow: row wrap;
 		}
 		&.medium-vertical {
-			flex-direction: column;
+			flex-flow: column nowrap;
 		}
 	}
 	@media #{$large-up} {
 		&.medium-horizontal {
-			flex-direction: row;
+			flex-flow: row wrap;
 		}
 		&.large-vertical {
-			flex-direction: column;
+			flex-flow: column nowrap;
 		}
 	}
 
@@ -147,6 +148,13 @@ body {
 	}
 }
 
+.group {
+	&.nested {
+		margin-left: -1rem;
+		margin-right: -1rem;
+	}
+}
+
 // This prevents flicker when grid items shift around
 .frame, .group, .block {
 	transition: all 300ms ease;
@@ -158,7 +166,6 @@ body {
 */
 .block-grid {
 	@extend .group;
-	flex-wrap: wrap;
 	justify-content: flex-start;
 	align-items: flex-start;
 
@@ -190,7 +197,7 @@ body {
 		@media #{$breakpoint} {
 			// Block sizing
 			.#{$size}-#{$i} {
-				flex: 0 1 percentage($i / $total-columns);
+				flex: 0 0 percentage($i / $total-columns);
 			}
 			// Block ordering
 			.#{$size}-order-#{$i} {
