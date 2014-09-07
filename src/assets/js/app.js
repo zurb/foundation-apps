@@ -109,6 +109,7 @@ $('[data-offcanvas-toggle]').click(function(event) {
   $targetCanvas.toggleClass('is-active');
   // Close other menus
   $('[data-offcanvas]').not($targetCanvas).removeClass('is-active');
+  return false;
 });
 // Desired behavior: all click events are disabled while an off-canvas menu is open
 // Instead the click just closes the open menu

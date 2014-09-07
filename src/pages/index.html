@@ -103,6 +103,43 @@
     <section>
       <h4>Off-canvas</h4>
       <p>Off-canvas containers sit at the root level of your app to the left, right, top, or bottom. They are similar to panels, except the entire frame of your app shifts to display the off-canvas menu.</p>
+
+      <div class="docs-example-ofc">
+        <div class="ofc" id="docs-ofc" data-offcanvas>
+          <div class="block-list">
+            <ul>
+              <li><a href="#">Home</a></li>
+              <li><a href="#">Work</a></li>
+              <li><a href="#">About</a></li>
+              <li><a href="#">Contact</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="ofc ofc-right" id="docs-ofc-right" data-offcanvas>
+          <div class="block-list">
+            <ul>
+              <li><a href="#">Friends</a></li>
+              <li><a href="#">Acquaintances</a></li>
+              <li><a href="#">Family</a></li>
+              <li><a href="#">People You Can't Unfriend</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="ofc ofc-top" id="docs-ofc-top" data-offcanvas>
+          <p>Top off-canvas</p>
+        </div>
+        <div class="ofc ofc-bottom" id="docs-ofc-bottom" data-offcanvas>
+          <p>Bottom off-canvas</p>
+        </div>
+        <div class="frame">
+          <div class="block">
+            <a href="#" class="button" data-offcanvas-toggle="docs-ofc">Left off-canvas</a>
+            <a href="#" class="button" data-offcanvas-toggle="docs-ofc-right">Right off-canvas</a>
+            <a href="#" class="button" data-offcanvas-toggle="docs-ofc-bottom">Bottom off-canvas</a>
+            <a href="#" class="button" data-offcanvas-toggle="docs-ofc-top">Top off-canvas</a>
+          </div>
+        </div>
+      </div>
     </section>
     <section>
       <h4>Block lists</h4>

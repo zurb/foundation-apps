@@ -47,6 +47,41 @@
     &-panel {
       width: 400px;
     }
+    &-ofc {
+      border: 1px solid #ccc;
+      position: relative;
+      height: 200px;
+      overflow: hidden;
+
+      .frame {
+        height: 100%;
+      }
+      .block {
+        display: flex;
+        flex: row wrap;
+        align-items: center;
+        justify-content: center;
+      }
+      .button {
+        margin: 1em;
+      }
+      .ofc-top, .ofc-bottom {
+        height: 50px;
+        p {
+          color: #fff;
+          font-weight: bold;
+          text-align: center;
+          line-height: 50px;
+          margin: 0;
+        }
+      }
+      .ofc-top {
+        &.is-active ~ .frame { transform: translateY(50px); }
+      }
+      .ofc-bottom {
+        &.is-active ~ .frame { transform: translateY(-50px); }
+      }
+    }
   }
 }
 
