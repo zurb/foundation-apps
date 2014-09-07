@@ -143,3 +143,69 @@ form, form>* {
     }
   }
 }
+
+%no-appearance {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+}
+
+// Range sliders
+input[type="range"] {
+  $thumb-color: $primary-color;
+  $thumb-height: 16px;
+
+  @extend %no-appearance;
+  max-width: 300px;
+  height: 4px;
+  background: #ccc;
+  cursor: pointer;
+
+  &:focus {
+    outline: 0;
+  }
+
+  // Chrome/Safari
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    background: $thumb-color;
+    border-radius: 1000px;;
+    width: $thumb-height;
+    height: $thumb-height;
+  }
+  // Firefox
+  &::-moz-range-track {
+    -moz-appearance: none;
+    max-width: 300px;
+    height: 4px;
+    background: #ccc;
+    cursor: pointer;
+  }
+  &::-moz-range-thumb {
+    -moz-appearance: none;
+    background: $thumb-color;
+    border-radius: 1000px;
+    width: $thumb-height;
+    height: $thumb-height;
+  }
+  // Internet Explorer
+  &::-ms-track {
+    max-width: 300px;
+    height: 4px;
+    background: #ccc;
+    cursor: pointer;
+  }
+  &::-ms-thumb {
+    background: $thumb-color;
+    border-radius: 1000px;
+    width: $thumb-height;
+    height: $thumb-height;
+  }
+
+  @at-root {
+    output {
+      line-height: $thumb-height;
+      vertical-align: middle;
+      margin-left: 0.5em;
+    }
+  }
+}
