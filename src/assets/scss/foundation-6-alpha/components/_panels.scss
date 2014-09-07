@@ -1,14 +1,14 @@
 /*
   Off-canvas panels
 */
-@mixin panel-base($direction: left, $speed: 0.25s) {
+@mixin panel-base($direction: left, $speed: 0.25s) {  
   display: block;
   position: absolute;
   transition: transform $speed linear;
   z-index: 100;
   overflow-y: scroll;
   padding: 1rem;
-  background: #eee;
+  background: #fff;
 
   // Box shadows
   $shadow-distance: 3px;
@@ -117,7 +117,7 @@
     position: fixed;
   }
 
-  @each $size, $breakpoint in ('small': $small-up, 'medium': $medium-up, 'large': $large-up) {
+  @each $size, $breakpoint in ('medium': $medium-up, 'large': $large-up) {
     @at-root {
       @media #{$breakpoint} {
         @include prepend($size) {

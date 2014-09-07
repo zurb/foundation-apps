@@ -1,4 +1,12 @@
 .docs {
+  // Header
+  &-header {
+    background: #073c56;
+    margin-bottom: 1em;
+
+    &, h1, { color: white; }
+  }
+
   // Sidebar
   &-sidebar {
     background: #f8f8f8;
