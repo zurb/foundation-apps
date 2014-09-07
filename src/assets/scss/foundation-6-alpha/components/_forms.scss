@@ -209,3 +209,74 @@ input[type="range"] {
     }
   }
 }
+
+// Number inputs
+input[type="number"] {
+  &::-webkit-inner-spin-button {
+
+  }
+  &::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    background: $primary-color;
+  }
+}
+
+// Progress and meter
+progress, meter {
+  $background: #ccc;
+  $meter-fill: $primary-color;
+  $high-color: $success-color;
+  $medium-color: #e7cf00;
+  $low-color: $alert-color;
+
+  @extend %no-appearance;
+  width: 100%;
+  max-width: 200px;
+  height: 1em;
+
+  // For Firefox
+  background: $background;
+  border: 0;
+
+  @at-root {
+    progress {
+      &::-webkit-progress-bar {
+        background: $background;
+      }
+      &::-webkit-progress-value {
+        background: $primary-color;
+      }
+      &::-moz-progress-bar {
+        background: $primary-color;
+      }
+    }
+    meter {
+      // Chrome/Safari
+      &::-webkit-meter-bar {
+        background: $background;
+      }
+      &::-webkit-meter-optimum-value {
+        background: $high-color;
+      }
+      &::-webkit-meter-suboptimum-value {
+        background: $medium-color;
+      }
+      &::-webkit-meter-even-less-good-value {
+        background: $low-color;
+      }
+
+      &::-moz-meter-bar {
+        background: $primary-color;
+      }
+      &:-moz-meter-optimum::-moz-meter-bar {
+        background: $high-color;
+      }
+      &:-moz-meter-sub-optimum::-moz-meter-bar {
+        background: $medium-color;
+      }
+      &:-moz-meter-sub-sub-optimum::-moz-meter-bar {
+        background: $low-color;
+      }
+    }
+  }
+}
