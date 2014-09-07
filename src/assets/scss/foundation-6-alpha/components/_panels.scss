@@ -113,6 +113,10 @@
     @include panel-position(left);
   }
 
+  &-fixed {
+    position: fixed;
+  }
+
   @each $size, $breakpoint in ('small': $small-up, 'medium': $medium-up, 'large': $large-up) {
     @at-root {
       @media #{$breakpoint} {
