@@ -19,6 +19,46 @@ body {
 	position: relative;
 	flex-flow: row wrap;
 	overflow: hidden;
+
+	// Orientation classes
+	&.vertical, &.small-vertical {
+		flex-flow: column nowrap;
+	}
+	@media #{$medium-up} {
+		&.medium-horizontal {
+			flex-flow: row wrap;
+		}
+		&.medium-vertical {
+			flex-flow: column nowrap;
+		}
+	}
+	@media #{$large-up} {
+		&.medium-horizontal {
+			flex-flow: row wrap;
+		}
+		&.large-vertical {
+			flex-flow: column nowrap;
+		}
+	}
+
+	// Block alignment
+	&.align-right {
+		justify-content: flex-end;
+	}
+	&.align-center {
+		justify-content: center;
+	}
+	&.align-justify {
+		justify-content: space-between;
+	}
+	&.align-spaced {
+		justify-content: space-around;
+	}
+
+	// Stretch children along cross-axis
+	&.stretch {
+		align-items: stretch;
+	}
 }
 
 /*
@@ -33,6 +73,12 @@ body {
 	&.container {
 		max-width: 1200px;
 		margin: 0 auto;
+	}
+
+	// Collapse margins when a group is not the direct child of a block
+	&.nested {
+		margin-left: -1rem;
+		margin-right: -1rem;
 	}
 }
 
@@ -86,26 +132,10 @@ body {
 	}
 }
 
-.frame, .group {
-	// Orientation classes
-	&.vertical, &.small-vertical {
-		flex-flow: column nowrap;
-	}
-	@media #{$medium-up} {
-		&.medium-horizontal {
-			flex-flow: row wrap;
-		}
-		&.medium-vertical {
-			flex-flow: column nowrap;
-		}
-	}
-	@media #{$large-up} {
-		&.medium-horizontal {
-			flex-flow: row wrap;
-		}
-		&.large-vertical {
-			flex-flow: column nowrap;
-		}
+.group, .block {
+	// Shrink a flex item so it only takes up the space it needs
+	&.shrink {
+		flex: 0 0 auto;
 	}
 
 	// Offsets
@@ -119,39 +149,6 @@ body {
 				}
 			}
 		}
-	}
-
-	// Block alignment
-	&.align-right {
-		justify-content: flex-end;
-	}
-	&.align-center {
-		justify-content: center;
-	}
-	&.align-justify {
-		justify-content: space-between;
-	}
-	&.align-spaced {
-		justify-content: space-around;
-	}
-
-	// Stretch children along cross-axis
-	&.stretch {
-		align-items: stretch;
-	}
-}
-
-// Shrink a flex item so it only takes up the space it needs
-.group, .block {
-	&.shrink {
-		flex: 0 0 auto;
-	}
-}
-
-.group {
-	&.nested {
-		margin-left: -1rem;
-		margin-right: -1rem;
 	}
 }
 
@@ -182,7 +179,7 @@ body {
 	// Sizing classes
 	@each $size, $breakpoint in ('small': $small-up, 'medium': $medium-up, 'large': $large-up) {
 		@for $i from 1 through 6 {
-			&.#{$size}-#{$i} {
+			&.#{$size}-#{$i}-up {
 				> div, > section, > li {
 					flex-basis: percentage(1 / $i)
 				}
