@@ -3,7 +3,7 @@
 
 // Vertical alignment classes, hat tip to Solved with Flexbox. http://philipwalton.github.io/solved-by-flexbox/demos/vertical-centering/
 
-.v-aligner {
+.v-align {
 	display: flex;
 	align-items: center;
 	// justify-content: center;
@@ -23,13 +23,9 @@
 	}
 }
 
-.h-aligner {
+.h-align {
 	margin: 0 auto;
 	display: block;
-}
-
-.fit-to-content {
-	overflow-y: auto;
 }
 
 $breakpoints: (
@@ -39,15 +35,24 @@ $breakpoints: (
 );
 
 // Visibility
+.hide {
+  display: none;
+}
 @each $size, $breakpoint in $breakpoints {
   @media #{nth($breakpoint, 1)} {
     .hide-for-#{$size} {
       display: none;
     }
+    .show-for-#{$size} {
+      display: block;
+    }
   }
   @media #{nth($breakpoint, 2)} {
     .hide-for-#{$size}-only {
       display: none;
+    }
+    .show-for-#{$size}-only {
+      display: block;
     }
   }
 }
