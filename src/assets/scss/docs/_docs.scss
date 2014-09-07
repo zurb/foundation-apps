@@ -1,3 +1,47 @@
+.docs {
+  // Sidebar
+  &-sidebar {
+    background: #f8f8f8;
+    border: 1px solid #ccc;
+    padding: 1em;
+    border-radius: 8px;
+
+    .block-list {
+      margin-left: -1rem;
+      margin-right: -1rem;
+      > ul { background: #fff; }
+    }
+  }
+  // Container for examples
+  &-component-overview {
+    overflow: visible;
+
+    > section {
+      margin-bottom: 2em;
+    }
+  }
+  // Component examples
+  &-example {
+    &-grid {
+      text-align: center;
+
+      .group {
+        padding: 1em;
+      }
+      .group, .block {
+        border: 1px solid #ccc;
+      }
+      .small-12 {
+        padding-top: 0;
+        border: 0;
+      }
+    }
+    &-panel {
+      width: 400px;
+    }
+  }
+}
+
 #docs {
 	background: rgb(7,60,86);
 	margin-bottom: 3rem;
