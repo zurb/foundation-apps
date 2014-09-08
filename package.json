@@ -1,7 +1,7 @@
 {
-  "name": "foundation-libsass-template",
+  "name": "foundation-apps",
   "version": "0.0.1",
-  "description": "Foundation for Apps.",
+  "description": "Foundation for Apps",
   "main": "Gruntfile.js",
   "scripts": {
     "postinstall": "bower install",
@@ -13,12 +13,12 @@
   },
   "keywords": [
     "Foundation",
-    "Zurb",
+    "ZURB",
     "responsive",
     "apps",
     "applications"
   ],
-  "author": "Zurb",
+  "author": "ZURB",
   "bugs": {
     "url": "https://github.com/zurb/foundation-apps/issues"
   },
