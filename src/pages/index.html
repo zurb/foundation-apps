@@ -4,12 +4,6 @@
   </div>
 </div></div>
 
-<div class="panel panel-left panel-fixed docs-example-panel" id="docs-panel" data-panel>
-  <h3>I'm a panel!</h3>
-  <p>This particular panel is standalone, but panels can be converted into grid blocks and vice-versa.</p>
-  <a href="#" class="button" data-panel-toggle>Close panel</a>
-</div>
-
 <div class="container group">
   <!-- Sidebar -->
   <div class="panel panel-left medium-block medium-4 large-3">
@@ -76,16 +70,28 @@
       <div class="docs-example-grid">
         <div class="group">
           <div class="small-12 block">Group</div>
-          <div class="block">Block</div>
-          <div class="block">Block</div>
-          <div class="block">Block</div>
+          <div class="block"><p>Block</p></div>
+          <div class="block"><p>Block</p></div>
+          <div class="block"><p>Block</p></div>
         </div>
       </div>
     </section>
     <section>
       <h4>Panels</h4>
       <p>Panels are frames that slide in from the top, left, bottom, or right of the screen and appear over the interface. Grid blocks can also transform into panels, allowing you to hide content off-canvas on smaller screens.</p>
-      <a href="#" class="button" data-panel-toggle="docs-panel">Show Panel</a>
+
+      <div class="docs-example-panels group">
+        <div class="panel panel-left" id="docs-panel-left" data-panel>Left panel</div>
+        <div class="panel panel-right" id="docs-panel-right" data-panel>Right panel</div>
+        <div class="panel panel-top" id="docs-panel-top" data-panel>Top panel</div>
+        <div class="panel panel-bottom" id="docs-panel-bottom" data-panel>Bottom panel</div>
+        <div class="block">
+          <a href="#" class="button" data-panel-toggle="docs-panel-left">Left panel</a>
+          <a href="#" class="button" data-panel-toggle="docs-panel-right">Right panel</a>
+          <a href="#" class="button" data-panel-toggle="docs-panel-bottom">Bottom panel</a>
+          <a href="#" class="button" data-panel-toggle="docs-panel-top">Top panel</a>
+        </div>
+      </div>
     </section>
     <section>
       <h4>Block Grid</h4>

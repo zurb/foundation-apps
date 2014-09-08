@@ -32,20 +32,47 @@
   &-example {
     &-grid {
       text-align: center;
+      border: 1px solid #ccc;
 
-      .group {
-        padding: 1em;
-      }
-      .group, .block {
-        border: 1px solid #ccc;
-      }
       .small-12 {
-        padding-top: 0;
+        padding-bottom: 0;
         border: 0;
       }
+      .block {
+        display: flex;
+        justify-content: center;
+        align-items: stretch;
+      }
+      p {
+        background: #eee;
+        width: 100%;
+        text-align: center;
+        margin: 0;
+        padding: 1em;
+      }
     }
-    &-panel {
-      width: 400px;
+    &-panels {
+      border: 1px solid #ccc;
+      position: relative;
+      height: 200px;
+
+      .block {
+        display: flex;
+        flex: row wrap;
+        align-self: stretch;
+        align-items: center;
+        justify-content: center;
+      }
+      .button {
+        margin: 1em;
+      }
+      .panel {
+        background: #eee;
+
+        &-top, &-bottom {
+          text-align: center;
+        }
+      }
     }
     &-ofc {
       border: 1px solid #ccc;

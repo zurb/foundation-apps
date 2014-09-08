@@ -46,11 +46,11 @@
   @else if $direction == bottom {
     bottom: 0;
     left: 0;
-    height: 100%;
-    transform: translateX(-100%);
+    width: 100%;
+    transform: translateY(100%);
 
     &.is-active {
-      transform: translateX(0%);
+      transform: translateY(0%);
     }
   }
   @else if $direction == left {
