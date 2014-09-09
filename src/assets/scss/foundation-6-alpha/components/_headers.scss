@@ -72,20 +72,45 @@ $fixed-right: false !default;
 	$height: 60px;
 	display: flex;
 	flex: 0 0 auto;
-	justify-content: space-between;
-	background: $primary-color !important;
+	justify-content: flex-start;
+	align-items: center;
+	background: #eee !important;
+	border-bottom: 1px solid #ccc;
 
-	&, a, a:hover {
-		color: white;
+	&.menu-bar-bottom {
+		border-bottom: 0;
+		border-top: 1px solid #ccc;
+	}
+
+	.title {
+		font-weight: bold;
+	}
+
+	.left, .center, .right {
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
 	}
 
 	.left {
-		order: 0;
+		order: 1;
+		flex: 0 0 25%;
 	}
 	.center {
-		order: 1;
+		order: 2;
+		flex: 0 0 50%;
+		text-align: center;
 	}
 	.right {
-		order: 2;
+		order: 3;
+		flex: 0 0 25%;
+		text-align: right;
+	}
+
+	.left:first-child {
+		flex: 1 1 auto;
+	}
+	.left:first-child + .right:last-child {
+		flex: 1 1 auto;
 	}
 }
