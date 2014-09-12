@@ -33,9 +33,11 @@
 	&.is-active {
 		display: block !important;
 		opacity: 1;
-    top: 50%;
-    left: 50%;
-  	transform: translateY(-50%) translateX(-50%);
+    @media #{$medium-up} {
+      top: 50%;
+      left: 50%;
+      transform: translateY(-50%) translateX(-50%);
+    }
 	}
 
   .modal-header {
@@ -58,15 +60,3 @@
     padding: 1rem;
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
