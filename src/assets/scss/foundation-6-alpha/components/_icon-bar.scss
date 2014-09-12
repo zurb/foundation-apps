@@ -21,9 +21,14 @@ $icon-bar-border-color: rgba(255,255,255,0.3);
     flex: 1 0 0px;
 
     // Borders
-    border-right: 1px solid $icon-bar-border-color;
-    &:last-child {
-      border-right: none;
+    border-left: 1px solid $icon-bar-border-color;
+    &:first-child {
+      border-left: none;
+    }
+    &:hover {
+      &, & + li {
+        border-color: $primary-color;
+      }
     }
 
     // Link inside menu item
