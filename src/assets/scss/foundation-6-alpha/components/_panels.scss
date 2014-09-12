@@ -92,8 +92,10 @@
   // This strips the period off the parent selector
   $sel: str_slice(inspect(nth(&, 1)), 2);
 
-  .#{$str + '-' + $sel} {
-    @content;
+  @at-root {
+    .#{$str + '-' + $sel} {
+      @content;
+    }
   }
 }
 
@@ -118,11 +120,9 @@
   }
 
   @each $size, $breakpoint in ('medium': $medium-up, 'large': $large-up) {
-    @at-root {
-      @media #{$breakpoint} {
-        @include prepend($size) {
-          @include panel-base;  
-        }
+    @media #{$breakpoint} {
+      @include prepend($size) {
+        @include panel-base;  
       }
     }
   }
