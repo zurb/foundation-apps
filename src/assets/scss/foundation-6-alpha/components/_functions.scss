@@ -53,6 +53,21 @@ $modules: () !default;
   @return '[data-' + $attr + ']';
 }
 
+// $breakpoints: ('small': $small-up, 'medium': $medium-up, 'large': $large-up);
+// Mixin to generate sizing classes
+@mixin each-breakpoint() {
+  @each $size, $breakpoint in $breakpoints {
+    @if ($size == 'small') {
+      @content;
+    }
+    @else {
+      @media #{$breakpoint} {
+        @content;
+      }
+    }
+  }
+}
+
 // REM CALC 
 
 // New Syntax, allows to optionally calculate on a different base value to counter compounding effect of rem's.
