@@ -23,6 +23,17 @@ $colors: (
 
 // Container
 .block-list {
+  // Colors
+  $bg-color: #fff;
+  $light: if(lightness($bg-color) > 50%, true, false);
+  
+  // Generated colors
+  $border-color: scale-color($bg-color, $lightness: if($light, -20%, -17%));
+  $highlight-color: scale-color($bg-color, $lightness: if($light, -3%, 6%));
+  $text-color: if($light, #000, #fff);
+  $header-color: scale-color($text-color, $lightness: if($light, 40%, -40%));
+  $label-color: scale-color($text-color, $lightness: 60%);
+
   $padding: 0.8rem;
   $left-padding: 1rem;
   $font-size: 1rem;
@@ -33,6 +44,7 @@ $colors: (
   font-size: $font-size;
   line-height: 1;
   user-select: none;
+  background: $bg-color;
 
   // Stretch to the edge of a block
   .block > &, .small-block > &, .medium-block > &, .large-block > &,
@@ -43,9 +55,9 @@ $colors: (
 
   // Title of list (optional)
   header {
-    margin-top: 1rem;
+    margin-top: 1em;
     text-transform: uppercase;
-    color: color(gray);
+    color: $header-color;
     font-weight: bold;
     margin-bottom: 0.5em;
     margin-left: $left-padding;
@@ -59,10 +71,10 @@ $colors: (
   // List item
   li {
     position: relative;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid $border-color;
 
     &:first-child {
-      border-top: 1px solid #ccc;
+      border-top: 1px solid $border-color;
     }
 
     &.with-caret {
@@ -75,7 +87,7 @@ $colors: (
         top: 0;
         line-height: $item-height;
         font-weight: bold;
-        color: color(gray);
+        color: $header-color;
         font-size: 1em;
       }
     }
@@ -86,15 +98,15 @@ $colors: (
     display: block;
     padding: $padding;
     padding-left: $left-padding;
-    color: #000;
+    color: $text-color;
     line-height: 1;
   }
   a, label {
     cursor: pointer;
 
     &:hover {
-      color: #000;
-      background: #f7f7f7;
+      color: $text-color;
+      background: $highlight-color;
     }
   }
 
@@ -116,7 +128,7 @@ $colors: (
   // Labels
   .label {
     position: absolute;
-    color: #999;
+    color: $label-color;
     top: 0;
     right: $left-padding;
     z-index: 1;
