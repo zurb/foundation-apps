@@ -24,7 +24,8 @@ $colors: (
 // Container
 .block-list {
   // Colors
-  $bg-color: #fff;
+  $background: transparent;
+  $bg-color: if($background == transparent, #fff, $background);
   $light: if(lightness($bg-color) > 50%, true, false);
   
   // Generated colors
@@ -44,7 +45,7 @@ $colors: (
   font-size: $font-size;
   line-height: 1;
   user-select: none;
-  background: $bg-color;
+  background: $background;
 
   // Stretch to the edge of a block
   .block > &, .small-block > &, .medium-block > &, .large-block > &,
