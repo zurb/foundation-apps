@@ -11,87 +11,100 @@ body {
 /*
 	Frames are containers that stretch to the full dimmensions of the browser window.
 */
-.frame {
+%frame {
 	display: flex;
 	height: 100vh;
-	margin: 0;
-	padding: 0;
 	position: relative;
-	flex-flow: row wrap;
 	overflow: hidden;
-
-	// Orientation classes
-	&.vertical, &.small-vertical {
+}
+@mixin grid-size($size: expand) {
+	@if (type-of($size) == 'number') {
+		flex: 0 0 percentage($size / $total-columns);
+	}
+	@else if ($size == shrink) {
+		flex: 0 0 auto;
+	}
+	@else if ($size == expand) {
+		flex: 1 1;
+	}
+}
+@mixin grid-orient($direction: horizontal, $stretch: false) {
+	@if ($direction == vertical) {
 		flex-flow: column nowrap;
 		align-items: stretch;
 	}
-	@media #{$medium-up} {
-		&.medium-horizontal {
-			flex-flow: row wrap;
-			align-items: flex-start;
-		}
-		&.medium-vertical {
-			flex-flow: column nowrap;
-			align-items: stretch;
-		}
+	@else {
+		flex-flow: row wrap;
+		align-items: if($stretch, stretch, flex-start);
 	}
-	@media #{$large-up} {
-		&.medium-horizontal {
-			flex-flow: row wrap;
-			align-items: flex-start;
-		}
-		&.large-vertical {
-			flex-flow: column nowrap;
-			align-items: stretch;
-		}
+}
+@mixin grid-scrollable($scrollable: true) {
+	@if ($scrollable) {
+		overflow: scroll;
+		-webkit-overflow-scrolling: touch;
+		-ms-overflow-style: -ms-autohiding-scrollbar;
 	}
-
-	// Block alignment
-	&.align-right {
-		justify-content: flex-end;
+}
+@mixin grid-stretch($stretch: true) {
+	align-items: if($stretch, stretch, flex-start);
+}
+@mixin grid-align($align: left) {
+	$options: (
+		left: flex-start,
+		right: flex-end,
+		center: center,
+		justify: justify-content,
+		spaced: space-around,
+	);
+	justify-content: map-get($options, $align);
+}
+@mixin grid-order($order: 0) {
+	order: $order;
+}
+@mixin grid-collapse($collapse: true) {
+	@if ($collapse) {
+		padding: 0;
 	}
-	&.align-center {
-		justify-content: center;
+}
+@mixin grid-container($container: true) {
+	max-width: 1200px;
+	margin: 0 auto;
+}
+@mixin grid-nest($nest: true) {
+	@if ($nest) {
+		margin-left: -1rem;
+		margin-right: -1rem;	
 	}
-	&.align-justify {
-		justify-content: space-between;
+}
+@mixin grid-offset($offset: 0) {
+	@if ($offset > 0) {
+		margin-left: percentage($offset / $total-columns);
 	}
-	&.align-spaced {
-		justify-content: space-around;
-	}
-
-	// Stretch children along cross-axis
-	&.stretch {
-		align-items: stretch;
-	}
+}
+@mixin grid-frame($size: expand, $vertical: false, $scrollable: false, $stretch: false, $align: left, $order: 0) {
+	@extend %frame;
+	@include grid-size($size);
+	@include grid-orient($vertical);
+	@include grid-scrollable($scrollable);
+	@include grid-stretch($stretch);
+	@include grid-align($align);
+	@include grid-order($order);
 }
 
 /*
 	Groups are collections of content items. They're the "rows" of Foundation for Apps.
 */
-.group {
-	@extend .frame;
+@mixin grid-group($size: expand, $vertical: false, $scrollable: false, $stretch: false, $align: left, $order: 0) {
+	@include grid-frame($size, $vertical, $scrollable, $stretch, $align, $order);
 	height: auto;
 	flex: 1 1 auto;
 	align-items: flex-start;
-
-	// Containers imitate the sizing of old Foundation rows.
-	&.container {
-		max-width: 1200px;
-		margin: 0 auto;
-	}
-
-	// Collapse margins when a group is not the direct child of a block
-	&.nested {
-		margin-left: -1rem;
-		margin-right: -1rem;
-	}
 }
 
 /*
 	Blocks are containers for actual content. They're the "columns" of Foundation for Apps.
 */
-@mixin block {
+@mixin grid-block($scrollable: false, $collapse: false) {
 	flex: 1 1 auto;
 	padding: 1rem;
 	position: relative;
@@ -109,48 +122,46 @@ body {
 	box-shadow: none;
 	background: transparent;
 
-	// Scrollable block
-	&.scrollable {
-		overflow: scroll;
-		-webkit-overflow-scrolling: touch;
-		-ms-overflow-style: -ms-autohiding-scrollbar;
-	}
-
-	// Collapse to remove padding
-  &.collapse, .group.collapse > & {
-  	padding: 0;
-  }
+	@include grid-scrollable($scrollable);
+	@include grid-collapse($collapse);
 }
 
-// CSS output
-.block {
-	@include block;
+.frame {
+	@include grid-frame;
 }
-@media #{$medium-up} {
-	.medium-block {
-		@include block;
-	}
-}
-@media #{$large-up} {
-	.large-block {
-		@include block;
-	}
+.group {
+	@include grid-group;
+
+	// Containers imitate the sizing of old Foundation rows.
+	&.container { @include grid-container(true); }
+
+	// Collapse margins when a group is not the direct child of a block
+	&.nested { @include grid-nest(true); }
 }
 
-// Sizing and ordering classes
-@each $size, $breakpoint in ('small': $small-up, 'medium': $medium-up, 'large': $large-up) {
-	@for $i from 0 through $total-columns {
-		@media #{$breakpoint} {
-			// Block sizing
-			.#{$size}-#{$i} {
-				flex: 0 0 percentage($i / $total-columns);
-			}
-			// Block ordering
-			.#{$size}-order-#{$i} {
-			  order: $i;
-			}
-		}
+/*
+	Shared styles for frames and groups
+*/
+.frame, .group {
+	// Orientation classes
+	&.vertical, &.small-vertical { @include grid-orient(vertical); }
+	@media #{$medium-up} {
+		&.medium-horizontal { @include grid-orient(horizontal); }
+		&.medium-vertical   { @include grid-orient(vertical); }
 	}
+	@media #{$large-up} {
+		&.medium-horizontal { @include grid-orient(horizontal); }
+		&.large-vertical    { @include grid-orient(vertical); }
+	}
+
+	// Block alignment
+	&.align-right   { @include grid-align(right); }
+	&.align-center  { @include grid-align(center); }
+	&.align-justify { @include grid-align(justify); }
+	&.align-spaced  { @include grid-align(spaced); }
+
+	// Stretch children along cross-axis
+	&.stretch { @include grid-stretch(true); }
 }
 
 /*
@@ -159,17 +170,46 @@ body {
 .group, .block {
 	// Shrink a flex item so it only takes up the space it needs
 	&.shrink {
-		flex: 0 0 auto;
+		@include grid-size(shrink);
 	}
+}
 
-	// Offsets
-	@each $size, $breakpoint in ('small': $small-up, 'medium': $medium-up, 'large': $large-up) {
-		@for $i from 1 through 11 {
-			&.#{$size}-offset-#{$i} {
-				margin-left: percentage($i / 12);
-				.vertical > &.#{$size}-offset-#{$i} {
-					margin-left: 0;
-					margin-top: percentage($i / 12);
+/*
+	Blocks
+*/
+.block, .medium-block, .large-block {
+	&.scrollable { @include grid-scrollable; }
+	&.collapse, .group.collapse > & { @include grid-collapse; }
+}
+.block { @include grid-block; }
+@media #{$medium-up} {
+	.medium-block { @include grid-block; }
+}
+@media #{$large-up} {
+	.large-block { @include grid-block; }
+}
+
+/*
+	Sizing and ordering classes
+*/
+@each $size, $breakpoint in ('small': $small-up, 'medium': $medium-up, 'large': $large-up) {
+	@for $i from 1 through $total-columns {
+		@media #{$breakpoint} {
+			// Block sizing
+			.#{$size}-#{$i} {
+				@include grid-size($i);
+			}
+			// Block ordering
+			@at-root (without: media) {
+				.order-#{$i} { @include grid-order($i); }
+			}
+			.#{$size}-order-#{$i} {
+				@include grid-order($i);
+			}
+			// Offsets
+			@if ($total-columns < 12) {
+				.#{$size}-offset-#{$i} {
+					@include grid-offset($i);
 				}
 			}
 		}
@@ -180,4 +220,11 @@ body {
 .frame, .group, .block {
 	transition: all 300ms ease;
 	backface-visibility: hidden;
+}
+
+// TEST: Attribute Module for layout
+@mixin data-layout($selector) {
+	[data-layout~="#{$selector}"] {
+		@content;
+	}
 }
