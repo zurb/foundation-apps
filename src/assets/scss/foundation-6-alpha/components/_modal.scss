@@ -6,7 +6,7 @@
   bottom: 0;
   left: 0;
   z-index: 9998;
-  background-color: rgba($primary-color, .8) ;
+  background-color: rgba($primary-color, .7) ;
   opacity: 0;
   -webkit-transition: opacity 0.4s;
 
@@ -21,7 +21,7 @@
   position: fixed;
   left: 50%;
   z-index: 9999;
-  width: 600px;
+  max-width: 600px;
   padding: 0;
   background: #fff;
   opacity: 0;
@@ -33,9 +33,14 @@
 	&.is-active {
 		display: block !important;
 		opacity: 1;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    -webkit-transform: scale(1);
     @media #{$medium-up} {
       top: 50%;
       left: 50%;
+      height: auto;
       transform: translateY(-50%) translateX(-50%);
     }
 	}
@@ -44,6 +49,7 @@
     background: $primary-color;
     padding: 1rem;
     position: relative;
+    color: #fff;
     .close {
       position: absolute;
       right:0;
@@ -58,5 +64,7 @@
 
   .modal-footer {
     padding: 1rem;
+    background: $primary-color;
+    color: #fff;
   }
 }
