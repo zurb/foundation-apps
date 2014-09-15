@@ -3,6 +3,7 @@
 /css/*
 /bower_components/*
 /node_modules/*
+npm-debug.log
 /dist/*
 /docs/*
 /.sass-cache/*
