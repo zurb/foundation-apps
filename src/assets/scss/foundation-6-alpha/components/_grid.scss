@@ -9,14 +9,8 @@ body {
 }
 
 /*
-	Frames are containers that stretch to the full dimmensions of the browser window.
+	Grid customization
 */
-%frame {
-	display: flex;
-	height: 100vh;
-	position: relative;
-	overflow: hidden;
-}
 @mixin grid-size($size: expand) {
 	@if (type-of($size) == 'number') {
 		flex: 0 0 percentage($size / $total-columns);
@@ -38,13 +32,6 @@ body {
 		align-items: if($stretch, stretch, flex-start);
 	}
 }
-@mixin grid-scrollable($scrollable: true) {
-	@if ($scrollable) {
-		overflow: scroll;
-		-webkit-overflow-scrolling: touch;
-		-ms-overflow-style: -ms-autohiding-scrollbar;
-	}
-}
 @mixin grid-stretch($stretch: true) {
 	align-items: if($stretch, stretch, flex-start);
 }
@@ -53,7 +40,7 @@ body {
 		left: flex-start,
 		right: flex-end,
 		center: center,
-		justify: justify-content,
+		justify: space-between,
 		spaced: space-around,
 	);
 	justify-content: map-get($options, $align);
@@ -81,11 +68,18 @@ body {
 		margin-left: percentage($offset / $total-columns);
 	}
 }
-@mixin grid-frame($size: expand, $vertical: false, $scrollable: false, $stretch: false, $align: left, $order: 0) {
-	@extend %frame;
+
+/*
+	Frames are containers that stretch to the full dimmensions of the browser window.
+*/
+@mixin grid-frame($size: expand, $vertical: false, $stretch: false, $align: left, $order: 0) {
+	display: flex;
+	height: 100vh;
+	position: relative;
+	overflow: hidden;
+
 	@include grid-size($size);
 	@include grid-orient($vertical);
-	@include grid-scrollable($scrollable);
 	@include grid-stretch($stretch);
 	@include grid-align($align);
 	@include grid-order($order);
@@ -94,25 +88,16 @@ body {
 /*
 	Groups are collections of content items. They're the "rows" of Foundation for Apps.
 */
-@mixin grid-group($size: expand, $vertical: false, $scrollable: false, $stretch: false, $align: left, $order: 0) {
-	@include grid-frame($size, $vertical, $scrollable, $stretch, $align, $order);
-	height: auto;
-	flex: 1 1 auto;
-	align-items: flex-start;
-}
+@mixin grid-block($size: expand, $vertical: false, $stretch: false, $align: left, $order: 0) {
+	@include grid-frame($size, $vertical, $stretch, $align, $order);
 
-/*
-	Blocks are containers for actual content. They're the "columns" of Foundation for Apps.
-*/
-@mixin grid-block($scrollable: false, $collapse: false) {
-	flex: 1 1 auto;
-	padding: 1rem;
-	position: relative;
-	top: auto;
-	right: auto;
-	bottom: auto;
-	left: auto;
-	overflow: hidden;
+	// Reset the height used by frames
+	height: auto;
+
+	// Blocks will scroll by default if their content overflows
+	overflow: auto;
+	-webkit-overflow-scrolling: touch;
+	-ms-overflow-style: -ms-autohiding-scrollbar;
 
 	// These properties reset the panel styles
 	transform: none;
@@ -121,16 +106,33 @@ body {
 	z-index: auto;
 	box-shadow: none;
 	background: transparent;
-
-	@include grid-scrollable($scrollable);
-	@include grid-collapse($collapse);
+	top: auto;
+	right: auto;
+	bottom: auto;
+	left: auto;
 }
+
+/*
+	Blocks are containers for actual content. They're the "columns" of Foundation for Apps.
+*/
+@mixin grid-content($size: expand, $vertical: false, $stretch: false, $align: left, $order: 0, $collapse: false) {
+	@include grid-block($size, $vertical, $stretch, $align, $order);
+	@include grid-collapse($collapse);
+
+	// Content blocks are not flex items and have padding
+	display: block;
+	padding: 1rem;
+}
+
+/*
+	CSS Output
+*/
 
 .frame {
 	@include grid-frame;
 }
-.group {
-	@include grid-group;
+.block {
+	@include grid-block;
 
 	// Containers imitate the sizing of old Foundation rows.
 	&.container { @include grid-container(true); }
@@ -142,7 +144,7 @@ body {
 /*
 	Shared styles for frames and groups
 */
-.frame, .group {
+.frame, .block {
 	// Orientation classes
 	&.vertical, &.small-vertical { @include grid-orient(vertical); }
 	@media #{$medium-up} {
@@ -167,7 +169,7 @@ body {
 /*
 	Shared styles for groups and blocks
 */
-.group, .block {
+.block, .content-block {
 	// Shrink a flex item so it only takes up the space it needs
 	&.shrink {
 		@include grid-size(shrink);
@@ -175,23 +177,23 @@ body {
 }
 
 /*
-	Blocks
+	Content blocks
 */
-.block, .medium-block, .large-block {
-	&.scrollable { @include grid-scrollable; }
-	&.collapse, .group.collapse > & { @include grid-collapse; }
+.content-block, .medium-content-block, .large-content-block {
+	&.collapse, .block.collapse > & { @include grid-collapse; }
 }
-.block { @include grid-block; }
+.content-block { @include grid-content; }
 @media #{$medium-up} {
-	.medium-block { @include grid-block; }
+	.medium-content-block { @include grid-content; }
 }
 @media #{$large-up} {
-	.large-block { @include grid-block; }
+	.large-content-block { @include grid-content; }
 }
 
 /*
 	Sizing and ordering classes
 */
+$block-grid-max-size: 6;
 @each $size, $breakpoint in ('small': $small-up, 'medium': $medium-up, 'large': $large-up) {
 	@for $i from 1 through $total-columns {
 		@media #{$breakpoint} {
@@ -212,19 +214,28 @@ body {
 					@include grid-offset($i);
 				}
 			}
+			// Parent sizing (block grids)
+			// TODO: Make mixin
+			.#{$size}-up-#{$i} {
+				display: flex;
+				overflow: visible;
+				margin: {
+					left:  -0.5rem;
+					right: -0.5rem;
+				}
+				list-style-type: none;
+
+			  > li, > div, > section {
+			  	padding: 0 0.5rem 1rem;
+			    flex: 0 0 percentage(1 / $i);
+			  }
+			}
 		}
 	}
 }
 
 // This prevents flicker when grid items shift around
-.frame, .group, .block {
+.frame, .block, .content-block {
 	transition: all 300ms ease;
 	backface-visibility: hidden;
-}
-
-// TEST: Attribute Module for layout
-@mixin data-layout($selector) {
-	[data-layout~="#{$selector}"] {
-		@content;
-	}
 }

@@ -6,7 +6,7 @@
   position: absolute;
   transition: transform $speed linear;
   z-index: 100;
-  overflow-y: scroll;
+  overflow-y: auto;
   padding: 1rem;
   background: #fff;
 

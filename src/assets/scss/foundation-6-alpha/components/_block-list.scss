@@ -48,7 +48,7 @@ $colors: (
   background: $background;
 
   // Stretch to the edge of a block
-  .block > &, .small-block > &, .medium-block > &, .large-block > &,
+  .content-block > &, .small-content-block > &, .medium-content-block > &, .large-content-block > &,
   .panel > &, .small-panel > &, .medium-panel > &, .large-panel > & {
     margin-left: -1rem;
     margin-right: -1rem;
