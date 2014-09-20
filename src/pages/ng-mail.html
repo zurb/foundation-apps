@@ -1,0 +1,162 @@
+<nav class="ofc detached" id="ofc-left" data-offcanvas>
+  <section class="block-list">
+    <header>Menu</header>
+    <ul>
+      <li><a href="#">Item 1</a></li>
+      <li><a href="#">Item 2</a></li>
+      <li><a href="#">Item 3</a></li>
+      <li><a href="#">Item 4</a></li>
+      <li><a href="#">Item 5</a></li>
+    </ul>
+  </section>
+</nav>
+<nav class="ofc ofc-bottom" id="ofc-bottom" data-offcanvas>
+  <section class="block-list">
+    <header>Menu</header>
+    <ul>
+      <li><a href="#">Item 1</a></li>
+      <li><a href="#">Item 2</a></li>
+      <li><a href="#">Item 3</a></li>
+      <li><a href="#">Item 4</a></li>
+      <li><a href="#">Item 5</a></li>
+    </ul>
+  </section>
+</nav>
+<nav class="ofc ofc-right" id="ofc-right" data-offcanvas>
+  <section class="block-list">
+    <header>Menu</header>
+    <ul>
+      <li><a href="#">Item 1</a></li>
+      <li><a href="#">Item 2</a></li>
+      <li><a href="#">Item 3</a></li>
+      <li><a href="#">Item 4</a></li>
+      <li><a href="#">Item 5</a></li>
+    </ul>
+  </section>
+</nav>
+<nav class="ofc ofc-top" id="ofc-top" data-offcanvas>
+  <section class="block-list">
+    <header>Menu</header>
+    <ul>
+      <li><a href="#">Item 1</a></li>
+      <li><a href="#">Item 2</a></li>
+      <li><a href="#">Item 3</a></li>
+      <li><a href="#">Item 4</a></li>
+      <li><a href="#">Item 5</a></li>
+    </ul>
+  </section>
+</nav>
+<div class="vertical stretch frame">
+  <div class="shrink block">
+    <div class="content-block" style="background: #4a5597 !important; color: white;">
+      <span data-offcanvas-toggle="ofc-left" style="margin-right: 1em; cursor: pointer;">Left off-canvas</span>
+      <span data-offcanvas-toggle="ofc-bottom" style="margin-right: 1em; cursor: pointer;">Bottom off-canvas</span>
+      <span data-offcanvas-toggle="ofc-right" style="margin-right: 1em; cursor: pointer;">Right off-canvas</span>
+      <span data-offcanvas-toggle="ofc-top" style="margin-right: 1em; cursor: pointer;">Top off-canvas</span>
+      <span data-panel-toggle="top-menu" style="cursor: pointer;">Top panel</span>
+    </div>
+  </div>
+  <div class="stretch block">
+    <div id="top-menu" class="panel panel-top" style="background: #eee;">
+      <section class="block-list with-icons">
+        <header>List title</header>
+        <ul>
+          <!-- With a label -->
+          <li>
+            <a href="#">List item 1</a>
+            <span class="label">Label</span>
+          </li>
+          <!-- With an icon -->
+          <li>
+            <img src="http://placehold.it/1x1" alt="">
+            <a href="#">List item 2</a>
+          </li>
+          <li><a href="#">List item 3</a></li>
+          <li><a href="#">List item 4</a></li>
+          <li><a href="#" data-panel-toggle="top-menu">Close</a></li>
+        </ul>
+      </section>
+    </div>
+    <div id="menu" class="scrollable panel panel-left large-2 large-content-block" style="background: #eee;">
+      <a href="#" class="button">New Message</a>
+      <section class="block-list">
+        <header>Inboxes</header>
+        <ul>
+          <!-- With a label -->
+          <li><a href="#">Unread</a><span class="label">23</span></li>
+          <li><a href="#">Archived</a><span class="label">204</span></li>
+          <li><a href="#">Spam</a><span class="label">4</span></li>
+          <li><a href="#">Trash</a><span class="label">12</span></li>
+          <li><a href="#" data-panel-toggle="menu">Close</a></li>
+        </ul>
+      </section>
+    </div>
+    <div class="vertical small-12 medium-4 large-3 block" style="border-left: 1px solid #ccc; border-right: 1px solid #ccc;">
+      <div class="content-block menu-bar">
+        <span class="title center">Messages</span>
+        <span class="left"><a href="#">Menu</a></span>
+      </div>
+      <div class="content-block menu-bar">
+        <span class="left"><a href="#">Left</a></span>
+        <span class="right"><a href="#">Right</a></span>
+      </div>
+      <div class="content-block menu-bar">
+        <span class="title center">Center</span>
+        <span class="right"><a href="#">Right</a></span>
+      </div>
+      <div class="scrollable content-block">
+        <p class="hide-for-medium"><a data-panel-toggle="menu">Menu</a></p>
+        <section class="block-list">
+          <ul>
+            <li><a href="" data-panel-toggle="message">
+              <h4>Bro Do You Even Have the Time</h4>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime suscipit harum repellat voluptatibus, perferendis ad blanditiis expedita vel sed ducimus architecto, hic corporis ratione veritatis, earum laboriosam eligendi quia non.</p>
+            </a></li>
+            <li><a href="">
+              <h4>This Prolly a Message</h4>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime suscipit harum repellat voluptatibus, perferendis ad blanditiis expedita vel sed ducimus architecto, hic corporis ratione veritatis, earum laboriosam eligendi quia non.</p>
+            </a></li>
+            <li><a href="">
+              <h4>This Prolly a Message</h4>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime suscipit harum repellat voluptatibus, perferendis ad blanditiis expedita vel sed ducimus architecto, hic corporis ratione veritatis, earum laboriosam eligendi quia non.</p>
+            </a></li>
+          </ul>
+        </section>
+      </div>
+    </div>
+    <div id="message" class="scrollable panel panel-right medium-8 large-7 medium-content-block">
+      <ul class="icon-bar">
+        <li><a><img src="http://placekitten.com/250/250" alt=""><span>Mark as read</span></a></li>
+        <li><a><img src="http://placekitten.com/250/250" alt=""><span>Archive</span></a></li>
+        <li><a><img src="http://placekitten.com/250/250" alt=""><span>Mark as Spam</span></a></li>
+        <li><a><img src="http://placekitten.com/250/250" alt=""><span>Delete</span></a></li>
+      </ul>
+      <a href="" class="close-button hide-for-medium" data-panel-toggle="message">&times;</a>
+      <h2>Bro Do You Even Have the Time</h2>
+      <p><time>Wed, August 12 @ 4:05PM</time></p>
+
+      <div class="popup-container" style="display: block; margin: 0 auto; text-align: center;">
+        <a href="#" class="button" data-popup-toggle>Do Something</a>
+        <section class="popup-menu" data-popup>
+          <p>What are you doing?</p>
+          <ul>
+            <li class="caution"><a href="#">Something</a></li>
+            <li><a href="#">Nothing</a></li>
+            <li class="disabled"><a href="#">Disabled</a></li>
+          </ul>
+        </section>
+      </div>
+
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi saepe itaque est? Odio ea officia atque nobis similique veniam debitis, delectus distinctio iure accusantium enim totam velit laboriosam cupiditate inventore!</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae deserunt repellat iure fugit, modi dignissimos consequuntur eum non vitae quae, aliquam autem alias rerum, nihil, molestiae quod. Ipsam animi, natus.</p>
+
+      <ul class="small-up-3 block thumbnails">
+        <li><img src="http://placehold.it/300x400" alt=""></li>
+        <li><img src="http://placehold.it/300x300" alt=""></li>
+        <li><img src="http://placehold.it/300x400" alt=""></li>
+        <li><img src="http://placehold.it/300x300" alt=""></li>
+        <li><img src="http://placehold.it/300x300" alt=""></li>
+      </ul>
+    </div>
+  </div>
+</div>
