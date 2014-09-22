@@ -4,10 +4,6 @@
 	THE GRID
 */
 
-body {
-	// overflow: hidden;
-}
-
 /*
 	Grid customization
 */
@@ -54,8 +50,10 @@ body {
 	}
 }
 @mixin grid-container($container: true) {
-	max-width: 1200px;
-	margin: 0 auto;
+	@if ($container) {
+		max-width: 1200px;
+		margin: 0 auto;
+	}
 }
 @mixin grid-nest($nest: true) {
 	@if ($nest) {
@@ -63,8 +61,8 @@ body {
 		margin-right: -1rem;	
 	}
 }
-@mixin grid-offset($offset: 0) {
-	@if ($offset > 0) {
+@mixin grid-offset($offset: false) {
+	@if ($offset != false) {
 		margin-left: percentage($offset / $total-columns);
 	}
 }
@@ -95,7 +93,12 @@ body {
 	height: auto;
 
 	// Blocks will scroll by default if their content overflows
-	overflow: auto;
+	@if ($vertical) {
+		overflow-x: auto;
+	}
+	@else {
+		overflow-y: auto;
+	}
 	-webkit-overflow-scrolling: touch;
 	-ms-overflow-style: -ms-autohiding-scrollbar;
 
@@ -115,9 +118,12 @@ body {
 /*
 	Blocks are containers for actual content. They're the "columns" of Foundation for Apps.
 */
-@mixin grid-content($size: expand, $vertical: false, $stretch: false, $align: left, $order: 0, $collapse: false) {
-	@include grid-block($size, $vertical, $stretch, $align, $order);
-	@include grid-collapse($collapse);
+@mixin grid-content($incl-block: false, $size: expand, $vertical: false, $stretch: false, $align: left, $order: 0, $collapse: false) {
+	// Don't include the base block code by default
+	@if ($incl-block) {
+		@include grid-block($size, $vertical, $stretch, $align, $order);
+		@include grid-collapse($collapse);
+	}
 
 	// Content blocks are not flex items and have padding
 	display: block;
@@ -131,18 +137,38 @@ body {
 .frame {
 	@include grid-frame;
 }
-.block {
+@mixin block-css {
 	@include grid-block;
 
-	// Containers imitate the sizing of old Foundation rows.
+	// Content blocks are for content and not layout
+	&.content { @include grid-content; }
+
+	// Containers imitate the sizing of old Foundation rows
 	&.container { @include grid-container(true); }
 
 	// Collapse margins when a group is not the direct child of a block
 	&.nested { @include grid-nest(true); }
+
+	// Collapsed blocks strip padding from their children
+	// ISSUE: now that groups and blocks are the same class, how does collapsing work?
+	// This is a possible solution: "collapse" is for self, "collapse-children is for immediate children"
+	&.collapse, .block.collapse-children > & { @include grid-collapse; }
+
+	// Shrink a flex item so it only takes up the space it needs
+	&.shrink { @include grid-size(shrink); }
+}
+.block, .small-block {
+	@include block-css;
+}
+@media #{$medium-up} {
+	.medium-block { @include block-css; }
+}
+@media #{$large-up} {
+	.large-block { @include block-css; }
 }
 
 /*
-	Shared styles for frames and groups
+	Shared styles for frames and blocks
 */
 .frame, .block {
 	// Orientation classes
@@ -164,30 +190,6 @@ body {
 
 	// Stretch children along cross-axis
 	&.stretch { @include grid-stretch(true); }
-}
-
-/*
-	Shared styles for groups and blocks
-*/
-.block, .content-block {
-	// Shrink a flex item so it only takes up the space it needs
-	&.shrink {
-		@include grid-size(shrink);
-	}
-}
-
-/*
-	Content blocks
-*/
-.content-block, .medium-content-block, .large-content-block {
-	&.collapse, .block.collapse > & { @include grid-collapse; }
-}
-.content-block { @include grid-content; }
-@media #{$medium-up} {
-	.medium-content-block { @include grid-content; }
-}
-@media #{$large-up} {
-	.large-content-block { @include grid-content; }
 }
 
 /*
@@ -235,7 +237,7 @@ $block-grid-max-size: 6;
 }
 
 // This prevents flicker when grid items shift around
-.frame, .block, .content-block {
+.frame, .block {
 	transition: all 300ms ease;
 	backface-visibility: hidden;
 }

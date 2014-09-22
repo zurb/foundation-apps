@@ -72,6 +72,8 @@ $fixed-right: false !default;
 	$height: 60px;
 	display: flex;
 	flex: 0 0 auto;
+	padding: 1em;
+	overflow: visible;
 	justify-content: flex-start;
 	align-items: center;
 	background: #eee !important;

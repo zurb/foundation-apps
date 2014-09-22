@@ -38,7 +38,7 @@
         padding-bottom: 0;
         border: 0;
       }
-      .content-block {
+      .content.block {
         display: flex;
         justify-content: center;
         align-items: stretch;
@@ -56,7 +56,7 @@
       position: relative;
       height: 200px;
 
-      .content-block {
+      .content.block {
         display: flex;
         flex: row wrap;
         align-self: stretch;
