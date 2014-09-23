@@ -81,8 +81,17 @@ module.exports = function(grunt) {
 
     uglify: {
       dist: {
+        options: {
+          mangle: false,
+          beautify: true
+        },
         files: {
-          'dist/assets/js/all.js': ['bower_components/jquery/dist/jquery.js', 'bower_components/foundation/js/foundation.js', 'src/assets/js/**/*.js']
+          'dist/assets/js/all.js': [
+            'bower_components/jquery/dist/jquery.js',
+            'bower_components/foundation/js/foundation.js',
+            'bower_components/notify.js/notify.js',
+            'src/assets/js/**/*.js'
+          ]
         }
       }
     },
