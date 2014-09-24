@@ -80,8 +80,13 @@ FoundationApps.notify = function(options) {
   var fireNote = function() {
     desktopNote = new Notify(options.title, {
       body:        options.body,
-      notifyClick: options.onClick,
-      notifyClose: options.onClose
+      notifyClick: function() {
+        options.onClick();
+      },
+      notifyClose: function() {
+        note.close();
+        options.onClose();
+      }
     });
     desktopNote.show();
   }
