@@ -7,6 +7,7 @@ $notification-global-position: right top;
   position: fixed;
   z-index: 1000;
   padding: 1em;
+  box-shadow: 0 3px 10px rgba(#000, 0.25);
 
   &, h1, h2, h3, h4, h5, h6 {
     color: white;
@@ -22,15 +23,16 @@ $notification-global-position: right top;
 
   // Placeholder animation
   transition: transform 0.25s ease-out;
-  transform: translateX(110%);
   &.is-active {
-    transform: translateX(0%);
+    transform: translateX(0%) translateY(0%) !important;
+  }
+
+  .close-button {
+    color: white;
   }
 }
 
-@mixin notification($x: null, $y: null, $style: float) {
-  @extend %notification;
-
+@mixin notification-position($x: null, $y: null, $style: float) {
   // Default values
   $x: if($x == null, nth($notification-global-position, 1), $x);
   $y: if($y == null, nth($notification-global-position, 2), $y);
@@ -40,22 +42,37 @@ $notification-global-position: right top;
   $offset: if($style == float, 1rem, 0);
 
   @if $x == right {
-    right: $offset
+    right: $offset;
+    transform: translateX(110%);
+  }
+  @else if $x == left {
+    left: $offset;
+    transform: translateX(-110%);
   }
   @else if $x == middle {
     left: 50%;
     margin-left: -150px;
-  }
-  @else if $x == left {
-    left: $offset;
+
+    @if $y == top {
+      transform: translateY(-110%);
+    }
+    @else if $y == bottom {
+      transform: translateY(110%);
+    }
   }
 
   @if $y == top {
-    top: $offset
+    top: $offset;
   }
   @else if $y == bottom {
-    bottom: $offset
+    top: auto;
+    bottom: $offset;
   }
+}
+@mixin notification($x: null, $y: null, $style: float) {
+  @extend %notification;
+
+  @include notification-position($x, $y, $style);
 }
 
 /*
@@ -64,4 +81,12 @@ $notification-global-position: right top;
 
 .notification {
   @include notification;
+
+  &.top-right { @include notification-position(right, top); }
+  &.top-left { @include notification-position(left, top); }
+  &.top-middle { @include notification-position(middle, top); }
+
+  &.bottom-right { @include notification-position(right, bottom); }
+  &.bottom-left { @include notification-position(left, bottom); }
+  &.bottom-middle { @include notification-position(middle, bottom); }
 }
