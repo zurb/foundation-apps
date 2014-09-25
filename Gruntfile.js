@@ -58,7 +58,7 @@ module.exports = function(grunt) {
 
     sass: {
       options: {
-        loadPath: ['src/assets/scss']
+        loadPath: ['scss']
       },
       dist: {
         options: {
@@ -66,7 +66,7 @@ module.exports = function(grunt) {
           lineNumbers: 'true'
         },
         files: {
-          'dist/assets/css/src/app.css': 'src/assets/scss/app.scss'
+          'dist/assets/css/src/app.css': 'scss/app.scss'
         }        
       }
     },
