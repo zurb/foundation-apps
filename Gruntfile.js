@@ -58,7 +58,7 @@ module.exports = function(grunt) {
 
     sass: {
       options: {
-        // includePaths: [ 'bower_components/normalize-css/normalize.scss' ]
+        loadPath: ['src/assets/scss']
       },
       dist: {
         options: {
@@ -66,7 +66,8 @@ module.exports = function(grunt) {
           lineNumbers: 'true'
         },
         files: {
-          'dist/assets/css/src/app.css': 'src/assets/scss/app.scss'        }        
+          'dist/assets/css/src/app.css': 'src/assets/scss/app.scss'
+        }        
       }
     },
 
@@ -141,7 +142,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('assemble');
-  // grunt.loadNpmTasks('grunt-newer');
   grunt.loadNpmTasks('grunt-autoprefixer');
 
   grunt.registerTask('build', ['clean','sass', 'autoprefixer','uglify','assemble','copy']);

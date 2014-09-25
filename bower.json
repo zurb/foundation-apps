@@ -1,7 +1,6 @@
 {
   "name": "foundation-libsass-template",
   "dependencies": {
-    "foundation": "zurb/bower-foundation",
     "notify.js": "~1.2.3"
   }
 }
