@@ -22,25 +22,14 @@ module.exports = function(grunt) {
       },
       dist: {
         options: {
-          partials: ['src/includes/*.html'],
-          helpers: ['src/helpers/*.js'],
-          layout: 'src/layouts/default.html'
+          partials: ['docs/includes/*.html'],
+          helpers: ['docs/helpers/*.js'],
+          layout: 'docs/layouts/default.html'
         },
         expand: true,
-        cwd: 'src/pages/',
+        cwd: 'docs/pages/',
         src: '**/*.html',
         dest: 'dist/'
-      },
-      docs: {
-        options: {
-          partials: ['src/includes/*.html'],
-          helpers: ['src/helpers/*.js'],
-          layout: 'src/layouts/docs.html'
-        },
-        expand: true,
-        cwd: 'src/pages/',
-        src: '**/index.html',
-        dest: 'docs/'
       }
     },
 
@@ -107,7 +96,7 @@ module.exports = function(grunt) {
       },
 
       sass: {
-        files: 'src/assets/scss/**/*.{scss,sass}',
+        files: 'scss',
         tasks: ['sass', 'autoprefixer']
       },
 
@@ -118,19 +107,19 @@ module.exports = function(grunt) {
       },
 
       uglify: {
-        options: {cwd: 'src/assets/js'},
+        options: {cwd: 'js'},
         files: ['**/*.js'],
         tasks: ['uglify']
       },
 
       assemble_all: {
-        files: ['src/{includes,layouts}/**/*.html'],
+        files: ['docs/{includes,layouts}/**/*.html'],
         tasks: ['assemble'],
         options: {livereload:true}
       },
 
       assemble_pages: {
-        files: ['src/pages/**/*.html'],
+        files: ['docs/pages/**/*.html'],
         tasks: ['assemble'],
         options: {livereload:true}
       }
