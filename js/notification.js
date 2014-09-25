@@ -24,11 +24,11 @@ FoundationApps.notify = function(options) {
 
   // Add a close button if needed
   if (options.closable) {
-    $('<a class="close-button">&times;</a>')
-      .click(function() {
-        note.close();
-      })
-      .appendTo(note);
+    var noteClose = $('<a class="close-button">&times;</a>');
+    noteClose.click(function() {
+      note.close();
+    });
+    note.appendChild(noteClose[0]);
   }
 
   // Custom method to destroy the notification
@@ -100,7 +100,7 @@ FoundationApps.notify = function(options) {
   }
 }
 
-$('#newMessage').on('click', function() {
+$('#newMessage').click(function() {
   FoundationApps.notify({
     title: "You clicked the New Message button.",
     body: "And this notification has an extended description. How long can this string get, anyway?",

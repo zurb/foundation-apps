@@ -88,10 +88,11 @@ module.exports = function(grunt) {
         },
         files: {
           'dist/assets/js/all.js': [
-            'bower_components/jquery/dist/jquery.js',
-            'bower_components/foundation/js/foundation.js',
+            // Libraries
+            'bower_components/jqlite/jqlite.1.1.1.js',
             'bower_components/notify.js/notify.js',
-            'src/assets/js/**/*.js'
+            // Our stuff
+            'js/**/*.js'
           ]
         }
       }

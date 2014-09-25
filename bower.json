@@ -1,6 +1,7 @@
 {
   "name": "foundation-libsass-template",
   "dependencies": {
-    "notify.js": "~1.2.3"
+    "notify.js": "~1.2.3",
+    "jqlite": "~1.1.1"
   }
 }
