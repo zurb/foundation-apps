@@ -79,6 +79,7 @@ module.exports = function(grunt) {
           'dist/assets/js/all.js': [
             // Libraries
             'bower_components/jqlite/jqlite.1.1.1.js',
+            'bower_components/fastclick/lib/fastclick.js',
             'bower_components/notify.js/notify.js',
             'bower_components/viewport-units-buggyfill/viewport-units-buggyfill.js',
             'bower_components/tether/tether.js',
