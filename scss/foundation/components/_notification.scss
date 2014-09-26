@@ -3,7 +3,6 @@ $notification-global-position: right top;
 %notification {
   border-radius: 4px;
   background: #698bda;
-  width: 400px;
   position: fixed;
   z-index: 1000;
   padding: 1em;
@@ -32,7 +31,7 @@ $notification-global-position: right top;
   }
 }
 
-@mixin notification-position($x: null, $y: null, $style: float) {
+@mixin notification-structure($x: null, $y: null, $size: 400px, $style: float) {
   // Default values
   $x: if($x == null, nth($notification-global-position, 1), $x);
   $y: if($y == null, nth($notification-global-position, 2), $y);
@@ -40,6 +39,8 @@ $notification-global-position: right top;
   // Float style: detached from edge of screen
   // Pin style:   attached to edge of screen
   $offset: if($style == float, 1rem, 0);
+
+  width: $size;
 
   @if $x == right {
     right: $offset;
@@ -51,7 +52,7 @@ $notification-global-position: right top;
   }
   @else if $x == middle {
     left: 50%;
-    margin-left: -150px;
+    margin-left: -($size / 2);
 
     @if $y == top {
       transform: translateY(-110%);
@@ -68,11 +69,20 @@ $notification-global-position: right top;
     top: auto;
     bottom: $offset;
   }
+
+  // On small screens, notifications are full width but maintain their vertical orientation
+  @media #{$small-only} {
+    width: auto;
+    left: $offset;
+    right: $offset;
+    margin-left: 0;
+  }
 }
-@mixin notification($x: null, $y: null, $style: float) {
+
+@mixin notification($x: null, $y: null, $size: 400px, $style: float) {
   @extend %notification;
 
-  @include notification-position($x, $y, $style);
+  @include notification-structure($x, $y, $size, $style);
 }
 
 /*
@@ -82,11 +92,11 @@ $notification-global-position: right top;
 .notification {
   @include notification;
 
-  &.top-right { @include notification-position(right, top); }
-  &.top-left { @include notification-position(left, top); }
-  &.top-middle { @include notification-position(middle, top); }
+  &.top-right { @include notification-structure(right, top); }
+  &.top-left { @include notification-structure(left, top); }
+  &.top-middle { @include notification-structure(middle, top); }
 
-  &.bottom-right { @include notification-position(right, bottom); }
-  &.bottom-left { @include notification-position(left, bottom); }
-  &.bottom-middle { @include notification-position(middle, bottom); }
+  &.bottom-right { @include notification-structure(right, bottom); }
+  &.bottom-left { @include notification-structure(left, bottom); }
+  &.bottom-middle { @include notification-structure(middle, bottom); }
 }

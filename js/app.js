@@ -8,6 +8,20 @@ FoundationApps.modal.onOpen('#theModal', function() {
   });
 });
 
+$('#newMessage').click(function() {
+  FoundationApps.notify({
+    title: "You clicked the New Message button.",
+    body: "And this notification has an extended description. How long can this string get, anyway?",
+    timeout: 0,
+    onClick: function() {
+      console.log("Click'd.");
+    },
+    onClose: function() {
+      console.log("Clos'd.");
+    }
+  });
+});
+
 // Panels
 $('[data-panel-toggle]').click(function() {
   var targetPanel = $(this).attr('data-panel-toggle');

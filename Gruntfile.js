@@ -47,7 +47,7 @@ module.exports = function(grunt) {
 
     sass: {
       options: {
-        loadPath: ['scss']
+        loadPath: ['scss', 'scss/foundation']
       },
       dist: {
         options: {

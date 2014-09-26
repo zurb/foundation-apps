@@ -3,7 +3,7 @@ FoundationApps.notify = function(options) {
     title:       "Default title",
     body:        "This is the body of the message",
     timeout:     3000,
-    customClass: "bottom-middle",
+    customClass: "top-right",
     closable:    true,
     onClick:     null,
     onClose:     null
@@ -97,16 +97,3 @@ FoundationApps.notify = function(options) {
     fireNote();
   }
 }
-
-$('#newMessage').click(function() {
-  FoundationApps.notify({
-    title: "You clicked the New Message button.",
-    body: "And this notification has an extended description. How long can this string get, anyway?",
-    onClick: function() {
-      console.log("Click'd.");
-    },
-    onClose: function() {
-      console.log("Clos'd.");
-    }
-  });
-});
