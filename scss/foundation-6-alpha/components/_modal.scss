@@ -5,21 +5,25 @@
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 9998;
+  z-index: 1000;
   background-color: rgba($primary-color, .7) ;
   opacity: 0;
   -webkit-transition: opacity 0.4s;
   display: flex;
   align-items: center;
   justify-content: center;
+  pointer-events: none;
+
   &.is-active {
 		opacity: 1;
+    pointer-events: auto;
   }
 }
 
 .modal {
+  position: relative;
 	display: none;
-  z-index: 9999;
+  z-index: 1001;
   padding: 0;
   background: #fff;
   width: 100%;
@@ -47,10 +51,8 @@
       height: auto;
     }
 	}
-  .close {
-    position: absolute;
-    right:0;
-    top:0;
-    padding: 25px;
+
+  .close-button {
+    z-index: 1001;
   }
 }

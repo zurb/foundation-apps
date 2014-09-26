@@ -119,3 +119,5 @@ if ($('[data-offcanvas]').length > 0) {
     return false;
   });
 }
+
+FoundationApps.init();

@@ -1,5 +1,3 @@
-FoundationApps = {};
-
 FoundationApps.notify = function(options) {
   options = $.extend({
     title:       "Default title",

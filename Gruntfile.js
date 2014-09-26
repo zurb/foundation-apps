@@ -80,8 +80,13 @@ module.exports = function(grunt) {
             // Libraries
             'bower_components/jqlite/jqlite.1.1.1.js',
             'bower_components/notify.js/notify.js',
+            'bower_components/viewport-units-buggyfill/viewport-units-buggyfill.js',
+
             // Our stuff
-            'js/**/*.js'
+            'js/foundation.js',
+            'js/foundation.modal.js',
+            'js/foundation.notification.js',
+            'js/app.js'
           ]
         }
       }
@@ -96,7 +101,7 @@ module.exports = function(grunt) {
       },
 
       sass: {
-        files: 'scss',
+        files: 'scss/**/*.scss',
         tasks: ['sass', 'autoprefixer']
       },
 

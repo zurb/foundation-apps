@@ -2,6 +2,7 @@
   "name": "foundation-libsass-template",
   "dependencies": {
     "notify.js": "~1.2.3",
-    "jqlite": "~1.1.1"
+    "jqlite": "~1.1.1",
+    "viewport-units-buggyfill": "~0.4.1"
   }
 }
