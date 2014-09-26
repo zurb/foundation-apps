@@ -22,5 +22,6 @@ FoundationApps = {
     
     viewportUnitsBuggyfill.init();
     this.modal.init();
+    this.offcanvas.init();
   }
 }

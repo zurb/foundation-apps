@@ -86,6 +86,7 @@ module.exports = function(grunt) {
             'js/foundation.js',
             'js/foundation.modal.js',
             'js/foundation.notification.js',
+            'js/foundation.offcanvas.js',
             'js/app.js'
           ]
         }

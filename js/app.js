@@ -26,25 +26,6 @@ $('[data-popup-toggle]').click(function() {
   return false;
 });
 
-// Off-canvas
-$('[data-offcanvas-toggle]').click(function(event) {
-  event.stopPropagation();
-  var $targetCanvas = $('#'+$(this).attr('data-offcanvas-toggle'));
-  // Toggle the targeted menu
-  $targetCanvas.toggleClass('is-active');
-  // Close other menus
-  $('[data-offcanvas]').not($targetCanvas).removeClass('is-active');
-  return false;
-});
-// Desired behavior: all click events are disabled while an off-canvas menu is open
-// Instead the click just closes the open menu
-if ($('[data-offcanvas]').length > 0) {
-  $('.frame').click(function() {
-    $('[data-offcanvas]').removeClass('is-active');
-    return false;
-  });
-}
-
 // $('*[data-motion-id="example1"]').on('click', function(e){
 //   e.preventDefault();
 //   $('#example1').toggleClass('motion');
