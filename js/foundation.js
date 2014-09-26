@@ -17,6 +17,9 @@ FoundationApps = {
     return null;
   },
   init: function() {
+    // Bein' hacky
+    $.fn.on = function() {};
+    
     viewportUnitsBuggyfill.init();
     this.modal.init();
   }

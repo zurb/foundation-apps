@@ -1,3 +1,50 @@
+FoundationApps.init();
+
+FoundationApps.modal.onOpen('#theModal', function() {
+  FoundationApps.notify({
+    title: 'You opened a modal!',
+    body: 'I can\'t even.',
+    timeout: 0
+  });
+});
+
+// Panels
+$('[data-panel-toggle]').click(function() {
+  var targetPanel = $(this).attr('data-panel-toggle');
+  if (targetPanel.length === 0) {
+    $(this).closest('[data-panel]').toggleClass('is-active');
+  }
+  else {
+    $('#'+$(this).attr('data-panel-toggle')).toggleClass('is-active');
+  }
+  return false;
+});
+
+// Popup menus
+$('[data-popup-toggle]').click(function() {
+  $(this).next('[data-popup]').toggleClass('is-active');
+  return false;
+});
+
+// Off-canvas
+$('[data-offcanvas-toggle]').click(function(event) {
+  event.stopPropagation();
+  var $targetCanvas = $('#'+$(this).attr('data-offcanvas-toggle'));
+  // Toggle the targeted menu
+  $targetCanvas.toggleClass('is-active');
+  // Close other menus
+  $('[data-offcanvas]').not($targetCanvas).removeClass('is-active');
+  return false;
+});
+// Desired behavior: all click events are disabled while an off-canvas menu is open
+// Instead the click just closes the open menu
+if ($('[data-offcanvas]').length > 0) {
+  $('.frame').click(function() {
+    $('[data-offcanvas]').removeClass('is-active');
+    return false;
+  });
+}
+
 // $('*[data-motion-id="example1"]').on('click', function(e){
 //   e.preventDefault();
 //   $('#example1').toggleClass('motion');
@@ -82,42 +129,3 @@
 //   e.preventDefault();
 //   $('#compose-window').toggleClass('motion');
 // });
-
-// Panels
-$('[data-panel-toggle]').click(function() {
-  var targetPanel = $(this).attr('data-panel-toggle');
-  if (targetPanel.length === 0) {
-    $(this).closest('[data-panel]').toggleClass('is-active');
-  }
-  else {
-    $('#'+$(this).attr('data-panel-toggle')).toggleClass('is-active');
-  }
-  return false;
-});
-
-// Popup menus
-$('[data-popup-toggle]').click(function() {
-  $(this).next('[data-popup]').toggleClass('is-active');
-  return false;
-});
-
-// Off-canvas
-$('[data-offcanvas-toggle]').click(function(event) {
-  event.stopPropagation();
-  var $targetCanvas = $('#'+$(this).attr('data-offcanvas-toggle'));
-  // Toggle the targeted menu
-  $targetCanvas.toggleClass('is-active');
-  // Close other menus
-  $('[data-offcanvas]').not($targetCanvas).removeClass('is-active');
-  return false;
-});
-// Desired behavior: all click events are disabled while an off-canvas menu is open
-// Instead the click just closes the open menu
-if ($('[data-offcanvas]').length > 0) {
-  $('.frame').click(function() {
-    $('[data-offcanvas]').removeClass('is-active');
-    return false;
-  });
-}
-
-FoundationApps.init();
