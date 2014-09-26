@@ -81,12 +81,14 @@ module.exports = function(grunt) {
             'bower_components/jqlite/jqlite.1.1.1.js',
             'bower_components/notify.js/notify.js',
             'bower_components/viewport-units-buggyfill/viewport-units-buggyfill.js',
+            'bower_components/tether/tether.js',
 
             // Our stuff
             'js/foundation.js',
             'js/foundation.modal.js',
             'js/foundation.notification.js',
             'js/foundation.offcanvas.js',
+            'js/foundation.popup.js',
             'js/app.js'
           ]
         }

@@ -1,0 +1,26 @@
+.tether-element {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease-out;
+
+  &.tether-enabled {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+.popup {
+  @extend .tether-element;
+
+  z-index: 1000;
+  background: #fff;
+  box-shadow: 0 0 10px rgba(#000, 0.25);
+  border-radius: 8px;
+  overflow: hidden;
+  width: 300px;
+
+  p {
+    margin-bottom: 0;
+  }
+}

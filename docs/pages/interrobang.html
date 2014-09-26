@@ -1,3 +1,16 @@
+<div class="popup" id="thePopup" data-popover>
+  <div class="panel panel-bottom" data-panel id="thePopupPanel">
+    <p>Here's a panel! Why would you put a panel here?!</p>
+  </div>
+  <div class="block menu-bar">
+    <span class="left title">Popup!</span>
+    <span class="right"><a href="#" data-panel-toggle="thePopupPanel">Panel!</a></span>
+  </div>
+  <div class="content block">
+    <p>Can you even belive this popup here. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda repellendus, aliquid unde quis quos reprehenderit odit veritatis laborum sequi recusandae. Numquam aut, animi ea asperiores fugit, consequuntur illum quaerat error!</p>
+  </div>
+</div>
+
 <aside class="modal block vertical" data-modal id="theModal">
   <a href="#" class="close-button" data-close>&times;</a>
   <header class="content block menu-bar">
@@ -68,7 +81,8 @@
       <span data-offcanvas-toggle="ofc-bottom" style="margin-right: 1em; cursor: pointer;">Bottom off-canvas</span>
       <span data-offcanvas-toggle="ofc-right" style="margin-right: 1em; cursor: pointer;">Right off-canvas</span>
       <span data-offcanvas-toggle="ofc-top" style="margin-right: 1em; cursor: pointer;">Top off-canvas</span>
-      <span data-panel-toggle="top-menu" style="cursor: pointer;">Top panel</span>
+      <span data-panel-toggle="top-menu" style="margin-right: 1em; cursor: pointer;">Top panel</span>
+      <span data-popover-toggle="thePopup" style="margin-right: 1em; cursor: pointer;">Popup panel</span>
     </div>
   </div>
   <div class="stretch block">
@@ -115,7 +129,7 @@
       </div>
       <div class="block menu-bar">
         <span class="left"><a href="#">Left</a></span>
-        <span class="right"><a href="#">Right</a></span>
+        <span class="right"><a href="#" data-popover-toggle="thePopup">Right</a></span>
       </div>
       <div class="block menu-bar">
         <span class="title center">Center</span>
