@@ -148,10 +148,6 @@ footer {
 	margin-bottom: rem-calc(15);
 }
 
-.button {
-	@include button($padding:$button-sml, $radius:true);
-}
-
 hr { border-color: #EEE; }
 
 hr.contain {

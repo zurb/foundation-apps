@@ -1,0 +1,107 @@
+$foundation: ();
+
+$foundation: map-merge((
+  button: (
+    padding: 0.85em 1em,
+    margin: 0 1em 1em 0,
+
+    background: $primary-color,
+    color: #fff,
+    radius: 8px,
+
+    font-size: 0.9rem,
+    font-weight: 500,
+
+    small-scale: 0.8,
+    large-scale: 1.2,
+  )
+), $foundation);
+
+@function setting($component, $setting) {
+  @return map-get(map-get($foundation, $component), $setting);
+}
+
+%button {
+  border: 0;
+  text-align: center;
+  line-height: 1;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -webkit-font-smoothing: antialiased;
+
+  display: setting(button, display);
+  padding: setting(button, padding);
+  margin: setting(button, margin);
+  font-weight: setting(button, font-weight);
+  border-radius: setting(button, radius);
+
+  transition: background 0.25s ease-out;
+
+  // Dropdown arrow
+  &[data-popup-toggle], &[data-popover-toggle] {
+    position: relative;
+    padding-right: 2em; // Placeholder
+
+    &::after {
+      @include css-triangle(6px, setting(button, color), top);
+      position: absolute;
+      right: 0.7em;
+      top: 50%;
+      margin-top: -3px;
+    }
+  }
+}
+
+@mixin button-size($size: medium) {
+  $sizes: (
+    small:  setting(button, font-size) * setting(button, small-scale),
+    medium: setting(button, font-size),
+    large:  setting(button, font-size) * setting(button, large-scale),
+  );
+  font-size: map-get($sizes, $size);
+}
+@mixin button-expand($expand: true) {
+  @if $expand {
+    display: block;
+    margin-left: 0;
+    margin-right: 0;
+  }
+  @else {
+    display: inline-block;
+    margin: setting(button, margin);
+  }
+}
+@mixin button-style($background: setting(button, background), $color: setting(button, color)) {
+  $color: if(lightness($background) > 60%, #000, #fff);
+
+  background: $background;
+  color: $color;
+
+  &:hover {
+    background: scale-color($background, $lightness: -15%);
+    color: $color;
+  }
+}
+@mixin button($size: medium, $expand: false, $background: setting(button, background), $color: setting(button, color)) {
+  @extend %button;
+  @include button-size($size);
+  @include button-expand($expand);
+  @include button-style($background, $color);
+}
+
+/*
+  CSS Output
+*/
+
+.button {
+  @include button;
+
+  &.small  { @include button-size(small); }
+  &.large  { @include button-size(large); }
+  &.expand { @include button-expand; }
+
+  &.secondary { @include button-style($secondary-color) }
+  &.success   { @include button-style($success-color) }
+  &.warning   { @include button-style($warning-color) }
+  &.alert     { @include button-style($alert-color) }
+}
