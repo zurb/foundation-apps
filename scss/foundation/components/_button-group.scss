@@ -1,31 +1,20 @@
 %button-group {
   $border-color: scale-color(foundation(button, background), $lightness: 15%);
-  $stretch: true;
 
   margin: 0;
   margin-bottom: 1rem;
   list-style-type: none;
-  display: flex;
-
-  @if not $stretch {
-    display: inline-flex;
-  }
+  display: inline-flex;
 
   > li {
-    @if $stretch {
-      flex: 1;
-    }
-    @else {
-      flex: 0 0 auto;
-    }
+    flex: 0 0 auto;
   }
 
   // Links become buttons
   > li > a,
   > li > label {
-    @include button($expand: $stretch);
-    margin-bottom: 0;
-    @if not $stretch { margin-right: 0; }
+    @include button;
+    margin: 0;
   }
   // Add borders between items
   > li:not(:last-child) > a,
@@ -89,8 +78,20 @@
 @mixin button-group-segmented {
   @extend %button-group-segmented;
 }
-@mixin button-group($segmented: false) {
+@mixin button-group-expand($stretch: true) {
+  display: if($stretch, flex, inline-flex);
+
+  > li {
+    flex: if($stretch, 1, 0 0 auto);
+
+    > a, > label {
+      @if $stretch { @include button-expand; }
+    }
+  }
+}
+@mixin button-group($segmented: false, $expand: false) {
   @extend %button-group;
+  @include button-group-expand($expand);
   @if $segmented {
     @incude button-group-segmented;
   }
@@ -100,4 +101,5 @@
   @include button-group;
 
   &.segmented { @include button-group-segmented; }
+  &.expand    { @include button-group-expand; }
 }
