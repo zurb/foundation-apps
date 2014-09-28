@@ -76,7 +76,7 @@
       color: $main-color;
     }
   }
-  // This is the button when its active
+  // This is the button when it's active
   > li.is-active > a,
   > li > input:checked + label {
     &, &:hover {
