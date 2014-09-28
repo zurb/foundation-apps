@@ -1,25 +1,6 @@
 /*
   BLOCK LISTS
-
-  Structure:
-
-  titles
-  lists
 */
-
-$colors: (
-  white: white,
-  black: black,
-  gray: #666,
-  light-gray: #ccc,
-  primary: blue,
-  success: green,
-  alert: orange,
-  error: red
-);
-@function color($color) {
-  @return map-get($colors, $color);
-}
 
 // Container
 .block-list {
@@ -27,7 +8,7 @@ $colors: (
   $background: transparent;
   $bg-color: if($background == transparent, #fff, $background);
   $light: if(lightness($bg-color) > 50%, true, false);
-  
+
   // Generated colors
   $border-color: scale-color($bg-color, $lightness: if($light, -20%, -17%));
   $highlight-color: scale-color($bg-color, $lightness: if($light, -3%, 6%));
@@ -91,6 +72,16 @@ $colors: (
         color: $header-color;
         font-size: 1em;
       }
+    }
+
+    // Coloring classes
+    &.caution > a {
+      &, &:hover { color: $alert-color; }
+    }
+    &.disabled > a {
+      cursor: default;
+      &, &:hover { color: #999; }
+      &:hover { background: transparent; }
     }
   }
 
