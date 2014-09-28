@@ -2,10 +2,13 @@
   "name": "foundation-apps",
   "version": "0.0.1",
   "description": "Foundation for Apps",
-  "main": "Gruntfile.js",
+  "main": "lib/cli",
   "scripts": {
-    "postinstall": "bower install",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "preferGlobal": "true",
+  "bin": {
+    "foundationapps": "lib/cli.js"
   },
   "repository": {
     "type": "git",
@@ -25,7 +28,7 @@
   "homepage": "https://github.com/zurb/foundation-apps",
   "devDependencies": {
     "node-sass": "~0.8.0",
-    "grunt": "~0.4.1",
+    "grunt": "~0.4.2",
     "grunt-contrib-watch": "~0.5.3",
     "grunt-sass": "~0.12.1",
     "assemble": "~0.4.37",
@@ -38,5 +41,6 @@
   },
   "dependencies": {
     "highlight.js": "~7.5.0"
-  }
+  },
+  "private": true
 }
