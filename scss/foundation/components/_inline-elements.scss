@@ -1,4 +1,9 @@
-.close-button {
+/*
+  Odds and ends.
+*/
+
+// A basic close button. They pin to the top-right of the thing they're inside.
+%close-button {
   position: absolute;
   color: #999;
   top: 1rem;
@@ -10,17 +15,21 @@
   }
 }
 
+// Make your images fancy-like.
 %thumbnail {
   padding: 0.5rem;
   box-shadow: 0 3px 15px rgba(black, 0.25);
 }
 
-img {
-  max-width: 100%;
+/*
+  CSS Output
+*/
 
-  &.thumbnail {
-    @extend %thumbnail;
-  }
+.close-button {
+  @extend %close-button;
+}
+.thumbnail {
+@extend %thumbnail;
 }
 ul.thumbnails > li > img {
   @extend %thumbnail;
