@@ -2,21 +2,43 @@
 // F6A SETTINGS
 //
 
+// Possible master settings map structure
+
+$foundation: (
+  base: (
+    font-size: 16px,
+    line-height: 1,
+  ),
+  grid: (
+    container-width: rem-calc(1000),
+    content-padding: 1rem,
+    total-columns: 12,
+  ),
+  colors: (
+    primary: #005a72,
+    secondary: #E7E7E7,
+    info: #A0D3E8,
+    success: #43AC6A,
+    alert: #F04124,
+    warning: #F08A24,
+  ),
+);
+
 // Foundation Colors
 
-$bondi-blue: #008CBA; 		
-$white-lilac: #E7E7E7; 	
-$cinnabar: #F04124; 			
-$cornflower: #A0D3E8; 				
-$sea-green: #43AC6A;		
+$bondi-blue: #008CBA;
+$white-lilac: #E7E7E7;
+$cinnabar: #F04124;
+$cornflower: #A0D3E8;
+$sea-green: #43AC6A;
 $carrot: #F08A24;
-$slate: #708090; 		
+$slate: #708090;
 
 // ZURBapp Colors
 $dull-cyan: #3CADBF; // Influence
 $inch-worm: #B8D30B; // Verify
 $debian-red: #C9025C; // Solidify
-$summer-heat: #FFB134; // Notable 
+$summer-heat: #FFB134; // Notable
 $union-navy: #073C56; // Foundation
 
 // Application Colors

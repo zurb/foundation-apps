@@ -6,16 +6,19 @@
 // Make sure the charset is set appropriately
 @charset "UTF-8";
 
-// HELPERS
-@import "normalize";
-
-// GLOBALS
+// Libraries (let's make Normalize an external dependency eventually)
 @import
-	"components/functions",
-	"components/global",
-	"components/transitions";
+  "vendor/normalize";
 
-// COMPONENTS
+// Helpers
+@import
+  "helpers/functions",
+  "helpers/mixins";
+
+// Global styles
+@import "global";
+
+// Components
 @import
 	"components/block-list",
 	"components/button",
@@ -31,10 +34,9 @@
 	"components/off-canvas",
 	"components/popup",
 	"components/popup-menu",
-	"components/range-slider",
 	"components/tabs",
 	"components/typography",
-    "components/transitions",
+  "components/transitions",
 	"components/utilities",
 	"components/z-index";
 
@@ -61,7 +63,6 @@ $settings: (
 @debug setting(grid, padding);
 
 // CSS property map test
-
 
 @mixin styles($component, $element) {
 	$properties: map-get(map-get($settings, $component), $element);
