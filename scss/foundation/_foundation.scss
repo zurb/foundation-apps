@@ -10,11 +10,11 @@
 @import "normalize";
 
 // GLOBALS
-@import 	
+@import
 	"components/functions",
 	"components/global",
 	"components/transitions";
-	
+
 // COMPONENTS
 @import
 	"components/block-list",
@@ -22,12 +22,10 @@
 	"components/cards",
 	"components/forms",
 	"components/grid",
-	"components/block-grid",
 	"components/headers",
 	"components/icon-bar",
 	"components/inline-elements",
 	"components/lists",
-	"components/motion",
 	"components/modal",
 	"components/notification",
 	"components/off-canvas",
@@ -36,6 +34,7 @@
 	"components/range-slider",
 	"components/tabs",
 	"components/typography",
+    "components/transitions",
 	"components/utilities",
 	"components/z-index";
 
