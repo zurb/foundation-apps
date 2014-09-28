@@ -43,7 +43,7 @@ $('[data-popup-toggle]').click(function() {
 // $('*[data-motion-id="example1"]').on('click', function(e){
 //   e.preventDefault();
 //   $('#example1').toggleClass('motion');
-//  //  setTimeout(function () { 
+//  //  setTimeout(function () {
 // 	//   $('#example1').removeClass('motion');
 // 	// }, 1000);
 // });
@@ -91,25 +91,25 @@ $('[data-popup-toggle]').click(function() {
 // $('*[data-motion-id="example10"]').on('click', function(e){
 //   e.preventDefault();
 //   $('#example10').toggleClass('motion');
-  
+
 // });
 
 // $('*[data-motion-id="example11"]').on('click', function(e){
 //   e.preventDefault();
 //   $('#example11').toggleClass('motion');
-  
+
 // });
 
 // $('*[data-motion-id="example12"]').on('click', function(e){
 //   e.preventDefault();
 //   $('#example12').toggleClass('motion');
-  
+
 // });
 
 // $('*[data-animation-id="example13"]').on('click', function(e){
 //   e.preventDefault();
 //   $('#example13').addClass('animate');
-//   setTimeout(function () { 
+//   setTimeout(function () {
 //     $('#example13').removeClass('animate');
 //   }, 2000);
 // });

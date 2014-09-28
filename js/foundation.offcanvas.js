@@ -4,6 +4,11 @@ FoundationApps.offcanvas = {
     this.options = $.extend({}, options);
     this.$allMenus = $('[data-offcanvas]');
 
+    // Add a class to the body if an off-canvas is detected
+    if (this.$allMenus.length > 0) {
+      document.body.classList.add('has-off-canvas');
+    }
+
     // Event handler for elements that toggle the menu
     $('[data-offcanvas-toggle]').click(function(event) {
       // Prevent default behavior
@@ -21,25 +26,25 @@ FoundationApps.offcanvas = {
 
       return false;
     });
-
-    // Event handler for closing on frame click
-    $('.frame').click(function() {
-      // Desired behavior: all click events are disabled while an off-canvas menu is open
-      // Instead the click just closes the open menu
-      _this.$allMenus.removeClass('is-active');
-      return false;
-    });
   },
 
   open: function(sel) {
+    var _this = this;
     $elem = $(sel);
-
-    console.log($elem);
 
     // Close other menus
     this.$allMenus.removeClass('is-active');
     // Toggle the targeted menu
     $elem.addClass('is-active');
+
+    // Clicks on the frame will close the menu
+    var frame = document.querySelector('.frame');
+    var closeHandler = function() {
+      _this.$allMenus.removeClass('is-active');
+      frame.removeEventListener('click', closeHandler);
+      return false;
+    }
+    frame.addEventListener('click', closeHandler);
   },
   close: function(sel) {
     $elem = $(sel);

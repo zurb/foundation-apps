@@ -1,6 +1,6 @@
 /*
   This is the global object for Foundation plugins.
-  
+
   Individual plugins will be initialized in this function, and options can be sent to each one.
   Helper functions used by all plugins will also be defined here.
 */
@@ -20,7 +20,7 @@ FoundationApps = {
   init: function() {
     // Bein' hacky
     $.fn.on = function() {};
-    
+
     FastClick.attach(document.body);
     viewportUnitsBuggyfill.init();
 

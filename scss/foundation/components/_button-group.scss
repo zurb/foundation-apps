@@ -1,0 +1,103 @@
+%button-group {
+  $border-color: scale-color(foundation(button, background), $lightness: 15%);
+  $stretch: true;
+
+  margin: 0;
+  margin-bottom: 1rem;
+  list-style-type: none;
+  display: flex;
+
+  @if not $stretch {
+    display: inline-flex;
+  }
+
+  > li {
+    @if $stretch {
+      flex: 1;
+    }
+    @else {
+      flex: 0 0 auto;
+    }
+  }
+
+  // Links become buttons
+  > li > a,
+  > li > label {
+    @include button($expand: $stretch);
+    margin-bottom: 0;
+    @if not $stretch { margin-right: 0; }
+  }
+  // Add borders between items
+  > li:not(:last-child) > a,
+  > li:not(:last-child) > label {
+    border-right: 1px solid $border-color;
+  }
+  // Remove border radius on inner items
+  > li:first-child > a,
+  > li:first-child > label {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  > li:not(:first-child):not(:last-child) > a,
+  > li:not(:first-child):not(:last-child) > label {
+    border-radius: 0;
+  }
+  > li:last-child > a,
+  > li:last-child > label {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+}
+
+%button-group-segmented {
+  $main-color: foundation(button, background);
+  $hover-color: rgba($main-color, 0.25);
+
+  border: 1px solid $main-color;
+  border-radius: 8px;
+  overflow: hidden;
+
+  // Hide the radio button
+  > li > input[type="radio"] {
+    position: absolute;
+    left: -9999px;
+  }
+  // This is the button itself
+  > li > a,
+  > li > label {
+    margin-right: 0;
+    border-color: $main-color;
+    background: transparent;
+    color: $main-color;
+
+    // This is the hover state for the button
+    &:hover {
+      background: $hover-color;
+      color: $main-color;
+    }
+  }
+  // This is the button when its active
+  > li.is-active > a,
+  > li > input:checked + label {
+    &, &:hover {
+      background: $main-color;
+      color: #fff;
+    }
+  }
+}
+
+@mixin button-group-segmented {
+  @extend %button-group-segmented;
+}
+@mixin button-group($segmented: false) {
+  @extend %button-group;
+  @if $segmented {
+    @incude button-group-segmented;
+  }
+}
+
+.button-group {
+  @include button-group;
+
+  &.segmented { @include button-group-segmented; }
+}
