@@ -1,10 +1,29 @@
 {
-  "name": "foundation-libsass-template",
+  "name": "foundation-apps",
   "dependencies": {
     "notify.js": "~1.2.3",
     "jqlite": "~1.1.1",
     "viewport-units-buggyfill": "~0.4.1",
     "tether": "~0.6.5",
     "fastclick": "~1.0.3"
-  }
+  },
+  "version": "0.0.1",
+  "homepage": "https://github.com/zurb/foundation-apps",
+  "description": "Build the future of responsive web apps.",
+  "keywords": [
+    "web apps",
+    "responsive design",
+    "angular"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "dist",
+    "docs",
+    "lib",
+    "Gruntfile.js"
+  ]
 }
