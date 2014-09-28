@@ -2,6 +2,22 @@
 // Foundation Variables
 //
 
+$foundation: ();
+
+@include foundation-component(global, (
+  font-size: 16px,
+  rem-base: 16px,
+  line-height: 1,
+));
+@include foundation-component(color, (
+  primary: #005a72,
+  secondary: #E7E7E7,
+  info: #A0D3E8,
+  success: #43AC6A,
+  alert: #F04124,
+  warning: #F08A24,
+));
+
 // Data attribute namespace
 // styles get applied to [data-mysite-plugin], etc
 $namespace: false !default;

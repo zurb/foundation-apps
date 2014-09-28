@@ -2,28 +2,6 @@
 // F6A SETTINGS
 //
 
-// Possible master settings map structure
-
-$foundation: (
-  base: (
-    font-size: 16px,
-    line-height: 1,
-  ),
-  grid: (
-    container-width: rem-calc(1000),
-    content-padding: 1rem,
-    total-columns: 12,
-  ),
-  colors: (
-    primary: #005a72,
-    secondary: #E7E7E7,
-    info: #A0D3E8,
-    success: #43AC6A,
-    alert: #F04124,
-    warning: #F08A24,
-  ),
-);
-
 // Foundation Colors
 
 $bondi-blue: #008CBA;
