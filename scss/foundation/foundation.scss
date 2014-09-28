@@ -42,37 +42,23 @@
 	"components/utilities",
 	"components/z-index";
 
-// Settings map test
-$settings: (
-	grid: (
-		width: 1000px,
-		padding: 1rem,
-	),
-	button: (
-		text: (
-			color: #fff,
-			background: $primary-color,
-			border: 0px solid darken($primary-color, 15%),
-			text-transform: uppercase,
-		),
-	),
-);
-
-@function setting($component, $setting) {
-	@return map-get(map-get($settings, $component), $setting);
-}
-
-@debug setting(grid, padding);
-
 // CSS property map test
-
+$settings: (
+  button: (
+    text: (
+      color: #fff,
+      background: $primary-color,
+      border: 0px solid darken($primary-color, 15%),
+      text-transform: uppercase,
+    ),
+  ),
+);
 @mixin styles($component, $element) {
 	$properties: map-get(map-get($settings, $component), $element);
 	@each $property, $value in $properties {
 		#{$property}: $value;
 	}
 }
-
 .test-button {
 	@include styles(button, text);
 }
