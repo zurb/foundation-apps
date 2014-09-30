@@ -8,7 +8,6 @@
     "fastclick": "~1.0.3",
     "angular": "~1.2.25",
     "ui-router": "~0.2.11",
-    "foundation": "~5.4.4",
     "angular-animate": "~1.2.25"
   },
   "version": "0.0.1",
