@@ -35,7 +35,7 @@ gulp.task('copy', ['clean'], function() {
 
 gulp.task('copy2', ['clean'], function() {
   return gulp.src(['./src/assets/**.*', '!**/*.js', '!**/*.scss'], { base: './src/assets/'})
-    .pipe(gulp.dest('dist/assets'))
+    .pipe(gulp.dest('./dist/assets'))
   ;
 });
 
@@ -43,7 +43,8 @@ gulp.task('copy2', ['clean'], function() {
 gulp.task('sass', ['clean', 'copy'], function() {
   return gulp.src('scss/app.scss')
     .pipe(sass({ loadPath: ['scss', 'scss/foundation'] }))
-    .pipe(concat('dist/assets/css/app.css'))
+    .pipe(concat('app.css'))
+    .pipe(gulp.dest('./dist/assets/css/'))
   ;
 });
 
@@ -56,7 +57,8 @@ gulp.task('uglify', ['copy', 'clean'], function() {
       beautify: true,
       mangle: false
     }))
-    .pipe(concat('dist/assets/js/all.js'))
+    .pipe(concat('all.js'))
+    .pipe(concat('./dist/assets/js/'))
   ;
 });
 
