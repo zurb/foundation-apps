@@ -33,18 +33,12 @@ gulp.task('copy', ['clean'], function() {
     .pipe(gulp.dest('build'));
 });
 
-gulp.task('copy2', ['clean'], function() {
-  return gulp.src(['./src/assets/**.*', '!**/*.js', '!**/*.scss'], { base: './src/assets/'})
-    .pipe(gulp.dest('./dist/assets'))
-  ;
-});
-
 //ruby sass
 gulp.task('sass', ['clean', 'copy'], function() {
   return gulp.src('scss/app.scss')
     .pipe(sass({ loadPath: ['scss', 'scss/foundation'] }))
     .pipe(concat('app.css'))
-    .pipe(gulp.dest('./dist/assets/css/'))
+    .pipe(gulp.dest('./build/assets/css/'))
   ;
 });
 
@@ -58,25 +52,25 @@ gulp.task('uglify', ['copy', 'clean'], function() {
       mangle: false
     }))
     .pipe(concat('all.js'))
-    .pipe(concat('./dist/assets/js/'))
+    .pipe(gulp.dest('./build/assets/js/'))
   ;
 });
 
-gulp.task('uglify-angular', ['front-matter', 'copy', 'clean'], function() {
-  var libs = ['bower_components/angular/angular.js', 'bower_components/angular-animate/angular-animate.js', 'bower_components/ui-router/release/angular-ui-router.js', 'build/assets/js/*.js'];
+gulp.task('uglify-angular', ['copy', 'clean'], function() {
+  var libs = ['bower_components/angular/angular.js', 'bower_components/angular-animate/angular-animate.js', 'bower_components/ui-router/release/angular-ui-router.js', 'js/angular/*.js'];
 
   return gulp.src(libs)
     .pipe(uglify({
       beautify: true,
       mangle: false
     }))
-    .pipe(concat('all.js'))
+    .pipe(concat('app.js'))
     .pipe(gulp.dest('./build/assets/js/'))
   ;
 
 });
 
-gulp.task('front-matter', ['copy'], function() {
+gulp.task('front-matter', ['copy', 'sass', 'uglify-angular'], function() {
   var config = [];
 
   return gulp.src('./client/templates/*.html')
@@ -110,7 +104,7 @@ gulp.task('server:start', ['build'], function() {
   server.listen( { path: 'app.js' });
 });
 
-gulp.task('build', ['clean', 'copy', 'copy2', 'uglify','uglify-angular', 'front-matter'], function() {
+gulp.task('build', ['clean', 'copy', 'uglify','uglify-angular', 'front-matter'], function() {
   console.log('Successfully built');
 });
 
@@ -122,3 +116,4 @@ gulp.task('default', ['build', 'css', 'server:start'], function() {
   gulp.watch(['./client/**/*.*', './src/**/*.*'], ['build', server.restart]);
   gulp.watch('./scss/**/*.*', ['build', 'css', server.restart]);
 });
+
