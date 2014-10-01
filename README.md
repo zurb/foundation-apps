@@ -21,11 +21,11 @@ Navigate into the directory:
 `cd foundation-apps`
 
 Install all the dependencies:
-`npm install`
+`npm install && bower install`
 
 While you're working on the project, run:
 
-`grunt`
+`gulp`
 
 This will assemble all the pages and compile the Sass. You're set!
 
