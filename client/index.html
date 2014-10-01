@@ -8,24 +8,7 @@
     <script src="/assets/js/app.js"></script>
   </head>
   <body>
-    <div class="contain-to-grid">
-      <nav class="top-bar">
-        <ul class="title-area">
-          <li class="name">
-            <h1><a ui-sref="home">Angular</a></h1>
-          </li>
-        </ul>
-
-        <section class="top-bar-section">
-          <ul class="right">
-            <li ui-sref-active-eq="active"><a ui-sref="home">Home</a></li>
-            <li ui-sref-active-eq="active"><a ui-sref="mail">Mail</a></li>
-            <li ui-sref-active-eq="active"><a ui-sref="mail.inbox">Inbox</a></li>
-          </ul>
-        </section>
-      </nav>
-    </div>
-    <div class="row" ng-controller="MainController">
+    <div ng-controller="MainController">
       <div ng-class="[currentSlug, 'ui-animation']" ui-view></div>
     </div>
   </body>

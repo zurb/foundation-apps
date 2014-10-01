@@ -36,7 +36,7 @@ gulp.task('copy', ['clean'], function() {
 //ruby sass
 gulp.task('sass', ['clean', 'copy'], function() {
   return gulp.src('scss/app.scss')
-    .pipe(sass({ loadPath: ['scss', 'scss/foundation'] }))
+    .pipe(sass({ loadPath: ['scss', 'scss/foundation'], style: 'expanded', lineNumbers: true  }))
     .pipe(concat('app.css'))
     .pipe(gulp.dest('./build/assets/css/'))
   ;
