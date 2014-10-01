@@ -44,7 +44,14 @@ gulp.task('sass', ['clean', 'copy'], function() {
 
 //uglify and concat
 gulp.task('uglify', ['copy', 'clean'], function() {
-  var libs = ['bower_components/jqlit/jqlite.1.1.1.js', 'bower_components/fastlickc/lib/fastclick.js', 'bower_components/notify.js/notify.js', 'bower_components/tether/tether.js', 'js/foundation.js', 'js/foundation.modal.js', 'js/foundation.notification.js', 'js/foundation.offcanvas.js', 'js/foundation.popup.js', 'js/app.js'];
+  var libs = [
+    'bower_components/fastlickc/lib/fastclick.js',
+    'bower_components/notify.js/notify.js',
+    'bower_components/tether/tether.js',
+    'js/foundation.js',
+    'js/foundation.*.js',
+    'js/app.js'
+  ];
 
   return gulp.src(libs)
     .pipe(uglify({
