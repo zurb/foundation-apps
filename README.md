@@ -21,7 +21,7 @@ Navigate into the directory:
 `cd foundation-apps`
 
 Install all the dependencies:
-`npm install && bower install`
+`npm install`
 
 While you're working on the project, run:
 
