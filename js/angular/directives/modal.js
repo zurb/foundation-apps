@@ -42,15 +42,3 @@ angular.module('foundation.modal', [])
     }
   }
 });
-
-angular.module('foundation.modal')
-  .factory('modal.api', function() {
-    return {
-      status: null,
-      message: null,
-      showModal: function(data, templateUrl) {
-        this.data = data;
-        this.templateUrl = templateUrl;
-      }
-    }
-  });
