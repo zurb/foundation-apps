@@ -1,44 +1,106 @@
 angular.module('foundation.modal', [])
-  .directive('modal', function() {
+  .service('FoundationModalApi', function() {
+    console.log('test4');
+    var listeners = [];
+    return {
+      subscribe: function(name, callback) {
+    console.log('test5', name);
+        listeners[name] = callback;
+        return true;
+      },
+      publish: function(name, msg) {
+    console.log('test6', name, msg);
+        var cb = listeners[name] || function() {};
+        cb(msg);
+        return;
+      }
+
+
+    }
+  }
+);
+
+angular.module('foundation.modal')
+  .directive('faModal', ['FoundationModalApi', function(modalApi) {
   return {
     restrict: 'A',
     templateUrl: '/partials/modal.html',
     transclude: true,
     scope: {
-      title: '=',
-      args: '=',
-      show: '='
+      src: '@'
     },
     replace: true,
-    link: function(scope, element, attrs, ctrl, transcludeFn) {
+    link: function(scope, element, attrs) {
       var dialog = angular.element(element.children()[0]);
 
-      scope.$watch('show', function(newValue, oldValue) {
-        if(newValue) {
-          dialog.addClass('is-active');
-          element.addClass('is-active');
+      var modalStatus = 'hide';
+
+      modalApi.subscribe(attrs.id, function(msg) {
+        console.log('test3');
+        if(msg == 'show') {
+          scope.show();
+        } else if (msg == 'hide') {
+          scope.hide();
+        } else if (msg == 'toggle') {
+          scope.toggle();
         }
+
+        return;
       });
 
-      angular.forEach(scope.args, function(value, key) {
-        scope[key] = value;
-      });
-
-      scope.dismiss = function() {
+      scope.hide = function() {
         dialog.removeClass('is-active');
         element.removeClass('is-active');
-        scope.show = false;
+        modalStatus = 'hide';
+        return;
       }
 
-      scope.ok = function() {
-        dialog.removeClass('is-active');
-        element.removeClass('is-active');
-        scope.show = false;
+      scope.show = function() {
+        dialog.addClass('is-active');
+        element.addClass('is-active');
+        modalStatus = 'show';
+        return;
       }
 
-      transcludeFn(scope, function (clone) {
-        dialog.append(clone);
+      scope.toggle = function() {
+        if(modalStatus == 'show') {
+          scope.hide();
+          modalStatus = 'hide';
+          return;
+        }
+
+        scope.show();
+        modalStatus = 'show';
+        return;
+      }
+    }
+  }
+}]);
+
+angular.module('foundation.modal')
+  .directive('faModalClose', ['FoundationModalApi', function(modalApi) {
+  return {
+    restrict: 'A',
+    link: function(scope, element, attrs) {
+      element.on('click', function() {
+        console.log('test');
+        modalApi.publish(attrs.faModalClose, 'hide');
+        e.preventDefault();
       });
     }
   }
-});
+}]);
+
+angular.module('foundation.modal')
+  .directive('faModalOpen', ['FoundationModalApi', function(modalApi) {
+  return {
+    restrict: 'A',
+    link: function(scope, element, attrs) {
+      element.on('click', function(e) {
+        console.log('test2', attrs, scope);
+        modalApi.publish(attrs.faModalOpen, 'show');
+        e.preventDefault();
+      });
+    }
+  }
+}]);

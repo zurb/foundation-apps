@@ -4,7 +4,6 @@ url: /mail
 composed: true
 animationIn: bounceIn
 animationOut: bounceOut
-controller: PageController
 ---
 <div class="block">
   <div class="small-4 large-4 columns">
@@ -12,19 +11,19 @@ controller: PageController
   </div>
   <div class="small-8 large-8 columns">
   <h1>Page</h1>
-  <button ng-click="showModal()">Modal</button>
+  <button fa-modal-open="pageModal">Modal</button>
   <p>Welcome to your mailbox. Do you want to go straight to your <a ui-sref="mail.inbox">Inbox</a> or your <a ui-sref="mail.email({ id: 1})">latest email</a>?</p>
   <div ng-class="[currentSlug, 'ui-animation' ]" ui-view></div>
 </div>
 <div class="block">
   <div ui-view="mail.footer"></div>
 </div>
-<div modal args="{ vars: vars }" show="modalState">
+<div fa-modal id="pageModal" >
   <section class="content block">
     {{ vars.name }} | {{ vars.url }}
   </section>
   <footer class="content block menu-bar">
-    <span class="button" ng-click="dismiss()">Ok</span>
-    <span class="button" ng-click="dismiss()">Cancel</span>
+    <span class="button">Ok</span>
+    <span class="button">Cancel</span>
   </footer>
 </div>
