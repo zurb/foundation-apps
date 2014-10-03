@@ -3,6 +3,7 @@ angular.module('foundation.modal', [])
   return {
     restrict: 'A',
     templateUrl: '/partials/modal.html',
+    transclude: true,
     scope: {
       title: '=',
       args: '=',
@@ -12,8 +13,7 @@ angular.module('foundation.modal', [])
     link: function(scope, element, attrs, ctrl, transcludeFn) {
       var dialog = angular.element(element.children()[0]);
 
-      scope.$watch(scope.show, function(newValue, oldValue) {
-        console.log('happened?');
+      scope.$watch('show', function(newValue, oldValue) {
         if(newValue) {
           dialog.addClass('is-active');
           element.addClass('is-active');

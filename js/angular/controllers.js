@@ -45,10 +45,7 @@ angular.module('application')
 
     $scope.modalState = false;
     $scope.showModal = function() {
-      console.log('happened? test');
       $scope.modalState = true;
-
-      console.log($scope.modalState);
     }
   }
 ]);
