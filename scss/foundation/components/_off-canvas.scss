@@ -2,13 +2,6 @@
 	Off-canvas menus
 */
 
-// PH
-body {
-	&.has-off-canvas {
-		// overflow: hidden;
-	}
-}
-
 // Alternate off-canvas
 .ofc {
 	$size: 250px;
@@ -16,7 +9,7 @@ body {
 	$shadow-size: 10px;
 	$shadow-color: rgba(0, 0, 0, 0.25);
 
-	position: absolute;
+	position: fixed;
 	background: #666;
 	color: white;
 	overflow: scroll;
