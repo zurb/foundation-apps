@@ -267,7 +267,7 @@
 /*
 	Shared styles for frames and blocks
 */
-.frame, .block {
+.frame, .block, .medium-block {
 	// Orientation classes
 	&.vertical, &.small-vertical { @include grid-orient(vertical); }
 	@media #{$medium-up} {
