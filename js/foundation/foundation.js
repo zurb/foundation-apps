@@ -18,14 +18,30 @@ FoundationApps = {
     return null;
   },
   init: function() {
-    // Bein' hacky
-    $.fn.on = function() {};
-
     FastClick.attach(document.body);
     viewportUnitsBuggyfill.init();
 
     this.modal.init();
     this.offcanvas.init();
     this.popup.init();
+
+    // The rest of the plugins
+    // Panels
+    $('[data-panel-toggle]').click(function() {
+      var targetPanel = $(this).attr('data-panel-toggle');
+      if (targetPanel.length === 0) {
+        $(this).closest('[data-panel]').toggleClass('is-active');
+      }
+      else {
+        $('#'+$(this).attr('data-panel-toggle')).toggleClass('is-active');
+      }
+      return false;
+    });
+
+    // Popup menus
+    $('[data-popup-toggle]').click(function() {
+      $(this).next('[data-popup]').toggleClass('is-active');
+      return false;
+    });
   }
 }
