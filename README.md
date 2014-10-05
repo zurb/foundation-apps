@@ -7,7 +7,7 @@ Work in progress for Foundation for Apps. At this time we will only be accepting
 You'll need to have the following items installed before continuing.
 
   * [Node.js](http://nodejs.org): Use the installer provided on the NodeJS website.
-  * [Gulp](http://gruntjs.com/) and [Bower](http://bower.io): Run `sudo npm install -g gulp bower`
+  * [Gulp](http://gulpjs.com/) and [Bower](http://bower.io): Run `sudo npm install -g gulp bower`
   * [Sass 3.4](http://sass-lang.com/): run `gem update sass`
 
 ## Quickstart
@@ -22,7 +22,6 @@ Install all the dependencies:
 `npm install`
 
 While you're working on the project, run:
-
 `gulp`
 
 This will assemble all the pages and compile the Sass. You're set!
