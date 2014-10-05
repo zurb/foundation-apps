@@ -10,7 +10,7 @@ var gulp         = require('gulp'),
     uglify       = require('gulp-uglify'),
     concat       = require('gulp-concat');
 
-//prefix
+// Auto-prefix that Sass
 gulp.task('prefix', ['sass'], function() {
   return gulp.src('./build/assets/css/*.css')
     .pipe(autoprefixer({
@@ -20,51 +20,44 @@ gulp.task('prefix', ['sass'], function() {
   ;
 });
 
-// clean folders
+// Clean build directory
 gulp.task('clean', function(cb) {
   return gulp.src(['./dist', './build'])
     .pipe(rimraf())
   ;
 });
 
-//copy files
+// Copy static files (but not the Angular templates, Sass, or JS)
 gulp.task('copy', ['clean'], function() {
-  return gulp.src(['./client/**/*.*', '!./client/templates/**/*.*'], { base: './client/' } )
+  var dirs = [
+    './client/**/*.*',
+    '!./client/templates/**/*.*',
+    '!./client/assets/{scss,js}/**/*.*'
+  ];
+  return gulp.src(dirs, {
+    base: './client/'
+  })
     .pipe(gulp.dest('build'));
 });
 
-//ruby sass
+// Compile Sass
 gulp.task('sass', ['clean', 'copy'], function() {
-  return gulp.src('scss/app.scss')
-    .pipe(sass({ loadPath: ['scss', 'scss/foundation'], style: 'expanded', lineNumbers: true  }))
+  return gulp.src('client/assets/scss/app.scss')
+    .pipe(sass({ loadPath: ['client/asets/scss', 'scss'], style: 'expanded', lineNumbers: true  }))
     .pipe(concat('app.css'))
     .pipe(gulp.dest('./build/assets/css/'))
   ;
 });
 
-//uglify and concat
+// Process Foundation JS
 gulp.task('uglify', ['copy', 'clean'], function() {
   var libs = [
-    'bower_components/fastlickc/lib/fastclick.js',
+    'bower_components/fastclick/lib/fastclick.js',
     'bower_components/notify.js/notify.js',
     'bower_components/tether/tether.js',
-    'js/foundation.js',
-    'js/foundation.*.js',
-    'js/app.js'
+    'js/foundation/**/*.js',
+    'client/js/app.js'
   ];
-
-  return gulp.src(libs)
-    .pipe(uglify({
-      beautify: true,
-      mangle: false
-    }))
-    .pipe(concat('all.js'))
-    .pipe(gulp.dest('./build/assets/js/'))
-  ;
-});
-
-gulp.task('uglify-angular', ['copy', 'clean'], function() {
-  var libs = ['bower_components/angular/angular.js', 'bower_components/angular-animate/angular-animate.js', 'bower_components/ui-router/release/angular-ui-router.js', 'js/angular/*.js'];
 
   return gulp.src(libs)
     .pipe(uglify({
@@ -74,9 +67,29 @@ gulp.task('uglify-angular', ['copy', 'clean'], function() {
     .pipe(concat('app.js'))
     .pipe(gulp.dest('./build/assets/js/'))
   ;
+});
+
+// Process Angular JS
+gulp.task('uglify-angular', ['copy', 'clean'], function() {
+  var libs = [
+    'bower_components/angular/angular.js',
+    'bower_components/angular-animate/angular-animate.js',
+    'bower_components/ui-router/release/angular-ui-router.js',
+    'js/angular/*.js'
+  ];
+
+  return gulp.src(libs)
+    .pipe(uglify({
+      beautify: true,
+      mangle: false
+    }))
+    .pipe(concat('angular.js'))
+    .pipe(gulp.dest('./build/assets/js/'))
+  ;
 
 });
 
+// Parse view settings (name, route, animation) from template files
 gulp.task('front-matter', ['copy', 'sass', 'uglify-angular'], function() {
   var config = [];
 
