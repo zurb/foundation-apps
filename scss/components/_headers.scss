@@ -1,118 +1,113 @@
-// Headers are fixed top/bottom/left/right elements that work with the grid
+/*
+  TITLE BAR
+  ---------
 
-// Header Variables
+  A navigational component which can display the current screen the user is on, along with additional controls or menu items.
 
-$fixed-top: 80px !default;
-$fixed-bottom: false !default;
-$fixed-left: 80px !default;
-$fixed-right: false !default;
+  The title bar includes classes to create center, left, and right sections, which can be used in any combination. However, in the markup, the sections must come in this order:
+   - Center
+   - Left
+   - Right
+*/
 
+$title-bar-center-width: 50%;
+$title-bar-side-width: (100% - $title-bar-center-width) / 2;
+$title-bar-background: #eee;
+$title-bar-color: #000;
+$title-bar-border: 1px solid #ccc;
+$title-bar-padding: $block-padding;
 
-.group, .block {
-	&[class*="fixed-"] { flex: 0 0 auto; }
-	
-	@if ($fixed-left) {
-	  &.fixed-left {
-	  	width: $fixed-left; flex-basis: $fixed-left;
-	  }
-	}
-	@if ($fixed-right) {
-	  &.fixed-right {
-	  	width: $fixed-right; flex-basis: $fixed-right;
-	  }
-	}
+%title-bar {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: visible;
 
-	@if ($fixed-left) {
-		@if ($fixed-right) {
-			&.remainder { width: calc(100vw - #{$fixed-left} - #{$fixed-right}); }
-		} @else {
-			&.remainder { width: calc(100vw - #{$fixed-left}); }
-		}
-	} @else { 
-		@if ($fixed-right) {
-			&.remainder { width: calc(100vw - #{$fixed-right}); }
-		}
-	}
+  // Denotes the title of the bar
+  .title {
+    font-weight: bold;
+  }
+
+  // Denotes left, right, and center sections of the bar
+  .left, .center, .right {
+    white-space: nowrap;
+    overflow-x: hidden; // For the ellipsis trick
+    overflow-y: visible; // To make descenders visible
+    text-overflow: ellipsis;
+
+    // If only one section is in use, stretch it all the way out
+    &:first-child:last-child {
+      flex: 1;
+      margin: 0;
+    }
+  }
+
+  // Left always comes first, then center, then right
+  // The left and right sections have the same width
+  .left {
+    order: 1;
+    flex: 0 0 $title-bar-side-width;
+  }
+  .center {
+    order: 2;
+    flex: 0 0 $title-bar-center-width;
+    text-align: center;
+  }
+  .right {
+    order: 3;
+    flex: 0 0 $title-bar-side-width;
+    text-align: right;
+  }
+
+  // If only left and right are in use, stretch them both out equally
+  .left:first-child {
+    flex: 1 1 auto;
+  }
+  .left:first-child + .right:last-child {
+    flex: 1 1 auto;
+  }
+
+  // If center and right are in use, shift the center section into the right position
+  .center:first-child:not(:last-child) {
+    margin-left: $title-bar-side-width;
+  }
+  // If center and left are in use, override the above style
+  .center + .left {
+    margin-right: -($title-bar-side-width);
+  }
 }
 
-
-.vertical, .small-vertical, .medium-vertical, .large-vertical {
-
-	.group, .block {
-		
-		@if ($fixed-top) {
-		  &.fixed-top {
-		  	height: $fixed-top; flex-basis: $fixed-top;
-		  }
-		}
-		@if ($fixed-bottom) {
-		  &.fixed-bottom {
-		  	height: $fixed-bottom; flex-basis: $fixed-bottom;
-		  }
-		}
-
-		@if ($fixed-top) {
-			@if ($fixed-bottom) {
-				&.remainder { height: calc(100vh - #{$fixed-top} - #{$fixed-bottom}); }
-			} @else {
-				&.remainder { height: calc(100vh - #{$fixed-top}); }
-			}
-		} @else { 
-			@if ($fixed-bottom) {
-				&.remainder { height: calc(100vh - #{$fixed-bottom}); }
-			}
-		}
-	}
-
-	&>.remainder { width: 100%; }
-
+@mixin title-bar-style(
+  $background: $title-bar-background,
+  $color: $title-bar-color,
+  $border: $title-bar-border,
+  $padding: $title-bar-padding
+) {
+  background: $background;
+  color: $color;
+  padding: $title-bar-padding;
+  border-bottom: $border;
 }
 
-.menu-bar {
-	$height: 60px;
-	display: flex;
-	flex: 0 0 auto;
-	padding: 1em;
-	overflow: visible;
-	justify-content: flex-start;
-	align-items: center;
-	background: #eee !important;
-	border-bottom: 1px solid #ccc;
-
-	&.menu-bar-bottom {
-		border-bottom: 0;
-		border-top: 1px solid #ccc;
-	}
-
-	.title {
-		font-weight: bold;
-	}
-
-	.left, .center, .right {
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-	}
-
-	.left {
-		order: 1;
-		flex: 0 0 25%;
-	}
-	.center {
-		order: 2;
-		flex: 0 0 50%;
-		text-align: center;
-	}
-	.right {
-		order: 3;
-		flex: 0 0 25%;
-		text-align: right;
-	}
-
-	.left:first-child {
-		flex: 1 1 auto;
-	}
-	.left:first-child + .right:last-child {
-		flex: 1 1 auto;
-	}
+@mixin title-bar(
+  $background: $title-bar-background,
+  $color: $title-bar-color,
+  $border: $title-bar-border,
+  $padding: $title-bar-padding
+) {
+  @extend %title-bar;
+  @include title-bar-style($background, $color, $border, $padding);
 }
+
+/*
+  CSS Output
+*/
+
+.title-bar {
+  @include title-bar;
+}
+  .title-bar-bottom {
+    border-bottom: 0;
+    border-top: $title-bar-border;
+  }
