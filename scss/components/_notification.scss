@@ -1,16 +1,15 @@
-$notification-global-position: right top;
+$notification-default-position: right top;
+$notification-float-offset: 1rem;
+$notification-width: rem-calc(400);
+
+$notification-background: #698bda;
+$notification-color: white;
+$notification-padding: 1rem;
+$notification-radius: 4px;
 
 %notification {
-  border-radius: 4px;
-  background: #698bda;
   position: fixed;
   z-index: 1000;
-  padding: 1em;
-  box-shadow: 0 3px 10px rgba(#000, 0.25);
-
-  &, h1, h2, h3, h4, h5, h6 {
-    color: white;
-  }
 
   h1 {
     font-size: 1.25em;
@@ -31,14 +30,19 @@ $notification-global-position: right top;
   }
 }
 
-@mixin notification-structure($x: null, $y: null, $size: 400px, $style: float) {
+@mixin notification-structure(
+  $x: null,
+  $y: null,
+  $size: $notification-width,
+  $style: float
+) {
   // Default values
-  $x: if($x == null, nth($notification-global-position, 1), $x);
-  $y: if($y == null, nth($notification-global-position, 2), $y);
+  $x: if($x == null, nth($notification-default-position, 1), $x);
+  $y: if($y == null, nth($notification-default-position, 2), $y);
 
   // Float style: detached from edge of screen
   // Pin style:   attached to edge of screen
-  $offset: if($style == float, 1rem, 0);
+  $offset: if($style == float, $notification-float-offset, 0);
 
   width: $size;
 
@@ -78,11 +82,34 @@ $notification-global-position: right top;
     margin-left: 0;
   }
 }
+@mixin notification-style(
+  $background: $notification-background,
+  $color: $notification-color,
+  $padding: $notification-padding,
+  $radius: $notification-radius
+) {
+  background: $background;
+  padding: $padding;
+  border-radius: $radius;
 
-@mixin notification($x: null, $y: null, $size: 400px, $style: float) {
+  &, h1, h2, h3, h4, h5, h6 {
+    color: $color;
+  }
+}
+
+@mixin notification(
+  $x: null,
+  $y: null,
+  $size: $notification-width,
+  $style: float,
+  $background: $notification-background,
+  $color: $notification-color,
+  $padding: $notification-padding,
+  $radius: $notification-radius
+) {
   @extend %notification;
-
   @include notification-structure($x, $y, $size, $style);
+  @include notification-style($background, $color, $padding, $radius);
 }
 
 /*
@@ -99,4 +126,8 @@ $notification-global-position: right top;
   &.bottom-right { @include notification-structure(right, bottom); }
   &.bottom-left { @include notification-structure(left, bottom); }
   &.bottom-middle { @include notification-structure(middle, bottom); }
+
+  &.success   { @include notification-style($success-color) }
+  &.warning   { @include notification-style($warning-color) }
+  &.alert     { @include notification-style($alert-color) }
 }

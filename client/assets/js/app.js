@@ -8,7 +8,9 @@ FoundationApps.modal.onOpen('#theModal', function() {
   });
 });
 
-$('#newMessage').click(function() {
+$('#newMessage').click(function(event) {
+  event.preventDefault();
+
   FoundationApps.notify({
     title: "You clicked the New Message button.",
     body: "And this notification has an extended description. How long can this string get, anyway?",
