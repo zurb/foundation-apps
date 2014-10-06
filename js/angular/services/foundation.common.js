@@ -8,7 +8,11 @@ angular.module('foundation.common', [])
           listeners[type] = [];
         }
 
-        listeners[type][name] = callback;
+        if (!listeners[type][name]) {
+          listeners[type][name] = [];
+        }
+
+        listeners[type][name].push(callback);
         return true;
       },
       publish: function(type, name, msg) {
@@ -16,8 +20,14 @@ angular.module('foundation.common', [])
           listeners[type] = [];
         }
 
-        var cb = listeners[type][name] || function() {};
-        cb(msg);
+        if (!listeners[type][name]) {
+          listeners[type][name] = [];
+        }
+
+        angular.forEach(listeners[type][name], function(cb) {
+          cb(msg)
+        });
+
         return;
       }
     }
