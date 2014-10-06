@@ -1,24 +1,7 @@
-angular.module('foundation.modal', [])
-  .service('FoundationModalApi', function() {
-    var listeners = [];
-    return {
-      subscribe: function(name, callback) {
-        listeners[name] = callback;
-        return true;
-      },
-      publish: function(name, msg) {
-        var cb = listeners[name] || function() {};
-        cb(msg);
-        return;
-      }
-
-
-    }
-  }
-);
+angular.module('foundation.modal', []);
 
 angular.module('foundation.modal')
-  .directive('faModal', ['FoundationModalApi', function(modalApi) {
+  .directive('faModal', ['FoundationApi', function(foundationApi) {
   return {
     restrict: 'A',
     templateUrl: '/partials/modal.html',
@@ -32,7 +15,7 @@ angular.module('foundation.modal')
 
       var modalStatus = 'hide';
 
-      modalApi.subscribe(attrs.id, function(msg) {
+      foundationApi.subscribe('modal', attrs.id, function(msg) {
         if(msg == 'show') {
           scope.show();
         } else if (msg == 'hide') {
@@ -74,7 +57,7 @@ angular.module('foundation.modal')
 }]);
 
 angular.module('foundation.modal')
-  .directive('faModalClose', ['FoundationModalApi', function(modalApi) {
+  .directive('faModalClose', ['FoundationApi', function(foundationApi) {
   return {
     restrict: 'A',
     link: function(scope, element, attrs) {
@@ -95,7 +78,7 @@ angular.module('foundation.modal')
       }
 
       element.on('click', function(e) {
-        modalApi.publish(parentModal.attr('id'), 'hide');
+        foundationApi.publish('modal', parentModal.attr('id'), 'hide');
         e.preventDefault();
       });
     }
@@ -103,12 +86,12 @@ angular.module('foundation.modal')
 }]);
 
 angular.module('foundation.modal')
-  .directive('faModalOpen', ['FoundationModalApi', function(modalApi) {
+  .directive('faModalOpen', ['FoundationApi', function(foundationApi) {
   return {
     restrict: 'A',
     link: function(scope, element, attrs) {
       element.on('click', function(e) {
-        modalApi.publish(attrs.faModalOpen, 'show');
+        foundationApi.publish('modal', attrs.faModalOpen, 'show');
         e.preventDefault();
       });
     }
