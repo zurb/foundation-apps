@@ -19,7 +19,14 @@ gulp.task('clean', function(cb) {
 
 //copy files
 gulp.task('copy', ['clean'], function() {
-  return gulp.src(['./client/**/*.*', '!./client/templates/**/*.*', 'js/angular/partials/**.*'], { base: './client/' } )
+  var dirs = [
+    './client/**/*.*',
+    '!./client/templates/**/*.*',
+    '!./client/assets/{scss,js}/**/*.*'
+  ];
+  return gulp.src(dirs, {
+    base: './client/'
+  })
     .pipe(gulp.dest('build'));
 });
 
@@ -40,15 +47,16 @@ gulp.task('sass', ['clean', 'copy'], function() {
   ;
 });
 
-//uglify and concat
+// Process Foundation JS
 gulp.task('uglify', ['copy', 'clean'], function() {
   var libs = [
-    'bower_components/fastlickc/lib/fastclick.js',
+    'bower_components/jquery/dist/jquery.js',
+    'bower_components/fastclick/lib/fastclick.js',
+    'bower_components/viewport-units-buggyfill/viewport-units-buggyfill.js',
     'bower_components/notify.js/notify.js',
     'bower_components/tether/tether.js',
-    'js/foundation.js',
-    'js/foundation.*.js',
-    'js/app.js'
+    'js/foundation/**/*.js',
+    'client/js/app.js'
   ];
 
   return gulp.src(libs)
@@ -56,10 +64,11 @@ gulp.task('uglify', ['copy', 'clean'], function() {
       beautify: true,
       mangle: false
     }))
-    .pipe(concat('all.js'))
+    .pipe(concat('app.js'))
     .pipe(gulp.dest('./build/assets/js/'))
   ;
 });
+
 
 gulp.task('uglify-angular', ['copy', 'clean'], function() {
   var libs = [
@@ -74,7 +83,7 @@ gulp.task('uglify-angular', ['copy', 'clean'], function() {
       beautify: true,
       mangle: false
     }))
-    .pipe(concat('app.js'))
+    .pipe(concat('angular-app.js'))
     .pipe(gulp.dest('./build/assets/js/'))
   ;
 
@@ -123,7 +132,6 @@ gulp.task('css', ['build', 'sass'], function() {
 });
 
 gulp.task('default', ['build', 'css', 'server:start'], function() {
-  gulp.watch(['./client/**/*.*', './js/**/*.*'], ['build', 'css', server.restart]);
-  gulp.watch('./scss/**/*.*', ['build', 'css', server.restart]);
+  return gulp.watch(['./client/**/*.*', './js/**/*.*'], ['build', 'css', server.restart]);
 });
 
