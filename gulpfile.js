@@ -75,7 +75,6 @@ gulp.task('uglify-angular', ['copy', 'clean'], function() {
     'bower_components/angular/angular.js',
     'bower_components/angular-animate/angular-animate.js',
     'bower_components/ui-router/release/angular-ui-router.js',
-
     'js/angular/**/*.js',
   ];
 
