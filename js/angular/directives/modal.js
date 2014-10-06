@@ -1,15 +1,12 @@
 angular.module('foundation.modal', [])
   .service('FoundationModalApi', function() {
-    console.log('test4');
     var listeners = [];
     return {
       subscribe: function(name, callback) {
-    console.log('test5', name);
         listeners[name] = callback;
         return true;
       },
       publish: function(name, msg) {
-    console.log('test6', name, msg);
         var cb = listeners[name] || function() {};
         cb(msg);
         return;
@@ -36,7 +33,6 @@ angular.module('foundation.modal')
       var modalStatus = 'hide';
 
       modalApi.subscribe(attrs.id, function(msg) {
-        console.log('test3');
         if(msg == 'show') {
           scope.show();
         } else if (msg == 'hide') {
@@ -82,9 +78,24 @@ angular.module('foundation.modal')
   return {
     restrict: 'A',
     link: function(scope, element, attrs) {
-      element.on('click', function() {
-        console.log('test');
-        modalApi.publish(attrs.faModalClose, 'hide');
+      var parentModal = false;
+      var tempModal = element.parent();
+
+      //find parent modal
+      while(parentModal == false) {
+        if(tempModal[0].nodeName == 'BODY') {
+          parentModal = '';
+        }
+
+        if(typeof tempModal.attr('fa-modal') !== 'undefined' && tempModal.attr('fa-modal') !== false) {
+          parentModal = tempModal;
+        }
+
+        tempModal = tempModal.parent();
+      }
+
+      element.on('click', function(e) {
+        modalApi.publish(parentModal.attr('id'), 'hide');
         e.preventDefault();
       });
     }
@@ -97,7 +108,6 @@ angular.module('foundation.modal')
     restrict: 'A',
     link: function(scope, element, attrs) {
       element.on('click', function(e) {
-        console.log('test2', attrs, scope);
         modalApi.publish(attrs.faModalOpen, 'show');
         e.preventDefault();
       });
