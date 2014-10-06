@@ -10,14 +10,14 @@ var gulp         = require('gulp'),
     uglify       = require('gulp-uglify'),
     concat       = require('gulp-concat');
 
-// clean folders
+// Clean build directory
 gulp.task('clean', function(cb) {
   return gulp.src(['./dist', './build'])
     .pipe(rimraf())
   ;
 });
 
-//copy files
+// Copy static files (but not the Angular templates, Sass, or JS)
 gulp.task('copy', ['clean'], function() {
   var dirs = [
     './client/**/*.*',
@@ -35,10 +35,10 @@ gulp.task('copy-partials', ['clean', 'copy'], function() {
     .pipe(gulp.dest('build/partials'));
 });
 
-//ruby sass
+// Compile Sass
 gulp.task('sass', ['clean', 'copy'], function() {
-  return gulp.src('scss/app.scss')
-    .pipe(sass({ loadPath: ['scss', 'scss/foundation'], style: 'expanded', lineNumbers: true  }))
+  return gulp.src('client/assets/scss/app.scss')
+    .pipe(sass({ loadPath: ['client/asets/scss', 'scss'], style: 'expanded', lineNumbers: true  }))
     .pipe(concat('app.css'))
     .pipe(autoprefixer({
       browsers: ['last 2 versions', 'ie 10']
@@ -69,14 +69,15 @@ gulp.task('uglify', ['copy', 'clean'], function() {
   ;
 });
 
-
+// Process Angular JS
 gulp.task('uglify-angular', ['copy', 'clean'], function() {
   var libs = [
     'bower_components/angular/angular.js',
     'bower_components/angular-animate/angular-animate.js',
     'bower_components/ui-router/release/angular-ui-router.js',
+
     'js/angular/**/*.js',
-    ];
+  ];
 
   return gulp.src(libs)
     .pipe(uglify({
@@ -134,4 +135,3 @@ gulp.task('css', ['build', 'sass'], function() {
 gulp.task('default', ['build', 'css', 'server:start'], function() {
   return gulp.watch(['./client/**/*.*', './js/**/*.*'], ['build', 'css', server.restart]);
 });
-

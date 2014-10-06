@@ -1,0 +1,113 @@
+/*
+  TITLE BAR
+  ---------
+
+  A navigational component which can display the current screen the user is on, along with additional controls or menu items.
+
+  The title bar includes classes to create center, left, and right sections, which can be used in any combination. However, in the markup, the sections must come in this order:
+   - Center
+   - Left
+   - Right
+*/
+
+$title-bar-center-width: 50%;
+$title-bar-side-width: (100% - $title-bar-center-width) / 2;
+$title-bar-background: #eee;
+$title-bar-color: #000;
+$title-bar-border: 1px solid #ccc;
+$title-bar-padding: $block-padding;
+
+%title-bar {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: visible;
+
+  // Denotes the title of the bar
+  .title {
+    font-weight: bold;
+  }
+
+  // Denotes left, right, and center sections of the bar
+  .left, .center, .right {
+    white-space: nowrap;
+    overflow-x: hidden; // For the ellipsis trick
+    overflow-y: visible; // To make descenders visible
+    text-overflow: ellipsis;
+
+    // If only one section is in use, stretch it all the way out
+    &:first-child:last-child {
+      flex: 1;
+      margin: 0;
+    }
+  }
+
+  // Left always comes first, then center, then right
+  // The left and right sections have the same width
+  .left {
+    order: 1;
+    flex: 0 0 $title-bar-side-width;
+  }
+  .center {
+    order: 2;
+    flex: 0 0 $title-bar-center-width;
+    text-align: center;
+  }
+  .right {
+    order: 3;
+    flex: 0 0 $title-bar-side-width;
+    text-align: right;
+  }
+
+  // If only left and right are in use, stretch them both out equally
+  .left:first-child {
+    flex: 1 1 auto;
+  }
+  .left:first-child + .right:last-child {
+    flex: 1 1 auto;
+  }
+
+  // If center and right are in use, shift the center section into the right position
+  .center:first-child:not(:last-child) {
+    margin-left: $title-bar-side-width;
+  }
+  // If center and left are in use, override the above style
+  .center + .left {
+    margin-right: -($title-bar-side-width);
+  }
+}
+
+@mixin title-bar-style(
+  $background: $title-bar-background,
+  $color: $title-bar-color,
+  $border: $title-bar-border,
+  $padding: $title-bar-padding
+) {
+  background: $background;
+  color: $color;
+  padding: $title-bar-padding;
+  border-bottom: $border;
+}
+
+@mixin title-bar(
+  $background: $title-bar-background,
+  $color: $title-bar-color,
+  $border: $title-bar-border,
+  $padding: $title-bar-padding
+) {
+  @extend %title-bar;
+  @include title-bar-style($background, $color, $border, $padding);
+}
+
+/*
+  CSS Output
+*/
+
+.title-bar {
+  @include title-bar;
+}
+  .title-bar-bottom {
+    border-bottom: 0;
+    border-top: $title-bar-border;
+  }

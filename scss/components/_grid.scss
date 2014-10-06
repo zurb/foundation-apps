@@ -4,9 +4,9 @@
 	THE GRID
 */
 
-/*
-	Grid customization
-*/
+$container-width: rem-calc(1000);
+$block-padding: 1rem;
+$total-columns: 12;
 
 /*
   Define the size of a grid block. Blocks are flex items. By default, they stretch to fill all available space, based on the size of sibling blocks. This is the "expand" behavior.
@@ -267,7 +267,7 @@
 /*
 	Shared styles for frames and blocks
 */
-.frame, .block {
+.frame, .block, .medium-block {
 	// Orientation classes
 	&.vertical, &.small-vertical { @include grid-orient(vertical); }
 	@media #{$medium-up} {

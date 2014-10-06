@@ -1,0 +1,36 @@
+// Tabs
+
+.tabs {
+	display: flex;
+	flex-flow: row wrap;
+	border: 0px solid #ddd;
+	border-width: 1px 0 0 1px;
+
+	.tab {
+
+		background: #f4f4f4;
+		height: 40px;
+		padding: 0 1rem;
+		line-height: 40px;
+		border: 0px solid #ddd;
+		border-width: 0 1px 1px 0;
+		margin: 0;
+
+		flex: 1 1 auto;
+	}
+
+	.tab-content {
+		display: none;
+		flex: 0 0 auto;
+		flex-basis: 100%;
+		width: 100%;
+		border-right: 1px solid #ddd;
+		border-bottom: 1px solid #ddd;
+		padding: 1rem;
+	}
+	
+}
+
+
+
+

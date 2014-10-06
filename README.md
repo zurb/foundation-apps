@@ -7,10 +7,8 @@ Work in progress for Foundation for Apps. At this time we will only be accepting
 You'll need to have the following items installed before continuing.
 
   * [Node.js](http://nodejs.org): Use the installer provided on the NodeJS website.
-  * [Grunt](http://gruntjs.com/): Run `sudo npm install -g grunt-cli`
-  * [Bower](http://bower.io): Run `sudo npm install -g bower`
+  * [Gulp](http://gulpjs.com/) and [Bower](http://bower.io): Run `sudo npm install -g gulp bower`
   * [Sass 3.4](http://sass-lang.com/): run `gem update sass`
-
 
 ## Quickstart
 
@@ -21,10 +19,9 @@ Navigate into the directory:
 `cd foundation-apps`
 
 Install all the dependencies:
-`npm install && bower install`
+`npm install`
 
 While you're working on the project, run:
-
 `gulp`
 
 This will assemble all the pages and compile the Sass. You're set!
@@ -35,12 +32,11 @@ The docs are generated in the `docs` directory when you run the quickstart proce
 
 ## Directory Structure
 
-* `dist`: Static pages are assembled here. This is where you should view the site in your browser. **Don't edit these files directly. They will be overwritten!**
-* `docs`: Our humble guide to the new grid. This is just a quick overview at this point, and will get expanded out considerably before the release. Generated from `src/pages/index.html`. **Don't edit these files directly. They will be overwritten!**
-* `src`: This is the directory you'll work in.
-* `src/assets`: All assets (scss, images, fonts, js, etc) go here.
-* `src/assets/scss/_settings.scss`: Foundation configuration settings go in here
-* `src/assets/scss/app.scss`: Application styles go here
+* `build`: This is where the finished Angular app is assembled. To deploy your app, use the contents of this folder. **Don't edit these files directly, as they're overwritten every time you make a change!**
+* `client`: The meat of your application. This is where the main `index.html` file is, as well as the page templates that make up your app.
+* `js`: Our JavaScript plugins and Angular directives are being developed here.
+* `scss`: Our UI components are being developed here.
+* `docs`: Our old test pages. The ones that matter have been moved to `client/templates`.
 
 ## Feedback
 
@@ -48,15 +44,13 @@ If you have feedback on the grid please report issues to the Foundation for Apps
 
 Please note that for the moment, new issues and PRs may be closed without warning. We are, in the interest of sanity, restricting commentary and changes to the Foundation Core team. If you absolutely MUST say something and are not core team, please reach out to us on twitter @zurbfoundation. Thanks!
 
-## Angular side of things
+## Angular Features
 
-Features
-==================
+### Features
 
 Gulp will watch for file changes in the `client` directory. Upon change, all files will be copied over to the `build` directory and the webserver will be reloaded. Note that the build directory will be deleted and recompiled upon each change. This means that any updates to files in the `build` directory will be deleted.
 
-Dynamic Routing
-===================
+### Dynamic Routing
 
 To simplify the routing process, this project includes dynamic routing. Here's how it works:
 
@@ -64,8 +58,7 @@ To simplify the routing process, this project includes dynamic routing. Here's h
 2. Make sure to include a `name` which you'd want to use with `ui-sref` (the ui-router way of linking pages) and a `url` which that template can be accessible through
 3. Run `gulp` to compile the project into the `build` folder
 
-Usage
-====================
+### Usage
 
 This app depends on the use of `front matter` which is text prepended to templates like so:
 
@@ -112,7 +105,7 @@ url: /inbox
 
 will be accessible via `/mail/inbox`. This specific URL has to be typed in in order for the child to show up. This allows us to specify several children (`inbox`, `sent`, `trash`, etc.).
 
-###Composed views
+### Composed views
 
 Child views are great and all but what if you want to COMPOSE a view. Let's say you want a template that includes a dynamic sidebar and a footer. You can't create that with a child template structure.
 
@@ -135,7 +128,7 @@ Note that for composable views, you can't use dot-delimited parents, you have to
 
 `<div ui-view="footer"></div>`
 
-###Controllers
+### Controllers
 Angular supports this neat thing called controllers. They can get confusing and so each template gets its own `DefaultController` which can be overriden like so:
 
 ````
@@ -166,7 +159,7 @@ Please note that the default AngularJS behavior for animations is to trigger bot
 
 The ability to `sync` transitions together has been delayed from v1.2 to 1.3 and finally as a possibility for 2.0 ([ref](https://github.com/angular/angular.js/issues/2310))
 
-###Additional mock data
+### Additional mock data
 
 Now that we have views and controllers out of the way, let's talk about mock data. As I've said, the controller will pass on ALL front matter to the template/view which means that we can add miscellaneous data to the front-matter and access it in the view! The front matter plugin supports standard YAML conventions which means that even arrays are supported! Let's see how we can put this to good use.
 

@@ -26,8 +26,9 @@ url: /
         <ul>
           <li><a href="#">Block List</a></li>
           <li><a href="#">Popup Menu</a></li>
-          <li><a href="#">Icon Bar</a></li>
-          <li><a href="#">Tabcordions</a></li>
+          <li><a href="#">Title Bar</a></li>
+          <li><a href="#">Menu Bar</a></li>
+          <li><a href="#">Tabs</a></li>
         </ul>
       </section>
       <section class="block-list">
@@ -64,7 +65,7 @@ url: /
     <section style="background: #eee; border-radius: 1em; padding: 1em 1.5em; margin-bottom: 2em;">
       <h3>The Interrobang</h3>
       <p>We've got one super page with many of our fancy new components on display, including the grid, block grid, off-canvas, panels, menu bars, block lists, and dropdowns.</p>
-      <a href="interrobang.html" class="button">Visit the Interrobang</a>
+      <a ui-sref="interrobang" class="button">Visit the Interrobang</a>
     </section>
     <section>
       <h4>The Grid</h4>
@@ -182,6 +183,22 @@ url: /
       </div>
     </section>
     <section>
+      <h4>Title Bar</h4>
+      <p>The title bar is a navigational component which can contain a title area or a number of links. It's flexible enough to allow for center-, left-, and right-aligned sections, or any combination of the three.</p>
+
+      <div class="vertical block" style="max-width: 400px; height: 250px; border: 1px solid #ccc;">
+        <div class="title-bar">
+          <span class="center title">Article</span>
+          <span class="left"><a href="#">Back</a></span>
+          <span class="right"><a href="#">Share</a></span>
+        </div>
+        <div class="content block">
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui quisquam odio sint numquam aliquam pariatur fugit debitis illo exercitationem. Nemo nulla dolores quia assumenda, aspernatur molestiae deleniti enim ut quas!</p>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga odit repellat corporis, quos qui provident. Voluptatum quasi, beatae error provident soluta iusto a minus rerum omnis quidem facilis officia expedita?</p>
+        </div>
+      </div>
+    </section>
+    <section>
       <h4>Icon Bar</h4>
       <p>The icon bar is an all-purpose nav menu that can include text or icon nav items and be oriented horizontally or vertically depending on screen size.</p>
 
@@ -236,6 +253,25 @@ url: /
         <li><input type="radio" id="segBtn3" name="segBtn"><label for="segBtn3">Toast</label></li>
       </ul>
     </section>
+
+    <section>
+      <h4>Tabs</h4>
+      <p>Tabs are a great option for showing content when needed and hiding it when not. We have basic tab styles, but the tab functionality can be added to other components like icon bar and button groups.</p>
+
+      <div class="tabs">
+        <div id="item-1">Item 1</div>
+        <div id="item-2">Item 2</div>
+        <div id="item-3">Item 3</div>
+      </div>
+      <div class="tab-conent">
+        <div class="tab-pane"></div>
+        <div class="tab-pane"></div>
+        <div class="tab-pane"></div>
+
+      </div>
+
+    </section>
+
     <section>
       <h4>Cards</h4>
       <p>Cards are generic, flexible containers that can hold images, videos, text, lists, buttons, and more.</p>
