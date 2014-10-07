@@ -56,7 +56,7 @@ gulp.task('uglify', ['copy', 'clean'], function() {
     'bower_components/notify.js/notify.js',
     'bower_components/tether/tether.js',
     'js/foundation/**/*.js',
-    'client/js/app.js'
+    'client/assets/js/app.js'
   ];
 
   return gulp.src(libs)
@@ -112,7 +112,7 @@ gulp.task('front-matter', ['clean', 'copy', 'uglify-angular'], function() {
     .pipe(gulp.dest('build/templates'))
     .on('end', function() {
       //routes
-      var appPath = ['build', 'assets', 'js', 'app.js'];
+      var appPath = ['build', 'assets', 'js', 'angular-app.js'];
       var data = fs.readFileSync(appPath.join(path.sep));
       fs.writeFileSync(appPath.join(path.sep), 'var dynamicRoutes = ' + JSON.stringify(config) + '; \n' + data);
     })
