@@ -3,7 +3,8 @@ var app = angular.module('application', [
     'ngAnimate',
     'foundation.common.services',
     'foundation.common.directives',
-    'foundation.modal'
+    'foundation.modal',
+    'foundation.panel'
   ])
     .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlProvider) {
 

@@ -10,10 +10,12 @@ animationOut: bounceOut
     <div ui-view="mail.nav"></div>
   </div>
   <div class="small-8 large-8 columns">
-  <h1>Page</h1>
-  <button fa-open="pageModal">Modal</button>
-  <p>Welcome to your mailbox. Do you want to go straight to your <a ui-sref="mail.inbox">Inbox</a> or your <a ui-sref="mail.email({ id: 1})">latest email</a>?</p>
-  <div ng-class="[currentSlug, 'ui-animation' ]" ui-view></div>
+    <h1>Page</h1>
+    <button fa-open="pageModal">Modal</button>
+    <button fa-open="pagePanel">Panel</button>
+    <p>Welcome to your mailbox. Do you want to go straight to your <a ui-sref="mail.inbox">Inbox</a> or your <a ui-sref="mail.email({ id: 1})">latest email</a>?</p>
+    <div ng-class="[currentSlug, 'ui-animation' ]" ui-view></div>
+  </div>
 </div>
 <div class="block">
   <div ui-view="mail.footer"></div>
@@ -27,4 +29,7 @@ animationOut: bounceOut
     <span class="button">Ok</span>
     <span class="button">Cancel</span>
   </footer>
+</div>
+<div fa-panel id="pagePanel" position="left">
+  <p>Test</p>
 </div>
