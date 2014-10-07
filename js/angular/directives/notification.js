@@ -23,8 +23,8 @@ angular.module('foundation.notification')
           var currentStatus = 'hide';
 
           //setup
-          foundationApi.subscribe(type, attrs.id, function(msg) {
-            if(msg == 'show') {
+          foundationApi.subscribe(attrs.id, function(msg) {
+            if(msg == 'show' || msg == 'open') {
               scope.show();
             } else if (msg == 'hide' || msg == 'close') {
               scope.hide();
@@ -63,19 +63,5 @@ angular.module('foundation.notification')
         }
       }
     },
-  }
-}]);
-
-angular.module('foundation.notification')
-  .directive('faNotificationOpen', ['FoundationApi', function(foundationApi) {
-  return {
-    restrict: 'A',
-    link: function(scope, element, attrs) {
-      var type = 'notification';
-      element.on('click', function(e) {
-        foundationApi.publish(type, attrs.faNotificationOpen, 'show');
-        e.preventDefault();
-      });
-    }
   }
 }]);

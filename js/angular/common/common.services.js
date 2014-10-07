@@ -5,28 +5,20 @@ angular.module('foundation.common.services')
     var listeners = [];
 
     return {
-      subscribe: function(type, name, callback) {
-        if (!listeners[type]) {
-          listeners[type] = [];
+      subscribe: function(name, callback) {
+        if (!listeners[name]) {
+          listeners[name] = [];
         }
 
-        if (!listeners[type][name]) {
-          listeners[type][name] = [];
-        }
-
-        listeners[type][name].push(callback);
+        listeners[name].push(callback);
         return true;
       },
-      publish: function(type, name, msg) {
-        if (!listeners[type]) {
-          listeners[type] = [];
+      publish: function(name, msg) {
+        if (!listeners[name]) {
+          listeners[name] = [];
         }
 
-        if (!listeners[type][name]) {
-          listeners[type][name] = [];
-        }
-
-        angular.forEach(listeners[type][name], function(cb) {
+        angular.forEach(listeners[name], function(cb) {
           cb(msg)
         });
 

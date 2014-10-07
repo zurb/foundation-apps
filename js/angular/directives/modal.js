@@ -22,8 +22,8 @@ angular.module('foundation.modal')
           var currentStatus = 'hide';
 
           //setup
-          foundationApi.subscribe(type, attrs.id, function(msg) {
-            if(msg == 'show') {
+          foundationApi.subscribe(attrs.id, function(msg) {
+            if(msg == 'show' || msg == 'open') {
               scope.show();
             } else if (msg == 'close' || msg == 'hide') {
               scope.hide();
@@ -62,19 +62,5 @@ angular.module('foundation.modal')
         }
       }
     },
-  }
-}]);
-
-angular.module('foundation.modal')
-  .directive('faModalOpen', ['FoundationApi', function(foundationApi) {
-  return {
-    restrict: 'A',
-    link: function(scope, element, attrs) {
-      var type = 'modal';
-      element.on('click', function(e) {
-        foundationApi.publish(type, attrs.faModalOpen, 'show');
-        e.preventDefault();
-      });
-    }
   }
 }]);

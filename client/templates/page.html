@@ -11,7 +11,7 @@ animationOut: bounceOut
   </div>
   <div class="small-8 large-8 columns">
   <h1>Page</h1>
-  <button fa-modal-open="pageModal">Modal</button>
+  <button fa-open="pageModal">Modal</button>
   <p>Welcome to your mailbox. Do you want to go straight to your <a ui-sref="mail.inbox">Inbox</a> or your <a ui-sref="mail.email({ id: 1})">latest email</a>?</p>
   <div ng-class="[currentSlug, 'ui-animation' ]" ui-view></div>
 </div>

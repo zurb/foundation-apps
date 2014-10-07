@@ -22,7 +22,33 @@ angular.module('foundation.common.directives')
       }
 
       element.on('click', function(e) {
-        foundationApi.publish(parentElement.attr('fa-closable'), parentElement.attr('id'), 'close');
+        foundationApi.publish(parentElement.attr('id'), 'close');
+        e.preventDefault();
+      });
+    }
+  }
+}]);
+
+angular.module('foundation.common.directives')
+  .directive('faOpen', ['FoundationApi', function(foundationApi) {
+  return {
+    restrict: 'A',
+    link: function(scope, element, attrs) {
+      element.on('click', function(e) {
+        foundationApi.publish(attrs.faOpen, 'open');
+        e.preventDefault();
+      });
+    }
+  }
+}]);
+
+angular.module('foundation.common.directives')
+  .directive('faToggle', ['FoundationApi', function(foundationApi) {
+  return {
+    restrict: 'A',
+    link: function(scope, element, attrs) {
+      element.on('click', function(e) {
+        foundationApi.publish(attrs.faOpen, 'toggle');
         e.preventDefault();
       });
     }
