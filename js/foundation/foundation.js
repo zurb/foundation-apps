@@ -20,7 +20,6 @@ FoundationApps = {
   init: function() {
     FastClick.attach(document.body);
     viewportUnitsBuggyfill.init();
-
     this.modal.init();
     this.offcanvas.init();
     this.popup.init();

@@ -1,10 +1,10 @@
-angular.module('foundation.modal', []);
+angular.module('foundation.notification', []);
 
-angular.module('foundation.modal')
-  .directive('faModal', ['FoundationApi', function(foundationApi) {
+angular.module('foundation.notification')
+  .directive('faNotification', ['FoundationApi', function(foundationApi) {
   return {
     restrict: 'A',
-    templateUrl: '/partials/modal.html',
+    templateUrl: '/partials/notification.html',
     transclude: true,
     scope: {
       src: '@'
@@ -19,13 +19,14 @@ angular.module('foundation.modal')
         },
         post: function postLink(scope, element, attrs) {
           var dialog = angular.element(element.children()[0]);
+          var type = 'notification';
           var currentStatus = 'hide';
 
           //setup
           foundationApi.subscribe(type, attrs.id, function(msg) {
             if(msg == 'show') {
               scope.show();
-            } else if (msg == 'close' || msg == 'hide') {
+            } else if (msg == 'hide' || msg == 'close') {
               scope.hide();
             } else if (msg == 'toggle') {
               scope.toggle();
@@ -65,14 +66,14 @@ angular.module('foundation.modal')
   }
 }]);
 
-angular.module('foundation.modal')
-  .directive('faModalOpen', ['FoundationApi', function(foundationApi) {
+angular.module('foundation.notification')
+  .directive('faNotificationOpen', ['FoundationApi', function(foundationApi) {
   return {
     restrict: 'A',
     link: function(scope, element, attrs) {
-      var type = 'modal';
+      var type = 'notification';
       element.on('click', function(e) {
-        foundationApi.publish(type, attrs.faModalOpen, 'show');
+        foundationApi.publish(type, attrs.faNotificationOpen, 'show');
         e.preventDefault();
       });
     }

@@ -1,4 +1,10 @@
-var app = angular.module('application', ['ui.router', 'ngAnimate', 'foundation.common', 'foundation.modal'])
+var app = angular.module('application', [
+    'ui.router',
+    'ngAnimate',
+    'foundation.common.services',
+    'foundation.common.directives',
+    'foundation.modal'
+  ])
     .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlProvider) {
 
     $urlProvider.otherwise('/');
