@@ -213,6 +213,7 @@ url: /
     <section>
       <h4>Modals</h4>
       <p>Modals will resemble the Reveal modals used in Foundation 5, but with more options for animation and positioning.</p>
+      <a href="#" fa-modal-open="pageModal" class="button">Open Modal</a>
     </section>
     <section>
       <h4>Alerts</h4>
@@ -317,4 +318,14 @@ url: /
     </section>
   </div>
   <!-- /Main content -->
+</div>
+<div fa-modal id="pageModal" >
+  <a href="#" fa-modal-close>&times;</a>
+  <section class="content block">
+    This is a test modal!
+  </section>
+  <footer class="content block menu-bar">
+    <span class="button" fa-modal-close>Ok</span>
+    <span class="button" fa-modal-close>Cancel</span>
+  </footer>
 </div>
