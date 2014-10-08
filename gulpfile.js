@@ -10,16 +10,6 @@ var gulp         = require('gulp'),
     uglify       = require('gulp-uglify'),
     concat       = require('gulp-concat');
 
-// Auto-prefix that Sass
-gulp.task('prefix', ['sass'], function() {
-  return gulp.src('./build/assets/css/*.css')
-    .pipe(autoprefixer({
-      browsers: ['last 2 versions', 'ie 10']
-    }))
-    .pipe(gulp.dest('build/assets'))
-  ;
-});
-
 // Clean build directory
 gulp.task('clean', function(cb) {
   return gulp.src(['./dist', './build'])
@@ -40,11 +30,19 @@ gulp.task('copy', ['clean'], function() {
     .pipe(gulp.dest('build'));
 });
 
+gulp.task('copy-partials', ['clean', 'copy'], function() {
+  return gulp.src(['js/angular/partials/**.*'])
+    .pipe(gulp.dest('build/partials'));
+});
+
 // Compile Sass
 gulp.task('sass', ['clean', 'copy'], function() {
   return gulp.src('client/assets/scss/app.scss')
     .pipe(sass({ loadPath: ['client/asets/scss', 'scss'], style: 'expanded', lineNumbers: true  }))
     .pipe(concat('app.css'))
+    .pipe(autoprefixer({
+      browsers: ['last 2 versions', 'ie 10']
+    }))
     .pipe(gulp.dest('./build/assets/css/'))
   ;
 });
@@ -58,7 +56,7 @@ gulp.task('uglify', ['copy', 'clean'], function() {
     'bower_components/notify.js/notify.js',
     'bower_components/tether/tether.js',
     'js/foundation/**/*.js',
-    'client/js/app.js'
+    'client/assets/js/app.js'
   ];
 
   return gulp.src(libs)
@@ -77,7 +75,7 @@ gulp.task('uglify-angular', ['copy', 'clean'], function() {
     'bower_components/angular/angular.js',
     'bower_components/angular-animate/angular-animate.js',
     'bower_components/ui-router/release/angular-ui-router.js',
-    'js/angular/*.js'
+    'js/angular/**/*.js',
   ];
 
   return gulp.src(libs)
@@ -85,14 +83,13 @@ gulp.task('uglify-angular', ['copy', 'clean'], function() {
       beautify: true,
       mangle: false
     }))
-    .pipe(concat('angular.js'))
+    .pipe(concat('angular-app.js'))
     .pipe(gulp.dest('./build/assets/js/'))
   ;
 
 });
 
-// Parse view settings (name, route, animation) from template files
-gulp.task('front-matter', ['copy', 'sass', 'uglify-angular'], function() {
+gulp.task('front-matter', ['clean', 'copy', 'uglify-angular'], function() {
   var config = [];
 
   return gulp.src('./client/templates/*.html')
@@ -115,7 +112,7 @@ gulp.task('front-matter', ['copy', 'sass', 'uglify-angular'], function() {
     .pipe(gulp.dest('build/templates'))
     .on('end', function() {
       //routes
-      var appPath = ['build', 'assets', 'js', 'app.js'];
+      var appPath = ['build', 'assets', 'js', 'angular-app.js'];
       var data = fs.readFileSync(appPath.join(path.sep));
       fs.writeFileSync(appPath.join(path.sep), 'var dynamicRoutes = ' + JSON.stringify(config) + '; \n' + data);
     })
@@ -126,16 +123,14 @@ gulp.task('server:start', ['build'], function() {
   server.listen( { path: 'app.js' });
 });
 
-gulp.task('build', ['clean', 'copy', 'uglify','uglify-angular', 'front-matter'], function() {
+gulp.task('build', ['clean', 'copy', 'copy-partials', 'uglify','uglify-angular', 'front-matter'], function() {
   console.log('Successfully built');
 });
 
-gulp.task('css', ['build', 'sass', 'prefix'], function() {
+gulp.task('css', ['build', 'sass'], function() {
   console.log('CSS Recompiled');
 });
 
 gulp.task('default', ['build', 'css', 'server:start'], function() {
-  gulp.watch(['./client/**/*.*', './src/**/*.*'], ['build', server.restart]);
-  gulp.watch('./scss/**/*.*', ['build', 'css', server.restart]);
+  return gulp.watch(['./client/**/*.*', './js/**/*.*'], ['build', 'css', server.restart]);
 });
-
