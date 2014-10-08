@@ -48,7 +48,7 @@ angular.module('foundation.common.directives')
     restrict: 'A',
     link: function(scope, element, attrs) {
       element.on('click', function(e) {
-        foundationApi.publish(attrs.faOpen, 'toggle');
+        foundationApi.publish(attrs.faToggle, 'toggle');
         e.preventDefault();
       });
     }
