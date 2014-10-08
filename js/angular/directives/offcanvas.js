@@ -17,6 +17,7 @@ angular.module('foundation.offcanvas')
         pre: function preLink(scope, iElement, iAttrs, controller) {
           iAttrs.$set('fa-closable', type);
           iElement.addClass('ofc-' + scope.position);
+          document.body.classList.add('has-off-canvas');
         },
         post: function postLink(scope, element, attrs) {
           var currentStatus = 'hide';

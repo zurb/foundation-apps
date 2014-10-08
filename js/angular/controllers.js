@@ -24,7 +24,7 @@ angular.module('application')
     $scope.currentSlug = u.prepareRoute($state.current.name);
     $rootScope.$on('$stateChangeSuccess',
       function(event, toState, toParams, fromState, fromParams){
-        //FoundationApps.init();
+        FoundationApps.init();
     });
 
   }
