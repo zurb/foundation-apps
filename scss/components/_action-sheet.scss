@@ -119,11 +119,11 @@
 /*
   Class output
 */
-.popup-container {
+.action-sheet-container {
   position: relative;
   display: inline-block;
 }
-.popup-menu {
+.action-sheet {
   @include action-sheet;
 
   @media #{$medium-up} {
