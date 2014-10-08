@@ -1,0 +1,31 @@
+---
+name: hn
+url: /hn
+controller: HNController
+---
+
+<style>
+  .hn-demo {}
+  .hn-header { background: #537fe1; color: #fff; font-weight: bold; }
+  .hn-stories { border-right: 1px solid #ccc; }
+</style>
+
+<div class="vertical frame hn-demo">
+  <header class="shrink content block hn-header">Hacker News</header>
+  <div class="stretch block">
+    <div class="vertical medium-4 block hn-stories">
+      <header class="title-bar">
+        <div class="left title">Stories</div>
+        <div class="right"><a href="#">Sort By</a></div>
+      </header>
+      <div class="content block">
+        <ul class="block-list">
+          <li ng-repeat="story in stories"><a href="#">{{ story.title }}</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="content panel panel-right large-block">
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique quibusdam accusamus autem at nam placeat consectetur pariatur impedit quisquam eos, quos nesciunt sit provident ratione distinctio, vel, ex aspernatur unde.</p>
+    </div>
+  </div>
+</div>
