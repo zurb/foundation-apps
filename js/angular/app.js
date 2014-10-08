@@ -4,7 +4,8 @@ var app = angular.module('application', [
     'foundation.common.services',
     'foundation.common.directives',
     'foundation.modal',
-    'foundation.panel'
+    'foundation.panel',
+    'foundation.offcanvas'
   ])
     .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlProvider) {
 
