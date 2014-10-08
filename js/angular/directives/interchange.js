@@ -1,7 +1,11 @@
 angular.module('foundation.interchange', []);
 
 angular.module('foundation.interchange')
-  .directive('faInterchange', ['FoundationApi', function(foundationApi) {
+  .directive('faInterchange', ['FoundationApi', '$compile', '$http', '$templateCache' function(foundationApi, $compile, $http, $tempalteCache) {
+  var templateLoader = function(templateUrl) {
+    return $http.get(templateUrl, {cache: $tempalteCache});
+  }
+
   return {
     restrict: 'A',
     template: '<div ng-transclude></div>',
@@ -14,27 +18,35 @@ angular.module('foundation.interchange')
       var type = 'interchange';
 
       return {
-        pre: function preLink(scope, iElement, iAttrs, controller) {
-          scope.scenarios = [];
-          var elements = iElement.children();
+        pre: function preLink(scope, iElement, iAttrs, controller, transclude) {
+          var scenarios = [];
+          var parentElement = iElement;
+          var elements = parentElement.children();
           var i = 0;
+
+          console.log(parentElement);
+          console.log(elements);
 
           //collect
           angular.forEach(elements, function(el) {
-            scenario[i] = { media: el.attr('media'), currentStatus: false };
-            el.attr('ng-if', 'scenario['+ i + ']');
+            var elem = angular.element(el);
+            scenarios[i] = { media: elem.attr('media'), src: elem.attr('src') };
             i++;
           });
+
+          console.log(scenarios);
+
+          iElement.html('<div></div>');
+          scope.scenarios = scenarios;
         },
         post: function postLink(scope, element, attrs) {
-
           var named_queries = {
             'default' : 'only screen',
-            small : Foundation.media_queries.small,
-            medium : Foundation.media_queries.medium,
-            large : Foundation.media_queries.large,
-            xlarge : Foundation.media_queries.xlarge,
-            xxlarge: Foundation.media_queries.xxlarge,
+            //small : Foundation.media_queries.small,
+            //medium : Foundation.media_queries.medium,
+            //large : Foundation.media_queries.large,
+            //xlarge : Foundation.media_queries.xlarge,
+            //xxlarge: Foundation.media_queries.xxlarge,
             landscape : 'only screen and (orientation: landscape)',
             portrait : 'only screen and (orientation: portrait)',
             retina : 'only screen and (-webkit-min-device-pixel-ratio: 2),' +
@@ -49,9 +61,15 @@ angular.module('foundation.interchange')
           //setup
           foundationApi.subscribe('resize', function(msg) {
             var ruleMatches = matched();
-            resetScenarios();
-            scenarios[ruleMatches[0].ind].currentStatus = true;
-            return;
+            var scenario = scenarios[ruleMatches[0].ind];
+
+            var loader = templateLoader(scenario.src);
+
+            loader.success(function(html){
+              element.html(html);
+            }.then(function(response) {
+              element.replaceWith($compile(element.html())(scope));
+            }
           });
 
           var matched = function() {
@@ -72,15 +90,8 @@ angular.module('foundation.interchange')
                 }
               }
             }
-
             return matches;
-          };
-
-          var resetScenarios = function() {
-            angular.forEach(scenarios, function(scenario) {
-              scenario.currentStatus = false;
-            });
-          };
+          }
         }
       };
     },
@@ -94,6 +105,12 @@ angular.module('foundation.interchange')
       templateUrl:  function(tElement, tAttrs) {
         return tAttrs.src || '/partials/interchange-element.html';
       },
+      transclude: true,
       replace: false,
+      scope: {
+        currentStatus: '='
+      },
+      link: function(scope, element, attr, ctrl, transclude) {
+      }
     };
 }]);
