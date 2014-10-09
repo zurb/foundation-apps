@@ -35,6 +35,8 @@ $light-color: lighten($base-color, 15%);
 $dark-secondary-color: darken($secondary-color, 15%);
 $light-secondary-color: lighten($secondary-color, 15%);
 
+$global-padding: 1rem;
+
 // Typography
 
 $base-font-size: 16px;

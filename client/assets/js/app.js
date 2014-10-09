@@ -24,6 +24,31 @@ $('#newMessage').click(function(event) {
   });
 });
 
+angular.module('application')
+  .controller('HNController', ['$scope', '$http', function($scope, $http) {
+    $scope.stories = [];
+
+    $scope.stories = [
+      'Story One',
+      'Story Too',
+      'Story Three',
+      'Story Four',
+      'Story Five',
+      'Story Six',
+      'Story Sevem'
+    ];
+
+    // $http({method: 'GET', url: 'https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty'})
+    //   .success(function(data, status, headers, config) {
+    //     for (var i = 0; i < 10; i++) {
+    //       $http.get('https://hacker-news.firebaseio.com/v0/item/'+data[i]+'.json?print=pretty')
+    //         .success(function(storyData, status, headers, config) {
+    //           $scope.stories.push(storyData);
+    //         });
+    //     }
+    //   });
+  }]);
+
 // $('*[data-motion-id="example1"]').on('click', function(e){
 //   e.preventDefault();
 //   $('#example1').toggleClass('motion');

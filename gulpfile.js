@@ -63,6 +63,8 @@ gulp.task('uglify', ['copy', 'clean'], function() {
     .pipe(uglify({
       beautify: true,
       mangle: false
+    }).on('error', function(e) {
+      console.log(e);
     }))
     .pipe(concat('app.js'))
     .pipe(gulp.dest('./build/assets/js/'))

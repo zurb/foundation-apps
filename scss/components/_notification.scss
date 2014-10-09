@@ -1,10 +1,10 @@
 $notification-default-position: right top;
-$notification-float-offset: 1rem;
+$notification-float-offset: $global-padding;
 $notification-width: rem-calc(400);
 
 $notification-background: #698bda;
 $notification-color: white;
-$notification-padding: 1rem;
+$notification-padding: $global-padding;
 $notification-radius: 4px;
 
 %notification {
@@ -30,7 +30,7 @@ $notification-radius: 4px;
   }
 }
 
-@mixin notification-structure(
+@mixin notification-layout(
   $x: null,
   $y: null,
   $size: $notification-width,
@@ -108,7 +108,7 @@ $notification-radius: 4px;
   $radius: $notification-radius
 ) {
   @extend %notification;
-  @include notification-structure($x, $y, $size, $style);
+  @include notification-layout($x, $y, $size, $style);
   @include notification-style($background, $color, $padding, $radius);
 }
 
@@ -119,13 +119,13 @@ $notification-radius: 4px;
 .notification {
   @include notification;
 
-  &.top-right { @include notification-structure(right, top); }
-  &.top-left { @include notification-structure(left, top); }
-  &.top-middle { @include notification-structure(middle, top); }
+  &.top-right { @include notification-layout(right, top); }
+  &.top-left { @include notification-layout(left, top); }
+  &.top-middle { @include notification-layout(middle, top); }
 
-  &.bottom-right { @include notification-structure(right, bottom); }
-  &.bottom-left { @include notification-structure(left, bottom); }
-  &.bottom-middle { @include notification-structure(middle, bottom); }
+  &.bottom-right { @include notification-layout(right, bottom); }
+  &.bottom-left { @include notification-layout(left, bottom); }
+  &.bottom-middle { @include notification-layout(middle, bottom); }
 
   &.success   { @include notification-style($success-color) }
   &.warning   { @include notification-style($warning-color) }
