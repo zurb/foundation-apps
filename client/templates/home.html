@@ -17,15 +17,14 @@ url: /
         <header>Layout</header>
         <ul>
           <li><a href="#">Grid</a></li>
-          <li><a href="#">Panels</a></li>
-          <li><a href="#">Off-canvas</a></li>
+          <li><a href="#">Panel</a></li>
         </ul>
       </section>
       <section class="block-list">
         <header>Navigation</header>
         <ul>
-          <li><a href="#">Block List</a></li>
-          <li><a href="#">Popup Menu</a></li>
+          <li><a href="#">Off-canvas Menu</a></li>
+          <li><a href="#">Action Sheet</a></li>
           <li><a href="#">Title Bar</a></li>
           <li><a href="#">Menu Bar</a></li>
           <li><a href="#">Tabs</a></li>
@@ -34,16 +33,24 @@ url: /
       <section class="block-list">
         <header>Callouts</header>
         <ul>
-          <li><a href="#">Modals</a></li>
-          <li><a href="#">Alerts</a></li>
+          <li><a href="#">Modal</a></li>
+          <li><a href="#">Notification</a></li>
+        </ul>
+      </section>
+      <section class="block-list">
+        <header>Controls</header>
+        <ul>
+          <li><a href="#">Button</a></li>
+          <li><a href="#">Button Group</a></li>
+          <li><a href="#">Forms</a></li>
         </ul>
       </section>
       <section class="block-list">
         <header>Content</header>
         <ul>
           <li><a href="#">Typography</a></li>
-          <li><a href="#">Cards</a></li>
-          <li><a href="#">Forms</a></li>
+          <li><a href="#">Card</a></li>
+          <li><a href="#">Block List</a></li>
           <li><a href="#">Motion UI</a></li>
           <li><a href="#">Interchange</a></li>
           <li><a href="#">Inline Elements</a></li>
@@ -52,8 +59,9 @@ url: /
       <section class="block-list">
         <header>Helpers</header>
         <ul>
-          <li><a href="#">Functions and Mixins</a></li>
           <li><a href="#">Visibility</a></li>
+          <li><a href="#">Coloring</a></li>
+          <li><a href="#">Functions and Mixins</a></li>
         </ul>
       </section>
     </section>
@@ -81,6 +89,7 @@ url: /
         </div>
       </div>
     </section>
+
     <section>
       <h4>Panels</h4>
       <p>Panels are frames that slide in from the top, left, bottom, or right of the screen and appear over the interface. Grid blocks can also transform into panels, allowing you to hide content off-canvas on smaller screens.</p>
@@ -98,19 +107,23 @@ url: /
         </div>
       </div>
     </section>
+
     <section>
       <h4>Block Grid</h4>
       <p>The block grid functions much like it did in Foundation 5.</p>
 
       <ul class="block up-2 medium-up-4 thumbnails">
-        <li><img src="http://placekitten.com/300/300" alt=""></li>
+        <li><img src="http://placekitten.com/300/302" alt=""></li>
         <li><img src="http://placekitten.com/300/301" alt=""></li>
-        <li><img src="http://placekitten.com/300/300" alt=""></li>
+        <li><img src="http://placekitten.com/300/302" alt=""></li>
         <li><img src="http://placekitten.com/300/301" alt=""></li>
-        <li><img src="http://placekitten.com/300/300" alt=""></li>
+        <li><img src="http://placekitten.com/300/302" alt=""></li>
         <li><img src="http://placekitten.com/300/301" alt=""></li>
       </ul>
     </section>
+
+    <!-- Navigation -->
+
     <section>
       <h4>Off-canvas</h4>
       <p>Off-canvas containers sit at the root level of your app to the left, right, top, or bottom. They are similar to panels, except the entire frame of your app shifts to display the off-canvas menu.</p>
@@ -152,21 +165,9 @@ url: /
         </div>
       </div>
     </section>
-    <section>
-      <h4>Block lists</h4>
-      <p>Block lists are basic list views that resemble the kind you see on most mobile platforms. They can include labels, forms, switches, and more.</p>
 
-      <div class="block-list">
-        <header>List Title</header>
-        <ul>
-          <li><a href="#">List item 1</a></li>
-          <li><a href="#">List item 2</a></li>
-          <li><a href="#">List item 3</a></li>
-        </ul>
-      </div>
-    </section>
     <section>
-      <h4>Popup Menu</h4>
+      <h4>Action Sheet</h4>
       <p>On medium-sized screens and up, these are your standard dropdown menu. On smaller screens they transform into action sheets that pull up from the bottom of the screen.</p>
 
       <div class="action-sheet-container">
@@ -182,6 +183,7 @@ url: /
         </div>
       </div>
     </section>
+
     <section>
       <h4>Title Bar</h4>
       <p>The title bar is a navigational component which can contain a title area or a number of links. It's flexible enough to allow for center-, left-, and right-aligned sections, or any combination of the three.</p>
@@ -198,9 +200,10 @@ url: /
         </div>
       </div>
     </section>
+
     <section>
-      <h4>Icon Bar</h4>
-      <p>The icon bar is an all-purpose nav menu that can include text or icon nav items and be oriented horizontally or vertically depending on screen size.</p>
+      <h4>Menu Bar</h4>
+      <p>The menu bar is an all-purpose nav menu that can include text or icon nav items and be oriented horizontally or vertically depending on screen size.</p>
 
       <ul class="icon-bar">
         <li><a href="#"><img src="http://placehold.it/20x20"><span>Reply</span></a></li>
@@ -208,60 +211,6 @@ url: /
         <li><a href="#"><img src="http://placehold.it/20x20"><span>Delete</span></a></li>
         <li><a href="#"><img src="http://placehold.it/20x20"><span>Archive</span></a></li>
         <li><a href="#"><img src="http://placehold.it/20x20"><span>Mark as Spam</span></a></li>
-      </ul>
-    </section>
-    <section>
-      <h4>Modals</h4>
-      <p>Modals will resemble the Reveal modals used in Foundation 5, but with more options for animation and positioning.</p>
-      <a href="#" fa-modal-open="pageModal" class="button">Open Modal</a>
-    </section>
-    <section>
-      <h4>Alerts</h4>
-    </section>
-    <section>
-      <h4>Buttons</h4>
-      <p>Buttons are as button-ey as they've always been. They come in small, medium, large, and expanded varieties, and a rainbow of colors.</p>
-
-      <a href="#" class="button">Button</a>
-      <a href="#" class="secondary button">Secondary Button</a>
-      <a href="#" class="success button">Success Button</a>
-      <a href="#" class="warning button">Warning Button</a>
-      <a href="#" class="alert button">Alert Button</a>
-
-      <button class="button">Button Tag Button</button>
-      <input type="submit" class="button" value="Submit Button Button">
-
-      <a href="#" class="small button">Small Button</a>
-      <a href="#" class="large button">Large Button</a>
-
-      <a href="#" class="button" data-popup-toggle>Dropdown Button</a>
-
-      <a href="#" class="expand button">Expaaaaaaaaand Button</a>
-    </section>
-    <section>
-      <h4>Button Groups</h4>
-      <p>Button groups can function as a strip of buttons, a tabstrip, or a segmented control.</p>
-
-      <ul class="button-group">
-        <li><a href="#">Reply</a></li>
-        <li><a href="#">Reply All</a></li>
-        <li><a href="#">Forward</a></li>
-      </ul>
-      <ul class="warning button-group">
-        <li><a href="#">Danger</a></li>
-        <li><a href="#">Will</a></li>
-        <li><a href="#">Robinson</a></li>
-      </ul>
-      <br>
-      <ul class="segmented button-group">
-        <li><input type="radio" id="segBtn1" name="segBtn"><label for="segBtn1">Eggs</label></li>
-        <li><input type="radio" id="segBtn2" name="segBtn"><label for="segBtn2">Bacon</label></li>
-        <li><input type="radio" id="segBtn3" name="segBtn"><label for="segBtn3">Toast</label></li>
-      </ul>
-      <ul class="segmented alert button-group">
-        <li><input type="radio" id="segBtn4" name="segBtnToo"><label for="segBtn4">Eggs</label></li>
-        <li><input type="radio" id="segBtn5" name="segBtnToo"><label for="segBtn5">Bacon</label></li>
-        <li><input type="radio" id="segBtn6" name="segBtnToo"><label for="segBtn6">Toast</label></li>
       </ul>
     </section>
 
@@ -283,6 +232,62 @@ url: /
       </div>
 
     </section>
+
+    <!-- Callouts -->
+
+    <section>
+      <h4>Modals</h4>
+      <p>Modals will resemble the Reveal modals used in Foundation 5, but with more options for animation and positioning.</p>
+      <a href="#" fa-modal-open="pageModal" class="button">Open Modal</a>
+    </section>
+
+    <section>
+      <h4>Notifications</h4>
+      <p>Notifications can be displayed in any corner of the screen, and can also tap into the Notifications API, if the user's browser supports it, allowing the use of desktop notifications.</p>
+      <a href="#" class="button" id="newMessage">Fire Notification</a>
+    </section>
+
+    <!-- Controls -->
+
+    <section>
+      <h4>Buttons</h4>
+      <p>Buttons are as button-ey as they've always been. They come in small, medium, large, and expanded varieties, and a rainbow of colors.</p>
+
+      <a href="#" class="button">Button</a>
+      <a href="#" class="secondary button">Secondary Button</a>
+      <a href="#" class="success button">Success Button</a>
+      <a href="#" class="warning button">Warning Button</a>
+      <a href="#" class="alert button">Alert Button</a>
+
+      <button class="button">Button Tag Button</button>
+      <input type="submit" class="button" value="Submit Button Button">
+
+      <a href="#" class="small button">Small Button</a>
+      <a href="#" class="large button">Large Button</a>
+
+      <a href="#" class="button" data-popup-toggle>Dropdown Button</a>
+
+      <a href="#" class="expand button">Expaaaaaaaaand Button</a>
+    </section>
+
+    <section>
+      <h4>Button Groups</h4>
+      <p>Button groups can function as a strip of buttons, a tabstrip, or a segmented control.</p>
+
+      <ul class="button-group">
+        <li><a href="#">Reply</a></li>
+        <li><a href="#">Reply All</a></li>
+        <li><a href="#">Forward</a></li>
+      </ul>
+      <br>
+      <ul class="segmented button-group">
+        <li><input type="radio" id="segBtn1" name="segBtn"><label for="segBtn1">Eggs</label></li>
+        <li><input type="radio" id="segBtn2" name="segBtn"><label for="segBtn2">Bacon</label></li>
+        <li><input type="radio" id="segBtn3" name="segBtn"><label for="segBtn3">Toast</label></li>
+      </ul>
+    </section>
+
+    <!-- Content -->
 
     <section>
       <h4>Cards</h4>
@@ -326,6 +331,21 @@ url: /
         </div>
       </div>
     </section>
+
+    <section>
+      <h4>Block lists</h4>
+      <p>Block lists are basic list views that resemble the kind you see on most mobile platforms. They can include labels, forms, switches, and more.</p>
+
+      <div class="block-list">
+        <header>List Title</header>
+        <ul>
+          <li><a href="#">List item 1</a></li>
+          <li><a href="#">List item 2</a></li>
+          <li><a href="#">List item 3</a></li>
+        </ul>
+      </div>
+    </section>
+
   </div>
   <!-- /Main content -->
 </div>

@@ -42,12 +42,10 @@ $btngroup-radius: 4px;
 }
 
 %button-group-segmented {
-  $main-color: foundation(button, background);
-  $hover-color: rgba($main-color, 0.25);
-
   border: 1px solid $primary-color;
   border-radius: 8px;
   overflow: hidden;
+  transition-property: background color;
 
   // Hide the radio button
   > li > input[type="radio"] {

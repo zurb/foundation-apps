@@ -3,16 +3,50 @@
   Dropdowns are action sheets on smaller screens and popup menus
 */
 
+@mixin action-sheet-menu-styles {
+  // Menu container
+  ul {
+    margin: 0 -1rem -1rem -1rem;
+    list-style-type: none;
+    user-select: none;
+
+    // If the menu has no text above it
+    &:first-child {
+      margin-top: -1rem;
+
+      li:first-child {
+        border-top: 0;
+      }
+    }
+  }
+  // Menu links
+  a {
+    display: block;
+    padding: 0.8rem;
+    line-height: 1;
+    color: black;
+    border-top: 1px solid #ccc;
+
+    &:hover {
+      color: black;
+      background: #f7f7f7;
+    }
+  }
+  li:first-child > a {
+    border-top: 0;
+  }
+}
+
 @mixin action-sheet($position: bottom) {
   position: fixed;
   left: 0;
+  z-index: 1000;
   width: 100%;
   padding: 1rem;
   background: #fff;
-  box-shadow: 0 -3px 10px rgba(black, 0.25);
   text-align: center;
+  box-shadow: 0 -3px 10px rgba(black, 0.25);
   transition: transform 0.25s ease-out, opacity 0.25s ease-out;
-  z-index: 1000;
 
   // Positions
   @if $position == bottom {
@@ -43,51 +77,19 @@
       opacity: 1;
     }
   }
-
-  // Menu styles
-  ul {
-    margin: 0 -1rem -1rem -1rem;
-    list-style-type: none;
-    user-select: none;
-
-    &:first-child {
-      margin-top: -1rem;
-      li:first-child {
-        border-top: 0;
-      }
-    }
-  }
-  li {
-    border-bottom: 1px solid #ccc;
-
-    &:first-child {
-      border-top: 1px solid #ccc;
-    }
-  }
-  a {
-    display: block;
-    padding: 0.8rem;
-    line-height: 1;
-    color: black;
-
-    &:hover {
-      color: black;
-      background: #f7f7f7;
-    }
-  }
 }
 
 @mixin popup-menu {
   position: absolute;
   bottom: 0;
   left: 50%;
-  transform: translateX(-50%) translateY(110%);
   width: 300px;
-  box-shadow: 0 0 10px rgba(black, 0.25);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.25s ease-out, transform 0.25s ease-out;
   border-radius: 4px;
+  opacity: 0;
+  box-shadow: 0 0 10px rgba(black, 0.25);
+  transform: translateX(-50%) translateY(110%);
+  transition: opacity 0.25s ease-out, transform 0.25s ease-out;
+  pointer-events: none;
 
   // Active state
   &.is-active {
@@ -125,6 +127,7 @@
 }
 .action-sheet {
   @include action-sheet;
+  @include action-sheet-menu-styles;
 
   @media #{$medium-up} {
     @include popup-menu;

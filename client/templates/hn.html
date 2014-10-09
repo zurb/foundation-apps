@@ -6,21 +6,31 @@ controller: HNController
 
 <style>
   .hn-demo {}
-  .hn-header { background: #537fe1; color: #fff; font-weight: bold; }
   .hn-stories { border-right: 1px solid #ccc; }
 </style>
 
 <div class="vertical frame hn-demo">
-  <header class="shrink content block hn-header">Hacker News</header>
+  <header class="shrink content block color-primary">
+    Hacker News
+  </header>
   <div class="stretch block">
     <div class="vertical medium-4 block hn-stories">
+      <div class="content block popup color-dark" id="sortBy" data-popover>
+        <section class="block-list">
+          <ul>
+            <li><a href="#">Most Popular</a></li>
+            <li><a href="#">Most Recent</a></li>
+            <li><a href="#">Most Comments</a></li>
+          </ul>
+        </section>
+      </div>
       <header class="title-bar">
         <div class="left title">Stories</div>
-        <div class="right"><a href="#">Sort By</a></div>
+        <div class="right"><a href="#" data-popover-toggle="sortBy">Sort By</a></div>
       </header>
       <div class="content block">
         <ul class="block-list">
-          <li ng-repeat="story in stories"><a href="#">{{ story.title }}</a></li>
+          <li ng-repeat="story in stories"><a href="#">{{ story }}</a></li>
         </ul>
       </div>
     </div>
