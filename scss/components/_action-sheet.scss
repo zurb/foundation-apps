@@ -3,37 +3,56 @@
   Dropdowns are action sheets on smaller screens and popup menus
 */
 
+$actionsheet-background: white;
+$actionsheet-border-color: #ccc;
+$actionsheet-animation-speed: 0.25s;
+$actionsheet-width: 300px;
+$actionsheet-radius: 4px;
+$actionsheet-shadow: true;
+$actionsheet-padding: $global-padding;
+$actionsheet-tail-size: 10px;
+
+$actionsheet-link-color: #000;
+$actionsheet-link-background-hover: smartscale($actionsheet-background);
+
 @mixin action-sheet-menu-styles {
   // Menu container
   ul {
-    margin: 0 -1rem -1rem -1rem;
+    margin: -($actionsheet-padding);
+    margin-top: 0;
     list-style-type: none;
     user-select: none;
 
     // If the menu has no text above it
     &:first-child {
-      margin-top: -1rem;
+      margin-top: -$actionsheet-padding;
 
       li:first-child {
         border-top: 0;
       }
     }
-  }
-  // Menu links
-  a {
-    display: block;
-    padding: 0.8rem;
-    line-height: 1;
-    color: black;
-    border-top: 1px solid #ccc;
 
-    &:hover {
-      color: black;
-      background: #f7f7f7;
+    // Menu links
+    a {
+      display: block;
+      padding: $actionsheet-padding * 0.8;
+      line-height: 1;
+      color: $actionsheet-link-color;
+      border-top: 1px solid $actionsheet-border-color;
+
+      &:hover {
+        color: $actionsheet-link-color;
+        background: $actionsheet-link-background-hover;
+      }
     }
-  }
-  li:first-child > a {
-    border-top: 0;
+
+    .alert > a {
+      color: $alert-color;
+    }
+    .disabled > a {
+      pointer-events: none;
+      color: #999;
+    }
   }
 }
 
@@ -42,11 +61,16 @@
   left: 0;
   z-index: 1000;
   width: 100%;
-  padding: 1rem;
-  background: #fff;
+  padding: $actionsheet-padding;
+  background: $actionsheet-background;
   text-align: center;
-  box-shadow: 0 -3px 10px rgba(black, 0.25);
-  transition: transform 0.25s ease-out, opacity 0.25s ease-out;
+  transition-property: transform opacity;
+  transition-duration: $actionsheet-animation-speed;
+  transition-timing-function: ease-out;
+
+  @if $actionsheet-shadow {
+    box-shadow: 0 -3px 10px rgba(black, 0.25);
+  }
 
   // Positions
   @if $position == bottom {
@@ -79,47 +103,84 @@
   }
 }
 
-@mixin popup-menu {
+@mixin popup-menu-layout($position: bottom) {
+  @if $position == bottom {
+    top: auto;
+    bottom: 0;
+    transform: translateX(-50%) translateY(110%);
+    &.is-active {
+      transform: translateX(-50%) translateY(100%);
+    }
+
+    &::before, &::after {
+      top: -($actionsheet-tail-size);
+      bottom: auto;
+      border-top: 0;
+      border-bottom: $actionsheet-tail-size solid $actionsheet-background;
+    }
+    &::before {
+      top: -($actionsheet-tail-size + 2);
+      border-bottom-color: rgba(black, 0.15);
+    }
+    
+  }
+  @else if $position == top {
+    top: 0;
+    bottom: auto;
+    transform: translateX(-50%) translateY(-120%);
+    &.is-active {
+      transform: translateX(-50%) translateY(-110%);
+    }
+
+    &::before, &::after {
+      top: auto;
+      bottom: -($actionsheet-tail-size);
+      border-top: $actionsheet-tail-size solid $actionsheet-background;
+      border-bottom: 0;
+    }
+    &::before {
+      bottom: -($actionsheet-tail-size + 2);
+      border-top-color: rgba(black, 0.15);
+    }
+  }
+}
+
+@mixin popup-menu() {
   position: absolute;
-  bottom: 0;
   left: 50%;
-  width: 300px;
-  border-radius: 4px;
+  width: $actionsheet-width;
+  border-radius: $actionsheet-radius;
   opacity: 0;
-  box-shadow: 0 0 10px rgba(black, 0.25);
-  transform: translateX(-50%) translateY(110%);
-  transition: opacity 0.25s ease-out, transform 0.25s ease-out;
   pointer-events: none;
+
+  @if $actionsheet-shadow {
+    box-shadow: 0 0 10px rgba(black, 0.25);
+  }
+
+  @include popup-menu-layout(bottom);
 
   // Active state
   &.is-active {
     opacity: 1;
     pointer-events: auto;
-    transform: translateX(-50%) translateY(100%);
   }
 
   // Menu tail
   &::before, &::after {
     content: '';
-    display: block;
     position: absolute;
     left: 50%;
-    top: -10px;
+    display: block;
     width: 0px;
     height: 0px;
-    margin-left: -10px;
-    border-bottom: 10px solid white;
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-  }
-  &::before {
-    border-bottom-color: rgba(black, 0.15);
-    top: -12px;
+    border-left: $actionsheet-tail-size solid transparent;
+    border-right: $actionsheet-tail-size solid transparent;
+    margin-left: -($actionsheet-tail-size);
   }
 }
 
 /*
-  Class output
+  CSS output
 */
 .action-sheet-container {
   position: relative;
@@ -131,5 +192,9 @@
 
   @media #{$medium-up} {
     @include popup-menu;
+
+    &.position-top {
+      @include popup-menu-layout(top);
+    }
   }
 }
