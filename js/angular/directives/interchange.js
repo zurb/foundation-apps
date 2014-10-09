@@ -19,11 +19,11 @@ angular.module('foundation.interchange')
 
       var named_queries = {
         'default' : 'only screen',
-        //small : Foundation.media_queries.small,
-        //medium : Foundation.media_queries.medium,
-        //large : Foundation.media_queries.large,
-        //xlarge : Foundation.media_queries.xlarge,
-        //xxlarge: Foundation.media_queries.xxlarge,
+        small : 'only screen',
+        medium : 'only screen and (min-width:40.063em)',
+        large : 'only screen and (min-width:64.063em)',
+        xlarge : 'only screen and (min-width:90.063em)',
+        xxlarge: 'only screen and (min-width:120.063em)',
         landscape : 'only screen and (orientation: landscape)',
         portrait : 'only screen and (orientation: portrait)',
         retina : 'only screen and (-webkit-min-device-pixel-ratio: 2),' +
@@ -93,6 +93,7 @@ angular.module('foundation.interchange')
               compiled = $compile(html)(childScope);
             }).then(function(){
               element.html(compiled.html());
+              current = scenario;
             });
           }
         });

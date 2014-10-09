@@ -61,6 +61,11 @@ var app = angular.module('application', [
 
         $stateProvider.state(page.name, state);
     });
+}])
+  .run(['FoundationApi', 'Utils', function(foundationApi, u) {
+    window.addEventListener('resize', u.throttle(function() {
+        foundationApi.publish('resize', 'window resized');
+      }, 50));
 }]);
 
 angular.module('application')
