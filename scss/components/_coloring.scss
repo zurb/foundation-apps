@@ -3,7 +3,7 @@ $dark-color: #333;
 .color-dark {
   background-color: $dark-color;
 
-  &, h1, h2, h3, h4, h5, h6 {
+  &, h1, h2, h3, h4, h5, h6, a {
     color: #fff;
   }
 }
@@ -11,7 +11,7 @@ $dark-color: #333;
 .color-primary {
   background-color: $primary-color;
 
-  &, h1, h2, h3, h4, h5, h6 {
+  &, h1, h2, h3, h4, h5, h6, a {
     color: if(lightness($primary-color) > 60%, #000, #fff);
   }
 }
