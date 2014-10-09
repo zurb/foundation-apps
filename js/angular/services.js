@@ -11,7 +11,7 @@ angular.module('application')
       prepareRoute: function(input) {
         return 'route-' + input.replace(/\./, '-').toLowerCase();
       },
-      throttle:function (func, delay) {
+      throttle: function (func, delay) {
         var timer = null;
 
         return function () {
@@ -24,6 +24,7 @@ angular.module('application')
             }, delay);
           }
         };
-      }
-    }
+      },
+    };
 });
+

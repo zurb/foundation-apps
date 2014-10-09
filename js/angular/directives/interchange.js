@@ -19,11 +19,6 @@ angular.module('foundation.interchange')
 
       var named_queries = {
         'default' : 'only screen',
-        small : 'only screen',
-        medium : 'only screen and (min-width:40.063em)',
-        large : 'only screen and (min-width:64.063em)',
-        xlarge : 'only screen and (min-width:90.063em)',
-        xxlarge: 'only screen and (min-width:120.063em)',
         landscape : 'only screen and (orientation: landscape)',
         portrait : 'only screen and (orientation: portrait)',
         retina : 'only screen and (-webkit-min-device-pixel-ratio: 2),' +
@@ -33,6 +28,11 @@ angular.module('foundation.interchange')
           'only screen and (min-resolution: 192dpi),' +
           'only screen and (min-resolution: 2dppx)'
       };
+
+      var globalQueries = foundationApi.getSettings().media_queries;
+      named_queries = angular.extend(named_queries, globalQueries);
+
+      console.log(named_queries);
 
       var matched = function() {
         var count = scenarios.length;
@@ -52,6 +52,7 @@ angular.module('foundation.interchange')
             }
           }
         }
+
         return matches;
       };
 
@@ -78,7 +79,6 @@ angular.module('foundation.interchange')
           var scenario = scenarios[ruleMatches[0].ind];
 
           if(scenarios == current) {
-
           } else {
             var compiled;
             var loader = templateLoader(scenario.src);

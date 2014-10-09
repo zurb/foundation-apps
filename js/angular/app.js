@@ -1,8 +1,10 @@
 var app = angular.module('application', [
     'ui.router',
     'ngAnimate',
+    'foundation.init',
     'foundation.common.services',
     'foundation.common.directives',
+    'foundation.common.animations',
     'foundation.modal',
     'foundation.panel',
     'foundation.offcanvas',
@@ -62,70 +64,7 @@ var app = angular.module('application', [
         $stateProvider.state(page.name, state);
     });
 }])
-  .run(['FoundationApi', 'Utils', function(foundationApi, u) {
-    window.addEventListener('resize', u.throttle(function() {
-        foundationApi.publish('resize', 'window resized');
-      }, 50));
+  .run(['FoundationInit', function(foundationInit) {
+    foundationInit.init();
 }]);
 
-angular.module('application')
-  .animation('.ui-animation', ['$state', function($state) {
-    var events = ['webkitAnimationEnd', 'mozAnimationEnd', 'MSAnimationEnd', 'oanimationend', 'animationend',
-                  'webkitTransitionEnd', 'otransitionend', 'transitionend'];
-    return {
-      enter: function(element, done) {
-        var scope = element.scope();
-
-        if(scope.vars && scope.vars.animationIn) {
-          animationIn = scope.vars.animationIn;
-          animationOut = scope.vars.animationOut || '';
-
-          //reset possible failed animations and bugs
-          element.removeClass(animationIn + ' ' + animationOut);
-
-          element.addClass(animationOut);
-          element.addClass('animated');
-
-          element.one(events.join(' '), function(){
-            //cleanup
-            element.removeClass(animationIn + ' ' + animationOut);
-            done();
-          });
-        } else {
-          done();
-        }
-
-        return function(isCancelled) {
-
-        }
-      },
-      leave: function(element, done) {
-        var scope = element.scope();
-
-        if(scope.vars && scope.vars.animationOut) {
-          animationIn = scope.vars.animationIn || '';
-          animationOut = scope.vars.animationOut;
-
-          //reset possible failed animations and bugs
-          element.removeClass(animationIn + ' ' + animationOut);
-
-          element.addClass(animationOut);
-          element.addClass('animated');
-
-          element.one(events.join(' '), function(){
-            //cleanup
-            element.removeClass(animationIn + ' ' + animationOut);
-            done();
-          });
-        } else {
-          done();
-        }
-
-          return function(isCancelled) {
-
-          }
-       }
-    }
-
-
-  }]);

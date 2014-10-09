@@ -3,6 +3,7 @@ angular.module('foundation.common.services', []);
 angular.module('foundation.common.services')
   .service('FoundationApi', function() {
     var listeners = [];
+    var settings = {};
 
     return {
       subscribe: function(name, callback) {
@@ -24,6 +25,13 @@ angular.module('foundation.common.services')
 
         return;
       },
+      getSettings: function() {
+        return settings;
+      },
+      modifySettings: function(tree) {
+        settings = angular.extend(settings, tree);
+        return settings;
+      }
     }
   }
 );
