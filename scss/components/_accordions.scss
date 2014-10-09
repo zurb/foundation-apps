@@ -1,0 +1,34 @@
+// Accordions
+
+.accordion {
+	border: 1px solid #ddd;
+	border-width:1px 1px 0 1px;
+
+	.accordion-item {
+		.accordion-title {
+			padding: 0 1rem;
+			border: 0px solid #ddd;
+			border-width:0 0 1px 0;
+			background: #f4f4f4;
+			line-height: 40px;
+			&:hover {
+				background: #e4e4e4;
+			}
+		}
+		.accordion-content {
+			padding: 1rem;
+			display: none;
+			border: 0px solid #ddd;
+			border-width:0 0 1px 0;
+		}
+		&.is-active {
+			.accordion-title {
+				background: transparent;
+				color: $primary-color;
+			}
+			.accordion-content {
+				display: block;
+			}
+		}
+	}
+}
