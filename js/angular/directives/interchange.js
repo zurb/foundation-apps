@@ -1,116 +1,106 @@
 angular.module('foundation.interchange', []);
 
 angular.module('foundation.interchange')
-  .directive('faInterchange', ['FoundationApi', '$compile', '$http', '$templateCache' function(foundationApi, $compile, $http, $tempalteCache) {
+  .directive('faInterchange', ['FoundationApi', '$compile', '$http', '$templateCache', '$animate',  function(foundationApi, $compile, $http, $templateCache) {
   var templateLoader = function(templateUrl) {
-    return $http.get(templateUrl, {cache: $tempalteCache});
-  }
+    return $http.get(templateUrl, {cache: $templateCache});
+  };
 
   return {
     restrict: 'A',
-    template: '<div ng-transclude></div>',
-    transclude: true,
+    transclude: 'element',
     scope: {
       position: '@'
     },
     replace: true,
-    compile: function compile(tElement, tAttrs, transclude) {
-      var type = 'interchange';
+    template: '<div></div>',
+    link: function(scope, element, attrs, ctrl, transclude) {
+      var childScope, current, scenarios;
 
-      return {
-        pre: function preLink(scope, iElement, iAttrs, controller, transclude) {
-          var scenarios = [];
-          var parentElement = iElement;
-          var elements = parentElement.children();
-          var i = 0;
+      var named_queries = {
+        'default' : 'only screen',
+        //small : Foundation.media_queries.small,
+        //medium : Foundation.media_queries.medium,
+        //large : Foundation.media_queries.large,
+        //xlarge : Foundation.media_queries.xlarge,
+        //xxlarge: Foundation.media_queries.xxlarge,
+        landscape : 'only screen and (orientation: landscape)',
+        portrait : 'only screen and (orientation: portrait)',
+        retina : 'only screen and (-webkit-min-device-pixel-ratio: 2),' +
+          'only screen and (min--moz-device-pixel-ratio: 2),' +
+          'only screen and (-o-min-device-pixel-ratio: 2/1),' +
+          'only screen and (min-device-pixel-ratio: 2),' +
+          'only screen and (min-resolution: 192dpi),' +
+          'only screen and (min-resolution: 2dppx)'
+      };
 
-          console.log(parentElement);
-          console.log(elements);
+      var matched = function() {
+        var count = scenarios.length;
+        var matches = [];
 
-          //collect
-          angular.forEach(elements, function(el) {
-            var elem = angular.element(el);
-            scenarios[i] = { media: elem.attr('media'), src: elem.attr('src') };
-            i++;
-          });
-
-          console.log(scenarios);
-
-          iElement.html('<div></div>');
-          scope.scenarios = scenarios;
-        },
-        post: function postLink(scope, element, attrs) {
-          var named_queries = {
-            'default' : 'only screen',
-            //small : Foundation.media_queries.small,
-            //medium : Foundation.media_queries.medium,
-            //large : Foundation.media_queries.large,
-            //xlarge : Foundation.media_queries.xlarge,
-            //xxlarge: Foundation.media_queries.xxlarge,
-            landscape : 'only screen and (orientation: landscape)',
-            portrait : 'only screen and (orientation: portrait)',
-            retina : 'only screen and (-webkit-min-device-pixel-ratio: 2),' +
-              'only screen and (min--moz-device-pixel-ratio: 2),' +
-              'only screen and (-o-min-device-pixel-ratio: 2/1),' +
-              'only screen and (min-device-pixel-ratio: 2),' +
-              'only screen and (min-resolution: 192dpi),' +
-              'only screen and (min-resolution: 2dppx)'
-          };
-
-
-          //setup
-          foundationApi.subscribe('resize', function(msg) {
-            var ruleMatches = matched();
-            var scenario = scenarios[ruleMatches[0].ind];
-
-            var loader = templateLoader(scenario.src);
-
-            loader.success(function(html){
-              element.html(html);
-            }.then(function(response) {
-              element.replaceWith($compile(element.html())(scope));
+        if (count > 0) {
+          while (count--) {
+            var mq;
+            var rule = scenarios[count].media;
+            if (named_queries[rule]) {
+              mq = matchMedia(named_queries[rule]);
+            } else {
+              mq = matchMedia(rule);
             }
-          });
-
-          var matched = function() {
-            var count = scenarios.length;
-            var matches = [];
-
-            if (count > 0) {
-              while (count--) {
-                var mq;
-                var rule = scenarios[count].media;
-                if (named_queries[rule]) {
-                  mq = matchMedia(named_queries[rule]);
-                } else {
-                  mq = matchMedia(rule);
-                }
-                if (mq.matches) {
-                  matches.push({ ind: count});
-                }
-              }
+            if (mq.matches) {
+              matches.push({ ind: count});
             }
-            return matches;
           }
         }
+        return matches;
       };
-    },
-  };
-}]);
 
-angular.module('foundation.interchange')
-  .directive('faSource', ['FoundationApi', function(foundationApi) {
-    return {
-      restrict: 'A',
-      templateUrl:  function(tElement, tAttrs) {
-        return tAttrs.src || '/partials/interchange-element.html';
-      },
-      transclude: true,
-      replace: false,
-      scope: {
-        currentStatus: '='
-      },
-      link: function(scope, element, attr, ctrl, transclude) {
-      }
-    };
+      var collectScenarios = function(parentElement) {
+        scenarios = [];
+        var elements = parentElement.children();
+        var i = 0;
+
+        angular.forEach(elements, function(el) {
+          var elem = angular.element(el);
+          scenarios[i] = { media: elem.attr('media'), src: elem.attr('src') };
+          i++;
+        });
+
+      };
+
+      //setup
+      foundationApi.subscribe('resize', function(msg) {
+        transclude(function(clone, newScope) {
+          if(!scope.scenarios) {
+            collectScenarios(clone);
+          }
+          var ruleMatches = matched();
+          var scenario = scenarios[ruleMatches[0].ind];
+
+          if(scenarios == current) {
+
+          } else {
+            var compiled;
+            var loader = templateLoader(scenario.src);
+
+            if(childScope) {
+              childScope.$destroy();
+              childScope = null;
+            }
+
+            loader.success(function(html) {
+              childScope = newScope;
+              compiled = $compile(html)(childScope);
+            }).then(function(){
+              element.html(compiled.html());
+            });
+          }
+        });
+
+      });
+
+      foundationApi.publish('resize', 'initial resize');
+
+    }
+  }
 }]);
