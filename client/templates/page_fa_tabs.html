@@ -1,0 +1,18 @@
+---
+name: playground.tabs
+url: /tabs
+tabs:
+  - Tab1
+  - Tab2
+  - Tab3
+---
+<div class="tabs">
+  <div ng-repeat="tab in var.tabs">
+    <a fa-href="{{ tab }}">{{ tab }}</a>
+  </div>
+</div>
+<div fa-tab-content>
+  <div ng-repeat="tab in var.tabs">
+    Test content
+  </div>
+</div>
