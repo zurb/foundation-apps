@@ -10,12 +10,12 @@
    - Right
 */
 
-$title-bar-center-width: 50%;
-$title-bar-side-width: (100% - $title-bar-center-width) / 2;
-$title-bar-background: #eee;
-$title-bar-color: #000;
-$title-bar-border: 1px solid #ccc;
-$title-bar-padding: $block-padding;
+$titlebar-center-width: 50%;
+$titlebar-side-width: (100% - $titlebar-center-width) / 2;
+$titlebar-background: #eee;
+$titlebar-color: #000;
+$titlebar-border: 1px solid #ccc;
+$titlebar-padding: $global-padding;
 
 %title-bar {
   display: flex;
@@ -47,16 +47,16 @@ $title-bar-padding: $block-padding;
   // The left and right sections have the same width
   .left {
     order: 1;
-    flex: 0 0 $title-bar-side-width;
+    flex: 0 0 $titlebar-side-width;
   }
   .center {
     order: 2;
-    flex: 0 0 $title-bar-center-width;
+    flex: 0 0 $titlebar-center-width;
     text-align: center;
   }
   .right {
     order: 3;
-    flex: 0 0 $title-bar-side-width;
+    flex: 0 0 $titlebar-side-width;
     text-align: right;
   }
 
@@ -70,31 +70,31 @@ $title-bar-padding: $block-padding;
 
   // If center and right are in use, shift the center section into the right position
   .center:first-child:not(:last-child) {
-    margin-left: $title-bar-side-width;
+    margin-left: $titlebar-side-width;
   }
   // If center and left are in use, override the above style
   .center + .left {
-    margin-right: -($title-bar-side-width);
+    margin-right: -($titlebar-side-width);
   }
 }
 
 @mixin title-bar-style(
-  $background: $title-bar-background,
-  $color: $title-bar-color,
-  $border: $title-bar-border,
-  $padding: $title-bar-padding
+  $background: $titlebar-background,
+  $color: $titlebar-color,
+  $border: $titlebar-border,
+  $padding: $titlebar-padding
 ) {
   background: $background;
   color: $color;
-  padding: $title-bar-padding;
+  padding: $titlebar-padding;
   border-bottom: $border;
 }
 
 @mixin title-bar(
-  $background: $title-bar-background,
-  $color: $title-bar-color,
-  $border: $title-bar-border,
-  $padding: $title-bar-padding
+  $background: $titlebar-background,
+  $color: $titlebar-color,
+  $border: $titlebar-border,
+  $padding: $titlebar-padding
 ) {
   @extend %title-bar;
   @include title-bar-style($background, $color, $border, $padding);
@@ -109,5 +109,5 @@ $title-bar-padding: $block-padding;
 }
   .title-bar-bottom {
     border-bottom: 0;
-    border-top: $title-bar-border;
+    border-top: $titlebar-border;
   }
