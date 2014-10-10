@@ -15,6 +15,11 @@
 		border-width: 0 1px 1px 0;
 		margin: 0;
 		flex: 1 1 auto;
+		&.is-active {
+			background: transparent;
+			color: $primary-color;
+			border-width: 0 1px 0 0;
+		}
 		&:hover {
 			background: #e4e4e4;
 		}
@@ -26,7 +31,14 @@
 	flex-basis: 100%;
 	width: 100%;
 	padding: 1rem;
-	border: 1px solid #ddd;
+	border: 0 solid #ddd;
+	border-width: 0 1px 1px 1px;
+	.tab-pane {
+		display: none;
+		&.is-active {
+			display: block;
+		}
+	}
 }
 
 

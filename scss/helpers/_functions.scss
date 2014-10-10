@@ -27,6 +27,30 @@ $modules: () !default;
   }
 }
 
+// IS IT LIGHT?
+// Shorthand for checking the lightness of a color using Sass's ternary operator style
+@function isitlight($color, $yes, $no) {
+  @if (lightness($color) > 60%) {
+    @return $yes;
+  }
+  @else {
+    @return $no;
+  }
+}
+
+@function smartscale($color) {
+  $scale: 0%;
+
+  @if lightness($color) > 60% {
+    $scale: -5%;
+  }
+  @else {
+    $scale: 5%;
+  }
+
+  @return scale-color($color, $lightness: $scale);
+}
+
 // RANGES
 // We use these functions to define ranges for various things, like media queries.
 @function lower-bound($range){

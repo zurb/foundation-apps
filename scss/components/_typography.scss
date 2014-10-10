@@ -102,29 +102,6 @@ $blockquote-cite-link-color: $blockquote-cite-font-color !default;
 // Acronym styles
 $acronym-underline: 1px dotted #ddd !default;
 
-// We use these to control padding and margin
-$microformat-padding: rem-calc(10 12) !default;
-$microformat-margin: rem-calc(0 0 20 0) !default;
-
-// We use these to control the border styles
-$microformat-border-width: 1px !default;
-$microformat-border-style: solid !default;
-$microformat-border-color: #ddd !default;
-
-// We use these to control full name font styles
-$microformat-fullname-font-weight: $font-weight-bold !default;
-$microformat-fullname-font-size: rem-calc(15) !default;
-
-// We use this to control the summary font styles
-$microformat-summary-font-weight: $font-weight-bold !default;
-
-// We use this to control abbr padding
-$microformat-abbr-padding: rem-calc(0 1) !default;
-
-// We use this to control abbr font styles
-$microformat-abbr-font-weight: $font-weight-bold !default;
-$microformat-abbr-font-decoration: none !default;
-
 // Text alignment class names
 $align-class-names:
   small-only,
@@ -420,36 +397,6 @@ $align-class-breakpoints:
       color: $blockquote-font-color;
     }
 
-    /* Microformats */
-    .vcard {
-      display: inline-block;
-      margin: $microformat-margin;
-      border: $microformat-border-width $microformat-border-style $microformat-border-color;
-      padding: $microformat-padding;
-
-      li {
-        margin: 0;
-        display: block;
-      }
-      .fn {
-        font-weight: $microformat-fullname-font-weight;
-        font-size: $microformat-fullname-font-size;
-      }
-    }
-
-    .vevent {
-      .summary { font-weight: $microformat-summary-font-weight; }
-
-      abbr {
-        cursor: $cursor-default-value;
-        text-decoration: $microformat-abbr-font-decoration;
-        font-weight: $microformat-abbr-font-weight;
-        border: none;
-        padding: $microformat-abbr-padding;
-      }
-    }
-
-
     @media #{$medium-up} {
       h1,h2,h3,h4,h5,h6 { line-height: $header-line-height; }
       h1 { font-size: $h1-font-size; }
@@ -519,6 +466,5 @@ $align-class-breakpoints:
         .show-for-print { display: inherit !important; }
       }
     }
-
   }
 }

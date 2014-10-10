@@ -22,9 +22,9 @@ angular.module('application')
   .controller('MainController', ['$scope', '$state', 'Utils', '$rootScope', function($scope, $state, u, $rootScope) {
     $scope.current = $state.current.name;
     $scope.currentSlug = u.prepareRoute($state.current.name);
-    $rootScope.$on('$stateChangeSuccess',
-      function(event, toState, toParams, fromState, fromParams){
-        FoundationApps.init();
+    $scope.$on('$viewContentLoaded',
+    function(event, toState, toParams, fromState, fromParams){
+      FoundationApps.init();
     });
 
   }

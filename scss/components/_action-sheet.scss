@@ -1,0 +1,200 @@
+/*
+  DROPDOWN
+  Dropdowns are action sheets on smaller screens and popup menus
+*/
+
+$actionsheet-background: white;
+$actionsheet-border-color: #ccc;
+$actionsheet-animation-speed: 0.25s;
+$actionsheet-width: 300px;
+$actionsheet-radius: 4px;
+$actionsheet-shadow: true;
+$actionsheet-padding: $global-padding;
+$actionsheet-tail-size: 10px;
+
+$actionsheet-link-color: #000;
+$actionsheet-link-background-hover: smartscale($actionsheet-background);
+
+@mixin action-sheet-menu-styles {
+  // Menu container
+  ul {
+    margin: -($actionsheet-padding);
+    margin-top: 0;
+    list-style-type: none;
+    user-select: none;
+
+    // If the menu has no text above it
+    &:first-child {
+      margin-top: -$actionsheet-padding;
+
+      li:first-child {
+        border-top: 0;
+      }
+    }
+
+    // Menu links
+    a {
+      display: block;
+      padding: $actionsheet-padding * 0.8;
+      line-height: 1;
+      color: $actionsheet-link-color;
+      border-top: 1px solid $actionsheet-border-color;
+
+      &:hover {
+        color: $actionsheet-link-color;
+        background: $actionsheet-link-background-hover;
+      }
+    }
+
+    .alert > a {
+      color: $alert-color;
+    }
+    .disabled > a {
+      pointer-events: none;
+      color: #999;
+    }
+  }
+}
+
+@mixin action-sheet($position: bottom) {
+  position: fixed;
+  left: 0;
+  z-index: 1000;
+  width: 100%;
+  padding: $actionsheet-padding;
+  background: $actionsheet-background;
+  text-align: center;
+  transition-property: transform opacity;
+  transition-duration: $actionsheet-animation-speed;
+  transition-timing-function: ease-out;
+
+  @if $actionsheet-shadow {
+    box-shadow: 0 -3px 10px rgba(black, 0.25);
+  }
+
+  // Positions
+  @if $position == bottom {
+    bottom: 0;
+    transform: translateY(100%);
+
+    &.is-active {
+      transform: translateY(0%);
+    }
+  }
+  // These two don't quite work as planned yet
+  @else if $position == top {
+    top: 0;
+    transform: translateY(-100%);
+
+    &.is-active {
+      transform: translateY(0%);
+    }
+  }
+  @else if $position == center {
+    top: 50%;
+    transform: translateY(-50%), scale(80%);
+    opacity: 0;
+    pointer-events: none;
+
+    &.is-active {
+      transform: translateY(-50%), scale(100%);
+      opacity: 1;
+    }
+  }
+}
+
+@mixin popup-menu-layout($position: bottom) {
+  @if $position == bottom {
+    top: auto;
+    bottom: 0;
+    transform: translateX(-50%) translateY(110%);
+    &.is-active {
+      transform: translateX(-50%) translateY(100%);
+    }
+
+    &::before, &::after {
+      top: -($actionsheet-tail-size);
+      bottom: auto;
+      border-top: 0;
+      border-bottom: $actionsheet-tail-size solid $actionsheet-background;
+    }
+    &::before {
+      top: -($actionsheet-tail-size + 2);
+      border-bottom-color: rgba(black, 0.15);
+    }
+    
+  }
+  @else if $position == top {
+    top: 0;
+    bottom: auto;
+    transform: translateX(-50%) translateY(-120%);
+    &.is-active {
+      transform: translateX(-50%) translateY(-110%);
+    }
+
+    &::before, &::after {
+      top: auto;
+      bottom: -($actionsheet-tail-size);
+      border-top: $actionsheet-tail-size solid $actionsheet-background;
+      border-bottom: 0;
+    }
+    &::before {
+      bottom: -($actionsheet-tail-size + 2);
+      border-top-color: rgba(black, 0.15);
+    }
+  }
+}
+
+@mixin popup-menu() {
+  position: absolute;
+  left: 50%;
+  width: $actionsheet-width;
+  border-radius: $actionsheet-radius;
+  opacity: 0;
+  pointer-events: none;
+
+  @if $actionsheet-shadow {
+    box-shadow: 0 0 10px rgba(black, 0.25);
+  }
+
+  @include popup-menu-layout(bottom);
+
+  // Active state
+  &.is-active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  // Menu tail
+  &::before, &::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    display: block;
+    width: 0px;
+    height: 0px;
+    border-left: $actionsheet-tail-size solid transparent;
+    border-right: $actionsheet-tail-size solid transparent;
+    margin-left: -($actionsheet-tail-size);
+  }
+}
+
+/*
+  CSS output
+*/
+.action-sheet-container {
+  position: relative;
+  display: inline-block;
+}
+.action-sheet {
+  @include action-sheet;
+  @include action-sheet-menu-styles;
+
+  @media #{$medium-up} {
+    @include popup-menu;
+
+    &.position-top {
+      @include popup-menu-layout(top);
+    }
+  }
+}

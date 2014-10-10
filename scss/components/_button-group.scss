@@ -1,6 +1,8 @@
-%button-group {
-  $border-color: scale-color(foundation(button, background), $lightness: 15%);
+$btngroup-background: $primary-color;
+$btngroup-color: #fff;
+$btngroup-radius: 4px;
 
+%button-group {
   margin: 0;
   margin-bottom: 1rem;
   list-style-type: none;
@@ -8,76 +10,56 @@
 
   > li {
     flex: 0 0 auto;
-  }
 
-  // Links become buttons
-  > li > a,
-  > li > label {
-    @include button;
-    margin: 0;
-  }
-  // Add borders between items
-  > li:not(:last-child) > a,
-  > li:not(:last-child) > label {
-    border-right: 1px solid $border-color;
-  }
-  // Remove border radius on inner items
-  > li:first-child > a,
-  > li:first-child > label {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-  }
-  > li:not(:first-child):not(:last-child) > a,
-  > li:not(:first-child):not(:last-child) > label {
-    border-radius: 0;
-  }
-  > li:last-child > a,
-  > li:last-child > label {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
+    // Links become buttons
+    > a,
+    > label {
+      @extend %button;
+      display: block;
+      margin: 0;
+    }
+    // Add borders between items
+    &:not(:last-child) > a,
+    &:not(:last-child) > label {
+      border-right: 1px solid scale-color($btngroup-background, $lightness: -15%);
+    }
+    // Remove border radius on inner items
+    &:first-child > a,
+    &:first-child > label {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+    &:not(:first-child):not(:last-child) > a,
+    &:not(:first-child):not(:last-child) > label {
+      border-radius: 0;
+    }
+    &:last-child > a,
+    &:last-child > label {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
   }
 }
 
 %button-group-segmented {
-  $main-color: foundation(button, background);
-  $hover-color: rgba($main-color, 0.25);
-
-  border: 1px solid $main-color;
+  border: 1px solid $primary-color;
   border-radius: 8px;
   overflow: hidden;
+  transition-property: background color;
 
   // Hide the radio button
   > li > input[type="radio"] {
     position: absolute;
     left: -9999px;
   }
-  // This is the button itself
+  // This is the button
   > li > a,
   > li > label {
     margin-right: 0;
-    border-color: $main-color;
     background: transparent;
-    color: $main-color;
-
-    // This is the hover state for the button
-    &:hover {
-      background: $hover-color;
-      color: $main-color;
-    }
-  }
-  // This is the button when it's active
-  > li.is-active > a,
-  > li > input:checked + label {
-    &, &:hover {
-      background: $main-color;
-      color: #fff;
-    }
   }
 }
 
-@mixin button-group-segmented {
-  @extend %button-group-segmented;
-}
 @mixin button-group-expand($stretch: true) {
   display: if($stretch, flex, inline-flex);
 
@@ -89,17 +71,75 @@
     }
   }
 }
-@mixin button-group($segmented: false, $expand: false) {
+@mixin button-group-style(
+  $segmented: false,
+  $background: $primary-color,
+  $color: #fff
+) {
+
+  @if not $segmented {
+    > li {
+      > a, > label {
+        @include button-style($background, $color);
+        border-color: scale-color($background, $lightness: -15%);
+      }
+    }
+  }
+  @else {
+    @extend %button-group-segmented;
+    $hover-color: rgba($background, 0.25);
+    border-color: $background;
+
+    > li {
+      // This is the button
+      > a, > label {
+        border-color: $background;
+        color: $background;
+
+        // This is the button being hovered on
+        &:hover {
+          background: $hover-color;
+          color: $background;
+        }
+      }
+
+      // This is the button when it's active
+      &.is-active > a,
+      > input:checked + label {
+        &, &:hover {
+          background: $background;
+          color: if(lightness($background) > 60%, #000, #fff);
+        }
+      }
+    }
+  }
+}
+
+@mixin button-group(
+  $segmented: false,
+  $expand: false,
+  $background: $primary-color,
+  $color: #fff
+) {
   @extend %button-group;
   @include button-group-expand($expand);
-  @if $segmented {
-    @incude button-group-segmented;
-  }
+  @include button-group-style($segmented, $background, $color);
+  border-radius: $btngroup-radius;
 }
 
 .button-group {
   @include button-group;
 
-  &.segmented { @include button-group-segmented; }
+  &.secondary { @include button-group-style(false, $secondary-color) }
+  &.success   { @include button-group-style(false, $success-color) }
+  &.warning   { @include button-group-style(false, $warning-color) }
+  &.alert     { @include button-group-style(false, $alert-color) }
+
+  &.segmented { @include button-group-style(true);
+    &.secondary { @include button-group-style(true, $secondary-color) }
+    &.success   { @include button-group-style(true, $success-color) }
+    &.warning   { @include button-group-style(true, $warning-color) }
+    &.alert     { @include button-group-style(true, $alert-color) }
+  }
   &.expand    { @include button-group-expand; }
 }

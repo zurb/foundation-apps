@@ -21,8 +21,9 @@
 
 // Components
 @import
-	"components/block-list",
-	"components/button",
+	"components/action-sheet",
+  "components/block-list",
+  "components/button",
   "components/button-group",
 	"components/cards",
 	"components/forms",
@@ -35,11 +36,12 @@
 	"components/notification",
 	"components/off-canvas",
 	"components/popup",
-	"components/popup-menu",
 	"components/tabs",
+	"components/accordions",
 	"components/typography",
   "components/transitions",
-	"components/utilities",
+  "components/utilities",
+  "components/coloring",
 	"components/z-index";
 
 // CSS property map test
