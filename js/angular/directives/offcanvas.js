@@ -1,24 +1,25 @@
-angular.module('foundation.modal', []);
+angular.module('foundation.offcanvas', []);
 
-angular.module('foundation.modal')
-  .directive('faModal', ['FoundationApi', function(foundationApi) {
+angular.module('foundation.offcanvas')
+  .directive('faOffcanvas', ['FoundationApi', function(foundationApi) {
   return {
     restrict: 'A',
-    templateUrl: '/partials/modal.html',
+    templateUrl: '/partials/offcanvas.html',
     transclude: true,
     scope: {
-      src: '@'
+      position: '@'
     },
     replace: true,
     compile: function compile(tElement, tAttrs, transclude) {
-      var type = 'modal';
+      var type = 'offcanvas';
 
       return {
         pre: function preLink(scope, iElement, iAttrs, controller) {
           iAttrs.$set('fa-closable', type);
+          iElement.addClass('ofc-' + scope.position);
+          document.body.classList.add('has-off-canvas');
         },
         post: function postLink(scope, element, attrs) {
-          var dialog = angular.element(element.children()[0]);
           var currentStatus = 'hide';
 
           //setup
@@ -35,14 +36,12 @@ angular.module('foundation.modal')
           });
 
           scope.hide = function() {
-            dialog.removeClass('is-active');
             element.removeClass('is-active');
             currentStatus = 'hide';
             return;
           }
 
           scope.show = function() {
-            dialog.addClass('is-active');
             element.addClass('is-active');
             currentStatus = 'show';
             return;

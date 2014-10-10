@@ -38,7 +38,7 @@ gulp.task('copy-partials', ['clean', 'copy'], function() {
 // Compile Sass
 gulp.task('sass', ['clean', 'copy'], function() {
   return gulp.src('client/assets/scss/app.scss')
-    .pipe(sass({ loadPath: ['client/asets/scss', 'scss'], style: 'expanded', lineNumbers: true  }))
+    .pipe(sass({ loadPath: ['client/assets/scss', 'scss'], style: 'expanded', lineNumbers: true  }))
     .pipe(concat('app.css'))
     .pipe(autoprefixer({
       browsers: ['last 2 versions', 'ie 10']
@@ -94,20 +94,21 @@ gulp.task('uglify-angular', ['copy', 'clean'], function() {
 gulp.task('front-matter', ['clean', 'copy', 'uglify-angular'], function() {
   var config = [];
 
-  return gulp.src('./client/templates/*.html')
+  return gulp.src('./client/templates/**/*.html')
     .pipe(frontMatter({
       property: 'meta',
       remove: true
     }))
     .pipe(through.obj(function(file, enc, callback) {
-      var page = file.meta;
+      if(file.meta.name) {
+        var page = file.meta;
 
-      //path normalizing
-      var relativePath = path.relative(__dirname + path.sep + 'client', file.path);
-      page.path = relativePath.split(path.sep).join('/');
+        //path normalizing
+        var relativePath = path.relative(__dirname + path.sep + 'client', file.path);
+        page.path = relativePath.split(path.sep).join('/');
 
-      config.push(page);
-
+        config.push(page);
+      }
       this.push(file);
       return callback();
     }))
