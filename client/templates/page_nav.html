@@ -1,9 +1,16 @@
 ---
-name: mail.nav
+name: playground.nav
 hasComposed: true
-parent: mail
+parent: playground
 ---
-<ul class="side-nav">
-  <li ui-sref-active-eq="active"><a ui-sref="mail.email({ id: 1 })">Latest Email</a></li>
-  <li ui-sref-active-eq="active"><a ui-sref="mail.inbox">Inbox</a></li>
-</ul>
+<section class="docs-sidebar">
+  <h4>Navigation</h4>
+  <section class="block-list">
+    <header>Pages</header>
+    <ul>
+      <li ui-sref-active-eq="active"><a ui-sref="playground">Home</a></li>
+      <li ui-sref-active-eq="active"><a ui-sref="playground.param({ id: 1 })">Parameter Test</a></li>
+      <li ui-sref-active-eq="active"><a ui-sref="playground.interchange">Interchange</a></li>
+   </ul>
+  </section>
+</section>

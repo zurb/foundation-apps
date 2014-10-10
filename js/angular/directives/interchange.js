@@ -32,8 +32,6 @@ angular.module('foundation.interchange')
       var globalQueries = foundationApi.getSettings().media_queries;
       named_queries = angular.extend(named_queries, globalQueries);
 
-      console.log(named_queries);
-
       var matched = function() {
         var count = scenarios.length;
         var matches = [];
@@ -78,7 +76,7 @@ angular.module('foundation.interchange')
           var ruleMatches = matched();
           var scenario = scenarios[ruleMatches[0].ind];
 
-          if(scenarios == current) {
+          if(current && scenario.src == current.src) {
           } else {
             var compiled;
             var loader = templateLoader(scenario.src);
@@ -90,9 +88,10 @@ angular.module('foundation.interchange')
 
             loader.success(function(html) {
               childScope = newScope;
-              compiled = $compile(html)(childScope);
+              element.html(html);
+              //compiled = $compile(html)(childScope);
             }).then(function(){
-              element.html(compiled.html());
+              $compile(element.contents())(childScope);
               current = scenario;
             });
           }

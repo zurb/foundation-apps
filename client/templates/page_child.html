@@ -1,6 +1,6 @@
 ---
-name: mail.inbox
-url: /inbox
+name: playground.interchange
+url: /interchange
 emails:
   - Brandon
   - Antonin
@@ -9,21 +9,9 @@ emails:
 animationIn: fadeIn
 animationOut: bounceOut
 ---
-<div>
-  <table width="100%">
-    <thead>
-      <tr>
-        <th>From</th>
-        <th>Subject</th>
-        <th width="20%">Read</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr ng-repeat="message in vars.emails">
-        <td>{{ message }}</td>
-        <td>Sample Subject for {{ message }}</td>
-        <td><a ui-sref="mail.email({ id: message })" class="button small">Go read</a></td>
-      </tr>
-    </tbody>
-  </table>
+<div fa-interchange>
+  <div fa-source media="small" src="/templates/interchange/partial_1.html">
+  </div>
+  <div fa-source media="medium" src="/templates/interchange/partial_2.html">
+  </div>
 </div>
