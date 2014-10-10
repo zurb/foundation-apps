@@ -1,24 +1,24 @@
 // Tabs
+$tab-border-width: 1px;
 
 .tabs {
 	display: flex;
 	flex-flow: row wrap;
-	border: 1px solid #ddd;
-	border-width: 1px 0 0 1px;
-
+	margin-bottom: -$tab-border-width;
 	.tab-item {
 		background: #f4f4f4;
 		height: 40px;
 		padding: 0 1rem;
 		line-height: 40px;
 		border: 0px solid #ddd;
-		border-width: 0 1px 1px 0;
+		border-width: $tab-border-width $tab-border-width $tab-border-width 0;
 		margin: 0;
-		flex: 1 1 auto;
+		flex: 1 1 shrink;
+		cursor: pointer;
 		&.is-active {
-			background: transparent;
+			background: #fff;
 			color: $primary-color;
-			border-width: 0 1px 0 0;
+			border-width: $tab-border-width $tab-border-width 0 0;
 		}
 		&:hover {
 			background: #e4e4e4;
@@ -32,7 +32,7 @@
 	width: 100%;
 	padding: 1rem;
 	border: 0 solid #ddd;
-	border-width: 0 1px 1px 1px;
+	border-width: $tab-border-width;
 	.tab-pane {
 		display: none;
 		&.is-active {
