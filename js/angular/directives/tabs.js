@@ -6,64 +6,46 @@ angular.module('foundation.tabs')
     restrict: 'A',
     template: '<div ng-transclude></div>',
     transclude: true,
-    replace: true,
-    compile: function compile(tElement, tAttrs, transclude) {
-      return {
-        pre: function preLink(scope, iElement, iAttrs, controller) {
-        },
-        post: function postLink(scope, element, attrs) {
-          var tabs = element.children();
-          var currentTab;
+    link: function (scope, element, attrs) {
+      var tabs = element.children().children();
+      var currentTab;
 
-          var hide = function(el) {
-            el.removeClass('is-active');
-            return;
-          };
-
-          var show = function(el) {
-            el.addClass('is-active');
-            return;
-          };
-
-          var toggle = function(el) {
-            if(currentStatus == 'show') {
-              scope.hide();
-              currentStatus = 'hide';
-              return;
-            }
-
-            scope.show();
-            currentStatus = 'show';
-            return;
-          };
-
-          var switchTabControls = function(tabId, msg) {
-            foundationApi.publish(tabId + '-control', msg);
-          };
-
-          var switchTabs =  function(tabId) {
-            angular.forEach(tabs, function(tab) {
-                if (tab.attr('id') === tabId) {
-                  currentTab = tabId;
-                  scope.show(tab);
-                  switchTabControls(tabId, 'show');
-                } else {
-                  scope.hide(tab);
-                  switchTabControls(tabId, 'hide');
-                }
-            });
-
-            return;
-          };
-
-          //subscribe all tabs and add class
-          angular.forEach(tabs, function(tab) {
-            tab.addClass('tab-pane');
-            foundationApi.subscribe(tab.attr('id'), switchTabs(msg));
-          });
-        }
+      var hide = function(el) {
+        el.removeClass('is-active');
+        return;
       };
-    },
+
+      var show = function(el) {
+        el.addClass('is-active');
+        return;
+      };
+
+      var switchTabControls = function(tabId, msg) {
+        foundationApi.publish(tabId + '-control', msg);
+      };
+
+      var switchTabs =  function(tabId) {
+        angular.forEach(tabs, function(tab) {
+            if (tab.attr('id') === tabId) {
+              currentTab = tabId;
+              show(tab);
+              switchTabControls(tabId, 'show');
+            } else {
+              hide(tab);
+              switchTabControls(tabId, 'hide');
+            }
+        });
+
+        return;
+      };
+
+      //subscribe all tabs and add class
+      angular.forEach(tabs, function(tab) {
+        console.log(tab);
+        tab.addClass('tab-pane');
+        foundationApi.subscribe(tab.attr('id'), switchTabs(msg));
+      });
+    }
   };
 }]);
 
