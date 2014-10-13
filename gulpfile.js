@@ -117,7 +117,7 @@ gulp.task('front-matter', ['clean', 'copy', 'uglify-angular'], function() {
       //routes
       var appPath = ['build', 'assets', 'js', 'angular-app.js'];
       var data = fs.readFileSync(appPath.join(path.sep));
-      config.sort().reverse();
+      config.sort();
 
       fs.writeFileSync(appPath.join(path.sep), 'var dynamicRoutes = ' + JSON.stringify(config) + '; \n' + data);
     })
