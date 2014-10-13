@@ -7,12 +7,12 @@ tabs:
   - Tab3
 ---
 <div class="tabs">
-  <div ng-repeat="tab in vars.tabs">
-    <a fa-href="{{ tab }}">{{ tab }}</a>
+  <div ng-repeat="tab in vars.tabs" fa-tab-href="{{ tab }}" class="tab-item">
+    {{ tab }}
   </div>
 </div>
-<div fa-tab-content>
-  <div fa-tab ng-repeat="tab in vars.tabs">
-    Test content
+<div fa-tab-content class="tab-content">
+  <div fa-tab ng-repeat="tab in vars.tabs" id="{{ tab }}" class="tab-pane">
+    Test content {{ tab }}
   </div>
 </div>

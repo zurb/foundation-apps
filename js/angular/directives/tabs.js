@@ -6,18 +6,17 @@ angular.module('foundation.tabs')
     restrict: 'A',
     template: '<div ng-transclude></div>',
     transclude: 'true',
+    replace: true,
     compile: function(tElement, tAttr) {
       //set ID
-      if(!tAttr['id']) {
-        var uuid = foundationApi.generateUuid();
-        tAttr.$set('id', uuid);
-      }
+      tElement.addClass('tab-content');
 
       return {
+        pre: function preLink(scope, element, attrs) {
+        },
         post: function postLink(scope, element, attrs) {
-
         }
-      }
+      };
     }
   };
 }]);
@@ -28,7 +27,7 @@ angular.module('foundation.tabs')
     restrict: 'A',
     link: function(scope, element, attrs, controller, transclude) {
       var currentState = '';
-      var id = attrs['id'];
+      var id = attrs.id;
 
       scope.hide = function() {
         element.removeClass('is-active');
@@ -50,7 +49,7 @@ angular.module('foundation.tabs')
         e.preventDefault();
       });
 
-      foundationApi.subscribe(attrs[id] + '-tab', function(msg) {
+      foundationApi.subscribe(attrs.id + '-tab', function(msg) {
         if(msg == 'show' || msg == 'open') {
           scope.show();
         } else if (msg == 'close' || msg == 'hide') {
@@ -59,6 +58,20 @@ angular.module('foundation.tabs')
 
         return;
       });
+
+      //init
+      var init = function() {
+        var siblingsEl = element.parent().children();
+        var firstEl = angular.element(siblingsEl[0]);
+
+        if(!firstEl.hasClass('is-active')) {
+          firstEl.addClass('is-active');
+          foundationApi.publish(attrs.id + '-control', 'show');
+        }
+
+      };
+
+      init();
     }
   };
 }]);
@@ -84,7 +97,8 @@ angular.module('foundation.tabs')
       };
 
       element.on('click', function(e) {
-        foundationApi.publish(attrs.faHref + '-tab', 'show');
+        foundationApi.publish(attrs.faTabHref + '-tab', 'show');
+        scope.show();
         e.preventDefault();
       });
 
@@ -97,6 +111,17 @@ angular.module('foundation.tabs')
 
         return;
       });
+
+      //init
+      var init = function() {
+        var siblingsEl = element.parent().children();
+        var firstEl = angular.element(siblingsEl[0]);
+        if(!firstEl.hasClass('is-active')) {
+          firstEl.triggerHandler('click');
+        }
+      };
+
+      init();
     }
   };
 }]);
