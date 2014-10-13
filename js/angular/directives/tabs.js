@@ -9,8 +9,6 @@ angular.module('foundation.tabs')
     replace: true,
     compile: function(tElement, tAttr) {
       //set ID
-      tElement.addClass('tab-content');
-
       return {
         pre: function preLink(scope, element, attrs) {
         },
