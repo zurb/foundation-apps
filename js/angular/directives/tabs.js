@@ -5,68 +5,86 @@ angular.module('foundation.tabs')
   return {
     restrict: 'A',
     template: '<div ng-transclude></div>',
-    transclude: true,
-    link: function (scope, element, attrs) {
-      var tabs = element.children().children();
-      var currentTab;
+    transclude: 'true',
+    compile: function(tElement, tAttr) {
+      //set ID
+      if(!tAttr['id']) {
+        var uuid = foundationApi.generateUuid();
+        tAttr.$set('id', uuid);
+      }
 
-      var hide = function(el) {
-        el.removeClass('is-active');
+      return {
+        post: function postLink(scope, element, attrs) {
+
+        }
+      }
+    }
+  };
+}]);
+
+angular.module('foundation.tabs')
+  .directive('faTab', ['FoundationApi', function(foundationApi) {
+  return {
+    restrict: 'A',
+    link: function(scope, element, attrs, controller, transclude) {
+      var currentState = '';
+      var id = attrs['id'];
+
+      scope.hide = function() {
+        element.removeClass('is-active');
+        currentState = 'hide';
         return;
       };
 
-      var show = function(el) {
-        el.addClass('is-active');
-        return;
-      };
-
-      var switchTabControls = function(tabId, msg) {
-        foundationApi.publish(tabId + '-control', msg);
-      };
-
-      var switchTabs =  function(tabId) {
-        angular.forEach(tabs, function(tab) {
-            if (tab.attr('id') === tabId) {
-              currentTab = tabId;
-              show(tab);
-              switchTabControls(tabId, 'show');
-            } else {
-              hide(tab);
-              switchTabControls(tabId, 'hide');
-            }
-        });
+      scope.show = function() {
+        element.parent().children().removeClass('is-active');
+        element.addClass('is-active');
+        currentState = 'show';
+        //inform others to close
 
         return;
       };
 
-      //subscribe all tabs and add class
-      angular.forEach(tabs, function(tab) {
-        console.log(tab);
-        tab.addClass('tab-pane');
-        foundationApi.subscribe(tab.attr('id'), switchTabs(msg));
+      element.on('click', function(e) {
+        foundationApi.publish(attrs.faHref, attrs.faHref);
+        e.preventDefault();
+      });
+
+      foundationApi.subscribe(attrs[id] + '-tab', function(msg) {
+        if(msg == 'show' || msg == 'open') {
+          scope.show();
+        } else if (msg == 'close' || msg == 'hide') {
+          scope.hide();
+        }
+
+        return;
       });
     }
   };
 }]);
 
 angular.module('foundation.tabs')
-  .directive('fa-tab-href', ['FoundationApi', function(foundationApi) {
+  .directive('faTabHref', ['FoundationApi', function(foundationApi) {
   return {
     restrict: 'A',
     link: function(scope, element, attrs, controller, transclude) {
-      var hide = function() {
+      var currentState = '';
+
+      scope.hide = function() {
         element.removeClass('is-active');
+        currentState = 'hide';
         return;
       };
 
-      var show = function() {
+      scope.show = function() {
+        element.parent().children().removeClass('is-active');
         element.addClass('is-active');
+        currentState = 'show';
         return;
       };
 
       element.on('click', function(e) {
-        //inform tab container about switching tabs
-        foundationApi.publish(attrs.faHref, attrs.faHref);
+        foundationApi.publish(attrs.faHref + '-tab', 'show');
         e.preventDefault();
       });
 
@@ -79,8 +97,6 @@ angular.module('foundation.tabs')
 
         return;
       });
-
-
     }
   };
 }]);
