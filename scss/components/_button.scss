@@ -1,35 +1,34 @@
-@include foundation-component(button, (
-  padding: 0.85em 1em,
-  margin: 0 1em 1em 0,
+$button-padding: 0.85em 1em;
+$button-margin:  0 1em 1em 0;
 
-  background: $primary-color,
-  color: #fff,
-  radius: 8px,
+$button-background: $primary-color;
+$button-color:      auto;
+$button-radius:     6px;
 
-  font-size: 0.9rem,
-  font-weight: 500,
+$button-sizes: (
+  tiny: 0.6,
+  small: 0.8,
+  medium: 1,
+  large: 1.2,
+);
 
-  small-scale: 0.8,
-  large-scale: 1.2,
-
-  disabled-opacity: 0.8,
-));
+$button-font-size: 0.9rem;
+$button-opacity-disabled: 0.8;
 
 %button {
+  display: inline-block;
   border: 0;
   text-align: center;
   line-height: 1;
   cursor: pointer;
   -webkit-appearance: none;
   -webkit-font-smoothing: antialiased;
-
-  display: foundation(button, display);
-  padding: foundation(button, padding);
-  margin: foundation(button, margin);
-  font-weight: foundation(button, font-weight);
-  border-radius: foundation(button, radius);
-
   transition: background 0.25s ease-out;
+
+  padding: $button-padding;
+  margin: $button-margin;
+  font-weight: $button-font-size;
+  border-radius: $button-radius;
 
   // Dropdown arrow
   &[data-popup-toggle], &[data-popover-toggle] {
@@ -37,27 +36,23 @@
     padding-right: 2em; // Placeholder
 
     &::after {
-      @include css-triangle(6px, foundation(button, color), top);
+      @include css-triangle(6px, $button-color, top);
       position: absolute;
       right: 0.7em;
       top: 50%;
       margin-top: -3px;
     }
   }
+}
 
-  &-disabled {
-    opacity: foundation(button, disabled-opacity);
-    pointer-events: none;
-  }
+%button-disabled {
+  opacity: $button-opacity-disabled;
+  pointer-events: none;
 }
 
 @mixin button-size($size: medium) {
-  $sizes: (
-    small:  foundation(button, font-size) * foundation(button, small-scale),
-    medium: foundation(button, font-size),
-    large:  foundation(button, font-size) * foundation(button, large-scale),
-  );
-  font-size: map-get($sizes, $size);
+  $size: $button-font-size * map-get($button-sizes, $size);
+  font-size: $size;
 }
 @mixin button-expand($expand: true) {
   @if $expand {
@@ -67,11 +62,16 @@
   }
   @else {
     display: inline-block;
-    margin: foundation(button, margin);
+    margin: $button-margin;
   }
 }
-@mixin button-style($background: foundation(button, background), $color: foundation(button, color)) {
-  $color: if(lightness($background) > 60%, #000, #fff);
+@mixin button-style(
+  $background: $button-background,
+  $color: $button-color
+){
+  @if $color == auto {
+    $color: if(lightness($background) > 60%, #000, #fff);
+  }
 
   background: $background;
   color: $color;
@@ -81,7 +81,10 @@
     color: $color;
   }
 }
-@mixin button-disabled($background: foundation(button, background), $base: true) {
+@mixin button-disabled(
+  $background: $button-background,
+  $base: true
+) {
   @if not $base {
     @extend %button-disabled;
   }
@@ -89,7 +92,12 @@
     background: $background;
   }
 }
-@mixin button($size: medium, $expand: false, $background: foundation(button, background), $color: foundation(button, color)) {
+@mixin button(
+  $size: medium,
+  $expand: false,
+  $background: $button-background,
+  $color: $button-color
+) {
   @extend %button;
   @include button-size($size);
   @include button-expand($expand);
