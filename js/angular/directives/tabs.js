@@ -93,7 +93,8 @@ angular.module('foundation.tabs')
 angular.module('foundation.tabs')
   .directive('faTab', ['FoundationApi', function(foundationApi) {
     return {
-      restrict: 'A',
+      restrict: 'EA',
+      require: '^tabs',
       transclude: 'true',
       replace: false,
       scope: {
