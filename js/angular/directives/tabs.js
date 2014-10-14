@@ -95,14 +95,14 @@ angular.module('foundation.tabs')
   .directive('faTab', ['FoundationApi', function(foundationApi) {
     return {
       restrict: 'EA',
-      transclude: 'true',
-      templateUrl: '/partials/tabs.html',
+      templateUrl: '/partials/tab.html',
       replace: false,
       scope: {
         title: '@'
       },
       controller: function() { },
       require: '^faTabs',
+      replace: true,
       compile: function(tElement, tAttr) {
         if (!tAttr.id) {
           tAttr.$set('id', foundationApi.generateUuid);
