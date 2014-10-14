@@ -97,6 +97,7 @@ angular.module('foundation.tabs')
       restrict: 'EA',
       templateUrl: '/partials/tab.html',
       replace: false,
+      transclude: true,
       scope: {
         title: '@'
       },
@@ -129,7 +130,8 @@ angular.module('foundation.tabs')
       link: function postLink(scope, element, attrs, ctrl, transclude) {
         var tab = scope.$eval(attrs.tab);
 
-        tab.scope.transcludeFn(tab.scope, function(tabContent) {
+        tab.scope.transcludeFn(
+          tab.scope, function(tabContent) {
           element.append(tabContent);
         });
       }
