@@ -20,6 +20,7 @@ For common CSS properties, use these terms:
 
 Variable name | CSS property
 ------------- | ------------
+font-size     | font-size
 color         | color
 background    | background, background-color
 border        | border

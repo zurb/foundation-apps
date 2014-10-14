@@ -1,12 +1,14 @@
 $btngroup-background: $primary-color;
 $btngroup-color: #fff;
-$btngroup-radius: 4px;
+$btngroup-radius: $button-radius;
 
 %button-group {
   margin: 0;
   margin-bottom: 1rem;
   list-style-type: none;
   display: inline-flex;
+  border-radius: $btngroup-radius;
+  overflow: hidden;
 
   > li {
     flex: 0 0 auto;
@@ -15,36 +17,20 @@ $btngroup-radius: 4px;
     > a,
     > label {
       @extend %button;
+      border-radius: 0;
       display: block;
       margin: 0;
     }
     // Add borders between items
     &:not(:last-child) > a,
     &:not(:last-child) > label {
-      border-right: 1px solid scale-color($btngroup-background, $lightness: -15%);
-    }
-    // Remove border radius on inner items
-    &:first-child > a,
-    &:first-child > label {
-      border-top-right-radius: 0;
-      border-bottom-right-radius: 0;
-    }
-    &:not(:first-child):not(:last-child) > a,
-    &:not(:first-child):not(:last-child) > label {
-      border-radius: 0;
-    }
-    &:last-child > a,
-    &:last-child > label {
-      border-top-left-radius: 0;
-      border-bottom-left-radius: 0;
+      border-right: 1px solid scale-color($btngroup-background, $lightness: -25%);
     }
   }
 }
 
 %button-group-segmented {
   border: 1px solid $primary-color;
-  border-radius: 8px;
-  overflow: hidden;
   transition-property: background color;
 
   // Hide the radio button
@@ -60,6 +46,19 @@ $btngroup-radius: 4px;
   }
 }
 
+@mixin button-group-size($size: medium, $expand: false) {
+  $sizes: (
+    small: 0.8rem,
+    medium: 1rem,
+    large: 1.5rem,
+  );
+
+  font-size: map-get($sizes, $size);
+
+  @if $expand {
+    @include button-group-expand;
+  }
+}
 @mixin button-group-expand($stretch: true) {
   display: if($stretch, flex, inline-flex);
 
@@ -127,19 +126,28 @@ $btngroup-radius: 4px;
   border-radius: $btngroup-radius;
 }
 
+/*
+  CSS Output
+*/
 .button-group {
   @include button-group;
 
+  // Colors
   &.secondary { @include button-group-style(false, $secondary-color) }
   &.success   { @include button-group-style(false, $success-color) }
   &.warning   { @include button-group-style(false, $warning-color) }
   &.alert     { @include button-group-style(false, $alert-color) }
 
+  // Segmented
   &.segmented { @include button-group-style(true);
     &.secondary { @include button-group-style(true, $secondary-color) }
     &.success   { @include button-group-style(true, $success-color) }
     &.warning   { @include button-group-style(true, $warning-color) }
     &.alert     { @include button-group-style(true, $alert-color) }
   }
+
+  // Sizing
+  &.small     { @include button-size(small); }
+  &.large     { @include button-size(large); }
   &.expand    { @include button-group-expand; }
 }

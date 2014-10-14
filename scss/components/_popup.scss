@@ -1,8 +1,24 @@
-.tether-element {
+/*
+  POPUP
+  -----
+
+  A floating container that can anchor to any other on-screen element, and contain any content, including grid blocks or panels.
+*/
+
+$popup-width: rem-calc(300);
+
+$popup-background: #fff;
+$popup-border: 0;
+$popup-radius: 8px;
+$popup-shadow: 0 0 10px rgba(#000, 0.25);
+
+%popup {
   position: absolute;
+  z-index: 1000;
   opacity: 0;
-  pointer-events: none;
+  overflow: hidden;
   transition: opacity 0.25s ease-out;
+  pointer-events: none;
 
   &.tether-enabled {
     opacity: 1;
@@ -10,17 +26,35 @@
   }
 }
 
+@mixin popup-layout(
+  $width: $popup-width
+) {
+  width: $popup-width;
+}
+@mixin popup-style(
+  $background: $popup-background,
+  $radius: $popup-radius,
+  $shadow: $popup-shadow,
+  $border: $popup-border
+) {
+  background: $background;
+  border-radius: $radius;
+  box-shadow: $shadow;
+  border: $border;
+}
+
+@mixin popup(
+  $width: $popup-width,
+  $background: $popup-background,
+  $radius: $popup-radius,
+  $shadow: $popup-shadow,
+  $border: $popup-border
+) {
+  @extend %popup;
+  @include popup-layout($width);
+  @include popup-style($background, $radius, $shadow, $border);
+}
+
 .popup {
-  @extend .tether-element;
-
-  z-index: 1000;
-  background: #fff;
-  box-shadow: 0 0 10px rgba(#000, 0.25);
-  border-radius: 8px;
-  overflow: hidden;
-  width: 300px;
-
-  p {
-    margin-bottom: 0;
-  }
+  @include popup;
 }
