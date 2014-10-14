@@ -1,9 +1,9 @@
 angular.module('foundation.tabs', []);
 
 angular.module('foundation.tabs')
-  .controller('FaTabsController', function FaTabsController() {
+  .controller('FaTabsController', ['$scope', function FaTabsController($scope) {
     var controller = this;
-    var tabs = controller.tabs = [];
+    var tabs = controller.tabs = $scope.tabs = [];
 
     controller.addTab = function addTab(tabScope) {
       tabs.push({ scope: tabScope, active: false });
@@ -12,7 +12,7 @@ angular.module('foundation.tabs')
         tabs[tabs.length - 1].active = true;
       }
     };
-});
+}]);
 
 /* Foundation Tabs
  * creates a tabs collection and displays header tabs
@@ -28,15 +28,16 @@ angular.module('foundation.tabs')
     controller: 'FaTabsController',
     compile: function(tElement, tAttr) {
       if (!tAttr.id) {
-        tAtt.$set('id', foundationApi.generateUuid);
+        tAttr.$set('id', foundationApi.generateUuid);
       }
       return {
         pre: function preLink(scope, element, attrs) {
         },
         post: function postLink(scope, element, attrs) {
+          var id = attrs.id;
 
           //update tabs in case tab-content doesn't have them
-          var updateTabs = foundationApi.publish(id, tabs);
+          var updateTabs = foundationApi.publish(id, scope.tabs);
 
           foundationApi.subscribe(id + '-get-tabs', function() {
             updateTabs();
@@ -55,7 +56,7 @@ angular.module('foundation.tabs')
     transclude: 'true',
     replace: true,
     scope: {
-      tabs: '=',
+      tabs: '=?',
       target: '@'
     },
     templateUrl: 'partials/tab-content.html',
@@ -102,7 +103,7 @@ angular.module('foundation.tabs')
       },
       compile: function(tElement, tAttr) {
         if (!tAttr.id) {
-          tAtt.$set('id', foundationApi.generateUuid);
+          tAttr.$set('id', foundationApi.generateUuid);
         }
 
         return {
@@ -128,7 +129,6 @@ angular.module('foundation.tabs')
 
         tab.transcludeFn(tab.scope, function(tabContent) {
           element.append(tabContent);
-
         });
       }
     };
