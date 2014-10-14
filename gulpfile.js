@@ -1,5 +1,5 @@
 var gulp         = require('gulp'),
-    rimraf       = require('gulp-rimraf'),
+    rimraf       = require('rimraf'),
     server       = require('gulp-develop-server'),
     frontMatter  = require('gulp-front-matter'),
     path         = require('path')
@@ -12,13 +12,11 @@ var gulp         = require('gulp'),
 
 // Clean build directory
 gulp.task('clean', function(cb) {
-  return gulp.src(['./dist', './build'])
-    .pipe(rimraf())
-  ;
+  rimraf('./build', cb)
 });
 
 // Copy static files (but not the Angular templates, Sass, or JS)
-gulp.task('copy', ['clean'], function() {
+gulp.task('copy', function() {
   var dirs = [
     './client/**/*.*',
     '!./client/templates/**/*.*',
@@ -30,13 +28,14 @@ gulp.task('copy', ['clean'], function() {
     .pipe(gulp.dest('build'));
 });
 
-gulp.task('copy-partials', ['clean', 'copy'], function() {
+gulp.task('copy-partials', function(cb) {
+  rimraf('./build/partials', cb);
   return gulp.src(['js/angular/partials/**.*'])
-    .pipe(gulp.dest('build/partials'));
+    .pipe(gulp.dest('./build/partials/'));
 });
 
 // Compile Sass
-gulp.task('sass', ['clean', 'copy'], function() {
+gulp.task('sass', function() {
   return gulp.src('client/assets/scss/app.scss')
     .pipe(sass({ loadPath: ['client/assets/scss', 'scss'], style: 'expanded', lineNumbers: true  }))
     .pipe(concat('app.css'))
@@ -48,7 +47,7 @@ gulp.task('sass', ['clean', 'copy'], function() {
 });
 
 // Process Foundation JS
-gulp.task('uglify', ['copy', 'clean'], function() {
+gulp.task('uglify', ['uglify-angular'], function() {
   var libs = [
     'bower_components/jquery/dist/jquery.js',
     'bower_components/fastclick/lib/fastclick.js',
@@ -72,7 +71,7 @@ gulp.task('uglify', ['copy', 'clean'], function() {
 });
 
 // Process Angular JS
-gulp.task('uglify-angular', ['copy', 'clean'], function() {
+gulp.task('uglify-angular', function() {
   var libs = [
     'bower_components/angular/angular.js',
     'bower_components/angular-animate/angular-animate.js',
@@ -91,7 +90,7 @@ gulp.task('uglify-angular', ['copy', 'clean'], function() {
 
 });
 
-gulp.task('front-matter', ['clean', 'copy', 'uglify-angular'], function() {
+gulp.task('copy-templates', ['copy'], function() {
   var config = [];
 
   return gulp.src('./client/templates/**/*.html')
@@ -128,14 +127,25 @@ gulp.task('server:start', ['build'], function() {
   server.listen( { path: 'app.js' });
 });
 
-gulp.task('build', ['clean', 'copy', 'copy-partials', 'uglify','uglify-angular', 'front-matter'], function() {
+gulp.task('build', ['copy', 'copy-partials', 'copy-templates', 'sass', 'uglify'], function() {
   console.log('Successfully built');
 });
 
-gulp.task('css', ['build', 'sass'], function() {
-  console.log('CSS Recompiled');
-});
+gulp.task('default', ['build', 'server:start'], function() {
+  // gulp.watch(['./client/**/*.*', './js/**/*.*'], ['build', 'css', server.restart]);
 
-gulp.task('default', ['build', 'css', 'server:start'], function() {
-  return gulp.watch(['./client/**/*.*', './js/**/*.*'], ['build', 'css', server.restart]);
+  // Watch Sass
+  gulp.watch(['./client/assets/scss/**/*', './scss/**/*'], ['sass']);
+
+  // Watch JavaScript
+  gulp.watch(['./client/assets/js/**/*', './js/**/*'], ['uglify']);
+
+  // Watch static files
+  gulp.watch(['./client/**/*.*', '!./client/templates/**/*.*', '!./client/assets/{scss,js}/**/*.*'], ['copy']);
+
+  // Watch Angular partials
+  gulp.watch(['js/angular/partials/**.*'], ['copy-partials']);
+
+  // Watch Angular templates
+  gulp.watch(['./client/templates/**/*.html'], ['copy-templates']);
 });
