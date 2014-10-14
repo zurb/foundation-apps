@@ -95,12 +95,14 @@ angular.module('foundation.tabs')
   .directive('faTab', ['FoundationApi', function(foundationApi) {
     return {
       restrict: 'EA',
-      require: '^tabs',
       transclude: 'true',
+      templateUrl: '/partials/tabs.html',
       replace: false,
       scope: {
         title: '@'
       },
+      controller: function() { },
+      require: '^faTabs',
       compile: function(tElement, tAttr) {
         if (!tAttr.id) {
           tAttr.$set('id', foundationApi.generateUuid);
@@ -127,7 +129,7 @@ angular.module('foundation.tabs')
       link: function postLink(scope, element, attrs, ctrl, transclude) {
         var tab = scope.$eval(attrs.tab);
 
-        tab.transcludeFn(tab.scope, function(tabContent) {
+        tab.scope.transcludeFn(tab.scope, function(tabContent) {
           element.append(tabContent);
         });
       }
