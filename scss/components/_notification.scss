@@ -1,8 +1,8 @@
 $notification-default-position: right top;
-$notification-float-offset: $global-padding;
 $notification-width: rem-calc(400);
+$notification-offset: $global-padding;
 
-$notification-background: #698bda;
+$notification-background: $primary-color;
 $notification-color: white;
 $notification-padding: $global-padding;
 $notification-radius: 4px;
@@ -31,19 +31,11 @@ $notification-radius: 4px;
 }
 
 @mixin notification-layout(
-  $x: null,
-  $y: null,
+  $x: nth($notification-default-position, 1),
+  $y: nth($notification-default-position, 2),
   $size: $notification-width,
-  $style: float
+  $offset: $notification-offset
 ) {
-  // Default values
-  $x: if($x == null, nth($notification-default-position, 1), $x);
-  $y: if($y == null, nth($notification-default-position, 2), $y);
-
-  // Float style: detached from edge of screen
-  // Pin style:   attached to edge of screen
-  $offset: if($style == float, $notification-float-offset, 0);
-
   width: $size;
 
   @if $x == right {
@@ -98,17 +90,17 @@ $notification-radius: 4px;
 }
 
 @mixin notification(
-  $x: null,
-  $y: null,
+  $x: nth($notification-default-position, 1),
+  $y: nth($notification-default-position, 2),
   $size: $notification-width,
-  $style: float,
+  $offset: $notification-offset,
   $background: $notification-background,
   $color: $notification-color,
   $padding: $notification-padding,
   $radius: $notification-radius
 ) {
   @extend %notification;
-  @include notification-layout($x, $y, $size, $style);
+  @include notification-layout($x, $y, $size, $offset);
   @include notification-style($background, $color, $padding, $radius);
 }
 
@@ -130,4 +122,5 @@ $notification-radius: 4px;
   &.success   { @include notification-style($success-color) }
   &.warning   { @include notification-style($warning-color) }
   &.alert     { @include notification-style($alert-color) }
+  &.dark      { @include notification-style($dark-color, #fff) }
 }
