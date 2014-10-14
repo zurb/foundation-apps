@@ -6,10 +6,11 @@ angular.module('foundation.tabs')
     var tabs = controller.tabs = $scope.tabs = [];
 
     controller.addTab = function addTab(tabScope) {
-      tabs.push({ scope: tabScope, active: false });
+      tabs.push({ scope: tabScope});
 
       if(tabs.length === 1) {
-        tabs[tabs.length - 1].active = true;
+        tabs[0].active = true;
+        tabScope.active = true;
       }
     };
 }]);
@@ -28,7 +29,7 @@ angular.module('foundation.tabs')
     controller: 'FaTabsController',
     compile: function(tElement, tAttr) {
       if (!tAttr.id) {
-        tAttr.$set('id', foundationApi.generateUuid);
+        tAttr.$set('id', foundationApi.generateUuid());
       }
       return {
         pre: function preLink(scope, element, attrs) {
@@ -105,14 +106,12 @@ angular.module('foundation.tabs')
       require: '^faTabs',
       replace: true,
       compile: function(tElement, tAttr) {
-        if (!tAttr.id) {
-          tAttr.$set('id', foundationApi.generateUuid);
-        }
 
         return {
           post: function postLink(scope, element, attrs, controller, transclude) {
+            scope.id = attrs.id || foundationApi.generateUuid();
+            scope.active = false;
             scope.transcludeFn = transclude;
-            scope.id = attrs.id;
             controller.addTab(scope);
 
           }
@@ -130,10 +129,19 @@ angular.module('foundation.tabs')
       link: function postLink(scope, element, attrs, ctrl, transclude) {
         var tab = scope.$eval(attrs.tab);
 
-        tab.scope.transcludeFn(
-          tab.scope, function(tabContent) {
+        tab.scope.transcludeFn(tab.$parent, function(tabContent) {
           element.append(tabContent);
         });
+      }
+    };
+}]);
+
+angular.module('foundation.tabs')
+  .directive('faTabHref', ['FoundationApi', function(foundationApi) {
+    return {
+      restrict: 'A',
+      replace: false,
+      link: function postLink(scope, element, attrs, ctrl) {
       }
     };
 }]);
