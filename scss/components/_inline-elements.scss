@@ -9,6 +9,7 @@
   top: 1rem;
   right: 1rem;
   font-size: 2em;
+  line-height: 0.5;
 
   &:hover {
     color: #333;
@@ -25,7 +26,7 @@
   CSS Output
 */
 
-.close-button {
+.close-button, [fa-close] {
   @extend %close-button;
 }
 .thumbnail {

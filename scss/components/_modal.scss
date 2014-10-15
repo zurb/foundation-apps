@@ -1,38 +1,37 @@
-.modal-overlay {
-	display: none;
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 1000;
-  background-color: rgba($primary-color, .7) ;
-  opacity: 0;
-  -webkit-transition: opacity 0.4s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  pointer-events: none;
+/*
+  MODAL
+  -----
 
-  &.is-active {
-		opacity: 1;
-    pointer-events: auto;
-  }
-}
+  The humble modal hides off-canvas until summoned with an fa-open directive. Modals appear over an overlay that darkens the rest of the page, and have a maxmimum width. You can construct a grid inside a modal, or attach panels to it.
 
-.modal {
+  Note that the modal overlay is hardcoded into the CSS, because whether or not you build your modal semantically, the overlay is always required and will always look the same.
+*/
+
+$modal-background: #fff !default;
+$modal-border: 0 !default;
+$modal-radius: 0px !default;
+$modal-shadow: none !default;
+$modal-zindex: 1000 !default;
+$modal-sizes: (
+  tiny: 300px,
+  small: 500px,
+  medium: 600px,
+  large: 800px,
+) !default;
+
+$modal-overlay-class: 'modal-overlay' !default;
+$modal-overlay-background: rgba(#333, 0.7) !default;
+
+%modal {
   position: relative;
-	display: none;
-  z-index: 1001;
-  padding: 0;
-  background: #fff;
+  z-index: $modal-zindex + 1;
+  display: none;
+  background: $modal-background;
   width: 100%;
-  opacity: 0;
   overflow: hidden;
-  -webkit-transform: scale3d(0.9,0.9,1);
-  -moz-transform: scale(0.9);
+  opacity: 0;
   transform: scale(0.9);
-  -webkit-transition: opacity,-webkit-transform 0.2s,0.2s;
+  transition: opacity,-webkit-transform 0.2s,0.2s;
 
 	&.is-active {
     flex: 0 0  auto;
@@ -41,7 +40,7 @@
     height: 100vh;
     top: 0;
     left: 0;
-    -webkit-transform: scale(1);
+    transform: scale(1);
     @media #{$medium-up} {
       height: auto;
       max-width: 600px;
@@ -52,7 +51,77 @@
     }
 	}
 
-  .close-button {
-    z-index: 1001;
+  .close-button, [fa-close] {
+    z-index: $modal-zindex + 1;
+  }
+}
+
+@mixin modal-layout(
+  $width: map-get($modal-sizes, medium)
+) {
+  max-width: $width;
+}
+@mixin modal-style(
+  $border: $modal-border,
+  $radius: $modal-radius,
+  $shadow: $modal-shadow
+) {
+  @if $border != 0 {
+    border: $border;
+  }
+  @if $radius != 0 {
+    border-radius: $radius;
+  }
+  @if $shadow != none {
+    box-shadow: $shadow;
+  }
+}
+
+@mixin modal(
+  $width: map-get($modal-sizes, medium),
+  $border: $modal-border,
+  $radius: $modal-radius,
+  $shadow: $modal-shadow
+) {
+  @extend %modal;
+  @include modal-layout($width);
+  @include modal-style($border, $radius, $shadow);
+}
+
+/*
+  CSS Output
+*/
+
+.modal {
+  @include modal;
+
+  @each $size, $width in $modal-sizes {
+    @if $size != medium {
+      &.#{$size} { @include modal-layout($width); }
+    }
+  }
+}
+
+.#{$modal-overlay-class} {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: $modal-zindex;
+  display: none;
+  background-color: $modal-overlay-background;
+  opacity: 0;
+  transition: opacity 0.4s;
+  pointer-events: none;
+
+  // Horizontally and vertically center the modal
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &.is-active {
+    opacity: 1;
+    pointer-events: auto;
   }
 }
