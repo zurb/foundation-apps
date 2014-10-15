@@ -41,7 +41,8 @@
   },
   "dependencies": {
     "highlight.js": "~7.5.0",
-    "rimraf": "^2.2.8"
+    "rimraf": "^2.2.8",
+    "run-sequence": "^1.0.1"
   },
   "private": true
 }
