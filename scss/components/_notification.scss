@@ -1,3 +1,12 @@
+/*
+  NOTIFICATION
+  ------------
+
+  An alert that pins to the corner of the screen when triggered by JavaScript. It can be set to disappear after a certain period of time, or to stay put until the user clicks on it. A custom action can be asigned to a notification as well.
+
+  Optionally, the notifications directive can also tap into the browser's native notification support, if it exists.
+*/
+
 $notification-default-position: right top !default;
 $notification-width: rem-calc(400) !default;
 $notification-offset: $global-padding !default;
