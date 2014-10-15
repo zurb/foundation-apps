@@ -4,9 +4,9 @@
 	THE GRID
 */
 
-$container-width: rem-calc(1000);
-$block-padding: 1rem;
-$total-columns: 12;
+$container-width: rem-calc(1000) !default;
+$block-padding: 1rem !default;
+$total-columns: 12 !default;
 
 /*
   Define the size of a grid block. Blocks are flex items. By default, they stretch to fill all available space, based on the size of sibling blocks. This is the "expand" behavior.

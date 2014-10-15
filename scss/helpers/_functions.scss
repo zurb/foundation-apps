@@ -38,16 +38,12 @@ $modules: () !default;
   }
 }
 
-@function smartscale($color) {
-  $scale: 0%;
-
+// SMART SCALE
+// Given a background color $color, returns an appropriate foreground color.
+@function smartscale($color, $scale: 5%) {
   @if lightness($color) > 60% {
-    $scale: -5%;
+    $scale: -$scale;
   }
-  @else {
-    $scale: 5%;
-  }
-
   @return scale-color($color, $lightness: $scale);
 }
 

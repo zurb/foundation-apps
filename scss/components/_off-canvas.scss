@@ -1,6 +1,17 @@
 /*
-	Off-canvas menus
+	Off-canvas menu
+  ---------------
+
+  A generic container that stays fixed to the left, top, right, or bottom of the screen, and is summoned when needed. When an off-canvas panel is open, the app frame shifts over to reveal the menu.
 */
+
+$offcanvas-size: 250px !default;
+$offcanvas-background: #666 !default;
+$offcanvas-shadow: (
+  length: 3px,
+  size: 10px,
+  color: rgba(0,0,0,0.25),
+) !default;
 
 // Alternate off-canvas
 .ofc {
@@ -10,12 +21,13 @@
 	$shadow-color: rgba(0, 0, 0, 0.25);
 
 	position: fixed;
-	background: #666;
-	color: white;
 	overflow: scroll;
 	-webkit-overflow-scrolling: touch;
 	transition: transform 0.25s ease-out;
 	backface-visibility: hidden;
+
+  background: $offcanvas-background;
+  color: isitlight($offcanvas-background, #000, #fff);
 
 	// Active state
 	&.is-active {

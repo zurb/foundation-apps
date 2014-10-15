@@ -10,12 +10,12 @@
    - Right
 */
 
-$titlebar-center-width: 50%;
-$titlebar-side-width: (100% - $titlebar-center-width) / 2;
-$titlebar-background: #eee;
-$titlebar-color: #000;
-$titlebar-border: 1px solid #ccc;
-$titlebar-padding: $global-padding;
+$titlebar-center-width: 50% !default;
+$titlebar-side-width: (100% - $titlebar-center-width) / 2 !default;
+$titlebar-background: #eee !default;
+$titlebar-color: #000 !default;
+$titlebar-border: 1px solid #ccc !default;
+$titlebar-padding: $global-padding !default;
 
 %title-bar {
   display: flex;

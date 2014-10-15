@@ -1,19 +1,16 @@
-$button-padding: 0.85em 1em;
-$button-margin:  0 1em 1em 0;
-
-$button-background: $primary-color;
-$button-color:      auto;
-$button-radius:     6px;
-
+$button-padding: 0.85em 1em !default;
+$button-margin: 0 1em 1em 0 !default;
+$button-background: $primary-color !default;
+$button-color: auto !default;
+$button-radius: 6px !default;
 $button-sizes: (
   tiny: 0.6,
   small: 0.8,
   medium: 1,
   large: 1.2,
-);
-
-$button-font-size: 0.9rem;
-$button-opacity-disabled: 0.8;
+) !default;
+$button-font-size: 0.9rem !default;
+$button-opacity-disabled: 0.8 !default;
 
 %button {
   display: inline-block;

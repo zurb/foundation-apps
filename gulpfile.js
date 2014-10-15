@@ -1,5 +1,6 @@
 var gulp         = require('gulp'),
     rimraf       = require('rimraf'),
+    runSequence  = require('run-sequence'),
     server       = require('gulp-develop-server'),
     frontMatter  = require('gulp-front-matter'),
     path         = require('path')
@@ -28,8 +29,11 @@ gulp.task('copy', function() {
     .pipe(gulp.dest('build'));
 });
 
-gulp.task('copy-partials', function(cb) {
+gulp.task('clean-partials', function(cb) {
   rimraf('./build/partials', cb);
+});
+
+gulp.task('copy-partials', ['clean-partials'], function() {
   return gulp.src(['js/angular/partials/**.*'])
     .pipe(gulp.dest('./build/partials/'));
 });
@@ -90,7 +94,7 @@ gulp.task('uglify-angular', function() {
 
 });
 
-gulp.task('copy-templates', ['copy'], function() {
+gulp.task('copy-templates', ['copy', 'uglify-angular'], function() {
   var config = [];
 
   return gulp.src('./client/templates/**/*.html')
@@ -129,8 +133,10 @@ gulp.task('server:start', ['build'], function() {
   server.listen( { path: 'app.js' });
 });
 
-gulp.task('build', ['copy', 'copy-partials', 'copy-templates', 'sass', 'uglify'], function() {
-  console.log('Successfully built');
+gulp.task('build', function() {
+  runSequence('clean', ['copy', 'copy-partials', 'copy-templates', 'sass', 'uglify'], function() {
+    console.log("Successfully built.");
+  })
 });
 
 gulp.task('default', ['build', 'server:start'], function() {
