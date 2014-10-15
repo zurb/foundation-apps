@@ -5,14 +5,13 @@
   A generic container that stays fixed to the left, top, right, or bottom of the screen, and is summoned when needed. When an off-canvas panel is open, the app frame shifts over to reveal the menu.
 */
 
-$offcanvas-size: 250px;
-
-$offcanvas-background: #666;
+$offcanvas-size: 250px !default;
+$offcanvas-background: #666 !default;
 $offcanvas-shadow: (
   length: 3px,
   size: 10px,
   color: rgba(0,0,0,0.25),
-);
+) !default;
 
 // Alternate off-canvas
 .ofc {

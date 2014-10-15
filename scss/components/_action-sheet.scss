@@ -3,17 +3,17 @@
   Dropdowns are action sheets on smaller screens and popup menus
 */
 
-$actionsheet-background: white;
-$actionsheet-border-color: #ccc;
-$actionsheet-animation-speed: 0.25s;
-$actionsheet-width: 300px;
-$actionsheet-radius: 4px;
-$actionsheet-shadow: true;
-$actionsheet-padding: $global-padding;
-$actionsheet-tail-size: 10px;
+$actionsheet-background: white !default;
+$actionsheet-border-color: #ccc !default;
+$actionsheet-animation-speed: 0.25s !default;
+$actionsheet-width: 300px !default;
+$actionsheet-radius: 4px !default;
+$actionsheet-shadow: true !default;
+$actionsheet-padding: $global-padding !default;
+$actionsheet-tail-size: 10px !default;
 
-$actionsheet-link-color: #000;
-$actionsheet-link-background-hover: smartscale($actionsheet-background);
+$actionsheet-link-color: #000 !default;
+$actionsheet-link-background-hover: smartscale($actionsheet-background) !default;
 
 @mixin action-sheet-menu-styles {
   // Menu container
@@ -122,7 +122,7 @@ $actionsheet-link-background-hover: smartscale($actionsheet-background);
       top: -($actionsheet-tail-size + 2);
       border-bottom-color: rgba(black, 0.15);
     }
-    
+
   }
   @else if $position == top {
     top: 0;

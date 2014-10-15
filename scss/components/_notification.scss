@@ -1,11 +1,11 @@
-$notification-default-position: right top;
-$notification-width: rem-calc(400);
-$notification-offset: $global-padding;
+$notification-default-position: right top !default;
+$notification-width: rem-calc(400) !default;
+$notification-offset: $global-padding !default;
 
-$notification-background: $primary-color;
-$notification-color: white;
-$notification-padding: $global-padding;
-$notification-radius: 4px;
+$notification-background: $primary-color !default;
+$notification-color: white !default;
+$notification-padding: $global-padding !default;
+$notification-radius: 4px !default;
 
 %notification {
   position: fixed;

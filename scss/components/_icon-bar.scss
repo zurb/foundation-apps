@@ -1,9 +1,9 @@
 // Icon Bar component
 
-$icon-bar-bg: #333;
-$icon-bar-hover-bg: $primary-color;
-$icon-bar-color: #fff;
-$icon-bar-border-color: rgba(255,255,255,0.3);
+$icon-bar-bg: #333 !default;
+$icon-bar-hover-bg: $primary-color !default;
+$icon-bar-color: #fff !default;
+$icon-bar-border-color: rgba(255,255,255,0.3) !default;
 
 // Menu bar container
 %menu-bar {
@@ -103,7 +103,7 @@ $icon-bar-border-color: rgba(255,255,255,0.3);
 
     border-bottom: 1px solid $icon-bar-border-color;
     &:last-child { border-botto: none; }
-    
+
     span { margin-top: 0; }
     img + span { margin-left: 1rem; }
   }

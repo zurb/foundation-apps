@@ -1,6 +1,6 @@
-$btngroup-background: $primary-color;
-$btngroup-color: #fff;
-$btngroup-radius: $button-radius;
+$btngroup-background: $primary-color !default;
+$btngroup-color: #fff !default;
+$btngroup-radius: $button-radius !default;
 
 %button-group {
   margin: 0;
