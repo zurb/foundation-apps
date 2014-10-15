@@ -3,7 +3,7 @@ angular.module('foundation.offcanvas', []);
 angular.module('foundation.offcanvas')
   .directive('faOffcanvas', ['FoundationApi', function(foundationApi) {
   return {
-    restrict: 'A',
+    restrict: 'EA',
     templateUrl: '/partials/offcanvas.html',
     transclude: true,
     scope: {

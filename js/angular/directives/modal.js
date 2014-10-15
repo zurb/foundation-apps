@@ -3,7 +3,7 @@ angular.module('foundation.modal', []);
 angular.module('foundation.modal')
   .directive('faModal', ['FoundationApi', function(foundationApi) {
   return {
-    restrict: 'A',
+    restrict: 'EA',
     templateUrl: '/partials/modal.html',
     transclude: true,
     scope: {

@@ -3,7 +3,7 @@ angular.module('foundation.panel', []);
 angular.module('foundation.panel')
   .directive('faPanel', ['FoundationApi', function(foundationApi) {
   return {
-    restrict: 'A',
+    restrict: 'EA',
     templateUrl: '/partials/panel.html',
     transclude: true,
     scope: {
