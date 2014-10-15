@@ -10,7 +10,7 @@ var app = angular.module('application', [
     'foundation.offcanvas',
     'foundation.interchange'
   ])
-    .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlProvider) {
+    .config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function($stateProvider, $urlProvider, $locationProvider) {
 
     $urlProvider.otherwise('/');
 
@@ -63,6 +63,8 @@ var app = angular.module('application', [
 
         $stateProvider.state(page.name, state);
     });
+
+    $locationProvider.html5Mode(true);
 }])
   .run(['FoundationInit', function(foundationInit) {
     foundationInit.init();
