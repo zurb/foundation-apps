@@ -29,8 +29,11 @@ gulp.task('copy', function() {
     .pipe(gulp.dest('build'));
 });
 
-gulp.task('copy-partials', function(cb) {
+gulp.task('clean-partials', function(cb) {
   rimraf('./build/partials', cb);
+});
+
+gulp.task('copy-partials', ['clean-partials'], function() {
   return gulp.src(['js/angular/partials/**.*'])
     .pipe(gulp.dest('./build/partials/'));
 });
