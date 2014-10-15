@@ -12,10 +12,10 @@ angular.module('foundation.tabs')
         tab.scope.active = false;
 
         if(tab.scope == selectTab) {
+          foundationApi.publish(id, ['activate', tab]);
+
           tab.active = true;
           tab.scope.active = true;
-
-          foundationApi.publish(id, ['activate', tab]);
         }
       });
     };
@@ -50,19 +50,21 @@ angular.module('foundation.tabs')
     replace: true,
     templateUrl: '/partials/tabs.html',
     controller: 'FaTabsController',
+    scope: true, //creates new scope
     compile: function(tElement, tAttr) {
       return {
         pre: function preLink(scope, element, attrs, controller) {
-          var id = attrs.id || foundationApi.generateUuid();
-          attrs.$set('id', id);
-          controller.setId(id);
         },
         post: function postLink(scope, element, attrs, controller) {
+          scope.id = attrs.id || foundationApi.generateUuid();
+          attrs.$set('id', scope.id);
+          controller.setId('1');
+          console.log(scope.id);
 
           //update tabs in case tab-content doesn't have them
-          var updateTabs = foundationApi.publish(id, scope.tabs);
+          var updateTabs = foundationApi.publish(scope.id, scope.tabs);
 
-          foundationApi.subscribe(id + '-get-tabs', function() {
+          foundationApi.subscribe(scope.id + '-get-tabs', function() {
             updateTabs();
           });
         }
@@ -89,28 +91,26 @@ angular.module('foundation.tabs')
           scope.tabs = scope.tabs || [];
           var id = scope.target;
 
+          foundationApi.subscribe(id, function(msg) {
+            if(msg[0] == 'activate') {
+              var tabId = msg[1];
+              angular.forEach(scope.tabs, function (tab) {
+                tab.scope.active = false;
+                tab.active = false;
+
+                if(tab.scope.id === id) {
+                  tab.scope.active = true;
+                  tab.active = true;
+                }
+              });
+            }
+          });
+
+
           //if tabs empty, request tabs
           if(scope.tabs === []) {
             foundationApi.subscribe(id + '-tabs', function(tabs) {
               scope.tabs = tabs;
-            });
-
-            foundationApi.subscribe(id, function(msg) {
-              if(msg[0] == 'activate') {
-                var tabId = msg[1];
-                angular.forEach(tabs, function (tab) {
-                  tab.scope.active = false;
-                  tab.active = false;
-
-                  if(tab.scope.id === id) {
-                    tab.scope.active = true;
-                    tab.active = true;
-                  }
-
-                });
-
-              }
-
             });
 
             foundationApi.publish(id + '-get-tabs', '');
@@ -130,13 +130,14 @@ angular.module('foundation.tabs')
       scope: {
         title: '@'
       },
-      controller: function() { },
       require: '^faTabs',
+      controller: function() { },
       replace: true,
       compile: function(tElement, tAttr) {
 
         return {
           post: function postLink(scope, element, attrs, controller, transclude) {
+            console.log(scope);
             scope.id = attrs.id || foundationApi.generateUuid();
             scope.active = false;
             scope.transcludeFn = transclude;

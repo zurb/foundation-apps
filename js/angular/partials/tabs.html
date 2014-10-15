@@ -1,6 +1,7 @@
 <div>
+  {{ id }}
   <div class="tabs" ng-transclude>
   </div>
-  <div fa-tab-content tabs="tabs">
+  <div fa-tab-content tabs="tabs" target="{{ id }}">
   </div>
 </div>
