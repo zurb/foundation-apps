@@ -44,8 +44,6 @@ angular.module('foundation.common.services')
         } while(!uniqueIds.indexOf(uuid));
 
         uniqueIds.push(uuid);
-
-        console.log(uuid);
         return uuid;
       }
     };
