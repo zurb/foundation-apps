@@ -16,8 +16,19 @@ $titlebar-background: #eee !default;
 $titlebar-color: #000 !default;
 $titlebar-border: 1px solid #ccc !default;
 $titlebar-padding: $global-padding !default;
+$titlebar-item-classes: (
+  center: 'center',
+  left: 'left',
+  right: 'right',
+  title: 'title',
+) !default;
 
 %title-bar {
+  $center: map-get($titlebar-item-classes, center);
+  $left: map-get($titlebar-item-classes, left);
+  $right: map-get($titlebar-item-classes, right);
+  $title: map-get($titlebar-item-classes, title);
+
   display: flex;
   flex: 0 0 auto;
   align-items: center;
@@ -25,12 +36,12 @@ $titlebar-padding: $global-padding !default;
   overflow: visible;
 
   // Denotes the title of the bar
-  .title {
+  .#{$title} {
     font-weight: bold;
   }
 
   // Denotes left, right, and center sections of the bar
-  .left, .center, .right {
+  .#{$left}, .#{$center}, .#{$right} {
     white-space: nowrap;
     overflow-x: hidden; // For the ellipsis trick
     overflow-y: visible; // To make descenders visible
@@ -45,35 +56,35 @@ $titlebar-padding: $global-padding !default;
 
   // Left always comes first, then center, then right
   // The left and right sections have the same width
-  .left {
+  .#{$left} {
     order: 1;
     flex: 0 0 $titlebar-side-width;
   }
-  .center {
+  .#{$center} {
     order: 2;
     flex: 0 0 $titlebar-center-width;
     text-align: center;
   }
-  .right {
+  .#{$right} {
     order: 3;
     flex: 0 0 $titlebar-side-width;
     text-align: right;
   }
 
   // If only left and right are in use, stretch them both out equally
-  .left:first-child {
+  .#{$left}:first-child {
     flex: 1 1 auto;
   }
-  .left:first-child + .right:last-child {
+  .#{$left}:first-child + .#{$right}:last-child {
     flex: 1 1 auto;
   }
 
-  // If center and right are in use, shift the center section into the right position
-  .center:first-child:not(:last-child) {
+  // If only center and right are in use, shift the center section into the right position
+  .#{$center}:first-child:not(:last-child) {
     margin-left: $titlebar-side-width;
   }
-  // If center and left are in use, override the above style
-  .center + .left {
+  // If only center and left are in use, override the above style
+  .#{$center} + .#{$left} {
     margin-right: -($titlebar-side-width);
   }
 }
