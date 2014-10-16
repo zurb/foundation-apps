@@ -2,6 +2,6 @@
   {{ id }}
   <div class="tabs" ng-transclude>
   </div>
-  <div fa-tab-content tabs="tabs" target="{{ id }}">
+  <div fa-tab-content target="{{ id }}" ng-if="showTabContent">
   </div>
 </div>
