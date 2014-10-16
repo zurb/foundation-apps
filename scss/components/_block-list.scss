@@ -30,7 +30,7 @@ $blocklist-header-fontsize: 0.8em !default;
 $blocklist-header-color: smartscale($blocklist-item-color, 40%) !default;
 
 // Container
-.block-list {
+%block-list {
   // Internal settings
   $item-height: 
     $blocklist-fontsize
@@ -148,6 +148,7 @@ $blocklist-header-color: smartscale($blocklist-item-color, 40%) !default;
       }
     }
   }
+
   // Text fields
   input[type="text"], input[type="password"] {
     margin: 0;
@@ -157,6 +158,7 @@ $blocklist-header-color: smartscale($blocklist-item-color, 40%) !default;
     padding: $blocklist-item-padding;
     color: $blocklist-item-color;
   }
+
   // Dropdowns
   li.dropdown {
     &::after {
@@ -190,7 +192,6 @@ $blocklist-header-color: smartscale($blocklist-item-color, 40%) !default;
       padding-left: (get-side($blocklist-item-padding, left) * 2) + $blocklist-item-icon-size;
     }
   }
-  // Icons
   li img {
     position: absolute;
     left: 1em;
@@ -199,4 +200,16 @@ $blocklist-header-color: smartscale($blocklist-item-color, 40%) !default;
     height: $blocklist-item-icon-size;
     border-radius: 8px;
   }
+}
+
+@mixin block-list {
+  @extend %block-list;
+}
+
+/*
+  CSS Output
+*/
+
+.block-list {
+  @include block-list;
 }

@@ -17,7 +17,7 @@ $actionsheet-tail-size: 10px !default;
 $actionsheet-link-color: #000 !default;
 $actionsheet-link-background-hover: smartscale($actionsheet-background) !default;
 
-@mixin action-sheet-menu-styles {
+@mixin action-sheet-menu {
   // Menu container
   ul {
     margin: -($actionsheet-padding);
@@ -190,7 +190,7 @@ $actionsheet-link-background-hover: smartscale($actionsheet-background) !default
 }
 .action-sheet {
   @include action-sheet;
-  @include action-sheet-menu-styles;
+  @include action-sheet-menu;
 
   @media #{$medium-up} {
     @include popup-menu;
