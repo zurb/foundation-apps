@@ -50,19 +50,23 @@ angular.module('foundation.tabs')
     replace: true,
     templateUrl: '/partials/tabs.html',
     controller: 'FaTabsController',
-    scope: true, //creates new scope
+    scope: {
+      displaced: '@?'
+    }, //creates new scope
     compile: function(tElement, tAttr) {
       return {
         pre: function preLink(scope, element, attrs, controller) {
         },
         post: function postLink(scope, element, attrs, controller) {
           scope.id = attrs.id || foundationApi.generateUuid();
+          scope.showTabContent = scope.displaced !== 'true';
           attrs.$set('id', scope.id);
           controller.setId('1');
-          console.log(scope.id);
 
           //update tabs in case tab-content doesn't have them
-          var updateTabs = foundationApi.publish(scope.id, scope.tabs);
+          var updateTabs = function() {
+            foundationApi.publish(scope.id + '-tabs', scope.tabs);
+          };
 
           foundationApi.subscribe(scope.id + '-get-tabs', function() {
             updateTabs();
@@ -108,7 +112,7 @@ angular.module('foundation.tabs')
 
 
           //if tabs empty, request tabs
-          if(scope.tabs === []) {
+          if(scope.tabs.length === 0) {
             foundationApi.subscribe(id + '-tabs', function(tabs) {
               scope.tabs = tabs;
             });
