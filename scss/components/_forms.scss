@@ -17,6 +17,7 @@ textarea {
   width: 100%;
   padding: $form-padding;
   margin: 0 0 $form-padding 0;
+  -webkit-font-smoothing: antialiased;
 
   &:focus {
     outline: 0;

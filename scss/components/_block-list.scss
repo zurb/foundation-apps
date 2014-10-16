@@ -124,7 +124,7 @@ $blocklist-item-icon-size: 0.8 !default;
     padding-right: get-side($blocklist-item-padding, right);
   }
 
-  // Inputs
+  // Multiple select
   input[type="checkbox"], input[type="radio"] {
     position: absolute;
     left: -9999px;
@@ -136,6 +136,41 @@ $blocklist-item-icon-size: 0.8 !default;
         float: right;
         pointer-events: none;
       }
+    }
+  }
+  // Text fields
+  input[type="text"], input[type="password"] {
+    margin: 0;
+    border: 0;
+    line-height: 1;
+    height: auto;
+    padding: $blocklist-item-padding;
+    color: $blocklist-item-color;
+  }
+  // Dropdowns
+  li.dropdown {
+    &::after {
+      @include css-triangle(5px, $blocklist-item-color, top);
+      position: absolute;
+      top: 50%;
+      margin-top: -3px;
+      right: get-side($blocklist-item-padding, right);
+    }
+  }
+  select {
+    -webkit-appearance: none;
+    outline: 0;
+    background: 0;
+    border: 0;
+    height: auto;
+    padding: $blocklist-item-padding;
+    font-size: $blocklist-fontsize;
+    line-height: 1;
+    color: $blocklist-item-color;
+    background: transparent;
+
+    &:hover {
+      background: $blocklist-item-background-hover;
     }
   }
 
