@@ -2,6 +2,17 @@
 
 /*
 	THE GRID
+  --------
+
+  Foundation's magical, flexbox-powered grid.
+
+  Features:
+   - Horizontal or vertical grids
+   - Auto-sizing or percentage width grid blocks
+   - Independently-scrollable blocks
+   - Column alignment
+   - Source ordering
+   - Offsets
 */
 
 $container-width: rem-calc(1000) !default;
