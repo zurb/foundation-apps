@@ -17,8 +17,15 @@
   ) !global;
 }
 
-// IMPORT ONCE
-// We use this to prevent styles from being loaded multiple times for compenents that rely on other components.
+/**
+ *   Exports
+ *   Outputs the chunk of content passed if component $name hasn't yet been output.
+ *   This prevents code duplication by keeping track of which components have already been output.
+ *
+ *   @param {string} $name - Name of component to output
+ *
+ *   @output The content passed, if the component has not yet been referenced.
+ */
 $modules: () !default;
 @mixin exports($name) {
   @if not (index($modules, $name)) {
@@ -69,8 +76,6 @@ $modules: () !default;
   @return scale-color($color, $lightness: $scale);
 }
 
-// NOT NOTHING
-// Returns true if a value isn't 0, none, or null
 /**
  *   Has Value
  *   Returns true if a value is not 0, null, or none.
@@ -90,8 +95,6 @@ $modules: () !default;
   @return true;
 }
 
-// GET SIDE
-// Given a top/left/bottom/right value with 1-4 items, figure out what each one is.
 /**
  *   Get Side
  *   Determine a top/right/bottom/right value on a padding, margin, etc. property, no matter how many values were passed in.
@@ -134,22 +137,6 @@ $modules: () !default;
   }
 }
 
-// RANGES
-// We use these functions to define ranges for various things, like media queries.
-@function lower-bound($range){
-  @if length($range) <= 0 {
-    @return 0;
-  }
-  @return nth($range,1);
-}
-
-@function upper-bound($range) {
-  @if length($range) < 2 {
-    @return 999999999999;
-  }
-  @return nth($range, 2);
-}
-
 /**
  *   Strip Unit
  *   Removes the unit (e.g. px, em, rem) from a value, returning the number only.
@@ -169,6 +156,15 @@ $modules: () !default;
   @return $value;
 }
 
+/**
+ *   Data
+ *   Returns a string containing an attribute selector for the attribute data-$attr.
+ *   If a global namespace has been defined, the data attribute will be prefixed with the namespace.
+ *
+ *   @param {string} $attr - Attribute to be used.
+ *
+ *   @return A string with a data attribute selector.
+ */
 @function data($attr) {
   @if $namespace {
     @return '[data-' + $namespace + '-' + $attr + ']';
