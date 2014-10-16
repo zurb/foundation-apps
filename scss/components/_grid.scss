@@ -16,7 +16,7 @@
 */
 
 $container-width: rem-calc(1000) !default;
-$block-padding: 1rem !default;
+$block-padding: $global-padding !default;
 $total-columns: 12 !default;
 
 /*
