@@ -2,35 +2,38 @@
   BLOCK LISTS
 */
 
+$blocklist-background: #fff !default;
+$blocklist-fullbleed: true !default;
+$blocklist-fontsize: 1rem !default;
+
+$blocklist-item-padding: 0.8rem 1rem !default;
+$blocklist-item-color: isitlight($blocklist-background, #000, #fff) !default;
+$blocklist-item-background-hover: smartscale($blocklist-background, 4.5%) !default;
+$blocklist-item-color-disabled: #999 !default;
+$blocklist-item-border: 1px solid smartscale($blocklist-background, 18.5%) !default;
+
+$blocklist-header-fontsize: 0.8em !default;
+$blocklist-header-color: smartscale($blocklist-item-color, 40%) !default;
+
+$blocklist-item-label-color: scale-color($blocklist-item-color, $lightness: 60%) !default;
+$blocklist-item-icon-size: 0.8 !default;
+
 // Container
 .block-list {
-  // Colors
-  $background: transparent;
-  $bg-color: if($background == transparent, #fff, $background);
-  $light: if(lightness($bg-color) > 50%, true, false);
+  // Internal settings
+  $item-height: 
+    $blocklist-fontsize
+    + get-side($blocklist-item-padding, top)
+    + get-side($blocklist-item-padding, top);
+  $icon-height: $item-height * $blocklist-item-icon-size;
 
-  // Generated colors
-  $border-color: scale-color($bg-color, $lightness: if($light, -20%, -17%));
-  $highlight-color: scale-color($bg-color, $lightness: if($light, -3%, 6%));
-  $text-color: if($light, #000, #fff);
-  $header-color: scale-color($text-color, $lightness: if($light, 40%, -40%));
-  $label-color: scale-color($text-color, $lightness: 60%);
-
-  $padding: 0.8rem;
-  $left-padding: 1rem;
-  $font-size: 1rem;
-  $item-height: $font-size + ($padding * 2);
-  $icon-size: $item-height * 0.8;
-
+  width: 100%;
   margin-bottom: 1rem;
-  font-size: $font-size;
+  font-size: $blocklist-fontsize;
   line-height: 1;
   user-select: none;
-  background: $background;
 
-  // Stretch to the edge of a block
-  .block > &, .small-block > &, .medium-block > &, .large-block > &,
-  .panel > &, .small-panel > &, .medium-panel > &, .large-panel > & {
+  @if $blocklist-fullbleed {
     margin-left: -1rem;
     margin-right: -1rem;
   }
@@ -39,11 +42,11 @@
   header {
     margin-top: 1em;
     text-transform: uppercase;
-    color: $header-color;
+    color: $blocklist-header-color;
     font-weight: bold;
     margin-bottom: 0.5em;
-    margin-left: $left-padding;
-    font-size: 0.8em;
+    margin-left: 1em;
+    font-size: $blocklist-header-fontsize;
   }
   // List container
   ul {
@@ -53,53 +56,72 @@
   // List item
   li {
     position: relative;
-    border-bottom: 1px solid $border-color;
 
-    &:first-child {
-      border-top: 1px solid $border-color;
-    }
-
-    &.with-caret {
-      // Caret
-      &::after {
-        content: '\203A';
-        display: block;
-        position: absolute;
-        right: $padding;
-        top: 0;
-        line-height: $item-height;
-        font-weight: bold;
-        color: $header-color;
-        font-size: 1em;
+    @if hasvalue($blocklist-item-border) {
+      border-bottom: $blocklist-item-border;
+      &:first-child {
+        border-top: $blocklist-item-border;
       }
-    }
-
-    // Coloring classes
-    &.caution > a {
-      &, &:hover { color: $alert-color; }
-    }
-    &.disabled > a {
-      cursor: default;
-      &, &:hover { color: #999; }
-      &:hover { background: transparent; }
     }
   }
 
   // Inner elements share the same basic styles
   a, span, label {
     display: block;
-    padding: $padding;
-    padding-left: $left-padding;
-    color: $text-color;
+    padding: $blocklist-item-padding;
+    padding-left: get-side($blocklist-item-padding, left);
+    color: $blocklist-item-color;
     line-height: 1;
   }
   a, label {
     cursor: pointer;
 
     &:hover {
-      color: $text-color;
-      background: $highlight-color;
+      color: $blocklist-item-color;
+      background: $blocklist-item-background-hover;
     }
+  }
+
+  // Coloring classes
+  li.caution > a {
+    &, &:hover { color: $alert-color; }
+  }
+  li.disabled > a {
+    cursor: default;
+    &, &:hover { color: $blocklist-item-color-disabled; }
+    &:hover { background: transparent; }
+  }
+
+  // Carats
+  &.with-caret {
+    // Caret
+    &::after {
+      content: '\203A';
+      display: block;
+      position: absolute;
+      right: get-side($blocklist-item-padding, right);
+      top: 0;
+      line-height: $item-height;
+      font-weight: bold;
+      color: $blocklist-header-color;
+      font-size: 1em;
+    }
+  }
+
+  // Labels
+  .label {
+    position: absolute;
+    color: $blocklist-item-label-color;
+    top: 0;
+    right: get-side($blocklist-item-padding, right);
+    z-index: 1;
+    padding-right: 0;
+    padding-left: 0;
+    pointer-events: none;
+  }
+  .with-caret .label {
+    // Labels next to links move over to make room for the caret
+    padding-right: get-side($blocklist-item-padding, right);
   }
 
   // Inputs
@@ -117,35 +139,19 @@
     }
   }
 
-  // Labels
-  .label {
-    position: absolute;
-    color: $label-color;
-    top: 0;
-    right: $left-padding;
-    z-index: 1;
-    padding-right: 0;
-    padding-left: 0;
-    pointer-events: none;
-  }
-  .with-caret .label {
-    // Labels next to links move over to make room for the caret
-    padding-right: 1em;
-  }
-
   // Lists with icons
   &.with-icons {
     a, span, label {
-      padding-left: ($left-padding * 2) + $icon-size;
+      padding-left: (get-side($blocklist-item-padding, left) * 2) + $blocklist-item-icon-size;
     }
   }
   // Icons
   li img {
     position: absolute;
-    left: $left-padding;
+    left: 1em;
     top: $item-height * 0.1;
-    width: $icon-size;
-    height: $icon-size;
+    width: $blocklist-item-icon-size;
+    height: $blocklist-item-icon-size;
     border-radius: 8px;
   }
 }
