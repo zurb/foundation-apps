@@ -3,10 +3,20 @@ name: playground.accordion
 url: /accordion
 accordion:
   - AccordionOne:
-      Test
-      Test2
+      - Test Title
+      - Test COntent
   - AccordionTwo:
-      Another Test
-      Test3
+      - Another Test
+      - Test3
 ---
+{{ vars.accordion }}
 <h4>Accordion</h4>
+<div ng-repeat="accordion in vars.accordion">
+  {{ accordion }} 
+
+</div>
+<div fa-accordion-set>
+  <div ng-repeat="accordion in vars.accordion" fa-accordion title="{{ accordion[0] }}">
+    {{ accordion[1] }}
+  </div>
+</div>
