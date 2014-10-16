@@ -27,8 +27,19 @@ $modules: () !default;
   }
 }
 
-// IS IT LIGHT?
-// Shorthand for checking the lightness of a color using Sass's ternary operator style
+/**
+ *   Is It Light?
+ *   Checks the lightness of $color, and if it passes the $threshold of lightness, it returns the $yes color.
+ *   Otherwise, it returns the $no color. Use this function to dynamically output a foreground color based on
+ *   a given background color.
+ *
+ *   @param {color} $color - Color to check the lightness of.
+ *   @param {color} $yes - Color to return if $color is light.
+ *   @param {color} $no - Color to return if $color is dark.
+ *   @param {percentage} $threshold - Threshold of lightness to check against.
+ *
+ *   @return The $yes color or $no color.
+ */
 @function isitlight($color, $yes: #000, $no: #fff, $threshold: 60%) {
   @if (lightness($color) > $threshold) {
     @return $yes;
@@ -40,8 +51,19 @@ $modules: () !default;
 
 // SMART SCALE
 // Given a background color $color, returns an appropriate foreground color.
-@function smartscale($color, $scale: 5%) {
-  @if lightness($color) > 60% {
+/**
+ *   Smart Scale
+ *   Scales a color to be lighter if it's light, or darker if it's dark.
+ *   Use this function to "fade" a color appropriate to its lightness.
+ *
+ *   @param {color} $color - Color to scale.
+ *   @param {percentage} $scale - Amount to scale up or down.
+ *   @param {percentage} $threshold - Threshold of lightness to check against.
+ *
+ *   @return A scaled color.
+ */
+@function smartscale($color, $scale: 5%, $threshold: 60%) {
+  @if lightness($color) > $threshold {
     $scale: -$scale;
   }
   @return scale-color($color, $lightness: $scale);
@@ -49,6 +71,15 @@ $modules: () !default;
 
 // NOT NOTHING
 // Returns true if a value isn't 0, none, or null
+/**
+ *   Has Value
+ *   Returns true if a value is not 0, null, or none.
+ *   Use this function to check for values like border: 0 or box-shadow: none.
+ *
+ *   @param $val - Value to check.
+ *
+ *   @return True if $val is not 0, null, or none.
+ */
 @function hasvalue($val) {
   @if $val == null or $val == none {
     @return false;
@@ -61,6 +92,16 @@ $modules: () !default;
 
 // GET SIDE
 // Given a top/left/bottom/right value with 1-4 items, figure out what each one is.
+/**
+ *   Get Side
+ *   Determine a top/right/bottom/right value on a padding, margin, etc. property, no matter how many values were passed in.
+ *   Use this function if you need to know the specific side of a value, but don't know if the value is using shorthand.
+ *
+ *   @param {list|number} $val - Value to analyze. Should be a shorthand sizing property, e.g. "1em 2em 1em"
+ *   @param {keyword} $side - Side to return. Should be top, right, bottom, or left.
+ *
+ *   @return A single value based on $val and $side.
+ */
 @function get-side($val, $side) {
   $length: length($val);
 
@@ -109,8 +150,14 @@ $modules: () !default;
   @return nth($range, 2);
 }
 
-// STRIP UNIT
-// It strips the unit of measure and returns it
+/**
+ *   Strip Unit
+ *   Removes the unit (e.g. px, em, rem) from a value, returning the number only.
+ *
+ *   @param {number} $num - Number to strip unit from.
+ *
+ *   @return The same number, sans unit.
+ */
 @function strip-unit($num) {
   @return $num / ($num * 0 + 1);
 }
