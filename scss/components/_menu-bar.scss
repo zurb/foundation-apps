@@ -1,82 +1,148 @@
-// Icon Bar component
+/*
+  MENU BAR
+  --------
 
-$icon-bar-bg: #333 !default;
-$icon-bar-hover-bg: $primary-color !default;
-$icon-bar-color: #fff !default;
-$icon-bar-border-color: rgba(255,255,255,0.3) !default;
+  A generic, flexible menu component.
+
+  Features:
+   - Orient horizontally and vertically
+     - Change orientation at certain breakpoints
+   - Items with icons above, below, or to the left or right
+   - Text labels for vertical menus and badges for horizontal menus
+*/
+
+$menubar-fontsize: 0.75rem !default;
+$menubar-background: #fff !default;
+$menubar-background-hover: $primary-color !default;
+$menubar-color: #fff !default;
+$menubar-color-hover: $primary-color !default;
+$menubar-border: 0 !default;
+
+$menubar-item-padding: 0.25rem !default;
+$menubar-icon-size: 25px !default;
 
 // Menu bar container
 %menu-bar {
   display: flex;
-  background: $icon-bar-bg;
-  color: $icon-bar-color;
-  margin-left: 0;
-  border: 0;
   align-items: stretch;
+  margin: 0;
   list-style-type: none;
 
   // Menu item
   li {
     // This flex setting makes each item an equal width
     flex: 1 0 0px;
-
-    // Borders
-    border-left: 1px solid $icon-bar-border-color;
-    &:first-child {
-      border-left: none;
-    }
-    &:hover {
-      &, & + li {
-        border-color: $primary-color;
-      }
-    }
+    align-items: center;
 
     // Link inside menu item
     a {
       display: flex;
       flex-flow: column nowrap;
-      align-self: center;
       align-items: center;
-      padding: .25rem;
-      color: white;
+      padding: $menubar-item-padding;
+      font-size: $menubar-fontsize;
       line-height: 1;
-      font-size:.75rem;
-      &:hover {
-        background: $icon-bar-hover-bg;
-      }
-    }
-    // Icon
-    img {
-      width: 25px;
-      height: 25px;
-
-      // Add spacing when there's an icon and text
-      & + span {
-        margin-top: 0.25rem;
-      }
     }
   }
+}
 
-  // Styles to reorient the icon relative to the text
-  &-icon-left {
+@mixin menu-bar-layout (
+  $orientation: horizontal
+) {
+  @if $orientation == horizontal {
+    flex-flow: row nowrap;
+    a {
+      flex-flow: column nowrap;
+      border-bottom-width: 0;
+      border-left-width: 1px;
+    }
+  }
+  @else {
+    flex-flow: column nowrap;
     a {
       flex-flow: row nowrap;
-      align-items: center;
-      img { margin-right: 0.5rem; }
-      span { margin-top: 0; }
+      border-left-width: 0;
+      border-bottom-width: 1px;
+    }
+
+  }
+}
+@mixin menu-bar-icons(
+  $position: left,
+  $size: $menubar-icon-size
+) {
+  li {
+    // Sizing
+    @if $menubar-icon-size != false {
+      width: $menubar-icon-size;
+      height: $menubar-icon-size;
+    }
+
+    // Position
+    @if $position == left {
+      a {
+        flex-flow: row nowrap;
+        align-items: center;
+        img { margin-right: $menubar-item-padding * 2; }
+        span { margin-top: 0; }
+      }
+    }
+    @if $position == top {
+      img {
+        & + span {
+          margin-top: $menubar-item-padding;
+        }
+      }
+    }
+    @if $position == right {
+      a {
+        flex-flow: row-reverse nowrap;
+        img { margin-left: $menubar-item-padding + 2; }
+        span { margin-top: 0; }
+      }
+    }
+    @if $position == bottom {
+      a {
+        flex-flow: column-reverse nowrap;
+        img + span { margin-top: 0; margin-bottom: $menubar-item-padding + 2; }
+      }
     }
   }
-  &-icon-right {
-    a {
-      flex-flow: row-reverse nowrap;
-      img { margin-left: 0.5rem; }
-      span { margin-top: 0; }
+}
+@mixin menu-bar-style(
+  $background: $menubar-background,
+  $background-hover: $menubar-background-hover,
+  $color: $menubar-color,
+  $color-hover: $menubar-color-hover,
+  $border: $menubar-border
+) {
+  // Container
+  background: $background;
+  color: $color;
+
+  // Items
+  a {
+    @if $color == auto {
+      color: isitlight($background, $primary-color, #fff);
+    }
+    @else {
+      color: $color;
+    }
+
+    &:hover {
+      background: $background-hover;
     }
   }
-  &-icon-bottom {
-    a {
-      flex-flow: column-reverse nowrap;
-      img + span { margin-top: 0; margin-bottom: 0.5rem; }
+
+  // Item borders
+  @if hasvalue($menubar-border) {
+    &:not(:first-child) {
+      border-left: $menubar-border;
+      &:hover {
+        &, & + li {
+          border-color: $primary-color;
+        }
+      }
     }
   }
 }
@@ -84,45 +150,34 @@ $icon-bar-border-color: rgba(255,255,255,0.3) !default;
 /*
   Mixins
 */
-@mixin menu-bar($icon-position: top) {
+@mixin menu-bar() {
   @extend %menu-bar;
-
-  @if $icon-position != top {
-    @extend %icon-#{$icon-position};
-  }
-}
-// Converts the horizontal menu bar into a vertical one
-@mixin vertical-menu-bar {
-  // Converting a flexbox row to column is the basic way to get it done
-  flex-flow: column nowrap;
-
-  a {
-    // By default the icon/text is side-by-side
-    flex-flow: row nowrap;
-    border-left: none;
-
-    border-bottom: 1px solid $icon-bar-border-color;
-    &:last-child { border-bottom: none; }
-
-    span { margin-top: 0; }
-    img + span { margin-left: 1rem; }
-  }
+  @include menu-bar-layout;
+  @include menu-bar-icons;
+  @include menu-bar-style;
 }
 
-@include exports(menu-bar) {
-  .icon-bar {
-    @include menu-bar;
+/*
+  CSS output
+*/
+.menu-bar {
+  @include menu-bar;
 
-    &.icon-left { @extend %menu-bar-icon-left; }
-    &.icon-right { @extend %menu-bar-icon-right; }
-    &.icon-bottom { @extend %menu-bar-icon-bottom; }
-    &.vertical { @include vertical-menu-bar; }
+  &.icon-top    { @include menu-bar-icons(top); }
+  &.icon-right  { @include menu-bar-icons(right); }
+  &.icon-bottom { @include menu-bar-icons(bottom); }
+  &.icon-left   { @include menu-bar-icons(left); }
 
-    @each $size in $breakpoint-classes {
-      @include breakpoint($size) {
-        &.#{$size}-vertical {
-          @include vertical-menu-bar;
-        }
+  &.horizontal  { @include menu-bar-layout(horizontal); }
+  &.vertical    { @include menu-bar-layout(vertical); }
+
+  @each $size in $breakpoint-classes {
+    @include breakpoint($size) {
+      &.#{$size}-horizontal {
+        @include menu-bar-layout(horizontal);
+      }
+      &.#{$size}-vertical {
+        @include menu-bar-layout(vertical);
       }
     }
   }
