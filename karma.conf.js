@@ -4,16 +4,18 @@ module.exports = function(config){
     basePath : './',
 
     files : [
-      JASMINE,
-      JASMINE_ADAPTER,
       'build/assets/js/angular-app.js',
       'bower_components/angular-mocks/angular-mocks.js',
-      'test/unit/**/*.spec.js'
+      'tests/unit/**/*.spec.js'
     ],
 
     colors: true,
 
-    logLevel: LOG_INFO,
+    port: 9876,
+
+    reporters: ['progress'],
+
+    logLevel: config.LOG_INFO,
 
     autoWatch : true,
 
@@ -22,10 +24,8 @@ module.exports = function(config){
     browsers : ['PhantomJS'],
 
     plugins : [
-            'karma-chrome-launcher',
-            'karma-firefox-launcher',
             'karma-jasmine',
-            'karma-ng-html2js-preprocessor'
+            'karma-phantomjs-launcher',
             ],
 
   });
