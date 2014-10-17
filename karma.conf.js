@@ -4,9 +4,10 @@ module.exports = function(config){
     basePath : './',
 
     files : [
+      'build/assets/js/app.js',
       'build/assets/js/angular-app.js',
       'bower_components/angular-mocks/angular-mocks.js',
-      'tests/unit/**/*.spec.js'
+      'tests/unit/**/*Spec.js'
     ],
 
     colors: true,
