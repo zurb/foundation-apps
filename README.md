@@ -26,6 +26,16 @@ While you're working on the project, run:
 
 This will assemble all the pages and compile the Sass. You're set!
 
+
+## For Windows Users
+
+Windows doesn't come with some tools that OS X or Linux might get pre-installed with. Some instructions may also differ. Here are some tip to get things working:
+
+- To get Git working (and Bower along with it), install [Git for Windows](http://git-for-windows.github.io/)
+- Windows doesn't have `sudo`, which is a command that will allow you to run the rest of the command as a `root` or `administrator` user. Instead, right click or shift-right-click your Command Prompt and choose the option "run as Administrator..". Once you've done this, make sure to omit `sudo` when running a command. Windows WILL prompt you every time you open CMD with a dialog ensure you want to run your program as an Administrator.
+- Windows does not come with Ruby, to install Ruby either download and run the [official installer](https://www.ruby-lang.org/en/) or try [Jruby](http://jruby.org/), a Ruby alternative many Windows users use.
+
+
 ## Docs
 
 The docs are generated in the `docs` directory when you run the quickstart process above.
