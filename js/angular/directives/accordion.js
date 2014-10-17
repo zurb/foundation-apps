@@ -3,35 +3,35 @@ angular.module('foundation.accordion', []);
 angular.module('foundation.accordion')
   .controller('FaAccordionController', ['$scope', function($scope) {
     var controller = this;
-    var tabs = controller.tabs = $scope.tabs = [];
+    var sections = controller.sections = $scope.sections = [];
 
-    controller.select = function(selectTab) {
-      angular.forEach(tabs, function(tab) {
-        tab.active = false;
+    controller.select = function(selectSection) {
+      angular.forEach(sections, function(section) {
+        section.scope.active = false;
 
-        if(tab.scope == selectTab) {
-          tab.active = true;
+        if(section.scope == selectSection) {
+          section.scope.active = true;
         }
       });
     };
 
-    controller.addTab = function addTab(tabScope) {
-      tabs.push({ scope: tabScope });
+    controller.addSection = function addsection(sectionScope) {
+      sections.push({ scope: sectionScope });
 
-      if(tabs.length === 1) {
-        tabs[0].active = true;
+      if(sections.length === 1) {
+        sections[0].active = true;
       }
     };
 
 }]);
 
 angular.module('foundation.accordion')
-  .directive('faAccordion', function() {
+  .directive('faAccordionSet', function() {
   return {
     restrict: 'EA',
     transclude: 'true',
     replace: true,
-    templateUrl: '/partials/accordion.html',
+    templateUrl: '/partials/accordion-set.html',
     controller: 'FaAccordionController',
     link: function(scope, element, attrs, controller) {
     }
@@ -39,23 +39,22 @@ angular.module('foundation.accordion')
 });
 
 angular.module('foundation.accordion')
-  .directive('faAccordionIndividual', function() {
+  .directive('faAccordion', function() {
     return {
       restrict: 'EA',
-      templateUrl: '/partials/accordion-individual.html',
+      templateUrl: '/partials/accordion.html',
       transclude: true,
       scope: {
         title: '@'
       },
-      require: '^faAccordion',
-      controller: function() { },
+      require: '^faAccordionSet',
       replace: true,
+      controller: function() {},
       link: function(scope, element, attrs, controller, transclude) {
         scope.active = false;
-        console.log(scope.title);
-        controller.addTab(scope);
+        controller.addSection(scope);
 
-        scope.makeActive = function() {
+        scope.activate = function() {
           controller.select(scope);
         };
 
