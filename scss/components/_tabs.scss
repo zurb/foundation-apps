@@ -1,44 +1,62 @@
 // Tabs
 $tab-border-width: 1px;
 
+@mixin tabstrip-container {
+  display: flex;
+  flex-flow: row wrap;
+  margin-bottom: -$tab-border-width;
+}
+
+@mixin tabstrip-item {
+  background: #f4f4f4;
+  height: 40px;
+  padding: 0 1rem;
+  line-height: 40px;
+  border: 0px solid #ddd;
+  border-width: $tab-border-width $tab-border-width $tab-border-width 0;
+  margin: 0;
+  flex: 1 1 shrink;
+  cursor: pointer;
+  &.is-active {
+    background: #fff;
+    color: $primary-color;
+    border-width: $tab-border-width $tab-border-width 0 0;
+  }
+  &:hover {
+    background: #e4e4e4;
+  }
+}
+
+@mixin tab-content {
+  flex: 0 0 auto;
+  flex-basis: 100%;
+  width: 100%;
+  padding: 1rem;
+  border: 0 solid #ddd;
+  border-width: $tab-border-width;
+}
+
+@mixin tab-content-item {
+  display: none;
+  &.is-active {
+    display: block;
+  }
+}
+
 .tabs {
-	display: flex;
-	flex-flow: row wrap;
-	margin-bottom: -$tab-border-width;
+  @include tabstrip-container;
+
 	.tab-item {
-		background: #f4f4f4;
-		height: 40px;
-		padding: 0 1rem;
-		line-height: 40px;
-		border: 0px solid #ddd;
-		border-width: $tab-border-width $tab-border-width $tab-border-width 0;
-		margin: 0;
-		flex: 1 1 shrink;
-		cursor: pointer;
-		&.is-active {
-			background: #fff;
-			color: $primary-color;
-			border-width: $tab-border-width $tab-border-width 0 0;
-		}
-		&:hover {
-			background: #e4e4e4;
-		}
+    @include tabstrip-item;
 	}
 }
 
 .tab-content {
-	flex: 0 0 auto;
-	flex-basis: 100%;
-	width: 100%;
-	padding: 1rem;
-	border: 0 solid #ddd;
-	border-width: $tab-border-width;
-	.tab-pane {
-		display: none;
-		&.is-active {
-			display: block;
-		}
-	}
+	@include tab-content;
+
+  .tab-pane {
+    @include tab-content-item;
+  }
 }
 
 
