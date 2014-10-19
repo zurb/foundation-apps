@@ -5,6 +5,65 @@ $large-range: (64.063em, 90em) !default;
 $xlarge-range: (90.063em, 120em) !default;
 $xxlarge-range: (120.063em, 99999999em) !default;
 
+$breakpoints: (
+  small: 0px,
+  medium: 640px,
+  large: 1024px,
+  xlarge: 1440px,
+  xxlarge: 1920px,
+);
+
+$breakpoint-classes: (small medium large);
+
+@mixin breakpoint($val: small) {
+  // Size or keyword
+  $bp: nth($val, 1);
+  // Direction of media query (up, down, or only)
+  $dir: if(length($val) > 1, nth($val, 2), up);
+  // Eventual output
+  $str: '';
+
+  // Orientation media queries have a unique syntax
+  @if $bp == 'landscape' or $bp == 'portrait' {
+    $str: 'orientation: #{$val}';
+  }
+
+  @else {
+    // Try to pull a named breakpoint out of the $breakpoints map
+    @if type-of($bp) == 'string' {
+      @if map-has-key($breakpoints, $bp) {
+        $bp: map-get($breakpoints, $bp);
+      }
+      @else {
+        $bp: 0;
+      }
+    }
+
+    // Pixel and unitless values are converted to rems
+    @if unit($bp) == 'px' or unit($bp) == '' {
+      $bp: rem-calc($bp);
+    }
+    // Finally, the rem value is turned into an em value
+    $bp: strip-unit($bp) + 'em';
+
+    // And lo, a media query was born
+    @if $dir == 'only' {
+      $str: 'min-width: #{$bp}) and (max-width: #{$bp - (1/16)}';
+    }
+    @else if $dir == 'down' {
+      $str: 'max-width: #{$bp}';
+    }
+    @else {
+      $str: 'min-width: #{$bp}';
+    }
+  }
+
+  // Output
+  @media only screen and (#{$str}) {
+    @content;
+  }
+}
+
 $screen: "only screen" !default;
 
 $landscape: "#{$screen} and (orientation: landscape)" !default;

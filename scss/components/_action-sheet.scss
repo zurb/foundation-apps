@@ -7,6 +7,7 @@
 
 $actionsheet-background: white !default;
 $actionsheet-border-color: #ccc !default;
+$actionsheet-animate: transform opacity !default;
 $actionsheet-animation-speed: 0.25s !default;
 $actionsheet-width: 300px !default;
 $actionsheet-radius: 4px !default;
@@ -66,7 +67,7 @@ $actionsheet-link-background-hover: smartscale($actionsheet-background) !default
   padding: $actionsheet-padding;
   background: $actionsheet-background;
   text-align: center;
-  transition-property: transform opacity;
+  transition-property: $actionsheet-animate;
   transition-duration: $actionsheet-animation-speed;
   transition-timing-function: ease-out;
 
