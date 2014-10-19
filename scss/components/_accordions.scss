@@ -1,34 +1,68 @@
-// Accordions
+/*
+  ACCORDION
+  ---------
+
+  The trusy accordion allows you to create a series of vertical tabs.
+*/
+
+$accordion-border-width: 1px;
+$accordion-border-color: #ddd;
+
+$accordion-title-background: #f4f4f4;
+$accordion-title-background-hover: #e4e4e4;
+$accordion-title-background-active: transparent;
+$accordion-title-color: isitlight($accordion-title-background);
+$accordion-title-color-active: $primary-color;
+
+$accordion-title-padding: ($global-padding * 0.75) $global-padding;
+$accordion-content-padding: $global-padding;
+
+@mixin accordion-container {
+  border: $accordion-border-width solid $accordion-border-color;
+  border-bottom-width: 0;
+}
+
+@mixin accordion-item {
+
+}
+
+@mixin accordion-title {
+  padding: $accordion-title-padding;
+  border: 0px solid $accordion-border-color;
+  border-width: 0 0 $accordion-border-width 0;
+  background: $accordion-title-background;
+  color: $accordion-title-color;
+  line-height: 1;
+  cursor: pointer;
+
+  &:hover {
+    background: $accordion-title-background-hover;
+  }
+
+  .is-active & {
+    background: $accordion-title-background-active;
+    color: $accordion-title-color-active;
+  }
+}
+@mixin accordion-content {
+  padding: $accordion-content-padding;
+  border-bottom: $accordion-border-width solid $accordion-border-color;
+
+  display: none;
+  .is-active & {
+    display: block;
+  }
+}
 
 .accordion {
-	border: 1px solid #ddd;
-	border-width:1px 1px 0 1px;
-
-	.accordion-item {
-		.accordion-title {
-			padding: 0 1rem;
-			border: 0px solid #ddd;
-			border-width:0 0 1px 0;
-			background: #f4f4f4;
-			line-height: 40px;
-			&:hover {
-				background: #e4e4e4;
-			}
-		}
-		.accordion-content {
-			padding: 1rem;
-			display: none;
-			border: 0px solid #ddd;
-			border-width:0 0 1px 0;
-		}
-		&.is-active {
-			.accordion-title {
-				background: transparent;
-				color: $primary-color;
-			}
-			.accordion-content {
-				display: block;
-			}
-		}
-	}
+	@include accordion-container;
 }
+  .accordion-item {
+    @include accordion-item;
+  }
+  .accordion-title {
+    @include accordion-title;
+  }
+  .accordion-content {
+    @include accordion-content;
+  }
