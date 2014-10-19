@@ -1,39 +1,63 @@
-// Tabs
-$tab-border-width: 1px;
+/*
+  TABS
+  ----
+*/
 
-@mixin tabstrip-container {
+$tab-border-width: 1px;
+$tab-border-color: #ddd;
+
+$tab-title-background: #f4f4f4;
+$tab-title-background-hover: #e4e4e4;
+$tab-title-background-active: #fff;
+$tab-title-color: isitlight($tab-title-background);
+$tab-title-color-active: $primary-color;
+
+$tab-title-padding: ($global-padding * 0.75) $global-padding;
+$tab-content-padding: $global-padding;
+
+%tabstrip-container {
   display: flex;
   flex-flow: row wrap;
-  margin-bottom: -$tab-border-width;
+}
+
+@mixin tabstrip-container {
+  @extend %tabstrip-container;
 }
 
 @mixin tabstrip-item {
-  background: #f4f4f4;
-  height: 40px;
-  padding: 0 1rem;
-  line-height: 40px;
-  border: 0px solid #ddd;
-  border-width: $tab-border-width $tab-border-width $tab-border-width 0;
+  background: $tab-title-background;
+  padding: $tab-title-padding;
+  line-height: 1;
+  border: $tab-border-width solid $tab-border-color;
+  border-left-width: 0;
   margin: 0;
-  flex: 1 1 shrink;
+  flex: 0 1 auto;
   cursor: pointer;
+  color: $tab-title-color;
+
+  &:first-child {
+    border-left-width: $tab-border-width;
+  }
+
   &.is-active {
-    background: #fff;
-    color: $primary-color;
-    border-width: $tab-border-width $tab-border-width 0 0;
+    background: $tab-title-background-active;
+    color: $tab-title-color-active;
+    border-bottom-color: $tab-title-background-active;
+
+    &:hover {
+      background: $tab-title-background-active;
+    }
   }
   &:hover {
-    background: #e4e4e4;
+    background: $tab-title-background-hover;
   }
 }
 
 @mixin tab-content {
-  flex: 0 0 auto;
-  flex-basis: 100%;
-  width: 100%;
-  padding: 1rem;
-  border: 0 solid #ddd;
+  padding: $tab-content-padding;
+  border: 0 solid $tab-border-color;
   border-width: $tab-border-width;
+  margin-top: -$tab-border-width;
 }
 
 @mixin tab-content-item {
@@ -42,6 +66,10 @@ $tab-border-width: 1px;
     display: block;
   }
 }
+
+/*
+  CSS Output
+*/
 
 .tabs {
   @include tabstrip-container;
