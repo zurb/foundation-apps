@@ -12,6 +12,7 @@ $button-sizes: (
 ) !default;
 $button-font-size: 0.9rem !default;
 $button-opacity-disabled: 0.8 !default;
+$button-tag-selector: true !default;
 
 %button {
   display: inline-block;
@@ -159,5 +160,11 @@ $button-opacity-disabled: 0.8 !default;
     &.success   { @include button-disabled($success-color, false) }
     &.warning   { @include button-disabled($warning-color, false) }
     &.alert     { @include button-disabled($alert-color, false) }
+  }
+}
+
+@if $button-tag-selector {
+  button {
+    @extend .button;
   }
 }
