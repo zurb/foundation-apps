@@ -47,13 +47,8 @@ $btngroup-radius: $button-radius !default;
 }
 
 @mixin button-group-size($size: medium, $expand: false) {
-  $sizes: (
-    small: 0.8rem,
-    medium: 1rem,
-    large: 1.5rem,
-  );
-
-  font-size: map-get($sizes, $size);
+  $size: $button-font-size * map-get($button-sizes, $size);
+  font-size: $size;
 
   @if $expand {
     @include button-group-expand;
@@ -133,21 +128,30 @@ $btngroup-radius: $button-radius !default;
   @include button-group;
 
   // Colors
-  &.secondary { @include button-group-style(false, $secondary-color) }
-  &.success   { @include button-group-style(false, $success-color) }
-  &.warning   { @include button-group-style(false, $warning-color) }
-  &.alert     { @include button-group-style(false, $alert-color) }
+  &.secondary { @include button-group-style(false, $secondary-color); }
+  &.success   { @include button-group-style(false, $success-color); }
+  &.warning   { @include button-group-style(false, $warning-color); }
+  &.alert     { @include button-group-style(false, $alert-color); }
+
+  // Individual colors
+  > li {
+    &.secondary { > a { @include button-style($secondary-color, $btngroup: true); } }
+    &.success   { > a { @include button-style($success-color, $btngroup: true); } }
+    &.warning   { > a { @include button-style($warning-color, $btngroup: true); } }
+    &.alert     { > a { @include button-style($alert-color, $btngroup: true); } }
+  }
 
   // Segmented
   &.segmented { @include button-group-style(true);
-    &.secondary { @include button-group-style(true, $secondary-color) }
-    &.success   { @include button-group-style(true, $success-color) }
-    &.warning   { @include button-group-style(true, $warning-color) }
-    &.alert     { @include button-group-style(true, $alert-color) }
+    &.secondary { @include button-group-style(true, $secondary-color); }
+    &.success   { @include button-group-style(true, $success-color); }
+    &.warning   { @include button-group-style(true, $warning-color); }
+    &.alert     { @include button-group-style(true, $alert-color); }
   }
 
   // Sizing
-  &.small     { @include button-size(small); }
-  &.large     { @include button-size(large); }
+  &.tiny      { @include button-group-size(tiny); }
+  &.small     { @include button-group-size(small); }
+  &.large     { @include button-group-size(large); }
   &.expand    { @include button-group-expand; }
 }
