@@ -9,8 +9,73 @@
     <script src="/assets/js/angular-app.js"></script>
   </head>
   <body>
-    <div ng-controller="MainController">
-      <div ng-class="[currentSlug, 'ui-animation']" ui-view></div>
+    <div class="vertical stretch frame">
+      <div class="shrink block">
+        <div class="content block" style="background: #002b36 !important; color: white;">
+          <span style="color:#fff;">Foundation for Apps</span>
+        </div>
+      </div>
+      <div class="stretch block">
+        <div id="menu" class="panel panel-left medium-3 large-2 content medium-block" style="border-right: 1px solid #e2e6e6;">
+          <section class="block-list">
+            <header>Layout</header>
+            <ul>
+              <li><a ui-sref="grid">Grid</a></li>
+              <li><a href="#">Panel</a></li>
+            </ul>
+          </section>
+          <section class="block-list">
+            <header>Navigation</header>
+            <ul>
+              <li><a href="#">Off-canvas Menu</a></li>
+              <li><a href="#">Action Sheet</a></li>
+              <li><a href="#">Title Bar</a></li>
+              <li><a href="#">Menu Bar</a></li>
+              <li><a href="#">Tabs</a></li>
+            </ul>
+          </section>
+          <section class="block-list">
+            <header>Callouts</header>
+            <ul>
+              <li><a href="#">Modal</a></li>
+              <li><a href="#">Notification</a></li>
+            </ul>
+          </section>
+          <section class="block-list">
+            <header>Controls</header>
+            <ul>
+              <li><a href="#">Button</a></li>
+              <li><a href="#">Button Group</a></li>
+              <li><a href="#">Forms</a></li>
+            </ul>
+          </section>
+          <section class="block-list">
+            <header>Content</header>
+            <ul>
+              <li><a href="#">Typography</a></li>
+              <li><a href="#">Card</a></li>
+              <li><a href="#">Block List</a></li>
+              <li><a href="#">Motion UI</a></li>
+              <li><a href="#">Interchange</a></li>
+              <li><a href="#">Inline Elements</a></li>
+            </ul>
+          </section>
+          <section class="block-list">
+            <header>Helpers</header>
+            <ul>
+              <li><a href="#">Visibility</a></li>
+              <li><a href="#">Coloring</a></li>
+              <li><a href="#">Functions and Mixins</a></li>
+            </ul>
+          </section>
+        </div>
+
+        <div class="medium-9 large-10 block content horizontal container">
+          <div ng-controller="MainController">
+            <div ng-class="[currentSlug, 'ui-animation']" ui-view></div>
+          </div>
+        </div>
+      </div>
     </div>
   </body>
 </html>
