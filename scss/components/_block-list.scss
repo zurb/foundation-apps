@@ -36,7 +36,6 @@ $blocklist-header-color: smartscale($blocklist-item-color, 40%) !default;
     $blocklist-fontsize
     + get-side($blocklist-item-padding, top)
     + get-side($blocklist-item-padding, top);
-  $icon-height: $item-height * $blocklist-item-icon-size;
 
   margin-bottom: 1rem;
   font-size: $blocklist-fontsize;
@@ -73,22 +72,22 @@ $blocklist-header-color: smartscale($blocklist-item-color, 40%) !default;
         border-top: $blocklist-item-border;
       }
     }
-  }
 
-  // Inner elements share the same basic styles
-  a, span, label {
-    display: block;
-    padding: $blocklist-item-padding;
-    padding-left: get-side($blocklist-item-padding, left);
-    color: $blocklist-item-color;
-    line-height: 1;
-  }
-  a, label {
-    cursor: pointer;
-
-    &:hover {
+    // Inner elements share the same basic styles
+    > a, > span, > label {
+      display: block;
+      padding: $blocklist-item-padding;
+      padding-left: get-side($blocklist-item-padding, left);
       color: $blocklist-item-color;
-      background: $blocklist-item-background-hover;
+      line-height: 1;
+    }
+    > a, > label {
+      cursor: pointer;
+
+      &:hover {
+        color: $blocklist-item-color;
+        background: $blocklist-item-background-hover;
+      }
     }
   }
 
@@ -120,14 +119,20 @@ $blocklist-header-color: smartscale($blocklist-item-color, 40%) !default;
 
   // Labels
   .label {
+    display: inline-block;
     position: absolute;
     color: $blocklist-item-label-color;
-    top: 0;
+    top: get-side($blocklist-item-padding, top);
     right: get-side($blocklist-item-padding, right);
     z-index: 1;
-    padding-right: 0;
-    padding-left: 0;
+    padding: 0;
     pointer-events: none;
+
+    &.left {
+      padding: 0;
+      position: static;
+      margin-left: get-side($blocklist-item-padding, top);
+    }
   }
   .with-caret .label {
     // Labels next to links move over to make room for the caret
@@ -188,16 +193,21 @@ $blocklist-header-color: smartscale($blocklist-item-color, 40%) !default;
 
   // Lists with icons
   &.with-icons {
-    a, span, label {
-      padding-left: (get-side($blocklist-item-padding, left) * 2) + $blocklist-item-icon-size;
+    li {
+      > a, > span, > label {
+        padding-left: (get-side($blocklist-item-padding, left) * 2) + $blocklist-item-icon-size;
+      }
     }
   }
   li img {
+    $icon-height: $item-height * $blocklist-item-icon-size;
+    $icon-offset: ($item-height - $icon-height) / 2;
+
     position: absolute;
-    left: 1em;
-    top: $item-height * 0.1;
-    width: $blocklist-item-icon-size;
-    height: $blocklist-item-icon-size;
+    top: $icon-offset;
+    left: $icon-offset;
+    width: $icon-height;
+    height: $icon-height;
     border-radius: 8px;
   }
 }
