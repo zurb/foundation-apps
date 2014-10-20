@@ -30,118 +30,101 @@ $blocklist-header-fontsize: 0.8em !default;
 $blocklist-header-color: smartscale($blocklist-item-color, 40%) !default;
 
 // Container
-%block-list {
-  // Internal settings
-  $item-height: 
-    $blocklist-fontsize
-    + get-side($blocklist-item-padding, top)
-    + get-side($blocklist-item-padding, top);
-
+%block-list-container {
   margin-bottom: 1rem;
-  font-size: $blocklist-fontsize;
   line-height: 1;
   user-select: none;
 
-  @if $blocklist-fullbleed {
+  &, ul {
+    list-style-type: none;
+  }
+  ul {
+    margin-left: 0;
+  }
+}
+
+@mixin block-list-container(
+  $font-size: $blocklist-fontsize,
+  $full-bleed: $blocklist-fullbleed
+) {
+  @extend %block-list-container;
+  font-size: $font-size;
+
+  @if $full-bleed {
     margin-left: -1rem;
     margin-right: -1rem;
   }
+}
 
-  // Title of list (optional)
-  header {
-    margin-top: 1em;
-    text-transform: uppercase;
-    color: $blocklist-header-color;
-    font-weight: bold;
-    margin-bottom: 0.5em;
-    margin-left: get-side($blocklist-item-padding, left);
-    font-size: $blocklist-header-fontsize;
-    cursor: default;
-  }
-  // List container
-  ul {
-    list-style-type: none;
-    margin-left: 0;
-  }
-  // List item
-  li {
-    position: relative;
+@mixin block-list-header(
+  $color: $blocklist-header-color,
+  $font-size: $blocklist-header-fontsize,
+  $offset: get-side($blocklist-item-padding, left)
+) {
+  margin-top: 1em;
+  text-transform: uppercase;
+  color: $color;
+  font-weight: bold;
+  margin-bottom: 0.5em;
+  margin-left: $offset;
+  font-size: $font-size;
+  cursor: default;
+}
 
-    @if hasvalue($blocklist-item-border) {
-      border-bottom: $blocklist-item-border;
-      &:first-child {
-        border-top: $blocklist-item-border;
-      }
+@mixin block-list-item(
+) {
+  position: relative;
+
+  @if hasvalue($blocklist-item-border) {
+    border-bottom: $blocklist-item-border;
+    &:first-child {
+      border-top: $blocklist-item-border;
     }
+  }
 
-    // Inner elements share the same basic styles
-    > a, > span, > label {
-      display: block;
-      padding: $blocklist-item-padding;
-      padding-left: get-side($blocklist-item-padding, left);
+  // Inner elements share the same basic styles
+  > a, > span, > label {
+    display: block;
+    padding: $blocklist-item-padding;
+    padding-left: get-side($blocklist-item-padding, left);
+    color: $blocklist-item-color;
+    line-height: 1;
+  }
+  > a, > label {
+    cursor: pointer;
+
+    &:hover {
       color: $blocklist-item-color;
-      line-height: 1;
-    }
-    > a, > label {
-      cursor: pointer;
-
-      &:hover {
-        color: $blocklist-item-color;
-        background: $blocklist-item-background-hover;
-      }
+      background: $blocklist-item-background-hover;
     }
   }
 
   // Coloring classes
-  li.caution > a {
+  &.caution > a {
     &, &:hover { color: $alert-color; }
   }
-  li.disabled > a {
+  &.disabled > a {
     cursor: default;
     &, &:hover { color: $blocklist-item-color-disabled; }
     &:hover { background: transparent; }
   }
+}
 
-  // Labels
-  .label {
-    display: inline-block;
-    float: right;
-    padding: 0;
-    color: $blocklist-item-label-color;
-    pointer-events: none;
+@mixin block-list-label(
+  $color: $blocklist-item-label-color,
+  $left-class: 'left',
+  $left-padding: get-side($blocklist-item-padding, top)
+) {
+  display: inline-block;
+  float: right;
+  padding: 0;
+  color: $color;
+  pointer-events: none;
 
-    &.left {
-      margin-left: get-side($blocklist-item-padding, top);
-      float: none;
-    }
+  &.#{$left-class} {
+    margin-left: $left-padding;
+    float: none;
   }
-
-  // Multiple select
-  input[type="checkbox"], input[type="radio"] {
-    position: absolute;
-    left: -9999px;
-
-    &:checked + label {
-      &::after {
-        content: 'Hell yeah';
-        color: $primary-color;
-        float: right;
-        pointer-events: none;
-      }
-    }
-  }
-
-  // Text fields
-  input[type="text"], input[type="password"] {
-    margin: 0;
-    border: 0;
-    line-height: 1;
-    height: auto;
-    padding: $blocklist-item-padding;
-    color: $blocklist-item-color;
-  }
-
-  
 }
 
 /*
@@ -209,42 +192,74 @@ $blocklist-header-color: smartscale($blocklist-item-color, 40%) !default;
 }
 
 // Adds support for dropdowns in list items
-@mixin block-list-dropdown {
-  // Adds a dropdown triangle to the select menu
-  // The <select> tag doesn't support pseudo-elements
-  &::after {
-    @include css-triangle(5px, $blocklist-item-color, top);
-    position: absolute;
-    top: 50%;
-    margin-top: -3px;
-    right: get-side($blocklist-item-padding, right);
-  }
-  select {
-    -webkit-appearance: none;
-    outline: 0;
-    background: 0;
+@mixin block-list-inputs {
+  // Text fields
+  input[type="text"], input[type="password"] {
+    margin: 0;
     border: 0;
+    line-height: 1;
     height: auto;
     padding: $blocklist-item-padding;
-    font-size: $blocklist-fontsize;
-    line-height: 1;
     color: $blocklist-item-color;
-    background: transparent;
+  }
 
-    &:hover {
-      background: $blocklist-item-background-hover;
+  // Multiple select
+  input[type="checkbox"], input[type="radio"] {
+    position: absolute;
+    left: -9999px;
+
+    &:checked + label {
+      &::after {
+        content: 'Hell yeah';
+        color: $primary-color;
+        float: right;
+        pointer-events: none;
+      }
+    }
+  }
+
+  // Dropdowns
+  .with-dropdown {
+    &::after {
+      @include css-triangle(5px, $blocklist-item-color, top);
+      position: absolute;
+      top: 50%;
+      margin-top: -3px;
+      right: get-side($blocklist-item-padding, right);
+    }
+    select {
+      -webkit-appearance: none;
+      outline: 0;
+      background: 0;
+      border: 0;
+      height: auto;
+      padding: $blocklist-item-padding;
+      font-size: $blocklist-fontsize;
+      line-height: 1;
+      color: $blocklist-item-color;
+      background: transparent;
+
+      &:hover {
+        background: $blocklist-item-background-hover;
+      }
     }
   }
 }
 
 @mixin block-list {
-  @extend %block-list;
+  @include block-list-container;
+  @include block-list-inputs;
+
+  &.with-icons { @include block-list-icons; }
+
+  header { @include block-list-header; }
 
   li {
+    @include block-list-item;
     &.with-chevron { @include block-list-chevron; }
-    &.with-dropdown { @include block-list-dropdown; }
+
+    .label { @include block-list-label; }
   }
-  &.with-icons { @include block-list-icons; }
 }
 
 /*
