@@ -5,48 +5,51 @@
   The trusy accordion allows you to create a series of vertical tabs.
 */
 
-$accordion-border-width: 1px;
-$accordion-border-color: #ddd;
-
 $accordion-title-background: #f4f4f4;
-$accordion-title-background-hover: #e4e4e4;
+$accordion-title-background-hover: smartscale($accordion-title-background, 5%);
 $accordion-title-background-active: transparent;
 $accordion-title-color: isitlight($accordion-title-background);
-$accordion-title-color-active: $primary-color;
+$accordion-title-color-active: $accordion-title-color;
 
-$accordion-title-padding: ($global-padding * 0.75) $global-padding;
+$accordion-title-padding: $global-padding;
 $accordion-content-padding: $global-padding;
 
 @mixin accordion-container {
-  border: $accordion-border-width solid $accordion-border-color;
-  border-bottom-width: 0;
+
 }
 
 @mixin accordion-item {
 
 }
 
-@mixin accordion-title {
-  padding: $accordion-title-padding;
-  border: 0px solid $accordion-border-color;
-  border-width: 0 0 $accordion-border-width 0;
-  background: $accordion-title-background;
-  color: $accordion-title-color;
+@mixin accordion-title(
+  $background: $accordion-title-background,
+  $background-hover: $accordion-title-background-hover,
+  $background-active: $accordion-title-background-active,
+  $color: $accordion-title-color,
+  $color-active: $accordion-title-color-active,
+  $padding: $accordion-title-padding
+) {
+  padding: $padding;
+  background: $background;
+  color: $color;
   line-height: 1;
   cursor: pointer;
 
   &:hover {
-    background: $accordion-title-background-hover;
+    background: $background-hover;
   }
 
   .is-active & {
-    background: $accordion-title-background-active;
-    color: $accordion-title-color-active;
+    background: $background-active;
+    color: $color-active;
   }
 }
-@mixin accordion-content {
-  padding: $accordion-content-padding;
-  border-bottom: $accordion-border-width solid $accordion-border-color;
+
+@mixin accordion-content(
+  $padding: $accordion-content-padding
+) {
+  padding: $padding;
 
   display: none;
   .is-active & {
