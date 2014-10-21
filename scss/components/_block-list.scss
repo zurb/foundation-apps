@@ -29,7 +29,13 @@ $blocklist-item-icon-size: 0.8 !default;
 $blocklist-header-fontsize: 0.8em !default;
 $blocklist-header-color: smartscale($blocklist-item-color, 40%) !default;
 
-// Container
+
+/*
+  Adds styles for a block list container.
+
+  $font-size: global font size for the list.
+  $full-bleed: when "true", the margins of the list invert to line it up with the edge of a padded element.
+*/
 %block-list-container {
   margin-bottom: 1rem;
   line-height: 1;
@@ -42,7 +48,6 @@ $blocklist-header-color: smartscale($blocklist-item-color, 40%) !default;
     margin-left: 0;
   }
 }
-
 @mixin block-list-container(
   $font-size: $blocklist-fontsize,
   $full-bleed: $blocklist-fullbleed
@@ -56,6 +61,13 @@ $blocklist-header-color: smartscale($blocklist-item-color, 40%) !default;
   }
 }
 
+/*
+  Styles block list headers on the selector you include this mixin in (normally a <header>).
+
+  $color - color of the header.
+  $font-size - font size of the header.
+  $offset - left margin to add to the header, to line it up with the list items.
+*/
 @mixin block-list-header(
   $color: $blocklist-header-color,
   $font-size: $blocklist-header-fontsize,
@@ -71,31 +83,52 @@ $blocklist-header-color: smartscale($blocklist-item-color, 40%) !default;
   cursor: default;
 }
 
+/*
+  Styles block list items on the selector you include this mixin in (normally an <li>).
+
+  $color - color of items.
+  $color-hover - color of items on hover.
+  $background - background of items.
+  $background-hover - background of items on hover.
+  $border - border between items.
+  $padding - padding on items.
+*/
 @mixin block-list-item(
+  $color: $blocklist-item-color,
+  $color-hover: $blocklist-item-color,
+  $color-disabled: $blocklist-item-color-disabled,
+  $background: transparent,
+  $background-hover: $blocklist-item-background-hover,
+  $border: $blocklist-item-border,
+  $padding: $blocklist-item-padding
 ) {
   position: relative;
 
-  @if hasvalue($blocklist-item-border) {
-    border-bottom: $blocklist-item-border;
+  @if hasvalue($border) {
+    border-bottom: $border;
     &:first-child {
-      border-top: $blocklist-item-border;
+      border-top: $border;
     }
   }
 
   // Inner elements share the same basic styles
   > a, > span, > label {
     display: block;
-    padding: $blocklist-item-padding;
-    padding-left: get-side($blocklist-item-padding, left);
-    color: $blocklist-item-color;
+    padding: $padding;
+    padding-left: get-side($padding, left);
+    color: $color;
     line-height: 1;
   }
   > a, > label {
     cursor: pointer;
 
     &:hover {
-      color: $blocklist-item-color;
-      background: $blocklist-item-background-hover;
+      color: $color-hover;
+    }
+  }
+  > a, > label, select {
+    &:hover {
+      background: $background-hover;
     }
   }
 
@@ -105,11 +138,18 @@ $blocklist-header-color: smartscale($blocklist-item-color, 40%) !default;
   }
   &.disabled > a {
     cursor: default;
-    &, &:hover { color: $blocklist-item-color-disabled; }
+    &, &:hover { color: $color-disabled; }
     &:hover { background: transparent; }
   }
 }
 
+/*
+  Adds label styles to the class you include this mixin in.
+
+  $color - color of the label.
+  $left-class - extra class to flip the orientation of the label.
+  $left-padding - left padding to use for left-hand labels.
+*/
 @mixin block-list-label(
   $color: $blocklist-item-label-color,
   $left-class: 'left',
@@ -129,30 +169,30 @@ $blocklist-header-color: smartscale($blocklist-item-color, 40%) !default;
 
 /*
   Adds support for chevrons, which appear on the right-hand side of the item.
-*/
-@mixin block-list-chevron {
-  // PH - need a better solution
-  $item-height: 
-    $blocklist-fontsize
-    + get-side($blocklist-item-padding, top)
-    + get-side($blocklist-item-padding, top);
 
+  $color - color of the chevron.
+  $padding - include the global padding of block list items here.
+*/
+@mixin block-list-chevron(
+  $color: $blocklist-header-color,
+  $padding: $blocklist-item-padding
+) {
   // Chevrons are a pseudo-element
   &::after {
     content: '\203A';
     display: block;
     position: absolute;
-    right: get-side($blocklist-item-padding, right);
-    top: 0;
-    line-height: $item-height;
+    right: get-side($padding, right);
+    top: 50%;
+    transform: translateY(-50%);
     font-weight: bold;
-    color: $blocklist-header-color;
+    color: $color;
     font-size: 2em;
   }
 
   // Labels next to links move over to make room for the chevron
   .label {
-    padding-right: get-side($blocklist-item-padding, right) * 1.5;
+    padding-right: get-side($padding, right) * 1.5;
   }
 }
 
@@ -191,16 +231,28 @@ $blocklist-header-color: smartscale($blocklist-item-color, 40%) !default;
   }
 }
 
-// Adds support for dropdowns in list items
-@mixin block-list-inputs {
+/*
+  Adds support for text fields, select menus, and checkbox/radio groups in block lists.
+
+  $color - color of select menu arrow.
+  $background-hover - color of select menu when hovered over.
+  $padding - include the global padding of block list items here.
+  $dropdown-class - class to use for list items that contain a dropdown.
+*/
+@mixin block-list-inputs(
+  $color: $blocklist-item-color,
+  $background-hover: $blocklist-item-background-hover,
+  $padding: $blocklist-item-padding, 
+  $dropdown-class: 'with-dropdown'
+) {
   // Text fields
   input[type="text"], input[type="password"] {
     margin: 0;
     border: 0;
     line-height: 1;
     height: auto;
-    padding: $blocklist-item-padding;
-    color: $blocklist-item-color;
+    padding: $padding;
+    color: inherit;
   }
 
   // Multiple select
@@ -209,6 +261,7 @@ $blocklist-header-color: smartscale($blocklist-item-color, 40%) !default;
     left: -9999px;
 
     &:checked + label {
+      // PH - change to iconography
       &::after {
         content: 'Hell yeah';
         color: $primary-color;
@@ -219,46 +272,30 @@ $blocklist-header-color: smartscale($blocklist-item-color, 40%) !default;
   }
 
   // Dropdowns
-  .with-dropdown {
+  .#{$dropdown-class} {
+    color: inherit;
+
     &::after {
-      @include css-triangle(5px, $blocklist-item-color, top);
+      @include css-triangle(5px, $color, top);
       position: absolute;
       top: 50%;
       margin-top: -3px;
-      right: get-side($blocklist-item-padding, right);
+      right: get-side($padding, right);
     }
     select {
+      // Reset pesky <select> styles
       -webkit-appearance: none;
+         -moz-appearance: none;
       outline: 0;
       background: 0;
       border: 0;
       height: auto;
-      padding: $blocklist-item-padding;
-      font-size: $blocklist-fontsize;
+      padding: $padding;
+      font-size: 1em; // Same size as its parent
       line-height: 1;
-      color: $blocklist-item-color;
+      color: inherit;
       background: transparent;
-
-      &:hover {
-        background: $blocklist-item-background-hover;
-      }
     }
-  }
-}
-
-@mixin block-list {
-  @include block-list-container;
-  @include block-list-inputs;
-
-  &.with-icons { @include block-list-icons; }
-
-  header { @include block-list-header; }
-
-  li {
-    @include block-list-item;
-    &.with-chevron { @include block-list-chevron; }
-
-    .label { @include block-list-label; }
   }
 }
 
@@ -267,5 +304,16 @@ $blocklist-header-color: smartscale($blocklist-item-color, 40%) !default;
 */
 
 .block-list {
-  @include block-list;
+  @include block-list-container;
+  @include block-list-inputs;
+
+  &.with-icons { @include block-list-icons; }
+  header       { @include block-list-header; }
+
+  li {
+    @include block-list-item;
+
+    &.with-chevron { @include block-list-chevron; }
+    .label         { @include block-list-label; }
+  }
 }
