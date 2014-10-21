@@ -119,6 +119,9 @@ $blocklist-header-color: smartscale($blocklist-item-color, 40%) !default;
     color: $color;
     line-height: 1;
   }
+  > span {
+    cursor: default;
+  }
   > a, > label {
     cursor: pointer;
 
@@ -207,7 +210,7 @@ $blocklist-header-color: smartscale($blocklist-item-color, 40%) !default;
   $item-selector: 'li'
 ) {
   // PH - need a better solution
-  $item-height: 
+  $item-height:
     $blocklist-fontsize
     + get-side($blocklist-item-padding, top)
     + get-side($blocklist-item-padding, top);
@@ -238,12 +241,14 @@ $blocklist-header-color: smartscale($blocklist-item-color, 40%) !default;
   $background-hover - color of select menu when hovered over.
   $padding - include the global padding of block list items here.
   $dropdown-class - class to use for list items that contain a dropdown.
+  $switch-class - class to use for switches inside list items.
 */
 @mixin block-list-inputs(
   $color: $blocklist-item-color,
   $background-hover: $blocklist-item-background-hover,
-  $padding: $blocklist-item-padding, 
-  $dropdown-class: 'with-dropdown'
+  $padding: $blocklist-item-padding,
+  $dropdown-class: 'with-dropdown',
+  $switch-class: 'switch'
 ) {
   // Text fields
   input[type="text"], input[type="password"] {
@@ -262,7 +267,7 @@ $blocklist-header-color: smartscale($blocklist-item-color, 40%) !default;
 
     &:checked + label {
       // PH - change to iconography
-      &::after {
+      &::before {
         content: 'Hell yeah';
         color: $primary-color;
         float: right;
@@ -296,6 +301,14 @@ $blocklist-header-color: smartscale($blocklist-item-color, 40%) !default;
       color: inherit;
       background: transparent;
     }
+  }
+
+  // Switches
+  .#{$switch-class} {
+    position: absolute;
+    top: 50%;
+    right: get-side($padding, right);
+    transform: translateY(-50%);
   }
 }
 
