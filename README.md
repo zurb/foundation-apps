@@ -7,13 +7,14 @@ Work in progress for Foundation for Apps. At this time we will only be accepting
 You'll need to have the following items installed before continuing.
 
   * [Node.js](http://nodejs.org): Use the installer provided on the NodeJS website.
+  * [Git](http://git-scm.com/downloads): Use the installer for your OS.
   * [Gulp](http://gulpjs.com/) and [Bower](http://bower.io): Run `sudo npm install -g gulp bower`
   * [Sass 3.4](http://sass-lang.com/): run `gem update sass`
 
 ## Quickstart
 
 Clone this repository:
-`git clone git@github.com:zurb/foundation-apps.git`
+`git clone https://github.com/zurb/foundation-apps.git`
 
 Navigate into the directory:
 `cd foundation-apps`
