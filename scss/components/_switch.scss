@@ -19,13 +19,6 @@ $switch-paddle-offset: 4px;
   overflow: hidden;
   display: inline-block;
 
-  width: $switch-width;
-  height: $switch-height;
-  @if hasvalue($switch-border) {
-    border: $switch-border;
-  }
-  border-radius: $switch-radius;
-
   > input {
     position: absolute;
     left: -9999px;
@@ -38,36 +31,79 @@ $switch-paddle-offset: 4px;
     display: block;
     width: 100%;
     height: 100%;
-    background: $switch-background;
     cursor: pointer;
 
     // Paddle
     &::after {
       content: '';
       display: block;
-      background: $switch-paddle-color;
       position: absolute;
-      width: $switch-height;
-      height: $switch-height;
       top: 0;
       left: 0;
-      border-radius: $switch-radius;
-      transition: left $switch-animation-speed ease-out;
+    }
+  }
+}
 
-      @if hasvalue($switch-paddle-offset) {
-        border: $switch-paddle-offset solid $switch-background
+/*
+  Defines the dimmensions of the switch.
+
+  $width - width of the switch.
+  $height - height of the switch.
+*/
+@mixin switch-layout(
+  $width: $switch-width,
+  $height: $switch-height
+) {
+  width: $width;
+  height: $height;
+
+  > label {
+    &::after {
+      width: $height;
+      height: $height;
+    }
+  }
+  input:checked + label { 
+    &::after {
+      left: $width - $height;
+    }
+  }
+}
+
+@mixin switch-style(
+  $background: $switch-background,
+  $background-active: $switch-background-active,
+  $border: $switch-border,
+  $radius: $switch-radius,
+  $paddle-color: $switch-paddle-color,
+  $paddle-offset: $switch-paddle-offset,
+  $animation-speed: $switch-animation-speed
+) {
+  @if hasvalue($border) {
+    border: $border;
+  }
+  border-radius: $radius;
+
+  > label {
+    background: $background;
+
+    &::after {
+      background: $paddle-color;
+      border-radius: $radius;
+      transition: left $animation-speed ease-out;
+
+      @if hasvalue($paddle-offset) {
+        border: $paddle-offset solid $background
       }
     }
   }
 
   input:checked + label {
-    background: $switch-background-active;
+    background: $background-active;
 
     &::after {
-      left: $switch-width - $switch-height;
-
-      @if hasvalue($switch-paddle-offset) {
-        border-color: $switch-background-active;
+      @if hasvalue($paddle-offset) {
+        border-color: $background-active;
       }
     }
   }
@@ -75,6 +111,8 @@ $switch-paddle-offset: 4px;
 
 @mixin switch() {
   @extend %switch;
+  @include switch-layout;
+  @include switch-style;
 }
 
 .switch {
