@@ -3,61 +3,68 @@
   ----
 */
 
-$tab-border-width: 1px;
-$tab-border-color: #ddd;
+$tabstrip-background: transparent;
 
 $tab-title-background: #f4f4f4;
 $tab-title-background-hover: #e4e4e4;
 $tab-title-background-active: #fff;
 $tab-title-color: isitlight($tab-title-background);
-$tab-title-color-active: $primary-color;
+$tab-title-color-active: $tab-title-color;
 
-$tab-title-padding: ($global-padding * 0.75) $global-padding;
+$tab-title-padding: $global-padding;
 $tab-content-padding: $global-padding;
 
-%tabstrip-container {
-  display: flex;
-  flex-flow: row wrap;
+@mixin tabstrip(
+	$orientation: horizontal,
+	$background: $tabstrip-background
+) {
+	/*
+		Container styles
+	*/
+	display: flex;
+	background: $background;
+
+	@if $orientation == vertical {
+	  flex-flow: column nowrap;
+	}
+	@else {
+		flex-flow: row wrap;
+	}
 }
 
-@mixin tabstrip-container {
-  @extend %tabstrip-container;
-}
-
-@mixin tabstrip-item {
-  background: $tab-title-background;
-  padding: $tab-title-padding;
+@mixin tabstrip-item(
+	$background: $tab-title-background,
+	$background-hover: $tab-title-background-hover,
+	$background-active: $tab-title-background-active,
+	$color: $tab-title-color,
+	$color-active: $tab-title-color-active,
+	$padding: $tab-title-padding
+) {
+  background: $background;
+  padding: $padding;
   line-height: 1;
-  border: $tab-border-width solid $tab-border-color;
-  border-left-width: 0;
   margin: 0;
   flex: 0 1 auto;
   cursor: pointer;
-  color: $tab-title-color;
-
-  &:first-child {
-    border-left-width: $tab-border-width;
-  }
+  color: $color;
 
   &.is-active {
-    background: $tab-title-background-active;
-    color: $tab-title-color-active;
-    border-bottom-color: $tab-title-background-active;
+    background: $background-active;
+    color: $color-active;
 
     &:hover {
-      background: $tab-title-background-active;
+      background: $background-active;
     }
   }
   &:hover {
-    background: $tab-title-background-hover;
+    background: $background-hover;
   }
 }
 
-@mixin tab-content {
-  padding: $tab-content-padding;
-  border: 0 solid $tab-border-color;
-  border-width: $tab-border-width;
-  margin-top: -$tab-border-width;
+@mixin tab-content(
+	$padding: $tab-content-padding
+) {
+  padding: $padding;
 }
 
 @mixin tab-content-item {
@@ -72,7 +79,11 @@ $tab-content-padding: $global-padding;
 */
 
 .tabs {
-  @include tabstrip-container;
+  @include tabstrip(horizontal);
+
+  &.vertical {
+  	@include tabstrip(vertical);
+  }
 
 	.tab-item {
     @include tabstrip-item;
@@ -86,7 +97,3 @@ $tab-content-padding: $global-padding;
     @include tab-content-item;
   }
 }
-
-
-
-
