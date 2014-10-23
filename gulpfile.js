@@ -1,15 +1,15 @@
 var gulp         = require('gulp'),
     rimraf       = require('rimraf'),
     runSequence  = require('run-sequence'),
-    server       = require('gulp-develop-server'),
     frontMatter  = require('gulp-front-matter'),
-    path         = require('path')
-    through      = require('through2')
-    fs           = require('fs')
+    path         = require('path'),
+    through      = require('through2'),
+    fs           = require('fs'),
     autoprefixer = require('gulp-autoprefixer'),
     sass         = require('gulp-ruby-sass'),
     uglify       = require('gulp-uglify'),
-    concat       = require('gulp-concat');
+    concat       = require('gulp-concat'),
+    connect      = require('gulp-connect');
 
 // Clean build directory
 gulp.task('clean', function(cb) {
@@ -129,8 +129,16 @@ gulp.task('copy-templates', ['copy', 'uglify-angular'], function() {
   ;
 });
 
-gulp.task('server:start', ['build'], function() {
+gulp.task('server:start', function() {
   server.listen( { path: 'app.js' });
+
+
+});
+
+gulp.task('server:start', function() {
+  connect.server({
+    root: './build'
+  });
 });
 
 gulp.task('build', function() {
