@@ -25,8 +25,11 @@ Install all the dependencies:
 While you're working on the project, run:
 `gulp`
 
-This will assemble all the pages and compile the Sass. You're set!
+This will assemble all the pages and compile the Sass. You can view the test site at this URL:
 
+```
+localhost:8080
+```
 
 ## For Windows Users
 
