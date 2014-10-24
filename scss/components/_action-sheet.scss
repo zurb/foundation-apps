@@ -11,24 +11,29 @@ $actionsheet-animate: transform opacity !default;
 $actionsheet-animation-speed: 0.25s !default;
 $actionsheet-width: 300px !default;
 $actionsheet-radius: 4px !default;
-$actionsheet-shadow: true !default;
+$actionsheet-shadow: 0 -3px 10px rgba(black, 0.25) !default;
 $actionsheet-padding: $global-padding !default;
 $actionsheet-tail-size: 10px !default;
 
 $actionsheet-link-color: #000 !default;
 $actionsheet-link-background-hover: smartscale($actionsheet-background) !default;
 
-@mixin action-sheet-menu {
+@mixin action-sheet-menu(
+  $padding: $actionsheet-padding,
+  $color: $actionsheet-link-color,
+  $border-color: $actionsheet-border-color,
+  $background-hover: $actionsheet-link-background-hover
+) {
   // Menu container
   ul {
-    margin: -($actionsheet-padding);
+    margin: -($padding);
     margin-top: 0;
     list-style-type: none;
     user-select: none;
 
-    // If the menu has no text above it
+    // If the menu has no content above it
     &:first-child {
-      margin-top: -$actionsheet-padding;
+      margin-top: -$padding;
 
       li:first-child {
         border-top: 0;
@@ -38,14 +43,14 @@ $actionsheet-link-background-hover: smartscale($actionsheet-background) !default
     // Menu links
     a {
       display: block;
-      padding: $actionsheet-padding * 0.8;
+      padding: $padding * 0.8;
       line-height: 1;
-      color: $actionsheet-link-color;
-      border-top: 1px solid $actionsheet-border-color;
+      color: $color;
+      border-top: 1px solid $border-color;
 
       &:hover {
-        color: $actionsheet-link-color;
-        background: $actionsheet-link-background-hover;
+        color: $color;
+        background: $background-hover;
       }
     }
 
@@ -59,20 +64,27 @@ $actionsheet-link-background-hover: smartscale($actionsheet-background) !default
   }
 }
 
-@mixin action-sheet($position: bottom) {
+@mixin action-sheet(
+  $position: bottom,
+  $shadow: $actionsheet-shadow,
+  $animate: $actionsheet-animate,
+  $animation-speed: $actionsheet-animation-speed,
+  $padding: $actionsheet-padding,
+  $background: $actionsheet-background
+) {
   position: fixed;
   left: 0;
   z-index: 1000;
   width: 100%;
-  padding: $actionsheet-padding;
-  background: $actionsheet-background;
+  padding: $padding;
+  background: $background;
   text-align: center;
-  transition-property: $actionsheet-animate;
-  transition-duration: $actionsheet-animation-speed;
+  transition-property: $animate;
+  transition-duration: $animation-speed;
   transition-timing-function: ease-out;
 
-  @if $actionsheet-shadow {
-    box-shadow: 0 -3px 10px rgba(black, 0.25);
+  @if hasvalue($shadow) {
+    box-shadow: $shadow;
   }
 
   // Positions
@@ -106,7 +118,7 @@ $actionsheet-link-background-hover: smartscale($actionsheet-background) !default
   }
 }
 
-@mixin popup-menu-layout($position: bottom) {
+@mixin action-sheet-layout($position: bottom) {
   @if $position == bottom {
     top: auto;
     bottom: 0;
@@ -160,7 +172,7 @@ $actionsheet-link-background-hover: smartscale($actionsheet-background) !default
     box-shadow: 0 0 10px rgba(black, 0.25);
   }
 
-  @include popup-menu-layout(bottom);
+  @include action-sheet-layout(bottom);
 
   // Active state
   &.is-active {
@@ -197,7 +209,7 @@ $actionsheet-link-background-hover: smartscale($actionsheet-background) !default
     @include popup-menu;
 
     &.position-top {
-      @include popup-menu-layout(top);
+      @include action-sheet-layout(top);
     }
   }
 }
