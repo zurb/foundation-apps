@@ -1,55 +1,6 @@
-//
-// F6A SETTINGS
-//
+/*
+  SETTINGS
+  --------
 
-// Foundation Colors
-
-$bondi-blue: #008CBA;
-$white-lilac: #E7E7E7;
-$cinnabar: #F04124;
-$cornflower: #A0D3E8;
-$sea-green: #43AC6A;
-$carrot: #F08A24;
-$slate: #708090;
-
-// ZURBapp Colors
-$dull-cyan: #3CADBF; // Influence
-$inch-worm: #B8D30B; // Verify
-$debian-red: #C9025C; // Solidify
-$summer-heat: #FFB134; // Notable
-$union-navy: #073C56; // Foundation
-
-// Application Colors
-$primary-color: #005a72;
-$secondary-color: $white-lilac;
-$alert-color: $cinnabar;
-$info-color: $cornflower;
-$success-color: $sea-green;
-$warning-color: $carrot;
-$dark-color: $slate;
-
-$base-color: $primary-color;
-$light-color: lighten($base-color, 15%);
-
-
-$dark-secondary-color: darken($secondary-color, 15%);
-$light-secondary-color: lighten($secondary-color, 15%);
-
-$global-padding: 1rem;
-
-// Typography
-
-$base-font-size: 16px;
-$line-height: 1.3;
-
-// Grid
-
-$group-width: 62.5rem;
-$block-gutter: 1.875rem;
-$total-columns: 12;
-
-// Grid
-$fixed-top: 4.5rem;
-// $fixed-bottom: 5.5rem;
-// $fixed-left: false;
-// $fixed-right: false;
+  Other component settings will eventually be copied here.
+*/

@@ -156,23 +156,6 @@ $modules: () !default;
   @return $value;
 }
 
-/**
- *   Data
- *   Returns a string containing an attribute selector for the attribute data-$attr.
- *   If a global namespace has been defined, the data attribute will be prefixed with the namespace.
- *
- *   @param {string} $attr - Attribute to be used.
- *
- *   @return A string with a data attribute selector.
- */
-@function data($attr) {
-  @if $namespace {
-    @return '[data-' + $namespace + '-' + $attr + ']';
-  }
-
-  @return '[data-' + $attr + ']';
-}
-
 // $breakpoints: ('small': $small-up, 'medium': $medium-up, 'large': $large-up);
 // Mixin to generate sizing classes
 @mixin each-breakpoint() {
@@ -209,7 +192,7 @@ $modules: () !default;
 
 @function rem-calc($values, $base-value: null) {
   @if $base-value == null {
-    $base-value: foundation(global, rem-base);
+    $base-value: $rem-base;
   }
   $max: length($values);
 

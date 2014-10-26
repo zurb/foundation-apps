@@ -1,3 +1,9 @@
+$base-color: $primary-color;
+$light-color: lighten($base-color, 15%);
+
+$dark-secondary-color: darken($secondary-color, 15%);
+$light-secondary-color: lighten($secondary-color, 15%);
+
 $dark-color: #333;
 
 .color-dark {

@@ -64,6 +64,11 @@ $breakpoint-classes: (small medium large);
   }
 }
 
+/*
+  Old variables
+  Need to convert all references to a newer style eventually
+*/
+
 $screen: "only screen" !default;
 
 $landscape: "#{$screen} and (orientation: landscape)" !default;
@@ -83,3 +88,40 @@ $xlarge-only: "#{$screen} and (min-width:#{nth($xlarge-range, 1)}) and (max-widt
 
 $xxlarge-up: "#{$screen} and (min-width:#{nth($xxlarge-range, 1)})" !default;
 $xxlarge-only: "#{$screen} and (min-width:#{nth($xxlarge-range, 1)}) and (max-width:#{nth($xxlarge-range, 2)})" !default;
+
+/*
+  CSS Output
+*/
+
+// Meta styles are included in all builds, as they are a dependancy of the Javascript.
+// Used to provide media query values for javascript components.
+// Forward slash placed around everything to convince PhantomJS to read the value.
+
+meta.foundation-version {
+  font-family: "/1.0.0/";
+}
+
+meta.foundation-mq-small {
+  font-family: "/" + unquote($small-up) + "/";
+  width: nth($small-range, 1);
+}
+
+meta.foundation-mq-medium {
+  font-family: "/" + unquote($medium-up) + "/";
+  width: nth($medium-range, 1);
+}
+
+meta.foundation-mq-large {
+  font-family: "/" + unquote($large-up) + "/";
+  width: nth($large-range, 1);
+}
+
+meta.foundation-mq-xlarge {
+  font-family: "/" + unquote($xlarge-up) + "/";
+  width: nth($xlarge-range, 1);
+}
+
+meta.foundation-mq-xxlarge {
+  font-family: "/" + unquote($xxlarge-up) + "/";
+  width: nth($xxlarge-range, 1);
+}
