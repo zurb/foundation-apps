@@ -4,6 +4,7 @@ angular.module('foundation.common.services')
   .service('FoundationApi', function() {
     var listeners = [];
     var settings = {};
+    var uniqueIds = [];
 
     return {
       subscribe: function(name, callback) {
@@ -31,7 +32,20 @@ angular.module('foundation.common.services')
       modifySettings: function(tree) {
         settings = angular.extend(settings, tree);
         return settings;
+      },
+      generateUuid: function() {
+        var uuid = '';
+
+        do {
+          uuid += 'fa-uuid-';
+          for (var i=0; i<15; i++) {
+            uuid += Math.floor(Math.random()*16).toString(16);
+          }
+        } while(!uniqueIds.indexOf(uuid));
+
+        uniqueIds.push(uuid);
+        return uuid;
       }
-    }
+    };
   }
 );

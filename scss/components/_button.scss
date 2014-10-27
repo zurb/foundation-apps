@@ -1,16 +1,18 @@
 $button-padding: 0.85em 1em !default;
-$button-margin: 0 1em 1em 0 !default;
+$button-margin: 0 $global-padding $global-padding 0 !default;
+$button-style: solid !default;
 $button-background: $primary-color !default;
 $button-color: auto !default;
 $button-radius: 6px !default;
 $button-sizes: (
-  tiny: 0.6,
-  small: 0.8,
+  tiny: 0.8,
+  small: 0.9,
   medium: 1,
   large: 1.2,
 ) !default;
 $button-font-size: 0.9rem !default;
 $button-opacity-disabled: 0.8 !default;
+$button-tag-selector: true !default;
 
 %button {
   display: inline-block;
@@ -28,12 +30,13 @@ $button-opacity-disabled: 0.8 !default;
   border-radius: $button-radius;
 
   // Dropdown arrow
-  &[data-popup-toggle], &[data-popover-toggle] {
+  // TODO: Change to class and mixin because now the toggle is 'fa-open' which is too generic
+  &[data-popup-toggle] {
     position: relative;
     padding-right: 2em; // Placeholder
 
     &::after {
-      @include css-triangle(6px, $button-color, top);
+      @include css-triangle(6px, black, top);
       position: absolute;
       right: 0.7em;
       top: 50%;
@@ -47,9 +50,13 @@ $button-opacity-disabled: 0.8 !default;
   pointer-events: none;
 }
 
-@mixin button-size($size: medium) {
+@mixin button-size($size: medium, $expand: false) {
   $size: $button-font-size * map-get($button-sizes, $size);
   font-size: $size;
+
+  @if $expand {
+    @include button-expand;
+  }
 }
 @mixin button-expand($expand: true) {
   @if $expand {
@@ -64,18 +71,47 @@ $button-opacity-disabled: 0.8 !default;
 }
 @mixin button-style(
   $background: $button-background,
-  $color: $button-color
+  $color: $button-color,
+  $style: $button-style,
+  $btngroup: false
 ){
-  @if $color == auto {
-    $color: if(lightness($background) > 60%, #000, #fff);
+  @if $style == hollow {
+    border: 1px solid $background;
+    background: transparent;
+    color: $background;
+
+    &:hover {
+      border-color: scale-color($background, $lightness: 25%);
+      background: transparent;
+      color: scale-color($background, $lightness: 25%);
+    }
+    &[data-popup-toggle]::after {
+      border-top-color: $background;
+    }
+  }
+  // Solid is the default
+  @else {
+    @if $color == auto {
+      $color: isitlight($background);
+    }
+
+    background: $background;
+    color: $color;
+
+    &:hover {
+      background: scale-color($background, $lightness: -15%);
+      color: $color;
+    }
+    &[data-popup-toggle]::after {
+      border-top-color: $color;
+    }
   }
 
-  background: $background;
-  color: $color;
-
-  &:hover {
-    background: scale-color($background, $lightness: -15%);
-    color: $color;
+  @if $btngroup {
+    border-color: $background;
+    &:hover {
+      border-color: scale-color($background, $lightness: -25%);
+    }
   }
 }
 @mixin button-disabled(
@@ -93,12 +129,13 @@ $button-opacity-disabled: 0.8 !default;
   $size: medium,
   $expand: false,
   $background: $button-background,
-  $color: $button-color
+  $color: $button-color,
+  $style: $button-style
 ) {
   @extend %button;
   @include button-size($size);
   @include button-expand($expand);
-  @include button-style($background, $color);
+  @include button-style($background, $color, $style);
 }
 
 /*
@@ -108,6 +145,7 @@ $button-opacity-disabled: 0.8 !default;
 .button {
   @include button;
 
+  &.tiny   { @include button-size(tiny); }
   &.small  { @include button-size(small); }
   &.large  { @include button-size(large); }
   &.expand { @include button-expand; }
@@ -122,5 +160,11 @@ $button-opacity-disabled: 0.8 !default;
     &.success   { @include button-disabled($success-color, false) }
     &.warning   { @include button-disabled($warning-color, false) }
     &.alert     { @include button-disabled($alert-color, false) }
+  }
+}
+
+@if $button-tag-selector {
+  button {
+    @extend .button;
   }
 }

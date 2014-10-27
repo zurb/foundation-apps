@@ -8,7 +8,9 @@ var app = angular.module('application', [
     'foundation.modal',
     'foundation.panel',
     'foundation.offcanvas',
-    'foundation.interchange'
+    'foundation.interchange',
+    'foundation.tabs',
+    'foundation.accordion'
   ])
     .config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function($stateProvider, $urlProvider, $locationProvider) {
 
