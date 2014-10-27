@@ -88,7 +88,7 @@ angular.module('foundation.tabs')
       tabs: '=?',
       target: '@'
     },
-    templateUrl: 'partials/tab-content.html',
+    templateUrl: '/partials/tab-content.html',
     compile: function(tElement, tAttr) {
       return {
         post: function postLink(scope, element, attrs, ctrl) {
