@@ -43,7 +43,6 @@ gulp.task('copy-partials', ['clean-partials'], function() {
 gulp.task('sass', function() {
   return gulp.src('client/assets/scss/app.scss')
     .pipe(sass({ loadPath: ['client/assets/scss', 'scss'], style: 'expanded', lineNumbers: true  }))
-    .pipe(concat('app.css'))
     .pipe(autoprefixer({
       browsers: ['last 2 versions', 'ie 10']
     }))
