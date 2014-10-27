@@ -92,8 +92,6 @@ $modules: () !default;
   }
 }
 
-// SMART SCALE
-// Given a background color $color, returns an appropriate foreground color.
 /**
  *   Smart Scale
  *   Scales a color to be lighter if it's light, or darker if it's dark.
@@ -174,6 +172,41 @@ $modules: () !default;
 }
 
 /**
+ *   Get Border Value
+ *   Given border $val, find a specific element of the border, which is $elem.
+ *   Possible values for $elem are width, style, and color.
+ *
+ *   @param {list} $val - Border value to find a value in.
+ *   @param {keyword} $elem - Border component to extract.
+ *
+ *   @param If the value exists, returns the value. If the value is not in the border definition,
+ *     the function will return a 0px width, solid style, or black border.
+ */
+ @function get-border-value($val, $elem) {
+   // Find the width, style, or color and return it
+   @each $v in $val {
+     $type: type-of($v);
+     @if $elem == width and $type == 'number' {
+       @return $v;
+     }
+     @if $elem == style and $type == 'string' {
+       @return $v;
+     }
+     @if $elem == color and $type == 'color' {
+       @return $v;
+     }
+   }
+   
+   // Defaults
+   $defaults: (
+     width: 0,
+     style: solid,
+     color: black,
+   );
+   @return map-get($defaults, $elem);
+ }
+
+/**
  *   Get Shadow Value
  *   Given shadow value $val, find a specific element of the shadow, which is $elem.
  *   Possible values for $elem are x, y, size, spread, color, and offset.
@@ -203,7 +236,7 @@ $modules: () !default;
     }
   }
   
-  // The rest of the values are perilously in the middle
+  // The rest of the values are located perilously in the middle
   $values: ();
   @each $v in $val {
     @if type-of($v) == 'number' {
@@ -245,20 +278,6 @@ $modules: () !default;
   @else {
     @return false;
   }
-}
-
-/**
- *   Get Border Value
- *   Given a border value $val, finds the size, style, or color (defined by $elem),
- *   regardless of the order the properties came in.
- *
- *   @param {list} $val - Border value to be parsed.
- *   @param {keyword} $elem - Element of the border to be returned.
- *
- *   @return The extracted value, or false if the value couldn't be found.
- */
-@function get-border-value($val, $elem) {
-  @return true;
 }
 
 /**
