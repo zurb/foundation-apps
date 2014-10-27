@@ -34,7 +34,9 @@ $breakpoints: (
   'large': ($large-up, $large-only),
 );
 
-// Visibility
+/*
+  Visibility
+*/
 .hide {
   display: none;
 }
@@ -57,7 +59,9 @@ $breakpoints: (
   }
 }
 
-// Floating
+/*
+  Floating
+*/
 .clearfix { @include clearfix; }
 @each $float in ('left', 'right', 'none') {
   .float-#{$float} {
@@ -72,7 +76,9 @@ $breakpoints: (
   }
 }
 
-// Text alignment
+/*
+  Text alignment
+*/
 @each $align in ('left', 'right', 'center', 'justify') {
 	@each $size, $breakpoint in $breakpoints {
 		.text-#{$align} {
