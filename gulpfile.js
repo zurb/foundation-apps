@@ -94,7 +94,7 @@ gulp.task('uglify-angular', function() {
 
 });
 
-gulp.task('copy-templates', ['copy', 'uglify-angular'], function() {
+gulp.task('copy-templates', ['copy'], function() {
   var config = [];
 
   return gulp.src('./client/templates/**/*.html')
@@ -118,13 +118,12 @@ gulp.task('copy-templates', ['copy', 'uglify-angular'], function() {
     .pipe(gulp.dest('build/templates'))
     .on('end', function() {
       //routes
-      var appPath = ['build', 'assets', 'js', 'angular-app.js'];
-      var data = fs.readFileSync(appPath.join(path.sep));
+      var appPath = ['build', 'assets', 'js', 'routes.js'];
       config.sort(function(a, b) {
         return a.url < b.url;
       });
 
-      fs.writeFileSync(appPath.join(path.sep), 'var dynamicRoutes = ' + JSON.stringify(config) + '; \n' + data);
+      fs.writeFileSync(appPath.join(path.sep), 'var dynamicRoutes = ' + JSON.stringify(config) + '; \n');
     })
   ;
 });
@@ -159,7 +158,7 @@ gulp.task('default', ['build', 'server:start'], function() {
   gulp.watch(['./client/assets/scss/**/*', './scss/**/*'], ['sass']);
 
   // Watch JavaScript
-  gulp.watch(['./client/assets/js/**/*', './js/**/*'], ['uglify', 'copy-templates']);
+  gulp.watch(['./client/assets/js/**/*', './js/**/*'], ['uglify']);
 
   // Watch static files
   gulp.watch(['./client/**/*.*', '!./client/templates/**/*.*', '!./client/assets/{scss,js}/**/*.*'], ['copy']);
@@ -168,5 +167,5 @@ gulp.task('default', ['build', 'server:start'], function() {
   gulp.watch(['js/angular/partials/**.*'], ['copy-partials']);
 
   // Watch Angular templates
-  gulp.watch(['./client/templates/**/*.html'], ['uglify-angular', 'copy-templates']);
+  gulp.watch(['./client/templates/**/*.html'], ['copy-templates']);
 });
