@@ -5,6 +5,8 @@ describe('Common Foundation Services', function() {
     expect(FoundationApi).not.toEqual(null);
   }));
 
+
+  //testing listeners
   it('should subscribe and fire a new listener', inject(function(FoundationApi) {
     var response = '';
     var listenerName = 'testListener';
@@ -77,4 +79,37 @@ describe('Common Foundation Services', function() {
     expect(response2).toEqual('fired');
   }));
 
+  it('should modify and get settings', inject(function(FoundationApi) {
+    var settings = {};
+    var newSettings = {
+      'test': 1
+    };
+
+    settings = FoundationApi.getSettings();
+
+    //make sure settings are empty
+    expect(settings).toEqual({});
+
+    //extend settings
+    settings = FoundationApi.modifySettings(newSettings);
+
+    expect(settings).toEqual(newSettings);
+  }));
+
+  it('should generate unique IDs', inject(function(FoundationApi) {
+    var ids = [];
+    var duplicates = [];
+
+    for(var i = 0; i < 100; i++) {
+      var generatedId = FoundationApi.generateUuid();
+      if(ids.indexOf(generatedId) > -1) {
+        duplicates.push(generatedId);
+      }
+
+      ids.push(generatedId);
+    }
+
+    expect(duplicates).toEqual([]);
+
+  }));
 });
