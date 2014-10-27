@@ -23,7 +23,7 @@ url: /panel
 <hr />
 
 <h3>Basic HTML</h3>
-<p>You can create [Item] with this basic HTML</p>
+<p>You can create Panels with this basic HTML</p>
 <ul class="segmented button-group small">
   <li class="is-active"><a href="#">CSS Classes</a></li>
   <li><a href="#">Sass Mixins</a></li>
@@ -32,7 +32,10 @@ url: /panel
   <div class="medium-6 block content">
     <pre>
       <code class="language-html">
-        [html]
+        <div class="panel panel-left" id="my-panel" data-panel>
+          This is example panel text, totes neat man.
+        </div>
+        <a href="#" class="button" data-panel-toggle="my-panel">Left panel</a>
       </code>
     </pre>
   </div>

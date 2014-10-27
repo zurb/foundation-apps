@@ -1,26 +1,15 @@
-//
-// Foundation Variables
-//
+/*
+  GLOBAL
+  ------
 
-$foundation: ();
+  Global styles and settings for Foundation for Apps are stored here. This file must always
+  be imported, no matter what.
 
-@include foundation-component(global, (
-  font-size: 16px,
-  rem-base: 16px,
-  line-height: 1,
-));
-@include foundation-component(color, (
-  primary: #005a72,
-  secondary: #E7E7E7,
-  info: #A0D3E8,
-  success: #43AC6A,
-  alert: #F04124,
-  warning: #F08A24,
-));
+  Includes:
+   -
+*/
 
-// Data attribute namespace
-// styles get applied to [data-mysite-plugin], etc
-$namespace: false !default;
+$rem-base: 16px;
 
 // The default font-size is set to 100% of the browser style sheet (usually 16px)
 // for compatibility with browser-based text zoom or user-set defaults.
@@ -41,14 +30,12 @@ $font-weight-normal: normal !default;
 $font-weight-bold: bold !default;
 
 // We use these to control various global styles
-$body-bg: #fff !default;
+$body-background: #fff !default;
 $body-font-color: #222 !default;
 $body-font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif !default;
 $body-font-weight: $font-weight-normal !default;
 $body-font-style: normal !default;
-
-// We use this to control font-smoothing
-$font-smoothing: antialiased !default;
+$body-antialiased: true;
 
 // We use these to control text direction settings
 $text-direction: ltr !default;
@@ -63,171 +50,80 @@ $opposite-direction: right !default;
 }
 
 // Application Colors
-$primary-color: #008CBA !default;
+$primary-color: #005A72 !default;
 $secondary-color: #E7E7E7 !default;
 $alert-color: #F04124 !default;
 $info-color: #A0D3E8 !default;
 $success-color: #43AC6A !default;
 $warning-color: #F08A24 !default;
 $dark-color: #708090 !default;
+$slate: #708090 !default;
 
 // We use these to make sure border radius matches unless we want it different.
-$global-radius: 3px !default;
+$global-radius: 4px !default;
 $global-rounded: 1000px !default;
 
 // We use this for default spacing
+$global-padding: 1rem;
 $global-spacing: rem-calc(15);
 
-// We use these to control inset shadow shiny edges and depressions.
-// $shiny-edge-size: 0 1px 0 !default;
-// $shiny-edge-color: rgba(#fff, .5) !default;
-// $shiny-edge-active-color: rgba(#000, .2) !default;
-
-// We use this to control whether or not CSS classes come through in the gem files.
+// We use this to control whether or not global CSS styles are output.
 $include-html-classes: true !default;
 $include-print-styles: true !default;
 $include-html-global-classes: $include-html-classes !default;
 
-// We use this as cursors values for enabling the option of having custom cursors in the whole site's stylesheet
-// $cursor-crosshair-value: crosshair !default;
-// $cursor-default-value: default !default;
-// $cursor-pointer-value: pointer !default;
-// $cursor-help-value: help !default;
-// $cursor-text-value: text !default;
-
-$body-antialiased: true;
-
-
 @include exports("global") {
-
-  // Meta styles are included in all builds, as they are a dependancy of the Javascript.
-  // Used to provide media query values for javascript components.
-  // Forward slash placed around everything to convince PhantomJS to read the value.
-
-  meta.foundation-version {
-    font-family: "/5.2.3/";
-  }
-
-  meta.foundation-mq-small {
-    font-family: "/" + unquote($small-up) + "/";
-    width: nth($small-range, 1);
-  }
-
-  meta.foundation-mq-medium {
-    font-family: "/" + unquote($medium-up) + "/";
-    width: nth($medium-range, 1);
-  }
-
-  meta.foundation-mq-large {
-    font-family: "/" + unquote($large-up) + "/";
-    width: nth($large-range, 1);
-  }
-
-  meta.foundation-mq-xlarge {
-    font-family: "/" + unquote($xlarge-up) + "/";
-    width: nth($xlarge-range, 1);
-  }
-
-  meta.foundation-mq-xxlarge {
-    font-family: "/" + unquote($xxlarge-up) + "/";
-    width: nth($xxlarge-range, 1);
-  }
-
-  meta.foundation-data-attribute-namespace {
-    font-family: #{$namespace};
-  }
 
   @if $include-html-global-classes {
 
-    // Must be 100% for off canvas to work
-    html, body { height: 100%; }
-
-    // Set box-sizing globally to handle padding and border widths
-    *,
-    *:before,
-    *:after {
-      box-sizing: border-box;
+    // Make extra sure we're using the whole window
+    html, body {
+      height: 100%;
+      font-size: $base-font-size;
     }
 
-    html,
-    body { font-size: $base-font-size; }
+    // Set box-sizing globally to handle padding and border widths
+    html {
+      box-sizing: border-box;
+    }
+    *, *:before, *:after {
+      box-sizing: inherit;
+    }
 
     // Default body styles
     body {
-      background: $body-bg;
+      background: $body-background;
       color: $body-font-color;
       padding: 0;
       margin: 0;
       font-family: $body-font-family;
       font-weight: $body-font-weight;
       font-style: $body-font-style;
-      line-height: 1; // Set to $base-line-height to take on browser default of 150%
+      line-height: 1;
       position: relative;
+
+      @if $body-antialiased {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
     }
 
-    // Grid Defaults to get images and embeds to work properly
     img {
+      // Grid Defaults to get images and embeds to work properly
       max-width: 100%;
       height: auto;
       -ms-interpolation-mode: bicubic;
+
+      // Get rid of gap under images by making them display: inline-block; by default
+      display: inline-block;
+      vertical-align: middle;
     }
 
     #map_canvas,
     .map_canvas {
       img,
       embed,
-      object { max-width: none !important;
-      }
+      object { max-width: none !important; }
     }
-
-    // Miscellaneous useful HTML classes
-    // .left   { float: left !important; }
-    // .right  { float: right !important; }
-    .clearfix     { @include clearfix; }
-    .hide         { display: none; }
-
-    // Font smoothing
-    // Antialiased font smoothing works best for light text on a dark background.
-    // Apply to single elements instead of globally to body.
-    // Note this only applies to webkit-based desktop browsers and Firefox 25 (and later) on the Mac.
-    .antialiased { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
-
-    @if $body-antialiased {
-      body {
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale; 
-      }
-    }
-
-    // Get rid of gap under images by making them display: inline-block; by default
-    img {
-      display: inline-block;
-      vertical-align: middle;
-    }
-
-    //
-    // Global resets for forms
-    // Move these to _forms.scss
-
-    // Make sure textarea takes on height automatically
-    textarea { height: auto; min-height: 50px; }
-
-    // Make select elements 100% width by default
-    select { width: 100%; }
   }
-}
-
-// DEBUG
-// A mixin useful for debugging.
-
-@mixin debug {
-  * {
-    background:rgba(0, 0, 0, .05);
-  }
-}
-
-html,
-body {
-  font-size: $base-font-size;
-  -webkit-font-smoothing: antialiased;
 }

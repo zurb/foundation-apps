@@ -7,7 +7,7 @@ angular.module('foundation.interchange')
   };
 
   return {
-    restrict: 'A',
+    restrict: 'EA',
     transclude: 'element',
     scope: {
       position: '@'
