@@ -65,7 +65,7 @@ $breakpoint-classes: (small medium large);
       $bp: rem-calc($bp);
     }
     // Finally, the rem value is turned into an em value
-    $bp: strip-unit($bp) + 'em';
+    $bp: strip-unit($bp) * 1em;
 
     // And lo, a media query was born
     @if $dir == 'only' {
