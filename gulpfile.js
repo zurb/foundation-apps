@@ -9,11 +9,12 @@ var gulp         = require('gulp'),
     sass         = require('gulp-ruby-sass'),
     uglify       = require('gulp-uglify'),
     concat       = require('gulp-concat'),
-    connect      = require('gulp-connect');
+    connect      = require('gulp-connect'),
+    modRewrite = require('connect-modrewrite');
 
 // Clean build directory
 gulp.task('clean', function(cb) {
-  rimraf('./build', cb)
+  rimraf('./build', cb);
 });
 
 // Copy static files (but not the Angular templates, Sass, or JS)
@@ -108,7 +109,7 @@ gulp.task('copy-templates', ['copy', 'uglify-angular'], function() {
 
         //path normalizing
         var relativePath = path.relative(__dirname + path.sep + 'client', file.path);
-        page.path = relativePath.split(path.sep).join('/');
+        page.path = '/' + relativePath.split(path.sep).join('/');
 
         config.push(page);
       }
@@ -137,7 +138,12 @@ gulp.task('server:start', function() {
 
 gulp.task('server:start', function() {
   connect.server({
-    root: './build'
+    root: './build',
+    middleware: function() {
+      return [
+        modRewrite(['^[^\\.]*$ /index.html [L]'])
+      ];
+    },
   });
 });
 

@@ -3,12 +3,10 @@ angular.module('foundation.modal', []);
 angular.module('foundation.modal')
   .directive('faModal', ['FoundationApi', function(foundationApi) {
   return {
-    restrict: 'A',
+    restrict: 'EA',
     templateUrl: '/partials/modal.html',
     transclude: true,
-    scope: {
-      src: '@'
-    },
+    scope: true,
     replace: true,
     compile: function compile(tElement, tAttrs, transclude) {
       var type = 'modal';
@@ -19,7 +17,7 @@ angular.module('foundation.modal')
         },
         post: function postLink(scope, element, attrs) {
           var dialog = angular.element(element.children()[0]);
-          var currentStatus = 'hide';
+          scope.active = false;
 
           //setup
           foundationApi.subscribe(attrs.id, function(msg) {
@@ -31,36 +29,27 @@ angular.module('foundation.modal')
               scope.toggle();
             }
 
+            scope.$apply();
+
             return;
           });
 
           scope.hide = function() {
-            dialog.removeClass('is-active');
-            element.removeClass('is-active');
-            currentStatus = 'hide';
+            scope.active = false;
             return;
-          }
+          };
 
           scope.show = function() {
-            dialog.addClass('is-active');
-            element.addClass('is-active');
-            currentStatus = 'show';
+            scope.active = true;
             return;
-          }
+          };
 
           scope.toggle = function() {
-            if(currentStatus == 'show') {
-              scope.hide();
-              currentStatus = 'hide';
-              return;
-            }
-
-            scope.show();
-            currentStatus = 'show';
+            scope.active = !scope.active;
             return;
-          }
+          };
         }
-      }
+      };
     },
-  }
+  };
 }]);

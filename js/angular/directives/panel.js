@@ -3,7 +3,7 @@ angular.module('foundation.panel', []);
 angular.module('foundation.panel')
   .directive('faPanel', ['FoundationApi', function(foundationApi) {
   return {
-    restrict: 'A',
+    restrict: 'EA',
     templateUrl: '/partials/panel.html',
     transclude: true,
     scope: {
@@ -20,6 +20,7 @@ angular.module('foundation.panel')
         },
         post: function postLink(scope, element, attrs) {
           var currentStatus = 'hide';
+          scope.active = false;
 
           //setup
           foundationApi.subscribe(attrs.id, function(msg) {
@@ -31,34 +32,27 @@ angular.module('foundation.panel')
               scope.toggle();
             }
 
+            scope.$apply();
+
             return;
           });
 
           scope.hide = function() {
-            element.removeClass('is-active');
-            currentStatus = 'hide';
+            scope.active = false;
             return;
-          }
+          };
 
           scope.show = function() {
-            element.addClass('is-active');
-            currentStatus = 'show';
+            scope.active = false;
             return;
-          }
+          };
 
           scope.toggle = function() {
-            if(currentStatus == 'show') {
-              scope.hide();
-              currentStatus = 'hide';
-              return;
-            }
-
-            scope.show();
-            currentStatus = 'show';
+            scope.active = !scope.active;
             return;
-          }
+          };
         }
-      }
+      };
     },
-  }
+  };
 }]);
