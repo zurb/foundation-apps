@@ -123,7 +123,7 @@ gulp.task('copy-templates', ['copy'], function() {
         return a.url < b.url;
       });
 
-      fs.writeFileSync(appPath.join(path.sep), 'var dynamicRoutes = ' + JSON.stringify(config) + '; \n');
+      fs.writeFileSync(appPath.join(path.sep), 'var foundationRoutes = ' + JSON.stringify(config) + '; \n');
     })
   ;
 });

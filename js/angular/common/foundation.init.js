@@ -61,7 +61,8 @@ $FoundationStateProvider.$inject = ['$stateProvider'];
 function $FoundationStateProvider($stateProvider) {
   var complexViews = {};
 
-  this.registerDynamicRoutes = function() {
+  this.registerDynamicRoutes = function(routes) {
+    var dynamicRoutes = routes || foundationRoutes;
     angular.forEach(dynamicRoutes, function(page) {
       if (page.hasComposed == true) {
         if (!angular.isDefined(complexViews[page.parent])) {
