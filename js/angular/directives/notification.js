@@ -55,6 +55,3 @@ angular.module('foundation.notification')
     },
   };
 }]);
-
-angular.module('foundation.notification')
-  .
