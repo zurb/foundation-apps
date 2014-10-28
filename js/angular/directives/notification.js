@@ -55,6 +55,7 @@ angular.module('foundation.notification')
     restrict: 'EA',
     templateUrl: '/partials/notification.html',
     replace: true,
+    transclude: true,
     require: '^faNotificationSet',
     controller: function() { },
     scope: {
@@ -89,6 +90,7 @@ angular.module('foundation.notification')
     restrict: 'EA',
     templateUrl: '/partials/notification.html',
     replace: true,
+    transclude: true,
     scope: {
       title: '@?',
       content: '@?',

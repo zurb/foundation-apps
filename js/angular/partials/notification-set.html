@@ -1,9 +1,8 @@
 <fa-notification ng-repeat="notification in notifications"
   title="notification.title"
-  content="notification.content"
   img="notification.image"
   on-open="notification.onOpen"
   on-close="notification.onClose"
   notif-id = "notification.id"
-></fa-notification>
+  >{{ notification.content }}</fa-notification>
 
