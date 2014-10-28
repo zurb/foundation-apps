@@ -1,60 +1,73 @@
 angular.module('foundation.notification', []);
 
 angular.module('foundation.notification')
-  .directive('faNotification', ['FoundationApi', function(foundationApi) {
+  .controller('FaNotificationController', ['$scope', 'FoundationApi', function FaTabsController($scope, foundationApi) {
+    var controller = this;
+    var notifications = controller.notifications = $scope.notifications = [];
+
+    controller.addNotification = function(info) {
+      var id = foundationApi.generateUuid();
+      info.id = id;
+      notifications[id] = info;
+    };
+
+    controller.removeNotification = function(id) {
+      delete notifications[id];
+    };
+
+    controller.clearAll = function() {
+      notifications = [];
+    };
+
+}]);
+
+angular.module('foundation.notification')
+  .directive('faNotificationSet', ['FoundationApi', function(foundationApi) {
   return {
     restrict: 'EA',
-    templateUrl: '/partials/panel.html',
-    transclude: true,
-    scope: {
-      position: '@'
-    },
-    replace: true,
-    compile: function compile(tElement, tAttrs, transclude) {
-      var type = 'panel';
+    templateUrl: '/partials/notification-set.html',
+    scope: true,
+    controller: 'FaTabsController',
+    link:function postLink(scope, element, attrs, controller) {
 
-      return {
-        pre: function preLink(scope, iElement, iAttrs, controller) {
-          iAttrs.$set('fa-closable', type);
-        },
-        post: function postLink(scope, element, attrs) {
-          var currentStatus = 'hide';
-          scope.active = false;
-
-          //setup
-          foundationApi.subscribe(attrs.id, function(msg) {
-            if(msg == 'show' || msg == 'open') {
-              scope.show();
-            } else if (msg == 'close' || msg == 'hide') {
-              scope.hide();
-            } else if (msg == 'toggle') {
-              scope.toggle();
-            }
-
-            scope.$apply();
-
-            return;
-          });
-
-          scope.hide = function() {
-            scope.active = false;
-            return;
-          };
-
-          scope.show = function() {
-            scope.active = false;
-            return;
-          };
-
-          scope.toggle = function() {
-            scope.active = !scope.active;
-            return;
-          };
+      foundationApi.subscribe(attrs.id, function(msg) {
+        if(msg === 'clearall') {
+          controller.clearAll();
+        } else {
+          controller.addNotification(msg);
         }
-      };
+
+        scope.$apply();
+      });
+
     },
   };
 }]);
 
 angular.module('foundation.notification')
-  .
+  .directive('faNotification', ['FoundationApi', function(foundationApi) {
+  return {
+    restrict: 'EA',
+    templateUrl: '/partials/notification.html',
+    replace: true,
+    require: '^faNotificationSet',
+    scope: {
+      title: '&?',
+      body: '&?',
+      image: '&?',
+      notifId: '&',
+      onEnter: '@?',
+      onExit: '@?'
+    },
+    link: function(scope, element, attrs, controller) {
+      if(scope.onEnter) {
+        scope.onEnter();
+      }
+
+      scope.remove = function() {
+        if(scope.onExit) { scope.onExit(); }
+        controller.removeTab(scope.notifId);
+      };
+    },
+  };
+}]);
