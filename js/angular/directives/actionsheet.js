@@ -8,8 +8,8 @@ angular.module('foundation.actionsheet')
     replace: true,
     templateUrl: '/partials/actionsheet.html',
     scope: {
-      target: '@?',
-      position: '@?'
+      position: '@?',
+      buttonTitle: '@?'
     },
     link: function(scope, element, attrs, controller) {
       scope.active = false;
