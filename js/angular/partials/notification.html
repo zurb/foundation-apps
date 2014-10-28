@@ -1,5 +1,5 @@
-<div class="notification is-active">
-  <a class="close-button" ng-click="remove()">&times;</a>
+<div class="notification" ng-class="{'is-active': active}" >
+  <a href="#" class="close-button" ng-click="remove()">&times;</a>
   <h1>{{ title }}</h1>
   <p>{{ content }}</p>
   <p><img src="{{ image }}" /></p>

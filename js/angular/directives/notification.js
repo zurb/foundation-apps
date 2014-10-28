@@ -66,6 +66,8 @@ angular.module('foundation.notification')
       onExit: '&?'
     },
     link: function(scope, element, attrs, controller) {
+      scope.active = true;
+
       if(scope.onEnter) {
         scope.onEnter();
       }
@@ -77,6 +79,56 @@ angular.module('foundation.notification')
         if(scope.onExit) { scope.onExit(); }
         controller.removeNotification(scope.notifId);
       };
+    },
+  };
+}]);
+
+angular.module('foundation.notification')
+  .directive('faNotificationStatic', ['FoundationApi', function(foundationApi) {
+  return {
+    restrict: 'EA',
+    templateUrl: '/partials/notification.html',
+    replace: true,
+    scope: {
+      title: '@?',
+      content: '@?',
+      image: '@?',
+      onEnter: '&?',
+      onExit: '&?'
+    },
+    link: function(scope, element, attrs, controller) {
+
+      foundationApi.subscribe(attrs.id, function(msg) {
+        if(msg == 'show' || msg == 'open') {
+          scope.show();
+        } else if (msg == 'close' || msg == 'hide') {
+          scope.hide();
+        } else if (msg == 'toggle') {
+          scope.toggle();
+        }
+
+        scope.$apply();
+
+        return;
+      });
+
+      scope.hide = function() {
+        scope.active = false;
+        return;
+      };
+
+      scope.remove = function() { scope.hide(); };
+
+      scope.show = function() {
+        scope.active = true;
+        return;
+      };
+
+      scope.toggle = function() {
+        scope.active = !scope.active;
+        return;
+      };
+
     },
   };
 }]);
