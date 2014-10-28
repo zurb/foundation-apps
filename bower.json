@@ -1,5 +1,10 @@
 {
   "name": "foundation-apps",
+  "version": "0.0.1",
+  "main": [
+    "scss/foundation.scss",
+    "js/angular/app.js"
+  ],
   "dependencies": {
     "notify.js": "~1.2.3",
     "viewport-units-buggyfill": "~0.4.1",
@@ -10,7 +15,6 @@
     "angular-animate": "~1.2.25",
     "jquery": "~2.1.1"
   },
-  "version": "0.0.1",
   "homepage": "https://github.com/zurb/foundation-apps",
   "description": "A responsive, Angular-powered web apps framework from ZURB.",
   "keywords": [
