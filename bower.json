@@ -12,7 +12,7 @@
   },
   "version": "0.0.1",
   "homepage": "https://github.com/zurb/foundation-apps",
-  "description": "Build the future of responsive web apps.",
+  "description": "A responsive, Angular-powered web apps framework from ZURB.",
   "keywords": [
     "web apps",
     "responsive design",
@@ -24,9 +24,8 @@
     "**/.*",
     "node_modules",
     "bower_components",
-    "dist",
-    "docs",
-    "lib",
-    "Gruntfile.js"
+    "client",
+    "build",
+    "docs"
   ]
 }
