@@ -15,7 +15,7 @@ angular.module('foundation.common.animations')
           //reset possible failed animations and bugs
           element.removeClass(animationIn + ' ' + animationOut);
 
-          element.addClass(animationOut);
+          element.addClass(animationIn);
           element.addClass('animated');
 
           element.one(events.join(' '), function(){
