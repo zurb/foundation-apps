@@ -11,7 +11,8 @@ var app = angular.module('application', [
     'foundation.interchange',
     'foundation.tabs',
     'foundation.accordion',
-    'foundation.notification'
+    'foundation.notification',
+    'foundation.actionsheet'
   ])
     .config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function($stateProvider, $urlProvider, $locationProvider) {
 
