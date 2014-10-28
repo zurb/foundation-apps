@@ -2,14 +2,9 @@
   "name": "foundation-apps",
   "version": "0.0.1",
   "description": "Foundation for Apps",
-  "main": "lib/cli",
   "scripts": {
     "postinstall": "bower install",
     "test": "gulp"
-  },
-  "preferGlobal": "true",
-  "bin": {
-    "foundationapps": "lib/cli.js"
   },
   "repository": {
     "type": "git",
