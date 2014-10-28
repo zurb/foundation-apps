@@ -10,7 +10,8 @@ var app = angular.module('application', [
     'foundation.offcanvas',
     'foundation.interchange',
     'foundation.tabs',
-    'foundation.accordion'
+    'foundation.accordion',
+    'foundation.notification'
   ])
     .config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function($stateProvider, $urlProvider, $locationProvider) {
 
