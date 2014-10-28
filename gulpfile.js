@@ -52,7 +52,6 @@ gulp.task('sass', function() {
       style: 'expanded',
       lineNumbers: true
     }))
-    .pipe(concat('app.css'))
     .pipe(autoprefixer({
       browsers: ['last 2 versions', 'ie 10']
     }))
