@@ -69,10 +69,12 @@ $breakpoint-classes: (small medium large);
 
     // And lo, a media query was born
     @if $dir == 'only' {
-      $str: 'min-width: #{$bp}) and (max-width: #{$bp - (1/16)}';
+      $max: $bp - (1/16);
+      $str: 'min-width: #{$bp}) and (max-width: #{$max}';
     }
     @else if $dir == 'down' {
-      $str: 'max-width: #{$bp}';
+      $max: $bp - (1/16);
+      $str: 'max-width: #{$max}';
     }
     @else {
       $str: 'min-width: #{$bp}';
