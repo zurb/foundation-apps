@@ -34,7 +34,7 @@ angular.module('foundation.notification')
     restrict: 'EA',
     templateUrl: '/partials/notification-set.html',
     controller: 'FaNotificationController',
-    link:function postLink(scope, element, attrs, controller) {
+    link:function(scope, element, attrs, controller) {
       foundationApi.subscribe(attrs.id, function(msg) {
         if(msg === 'clearall') {
           controller.clearAll();
@@ -50,7 +50,7 @@ angular.module('foundation.notification')
 }]);
 
 angular.module('foundation.notification')
-  .directive('faNotification', ['FoundationApi', function(foundationApi) {
+  .directive('faNotification', function() {
   return {
     restrict: 'EA',
     templateUrl: '/partials/notification.html',
@@ -82,7 +82,7 @@ angular.module('foundation.notification')
       };
     },
   };
-}]);
+});
 
 angular.module('foundation.notification')
   .directive('faNotificationStatic', ['FoundationApi', function(foundationApi) {
