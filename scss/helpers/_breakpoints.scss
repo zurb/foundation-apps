@@ -42,18 +42,24 @@ $breakpoint-classes: (small medium large);
   // Direction of media query (up, down, or only)
   $dir: if(length($val) > 1, nth($val, 2), up);
   // Eventual output
-  $str: '';
+  $str: 'only screen';
+  // Named media query?
+  $named: false;
 
   // Orientation media queries have a unique syntax
   @if $bp == 'landscape' or $bp == 'portrait' {
-    $str: 'orientation: #{$val}';
+    $str: $str + ' and (orientation: #{$bp})';
   }
 
   @else {
     // Try to pull a named breakpoint out of the $breakpoints map
     @if type-of($bp) == 'string' {
       @if map-has-key($breakpoints, $bp) {
+        @if $dir == 'only' {
+          $bpMax: map-next($breakpoints, $bp);
+        }
         $bp: map-get($breakpoints, $bp);
+        $named: true;
       }
       @else {
         $bp: 0;
@@ -67,23 +73,37 @@ $breakpoint-classes: (small medium large);
     // Finally, the rem value is turned into an em value
     $bp: strip-unit($bp) * 1em;
 
-    // And lo, a media query was born
-    @if $dir == 'only' {
-      $max: $bp - (1/16);
-      $str: 'min-width: #{$bp}) and (max-width: #{$max}';
-    }
-    @else if $dir == 'down' {
-      $max: $bp - (1/16);
-      $str: 'max-width: #{$max}';
-    }
-    @else {
-      $str: 'min-width: #{$bp}';
+    // Skip media query creation if the input is "0 up" or "0 down"
+    @if $bp > 0 or $dir == only {
+      // And lo, a media query was born
+      @if $dir == 'only' {
+        // @if $named == true {
+        //   @debug $named;
+        //   @debug $dir;
+        //   $str: $str + ' and (min-width: #{$bp}) and (max-width: #{$bpMax})';
+        // }
+        // @else {
+        //   @debug 'ERROR: Only named media queries can have an "only" range.';
+        // }
+      }
+      @else if $dir == 'down' {
+        $max: $bp - (1/16);
+        $str: $str + ' and (max-width: #{$max})';
+      }
+      @else {
+        $str: $str + ' and (min-width: #{$bp})';
+      }
     }
   }
 
   // Output
-  @media only screen and (#{$str}) {
+  @if $bp == 0em {
     @content;
+  }
+  @else {
+    @media #{$str} {
+      @content;
+    }
   }
 }
 
