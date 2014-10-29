@@ -268,10 +268,10 @@ $total-columns: 12 !default;
 .block, .small-block {
 	@include block-css;
 }
-@media #{$medium-up} {
+@include breakpoint(medium) {
 	.medium-block { @include block-css; }
 }
-@media #{$large-up} {
+@include breakpoint(large) {
 	.large-block { @include block-css; }
 }
 
@@ -281,11 +281,11 @@ $total-columns: 12 !default;
 .frame, .block, .medium-block {
 	// Orientation classes
 	&.vertical, &.small-vertical { @include grid-orient(vertical); }
-	@media #{$medium-up} {
+	@include breakpoint(medium) {
 		&.medium-horizontal { @include grid-orient(horizontal); }
 		&.medium-vertical   { @include grid-orient(vertical); }
 	}
-	@media #{$large-up} {
+	@include breakpoint(large) {
 		&.medium-horizontal { @include grid-orient(horizontal); }
 		&.large-vertical    { @include grid-orient(vertical); }
 	}
@@ -306,7 +306,7 @@ $total-columns: 12 !default;
 $block-grid-max-size: 6;
 @each $size, $breakpoint in ('small': $small-up, 'medium': $medium-up, 'large': $large-up) {
 	@for $i from 1 through $total-columns {
-		@media #{$breakpoint} {
+		@include breakpoint($size) {
 			// Block sizing
 			.#{$size}-#{$i} {
 				@include grid-size($i);

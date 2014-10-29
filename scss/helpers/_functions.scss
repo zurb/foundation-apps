@@ -35,6 +35,42 @@ $modules: () !default;
 }
 
 /**
+ *   Map Next
+ *   Find the next key in a map.
+ *
+ *   @param {map} $map - Map to traverse.
+ *   @param {mixed} $key - Key to use as a starting point.
+ *
+ *   @return The value for the key after $key if $key was found. If $key was not found, or $key was
+ *     the last value in the map, returns null.
+ */
+@function map-next($map, $key) {
+  // Store the values of the map as a list, so we can access them with nth
+  $values: map-values($map);
+
+  // Ghetto for loop
+  $i: 1;
+  $found: false;
+  @each $val in map-keys($map) {
+    @if $found == false {
+      @if ($key == $val) {
+        $found: true;
+      }
+      $i: $i + 1;
+    }
+  }
+ 
+  // If the key doesn't exist, or it's the last key in the map, return null
+  @if $i > length($map) {
+    @return null;
+  }
+  // Otherwise return the value
+  @else {
+    @return nth($values, $i);
+  }
+}
+
+/**
  *   Is It Light?
  *   Checks the lightness of $color, and if it passes the $threshold of lightness, it returns the $yes color.
  *   Otherwise, it returns the $no color. Use this function to dynamically output a foreground color based on

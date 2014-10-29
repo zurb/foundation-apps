@@ -1,38 +1,45 @@
-// Foundation for Apps Utility Classes
+/*
+  UTILITIES
+  ---------
 
+  Responsive helper classes to assist you in quickly doing basic formatting and layout.
 
-// Vertical alignment classes, hat tip to Solved with Flexbox. http://philipwalton.github.io/solved-by-flexbox/demos/vertical-centering/
+  Features:
+   - Vertical alignment
+   - Visibility
+   - Text alignment
+   - Floating
+*/
 
+/*
+  Vertical alignment
+*/
 .v-align {
 	display: flex;
 	align-items: center;
-	// justify-content: center;
+	justify-content: space-between;
 
-	.small-align-top { align-self: flex-start; }
-	.small-align-bottom { align-self: flex-end; }
+  $align-values: (
+    'top': flex-start,
+    'center': center,
+    'bottom': flex-end,
+  );
 
-	@media #{$medium-up} {
-		.medium-align-top { align-self: flex-start; }
-		.medium-align-middle { align-self: center; }
-		.medium-align-bottom { align-self: flex-end; }
-	}
-	@media #{$large-up} {
-		.large-align-top { align-self: flex-start; }
-		.large-align-middle { align-self: center; }
-		.large-align-bottom { align-self: flex-end; }
-	}
+  @each $orient in ('top', 'center', 'bottom') {
+    .align-#{$orient} {
+      align-self: map-get($align-values, $orient);
+    }
+  }
+  @each $size in $breakpoint-classes {
+    @each $orient in ('top', 'center', 'bottom') {
+      @include breakpoint($size) {
+        .#{$size}-align-#{$orient} {
+          align-self: map-get($align-values, $orient);
+        }
+      }
+    }
+  }
 }
-
-.h-align {
-	margin: 0 auto;
-	display: block;
-}
-
-$breakpoints: (
-  'small': ($small-up, $small-only),
-  'medium': ($medium-up, $medium-only),
-  'large': ($large-up, $large-only),
-);
 
 /*
   Visibility
@@ -40,8 +47,8 @@ $breakpoints: (
 .hide {
   display: none;
 }
-@each $size, $breakpoint in $breakpoints {
-  @media #{nth($breakpoint, 1)} {
+@each $size in $breakpoint-classes {
+  @include breakpoint($size) {
     .hide-for-#{$size} {
       display: none;
     }
@@ -49,12 +56,43 @@ $breakpoints: (
       display: block;
     }
   }
-  @media #{nth($breakpoint, 2)} {
+  @include breakpoint($size only) {
     .hide-for-#{$size}-only {
       display: none;
     }
     .show-for-#{$size}-only {
       display: block;
+    }
+  }
+}
+@each $orientation in ('portrait', 'landscape') {
+  @include breakpoint($orientation) {
+    .hide-for-#{$orientation} {
+      display: none;
+    }
+    .show-for-#{$orientation} {
+      display: block;
+    }
+  }
+}
+
+/*
+  Text alignment
+*/
+@each $align in ('left', 'right', 'center', 'justify') {
+  @each $size in $breakpoint-classes {
+    .text-#{$align} {
+      text-align: $align;
+    }
+    @include breakpoint($size) {
+      .#{$size}-text-#{$align} {
+        text-align: $align;
+      }
+    }
+    @include breakpoint($size only) {
+      .#{$size}-only-text-#{$align} {
+        text-align: $align;
+      }
     }
   }
 }
@@ -67,32 +105,11 @@ $breakpoints: (
   .float-#{$float} {
     float: #{$float};
   }
-  @each $size, $breakpoint in $breakpoints {
-    @media #{nth($breakpoint, 1)} {
+  @each $size in $breakpoint-classes {
+    @include breakpoint($size) {
       .#{$size}-float-#{$float} {
         float: #{$float};
       }
     }
   }
-}
-
-/*
-  Text alignment
-*/
-@each $align in ('left', 'right', 'center', 'justify') {
-	@each $size, $breakpoint in $breakpoints {
-		.text-#{$align} {
-			text-align: $align;
-		}
-		@media #{nth($breakpoint, 1)} {
-			.#{$size}-text-#{$align} {
-				text-align: $align;
-			}
-		}
-		@media #{nth($breakpoint, 2)} {
-			.#{$size}-only-text-#{$align} {
-				text-align: $align;
-			}
-		}
-	}
 }
