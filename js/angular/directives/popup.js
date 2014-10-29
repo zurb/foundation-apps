@@ -4,14 +4,17 @@ angular.module('foundation.popup')
   .directive('faPopup', ['FoundationApi', function(foundationApi) {
     return {
       transclude: true,
+      replace: true,
       templateUrl: '/partials/popup.html',
       scope: {
         pinTo: '@?',
-        pinAt: '@?'
+        pinAt: '@?',
+        footer: '@?',
+        title: '@?'
       },
       link: function(scope, element, attrs) {
-        scope.pinTo = scope.pinTo || 'bottom';
         scope.target = scope.target || false;
+        var attachment = scope.pinTo || 'bottom';
         var tetherInit = false;
 
         var tether = {};
@@ -23,15 +26,12 @@ angular.module('foundation.popup')
 
           scope.target = scope.target ? document.getElementById(scope.target) : document.getElementById(target);
 
-          console.log(element, 'element');
-          console.log(scope.target, 'target');
-
           tether = new Tether({
             element: element[0],
             target: scope.target,
-            attachment: scope.pinTo,
+            attachment: attachment,
             enable: false,
-          })
+          });
 
           tetherInit = true;
         };
@@ -90,9 +90,10 @@ angular.module('foundation.popup')
       link: function(scope, element, attrs) {
         var target = attrs.faPopupToggle;
         var id = attrs.id || foundationApi.generateUuid();
+        attrs.$set('id', id);
 
         element.on('click', function(e) {
-          foundationApi.publish(target, ['toggle', attrs.id]);
+          foundationApi.publish(target, ['toggle', id]);
           e.preventDefault();
         });
 
