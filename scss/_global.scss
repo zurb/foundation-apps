@@ -56,8 +56,17 @@ $alert-color: #F04124 !default;
 $info-color: #A0D3E8 !default;
 $success-color: #43AC6A !default;
 $warning-color: #F08A24 !default;
-$dark-color: #708090 !default;
+$dark-color: #333 !default;
 $slate: #708090 !default;
+
+// For internal use: a color map
+$foundation-colors: (
+  primary: $primary-color,
+  success: $success-color,
+  warning: $warning-color,
+  alert: $alert-color,
+  dark: $dark-color,
+);
 
 // We use these to make sure border radius matches unless we want it different.
 $global-radius: 4px !default;
