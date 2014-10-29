@@ -30,7 +30,8 @@ angular.module('foundation.popup')
             element: element[0],
             target: scope.target,
             attachment: attachment,
-            enable: false,
+            offset: '-30px 0',
+            enable: false
           });
 
           tetherInit = true;
