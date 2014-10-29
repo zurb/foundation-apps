@@ -1,0 +1,27 @@
+{
+    "name": "notify.js",
+    "description": "A handy wrapper for the Web Notifications API",
+    "version": "1.2.3",
+    "author": {
+        "name": "Alex Gibson",
+        "email": "alxgbsn@gmail.com"
+    },
+    "keywords": ["javascript", "web notifications", "notification", "notify"],
+    "main": "./notify.js",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/alexgibson/notify.js.git"
+    },
+    "readme": "README.md",
+    "licenses": [{
+        "type": "MIT",
+        "url": "http://opensource.org/licenses/MIT"
+    }],
+    "ignore": [
+        "test",
+        ".jshintrc",
+        "karma.conf.js",
+        "package.json",
+        ".travis.yml"
+    ]
+}
