@@ -142,7 +142,7 @@ $breakpoint-classes: (small medium large);
 // Forward slash placed around everything to convince PhantomJS to read the value.
 
 meta.foundation-version {
-  font-family: "/1.0.0/";
+  font-family: "/#{$foundation-version}/";
 }
 
 @each $size in map-keys($breakpoints) {
