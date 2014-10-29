@@ -219,7 +219,7 @@ $actionsheet-link-background-hover: smartscale($actionsheet-background) !default
   @include action-sheet;
   @include action-sheet-menu;
 
-  @media #{$medium-up} {
+  @include breakpoint(medium) {
     @include popup-menu;
   }
 }

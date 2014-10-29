@@ -121,7 +121,7 @@ $icon-bar-border-color: rgba(255,255,255,0.3) !default;
   &.vertical { @include vertical-menu-bar; }
 
   @each $size, $breakpoint in ('medium': $medium-up, 'large': $large-up) {
-    @media #{$breakpoint} {
+    @include breakpoint($size) {
       &.#{$size}-vertical {
         @include vertical-menu-bar;
       }

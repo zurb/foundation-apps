@@ -19,12 +19,12 @@
 	.small-align-top { align-self: flex-start; }
 	.small-align-bottom { align-self: flex-end; }
 
-	@media #{$medium-up} {
+	@include breakpoint(medium) {
 		.medium-align-top { align-self: flex-start; }
 		.medium-align-middle { align-self: center; }
 		.medium-align-bottom { align-self: flex-end; }
 	}
-	@media #{$large-up} {
+	@include breakpoint(large) {
 		.large-align-top { align-self: flex-start; }
 		.large-align-middle { align-self: center; }
 		.large-align-bottom { align-self: flex-end; }

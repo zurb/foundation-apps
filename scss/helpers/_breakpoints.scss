@@ -169,28 +169,20 @@ meta.foundation-version {
   Need to convert all references to a newer style eventually
 */
 
-$small-range: (0em, 40em) !default;
-$medium-range: (40.063em, 64em) !default;
-$large-range: (64.063em, 90em) !default;
-$xlarge-range: (90.063em, 120em) !default;
-$xxlarge-range: (120.063em, 99999999em) !default;
+$landscape: "";
+$portrait: "";
 
-$screen: "only screen" !default;
+$small-up: "";
+$small-only: "";
 
-$landscape: "#{$screen} and (orientation: landscape)" !default;
-$portrait: "#{$screen} and (orientation: portrait)" !default;
+$medium-up: "";
+$medium-only: "";
 
-$small-up: $screen !default;
-$small-only: "#{$screen} and (max-width: #{nth($small-range, 2)})" !default;
+$large-up: "";
+$large-only: "";
 
-$medium-up: "#{$screen} and (min-width:#{nth($medium-range, 1)})" !default;
-$medium-only: "#{$screen} and (min-width:#{nth($medium-range, 1)}) and (max-width:#{nth($medium-range, 2)})" !default;
+$xlarge-up: "";
+$xlarge-only: "";
 
-$large-up: "#{$screen} and (min-width:#{nth($large-range, 1)})" !default;
-$large-only: "#{$screen} and (min-width:#{nth($large-range, 1)}) and (max-width:#{nth($large-range, 2)})" !default;
-
-$xlarge-up: "#{$screen} and (min-width:#{nth($xlarge-range, 1)})" !default;
-$xlarge-only: "#{$screen} and (min-width:#{nth($xlarge-range, 1)}) and (max-width:#{nth($xlarge-range, 2)})" !default;
-
-$xxlarge-up: "#{$screen} and (min-width:#{nth($xxlarge-range, 1)})" !default;
-$xxlarge-only: "#{$screen} and (min-width:#{nth($xxlarge-range, 1)}) and (max-width:#{nth($xxlarge-range, 2)})" !default;
+$xxlarge-up: "";
+$xxlarge-only: "";
