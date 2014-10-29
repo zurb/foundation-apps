@@ -14,7 +14,7 @@ angular.module('foundation.popup')
       },
       link: function(scope, element, attrs) {
         scope.target = scope.target || false;
-        var attachment = scope.pinTo || 'bottom';
+        var attachment = scope.pinTo || 'top center';
         var tetherInit = false;
 
         var tether = {};
@@ -27,10 +27,9 @@ angular.module('foundation.popup')
           scope.target = scope.target ? document.getElementById(scope.target) : document.getElementById(target);
 
           tether = new Tether({
-            element: element[0],
+            element: element,
             target: scope.target,
             attachment: attachment,
-            offset: '-30px 0',
             enable: false
           });
 
