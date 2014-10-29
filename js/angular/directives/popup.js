@@ -13,6 +13,7 @@ angular.module('foundation.popup')
         title: '@?'
       },
       link: function(scope, element, attrs) {
+        scope.active = false;
         scope.target = scope.target || false;
         var attachment = scope.pinTo || 'top center';
         var tetherInit = false;
