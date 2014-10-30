@@ -254,6 +254,7 @@ The modal does not require any specific content within it; however, the example 
 Structure:
 
 ````html
+<a href="#" fa-open="pageModal">Open modal</a>
 <fa-modal id="pageModal">
   <a href="#" fa-close>&times;</a>
   <section class="content block">
@@ -302,3 +303,29 @@ You can also use the `fa-notify` directive for simpler messages and prototyping:
 ````
 
 ####Off Canvas
+
+````html
+<a href="#" fa-open="pageCanvas">open offcanvas</a>
+<fa-offcanvas id="pageCanvas" position="right">
+  <p>My content!</p>
+</fa-offcanvas>
+````
+
+####Panel
+
+````html
+<a href="#" fa-open="pagePanel">open panel</a>
+<fa-panel id="pagePanel" position="left"></fa-panel>
+````
+
+####Popup
+Popups use a library called Tether. Tether attaches an element to another element with absolute positioning; however, there is one caveat. If your popup is nested within a scrollable area (not `body`) but it's not the immediate parent of that element, it will lose its positioning.
+
+````html
+<a href="#" fa-popup-toggle="popups">Open Popup</a>
+<fa-popup
+  title="My title"
+  footer="Footer content"
+  id="my-popup"
+>Content goes here</fa-popup>
+````
