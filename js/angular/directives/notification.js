@@ -139,9 +139,13 @@ angular.module('foundation.notification')
   .directive('faNotify', ['FoundationApi', function(foundationApi) {
   return {
     restrict: 'A',
+    scope: {
+      title: '@?',
+      content: '@?'
+    },
     link: function(scope, element, attrs, controller) {
       element.on('click', function(e) {
-        foundationApi.publish(attrs.faNotify, { title: 'Test', content: 'Test2' });
+        foundationApi.publish(attrs.faNotify, { title: scope.title, content: scope.content });
         e.preventDefault();
       });
     },
