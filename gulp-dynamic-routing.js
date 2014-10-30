@@ -1,49 +1,49 @@
-var through = require('through2');
-var gutil   = require('gulp-util');
-var fm      = require('front-matter');
+var through     = require('through2');
+var gutil       = require('gulp-util');
+var fm          = require('front-matter');
 var PluginError = gutil.PluginError;
+var path        = require('path');
 
 const PLUGIN_NAME = 'gulp-dynamic-routing';
 
-/*
- * OPTIONS
- * destination: saves routes.js to a destination
- */
 function gulpDynamicRouting(options) {
-  var config = [];
+  var configs = [];
 
   function bufferContents(file, enc, cb) {
-    
+    var config;
+
+    if(file.isBuffer()) {
+      try {
+        content = fm(String(file.contents));
+      } catch (e) {
+        return cb(new gutil.PluginError(PLUGIN_NAME, e));
+      }
+
+      file.contents = new Buffer(content.body);
+      config = content.attributes;
+      var relativePath = path.relative(__dirname + path.sep + options.root, file.path);
+      config.path = '/' + relativePath.split(path.sep).join('/');
+      configs.push(config);
+    }
+
+    this.push(file);
+
+    return cb();
   }
 
   function endStream() {
-      config.sort(function(a, b) {
-        return a.url < b.url;
-      });
+    var appPath = options.path;
+    var data = fs.readFileSync(appPath);
+    configs.sort(function(a, b) {
+      return a.url < b.url;
+    });
 
-      this.emit('data', 'var dynamicRoutes = ' + JSON.stringify(config) + '; \n');
+    fs.writeFileSync(appPath, 'var dynamicRoutes = ' + JSON.stringify(configs) + '; \n');
 
-      this.emit('end');
+    this.emit('end');
   }
 
   return through(bufferContents, endStream);
 }
 
 module.exports = gulpDynamicRouting;
-    //.pipe(frontMatter({
-      //property: 'meta',
-      //remove: true
-    //}))
-    //.pipe(through.obj(function(file, enc, callback) {
-      //if(file.meta.name) {
-        //var page = file.meta;
-
-        ////path normalizing
-        //var relativePath = path.relative(__dirname + path.sep + 'client', file.path);
-        //page.path = '/' + relativePath.split(path.sep).join('/');
-
-        //config.push(page);
-      //}
-      //this.push(file);
-      //return callback();
-    //}))
