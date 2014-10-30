@@ -162,7 +162,52 @@ Note that some directives will REPLACE your original element, in others the dire
 
 Wherever necessary, IDs will also be included to show that IDs are required in order for the directives to work correctly.
 
-####Helpers
+
+####Angular and UI Router Helpers
+
+There are some nuances of Angular itself and some of the libraries Foundation for Apps includes and uses that can make prototyping easier and quicker. Here's a rundown of some of these tools:
+
+**ui-sref**
+
+Instead of using `<a href="/my/sub/page"></a>` in a page to access another page, it's common practice to use the router. Foundation for Apps uses UI Router for its routing which allows for named route references. For instance, let's say there is a page with this front matter:
+
+````
+name: mypage
+url: my/sub/page
+````
+
+You can easily link to it like so:
+
+````
+<a ui-sref="mypage">my page</a>
+````
+
+`ui-sref` can also take in parameters for pages that accept parameters. Here's another example page that uses parameters:
+
+````
+name: inbox.message
+url: inbox/:id
+````
+
+The page can be accessed via `<a ui-sref="inbox.message({ id: 5 })">5th messages</a>`.
+
+**ui-sref-active**
+Now let's say we want to create a menu of links and want to make sure that the active link gets an extra special class to indicate that it is, indeed, active. There are two very similar ways to do this. The first one is using `ui-sref-active`, you can place this directive on either the `ui-sref` element or on its parent. When active, it will add a class of your choosing:
+
+````html
+<ul>
+  <li ui-sref-active="my-active-class"><a ui-sref="mypage">My page</a>
+  <li ui-sref-active="my-active-class"><a ui-sref="myotherpage">My page</a>
+</ul>
+````
+
+The other way is using `ui-sref-active-eq` which works almost the same with one difference. Whenever accessing a child page, the parent page will show up as active whenever using `ui-sref-active`. The `ui-sref-active-eq` is triggered ONLY when a specific page is triggered, no matter what their parent is.
+
+In the previous example with inbox and inbox.message, the inbox page would show up as active with `ui-sref-active` when on the inbox.message page. With `ui-sref-active-eq`, inbox would show up as active only when specifically on the inbox page.
+
+If none of this makes sense, stick with `ui-sref-active-eq`
+
+####Custom Helpers
 
 Foundation has some great helpers that foster better interaction between elements.
 
