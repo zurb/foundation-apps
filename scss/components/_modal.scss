@@ -95,7 +95,8 @@ $modal-overlay-background: rgba(#333, 0.7) !default;
 .modal {
   @include modal;
 
-  @each $size, $width in $modal-sizes {
+  @each $size in map-keys($modal-sizes) {
+    $width: map-get($modal-sizes, $size);
     @if $size != medium {
       &.#{$size} { @include modal-layout($width); }
     }

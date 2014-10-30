@@ -138,7 +138,7 @@ gulp.task('server:start', function() {
 });
 
 gulp.task('build', function() {
-  runSequence('clean', ['copy', 'copy-partials', 'copy-templates', 'sass', 'uglify'], function() {
+  runSequence('clean', ['copy', 'copy-partials', 'copy-templates', 'libsass', 'uglify'], function() {
     console.log("Successfully built.");
   })
 });
@@ -147,7 +147,7 @@ gulp.task('default', ['build', 'server:start'], function() {
   // gulp.watch(['./client/**/*.*', './js/**/*.*'], ['build', 'css', server.restart]);
 
   // Watch Sass
-  gulp.watch(['./client/assets/scss/**/*', './scss/**/*'], ['sass']);
+  gulp.watch(['./client/assets/scss/**/*', './scss/**/*'], ['libsass']);
 
   // Watch JavaScript
   gulp.watch(['./client/assets/js/**/*', './js/**/*'], ['uglify']);
