@@ -1,16 +1,14 @@
-var gulp         = require('gulp'),
-    rimraf       = require('rimraf'),
-    runSequence  = require('run-sequence'),
-    frontMatter  = require('gulp-front-matter'),
-    path         = require('path'),
-    through      = require('through2'),
-    fs           = require('fs'),
-    autoprefixer = require('gulp-autoprefixer'),
-    sass         = require('gulp-ruby-sass'),
-    uglify       = require('gulp-uglify'),
-    concat       = require('gulp-concat'),
-    connect      = require('gulp-connect'),
-    modRewrite = require('connect-modrewrite');
+var gulp           = require('gulp'),
+    rimraf         = require('rimraf'),
+    runSequence    = require('run-sequence'),
+    frontMatter    = require('gulp-front-matter'),
+    autoprefixer   = require('gulp-autoprefixer'),
+    sass           = require('gulp-ruby-sass'),
+    uglify         = require('gulp-uglify'),
+    concat         = require('gulp-concat'),
+    connect        = require('gulp-connect'),
+    modRewrite     = require('connect-modrewrite'),
+    dynamicRouting = require('./bin/gulp-dynamic-routing');
 
 // Clean build directory
 gulp.task('clean', function(cb) {
@@ -107,34 +105,11 @@ gulp.task('copy-templates', ['copy', 'uglify-angular'], function() {
   var config = [];
 
   return gulp.src('./client/templates/**/*.html')
-    .pipe(frontMatter({
-      property: 'meta',
-      remove: true
-    }))
-    .pipe(through.obj(function(file, enc, callback) {
-      if(file.meta.name) {
-        var page = file.meta;
-
-        //path normalizing
-        var relativePath = path.relative(__dirname + path.sep + 'client', file.path);
-        page.path = '/' + relativePath.split(path.sep).join('/');
-
-        config.push(page);
-      }
-      this.push(file);
-      return callback();
+    .pipe(dynamicRouting({
+      path: 'build/assets/js/routes.js',
+      root: 'client'
     }))
     .pipe(gulp.dest('build/templates'))
-    .on('end', function() {
-      //routes
-      var appPath = ['build', 'assets', 'js', 'angular-app.js'];
-      var data = fs.readFileSync(appPath.join(path.sep));
-      config.sort(function(a, b) {
-        return a.url < b.url;
-      });
-
-      fs.writeFileSync(appPath.join(path.sep), 'var dynamicRoutes = ' + JSON.stringify(config) + '; \n' + data);
-    })
   ;
 });
 
