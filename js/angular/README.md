@@ -329,3 +329,56 @@ Popups use a library called Tether. Tether attaches an element to another elemen
   id="my-popup"
 >Content goes here</fa-popup>
 ````
+
+####Tabs
+Tabs can get a little complicated; however, they also allow for meo flexibility. There are three ways to use tabs: default, displaced, and custom.
+
+**default use**
+
+````html
+<fa-tabs>
+  <fa-tab title="This is my tab">
+    Tab content goes here
+  </fa-tab>
+  <fa-tab title="This is my tab">
+    Tab content goes here
+  </fa-tab>
+</fa-tabs>
+````
+
+**displaced use**
+Displaced tabs allow us to build tabs (tab navigation) and display the content elsewhere with `fa-tab-content`
+
+````html
+<fa-tabs id="displaced-tabs" displaced="true">
+  <fa-tab title="This is my tab">
+    Tab content goes here
+  </fa-tab>
+  <fa-tab title="This is my tab">
+    Tab content goes here
+  </fa-tab>
+</fa-tabs>
+
+<fa-tab-content target="displaced-tabs"></fa-tab-content>
+````
+
+**manual use**
+Manual usage allows for custom styling and full versatility while retaining the basic functionality of the default tabs.
+
+Here's what a custom menu may look like:
+
+````html
+<ul class="button-group" fa-tab-custom>
+  <li fa-tab-href="tabOne">Tab One</li>
+  <li fa-tab-href="tabTwo">Tab Two</li>
+</ul>
+````
+
+The directives `fa-tab-custom` and `fa-tab-href` ensure typical tab button behavior where active tab button gets an `is-active` class. `fa-tab-href` should point to an ID of a tab.
+
+````html
+<div fa-tab-content-custom>
+  <div id="tabOne">Content!</div>
+  <div id="tabTwo">Second content!</div>
+</div>
+````
