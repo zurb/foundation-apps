@@ -139,12 +139,6 @@ gulp.task('copy-templates', ['copy', 'uglify-angular'], function() {
 });
 
 gulp.task('server:start', function() {
-  server.listen( { path: 'app.js' });
-
-
-});
-
-gulp.task('server:start', function() {
   connect.server({
     root: './build',
     middleware: function() {
