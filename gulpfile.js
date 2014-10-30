@@ -4,9 +4,11 @@ var gulp           = require('gulp'),
     frontMatter    = require('gulp-front-matter'),
     autoprefixer   = require('gulp-autoprefixer'),
     sass           = require('gulp-ruby-sass'),
+    libsass        = require('gulp-sass'),
     uglify         = require('gulp-uglify'),
     concat         = require('gulp-concat'),
     connect        = require('gulp-connect'),
+    path           = require('path'),
     modRewrite     = require('connect-modrewrite'),
     dynamicRouting = require('./bin/gulp-dynamic-routing');
 
@@ -55,6 +57,17 @@ gulp.task('sass', function() {
     }))
     .pipe(gulp.dest('./build/assets/css/'))
   ;
+});
+
+gulp.task('libsass', function() {
+  return gulp.src('client/assets/scss/app.scss')
+    .pipe(libsass({
+      includePaths: ['client/assets/scss', 'scss'],
+      style: 'nested',
+      sourceComments: true,
+      errLogToConsole: true
+    }))
+    .pipe(gulp.dest('./build/assets/css/'));
 });
 
 // Process Foundation JS
