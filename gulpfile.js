@@ -1,14 +1,14 @@
-var gulp         = require('gulp'),
-    rimraf       = require('rimraf'),
-    runSequence  = require('run-sequence'),
-    frontMatter  = require('gulp-front-matter'),
-    autoprefixer = require('gulp-autoprefixer'),
-    sass         = require('gulp-ruby-sass'),
-    uglify       = require('gulp-uglify'),
-    concat       = require('gulp-concat'),
-    connect      = require('gulp-connect'),
-    modRewrite = require('connect-modrewrite'),
-    dynamicRouting = require('./gulp-dynamic-routing');
+var gulp           = require('gulp'),
+    rimraf         = require('rimraf'),
+    runSequence    = require('run-sequence'),
+    frontMatter    = require('gulp-front-matter'),
+    autoprefixer   = require('gulp-autoprefixer'),
+    sass           = require('gulp-ruby-sass'),
+    uglify         = require('gulp-uglify'),
+    concat         = require('gulp-concat'),
+    connect        = require('gulp-connect'),
+    modRewrite     = require('connect-modrewrite'),
+    dynamicRouting = require('./bin/gulp-dynamic-routing');
 
 // Clean build directory
 gulp.task('clean', function(cb) {
