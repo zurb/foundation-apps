@@ -211,6 +211,24 @@ Structure:
 </fa-accordion-set>
 ````
 
+####Actionsheet
+
+````html
+<fa-action-sheet id="actionSheet"
+  position="position such as bottom"
+  button-title="title of the trigger button"
+  ></fa-action-sheet>
+````
+
+You can also trigger actionsheets remotely:
+
+````html
+<a href="#" fa-toggle="actionSheet2">Launch Action Sheet</a>
+<fa-action-sheet id="actionSheet2"
+  position="bottom"
+></fa-action-sheet>
+````
+
 ####Interchange
 Interchange allows you to specify what specific content to view based on a media query. The last query to match will be shown.
 
@@ -249,3 +267,38 @@ Structure:
 ````
 
 ####Notification
+There are two ways to access a notification. Via the static method and the programmatic method.
+
+**Static Method**
+The static method is best used for prototyping since it doesn't involve any programming.
+
+````html
+<a href="#" fa-open="my-notification">Static notification</a>
+<fa-notification-static id="my-notify"
+  title="My static notification">
+  Content goes here
+</fa-notification-static>
+````
+
+**Programmatic Method**
+The FoundationApi service is a pretty useful service, one function of it is to send information from directives, controllers, and other parts to other directives, controllers, etc. It's a messaging system for the entire application.
+
+To use it, create a notification set like so:
+
+````html
+<fa-notification-set id="main-notifications"></fa-notification-set>
+````
+
+And then send it a notification with via FoundationApi:
+
+````js
+foundationApi.publish('main-notifications', { title: 'Test', content: 'Test2' });
+````
+
+You can also use the `fa-notify` directive for simpler messages and prototyping:
+
+````html
+<a href="#" fa-notify title="Title of notification" content="Content of notification">Launch notification</a>
+````
+
+####Off Canvas
