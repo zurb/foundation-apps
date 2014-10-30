@@ -2,9 +2,6 @@ var gulp         = require('gulp'),
     rimraf       = require('rimraf'),
     runSequence  = require('run-sequence'),
     frontMatter  = require('gulp-front-matter'),
-    path         = require('path'),
-    through      = require('through2'),
-    fs           = require('fs'),
     autoprefixer = require('gulp-autoprefixer'),
     sass         = require('gulp-ruby-sass'),
     uglify       = require('gulp-uglify'),
@@ -108,10 +105,10 @@ gulp.task('copy-templates', ['copy', 'uglify-angular'], function() {
   var config = [];
 
   return gulp.src('./client/templates/**/*.html')
-    .dynamicRouting({
-      path: 'build/assets/js/angular-app.js',
+    .pipe(dynamicRouting({
+      path: 'build/assets/js/routes.js',
       root: 'client'
-    })
+    }))
     .pipe(gulp.dest('build/templates'))
   ;
 });
