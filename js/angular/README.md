@@ -257,21 +257,35 @@ Structure:
 ````
 
 ####Actionsheet
+Actionsheets allow users to specify some options on top of showing a regular actionsheet.
+
+Using the most default settings, an actionsheet looks like this:
 
 ````html
-<fa-action-sheet id="actionSheet"
-  position="position such as bottom"
-  button-title="title of the trigger button"
-  ></fa-action-sheet>
+<fa-action-sheet>
+  <fa-as-button title="My button"></fa-as-button>
+  <fa-as-content position="bottom">
+    My content goes here
+  </fa-as-content>
+</fa-action-sheet>
 ````
 
-You can also trigger actionsheets remotely:
+To use a custom buttom, ammend the `fa-as-button` declaration with your custom HTML like so:
 
 ````html
-<a href="#" fa-toggle="actionSheet2">Launch Action Sheet</a>
-<fa-action-sheet id="actionSheet2"
-  position="bottom"
-></fa-action-sheet>
+<fa-as-button>my button goes here</fa-as-button>
+````
+
+There is also an option to remotely open an actionsheet; however, the actionsheet won't show up under the remote trigger but rather where it had already been placed.
+
+````html
+<a href="#" fa-toggle="my-actionsheet">toggle</a>
+<fa-action-sheet id="my-actionsheet">
+  <fa-as-button title="My button"></fa-as-button>
+  <fa-as-content position="bottom">
+    My content goes here
+  </fa-as-content>
+</fa-action-sheet>
 ````
 
 ####Interchange
