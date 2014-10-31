@@ -26,6 +26,13 @@ angular.module('foundation.actionsheet')
     templateUrl: '/partials/actionsheet.html',
     controller: 'FaActionSheetController',
     link: function(scope, element, attrs, controller) {
+      foundationApi.subscribe(attrs.id, function(msg) {
+        if (msg == 'toggle') {
+          controller.toggle();
+        }
+
+        return;
+      });
     }
   };
 }]);
@@ -45,30 +52,6 @@ angular.module('foundation.actionsheet')
     link: function(scope, element, attrs, controller) {
       scope.active = false;
       controller.registerContent(scope);
-
-      foundationApi.subscribe(attrs.id, function(msg) {
-        if(msg == 'show' || msg == 'open') {
-          scope.show();
-        } else if (msg == 'close' || msg == 'hide') {
-          scope.hide();
-        } else if (msg == 'toggle') {
-          scope.toggle();
-        }
-
-        scope.$apply();
-
-        return;
-      });
-
-      scope.hide = function() {
-        scope.active = false;
-        return;
-      };
-
-      scope.show = function() {
-        scope.active = true;
-        return;
-      };
 
       scope.toggle = function() {
         scope.active = !scope.active;
