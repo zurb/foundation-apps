@@ -12,12 +12,10 @@ angular.module('foundation.notification')
     };
 
     controller.removeNotification = function(id) {
-      console.log('test', id);
       angular.forEach(notifications, function(notification) {
         if(notification.id === id) {
           var ind = notifications.indexOf(notification);
           notifications.splice(ind, 1);
-          console.log(notifications);
         }
       });
     };
@@ -62,22 +60,12 @@ angular.module('foundation.notification')
       title: '=?',
       content: '=?',
       image: '=?',
-      notifId: '=',
-      onEnter: '&?',
-      onExit: '&?'
+      notifId: '='
     },
     link: function(scope, element, attrs, controller) {
       scope.active = true;
 
-      if(scope.onEnter) {
-        scope.onEnter();
-      }
-
-      console.log(attrs.notifId, 'attrs');
-      console.log(scope.notifId, 'scope');
-
       scope.remove = function() {
-        if(scope.onExit) { scope.onExit(); }
         controller.removeNotification(scope.notifId);
       };
     },

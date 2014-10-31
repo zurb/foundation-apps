@@ -3,7 +3,7 @@ angular.module('foundation.common.services', []);
 angular.module('foundation.common.services')
   .service('FoundationApi', function() {
     var listeners = [];
-    var settings = {};
+    var settings  = {};
     var uniqueIds = [];
 
     return {
@@ -21,7 +21,7 @@ angular.module('foundation.common.services')
         }
 
         angular.forEach(listeners[name], function(cb) {
-          cb(msg)
+          cb(msg);
         });
 
         return;
@@ -36,6 +36,7 @@ angular.module('foundation.common.services')
       generateUuid: function() {
         var uuid = '';
 
+        //little trick to produce semi-random IDs
         do {
           uuid += 'fa-uuid-';
           for (var i=0; i<15; i++) {
