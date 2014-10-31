@@ -39,7 +39,7 @@ module.exports = function(options) {
     });
 
 
-    fs.writeFileSync(appPath, 'var dynamicRoutes = ' + JSON.stringify(configs) + '; \n');
+    fs.writeFileSync(appPath, 'var foundationRoutes = ' + JSON.stringify(configs) + '; \n');
 
     this.emit('end');
   }
