@@ -3,21 +3,29 @@ name: playground.actionsheet
 url: /actionsheet
 ---
 <h4>Action sheet</h4>
-<fa-action-sheet position="bottom" id="actionSheet" button-title="Toggle Actionsheet">
-  <p>Some html</p>
-  <ul>
-    <li><a href="#">Option One</a></li>
-    <li caution><a href="#">Option Too</a></li>
-    <li disabled><a href="#">Option Three</a></li>
-  </ul>
+<fa-action-sheet id="actionSheet">
+  <div fa-as-button title="My button"></div>
+  <div fa-as-content position="bottom">
+    <p>Some html</p>
+    <ul>
+      <li><a href="#">Option One</a></li>
+      <li caution><a href="#">Option Too</a></li>
+      <li disabled><a href="#">Option Three</a></li>
+    </ul>
+  </div>
 </fa-action-sheet>
 
-<a href="#" class="button" fa-toggle="actionSheet2">My new action sheet</a>
-<fa-action-sheet position="bottom" id="actionSheet2" >
-  <p>Some html</p>
-  <ul>
-    <li><a href="#">Option One</a></li>
-    <li caution><a href="#">Option Too</a></li>
-    <li disabled><a href="#">Option Three</a></li>
-  </ul>
+
+Custom button:
+
+<fa-action-sheet id="actionSheet">
+<div fa-as-button><a href="#" class="button secondary">my custom button</a></div>
+  <div fa-as-content position="bottom">
+    <p>Some html</p>
+    <ul>
+      <li><a href="#">Option One</a></li>
+      <li caution><a href="#">Option Too</a></li>
+      <li disabled><a href="#">Option Three</a></li>
+    </ul>
+  </div>
 </fa-action-sheet>
