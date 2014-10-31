@@ -243,6 +243,8 @@ Similar to the previous two, `fa-toggle` sends a toggle command to a directive t
 <fa-modal id="pageModal"></fa-modal>
 ````
 
+Please see documentation on the FoundationApi to learn how to open, close, toggle, and trigger other events programmatically.
+
 ####Accordion
 
 Structure:
@@ -441,3 +443,26 @@ The directives `fa-tab-custom` and `fa-tab-href` ensure typical tab button behav
   <div id="tabTwo">Second content!</div>
 </div>
 ````
+
+####FoundationApi
+
+At the heart, most of the Foundation components use an Angular service called FoundationApi. The code itself is very simple but has some powerful applications.
+
+The most used feature is its subscribe/publish system. Every single directive that can be "closed" subscribes itself to the subscribe/publish system under its ID and will perform specific tasks whenever someone publishes a message under that ID.
+
+Here's an example:
+
+````html
+<!-- a directive placed in HTML -->
+<fa-modal id="my-modal"></fa-modal>
+````
+
+The modal will automatically register itself as a subscriber in the FoundationApi under `my-modal`. The code for the directive indicates that it listens for 3 different messages: `open`, `close`, and `toggle` as well as aliases for the former two `show` and `hide`.
+
+Sometimes, it's necessary to trigger a modal after some piece logic was satisfied. Whether the user scrolled past a certain point or some other action happened. Here's how to open our modal remotely:
+
+````js
+foundationApi.publish('my-modal', 'open');
+````
+
+Make sure to include FoundationApi as a dependency in the controller or wherever else you want to use it. The best bet to hooking into various directives is to check the code and see what each directive subscribes to.
