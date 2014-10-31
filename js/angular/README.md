@@ -466,3 +466,5 @@ foundationApi.publish('my-modal', 'open');
 ````
 
 Make sure to include FoundationApi as a dependency in the controller or wherever else you want to use it. The best bet to hooking into various directives is to check the code and see what each directive subscribes to.
+
+In fact, the directives `fa-close`, `fa-open`, and `fa-toggle` are wrappers for FoundationApi events.
