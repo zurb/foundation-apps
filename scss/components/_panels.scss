@@ -122,7 +122,7 @@
   }
 
   @each $size, $breakpoint in ('medium': $medium-up, 'large': $large-up) {
-    @media #{$breakpoint} {
+    @include breakpoint($size) {
       @include prepend($size) {
         @include panel-base;  
       }

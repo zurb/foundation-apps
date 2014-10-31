@@ -12,6 +12,9 @@
 
   Create new named breakpoints using the $breakpoints map. Change which named breakpoints get
   their own classes by modifying the $breakpoint-classes map.
+
+  NOTE: If you change the $breakpoints map, know that all values must be ordered by width, smallest
+  width first. So 0 is always your first value.
 */
 
 $breakpoints: (
@@ -33,27 +36,33 @@ $breakpoint-classes: (small medium large);
    - If a pixel value is passed, it will be converted to an em value using $rem-base.
    - If a rem value is passed, the unit will be changed to em.
    - If an em value is passed, the value will be used as-is.
-
-  TODO: don't output a media query if final value is 0
 */
 @mixin breakpoint($val: small) {
   // Size or keyword
   $bp: nth($val, 1);
+  // Value for max-width media queries
+  $bpMax: 0;
   // Direction of media query (up, down, or only)
   $dir: if(length($val) > 1, nth($val, 2), up);
   // Eventual output
-  $str: '';
+  $str: 'only screen';
+  // Is it a named media query?
+  $named: false;
 
   // Orientation media queries have a unique syntax
   @if $bp == 'landscape' or $bp == 'portrait' {
-    $str: 'orientation: #{$val}';
+    $str: $str + ' and (orientation: #{$bp})';
   }
 
   @else {
     // Try to pull a named breakpoint out of the $breakpoints map
     @if type-of($bp) == 'string' {
       @if map-has-key($breakpoints, $bp) {
+        @if $dir == 'only' {
+          $bpMax: map-next($breakpoints, $bp) - (1/16);
+        }
         $bp: map-get($breakpoints, $bp);
+        $named: true;
       }
       @else {
         $bp: 0;
@@ -67,21 +76,35 @@ $breakpoint-classes: (small medium large);
     // Finally, the rem value is turned into an em value
     $bp: strip-unit($bp) * 1em;
 
-    // And lo, a media query was born
-    @if $dir == 'only' {
-      $str: 'min-width: #{$bp}) and (max-width: #{$bp - (1/16)}';
-    }
-    @else if $dir == 'down' {
-      $str: 'max-width: #{$bp}';
-    }
-    @else {
-      $str: 'min-width: #{$bp}';
+    // Skip media query creation if the input is "0 up" or "0 down"
+    @if $bp > 0 or $dir == 'only' {
+      // And lo, a media query was born
+      @if $dir == 'only' {
+        @if $named == true {
+          $str: $str + ' and (min-width: #{$bp}) and (max-width: #{$bpMax})';
+        }
+        @else {
+          @debug 'ERROR: Only named media queries can have an "only" range.';
+        }
+      }
+      @else if $dir == 'down' {
+        $max: $bp - (1/16);
+        $str: $str + ' and (max-width: #{$max})';
+      }
+      @else {
+        $str: $str + ' and (min-width: #{$bp})';
+      }
     }
   }
 
   // Output
-  @media only screen and (#{$str}) {
+  @if $bp == 0em and $dir != 'only' {
     @content;
+  }
+  @else {
+    @media #{$str} {
+      @content;
+    }
   }
 }
 
@@ -119,7 +142,7 @@ $breakpoint-classes: (small medium large);
 // Forward slash placed around everything to convince PhantomJS to read the value.
 
 meta.foundation-version {
-  font-family: "/1.0.0/";
+  font-family: "/#{$foundation-version}/";
 }
 
 @each $size in map-keys($breakpoints) {
@@ -146,28 +169,20 @@ meta.foundation-version {
   Need to convert all references to a newer style eventually
 */
 
-$small-range: (0em, 40em) !default;
-$medium-range: (40.063em, 64em) !default;
-$large-range: (64.063em, 90em) !default;
-$xlarge-range: (90.063em, 120em) !default;
-$xxlarge-range: (120.063em, 99999999em) !default;
+$landscape: "";
+$portrait: "";
 
-$screen: "only screen" !default;
+$small-up: "";
+$small-only: "";
 
-$landscape: "#{$screen} and (orientation: landscape)" !default;
-$portrait: "#{$screen} and (orientation: portrait)" !default;
+$medium-up: "";
+$medium-only: "";
 
-$small-up: $screen !default;
-$small-only: "#{$screen} and (max-width: #{nth($small-range, 2)})" !default;
+$large-up: "";
+$large-only: "";
 
-$medium-up: "#{$screen} and (min-width:#{nth($medium-range, 1)})" !default;
-$medium-only: "#{$screen} and (min-width:#{nth($medium-range, 1)}) and (max-width:#{nth($medium-range, 2)})" !default;
+$xlarge-up: "";
+$xlarge-only: "";
 
-$large-up: "#{$screen} and (min-width:#{nth($large-range, 1)})" !default;
-$large-only: "#{$screen} and (min-width:#{nth($large-range, 1)}) and (max-width:#{nth($large-range, 2)})" !default;
-
-$xlarge-up: "#{$screen} and (min-width:#{nth($xlarge-range, 1)})" !default;
-$xlarge-only: "#{$screen} and (min-width:#{nth($xlarge-range, 1)}) and (max-width:#{nth($xlarge-range, 2)})" !default;
-
-$xxlarge-up: "#{$screen} and (min-width:#{nth($xxlarge-range, 1)})" !default;
-$xxlarge-only: "#{$screen} and (min-width:#{nth($xxlarge-range, 1)}) and (max-width:#{nth($xxlarge-range, 2)})" !default;
+$xxlarge-up: "";
+$xxlarge-only: "";
