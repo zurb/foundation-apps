@@ -245,6 +245,7 @@ $blocklist-header-color: smartscale($blocklist-item-color, 40%) !default;
 */
 @mixin block-list-inputs(
   $color: $blocklist-item-color,
+  $background: $blocklist-background,
   $background-hover: $blocklist-item-background-hover,
   $padding: $blocklist-item-padding,
   $dropdown-class: 'with-dropdown',
@@ -268,10 +269,21 @@ $blocklist-header-color: smartscale($blocklist-item-color, 40%) !default;
     &:checked + label {
       // PH - change to iconography
       &::before {
-        content: 'Hell yeah';
+        content: '';
+        background-size: 100% 100%;
+        width: 1.5em;
+        height: 1.5em;
         color: $primary-color;
         float: right;
         pointer-events: none;
+        margin-top: -0.25em;
+
+        @if lightness($background) > 60% {
+          background-image: url(map-get($foundation-images, checkmark-black));
+        }
+        @else {
+          background-image: url(map-get($foundation-images, checkmark-white));
+        }
       }
     }
   }
