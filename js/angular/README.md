@@ -89,6 +89,17 @@ The ability to `sync` transitions together has been delayed from v1.2 to 1.3 and
 
 **Note** Please don't forget to add the `ui-animation` attribute wherever you have `ui-view` in order to hook your animations up to that event!
 
+
+### Using Ng-include
+
+Sometimes, it's more beneficial to use composed views rather than simple one-off views. For instance, having a dedicated file for a navigation, or a sidebar is much more useful separate than embedded. For these purposes, there's Angular's `ng-include`:
+
+````
+<div ng-include src="path/to/partial"></div>
+````
+
+The partial will be automatically pulled in and placed in the correct place.
+
 ### Enabling HTML5 Mode and working with Angular on a server
 
 To enable HTML5 mode with Angular (using regular URLs unprefixed by "\#"), a server has to support URL rewrites. The UI Router docs have a great [write up](https://github.com/angular-ui/ui-router/wiki/Frequently-Asked-Questions#how-to-configure-your-server-to-work-with-html5mode) on working with the HTML5mode and how to enable it on a variety of servers.
