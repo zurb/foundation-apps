@@ -35,6 +35,42 @@ $modules: () !default;
 }
 
 /**
+ *   Map Next
+ *   Find the next key in a map.
+ *
+ *   @param {map} $map - Map to traverse.
+ *   @param {mixed} $key - Key to use as a starting point.
+ *
+ *   @return The value for the key after $key if $key was found. If $key was not found, or $key was
+ *     the last value in the map, returns null.
+ */
+@function map-next($map, $key) {
+  // Store the values of the map as a list, so we can access them with nth
+  $values: map-values($map);
+
+  // Ghetto for loop
+  $i: 1;
+  $found: false;
+  @each $val in map-keys($map) {
+    @if $found == false {
+      @if ($key == $val) {
+        $found: true;
+      }
+      $i: $i + 1;
+    }
+  }
+
+  // If the key doesn't exist, or it's the last key in the map, return null
+  @if $i > length($map) {
+    @return null;
+  }
+  // Otherwise return the value
+  @else {
+    @return nth($values, $i);
+  }
+}
+
+/**
  *   Is It Light?
  *   Checks the lightness of $color, and if it passes the $threshold of lightness, it returns the $yes color.
  *   Otherwise, it returns the $no color. Use this function to dynamically output a foreground color based on
@@ -56,8 +92,6 @@ $modules: () !default;
   }
 }
 
-// SMART SCALE
-// Given a background color $color, returns an appropriate foreground color.
 /**
  *   Smart Scale
  *   Scales a color to be lighter if it's light, or darker if it's dark.
@@ -134,6 +168,115 @@ $modules: () !default;
       bottom: nth($val, 3),
       left: nth($val, 4),
     ), $side);
+  }
+}
+
+/**
+ *   Get Border Value
+ *   Given border $val, find a specific element of the border, which is $elem.
+ *   Possible values for $elem are width, style, and color.
+ *
+ *   @param {list} $val - Border value to find a value in.
+ *   @param {keyword} $elem - Border component to extract.
+ *
+ *   @param If the value exists, returns the value. If the value is not in the border definition,
+ *     the function will return a 0px width, solid style, or black border.
+ */
+ @function get-border-value($val, $elem) {
+   // Find the width, style, or color and return it
+   @each $v in $val {
+     $type: type-of($v);
+     @if $elem == width and $type == 'number' {
+       @return $v;
+     }
+     @if $elem == style and $type == 'string' {
+       @return $v;
+     }
+     @if $elem == color and $type == 'color' {
+       @return $v;
+     }
+   }
+
+   // Defaults
+   $defaults: (
+     width: 0,
+     style: solid,
+     color: black,
+   );
+   @return map-get($defaults, $elem);
+ }
+
+/**
+ *   Get Shadow Value
+ *   Given shadow value $val, find a specific element of the shadow, which is $elem.
+ *   Possible values for $elem are x, y, size, spread, color, and offset.
+ *
+ *   @param {list} $val - Shadow value to find a value in.
+ *   @param {keyword} $elem - Shadow component to extract.
+ *
+ *   @return If the value exists, returns the value. If the value is not set, returns false.
+ *     If $elem is "inset", returns true, otherwise false.
+**/
+@function get-shadow-value($val, $elem) {
+  // Return "none" if there's no shadow
+  @if $val == none {
+    @return none;
+  }
+
+  // Inset and color are always at the beginning and end
+  @if $elem == inset {
+    @return nth($val, 1) == inset;
+  }
+  @if $elem == color {
+    @if type-of(nth($val, -1)) == color {
+      @return nth($val, -1);
+    }
+    @else {
+      @return false;
+    }
+  }
+
+  // The rest of the values are located perilously in the middle
+  $values: ();
+  @each $v in $val {
+    @if type-of($v) == 'number' {
+      $values: append($values, $v);
+    }
+  }
+  @if $elem == x {
+    @if length($values) >= 1 {
+      @return nth($values, 1);
+    }
+    @else {
+      @return false;
+    }
+  }
+  @else if $elem == y {
+    @if length($values) >= 2 {
+      @return nth($values, 2);
+    }
+    @else {
+      @return false;
+    }
+  }
+  @else if $elem == size {
+    @if length($values) >= 3 {
+      @return nth($values, 3);
+    }
+    @else {
+      @return false;
+    }
+  }
+  @else if $elem == spread {
+    @if length($values) >= 4 {
+      @return nth($values, 4);
+    }
+    @else {
+      @return false;
+    }
+  }
+  @else {
+    @return false;
   }
 }
 

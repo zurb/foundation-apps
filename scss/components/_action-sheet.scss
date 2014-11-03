@@ -15,9 +15,15 @@ $actionsheet-shadow: 0 -3px 10px rgba(black, 0.25) !default;
 $actionsheet-padding: $global-padding !default;
 $actionsheet-tail-size: 10px !default;
 
+$actionsheet-popup-shadow: 0 0 10px rgba(black, 0.25) !default;
+
 $actionsheet-link-color: #000 !default;
 $actionsheet-link-background-hover: smartscale($actionsheet-background) !default;
 
+/*
+  Styles for the list inside an action sheet.
+  Don't include this mixin if you want to build custom controls inside the sheet.
+*/
 @mixin action-sheet-menu(
   $padding: $actionsheet-padding,
   $color: $actionsheet-link-color,
@@ -64,6 +70,9 @@ $actionsheet-link-background-hover: smartscale($actionsheet-background) !default
   }
 }
 
+/*
+  Styles for the action sheet container. Action sheets pin to the top or bottom of the screen.
+*/
 @mixin action-sheet(
   $position: bottom,
   $shadow: $actionsheet-shadow,
@@ -105,20 +114,59 @@ $actionsheet-link-background-hover: smartscale($actionsheet-background) !default
       transform: translateY(0%);
     }
   }
-  @else if $position == center {
-    top: 50%;
-    transform: translateY(-50%), scale(80%);
-    opacity: 0;
-    pointer-events: none;
-
-    &.is-active {
-      transform: translateY(-50%), scale(100%);
-      opacity: 1;
-    }
-  }
 }
 
-@mixin action-sheet-layout($position: bottom) {
+@mixin popup-menu(
+  $position: bottom,
+  $background: $actionsheet-background,
+  $width: $actionsheet-width,
+  $radius: $actionsheet-radius,
+  $shadow: $actionsheet-popup-shadow,
+  $tail-size: $actionsheet-tail-size
+) {
+  /*
+    Core styles
+  */
+  position: absolute;
+  left: 50%;
+  width: $width;
+  border-radius: $radius;
+  opacity: 0;
+  pointer-events: none;
+
+  /*
+    Menu shadow
+  */
+  @if hasvalue($shadow) {
+    box-shadow: $shadow;
+  }
+
+  /*
+    Active state
+  */
+  &.is-active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /*
+    Menu tail
+  */
+  &::before, &::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    display: block;
+    width: 0px;
+    height: 0px;
+    border-left: $tail-size solid transparent;
+    border-right: $tail-size solid transparent;
+    margin-left: -($tail-size);
+  }
+
+  /*
+    Positioning
+  */
   @if $position == bottom {
     top: auto;
     bottom: 0;
@@ -128,13 +176,13 @@ $actionsheet-link-background-hover: smartscale($actionsheet-background) !default
     }
 
     &::before, &::after {
-      top: -($actionsheet-tail-size);
+      top: -($tail-size);
       bottom: auto;
       border-top: 0;
-      border-bottom: $actionsheet-tail-size solid $actionsheet-background;
+      border-bottom: $tail-size solid $background;
     }
     &::before {
-      top: -($actionsheet-tail-size + 2);
+      top: -($tail-size + 2);
       border-bottom-color: rgba(black, 0.15);
     }
 
@@ -149,48 +197,14 @@ $actionsheet-link-background-hover: smartscale($actionsheet-background) !default
 
     &::before, &::after {
       top: auto;
-      bottom: -($actionsheet-tail-size);
-      border-top: $actionsheet-tail-size solid $actionsheet-background;
+      bottom: -($tail-size);
+      border-top: $tail-size solid $background;
       border-bottom: 0;
     }
     &::before {
-      bottom: -($actionsheet-tail-size + 2);
+      bottom: -($tail-size + 2);
       border-top-color: rgba(black, 0.15);
     }
-  }
-}
-
-@mixin popup-menu() {
-  position: absolute;
-  left: 50%;
-  width: $actionsheet-width;
-  border-radius: $actionsheet-radius;
-  opacity: 0;
-  pointer-events: none;
-
-  @if $actionsheet-shadow {
-    box-shadow: 0 0 10px rgba(black, 0.25);
-  }
-
-  @include action-sheet-layout(bottom);
-
-  // Active state
-  &.is-active {
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  // Menu tail
-  &::before, &::after {
-    content: '';
-    position: absolute;
-    left: 50%;
-    display: block;
-    width: 0px;
-    height: 0px;
-    border-left: $actionsheet-tail-size solid transparent;
-    border-right: $actionsheet-tail-size solid transparent;
-    margin-left: -($actionsheet-tail-size);
   }
 }
 
@@ -205,11 +219,7 @@ $actionsheet-link-background-hover: smartscale($actionsheet-background) !default
   @include action-sheet;
   @include action-sheet-menu;
 
-  @media #{$medium-up} {
+  @include breakpoint(medium) {
     @include popup-menu;
-
-    &.position-top {
-      @include action-sheet-layout(top);
-    }
   }
 }

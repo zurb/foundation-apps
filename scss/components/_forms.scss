@@ -97,7 +97,7 @@ form, form>* {
       }
     }
 
-    @media #{$medium-up} {
+    @include breakpoint(medium) {
 
       &.medium-#{$i}-up { // small-2-up
 
@@ -124,7 +124,7 @@ form, form>* {
       }
     }
 
-    @media #{$large-up} {
+    @include breakpoint(large) {
 
       &.large-#{$i}-up { // small-2-up
 
