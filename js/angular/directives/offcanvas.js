@@ -3,7 +3,7 @@ angular.module('foundation.offcanvas', []);
 angular.module('foundation.offcanvas')
   .directive('faOffcanvas', ['FoundationApi', function(foundationApi) {
   return {
-    restrict: 'A',
+    restrict: 'EA',
     templateUrl: '/partials/offcanvas.html',
     transclude: true,
     scope: {
@@ -16,11 +16,12 @@ angular.module('foundation.offcanvas')
       return {
         pre: function preLink(scope, iElement, iAttrs, controller) {
           iAttrs.$set('fa-closable', type);
-          iElement.addClass('ofc-' + scope.position);
+          iElement.addClass(scope.position);
           document.body.classList.add('has-off-canvas');
         },
         post: function postLink(scope, element, attrs) {
           var currentStatus = 'hide';
+          scope.active = false;
 
           //setup
           foundationApi.subscribe(attrs.id, function(msg) {
@@ -32,34 +33,27 @@ angular.module('foundation.offcanvas')
               scope.toggle();
             }
 
+            scope.$apply();
+
             return;
           });
 
           scope.hide = function() {
-            element.removeClass('is-active');
-            currentStatus = 'hide';
+            scope.active = false;
             return;
-          }
+          };
 
           scope.show = function() {
-            element.addClass('is-active');
-            currentStatus = 'show';
+            scope.active = true;
             return;
-          }
+          };
 
           scope.toggle = function() {
-            if(currentStatus == 'show') {
-              scope.hide();
-              currentStatus = 'hide';
-              return;
-            }
-
-            scope.show();
-            currentStatus = 'show';
+            scope.active = !scope.active;
             return;
-          }
+          };
         }
-      }
+      };
     },
-  }
+  };
 }]);

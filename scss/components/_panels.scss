@@ -1,29 +1,49 @@
 /*
-  Off-canvas panels
+  PANEL
+  -----
+
+  The friendly panel is an all-purpose container for hiding content off-screen.
+
+  Features:
+   - Position at top, right, bottom, or left
+   - Anchor to grid block or window
+   - Define max width or height
+   - Transform into grid block depending on screen size
 */
-@mixin panel-base($direction: left, $speed: 0.25s) {  
+
+$panel-size-horizontal: 300px !default;
+$panel-size-vertical: 300px !default;
+$panel-padding: $global-padding !default;
+
+$panel-background: #fff !default;
+$panel-shadow: 3px 0 10px rgba(black, 0.25) !default;
+$panel-animation-speed: 0.25s !default;
+
+%panel-base {
   display: block;
   position: absolute;
-  transition: transform $speed linear;
   z-index: 100;
   overflow-y: auto;
-  padding: 1rem;
-  background: #fff;
-
-  // Box shadows
-  $shadow-distance: 3px;
-  $shadow-size: 10px;
-  $shadow-color: rgba(black, 0.25);
-
-  &.is-active {
-    @if $direction == left        { box-shadow: $shadow-distance 0 $shadow-size $shadow-color; }
-    @else if $direction == right  { box-shadow: -$shadow-distance 0 $shadow-size $shadow-color; }
-    @else if $direction == top    { box-shadow: 0 $shadow-distance $shadow-size $shadow-color; }
-    @else if $direction == bottom { box-shadow: 0 -$shadow-distance $shadow-size $shadow-color; }
-  }
 }
-@mixin panel-position($direction: left, $size: 300px) {
-  @if $direction == top {
+
+@mixin panel-layout(
+  $position: left,
+  $size: default,
+  $shadow: $panel-shadow
+) {
+  @if $size == default {
+    @if $position == left or $position == right {
+      $size: $panel-size-horizontal;
+    }
+    @if $position == top or $position == bottom {
+      $size: $panel-size-vertical;
+    }
+  }
+
+  /*
+    Direction
+  */
+  @if $position == top {
     top: 0;
     left: 0;
     width: 100%;
@@ -33,7 +53,7 @@
       transform: translateY(0%);
     }
   }
-  @else if $direction == right {
+  @else if $position == right {
     top: 0;
     right: 0;
     height: 100%;
@@ -43,7 +63,7 @@
       transform: translateX(0%);
     }
   }
-  @else if $direction == bottom {
+  @else if $position == bottom {
     bottom: 0;
     left: 0;
     width: 100%;
@@ -53,7 +73,7 @@
       transform: translateY(0%);
     }
   }
-  @else if $direction == left {
+  @else if $position == left {
     top: 0;
     left: 0;
     height: 100%;
@@ -63,69 +83,65 @@
       transform: translateX(0%);
     }
   }
-}
-@mixin panel-size($direction: left, $size: 300px) {
-  // Vertical panels are always all the way tall and have a set width
-  @if $direction == left or $direction == right {
+
+  /*
+    Sizing
+  */
+  // Horizontal panels are always all the way tall and have a set width
+  @if $position == left or $position == right {
     width: 100%;
-    @media screen and (min-width: rem-calc($size)) {
+    @include breakpoint($size) {
       width: $size;
     }
   }
-  // (For now) horizontal panels are as big as they need to be
-  @if $direction == top or $direction == bottom {
+  // (For now) vertical panels don't change size
+  @if $position == top or $position == bottom {
     height: $size;
   }
+
+  /*
+    Shadows
+  */
+  $shadow-distance: get-shadow-value($shadow, x);
+  $shadow-size: get-shadow-value($shadow, size);
+  $shadow-color: get-shadow-value($shadow, color);
+  &.is-active {
+    @if $position == left        { box-shadow: $shadow-distance 0 $shadow-size $shadow-color; }
+    @else if $position == right  { box-shadow: -$shadow-distance 0 $shadow-size $shadow-color; }
+    @else if $position == top    { box-shadow: 0 $shadow-distance $shadow-size $shadow-color; }
+    @else if $position == bottom { box-shadow: 0 -$shadow-distance $shadow-size $shadow-color; }
+  }
 }
-@mixin panel($direction: left, $speed: 0.25s, $size: 300px) {
-  @include panel-base($direction, $speed);
-  @include panel-position($direction);
-  @include panel-size($direction, $size);
+
+@mixin panel-style(
+  $padding: $panel-padding,
+  $background: $panel-background,
+  $animation-speed: $panel-animation-speed
+) {
+  /*
+    Basic styles
+  */
+  padding: $padding;
+  background: $background;
+
+  /*
+    Animation
+  */
+  transition: transform $animation-speed linear;
 }
 
 /*
   CSS output
 */
 
-// This mixin prepends a string to a selector
-@mixin prepend($str) {
-  // This strips the period off the parent selector
-  $sel: str_slice(inspect(nth(&, 1)), 2);
-
-  @at-root {
-    .#{$str + '-' + $sel} {
-      @content;
-    }
-  }
-}
-
 .panel {
-  @include panel-base;
-
-  &-top {
-    @include panel-position(top, auto);
-  }
-  &-right {
-    @include panel-position(right);
-    @include panel-size(right);
-  }
-  &-bottom {
-    @include panel-position(bottom, auto);
-  }
-  &-left {
-    @include panel-position(left);
-    @include panel-size(left);
-  }
-
-  &-fixed {
-    position: fixed;
-  }
-
-  @each $size, $breakpoint in ('medium': $medium-up, 'large': $large-up) {
-    @media #{$breakpoint} {
-      @include prepend($size) {
-        @include panel-base;  
-      }
-    }
-  }
+  @extend %panel-base;
+  @include panel-style;
 }
+
+.panel-top    { @include panel-layout(top); }
+.panel-right  { @include panel-layout(right); }
+.panel-bottom { @include panel-layout(bottom); }
+.panel-left   { @include panel-layout(left); }
+
+.panel-fixed  { position: fixed; }

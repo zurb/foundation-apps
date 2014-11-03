@@ -6,6 +6,14 @@ $form-text-size: 16px;
 $form-padding: 0.5rem;
 $form-label-color: #999;
 
+// Resets
+
+// Make sure textarea takes on height automatically
+textarea { height: auto; min-height: 50px; }
+
+// Make select elements 100% width by default
+select { width: 100%; }
+
 // Styling
 
 input[type="text"],
@@ -66,7 +74,7 @@ form, form>* {
     $small-count: $i - 1; // 2
 
     &.small-#{$i}-up { // small-2-up
-      
+
       display: flex;
       flex-flow: row wrap;
 
@@ -75,7 +83,7 @@ form, form>* {
         $reduction-amount: $form-padding * ($small-count / $i); // .5rem * (2 / 3)
         flex: 0 0 auto;
         width: calc(#{$current-percentage} - (#{$reduction-amount})); // 33.33333% - .36667777rem
-        
+
         margin-right: $form-padding / 2;
         margin-left: $form-padding / 2;
 
@@ -89,10 +97,10 @@ form, form>* {
       }
     }
 
-    @media #{$medium-up} {
-      
+    @include breakpoint(medium) {
+
       &.medium-#{$i}-up { // small-2-up
-      
+
         display: flex;
         flex-flow: row wrap;
 
@@ -101,7 +109,7 @@ form, form>* {
           $reduction-amount: $form-padding * ($small-count / $i); // .5rem * (2 / 3)
           flex: 0 0 auto;
           width: calc(#{$current-percentage} - (#{$reduction-amount})); // 33.33333% - .36667777rem
-          
+
           margin-right: $form-padding / 2;
           margin-left: $form-padding / 2;
 
@@ -116,10 +124,10 @@ form, form>* {
       }
     }
 
-    @media #{$large-up} {
-      
+    @include breakpoint(large) {
+
       &.large-#{$i}-up { // small-2-up
-      
+
         display: flex;
         flex-flow: row wrap;
 
@@ -128,7 +136,7 @@ form, form>* {
           $reduction-amount: $form-padding * ($small-count / $i); // .5rem * (2 / 3)
           flex: 0 0 auto;
           width: calc(#{$current-percentage} - (#{$reduction-amount})); // 33.33333% - .36667777rem
-          
+
           margin-right: $form-padding / 2;
           margin-left: $form-padding / 2;
 
@@ -150,7 +158,9 @@ form, form>* {
      -moz-appearance: none;
 }
 
-// Range sliders
+/*
+  Range slider
+*/
 input[type="range"] {
   $thumb-color: $primary-color;
   $thumb-height: 16px;
@@ -211,7 +221,9 @@ input[type="range"] {
   }
 }
 
-// Number inputs
+/*
+  Number inputs
+*/
 input[type="number"] {
   &::-webkit-inner-spin-button {
 
@@ -222,7 +234,9 @@ input[type="number"] {
   }
 }
 
-// Progress and meter
+/*
+  Progress and meter
+*/
 progress, meter {
   $background: #ccc;
   $meter-fill: $primary-color;

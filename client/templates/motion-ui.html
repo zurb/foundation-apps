@@ -1,0 +1,659 @@
+---
+name: motion-ui
+url: /motion-ui
+---
+
+<h2>Motion UI</h2>
+<h3 class="subheader">Now you can rapidly prototype animated elements that integrate seamlessly into your site! We're using Sass mixins, CSS animations and transitions to make some really neat effects.</h3>
+
+<hr>
+
+<div class="docs-example-grid">
+  <div class="content block">
+		<div class="medium-6 content block">
+			<div id="example8" class="square" data-motion="spinner-cw ease infinite"></div>
+			<label for=""><code>spinner-cw ease infinite</code></label><br><br>
+			<span data-motion-id="example8" class="small button">Ease Spin</span>
+		</div>
+		<div class="medium-6 content block">
+			<div id="example9" class="square" data-motion="spinner-cw linear infinite"></div>
+			<label for=""><code>spinner-cw linear infinite</code></label><br><br>
+			<span data-motion-id="example9" class="small button">Linear Spin</span>
+		</div>
+  </div>
+</div>
+
+<hr>
+
+<h3>Basic HTML</h3>
+<p>You can create [Item] with this basic HTML</p>
+<ul class="segmented button-group small">
+  <li class="is-active"><a href="#">CSS Classes</a></li>
+  <li><a href="#">Sass Mixins</a></li>
+</ul>
+<div class="block">
+  <div class="medium-6 block content">
+    <pre>
+      <code class="language-html">
+        [html]
+      </code>
+    </pre>
+  </div>
+  <div class="medium-6 block content">
+    [Demo of item]
+  </div>
+</div>
+
+<h3>Advanced HTML</h3>
+<p>You can create advanced versions of [Item] with this HTML</p>
+<ul class="segmented button-group">
+  <li class="is-active"><a href="#">CSS Classes</a></li>
+  <li><a href="#">Sass Mixins</a></li>
+</ul>
+<div class="block">
+  <div class="medium-6 block content">
+    <pre>
+      <code class="language-html">
+        [html]
+      </code>
+    </pre>
+  </div>
+  <div class="medium-6 block content">
+    [Demo of item]
+  </div>
+</div>
+
+<h3>Sass Variables</h3>
+<p>You can customize with...</p>
+<pre>
+  <code class="language-html">
+    [Sass]
+  </code>
+</pre>
+
+ 
+
+<section class="block">
+  <hr class="contain">
+  <div class="content block">
+
+    <div class="small-12 block">
+			<div class="medium-5 content block">
+
+{{#markdown}}
+
+#### Base Motion
+
+Quickly addding motion to an element is easy! 
+
+1. Use the attribute `data-motion` to describe how we want an element to move. 
+2. Use the class `motion` to trigger the animation. 
+3. [There's no step 3!](http://youtu.be/6uXJlX50Lj8)
+
+{{/markdown}}
+
+			</div>
+			<div class="medium-7 block">
+
+				<div class="medium-12 content block"><h6>Examples</h6></div>
+
+				<div class="medium-4 content block">
+					
+					<div id="example1" class="motion square" data-motion="slide-from-left"></div>
+					<span data-motion-id="example1" class="small button">Slide</span>
+
+				</div>
+				<div class="medium-4 content block">
+					
+					<div id="example2" class="motion square" data-motion="hinge-from-middle-x"></div>
+					<span data-motion-id="example2" class="small button">Hinge</span>
+
+				</div>
+				<div class="medium-4 content block">
+					
+					<div id="example3" class="motion square" data-motion="spin"></div>
+					<span data-motion-id="example3" class="small button">Spin</span>
+
+				</div>
+
+				<div class="medium-12 content block">
+					
+{{#markdown}}
+
+You can choose from a number of basic motions:
+
+**Slide**
+
+`slide-from-top`, `slide-from-right`, `slide-from-bottom`, `slide-from-left`, 
+
+**Hinge**
+
+`hinge-from-top`, `hinge-from-right`, `hinge-from-bottom`, `hinge-from-left`, `hinge-from-middle-x`, `hinge-from-middle-y`
+
+**Scale**
+
+`drop`, `pop`
+
+**Spin**
+
+`spin`, `spin ccw`
+
+**Fade**
+
+`fade`
+
+**Prefabricated Animations**
+
+`shake`, `spin-cw`, `spin-ccw`, `wiggle`
+
+###### Example Usage
+
+```html
+<div class="motion" data-motion="slide-from-left"></div>
+<div class="motion" data-motion="hinge-from-middle-x"></div>
+<div class="motion" data-motion="spin"></div>
+```
+
+{{/markdown}}
+
+				</div>
+
+				
+				
+			</div>
+
+	   </div>
+	</div>
+</section>
+
+<section class="docs container">
+  <hr class="contain">
+  <div class="group">
+
+    <div class="small-12 block">
+			<div class="medium-5 content block">
+
+{{#markdown}}
+
+#### Modifiers
+
+Don't want an out-of-the-box animation? No problemo! You have several modifiers at your disposal to get exactly the animation you want!
+
+{{/markdown}}
+
+			</div>
+			<div class="medium-7 block">
+
+				<div class="medium-12 content block">
+					
+{{#markdown}}
+
+##### Speed
+
+You have three speeds to choose from. By default, animations will execute in **700ms**. You can pass `slow` or `fast` modifiers to change the speed to **1.5s** or **300ms** respectively.
+
+###### Markup
+
+```html
+<div class="motion" data-motion="drop fast"></div>
+<div class="motion" data-motion="drop"></div>
+<div class="motion" data-motion="drop slow"></div>
+```
+
+{{/markdown}}
+				
+				</div>
+
+				<div class="medium-4 content block">
+				
+					<div id="example4" class="motion square" data-motion="drop fast"></div>
+					<span data-motion-id="example4" class="small button">Fast</span>
+
+				</div>
+				<div class="medium-4 content block">
+					
+					<div id="example5" class="motion square" data-motion="drop"></div>
+					<span data-motion-id="example5" class="small button">Normal</span>
+
+				</div>
+				<div class="medium-4 content block">
+					
+					<div id="example6" class="motion square" data-motion="drop slow"></div>
+					<span data-motion-id="example6" class="small button">Slow</span>
+
+				</div>
+					
+				<hr class="contain">
+
+				<div class="medium-12 content block">
+
+{{#markdown}}
+
+##### Iteration Count
+
+**This only applies to prefabricated animations.** Animations will only run once by default, but you can make them repeat infinitely if you want them to! Just add the `infinite` modifier!
+
+###### Markup
+
+```html
+<div class="motion" data-motion="shake infinite"></div>
+```
+
+{{/markdown}}
+
+					<div id="example7" class="square" data-motion="shake infinite"></div>
+					<span data-motion-id="example7" class="small button">Infinite Animation!</span>
+
+					
+				</div>
+
+				<hr class="contain">
+
+				<div class="medium-12 content block">
+
+
+{{#markdown}}
+
+##### Timing Function
+
+By default all animations and transitions use `ease` for the timing function. However, this isn't always desirable so we've made other timing function modifiers available!
+
+Choose from:
+
+`ease`, `ease-in`, `ease-out`, `ease-in-out`, `linear`
+
+###### Markup
+
+```html
+<div class="motion" data-motion="spinner-cw ease infinite"></div>
+<div class="motion" data-motion="spinner-cw linear infinite"></div>
+```
+
+{{/markdown}}
+
+					</div>
+
+					<div class="medium-6 content block">
+					
+						<div id="example8" class="square" data-motion="spinner-cw ease infinite"></div>
+						<label for=""><code>spinner-cw ease infinite</code></label><br><br>
+						<span data-motion-id="example8" class="small button">Ease Spin</span>
+
+					</div>
+					<div class="medium-6 content block">
+						
+						<div id="example9" class="square" data-motion="spinner-cw linear infinite"></div>
+						<label for=""><code>spinner-cw linear infinite</code></label><br><br>
+						<span data-motion-id="example9" class="small button">Linear Spin</span>
+
+
+					</div>
+
+					<hr class="contain">
+
+					<div class="medium-12 content block">
+
+
+{{#markdown}}
+
+##### Delay
+
+You can add a delay to your animation with the `delay` modifier. By default, this is the length of the base motion duration, which is 700ms. You can also use `fast-delay` and `short-delay`.
+
+###### Markup
+
+```html
+<div class="motion" data-motion="pop short-delay"></div>
+<div class="motion" data-motion="pop delay"></div>
+<div class="motion" data-motion="pop long-delay"></div>
+```
+
+{{/markdown}}
+
+					</div>
+
+					<div class="medium-4 content block">
+					
+						<div id="example10" class="motion square" data-motion="pop short-delay"></div>
+						<span data-motion-id="example10" class="small button">Short Delay</span>
+
+					</div>
+
+					<div class="medium-4 content block">
+					
+						<div id="example11" class="motion square" data-motion="pop delay"></div>
+						<span data-motion-id="example11" class="small button">Delay</span>
+
+					</div>
+
+					<div class="medium-4 content block">
+					
+						<div id="example12" class="motion square" data-motion="pop long-delay"></div>
+						<span data-motion-id="example12" class="small button">Long Delay</span>
+
+					</div>
+
+				</div>
+
+
+			</div>
+
+	   </div>
+	</div>
+</section>
+
+<section class="docs container">
+  <hr class="contain">
+  <div class="block">
+
+    <div class="small-12 group">
+			<div class="medium-5 content block">
+
+{{#markdown}}
+
+#### Usage Examples
+
+You can include `data-animation` values in any order to craft complex animations!
+
+{{/markdown}}
+
+			</div>
+			<div class="medium-7 block">
+
+				<div class="medium-12 content block">
+					
+{{#markdown}}
+
+##### Examples
+
+
+
+{{/markdown}}
+
+				</div>
+
+				<div class="medium-6 content block">
+
+					<h6>Spinner</h6>
+					<label for=""><code>spin-cw linear infinite</code></label><br><br>
+
+					
+					<div id="example13" class="motion spinner" data-motion="spinner-cw linear infinite"></div><br><br>
+
+				</div>
+
+				<div class="medium-6 content block">
+					
+					<h6>Attention Grabber</h6>
+					<label for=""><code>wiggle slow infinite</code></label><br><br>
+					<span id="example14" class="motion alert button" data-motion="wiggle slow infinite">Hey! Listen!</span>
+					
+
+				</div>
+
+				<div class="medium-12 content block allow-overflow">
+					
+					<h6>Form Feedback</h6>
+					<code>shake</code>, <code>slide-in-from-north initially-hidden</code></label><br><br>
+					<input id="example15" class="" style="margin:0;"type="text" data-motion="shake">
+					<small id="example16" class="error" data-motion="slide-from-top">Sorry, invalid input</small>
+					<br>
+					<span class="button" data-animation-id="example15">Submit to See Feedback</span>
+					
+				</div>
+				
+			</div>
+
+	   </div>
+	</div>
+</section>
+
+<section class="docs container">
+  <hr class="contain">
+  <div class="block">
+
+    <div class="small-12 block">
+			<div class="medium-5 content block">
+
+{{#markdown}}
+
+#### Build with Mixins
+
+You can add motion directly with our Sass mixins for more semantic code and a finer level of control.
+
+{{/markdown}}
+
+			</div>
+			<div class="medium-7 block">
+
+				<div class="medium-12 content block">
+					
+{{#markdown}}
+
+##### Motion Variables
+
+```scss
+$transition-normal-duration: 700ms;
+$motion-class: "motion";
+
+$motion-default-origin: left;
+$slide-default-dir: left;
+
+$include-html-motion-attributes: true;
+$auto-adjust-opacity: true;
+
+$motion-default-property: transform;
+$motion-default-timing: ease;
+$motion-default-delay: 0;
+
+$motion-slow-duration: 1.4s;
+$motion-default-duration: 700ms;
+$motion-fast-duration: 300ms;
+```
+
+##### Basic Mixin Usage
+
+```scss
+// Include a transition in your element
+//    
+//   transition-name: name of a transition mixin. 
+//   [ slide | fade | hinge | scale | spin ]
+@include transition-name();
+```
+
+###### Global Arguments
+
+**$duration** <br>
+Default: `$motion-default-duration // 300ms` <br>
+*Length of time in which animation executes* <br>
+Options: `<time>` 
+
+**$timing** <br>
+Default: `$motion-default-timing // ease` <br>
+*Set the motion timing function* <br>
+Options: `<timing-function>`
+
+**$delay** <br>
+Default: `$motion-default-delay // 0` <br>
+*Amount of time to elapse before the animation executes.* <br>
+Options: `<time>` 
+
+**$fade** (does not apply to prefab animations)<br>
+Default: `true` <br>
+*Control if element fades in/out with the animation*<br>
+Options: `true`, `false` 
+
+<br>
+
+##### Slide
+
+```scss
+// Slide with default settings
+@include slide();
+
+// Slide from top without fading with a 300ms delay
+@include slide(top, false, $delay:300ms);
+
+// Slide in from top with a linear timing function
+@include slide($from:right, $timing:linear);
+
+```
+
+###### Arguments
+
+**$from** <br>
+Default: `left` <br>
+*Defines the element's slide origin.* <br>
+Options: `top`, `right`, `bottom`, `left` 
+
+<br>
+
+##### Fade 
+
+```scss
+// Fade with default settings
+@include fade();
+
+// Fade from half opacity to fully opaque
+@include fade($from:0.5, $to:1);
+```
+
+**$from** <br>
+Default: `0` <br>
+*Defines the initial opacity.* <br>
+Options: `<number>` 
+
+**$to** <br>
+Default: `1` <br>
+*Defines the element destination opacity* <br>
+Options: `<number>`
+
+<br>
+
+##### Hinge 
+
+```scss
+// Hinge with default settings
+@include hinge();
+
+// Hinge from top to bottom on a center axis
+@include hinge($from:top, $axis:center)
+
+// Hinge from front to back 
+@include hinge($turn-origin:from-front)
+```
+
+**$from** <br>
+Default: `left` <br>
+*Defines the elements directional origin* <br>
+Options: `top`, `right`, `bottom`, `left` 
+
+**$axis** <br>
+Default: `edge` <br>
+*Defines where the element turns form* <br>
+Options: `edge`, `center`
+
+**$perspective** <br>
+Default: `2000px` <br>
+*Adjust the `perspective()` transform function* <br>
+Options: `<number><length>`
+
+**$turn-origin** <br>
+Default: `from-back` <br>
+*Define the z-orientation the element starts from* <br>
+Options: `from-back`, `from-front`
+
+##### Scale
+
+```scss
+// Scale with default settings
+@include scale();
+
+// Drop from large to normal size
+@include scale($from:3, $to:1);
+
+// Pop from small to normal size
+@include scale($from:0.5, $to:1);
+```
+
+**$from** <br>
+Default: `1.5` <br>
+*Defines the initial scale.* <br>
+Options: `<number>` 
+
+**$to** <br>
+Default: `1` <br>
+*Defines the destination scale.* <br>
+Options: `<number>`
+
+##### Spin
+
+```scss
+// Spin with default settings
+@include spin();
+
+// Spin counter clockwise
+@include spin($dir:counterclockwise);
+
+// Spin from 2 turns to normal orientation
+@include spin($from:2turn, $to:0);
+```
+
+**$dir** <br>
+Default: `clockwise` <br>
+*Direction of the spin* <br>
+Options: `clockwise`, `counterclockwise`  
+
+**$from** <br>
+Default: `0.75turn` <br>
+*Defines the initial turn* <br>
+Options: `<number><length>` 
+
+**$to** <br>
+Default: `0` <br>
+*Defines the destination turn* <br>
+Options: `<number><length>`
+
+##### Prefab Animations
+
+```scss
+// Include a prefab animation in your element
+//    
+//   $animation: name of an animation. 
+//   [ shake | spin-cw | spin-ccw | wiggle ]
+@include animation($animation);
+
+// Shake infinitely
+@include animation($animation:shake, $iterations:infinite);
+```
+
+**$animation** (required)<br>
+Default: none <br>
+*Choose an animation* <br>
+Options: `shake`, `spin-cw`, `spin-ccw`, `wiggle`  
+
+**$iterations** <br>
+Default: `null` <br>
+*Defines number of times the animation runs* <br>
+Options: `infinite`, `<number>`
+
+
+{{/markdown}}
+
+				</div>
+				
+			</div>
+
+	   </div>
+	</div>
+</section>
+
+<footer>
+  <section class="docs container">
+    <div class="block">
+      <div class="small-12 block">
+        <p>These docs, like all of Foundation, are MIT-Licensed Open Source. From your friends at <a href="http://zurb.com">ZURB</a>.</p>
+      </div>
+    </div>
+  </section>
+</footer>

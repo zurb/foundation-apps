@@ -1,5 +1,10 @@
 {
   "name": "foundation-apps",
+  "version": "0.0.1",
+  "main": [
+    "scss/foundation.scss",
+    "js/angular/app.js"
+  ],
   "dependencies": {
     "notify.js": "~1.2.3",
     "viewport-units-buggyfill": "~0.4.1",
@@ -11,9 +16,8 @@
     "jquery": "~2.1.1",
     "angular-mocks": "~1.3.0"
   },
-  "version": "0.0.1",
   "homepage": "https://github.com/zurb/foundation-apps",
-  "description": "Build the future of responsive web apps.",
+  "description": "A responsive, Angular-powered web apps framework from ZURB.",
   "keywords": [
     "web apps",
     "responsive design",
@@ -25,9 +29,8 @@
     "**/.*",
     "node_modules",
     "bower_components",
-    "dist",
-    "docs",
-    "lib",
-    "Gruntfile.js"
+    "client",
+    "build",
+    "docs"
   ]
 }

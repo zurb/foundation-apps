@@ -102,7 +102,7 @@ $icon-bar-border-color: rgba(255,255,255,0.3) !default;
     border-left: none;
 
     border-bottom: 1px solid $icon-bar-border-color;
-    &:last-child { border-botto: none; }
+    &:last-child { border-bottom: none; }
 
     span { margin-top: 0; }
     img + span { margin-left: 1rem; }
@@ -121,7 +121,7 @@ $icon-bar-border-color: rgba(255,255,255,0.3) !default;
   &.vertical { @include vertical-menu-bar; }
 
   @each $size, $breakpoint in ('medium': $medium-up, 'large': $large-up) {
-    @media #{$breakpoint} {
+    @include breakpoint($size) {
       &.#{$size}-vertical {
         @include vertical-menu-bar;
       }

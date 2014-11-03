@@ -76,7 +76,7 @@ $notification-radius: 4px !default;
   }
 
   // On small screens, notifications are full width but maintain their vertical orientation
-  @media #{$small-only} {
+  @include breakpoint(small only) {
     width: auto;
     left: $offset;
     right: $offset;

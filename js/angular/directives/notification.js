@@ -3,65 +3,55 @@ angular.module('foundation.notification', []);
 angular.module('foundation.notification')
   .directive('faNotification', ['FoundationApi', function(foundationApi) {
   return {
-    restrict: 'A',
-    templateUrl: '/partials/notification.html',
+    restrict: 'EA',
+    templateUrl: '/partials/panel.html',
     transclude: true,
     scope: {
-      src: '@'
+      position: '@'
     },
     replace: true,
     compile: function compile(tElement, tAttrs, transclude) {
-      var type = 'modal';
+      var type = 'panel';
 
       return {
         pre: function preLink(scope, iElement, iAttrs, controller) {
           iAttrs.$set('fa-closable', type);
         },
         post: function postLink(scope, element, attrs) {
-          var dialog = angular.element(element.children()[0]);
-          var type = 'notification';
           var currentStatus = 'hide';
+          scope.active = false;
 
           //setup
           foundationApi.subscribe(attrs.id, function(msg) {
             if(msg == 'show' || msg == 'open') {
               scope.show();
-            } else if (msg == 'hide' || msg == 'close') {
+            } else if (msg == 'close' || msg == 'hide') {
               scope.hide();
             } else if (msg == 'toggle') {
               scope.toggle();
             }
 
+            scope.$apply();
+
             return;
           });
 
           scope.hide = function() {
-            dialog.removeClass('is-active');
-            element.removeClass('is-active');
-            currentStatus = 'hide';
+            scope.active = false;
             return;
-          }
+          };
 
           scope.show = function() {
-            dialog.addClass('is-active');
-            element.addClass('is-active');
-            currentStatus = 'show';
+            scope.active = false;
             return;
-          }
+          };
 
           scope.toggle = function() {
-            if(currentStatus == 'show') {
-              scope.hide();
-              currentStatus = 'hide';
-              return;
-            }
-
-            scope.show();
-            currentStatus = 'show';
+            scope.active = !scope.active;
             return;
-          }
+          };
         }
-      }
+      };
     },
-  }
+  };
 }]);

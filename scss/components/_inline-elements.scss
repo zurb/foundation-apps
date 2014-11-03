@@ -38,7 +38,7 @@ $thumbnail-shadow: 0 3px 15px rgba(black, 0.25) !default;
   CSS Output
 */
 
-.close-button, [fa-close] {
+.close-button {
   @extend %close-button;
 }
 .thumbnail {

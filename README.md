@@ -7,13 +7,14 @@ Work in progress for Foundation for Apps. At this time we will only be accepting
 You'll need to have the following items installed before continuing.
 
   * [Node.js](http://nodejs.org): Use the installer provided on the NodeJS website.
+  * [Git](http://git-scm.com/downloads): Use the installer for your OS.
   * [Gulp](http://gulpjs.com/) and [Bower](http://bower.io): Run `sudo npm install -g gulp bower`
   * [Sass 3.4](http://sass-lang.com/): run `gem update sass`
 
 ## Quickstart
 
 Clone this repository:
-`git clone git@github.com:zurb/foundation-apps.git`
+`git clone https://github.com/zurb/foundation-apps.git`
 
 Navigate into the directory:
 `cd foundation-apps`
@@ -24,7 +25,20 @@ Install all the dependencies:
 While you're working on the project, run:
 `gulp`
 
-This will assemble all the pages and compile the Sass. You're set!
+This will assemble all the pages and compile the Sass. You can view the test site at this URL:
+
+```
+localhost:8080
+```
+
+## For Windows Users
+
+Windows doesn't come with some tools that OS X or Linux might get pre-installed with. Some instructions may also differ. Here are some tip to get things working:
+
+- To get Git working (and Bower along with it), install [Git for Windows](http://git-for-windows.github.io/)
+- Windows doesn't have `sudo`, which is a command that will allow you to run the rest of the command as a `root` or `administrator` user. Instead, right click or shift-right-click your Command Prompt and choose the option "run as Administrator..". Once you've done this, make sure to omit `sudo` when running a command. Windows WILL prompt you every time you open CMD with a dialog ensure you want to run your program as an Administrator.
+- Windows does not come with Ruby, to install Ruby either download and run the [official installer](https://www.ruby-lang.org/en/) or try [Jruby](http://jruby.org/), a Ruby alternative many Windows users use.
+
 
 ## Docs
 
@@ -158,6 +172,8 @@ The animation data gets registered for the template (only if it's a child or par
 Please note that the default AngularJS behavior for animations is to trigger both the "in" animation of a new element and the "out" animation of an element (`ng-enter` and `ng-leave` respectively) at the same time which will cause both views to appear together.
 
 The ability to `sync` transitions together has been delayed from v1.2 to 1.3 and finally as a possibility for 2.0 ([ref](https://github.com/angular/angular.js/issues/2310))
+
+**Note** Please don't forget to add the `ui-animation` attribute wherever you have `ui-view` in order to hook your animations up to that event!
 
 ### Additional mock data
 

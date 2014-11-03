@@ -41,7 +41,7 @@ $modal-overlay-background: rgba(#333, 0.7) !default;
     top: 0;
     left: 0;
     transform: scale(1);
-    @media #{$medium-up} {
+    @include breakpoint(medium) {
       height: auto;
       max-width: 600px;
     }

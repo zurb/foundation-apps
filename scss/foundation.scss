@@ -3,6 +3,9 @@
 // foundation.zurb.com
 // Licensed under MIT Open Source
 
+$rem-base: 16px;
+$foundation-version: '0.0.1';
+
 // Make sure the charset is set appropriately
 @charset "UTF-8";
 
@@ -14,7 +17,8 @@
 @import
   "helpers/functions",
   "helpers/mixins",
-  "helpers/breakpoints";
+  "helpers/breakpoints",
+  "helpers/images";
 
 // Global styles
 @import
@@ -38,6 +42,7 @@
   "components/notification",
   "components/off-canvas",
   "components/popup",
+  "components/switch",
   "components/tabs",
   "components/accordions",
   "components/typography",

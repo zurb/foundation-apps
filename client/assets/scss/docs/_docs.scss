@@ -190,7 +190,7 @@ input[type=text].error {
 }
 
 .top-bar {
-	background: $union-navy;
+	background: $primary-color;
 	&, #{$headers}, a { color: #FFF; }
 }
 
@@ -285,4 +285,9 @@ figure  {
       margin-right: 0;
     }
   }
+}
+
+.subheader {
+  line-height: 1.4;
+  color: #6f6f6f;
 }
