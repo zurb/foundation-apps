@@ -59,7 +59,7 @@ $modules: () !default;
       $i: $i + 1;
     }
   }
- 
+
   // If the key doesn't exist, or it's the last key in the map, return null
   @if $i > length($map) {
     @return null;
@@ -196,7 +196,7 @@ $modules: () !default;
        @return $v;
      }
    }
-   
+
    // Defaults
    $defaults: (
      width: 0,
@@ -222,7 +222,7 @@ $modules: () !default;
   @if $val == none {
     @return none;
   }
-  
+
   // Inset and color are always at the beginning and end
   @if $elem == inset {
     @return nth($val, 1) == inset;
@@ -235,7 +235,7 @@ $modules: () !default;
       @return false;
     }
   }
-  
+
   // The rest of the values are located perilously in the middle
   $values: ();
   @each $v in $val {
@@ -259,7 +259,7 @@ $modules: () !default;
       @return false;
     }
   }
-  @else if $elem == blur {
+  @else if $elem == size {
     @if length($values) >= 3 {
       @return nth($values, 3);
     }
