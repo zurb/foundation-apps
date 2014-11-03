@@ -60,7 +60,9 @@ angular.module('foundation.notification')
       title: '=?',
       content: '=?',
       image: '=?',
-      notifId: '='
+      notifId: '=',
+      position: '=?',
+      color: '=?'
     },
     link: function(scope, element, attrs, controller) {
       scope.active = true;
@@ -83,10 +85,11 @@ angular.module('foundation.notification')
       title: '@?',
       content: '@?',
       image: '@?',
-      onEnter: '&?',
-      onExit: '&?'
+      position: '@?',
+      color: '@?'
     },
     link: function(scope, element, attrs, controller) {
+      scope.position = scope.position.split(' ').join('-');
 
       foundationApi.subscribe(attrs.id, function(msg) {
         if(msg == 'show' || msg == 'open') {
@@ -129,11 +132,13 @@ angular.module('foundation.notification')
     restrict: 'A',
     scope: {
       title: '@?',
-      content: '@?'
+      content: '@?',
+      position: '@?',
+      color: '@?'
     },
     link: function(scope, element, attrs, controller) {
       element.on('click', function(e) {
-        foundationApi.publish(attrs.faNotify, { title: scope.title, content: scope.content });
+        foundationApi.publish(attrs.faNotify, { title: scope.title, content: scope.content, position: scope.position, color: scope.color });
         e.preventDefault();
       });
     },
