@@ -11,7 +11,15 @@
    - Transform into grid block depending on screen size
 */
 
-@mixin panel-base() {
+$panel-size-horizontal: 300px !default;
+$panel-size-vertical: 300px !default;
+$panel-padding: $global-padding !default;
+
+$panel-background: #fff !default;
+$panel-shadow: 3px 0 10px rgba(black, 0.25) !default;
+$panel-animation-speed: 0.25s !default;
+
+%panel-base {
   display: block;
   position: absolute;
   z-index: 100;
@@ -20,8 +28,18 @@
 
 @mixin panel-layout(
   $position: left,
-  $size: 300px
+  $size: default,
+  $shadow: $panel-shadow
 ) {
+  @if $size == default {
+    @if $position == left or $position == right {
+      $size: $panel-size-horizontal;
+    }
+    @if $position == top or $position == bottom {
+      $size: $panel-size-vertical;
+    }
+  }
+
   /*
     Direction
   */
@@ -72,39 +90,39 @@
   // Horizontal panels are always all the way tall and have a set width
   @if $position == left or $position == right {
     width: 100%;
-    @media screen and (min-width: rem-calc($size)) {
+    @include breakpoint($size) {
       width: $size;
     }
   }
-  // (For now) vertical panels are as big as they need to be
+  // (For now) vertical panels don't change size
   @if $position == top or $position == bottom {
     height: $size;
+  }
+
+  /*
+    Shadows
+  */
+  $shadow-distance: get-shadow-value($shadow, x);
+  $shadow-size: get-shadow-value($shadow, size);
+  $shadow-color: get-shadow-value($shadow, color);
+  &.is-active {
+    @if $position == left        { box-shadow: $shadow-distance 0 $shadow-size $shadow-color; }
+    @else if $position == right  { box-shadow: -$shadow-distance 0 $shadow-size $shadow-color; }
+    @else if $position == top    { box-shadow: 0 $shadow-distance $shadow-size $shadow-color; }
+    @else if $position == bottom { box-shadow: 0 -$shadow-distance $shadow-size $shadow-color; }
   }
 }
 
 @mixin panel-style(
-  $padding: $global-padding,
-  $background: #fff,
-  $shadow-distance: 3px,
-  $shadow-size: 10px,
-  $shadow-color: rgba(black, 0.25),
-  $animation-speed: 0.25s
+  $padding: $panel-padding,
+  $background: $panel-background,
+  $animation-speed: $panel-animation-speed
 ) {
   /*
     Basic styles
   */
   padding: $padding;
   background: $background;
-
-  /*
-    Shadows
-  */
-  // &.is-active {
-  //   @if $direction == left        { box-shadow: $shadow-distance 0 $shadow-size $shadow-color; }
-  //   @else if $direction == right  { box-shadow: -$shadow-distance 0 $shadow-size $shadow-color; }
-  //   @else if $direction == top    { box-shadow: 0 $shadow-distance $shadow-size $shadow-color; }
-  //   @else if $direction == bottom { box-shadow: 0 -$shadow-distance $shadow-size $shadow-color; }
-  // }
 
   /*
     Animation
@@ -117,16 +135,9 @@
 */
 
 .panel {
-  @include panel-base;
+  @extend %panel-base;
   @include panel-style;
 }
-
-// .medium-panel {
-//   #{$medium} { @include panel-base; }
-// }
-// .large-panel {
-//   #{$large} { @include panel-base; }
-// }
 
 .panel-top    { @include panel-layout(top); }
 .panel-right  { @include panel-layout(right); }
