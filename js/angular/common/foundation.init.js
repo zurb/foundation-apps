@@ -113,7 +113,6 @@ function $FoundationStateProvider($stateProvider) {
   }
 
   this.$get = function() {
-    console.log('test');
     return {};
   };
 }
