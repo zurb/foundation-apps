@@ -18,7 +18,7 @@
 // - - - - - - - - - - - - - - - - - - - - - - - - -
 
 $transition-normal-duration: 700ms;
-$motion-class: "motion";
+$motion-class: "is-active";
 
 $motion-default-origin: left;
 $slide-default-dir: left;
@@ -34,18 +34,38 @@ $motion-slow-duration: 1.4s;
 $motion-default-duration: 700ms;
 $motion-fast-duration: 300ms;
 
+$motion-timings: (
+  linear: linear,
+  ease: ease,
+  easeIn: ease-in,
+  easeOut: ease-out,
+  easeInOut: ease-in-out,
+  bounceIn: cubic-bezier(0.485, 0.155, 0.240, 1.245),
+  bounceOut: cubic-bezier(0.485, 0.155, 0.515, 0.845),
+  bounceInOut: cubic-bezier(0.760, -0.245, 0.240, 1.245),
+);
+
+@function get-timing($timing) {
+  @if map-has-key($motion-timings, $timing) {
+    @return map-get($motion-timings, $timing);
+  }
+  @else {
+    @return $timing;
+  }
+}
+
 // 1. Base Transitions
 // - - - - - - - - - - - - - - - - - - - - - - - - -
 
 // SLIDE
 @mixin slide (
-  $from:$slide-default-dir, 
-  $fade:true,
-  $duration:$motion-default-duration,
-  $timing:$motion-default-timing,
-  $delay:$motion-default-delay
-){
- 
+  $from: $slide-default-dir,
+  $fade: true,
+  $duration: $motion-default-duration,
+  $timing: $motion-default-timing,
+  $delay: $motion-default-delay
+) {
+
   // origin
   @if $from == top     { transform: translateY(-100%); }
   @if $from == right   { transform: translateX(100%); }
@@ -62,59 +82,59 @@ $motion-fast-duration: 300ms;
 
   // duration
   transition-duration: $duration;
- 
+
   // timing function
-  transition-timing-function: $timing;
- 
-  // delay 
+  transition-timing-function: get-timing($timing);
+
+  // delay
   transition-delay: $delay;
 
   &.#{$motion-class} {
     transform: translateX(0) translateY(0);
-    opacity:1;
+    opacity: 1;
   }
-  
+
 }
- 
+
 // FADE
 @mixin fade(
-  $from:0, 
-  $to:1,
-  $duration:$motion-default-duration,
-  $timing:$motion-default-timing,
-  $delay:$motion-default-delay
-){
+  $from: 0,
+  $to: 1,
+  $duration: $motion-default-duration,
+  $timing: $motion-default-timing,
+  $delay: $motion-default-delay
+) {
   opacity: $from;
   transition-property: transform, opacity;
 
   // duration
   transition-duration: $duration;
- 
+
   // timing function
-  transition-timing-function: $timing;
- 
-  // delay 
+  transition-timing-function: get-timing($timing);
+
+  // delay
   transition-delay: $delay;
 
   &.#{$motion-class} {
     opacity: $to;
   }
 }
- 
+
 
 @mixin hinge (
-  $from:left, 
-  $axis:edge, 
-  $perspective:2000px, 
+  $from: left,
+  $axis: edge,
+  $perspective: 2000px,
   $turn-origin: from-back,
-  $fade:true,
-  $duration:$motion-default-duration,
-  $timing:$motion-default-timing,
-  $delay:$motion-default-delay
-){
+  $fade: true,
+  $duration: $motion-default-duration,
+  $timing: $motion-default-timing,
+  $delay: $motion-default-delay
+) {
 
-  @if $from == top     { 
-    transform: perspective($perspective) rotateX(-90deg); 
+  @if $from == top     {
+    transform: perspective($perspective) rotateX(-90deg);
     @if $axis == edge {
       transform-origin: top;
     }
@@ -126,8 +146,8 @@ $motion-fast-duration: 300ms;
       transform: perspective($perspective) rotateX(90deg);
     }
   }
-  @if $from == right   { 
-    transform: perspective($perspective) rotateY(-90deg); 
+  @if $from == right   {
+    transform: perspective($perspective) rotateY(-90deg);
     @if $axis == edge {
       transform-origin: right;
     }
@@ -139,21 +159,21 @@ $motion-fast-duration: 300ms;
       transform: perspective($perspective) rotateY(90deg);
     }
   }
-  @if $from == bottom  { 
+  @if $from == bottom  {
     transform: perspective($perspective) rotateX(90deg);
     @if $axis == edge {
       transform-origin: bottom;
     }
     @else if $axis == center {
       transform-origin: center;
-    } 
+    }
 
     @if $turn-origin == from-front {
       transform: perspective($perspective) rotateX(-90deg);
     }
   }
-  @if $from == left   { 
-    transform: perspective($perspective) rotateY(90deg); 
+  @if $from == left   {
+    transform: perspective($perspective) rotateY(90deg);
     @if $axis == edge {
       transform-origin: left;
     }
@@ -178,11 +198,11 @@ $motion-fast-duration: 300ms;
 
   // duration
   transition-duration: $duration;
- 
+
   // timing function
-  transition-timing-function: $timing;
- 
-  // delay 
+  transition-timing-function: get-timing($timing);
+
+  // delay
   transition-delay: $delay;
 
   &.#{$motion-class} {
@@ -191,16 +211,16 @@ $motion-fast-duration: 300ms;
   }
 
 }
- 
+
 // scale
 @mixin scale(
-  $from:1.5, 
-  $to:1, 
-  $fade:true,
-  $duration:$motion-default-duration,
-  $timing:$motion-default-timing,
-  $delay:$motion-default-delay
-){
+  $from: 1.5,
+  $to: 1,
+  $fade: true,
+  $duration: $motion-default-duration,
+  $timing: $motion-default-timing,
+  $delay: $motion-default-delay
+) {
   opacity:1;
   transform: scale($from);
   transition-property: transform;
@@ -212,11 +232,11 @@ $motion-fast-duration: 300ms;
 
   // duration
   transition-duration: $duration;
- 
+
   // timing function
-  transition-timing-function: $timing;
- 
-  // delay 
+  transition-timing-function: get-timing($timing);
+
+  // delay
   transition-delay: $delay;
 
   &.#{$motion-class} {
@@ -227,20 +247,20 @@ $motion-fast-duration: 300ms;
 
 // SPIN
 @mixin spin(
-  $dir:clockwise,
-  $from:0.75turn, 
-  $to:0, 
-  $fade:true,
-  $duration:$motion-default-duration,
-  $timing:$motion-default-timing,
-  $delay:$motion-default-delay
-){
+  $dir: clockwise,
+  $from: 0.75turn,
+  $to: 0,
+  $fade: true,
+  $duration: $motion-default-duration,
+  $timing: $motion-default-timing,
+  $delay: $motion-default-delay
+) {
   opacity:1;
   transition-property: transform;
 
   @if $dir == clockwise {
     transform: rotate(($from * -1));
-  } 
+  }
   @else {
     transform: rotate($from);
   }
@@ -252,11 +272,11 @@ $motion-fast-duration: 300ms;
 
   // duration
   transition-duration: $duration;
- 
+
   // timing function
-  transition-timing-function: $timing;
- 
-  // delay 
+  transition-timing-function: get-timing($timing);
+
+  // delay
   transition-delay: $delay;
 
   &.#{$motion-class} {
@@ -292,45 +312,43 @@ $motion-fast-duration: 300ms;
 }
 
 
-// WIGGLE 
+// WIGGLE
 @keyframes wiggle {
-
   40%, 50%, 60% {
     transform: rotate(7deg);
   }
   35%, 45%, 55%, 65% {
     transform: rotate(-7deg);
   }
-  0%, 30%, 70%, 100% { transform: rotate(0); } 
-
+  0%, 30%, 70%, 100% { transform: rotate(0); }
 }
 
 @mixin animation(
   $animation,
-  $duration:$motion-default-duration,
-  $timing:$motion-default-timing,
-  $delay:$motion-default-delay,
-  $iterations:null
-){
-  
+  $duration: $motion-default-duration,
+  $timing: $motion-default-timing,
+  $delay: $motion-default-delay,
+  $iterations: null
+) {
+
   &.#{$motion-class} {
     animation-name: $animation;
   }
-  animation-duration: $duration; 
+  animation-duration: $duration;
   animation-timing-function: $timing;
 
   backface-visibility: hidden;
   transform: translate3d(0,0,0);
-  
+
   @if $delay != null {
     animation-delay: $delay;
   }
   @if $iterations != null {
     animation-iteration-count: $iterations;
   }
-  
+
   @if $animation == null {
-    @warn "Please include an animation name"
+    @warn "Please include an animation name";
   }
 }
 
@@ -338,76 +356,93 @@ $motion-fast-duration: 300ms;
 // - - - - - - - - - - - - - - - - - - - - - - - - -
 
 @if $include-html-motion-attributes("motion") {
-  $dm: "data-motion*=";
-  $da: "data-animation*=";
+  /*
+    Transitions
+  */
 
-  // Base Motion
-  [#{$dm}"slide-from-top"]    { @include slide($from:top); }
-  [#{$dm}"slide-from-right"]  { @include slide($from:right); }
-  [#{$dm}"slide-from-bottom"] { @include slide($from:bottom); }
-  [#{$dm}"slide-from-left"]   { @include slide($from:left); }
+  // Slide
+  .slideFromTop    { @include slide($from:top); }
+  .slideFromRight  { @include slide($from:right); }
+  .slideFromBottom { @include slide($from:bottom); }
+  .slideFromLeft   { @include slide($from:left); }
 
-  [#{$dm}"fade"]  { @include fade();  }
+  // Fade
+  .fadeIn  { @include fade(0, 1); }
+  .fadeOut { @include fade(1, 0); }
 
-  [#{$dm}"hinge-from-top"]      { @include hinge($from:top); }
-  [#{$dm}"hinge-from-right"]    { @include hinge($from:right); }
-  [#{$dm}"hinge-from-bottom"]   { @include hinge($from:bottom); }
-  [#{$dm}"hinge-from-left"]     { @include hinge($from:left); }
-  [#{$dm}"hinge-from-middle-x"] { @include hinge($from:top, $axis:center); }
-  [#{$dm}"hinge-from-middle-y"] { @include hinge($from:right, $axis:center); }
+  // Hinge
+  .hingeFromTop     { @include hinge($from:top); }
+  .hingeFromRight   { @include hinge($from:right); }
+  .hingeFromBottom  { @include hinge($from:bottom); }
+  .hingeFromLeft    { @include hinge($from:left); }
+  .hingeFromMiddleX { @include hinge($from:top, $axis:center); }
+  .hingeFromMiddleY { @include hinge($from:right, $axis:center); }
 
-  [#{$dm}"drop"] { @include scale(); }
-  [#{$dm}"pop"] { @include scale($from:0.5, $to:1); }
+  // Scale
+  .drop { @include scale(1.5, 1); }
+  .pop  { @include scale(0.5, 1); }
 
-  [#{$dm}"spin"]  { 
-    @include spin();  
-    &[#{$dm}"ccw"] {
-      @include spin($dir:counterclockwise);
-    }
-  } 
+  // Spin
+  .spin  {
+    @include spin;
+    &.ccw { @include spin($dir: counterclockwise); }
+  }
+
+  /*
+    Transition modifiers
+  */
 
   // Duration
-  [#{$dm}"slow"] { transition-duration: $motion-slow-duration; }
-  [#{$dm}"fast"] { transition-duration: $motion-fast-duration; }
+  .slow { transition-duration: $motion-slow-duration; }
+  .fast { transition-duration: $motion-fast-duration; }
 
-  // Timing
-  [#{$dm}"ease"]          { transition-timing-function: ease; }
-  [#{$dm}"ease-in"]       { transition-timing-function: ease-in; }
-  [#{$dm}"ease-out"]      { transition-timing-function: ease-out; }
-  [#{$dm}"ease-in-out"]   { transition-timing-function: ease-in-out; }
-  [#{$dm}"linear"]        { transition-timing-function: linear; }
-
-  // Delay  
-  [#{$dm}"delay"]       { transition-delay: $motion-default-duration; }
-  [#{$dm}"short-delay"] { transition-delay: $motion-fast-duration; }
-  [#{$dm}"long-delay"]  { transition-delay: $motion-slow-duration; }
-
-  [#{$dm}"shake"]       { @include animation(shake); }
-  [#{$dm}"spinner-cw"]  { @include animation(spin-cw); }
-  [#{$dm}"spinner-ccw"] { @include animation(spin-ccw); }
-  [#{$dm}"wiggle"]      { @include animation(wiggle); }
-
-  [#{$dm}"shake"],       
-  [#{$dm}"spinner-cw"], 
-  [#{$dm}"spinner-ccw"], 
-  [#{$dm}"wiggle"] { 
-    &[#{$dm}"infinite"] {
-      animation-iteration-count: infinite; 
+  // Easing
+  @each $easing in map-keys($motion-timings) {
+    .#{$easing} {
+      transition-timing-function: map-get($motion-timings, $easing);
     }
-    &[#{$dm}"ease"]          { animation-timing-function: ease; }
-    &[#{$dm}"ease-in"]       { animation-timing-function: ease-in; }
-    &[#{$dm}"ease-out"]      { animation-timing-function: ease-out; }
-    &[#{$dm}"ease-in-out"]   { animation-timing-function: ease-in-out; }
-    &[#{$dm}"linear"]        { animation-timing-function: linear; }
+  }
+
+  // Delay
+  .delay       { transition-delay: $motion-default-duration; }
+  .short-delay { transition-delay: $motion-fast-duration; }
+  .long-delay  { transition-delay: $motion-slow-duration; }
+
+  /*
+    Animations
+  */
+
+  .shake    { @include animation(shake); }
+  .spin-cw  { @include animation(spin-cw); }
+  .spin-ccw { @include animation(spin-ccw); }
+  .wiggle   { @include animation(wiggle); }
+
+  /*
+    Animation modifiers
+  */
+
+  .shake,
+  .spin-cw,
+  .spin-ccw,
+  .wiggle {
+    // Repeat
+    &.infinite { animation-iteration-count: infinite; }
+
+    // Easing
+    @each $timing in map-keys($motion-timings) {
+      .#{$timing} {
+        animation-timing-function: map-get($motion-timings, $timing);
+      }
+    }
 
     // Duration
-    &[#{$dm}"slow"] { animation-duration: $motion-slow-duration; }
-    &[#{$dm}"fast"] { animation-duration: $motion-fast-duration; }
+    &.slow { animation-duration: $motion-slow-duration; }
+    &.fast { animation-duration: $motion-fast-duration; }
 
-    // Delay  
-    &[#{$dm}"delay"]       { animation-delay: $motion-default-duration; }
-    &[#{$dm}"short-delay"] { animation-delay: $motion-fast-duration; }
-    &[#{$dm}"long-delay"]  { animation-delay: $motion-slow-duration; }
-  }      
-  
+    // Delay
+    &.delay       { animation-delay: $motion-default-duration; }
+    &.short-delay { animation-delay: $motion-fast-duration; }
+    &.long-delay  { animation-delay: $motion-slow-duration; }
+  }
+
 }
