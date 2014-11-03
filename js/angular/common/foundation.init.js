@@ -110,7 +110,7 @@ angular.module('foundation.init')
 
           $stateProvider.state(page.name, state);
       });
-    }
+    };
 
     this.$get = function() {
       return {};
