@@ -11,15 +11,16 @@
    - Text labels for vertical menus and badges for horizontal menus
 */
 
-$menubar-fontsize: 0.75rem !default;
-$menubar-background: #fff !default;
+$menubar-fontsize: 1rem !default;
+$menubar-background: $dark-color !default;
 $menubar-background-hover: $primary-color !default;
 $menubar-color: #fff !default;
-$menubar-color-hover: $primary-color !default;
-$menubar-border: 0 !default;
+$menubar-color-hover: #fff !default;
+$menubar-border: 1px solid #666 !default;
 
-$menubar-item-padding: 0.25rem !default;
+$menubar-item-padding: $global-padding !default;
 $menubar-icon-size: 25px !default;
+$menubar-icon-spacing: $menubar-item-padding !default;
 
 // Menu bar container
 %menu-bar {
@@ -27,11 +28,12 @@ $menubar-icon-size: 25px !default;
   align-items: stretch;
   margin: 0;
   list-style-type: none;
+  margin-bottom: 1rem;
 
   // Menu item
   li {
     // This flex setting makes each item an equal width
-    flex: 1 0 0px;
+    flex: 1;
     align-items: center;
 
     // Link inside menu item
@@ -47,24 +49,55 @@ $menubar-icon-size: 25px !default;
 }
 
 @mixin menu-bar-layout (
-  $orientation: horizontal
+  $orientation: horizontal,
+  $stretch: true,
+  $border-width: get-border-value($menubar-border, width)
 ) {
+  /*
+    Orientation
+  */
   @if $orientation == horizontal {
     flex-flow: row nowrap;
     a {
       flex-flow: column nowrap;
-      border-bottom-width: 0;
-      border-left-width: 1px;
     }
   }
   @else {
     flex-flow: column nowrap;
     a {
       flex-flow: row nowrap;
-      border-left-width: 0;
-      border-bottom-width: 1px;
     }
+  }
 
+  /*
+    Stretch
+  */
+  li {
+    @if $stretch == false {
+      flex: 0 0 auto;
+    }
+  }
+
+  /*
+    Borders
+  */
+  @if hasvalue($border-width) {
+    $border-side: if($orientation == horizontal, left, top);
+    $border-side-not: if($border-side == left, top, left);
+    $border-side-opposite: if($border-side == left, right, bottom);
+    $border-side-opposite-not: if($border-side-opposite == right, bottom, right);
+
+    li:not(:first-child) {
+      border-#{$border-side}-width: $border-width;
+      border-#{$border-side-not}-width: 0;
+
+      @if $stretch == false {
+        &:last-child {
+          border-#{$border-side-opposite}-width: $border-width;
+          border-#{$border-side-opposite-not}-width: 0;
+        }
+      }
+    }
   }
 }
 @mixin menu-bar-icons(
@@ -73,9 +106,12 @@ $menubar-icon-size: 25px !default;
 ) {
   li {
     // Sizing
-    @if $menubar-icon-size != false {
-      width: $menubar-icon-size;
-      height: $menubar-icon-size;
+    img {
+      margin: 0;
+      @if $menubar-icon-size != false {
+        width: $menubar-icon-size;
+        height: $menubar-icon-size;
+      }
     }
 
     // Position
@@ -83,28 +119,30 @@ $menubar-icon-size: 25px !default;
       a {
         flex-flow: row nowrap;
         align-items: center;
-        img { margin-right: $menubar-item-padding * 2; }
-        span { margin-top: 0; }
+        img { margin-right: $menubar-icon-spacing; }
+      }
+    }
+    @else {
+      a {
+        img { margin-right: 0; }
       }
     }
     @if $position == top {
-      img {
-        & + span {
-          margin-top: $menubar-item-padding;
-        }
+      a {
+        flex-flow: column nowrap;
+        img { margin-bottom: $menubar-icon-spacing; }
       }
     }
     @if $position == right {
       a {
         flex-flow: row-reverse nowrap;
-        img { margin-left: $menubar-item-padding + 2; }
-        span { margin-top: 0; }
+        img { margin-left: $menubar-icon-spacing; }
       }
     }
     @if $position == bottom {
       a {
         flex-flow: column-reverse nowrap;
-        img + span { margin-top: 0; margin-bottom: $menubar-item-padding + 2; }
+        img { margin-top: $menubar-icon-spacing; }
       }
     }
   }
@@ -131,16 +169,17 @@ $menubar-icon-size: 25px !default;
 
     &:hover {
       background: $background-hover;
+      color: $color-hover;
     }
   }
 
   // Item borders
-  @if hasvalue($menubar-border) {
-    &:not(:first-child) {
-      border-left: $menubar-border;
+  @if hasvalue($border) {
+    li {
+      &:not(:first-child) { border-left: $border; }
       &:hover {
         &, & + li {
-          border-color: $primary-color;
+          border-color: $background-hover;
         }
       }
     }
@@ -161,15 +200,16 @@ $menubar-icon-size: 25px !default;
   CSS output
 */
 .menu-bar {
-  @include menu-bar;
+  @extend %menu-bar;
+  @include menu-bar-style;
 
-  &.icon-top    { @include menu-bar-icons(top); }
-  &.icon-right  { @include menu-bar-icons(right); }
-  &.icon-bottom { @include menu-bar-icons(bottom); }
-  &.icon-left   { @include menu-bar-icons(left); }
+  &, &.horizontal  { @include menu-bar-layout(horizontal); }
+  &.vertical       { @include menu-bar-layout(vertical); }
 
-  &.horizontal  { @include menu-bar-layout(horizontal); }
-  &.vertical    { @include menu-bar-layout(vertical); }
+  &.condense {
+    &, &.horizontal { @include menu-bar-layout(horizontal, false); }
+    &.vertical      { @include menu-bar-layout(horizontal, false); }
+  }
 
   @each $size in $breakpoint-classes {
     @include breakpoint($size) {
@@ -181,4 +221,9 @@ $menubar-icon-size: 25px !default;
       }
     }
   }
+
+  &, &.icon-top    { @include menu-bar-icons(top); }
+  &.icon-right  { @include menu-bar-icons(right); }
+  &.icon-bottom { @include menu-bar-icons(bottom); }
+  &.icon-left   { @include menu-bar-icons(left); }
 }
