@@ -3,43 +3,82 @@ name: motion-ui
 url: /motion-ui
 ---
 
+<h2>Motion UI</h2>
+<h3 class="subheader">Now you can rapidly prototype animated elements that integrate seamlessly into your site! We're using Sass mixins, CSS animations and transitions to make some really neat effects.</h3>
 
-<header id="docs">
-  <section class="docs container">
-    <div class="group">
-      <div class="small-12 block">
-      <h6 class="subheader">Foundation for Apps Alpha</h6>
-      <h1>Motion UI Docs</h1>
-      </div>
-    </div>
-  </section>
-</header>
+<hr>
 
-
-
-
-<section class="docs container">
-  
-  <div class="group">
-  	<div class="small-12 group">
-  		<div class="small-12 block">
-	      <h3>Welcome!</h3>
-	    </div>
-	    <div class="medium-12 block">
-	      <p class="lead">These are the docs for the alpha version of the <strong>Foundation for Apps Motion UI</strong>. The goal here is to allow you to rapidly prototype animated elements that integrate seamlessly into your site!</p>
-	    </div>
-  	</div>
-    
+<div class="docs-example-grid">
+  <div class="content block">
+		<div class="medium-6 content block">
+			<div id="example8" class="square" data-motion="spinner-cw ease infinite"></div>
+			<label for=""><code>spinner-cw ease infinite</code></label><br><br>
+			<span data-motion-id="example8" class="small button">Ease Spin</span>
+		</div>
+		<div class="medium-6 content block">
+			<div id="example9" class="square" data-motion="spinner-cw linear infinite"></div>
+			<label for=""><code>spinner-cw linear infinite</code></label><br><br>
+			<span data-motion-id="example9" class="small button">Linear Spin</span>
+		</div>
   </div>
+</div>
 
-</section>
+<hr>
 
-<section class="docs container">
+<h3>Basic HTML</h3>
+<p>You can create [Item] with this basic HTML</p>
+<ul class="segmented button-group small">
+  <li class="is-active"><a href="#">CSS Classes</a></li>
+  <li><a href="#">Sass Mixins</a></li>
+</ul>
+<div class="block">
+  <div class="medium-6 block content">
+    <pre>
+      <code class="language-html">
+        [html]
+      </code>
+    </pre>
+  </div>
+  <div class="medium-6 block content">
+    [Demo of item]
+  </div>
+</div>
+
+<h3>Advanced HTML</h3>
+<p>You can create advanced versions of [Item] with this HTML</p>
+<ul class="segmented button-group">
+  <li class="is-active"><a href="#">CSS Classes</a></li>
+  <li><a href="#">Sass Mixins</a></li>
+</ul>
+<div class="block">
+  <div class="medium-6 block content">
+    <pre>
+      <code class="language-html">
+        [html]
+      </code>
+    </pre>
+  </div>
+  <div class="medium-6 block content">
+    [Demo of item]
+  </div>
+</div>
+
+<h3>Sass Variables</h3>
+<p>You can customize with...</p>
+<pre>
+  <code class="language-html">
+    [Sass]
+  </code>
+</pre>
+
+ 
+
+<section class="block">
   <hr class="contain">
-  <div class="group">
+  <div class="content block">
 
-    <div class="small-12 group">
-			<div class="medium-5 block">
+    <div class="small-12 block">
+			<div class="medium-5 content block">
 
 {{#markdown}}
 
@@ -54,30 +93,30 @@ Quickly addding motion to an element is easy!
 {{/markdown}}
 
 			</div>
-			<div class="medium-7 group">
+			<div class="medium-7 block">
 
-				<div class="medium-12 block"><h6>Examples</h6></div>
+				<div class="medium-12 content block"><h6>Examples</h6></div>
 
-				<div class="medium-4 block">
+				<div class="medium-4 content block">
 					
 					<div id="example1" class="motion square" data-motion="slide-from-left"></div>
 					<span data-motion-id="example1" class="small button">Slide</span>
 
 				</div>
-				<div class="medium-4 block">
+				<div class="medium-4 content block">
 					
 					<div id="example2" class="motion square" data-motion="hinge-from-middle-x"></div>
 					<span data-motion-id="example2" class="small button">Hinge</span>
 
 				</div>
-				<div class="medium-4 block">
+				<div class="medium-4 content block">
 					
 					<div id="example3" class="motion square" data-motion="spin"></div>
 					<span data-motion-id="example3" class="small button">Spin</span>
 
 				</div>
 
-				<div class="medium-12 block">
+				<div class="medium-12 content block">
 					
 {{#markdown}}
 
@@ -131,8 +170,8 @@ You can choose from a number of basic motions:
   <hr class="contain">
   <div class="group">
 
-    <div class="small-12 group">
-			<div class="medium-5 block">
+    <div class="small-12 block">
+			<div class="medium-5 content block">
 
 {{#markdown}}
 
@@ -143,9 +182,9 @@ Don't want an out-of-the-box animation? No problemo! You have several modifiers 
 {{/markdown}}
 
 			</div>
-			<div class="medium-7 group">
+			<div class="medium-7 block">
 
-				<div class="medium-12 block">
+				<div class="medium-12 content block">
 					
 {{#markdown}}
 
@@ -165,19 +204,19 @@ You have three speeds to choose from. By default, animations will execute in **7
 				
 				</div>
 
-				<div class="medium-4 block">
+				<div class="medium-4 content block">
 				
 					<div id="example4" class="motion square" data-motion="drop fast"></div>
 					<span data-motion-id="example4" class="small button">Fast</span>
 
 				</div>
-				<div class="medium-4 block">
+				<div class="medium-4 content block">
 					
 					<div id="example5" class="motion square" data-motion="drop"></div>
 					<span data-motion-id="example5" class="small button">Normal</span>
 
 				</div>
-				<div class="medium-4 block">
+				<div class="medium-4 content block">
 					
 					<div id="example6" class="motion square" data-motion="drop slow"></div>
 					<span data-motion-id="example6" class="small button">Slow</span>
@@ -186,7 +225,7 @@ You have three speeds to choose from. By default, animations will execute in **7
 					
 				<hr class="contain">
 
-				<div class="medium-12 block">
+				<div class="medium-12 content block">
 
 {{#markdown}}
 
@@ -210,7 +249,7 @@ You have three speeds to choose from. By default, animations will execute in **7
 
 				<hr class="contain">
 
-				<div class="medium-12 block">
+				<div class="medium-12 content block">
 
 
 {{#markdown}}
@@ -234,14 +273,14 @@ Choose from:
 
 					</div>
 
-					<div class="medium-6 block">
+					<div class="medium-6 content block">
 					
 						<div id="example8" class="square" data-motion="spinner-cw ease infinite"></div>
 						<label for=""><code>spinner-cw ease infinite</code></label><br><br>
 						<span data-motion-id="example8" class="small button">Ease Spin</span>
 
 					</div>
-					<div class="medium-6 block">
+					<div class="medium-6 content block">
 						
 						<div id="example9" class="square" data-motion="spinner-cw linear infinite"></div>
 						<label for=""><code>spinner-cw linear infinite</code></label><br><br>
@@ -252,7 +291,7 @@ Choose from:
 
 					<hr class="contain">
 
-					<div class="medium-12 block">
+					<div class="medium-12 content block">
 
 
 {{#markdown}}
@@ -273,21 +312,21 @@ You can add a delay to your animation with the `delay` modifier. By default, thi
 
 					</div>
 
-					<div class="medium-4 block">
+					<div class="medium-4 content block">
 					
 						<div id="example10" class="motion square" data-motion="pop short-delay"></div>
 						<span data-motion-id="example10" class="small button">Short Delay</span>
 
 					</div>
 
-					<div class="medium-4 block">
+					<div class="medium-4 content block">
 					
 						<div id="example11" class="motion square" data-motion="pop delay"></div>
 						<span data-motion-id="example11" class="small button">Delay</span>
 
 					</div>
 
-					<div class="medium-4 block">
+					<div class="medium-4 content block">
 					
 						<div id="example12" class="motion square" data-motion="pop long-delay"></div>
 						<span data-motion-id="example12" class="small button">Long Delay</span>
@@ -305,10 +344,10 @@ You can add a delay to your animation with the `delay` modifier. By default, thi
 
 <section class="docs container">
   <hr class="contain">
-  <div class="group">
+  <div class="block">
 
     <div class="small-12 group">
-			<div class="medium-5 block">
+			<div class="medium-5 content block">
 
 {{#markdown}}
 
@@ -319,9 +358,9 @@ You can include `data-animation` values in any order to craft complex animations
 {{/markdown}}
 
 			</div>
-			<div class="medium-7 group">
+			<div class="medium-7 block">
 
-				<div class="medium-12 block">
+				<div class="medium-12 content block">
 					
 {{#markdown}}
 
@@ -333,7 +372,7 @@ You can include `data-animation` values in any order to craft complex animations
 
 				</div>
 
-				<div class="medium-6 block">
+				<div class="medium-6 content block">
 
 					<h6>Spinner</h6>
 					<label for=""><code>spin-cw linear infinite</code></label><br><br>
@@ -343,7 +382,7 @@ You can include `data-animation` values in any order to craft complex animations
 
 				</div>
 
-				<div class="medium-6 block">
+				<div class="medium-6 content block">
 					
 					<h6>Attention Grabber</h6>
 					<label for=""><code>wiggle slow infinite</code></label><br><br>
@@ -352,7 +391,7 @@ You can include `data-animation` values in any order to craft complex animations
 
 				</div>
 
-				<div class="medium-12 block allow-overflow">
+				<div class="medium-12 content block allow-overflow">
 					
 					<h6>Form Feedback</h6>
 					<code>shake</code>, <code>slide-in-from-north initially-hidden</code></label><br><br>
@@ -371,10 +410,10 @@ You can include `data-animation` values in any order to craft complex animations
 
 <section class="docs container">
   <hr class="contain">
-  <div class="group">
+  <div class="block">
 
-    <div class="small-12 group">
-			<div class="medium-5 block">
+    <div class="small-12 block">
+			<div class="medium-5 content block">
 
 {{#markdown}}
 
@@ -385,9 +424,9 @@ You can add motion directly with our Sass mixins for more semantic code and a fi
 {{/markdown}}
 
 			</div>
-			<div class="medium-7 group">
+			<div class="medium-7 block">
 
-				<div class="medium-12 block">
+				<div class="medium-12 content block">
 					
 {{#markdown}}
 
@@ -611,7 +650,7 @@ Options: `infinite`, `<number>`
 
 <footer>
   <section class="docs container">
-    <div class="group">
+    <div class="block">
       <div class="small-12 block">
         <p>These docs, like all of Foundation, are MIT-Licensed Open Source. From your friends at <a href="http://zurb.com">ZURB</a>.</p>
       </div>
