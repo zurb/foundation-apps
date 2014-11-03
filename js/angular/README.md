@@ -147,6 +147,22 @@ This will translate to:
 
 **Note** Named views are special and unfortunately, their properties can only be accessed through the `composed['name']` where name is the name you specify in a template. The entire mock data object for the parent and all of its composed children is accessible via `vars`.
 
+### Enabling HTML5 Mode and working with Angular on a server
+
+To enable HTML5 mode with Angular (using regular URLs unprefixed by "\#"), a server has to support URL rewrites. The UI Router docs have a great [write up](https://github.com/angular-ui/ui-router/wiki/Frequently-Asked-Questions#how-to-configure-your-server-to-work-with-html5mode) on working with the HTML5mode and how to enable it on a variety of servers.
+
+Foundation for Apps supports this out of the box for the development environment; however, for production, additional steps will be necessary.
+
+If you'd like to run Foundation for Apps without HTML5 mode there is a line of code in the `app.js` that can be commented out:
+
+````
+$locationProvider.html5Mode(true);
+````
+
+Note that Foundation for Apps cannot be run directly through the browser because it uses XMLHttpRequests to load up templates/partials for directives and pages. Running it directly will cause cross origin issues and will not work with linking.
+
+If you are running this app in a subdirectory, you will have to change some of the URLs (like the script loading URLs and template URLs within directives) in order to make everything work.
+
 ###Directives
 All of the directives are supported as attribute directive so you can add them to an element like so:
 
