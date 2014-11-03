@@ -9,10 +9,20 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="message in vars.emails">
-        <td>{{ message }}</td>
-        <td>Sample Subject for {{ message }}</td>
-        <td><a ui-sref="mail.email({ id: message })" class="button small">Go read</a></td>
+      <tr>
+        <td>Branden</td>
+        <td>Sample Subject for Branden</td>
+        <td><a ui-sref="mail.email({ id: 1 })" class="button small">Go read</a></td>
+      </tr>
+      <tr>
+        <td>Geoff</td>
+        <td>Sample Subject for Geoff</td>
+        <td><a ui-sref="mail.email({ id: 1 })" class="button small">Go read</a></td>
+      </tr>
+      <tr>
+        <td>Antonin</td>
+        <td>Sample Subject for Antonin</td>
+        <td><a ui-sref="mail.email({ id: 1 })" class="button small">Go read</a></td>
       </tr>
     </tbody>
   </table>

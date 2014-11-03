@@ -1,17 +1,13 @@
 ---
 name: playground.accordion
 url: /accordion
-accordion:
-  -
-      - Test Title
-      - Test Content
-  -
-      - Another Test
-      - Test3
 ---
 <h4>Accordion</h4>
 <div fa-accordion-set>
-  <div ng-repeat="accordion in vars.accordion" fa-accordion title="{{ accordion[0] }}">
-    {{ accordion[1] }}
+  <div fa-accordion title="Test Title">
+    Test Content
+  </div>
+  <div fa-accordion title="Another Test">
+    Test3
   </div>
 </div>

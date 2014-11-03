@@ -12,7 +12,19 @@ composed: true
 </div>
 <div class="container block">
   <div class="panel panel-left content medium-block medium-4 large-3">
-    <div ui-view="playground.nav"></div>
+    <section class="docs-sidebar">
+      <h4>Navigation</h4>
+      <section class="block-list">
+        <header>Pages</header>
+        <ul>
+          <li ui-sref-active-eq="active"><a ui-sref="playground">Home</a></li>
+          <li ui-sref-active-eq="active"><a ui-sref="playground.param({ id: 1 })">Parameter Test</a></li>
+          <li ui-sref-active-eq="active"><a ui-sref="playground.interchange">Interchange</a></li>
+          <li ui-sref-active-eq="active"><a ui-sref="playground.tabs">Tabs</a></li>
+          <li ui-sref-active-eq="active"><a ui-sref="playground.accordion">Accordion</a></li>
+       </ul>
+      </section>
+    </section>
   </div>
   <div class="small-12 medium-8 large-9 content block">
     <h1>Page</h1>
@@ -21,9 +33,6 @@ composed: true
     <button fa-toggle="pageCanvas">Offcanvas</button>
     <div ng-class="[currentSlug, 'ui-animation' ]" ui-view></div>
   </div>
-</div>
-<div class="block">
-  <div ui-view="playground.footer"></div>
 </div>
 <div fa-modal id="pageModal" >
   <a href="#" fa-close>&times;</a>
