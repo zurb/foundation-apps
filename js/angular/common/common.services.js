@@ -21,7 +21,7 @@ angular.module('foundation.common.services')
         }
 
         angular.forEach(listeners[name], function(cb) {
-          cb(msg)
+          cb(msg);
         });
 
         return;
