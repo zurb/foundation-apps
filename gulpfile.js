@@ -3,8 +3,7 @@ var gulp           = require('gulp'),
     runSequence    = require('run-sequence'),
     frontMatter    = require('gulp-front-matter'),
     autoprefixer   = require('gulp-autoprefixer'),
-    sass           = require('gulp-ruby-sass'),
-    libsass        = require('gulp-sass'),
+    sass           = require('gulp-sass'),
     uglify         = require('gulp-uglify'),
     concat         = require('gulp-concat'),
     connect        = require('gulp-connect'),
@@ -39,29 +38,9 @@ gulp.task('copy-partials', ['clean-partials'], function() {
     .pipe(gulp.dest('./build/partials/'));
 });
 
-// Compile Sass
 gulp.task('sass', function() {
-  var libs = [
-    'client/assets/scss',
-    'scss'
-  ];
-
   return gulp.src('client/assets/scss/app.scss')
     .pipe(sass({
-      loadPath: libs,
-      style: 'expanded',
-      lineNumbers: true
-    }))
-    .pipe(autoprefixer({
-      browsers: ['last 2 versions', 'ie 10']
-    }))
-    .pipe(gulp.dest('./build/assets/css/'))
-  ;
-});
-
-gulp.task('libsass', function() {
-  return gulp.src('client/assets/scss/app.scss')
-    .pipe(libsass({
       includePaths: ['client/assets/scss', 'scss'],
       style: 'nested',
       sourceComments: true,
@@ -138,7 +117,7 @@ gulp.task('server:start', function() {
 });
 
 gulp.task('build', function() {
-  runSequence('clean', ['copy', 'copy-partials', 'copy-templates', 'libsass', 'uglify'], function() {
+  runSequence('clean', ['copy', 'copy-partials', 'copy-templates', 'sass', 'uglify'], function() {
     console.log("Successfully built.");
   })
 });
@@ -147,7 +126,7 @@ gulp.task('default', ['build', 'server:start'], function() {
   // gulp.watch(['./client/**/*.*', './js/**/*.*'], ['build', 'css', server.restart]);
 
   // Watch Sass
-  gulp.watch(['./client/assets/scss/**/*', './scss/**/*'], ['libsass']);
+  gulp.watch(['./client/assets/scss/**/*', './scss/**/*'], ['sass']);
 
   // Watch JavaScript
   gulp.watch(['./client/assets/js/**/*', './js/**/*'], ['uglify']);
