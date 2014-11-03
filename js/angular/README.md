@@ -56,29 +56,6 @@ url: /inbox
 
 will be accessible via `/mail/inbox`. This specific URL has to be typed in in order for the child to show up. This allows us to specify several children (`inbox`, `sent`, `trash`, etc.).
 
-### Composed views
-
-Child views are great and all but what if you want to COMPOSE a view. Let's say you want a template that includes a dynamic sidebar and a footer. You can't create that with a child template structure.
-
-For the main view (the parent) that will house the rest of the templates in a composition add this:
-
-````
-name: mail
-composed: true
-````
-
-This willl tell the system to look out for any composable views. Now let's look at what the footer would look like:
-
-````
-name: footer
-hasComposed: true
-parent: mail
-````
-
-Note that for composable views, you can't use dot-delimited parents, you have to explicitly set them! To use the footer in the original `mail` template, you have to use its name:
-
-`<div ui-view="footer"></div>`
-
 ### Controllers
 Angular supports this neat thing called controllers. They can get confusing and so each template gets its own `DefaultController` which can be overriden like so:
 
@@ -111,41 +88,6 @@ Please note that the default AngularJS behavior for animations is to trigger bot
 The ability to `sync` transitions together has been delayed from v1.2 to 1.3 and finally as a possibility for 2.0 ([ref](https://github.com/angular/angular.js/issues/2310))
 
 **Note** Please don't forget to add the `ui-animation` attribute wherever you have `ui-view` in order to hook your animations up to that event!
-
-### Additional mock data
-
-Now that we have views and controllers out of the way, let's talk about mock data. As I've said, the controller will pass on ALL front matter to the template/view which means that we can add miscellaneous data to the front-matter and access it in the view! The front matter plugin supports standard YAML conventions which means that even arrays are supported! Let's see how we can put this to good use.
-
-Let's say that we want to create a list of emails. Instead of copy/pasting a ton of code to simulate a full inbox, we can create a front-matter array:
-
-````
-emails:
-    - Email 1
-    - Email 2
-    - Email 3
-    - Email 4
-    - Email 5
-    - Email 6
-````
-
-We can then iterate over this array using standard angular conventions:
-
-````
-<div ng-repeat="email in vars.emails">{{ email }}</div>
-````
-
-This will translate to:
-
-````
-<div>Email 1</div>
-<div>Email 2</div>
-<div>Email 3</div>
-<div>Email 4</div>
-<div>Email 5</div>
-<div>Email 6</div>
-````
-
-**Note** Named views are special and unfortunately, their properties can only be accessed through the `composed['name']` where name is the name you specify in a template. The entire mock data object for the parent and all of its composed children is accessible via `vars`.
 
 ### Enabling HTML5 Mode and working with Angular on a server
 
