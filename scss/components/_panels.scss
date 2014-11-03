@@ -144,14 +144,4 @@ $panel-animation-speed: 0.25s !default;
 .panel-bottom { @include panel-layout(bottom); }
 .panel-left   { @include panel-layout(left); }
 
-  @each $size, $breakpoint in ('medium': $medium-up, 'large': $large-up) {
-    @include breakpoint($size) {
-      @include prepend($size) {
-        @include panel-base;  
-      }
-    }
-  }
-}
-
 .panel-fixed  { position: fixed; }
-
