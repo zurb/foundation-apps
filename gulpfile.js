@@ -151,7 +151,7 @@ gulp.task('test', ['karma-test'], function() {
 
 
 gulp.task('build', function(cb) {
-  runSequence('clean', ['copy', 'copy-partials', 'copy-templates', 'sass', 'uglify'], function() {
+  runSequence('clean', ['copy', 'copy-partials', 'sass', 'uglify'], 'copy-templates', function() {
     console.log("Successfully built.");
     cb();
   });
