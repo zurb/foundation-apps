@@ -5,12 +5,15 @@ var app = angular.module('application', [
     'foundation.common.services',
     'foundation.common.directives',
     'foundation.common.animations',
-    'foundation.modal',
-    'foundation.panel',
-    'foundation.offcanvas',
+    'foundation.accordion',
+    'foundation.actionsheet',
     'foundation.interchange',
-    'foundation.tabs',
-    'foundation.accordion'
+    'foundation.modal',
+    'foundation.notification',
+    'foundation.offcanvas',
+    'foundation.panel',
+    'foundation.popup',
+    'foundation.tabs'
   ])
     .config(['$FoundationStateProvider', '$urlRouterProvider', '$locationProvider', function(FoundationStateProvider, $urlProvider, $locationProvider) {
 
@@ -20,7 +23,10 @@ var app = angular.module('application', [
 
     $locationProvider.html5Mode(true);
 }])
-  .run(['FoundationInit', function(foundationInit) {
+  .run(['FoundationInit', '$rootScope', '$state', '$stateParams', function(foundationInit, $rootScope, $state, $stateParams) {
     foundationInit.init();
+
+    $rootScope.$state = $state;
+    $rootScope.$stateParams = $stateParams;
 }]);
 
