@@ -33,16 +33,19 @@ module.exports = function(options) {
   }
 
   function endStream() {
+    var self = this;
     var appPath = options.path;
     configs.sort(function(a, b) {
       return a.url < b.url;
     });
 
 
-    fs.writeFileSync(appPath, 'var foundationRoutes = ' + JSON.stringify(configs) + '; \n');
+    fs.writeFile(appPath, 'var foundationRoutes = ' + JSON.stringify(configs) + '; \n', function(err) {
+      if(err) throw err;
+      self.emit('end');
+    });
 
-    this.emit('end');
   }
 
   return through.obj(bufferContents, endStream);
-}
+};
