@@ -8,7 +8,8 @@ var gulp           = require('gulp'),
     concat         = require('gulp-concat'),
     connect        = require('gulp-connect'),
     modRewrite     = require('connect-modrewrite'),
-    dynamicRouting = require('./bin/gulp-dynamic-routing');
+    dynamicRouting = require('./bin/gulp-dynamic-routing'),
+    karma          = require('gulp-karma');
 
 // Clean build directory
 gulp.task('clean', function(cb) {
@@ -124,10 +125,36 @@ gulp.task('server:start', function() {
   });
 });
 
-gulp.task('build', function() {
+gulp.task('karma-test', ['build'], function() {
+  var testFiles = [
+    'build/assets/js/app.js',
+    'build/assets/js/angular-app.js',
+    'bower_components/angular-mocks/angular-mocks.js',
+    'tests/unit/**/*Spec.js'
+  ];
+
+  return gulp.src(testFiles)
+    .pipe(karma({
+      configFile: 'karma.conf.js',
+      action: 'run'
+    }))
+    .on('error', function(err) {
+      throw err;
+    })
+  ;
+
+});
+
+gulp.task('test', ['karma-test'], function() {
+  console.log('Tests finished.');
+});
+
+
+gulp.task('build', function(cb) {
   runSequence('clean', ['copy', 'copy-partials', 'copy-templates', 'sass', 'uglify'], function() {
     console.log("Successfully built.");
-  })
+    cb();
+  });
 });
 
 gulp.task('default', ['build', 'server:start'], function() {
