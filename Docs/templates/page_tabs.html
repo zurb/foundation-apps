@@ -1,22 +1,30 @@
 ---
 name: playground.tabs
 url: /tabs
-tabs:
-  - Tab1
-  - Tab2
-  - Tab3
 ---
 <h4>Automatic Tabs</h4>
 <div fa-tabs>
-  <div ng-repeat="tab in vars.tabs" fa-tab title="{{ tab }}">
-    {{ tab }}
+  <div fa-tab title="Tab 1">
+    Tab 1
+  </div>
+  <div fa-tab title="Tab 2">
+    Tab 2
+  </div>
+  <div fa-tab title="Tab 3">
+    Tab 3
   </div>
 </div>
 
 <h4>Automatic Tabs with displaced tab content</h4>
 <div fa-tabs id="displaced-tabs" displaced="true">
-  <div ng-repeat="tab in vars.tabs" fa-tab title="{{ tab }}">
-    {{ tab }}
+  <div fa-tab title="Tab 1">
+    Tab 1
+  </div>
+  <div fa-tab title="Tab 2">
+    Tab 2
+  </div>
+  <div fa-tab title="Tab 3">
+    Tab 3
   </div>
 </div>
 

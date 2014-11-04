@@ -23,7 +23,10 @@ var app = angular.module('application', [
 
     $locationProvider.html5Mode(true);
 }])
-  .run(['FoundationInit', function(foundationInit) {
+  .run(['FoundationInit', '$rootScope', '$state', '$stateParams', function(foundationInit, $rootScope, $state, $stateParams) {
     foundationInit.init();
+
+    $rootScope.$state = $state;
+    $rootScope.$stateParams = $stateParams;
 }]);
 

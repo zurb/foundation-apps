@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Foundation Angular</title>
+    <title ng-bind="$state.current.data.vars.title"></title>
     <link href="/assets/css/app.css" rel="stylesheet" type="text/css">
     <script src="/assets/js/app.js"></script>
     <script src="/assets/js/routes.js"></script>
@@ -13,7 +13,7 @@
     <div class="vertical stretch frame">
       <div class="shrink block">
         <div class="content block" style="background: #002b36 !important; color: white;">
-          <span fa-toggle="offCanvas" style="color:#fff;">Foundation for Apps</span>
+          <span fa-toggle="offCanvas" style="color:#fff;">Foundation for Apps - {{$state.current.data.vars.title}}</span>
         </div>
       </div>
       <div class="stretch block">
