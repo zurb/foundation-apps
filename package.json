@@ -4,7 +4,7 @@
   "description": "Foundation for Apps",
   "scripts": {
     "postinstall": "bower install",
-    "test": "gulp"
+    "test": "gulp test"
   },
   "repository": {
     "type": "git",
