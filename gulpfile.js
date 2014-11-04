@@ -110,7 +110,7 @@ gulp.task('copy-templates', ['copy'], function() {
       path: 'build/assets/js/routes.js',
       root: 'Docs'
     }))
-    .pipe(gulp.dest('build/templates'))
+    .pipe(gulp.dest('./build/templates'))
   ;
 });
 

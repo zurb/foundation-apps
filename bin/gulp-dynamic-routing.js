@@ -10,12 +10,15 @@ module.exports = function(options) {
 
   function bufferContents(file, enc, cb) {
     var config;
+    var content;
+
+    if(file.isNull()) return cb(null, file);
 
     if(file.isBuffer()) {
       try {
         content = fm(String(file.contents));
       } catch (e) {
-
+        return cb(new PluginError('Gulp Dynamic Routing', e));
       }
 
       if(content.attributes.name) {
@@ -32,9 +35,10 @@ module.exports = function(options) {
     return cb();
   }
 
-  function endStream() {
+  function endStream(cb) {
     var self = this;
     var appPath = options.path;
+
     configs.sort(function(a, b) {
       return a.url < b.url;
     });
@@ -42,7 +46,7 @@ module.exports = function(options) {
 
     fs.writeFile(appPath, 'var foundationRoutes = ' + JSON.stringify(configs) + '; \n', function(err) {
       if(err) throw err;
-      self.emit('end');
+      cb();
     });
 
   }
