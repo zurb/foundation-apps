@@ -1,5 +1,7 @@
 # Foundation for Apps WIP
 
+[![Build Status](https://travis-ci.org/zurb/foundation-apps.svg)](https://travis-ci.org/zurb/foundation-apps)
+
 Work in progress for Foundation for Apps. At this time we will only be accepting PRs from the core team and invited contributors, as we work toward an initial release. Thanks!
 
 ## Requirements
