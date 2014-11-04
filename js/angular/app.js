@@ -21,7 +21,10 @@ var app = angular.module('application', [
 
     FoundationStateProvider.registerDynamicRoutes();
 
-    $locationProvider.html5Mode(true);
+    $locationProvider.html5Mode({
+      enabled: true,
+      requireBase: false
+    });
 }])
   .run(['FoundationInit', '$rootScope', '$state', '$stateParams', function(foundationInit, $rootScope, $state, $stateParams) {
     foundationInit.init();
