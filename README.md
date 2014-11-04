@@ -47,10 +47,10 @@ The docs are generated in the `docs` directory when you run the quickstart proce
 ## Directory Structure
 
 * `build`: This is where the finished Angular app is assembled. To deploy your app, use the contents of this folder. **Don't edit these files directly, as they're overwritten every time you make a change!**
-* `client`: The meat of your application. This is where the main `index.html` file is, as well as the page templates that make up your app.
+* `Docs`: The meat of your application. This is where the main `index.html` file is, as well as the page templates that make up your app.
 * `js`: Our JavaScript plugins and Angular directives are being developed here.
 * `scss`: Our UI components are being developed here.
-* `docs`: Our old test pages. The ones that matter have been moved to `client/templates`.
+* `docs`: Our old test pages. The ones that matter have been moved to `Docs/templates`.
 
 ## Feedback
 
@@ -62,13 +62,13 @@ Please note that for the moment, new issues and PRs may be closed without warnin
 
 ### Features
 
-Gulp will watch for file changes in the `client` directory. Upon change, all files will be copied over to the `build` directory and the webserver will be reloaded. Note that the build directory will be deleted and recompiled upon each change. This means that any updates to files in the `build` directory will be deleted.
+Gulp will watch for file changes in the `Docs` directory. Upon change, all files will be copied over to the `build` directory and the webserver will be reloaded. Note that the build directory will be deleted and recompiled upon each change. This means that any updates to files in the `build` directory will be deleted.
 
 ### Dynamic Routing
 
 To simplify the routing process, this project includes dynamic routing. Here's how it works:
 
-1. Add front matter to an application template (in `client/templates`)
+1. Add front matter to an application template (in `Docs/templates`)
 2. Make sure to include a `name` which you'd want to use with `ui-sref` (the ui-router way of linking pages) and a `url` which that template can be accessible through
 3. Run `gulp` to compile the project into the `build` folder
 
