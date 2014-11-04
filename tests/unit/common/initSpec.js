@@ -13,7 +13,7 @@ describe('Foundation for Apps Init', function() {
 
       FoundationInit.init();
 
-      expect(FoundationApi.getSettings()).toEqual({ media_queries : { small : 'Times New Roman', medium : 'Times New Roman', large : 'Times New Roman', xlarge : 'Times New Roman', xxlarge : 'Times New Roman' } });
+      expect(FoundationApi.getSettings()).toEqual({ media_queries : { small : 'Nimbus Sans L', medium : 'Nimbus Sans L', large : 'Nimbus Sans L', xlarge : 'Nimbus Sans L', xxlarge : 'Nimbus Sans L' } });
     }));
   });
 
