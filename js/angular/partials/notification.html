@@ -1,6 +1,6 @@
-<div class="notification" ng-class="{'is-active': active}">
-  <a class="close-button" fa-close>&times;</a>
+<div class="notification" ng-class="{'is-active': active}" >
+  <a href="#" class="close-button" ng-click="remove()">&times;</a>
   <h1>{{ title }}</h1>
-  <p>{{ body }}</p>
+  <p ng-transclude></p>
   <p><img src="{{ image }}" /></p>
 </div>

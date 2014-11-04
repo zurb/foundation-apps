@@ -3,10 +3,11 @@ var gulp           = require('gulp'),
     runSequence    = require('run-sequence'),
     frontMatter    = require('gulp-front-matter'),
     autoprefixer   = require('gulp-autoprefixer'),
-    sass           = require('gulp-ruby-sass'),
+    sass           = require('gulp-sass'),
     uglify         = require('gulp-uglify'),
     concat         = require('gulp-concat'),
     connect        = require('gulp-connect'),
+    path           = require('path'),
     modRewrite     = require('connect-modrewrite'),
     dynamicRouting = require('./bin/gulp-dynamic-routing'),
     karma          = require('gulp-karma');
@@ -38,24 +39,15 @@ gulp.task('copy-partials', ['clean-partials'], function() {
     .pipe(gulp.dest('./build/partials/'));
 });
 
-// Compile Sass
 gulp.task('sass', function() {
-  var libs = [
-    'Docs/assets/scss',
-    'scss'
-  ];
-
   return gulp.src('Docs/assets/scss/app.scss')
     .pipe(sass({
-      loadPath: libs,
-      style: 'expanded',
-      lineNumbers: true
+      includePaths: ['client/assets/scss', 'scss'],
+      style: 'nested',
+      sourceComments: true,
+      errLogToConsole: true
     }))
-    .pipe(autoprefixer({
-      browsers: ['last 2 versions', 'ie 10']
-    }))
-    .pipe(gulp.dest('./build/assets/css/'))
-  ;
+    .pipe(gulp.dest('./build/assets/css/'));
 });
 
 // Process Foundation JS
@@ -151,7 +143,7 @@ gulp.task('test', ['karma-test'], function() {
 
 
 gulp.task('build', function(cb) {
-  runSequence('clean', ['copy', 'copy-partials', 'copy-templates', 'sass', 'uglify'], function() {
+  runSequence('clean', ['copy', 'copy-partials', 'sass', 'uglify'], 'copy-templates', function() {
     console.log("Successfully built.");
     cb();
   });

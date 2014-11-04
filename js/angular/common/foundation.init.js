@@ -4,6 +4,7 @@ angular.module('foundation.init')
   .factory('FoundationInit', ['helpers', 'FoundationApi', 'Utils', function(helpers, foundationApi, u){
     return {
       init: function() {
+        var mediaQueries = {};
         var mediaClasses = [
           'foundation-mq-small',
           'foundation-mq-medium',
@@ -14,7 +15,6 @@ angular.module('foundation.init')
 
         helpers.headerHelper(mediaClasses);
 
-        var mediaQueries = {};
 
         angular.forEach(mediaClasses, function(mediaClass) {
           var type = mediaClass.split(/-/).pop();
