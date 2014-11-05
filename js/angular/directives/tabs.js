@@ -135,7 +135,6 @@ angular.module('foundation.tabs')
         title: '@'
       },
       require: '^faTabs',
-      controller: function() { },
       replace: true,
       compile: function(tElement, tAttr) {
 
@@ -161,12 +160,11 @@ angular.module('foundation.tabs')
     return {
       restrict: 'A',
       transclude: 'true',
-      replace: false,
       link: function postLink(scope, element, attrs, ctrl, transclude) {
         var tab = scope.$eval(attrs.tab);
         var id = tab.scope.id;
 
-        tab.scope.transcludeFn(tab.$parent, function(tabContent) {
+        tab.scope.transcludeFn(tab.scope, function(tabContent) {
           element.append(tabContent);
         });
 
