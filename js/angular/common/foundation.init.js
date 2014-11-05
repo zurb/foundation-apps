@@ -42,9 +42,7 @@ angular.module('foundation.init')
         var head = angular.element(document.querySelectorAll('head'));
 
         while(i--) {
-          if(head.has('.' + classArray[i]).length === 0) {
-            head.append('<meta class="' + classArray[i] + '" />');
-          }
+          head.append('<meta class="' + classArray[i] + '" />');
         }
         return;
       },
