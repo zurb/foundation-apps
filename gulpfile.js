@@ -55,12 +55,10 @@ gulp.task('sass', function() {
 // Process Foundation JS
 gulp.task('uglify', ['uglify-angular'], function() {
   var libs = [
-    'bower_components/jquery/dist/jquery.js',
     'bower_components/fastclick/lib/fastclick.js',
     'bower_components/viewport-units-buggyfill/viewport-units-buggyfill.js',
     'bower_components/notify.js/notify.js',
     'bower_components/tether/tether.js',
-    'js/foundation/**/*.js',
     'docs/assets/js/app.js'
   ];
 

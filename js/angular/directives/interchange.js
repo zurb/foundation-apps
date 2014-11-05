@@ -65,7 +65,7 @@ angular.module('foundation.interchange')
 
           //save on-page templates
           if (!elem.attr('src')) {
-            innerTemplates[i] = el;
+            innerTemplates[i] = elem;
             scenarios[i] = { media: elem.attr('media'), templ: i };
           } else {
             scenarios[i] = { media: elem.attr('media'), src: elem.attr('src') };
@@ -101,7 +101,7 @@ angular.module('foundation.interchange')
             if(scenario.templ) {
               //on page template logic
               childScope = newScope;
-              element.html(innerTemplates[scenario.templ]);
+              element.html(innerTemplates[scenario.templ].html());
               $compile(element.contents())(childScope);
               current = scenario;
             } else {

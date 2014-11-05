@@ -65,10 +65,19 @@ angular.module('foundation.notification')
       color: '=?'
     },
     link: function(scope, element, attrs, controller) {
-      scope.active = true;
+      scope.active = false;
+
+      //allow DOM to change before activating
+      setTimeout(function() {
+        scope.active = true;
+        scope.$apply();
+      }, 50);
 
       scope.remove = function() {
-        controller.removeNotification(scope.notifId);
+        scope.active = false;
+        setTimeout(function() {
+          controller.removeNotification(scope.notifId);
+        }, 50);
       };
     },
   };
@@ -89,7 +98,7 @@ angular.module('foundation.notification')
       color: '@?'
     },
     link: function(scope, element, attrs, controller) {
-      scope.position = scope.position.split(' ').join('-');
+      scope.position = scope.position ? scope.position.split(' ').join('-') : '';
 
       foundationApi.subscribe(attrs.id, function(msg) {
         if(msg == 'show' || msg == 'open') {
