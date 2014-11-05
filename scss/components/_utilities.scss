@@ -15,9 +15,9 @@
   Vertical alignment
 */
 .v-align {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
   $align-values: (
     'top': flex-start,
@@ -25,13 +25,13 @@
     'bottom': flex-end,
   );
 
-  @each $orient in ('top', 'center', 'bottom') {
+  @each $orient in (top, center, bottom) {
     .align-#{$orient} {
       align-self: map-get($align-values, $orient);
     }
   }
   @each $size in $breakpoint-classes {
-    @each $orient in ('top', 'center', 'bottom') {
+    @each $orient in (top, center, bottom) {
       @include breakpoint($size) {
         .#{$size}-align-#{$orient} {
           align-self: map-get($align-values, $orient);
@@ -65,7 +65,7 @@
     }
   }
 }
-@each $orientation in ('portrait', 'landscape') {
+@each $orientation in (portrait, landscape) {
   @include breakpoint($orientation) {
     .hide-for-#{$orientation} {
       display: none;
@@ -79,7 +79,7 @@
 /*
   Text alignment
 */
-@each $align in ('left', 'right', 'center', 'justify') {
+@each $align in (left, right, center, justify) {
   @each $size in $breakpoint-classes {
     .text-#{$align} {
       text-align: $align;
@@ -101,7 +101,7 @@
   Floating
 */
 .clearfix { @include clearfix; }
-@each $float in ('left', 'right', 'none') {
+@each $float in (left, right, none) {
   .float-#{$float} {
     float: #{$float};
   }

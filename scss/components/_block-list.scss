@@ -29,6 +29,7 @@ $blocklist-item-icon-size: 0.8 !default;
 $blocklist-header-fontsize: 0.8em !default;
 $blocklist-header-color: smartscale($blocklist-item-color, 40%) !default;
 
+$blocklist-check-icons: true !default;
 
 /*
   Adds styles for a block list container.
@@ -245,8 +246,10 @@ $blocklist-header-color: smartscale($blocklist-item-color, 40%) !default;
 */
 @mixin block-list-inputs(
   $color: $blocklist-item-color,
+  $background: $blocklist-background,
   $background-hover: $blocklist-item-background-hover,
   $padding: $blocklist-item-padding,
+  $icons: $blocklist-check-icons,
   $dropdown-class: 'with-dropdown',
   $switch-class: 'switch'
 ) {
@@ -265,13 +268,26 @@ $blocklist-header-color: smartscale($blocklist-item-color, 40%) !default;
     position: absolute;
     left: -9999px;
 
-    &:checked + label {
-      // PH - change to iconography
-      &::before {
-        content: 'Hell yeah';
-        color: $primary-color;
-        float: right;
-        pointer-events: none;
+    @if $icons == true {
+      &:checked + label {
+        // PH - change to iconography
+        &::before {
+          content: '';
+          background-size: 100% 100%;
+          width: 1.5em;
+          height: 1.5em;
+          color: $primary-color;
+          float: right;
+          pointer-events: none;
+          margin-top: -0.25em;
+
+          @if lightness($background) > 60% {
+            background-image: url(map-get($foundation-images, checkmark-black));
+          }
+          @else {
+            background-image: url(map-get($foundation-images, checkmark-white));
+          }
+        }
       }
     }
   }

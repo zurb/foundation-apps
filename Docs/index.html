@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en" ng-app="application">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title ng-bind="$state.current.data.vars.title"></title>
+    <link href="/assets/css/app.css" rel="stylesheet" type="text/css">
+    <script src="/assets/js/app.js"></script>
+    <script src="/assets/js/routes.js"></script>
+    <script src="/assets/js/angular-app.js"></script>
+  </head>
+  <body>
+    <div class="vertical stretch frame">
+      <div class="shrink block">
+        <div class="content block" style="background: #002b36 !important; color: white;">
+          <span fa-toggle="offCanvas" style="color:#fff;">Foundation for Apps - {{$state.current.data.vars.title}}</span>
+        </div>
+      </div>
+      <div class="stretch block">
+        <div id="menu" class="panel panel-left medium-3 large-2 content medium-block" style="border-right: 1px solid #e2e6e6;">
+          <section class="block-list">
+            <header>Setup</header>
+            <ul>
+              <li><a ui-sref="install-update">Install &amp; Update</a></li>
+              <li><a ui-sref="sass">Sass</a></li>
+              <li><a ui-sref="motion-ui">Motion UI</a></li>
+              <li><a ui-sref="angular">Angular</a></li>
+              <li><a ui-sref="compatibility">Compatibility</a></li>
+              <li><a ui-sref="changelog">Changelog</a></li>
+            </ul>
+          </section>
+          <section class="block-list">
+            <header>Layout</header>
+            <ul>
+              <li><a ui-sref="grid">Grid</a></li>
+              <li><a ui-sref="panel">Panel</a></li>
+            </ul>
+          </section>
+          <section class="block-list">
+            <header>Navigation</header>
+            <ul>
+              <li><a ui-sref="action-sheet">Action Sheet</a></li>
+              <li><a ui-sref="menu-bar">Menu Bar</a></li>
+              <li><a ui-sref="off-canvas">Off-canvas Menu</a></li>
+              <li><a ui-sref="title-bar">Title Bar</a></li>
+            </ul>
+          </section>
+          <section class="block-list">
+            <header>Callouts</header>
+            <ul>
+              <li><a ui-sref="modal">Modal</a></li>
+              <li><a ui-sref="notification">Notification</a></li>
+            </ul>
+          </section>
+          <section class="block-list">
+            <header>Controls</header>
+            <ul>
+              <li><a ui-sref="button">Button</a></li>
+              <li><a ui-sref="forms">Forms</a></li>
+            </ul>
+          </section>
+          <section class="block-list">
+            <header>Content</header>
+            <ul>
+              <li><a ui-sref="accordion">Accordion</a></li>
+              <li><a ui-sref="block-list">Block List</a></li>
+              <li><a ui-sref="card">Card</a></li>
+              <li><a ui-sref="inline-element">Inline Element</a></li>
+              <li><a ui-sref="interchange">Interchange</a></li>
+              <li><a ui-sref="labels-badges">Labels &amp; Badges</a></li>
+              <li><a ui-sref="popup">Popup</a></li>
+              <li><a ui-sref="tabs">Tabs</a></li>
+              <li><a ui-sref="typography">Typography</a></li>           
+            </ul>
+          </section>
+          <section class="block-list">
+            <header>Helpers</header>
+            <ul>
+              <li><a ui-sref="functions-mixins">Functions and Mixins</a></li>
+              <li><a ui-sref="utilities">Utilities</a></li>
+            </ul>
+          </section>
+        </div>
+
+        <div class="medium-9 large-10 block content horizontal container">
+          <div ng-controller="MainController">
+            <div ng-class="[currentSlug, 'ui-animation']" ui-view></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

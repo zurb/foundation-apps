@@ -4,7 +4,8 @@
   "description": "Foundation for Apps",
   "scripts": {
     "postinstall": "bower install",
-    "test": "gulp"
+    "test": "gulp test",
+    "start": "gulp"
   },
   "repository": {
     "type": "git",
@@ -23,12 +24,18 @@
   },
   "homepage": "https://github.com/zurb/foundation-apps",
   "devDependencies": {
+    "front-matter": "^0.2.0",
     "gulp": "^3.8.8",
     "gulp-autoprefixer": "^1.0.1",
     "gulp-concat": "^2.4.1",
     "gulp-front-matter": "^1.0.0",
-    "gulp-ruby-sass": "^0.7.1",
+    "gulp-karma": "0.0.4",
+    "gulp-sass": "^1.2.2",
     "gulp-uglify": "^1.0.1",
+    "gulp-util": "^3.0.1",
+    "karma-jasmine": "^0.1.5",
+    "karma-phantomjs-launcher": "^0.1.4",
+    "protractor": "^1.3.1",
     "through2": "^0.6.2"
   },
   "dependencies": {

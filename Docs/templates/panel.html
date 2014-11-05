@@ -1,0 +1,72 @@
+---
+name: panel
+url: /panel
+---
+<h2>Panels</h2>
+<h3 class="subheader">Panels are frames that slide in from the top, left, bottom, or right of the screen and appear over the interface. Grid blocks can also transform into panels, allowing you to hide content off-canvas on smaller screens.</h3>
+
+<hr>
+
+<div class="docs-example-panels block" style="overflow: hidden;">
+  <div class="panel panel-left" id="docs-panel-left" data-panel>Left panel</div>
+  <div class="panel panel-right" id="docs-panel-right" data-panel>Right panel</div>
+  <div class="panel panel-top" id="docs-panel-top" data-panel>Top panel</div>
+  <div class="panel panel-bottom" id="docs-panel-bottom" data-panel>Bottom panel</div>
+  <div class="content block">
+    <a href="#" class="button" data-panel-toggle="docs-panel-left">Left panel</a>
+    <a href="#" class="button" data-panel-toggle="docs-panel-right">Right panel</a>
+    <a href="#" class="button" data-panel-toggle="docs-panel-bottom">Bottom panel</a>
+    <a href="#" class="button" data-panel-toggle="docs-panel-top">Top panel</a>
+  </div>
+</div>
+
+<hr>
+
+<h3>Basic HTML</h3>
+<p>You can create Panels with this basic HTML</p>
+<ul class="segmented button-group small">
+  <li class="is-active"><a href="#">CSS Classes</a></li>
+  <li><a href="#">Sass Mixins</a></li>
+</ul>
+<div class="block">
+  <div class="medium-6 block content">
+    <pre>
+      <code class="language-html">
+        <div class="panel panel-left" id="my-panel" data-panel>
+          This is example panel text, totes neat man.
+        </div>
+        <a href="#" class="button" data-panel-toggle="my-panel">Left panel</a>
+      </code>
+    </pre>
+  </div>
+  <div class="medium-6 block content">
+    [Demo of item]
+  </div>
+</div>
+
+<h3>Advanced HTML</h3>
+<p>You can create advanced versions of [Item] with this HTML</p>
+<ul class="segmented button-group">
+  <li class="is-active"><a href="#">CSS Classes</a></li>
+  <li><a href="#">Sass Mixins</a></li>
+</ul>
+<div class="block">
+  <div class="medium-6 block content">
+    <pre>
+      <code class="language-html">
+        [html]
+      </code>
+    </pre>
+  </div>
+  <div class="medium-6 block content">
+    [Demo of item]
+  </div>
+</div>
+
+<h3>Sass Variables</h3>
+<p>You can customize with...</p>
+<pre>
+  <code class="language-html">
+    [Sass]
+  </code>
+</pre>

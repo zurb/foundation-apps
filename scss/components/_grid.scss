@@ -18,6 +18,7 @@
 $container-width: rem-calc(1000) !default;
 $block-padding: $global-padding !default;
 $total-columns: 12 !default;
+$block-grid-max-size: 6;
 
 /*
   Define the size of a grid block. Blocks are flex items. By default, they stretch to fill all available space, based on the size of sibling blocks. This is the "expand" behavior.
@@ -303,18 +304,17 @@ $total-columns: 12 !default;
 /*
 	Sizing and ordering classes
 */
-$block-grid-max-size: 6;
-@each $size, $breakpoint in ('small': $small-up, 'medium': $medium-up, 'large': $large-up) {
+@for $i from 1 through $total-columns {
+  .order-#{$i} { @include grid-order($i); }
+}
+@each $size in $breakpoint-classes {
 	@for $i from 1 through $total-columns {
 		@include breakpoint($size) {
 			// Block sizing
 			.#{$size}-#{$i} {
 				@include grid-size($i);
 			}
-			// Block ordering
-			@at-root (without: media) {
-				.order-#{$i} { @include grid-order($i); }
-			}
+      // Source ordering
 			.#{$size}-order-#{$i} {
 				@include grid-order($i);
 			}

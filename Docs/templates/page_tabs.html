@@ -1,0 +1,43 @@
+---
+name: playground.tabs
+url: /tabs
+---
+<h4>Automatic Tabs</h4>
+<div fa-tabs>
+  <div fa-tab title="Tab 1">
+    Tab 1
+  </div>
+  <div fa-tab title="Tab 2">
+    Tab 2
+  </div>
+  <div fa-tab title="Tab 3">
+    Tab 3
+  </div>
+</div>
+
+<h4>Automatic Tabs with displaced tab content</h4>
+<div fa-tabs id="displaced-tabs" displaced="true">
+  <div fa-tab title="Tab 1">
+    Tab 1
+  </div>
+  <div fa-tab title="Tab 2">
+    Tab 2
+  </div>
+  <div fa-tab title="Tab 3">
+    Tab 3
+  </div>
+</div>
+
+<h5>Displaced content:</h5>
+<div fa-tab-content target="displaced-tabs">
+</div>
+
+<h4>Manually built tabs</h4>
+<ul class="button-group" fa-tab-custom>
+  <li fa-tab-href="tabOne"><a>Tab One</a></li>
+  <li fa-tab-href="tabTwo"><a>Tab Two</a></li>
+</ul>
+<div fa-tab-content-custom>
+  <div id="tabOne">Content!</div>
+  <div id="tabTwo">Second Content!</div>
+</div>

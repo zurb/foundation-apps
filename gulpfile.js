@@ -1,16 +1,16 @@
-var gulp         = require('gulp'),
-    rimraf       = require('rimraf'),
-    runSequence  = require('run-sequence'),
-    frontMatter  = require('gulp-front-matter'),
-    path         = require('path'),
-    through      = require('through2'),
-    fs           = require('fs'),
-    autoprefixer = require('gulp-autoprefixer'),
-    sass         = require('gulp-ruby-sass'),
-    uglify       = require('gulp-uglify'),
-    concat       = require('gulp-concat'),
-    connect      = require('gulp-connect'),
-    modRewrite = require('connect-modrewrite');
+var gulp           = require('gulp'),
+    rimraf         = require('rimraf'),
+    runSequence    = require('run-sequence'),
+    frontMatter    = require('gulp-front-matter'),
+    autoprefixer   = require('gulp-autoprefixer'),
+    sass           = require('gulp-sass'),
+    uglify         = require('gulp-uglify'),
+    concat         = require('gulp-concat'),
+    connect        = require('gulp-connect'),
+    path           = require('path'),
+    modRewrite     = require('connect-modrewrite'),
+    dynamicRouting = require('./bin/gulp-dynamic-routing'),
+    karma          = require('gulp-karma');
 
 // Clean build directory
 gulp.task('clean', function(cb) {
@@ -20,12 +20,12 @@ gulp.task('clean', function(cb) {
 // Copy static files (but not the Angular templates, Sass, or JS)
 gulp.task('copy', function() {
   var dirs = [
-    './client/**/*.*',
-    '!./client/templates/**/*.*',
-    '!./client/assets/{scss,js}/**/*.*'
+    './docs/**/*.*',
+    '!./docs/templates/**/*.*',
+    '!./docs/assets/{scss,js}/**/*.*'
   ];
   return gulp.src(dirs, {
-    base: './client/'
+    base: './docs/'
   })
     .pipe(gulp.dest('build'));
 });
@@ -39,36 +39,27 @@ gulp.task('copy-partials', ['clean-partials'], function() {
     .pipe(gulp.dest('./build/partials/'));
 });
 
-// Compile Sass
 gulp.task('sass', function() {
-  var libs = [
-    'client/assets/scss',
-    'scss'
-  ];
-
-  return gulp.src('client/assets/scss/app.scss')
+  return gulp.src('docs/assets/scss/app.scss')
     .pipe(sass({
-      loadPath: libs,
-      style: 'expanded',
-      lineNumbers: true
+      includePaths: ['scss'],
+      outputStyle: 'nested',
+      errLogToConsole: true
     }))
     .pipe(autoprefixer({
       browsers: ['last 2 versions', 'ie 10']
     }))
-    .pipe(gulp.dest('./build/assets/css/'))
-  ;
+    .pipe(gulp.dest('./build/assets/css/'));
 });
 
 // Process Foundation JS
 gulp.task('uglify', ['uglify-angular'], function() {
   var libs = [
-    'bower_components/jquery/dist/jquery.js',
     'bower_components/fastclick/lib/fastclick.js',
     'bower_components/viewport-units-buggyfill/viewport-units-buggyfill.js',
     'bower_components/notify.js/notify.js',
     'bower_components/tether/tether.js',
-    'js/foundation/**/*.js',
-    'client/assets/js/app.js'
+    'docs/assets/js/app.js'
   ];
 
   return gulp.src(libs)
@@ -103,38 +94,15 @@ gulp.task('uglify-angular', function() {
 
 });
 
-gulp.task('copy-templates', ['copy', 'uglify-angular'], function() {
+gulp.task('copy-templates', ['copy'], function() {
   var config = [];
 
-  return gulp.src('./client/templates/**/*.html')
-    .pipe(frontMatter({
-      property: 'meta',
-      remove: true
+  return gulp.src('./docs/templates/**/*.html')
+    .pipe(dynamicRouting({
+      path: 'build/assets/js/routes.js',
+      root: 'docs'
     }))
-    .pipe(through.obj(function(file, enc, callback) {
-      if(file.meta.name) {
-        var page = file.meta;
-
-        //path normalizing
-        var relativePath = path.relative(__dirname + path.sep + 'client', file.path);
-        page.path = '/' + relativePath.split(path.sep).join('/');
-
-        config.push(page);
-      }
-      this.push(file);
-      return callback();
-    }))
-    .pipe(gulp.dest('build/templates'))
-    .on('end', function() {
-      //routes
-      var appPath = ['build', 'assets', 'js', 'angular-app.js'];
-      var data = fs.readFileSync(appPath.join(path.sep));
-      config.sort(function(a, b) {
-        return a.url < b.url;
-      });
-
-      fs.writeFileSync(appPath.join(path.sep), 'var dynamicRoutes = ' + JSON.stringify(config) + '; \n' + data);
-    })
+    .pipe(gulp.dest('./build/templates'))
   ;
 });
 
@@ -149,27 +117,50 @@ gulp.task('server:start', function() {
   });
 });
 
-gulp.task('build', function() {
-  runSequence('clean', ['copy', 'copy-partials', 'copy-templates', 'sass', 'uglify'], function() {
+gulp.task('karma-test', ['build'], function() {
+  var testFiles = [
+    'build/assets/js/app.js',
+    'build/assets/js/angular-app.js',
+    'bower_components/angular-mocks/angular-mocks.js',
+    'tests/unit/**/*Spec.js'
+  ];
+
+  return gulp.src(testFiles)
+    .pipe(karma({
+      configFile: 'karma.conf.js',
+      action: 'run'
+    }))
+    .on('error', function(err) {
+      throw err;
+    })
+  ;
+
+});
+
+gulp.task('test', ['karma-test'], function() {
+  console.log('Tests finished.');
+});
+
+gulp.task('build', function(cb) {
+  runSequence('clean', ['copy', 'copy-partials', 'sass', 'uglify'], 'copy-templates', function() {
     console.log("Successfully built.");
-  })
+    cb();
+  });
 });
 
 gulp.task('default', ['build', 'server:start'], function() {
-  // gulp.watch(['./client/**/*.*', './js/**/*.*'], ['build', 'css', server.restart]);
-
   // Watch Sass
-  gulp.watch(['./client/assets/scss/**/*', './scss/**/*'], ['sass']);
+  gulp.watch(['./docs/assets/scss/**/*', './scss/**/*'], ['sass']);
 
   // Watch JavaScript
-  gulp.watch(['./client/assets/js/**/*', './js/**/*'], ['uglify', 'copy-templates']);
+  gulp.watch(['./docs/assets/js/**/*', './js/**/*'], ['uglify']);
 
   // Watch static files
-  gulp.watch(['./client/**/*.*', '!./client/templates/**/*.*', '!./client/assets/{scss,js}/**/*.*'], ['copy']);
+  gulp.watch(['./docs/**/*.*', '!./docs/templates/**/*.*', '!./docs/assets/{scss,js}/**/*.*'], ['copy']);
 
   // Watch Angular partials
   gulp.watch(['js/angular/partials/**.*'], ['copy-partials']);
 
   // Watch Angular templates
-  gulp.watch(['./client/templates/**/*.html'], ['uglify-angular', 'copy-templates']);
+  gulp.watch(['./docs/templates/**/*.html'], ['copy-templates']);
 });

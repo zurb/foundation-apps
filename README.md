@@ -1,5 +1,7 @@
 # Foundation for Apps WIP
 
+[![Build Status](https://travis-ci.org/zurb/foundation-apps.svg)](https://travis-ci.org/zurb/foundation-apps)
+
 Work in progress for Foundation for Apps. At this time we will only be accepting PRs from the core team and invited contributors, as we work toward an initial release. Thanks!
 
 ## Requirements
@@ -9,7 +11,6 @@ You'll need to have the following items installed before continuing.
   * [Node.js](http://nodejs.org): Use the installer provided on the NodeJS website.
   * [Git](http://git-scm.com/downloads): Use the installer for your OS.
   * [Gulp](http://gulpjs.com/) and [Bower](http://bower.io): Run `sudo npm install -g gulp bower`
-  * [Sass 3.4](http://sass-lang.com/): run `gem update sass`
 
 ## Quickstart
 
@@ -47,10 +48,10 @@ The docs are generated in the `docs` directory when you run the quickstart proce
 ## Directory Structure
 
 * `build`: This is where the finished Angular app is assembled. To deploy your app, use the contents of this folder. **Don't edit these files directly, as they're overwritten every time you make a change!**
-* `client`: The meat of your application. This is where the main `index.html` file is, as well as the page templates that make up your app.
+* `Docs`: The meat of your application. This is where the main `index.html` file is, as well as the page templates that make up your app.
 * `js`: Our JavaScript plugins and Angular directives are being developed here.
 * `scss`: Our UI components are being developed here.
-* `docs`: Our old test pages. The ones that matter have been moved to `client/templates`.
+* `docs`: Our old test pages. The ones that matter have been moved to `Docs/templates`.
 
 ## Feedback
 

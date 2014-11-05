@@ -1,0 +1,42 @@
+---
+name: playground
+title: Playground
+url: /playground
+composed: true
+---
+<div class="docs-header">
+  <div class="container group">
+    <div class="block">
+      <h1>Foundation Angular Playground</h1>
+    </div>
+  </div>
+</div>
+<div class="container block">
+  <div class="panel panel-left content medium-block medium-4 large-3">
+    <div ng-include src="'/templates/page_nav.html'"></div>
+  </div>
+  <div class="small-12 medium-8 large-9 content block docs-component-overview">
+    <h1>Page</h1>
+    <button fa-open="pageModal">Modal</button>
+    <button fa-toggle="pagePanel">Panel</button>
+    <button fa-toggle="pageCanvas">Offcanvas</button>
+    <div ng-class="[currentSlug, 'ui-animation' ]" ui-view></div>
+  </div>
+</div>
+<div fa-modal id="pageModal" >
+  <a href="#" fa-close>&times;</a>
+  <section class="content block">
+    {{ vars.name }} | {{ vars.url }}
+  </section>
+  <footer class="content block menu-bar">
+    <span class="button">Ok</span>
+    <span class="button">Cancel</span>
+  </footer>
+</div>
+<div fa-panel id="pagePanel" position="left">
+  <p>Test Panel</p>
+</div>
+
+<div fa-offcanvas id="pageCanvas" position="right">
+  <p>Test Canvas</p>
+</div>
