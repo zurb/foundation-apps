@@ -17,22 +17,22 @@
 // 0. Variables
 // - - - - - - - - - - - - - - - - - - - - - - - - -
 
-$transition-normal-duration: 700ms;
-$motion-class: "is-active";
+$transition-normal-duration: 700ms !default;
+$motion-class: "is-active" !default;
 
-$motion-default-origin: left;
-$slide-default-dir: left;
+$motion-default-origin: left !default;
+$slide-default-dir: left !default;
 
-$include-html-motion-attributes: true;
-$auto-adjust-opacity: true;
+$include-html-motion-attributes: true !default;
+$auto-adjust-opacity: true !default;
 
-$motion-default-property: transform;
-$motion-default-timing: ease;
-$motion-default-delay: 0;
+$motion-default-property: transform !default;
+$motion-default-timing: ease !default;
+$motion-default-delay: 0 !default;
 
-$motion-slow-duration: 1.4s;
-$motion-default-duration: 700ms;
-$motion-fast-duration: 300ms;
+$motion-slow-duration: 1.4s !default;
+$motion-default-duration: 700ms !default;
+$motion-fast-duration: 300ms !default;
 
 $motion-timings: (
   linear: linear,
@@ -43,7 +43,7 @@ $motion-timings: (
   bounceIn: cubic-bezier(0.485, 0.155, 0.240, 1.245),
   bounceOut: cubic-bezier(0.485, 0.155, 0.515, 0.845),
   bounceInOut: cubic-bezier(0.760, -0.245, 0.240, 1.245),
-);
+) !default;
 
 @function get-timing($timing) {
   @if map-has-key($motion-timings, $timing) {
