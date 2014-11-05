@@ -18,9 +18,14 @@ angular.module('foundation.iconic')
     restrict: 'AE',
     link: function(scope, element, attrs, controller) {
       var ico = iconic.getAccess();
+      var children = element.children();
+      var childArr = [];
 
-      console.log(element.children(), 'test');
-      ico.inject(element.children());
+      angular.forEach(children, function(child) {
+        childArr.push(child);
+      });
+
+      ico.inject(childArr);
     }
   };
 }]);
