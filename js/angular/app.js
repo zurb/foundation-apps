@@ -13,7 +13,8 @@ var app = angular.module('application', [
     'foundation.offcanvas',
     'foundation.panel',
     'foundation.popup',
-    'foundation.tabs'
+    'foundation.tabs',
+    'foundation.iconic'
   ])
     .config(['$FoundationStateProvider', '$urlRouterProvider', '$locationProvider', function(FoundationStateProvider, $urlProvider, $locationProvider) {
 

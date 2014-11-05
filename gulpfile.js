@@ -139,16 +139,28 @@ gulp.task('karma-test', ['build'], function() {
 
 });
 
+gulp.task('copy-iconic', function() {
+  var dirs = [
+    './iconic/**/*'
+  ];
+
+  return gulp.src(dirs, {
+  })
+    .pipe(gulp.dest('build/iconic'))
+  ;
+});
+
 gulp.task('test', ['karma-test'], function() {
   console.log('Tests finished.');
 });
 
 gulp.task('build', function(cb) {
-  runSequence('clean', ['copy', 'copy-partials', 'sass', 'uglify'], 'copy-templates', function() {
+  runSequence('clean', ['copy', 'copy-iconic', 'copy-partials', 'sass', 'uglify'], 'copy-templates', function() {
     console.log("Successfully built.");
     cb();
   });
 });
+
 
 gulp.task('default', ['build', 'server:start'], function() {
   // Watch Sass
