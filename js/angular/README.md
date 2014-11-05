@@ -332,6 +332,14 @@ You can also use the `fa-notify` directive for simpler messages and prototyping:
 <a href="#" fa-notify title="Title of notification" content="Content of notification">Launch notification</a>
 ````
 
+**Additional options**
+
+On top of setting a title and content, you can also set:
+
+- image - enter the source
+- position
+- color
+
 ####Off Canvas
 
 ````html
