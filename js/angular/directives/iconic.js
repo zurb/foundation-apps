@@ -15,14 +15,12 @@ angular.module('foundation.iconic')
 angular.module('foundation.iconic')
   .directive('faIconic', ['Iconic', function(iconic) {
   return {
-    restrict: 'EA',
-    transclude: true,
-    templateUrl: '/partials/actionsheet.html',
-    controller: 'FaActionSheetController',
+    restrict: 'AE',
     link: function(scope, element, attrs, controller) {
-      var iconic = iconic.getAccess();
+      var ico = iconic.getAccess();
 
-      iconic.inject(element.children());
+      console.log(element.children(), 'test');
+      ico.inject(element.children());
     }
   };
 }]);
