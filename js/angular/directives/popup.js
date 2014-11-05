@@ -28,7 +28,7 @@ angular.module('foundation.popup')
           scope.target = scope.target ? document.getElementById(scope.target) : document.getElementById(target);
 
           tether = new Tether({
-            element: element,
+            element: element[0],
             target: scope.target,
             attachment: attachment,
             enable: false
