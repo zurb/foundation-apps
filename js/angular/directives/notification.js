@@ -77,7 +77,7 @@ angular.module('foundation.notification')
         scope.active = false;
         setTimeout(function() {
           controller.removeNotification(scope.notifId);
-        }, 200);
+        }, 50);
       };
     },
   };
