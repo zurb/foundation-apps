@@ -20,12 +20,12 @@ gulp.task('clean', function(cb) {
 // Copy static files (but not the Angular templates, Sass, or JS)
 gulp.task('copy', function() {
   var dirs = [
-    './docs/**/*.*',
-    '!./docs/templates/**/*.*',
-    '!./docs/assets/{scss,js}/**/*.*'
+    './Docs/**/*.*',
+    '!./Docs/templates/**/*.*',
+    '!./Docs/assets/{scss,js}/**/*.*'
   ];
   return gulp.src(dirs, {
-    base: './docs/'
+    base: './Docs/'
   })
     .pipe(gulp.dest('build'));
 });
@@ -40,7 +40,7 @@ gulp.task('copy-partials', ['clean-partials'], function() {
 });
 
 gulp.task('sass', function() {
-  return gulp.src('docs/assets/scss/app.scss')
+  return gulp.src('Docs/assets/scss/app.scss')
     .pipe(sass({
       includePaths: ['scss'],
       outputStyle: 'nested',
@@ -59,7 +59,7 @@ gulp.task('uglify', ['uglify-angular'], function() {
     'bower_components/viewport-units-buggyfill/viewport-units-buggyfill.js',
     'bower_components/notify.js/notify.js',
     'bower_components/tether/tether.js',
-    'docs/assets/js/app.js'
+    'Docs/assets/js/app.js'
   ];
 
   return gulp.src(libs)
@@ -97,10 +97,10 @@ gulp.task('uglify-angular', function() {
 gulp.task('copy-templates', ['copy'], function() {
   var config = [];
 
-  return gulp.src('./docs/templates/**/*.html')
+  return gulp.src('./Docs/templates/**/*.html')
     .pipe(dynamicRouting({
       path: 'build/assets/js/routes.js',
-      root: 'docs'
+      root: 'Docs'
     }))
     .pipe(gulp.dest('./build/templates'))
   ;
@@ -150,17 +150,17 @@ gulp.task('build', function(cb) {
 
 gulp.task('default', ['build', 'server:start'], function() {
   // Watch Sass
-  gulp.watch(['./docs/assets/scss/**/*', './scss/**/*'], ['sass']);
+  gulp.watch(['./Docs/assets/scss/**/*', './scss/**/*'], ['sass']);
 
   // Watch JavaScript
-  gulp.watch(['./docs/assets/js/**/*', './js/**/*'], ['uglify']);
+  gulp.watch(['./Docs/assets/js/**/*', './js/**/*'], ['uglify']);
 
   // Watch static files
-  gulp.watch(['./docs/**/*.*', '!./docs/templates/**/*.*', '!./docs/assets/{scss,js}/**/*.*'], ['copy']);
+  gulp.watch(['./Docs/**/*.*', '!./Docs/templates/**/*.*', '!./Docs/assets/{scss,js}/**/*.*'], ['copy']);
 
   // Watch Angular partials
   gulp.watch(['js/angular/partials/**.*'], ['copy-partials']);
 
   // Watch Angular templates
-  gulp.watch(['./docs/templates/**/*.html'], ['copy-templates']);
+  gulp.watch(['./Docs/templates/**/*.html'], ['copy-templates']);
 });
