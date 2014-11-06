@@ -20,7 +20,7 @@ angular.module('foundation.actionsheet')
 angular.module('foundation.actionsheet')
   .directive('faActionSheet', ['FoundationApi', function(foundationApi) {
   return {
-    restrict: 'EA',
+    restrict: 'A',
     transclude: true,
     replace: true,
     templateUrl: '/partials/actionsheet.html',
@@ -48,7 +48,6 @@ angular.module('foundation.actionsheet')
     scope: {
       position: '@?'
     },
-    controller: function() { },
     link: function(scope, element, attrs, controller) {
       scope.active = false;
       controller.registerContent(scope);
@@ -72,7 +71,6 @@ angular.module('foundation.actionsheet')
     scope: {
       title: '@?'
     },
-    controller: function() { },
     link: function(scope, element, attrs, controller) {
 
       element.on('click', function(e) {

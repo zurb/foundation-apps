@@ -6,7 +6,7 @@ angular.module('foundation.accordion')
     var sections = controller.sections = $scope.sections = [];
 
     controller.select = function(selectSection) {
-      angular.forEach(sections, function(section) {
+      sections.forEach(function(section) {
         section.scope.active = false;
 
         if(section.scope == selectSection) {
@@ -21,6 +21,12 @@ angular.module('foundation.accordion')
       if(sections.length === 1) {
         sections[0].active = true;
       }
+    };
+
+    controller.closeAll = function() {
+      sections.forEach(function(section) {
+        section.scope.active = false;
+      });
     };
 
 }]);

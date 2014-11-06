@@ -2,17 +2,17 @@ angular.module('foundation.notification', []);
 
 angular.module('foundation.notification')
   .controller('FaNotificationController', ['$scope', 'FoundationApi', function FaTabsController($scope, foundationApi) {
-    var controller = this;
+    var controller    = this;
     var notifications = controller.notifications = $scope.notifications = [];
 
     controller.addNotification = function(info) {
-      var id = foundationApi.generateUuid();
+      var id  = foundationApi.generateUuid();
       info.id = id;
       notifications.push(info);
     };
 
     controller.removeNotification = function(id) {
-      angular.forEach(notifications, function(notification) {
+      notifications.forEach(function(notification) {
         if(notification.id === id) {
           var ind = notifications.indexOf(notification);
           notifications.splice(ind, 1);

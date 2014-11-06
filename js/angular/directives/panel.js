@@ -16,7 +16,6 @@ angular.module('foundation.panel')
       return {
         pre: function preLink(scope, iElement, iAttrs, controller) {
           iAttrs.$set('fa-closable', type);
-          iElement.addClass('panel-' + scope.position);
         },
         post: function postLink(scope, element, attrs) {
           var currentStatus = 'hide';

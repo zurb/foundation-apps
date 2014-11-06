@@ -1,4 +1,3 @@
-<div class="panel" ng-class="{'is-active': active}">
-  <p>Here's a panel! Why would you put a panel here?!</p>
+<div class="panel {{ 'panel-' + position }}" ng-class="{'is-active': active}">
   <div ng-transclude></div>
 </div>

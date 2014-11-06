@@ -15,7 +15,6 @@ angular.module('foundation.init')
 
         helpers.headerHelper(mediaClasses);
 
-
         angular.forEach(mediaClasses, function(mediaClass) {
           var type = mediaClass.split(/-/).pop();
           mediaQueries[type] = helpers.getStyle('.' + mediaClass, 'font-family').replace(/^[\/\\'"]+|(;\s?})+|[\/\\'"]+$/g, '');
@@ -44,6 +43,7 @@ angular.module('foundation.init')
         while(i--) {
           head.append('<meta class="' + classArray[i] + '" />');
         }
+
         return;
       },
       getStyle: function(selector, styleName) {
@@ -62,13 +62,13 @@ angular.module('foundation.init')
     this.registerDynamicRoutes = function(routes) {
       var dynamicRoutes = routes || foundationRoutes;
       angular.forEach(dynamicRoutes, function(page) {
-        if (page.hasComposed == true) {
+        if (page.hasComposed === true) {
           if (!angular.isDefined(complexViews[page.parent])) {
             complexViews[page.parent] = { children: {} };
           }
 
-          complexViews[page.parent]['children'][page.name] = page;
-        } else if (page.composed == true) {
+          complexViews[page.parent].children[page.name] = page;
+        } else if (page.composed === true) {
           if(!angular.isDefined(complexViews[page.name])) {
             complexViews[page.name] = { children: {} };
           }
