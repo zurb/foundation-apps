@@ -109,12 +109,16 @@ Foundation for Apps supports this out of the box for the development environment
 If you'd like to run Foundation for Apps without HTML5 mode there is a line of code in the `app.js` that can be commented out:
 
 ````
-$locationProvider.html5Mode(true);
+$locationProvider.html5Mode({
+  enabled: true,
+  requireBase: true
+});
 ````
 
 Note that Foundation for Apps cannot be run directly through the browser because it uses XMLHttpRequests to load up templates/partials for directives and pages. Running it directly will cause cross origin issues and will not work with linking.
 
-If you are running this app in a subdirectory, you will have to change some of the URLs (like the script loading URLs and template URLs within directives) in order to make everything work.
+If you are running in a subdirectory, try setting `requireBase` to the subdirectory name. So if you're running `domain.com/subdirectory`, set `requireBase: '/subdirectory/'`.
+
 
 ###Directives
 All of the directives are supported as attribute directive so you can add them to an element like so:
