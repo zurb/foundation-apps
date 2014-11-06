@@ -2,6 +2,8 @@ var gulp           = require('gulp'),
     rimraf         = require('rimraf'),
     runSequence    = require('run-sequence'),
     frontMatter    = require('gulp-front-matter'),
+    markdown       = require('gulp-markdown'),
+    highlight      = require('gulp-highlight'),
     autoprefixer   = require('gulp-autoprefixer'),
     sass           = require('gulp-sass'),
     uglify         = require('gulp-uglify'),
@@ -102,6 +104,8 @@ gulp.task('copy-templates', ['copy'], function() {
       path: 'build/assets/js/routes.js',
       root: 'docs'
     }))
+    .pipe(markdown())
+    .pipe(highlight())
     .pipe(gulp.dest('./build/templates'))
   ;
 });

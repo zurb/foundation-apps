@@ -1,0 +1,599 @@
+---
+name: typography
+url: /typography
+---
+
+<h2>Typography</h2>
+<h3 class="subheader">Foundation includes built-in styles for all the basic typography elements, initially sized based on a modular scale.
+This includes headers, subheaders, basic text, links and lists.</h3>
+
+<hr>
+
+<h3>Headers</h3>
+<p>Foundation comes with header styles which are easy to customize.</p>
+<ul class="segmented button-group">
+  <li class="is-active"><a href="#">HTML Markup</a></li>
+  <li><a href="#">Scss Variables</a></li>
+</ul>
+<div class="block">
+  <div class="medium-6 block content">   
+    <pre>
+      <code class="language-html">
+<h1>h1. This is a very large header.</h1>
+<h2>h2. This is a large header.</h2>
+<h3>h3. This is a medium header.</h3>
+<h4>h4. This is a moderate header.</h4>
+<h5>h5. This is a small header.</h5>
+<h6>h6. This is a tiny header.</h6>
+      </code>
+    </pre>
+  </div>
+  <!--
+		<h3>Available SCSS Variables</h3>
+		<p>We've got a ton of variables for you to use to customize your headers.</p>
+		<div class="medium-6 block content">
+			<pre>
+		    <code class="language-html">
+// We use these to control header font styles
+$header-font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+$header-font-weight: bold;
+$header-font-style: normal;
+$header-font-color: #222;
+$header-line-height: 1.4;
+$header-top-margin: .2rem;
+$header-bottom-margin: .5rem;
+$header-text-rendering: optimizeLegibility;
+
+// We use these to control header font sizes
+$h1-font-size: rem-calc(44);
+$h2-font-size: rem-calc(37);
+$h3-font-size: rem-calc(27);
+$h4-font-size: rem-calc(23);
+$h5-font-size: rem-calc(18);
+$h6-font-size: 1rem;
+				</code>
+		  </pre>
+		</div> 
+		-->
+  <div class="medium-6 block content">
+    <h1>h1. This is a very large header.</h1>
+		<h2>h2. This is a large header.</h2>
+		<h3>h3. This is a medium header.</h3>
+		<h4>h4. This is a moderate header.</h4>
+		<h5>h5. This is a small header.</h5>
+		<h6>h6. This is a tiny header.</h6>
+  </div>
+</div>
+
+<h3>Subheaders</h3>
+<p>Lighten up your headers by adding a class of .subheader to any header element.</p>
+<ul class="segmented button-group">
+  <li class="is-active"><a href="#">HTML Markup</a></li>
+  <li><a href="#">Scss Variables</a></li>
+</ul>
+<div class="block">
+  <div class="medium-6 block content">
+    <pre>
+      <code class="language-html">
+        <h1 class="subheader">h1.subheader</h1>
+				<h2 class="subheader">h2.subheader</h2>
+				<h3 class="subheader">h3.subheader</h3>
+				<h4 class="subheader">h4.subheader</h4>
+				<h5 class="subheader">h5.subheader</h5>
+				<h6 class="subheader">h6.subheader</h6>
+      </code>
+    </pre>
+  </div>
+  <!--
+		<h3>Available SCSS Variables</h3>
+		<p>We've got a ton of variables for you to use to customize your sub-headers.</p>
+		<div class="medium-6 block content">
+			<pre>
+		    <code class="language-html">
+			    // These control how subheaders are styled
+					$subheader-line-height: 1.4;
+					$subheader-font-color: scale-color($header-font-color, $lightness: 35%);
+					$subheader-font-weight: 300;
+					$subheader-top-margin: .2rem;
+					$subheader-bottom-margin: .5rem;
+				</code>
+		  </pre>
+		</div> 
+		-->
+  <div class="medium-6 block content">
+    <h1 class="subheader">h1.subheader</h1>
+		<h2 class="subheader">h2.subheader</h2>
+		<h3 class="subheader">h3.subheader</h3>
+		<h4 class="subheader">h4.subheader</h4>
+		<h5 class="subheader">h5.subheader</h5>
+		<h6 class="subheader">h6.subheader</h6>
+  </div>
+</div>
+
+<h3>Small Header Segments</h3>
+<p>By inserting a small element into a header Foundation will scale the header font size down for an inline element, allowing you to use this for subtitles or other secondary header text.</p>
+<ul class="segmented button-group">
+  <li class="is-active"><a href="#">HTML Markup</a></li>
+  <li><a href="#">Scss Variables</a></li>
+</ul>
+<div class="block">
+  <div class="medium-6 block content">
+    <pre>
+      <code class="language-html">
+<h1>h1. <small>Small segment header.</small></h1>
+<h2>h2. <small>Small segment header.</small></h2>
+<h3>h3. <small>Small segment header.</small></h3>
+<h4>h4. <small>Small segment header.</small></h4>
+<h5>h5. <small>Small segment header.</small></h5>
+<h6>h6. <small>Small segment header.</small></h6>
+      </code>
+    </pre>
+  </div>
+    <!--
+		<h3>Available SCSS Variables</h3>
+		<p>We've got a couple of variables for you to use to customize your small tag</p>
+		<div class="medium-6 block content">
+			<pre>
+		    <code class="language-html">
+			    // A general small styling
+					$small-font-size: 60%;
+					$small-font-color: scale-color($header-font-color, $lightness: 35%);
+				</code>
+		  </pre>
+		</div> 
+		-->
+  <div class="medium-6 block content">
+    <h1>h1. <small>Small segment header.</small></h1>
+		<h2>h2. <small>Small segment header.</small></h2>
+		<h3>h3. <small>Small segment header.</small></h3>
+		<h4>h4. <small>Small segment header.</small></h4>
+		<h5>h5. <small>Small segment header.</small></h5>
+		<h6>h6. <small>Small segment header.</small></h6>
+  </div>
+</div>
+
+<h3>Paragraphs</h3>
+<p>This is a paragraph. Paragraphs are preset with a font size, line height and spacing to match the overall vertical rhythm. To show what a paragraph looks like this needs a little more content -- so, did you know that there are storms occurring on Jupiter that are larger than the Earth? Pretty cool. Wrap <code>strong</code> around type to <strong>make it bold!</strong> You can also use <code>em</code> to italicize your words.</p>
+<ul class="segmented button-group">
+  <li class="is-active"><a href="#">HTML Markup</a></li>
+  <li><a href="#">Scss Variables</a></li>
+</ul>
+<div class="block">
+  <div class="small-12 block content">
+    <pre>
+      <code class="language-html">
+        <p>This is a paragraph. Paragraphs are preset with a font size, line height and spacing to match the overall vertical rhythm. To show what a paragraph looks like this needs a little more content so, did you know that there are storms occurring on Jupiter that are larger than the Earth? Pretty cool. Wrap strong around type to <strong>make it bold!</strong>. You can also use em to <em>italicize your words</em>.</p>
+      </code>
+    </pre>
+  </div>
+    <!--
+		<h3>Available SCSS Variables</h3>
+		<p>We've got plenty variables for you to use to customize your paragraphs, code, and <code><hr></code>.</p>
+		<div class="medium-6 block content">
+			<pre>
+		    <code class="language-html">
+			    <span class="comment">// We use these to style paragraphs</span>
+					$paragraph-font-family: inherit;
+					$paragraph-font-weight: normal;
+					$paragraph-font-size: 1rem;
+					$paragraph-line-height: 1.6;
+					$paragraph-margin-bottom: rem-calc(20);
+					$paragraph-aside-font-size: rem-calc(14);
+					$paragraph-aside-line-height: 1.35;
+					$paragraph-aside-font-style: italic;
+					$paragraph-text-rendering: optimizeLegibility;
+
+					<span class="comment">// We use these to style code tags</span>
+					$code-color: scale-color($alert-color, $lightness: -27%);
+					$code-font-family: Consolas, Liberation Mono, Courier, monospace;
+					$code-font-weight: bold;
+
+					<span class="comment">// We use these to style the hr element</span>
+					$hr-border-width: 1px;
+					$hr-border-style: solid;
+					$hr-border-color: #ddd;
+					$hr-margin: rem-calc(20);
+				</code>
+		  </pre>
+		</div> 
+		-->
+</div>
+
+<h3>Links</h3>
+<p>Links are very standard, and the <a href="http://www.youtube.com/watch?v=zT2aVoUkSDg">color is preset</a> to the Foundation primary color.</p>
+<ul class="segmented button-group">
+  <li class="is-active"><a href="#">HTML Markup</a></li>
+  <li><a href="#">Scss Variables</a></li>
+</ul>
+<div class="block">
+  <div class="medium-6 block content">
+    <pre>
+      <code class="language-html">
+        <p>Links are very standard, and the <a href="http://www.youtube.com/watch?v=zT2aVoUkSDg">color is preset</a> to the Foundation primary color.</p>
+      </code>
+    </pre>
+  </div>
+      <!--
+		<h3>Available SCSS Variables</h3>
+		<p>We've got plenty variables for you to use to customize your links.</p>
+		<div class="medium-6 block content">
+			<pre>
+		    <code class="language-html">
+		    	<span class="comment">// We use these to style anchors</span>
+					$anchor-text-decoration: none;
+					$anchor-font-color: $primary-color;
+					$anchor-font-color-hover: scale-color($primary-color, $lightness: -14%);
+				</code>
+		  </pre>
+		</div> 
+		-->
+  <div class="medium-6 block content">
+    <p>Links are very standard, and the <a href="http://www.youtube.com/watch?v=zT2aVoUkSDg">color is preset</a> to the Foundation primary color.</p>
+  </div>
+</div>
+
+<h3>Lists</h3>
+<p>Lighten up your headers by adding a class of .subheader to any header element.</p>
+<ul class="segmented button-group">
+  <li class="is-active"><a href="#">HTML Markup</a></li>
+  <li><a href="#">Scss Variables</a></li>
+</ul>
+<div class="block">
+  <div class="medium-6 block content">
+    <pre>
+      <code class="language-html">
+<ul class="disc">
+  <li>List item with a much longer description or more content.</li>
+  <li>List item</li>
+  <li>List item
+    <ul>
+      <li>Nested list item</li>
+      <li>Nested list item</li>
+      <li>Nested list item</li>
+    </ul>
+  </li>
+  <li>List item</li>
+  <li>List item</li>
+  <li>List item</li>
+</ul>
+      </code>
+    </pre>
+  </div>
+
+        <!--
+		<h3>Available SCSS Variables</h3>
+		<p>We've got plenty variables for you to use to customize your lists.</p>
+		<div class="medium-6 block content">
+			<pre>
+		    <code class="language-html">
+		    	<span class="comment">// We use these to style lists</span>
+					$list-style-position: outside;
+					$list-side-margin: 0;
+					$list-nested-margin: rem-calc(20);
+					$definition-list-header-weight: bold;
+					$definition-list-header-margin-bottom: .3rem;
+					$definition-list-margin-bottom: rem-calc(12);
+					-14%);
+				</code>
+		  </pre>
+		</div> 
+		-->
+
+  <div class="medium-6 block content">
+    <ul class="disc">
+		  <li>List item with a much longer description or more content.</li>
+		  <li>List item</li>
+		  <li>List item
+		    <ul>
+		      <li>Nested list item</li>
+		      <li>Nested list item</li>
+		      <li>Nested list item</li>
+		    </ul>
+		  </li>
+		  <li>List item</li>
+		  <li>List item</li>
+		  <li>List item</li>
+ 		</ul>
+  </div>
+</div>
+<div class="block">
+  <div class="medium-6 block content">
+    <pre>
+      <code class="language-html">
+<ul class="circle">
+  <li>List item with a much longer description or more content.</li>
+  <li>List item</li>
+  <li>List item
+    <ul>
+      <li>Nested list item</li>
+      <li>Nested list item</li>
+      <li>Nested list item</li>
+    </ul>
+  </li>
+  <li>List item</li>
+  <li>List item</li>
+  <li>List item</li>
+</ul>
+      </code>
+    </pre>
+  </div>
+  <div class="medium-6 block content">
+    <ul class="circle">
+		  <li>List item with a much longer description or more content.</li>
+		  <li>List item</li>
+		  <li>List item
+		    <ul>
+		      <li>Nested list item</li>
+		      <li>Nested list item</li>
+		      <li>Nested list item</li>
+		    </ul>
+		  </li>
+		  <li>List item</li>
+		  <li>List item</li>
+		  <li>List item</li>
+ 		</ul>
+  </div>
+</div>
+<div class="block">
+  <div class="medium-6 block content">
+    <pre>
+      <code class="language-html">
+<ul class="square">
+  <li>List item with a much longer description or more content.</li>
+  <li>List item</li>
+  <li>List item
+    <ul>
+      <li>Nested list item</li>
+      <li>Nested list item</li>
+      <li>Nested list item</li>
+    </ul>
+  </li>
+  <li>List item</li>
+  <li>List item</li>
+  <li>List item</li>
+</ul>
+      </code>
+    </pre>
+  </div>
+  <div class="medium-6 block content">
+    <ul class="square">
+		  <li>List item with a much longer description or more content.</li>
+		  <li>List item</li>
+		  <li>List item
+		    <ul>
+		      <li>Nested list item</li>
+		      <li>Nested list item</li>
+		      <li>Nested list item</li>
+		    </ul>
+		  </li>
+		  <li>List item</li>
+		  <li>List item</li>
+		  <li>List item</li>
+ 		</ul>
+  </div>
+</div>
+<div class="block">
+  <div class="medium-6 block content">
+    <pre>
+      <code class="language-html">
+<ul class="no-bullet">
+  <li>List item with a much longer description or more content.</li>
+  <li>List item</li>
+  <li>List item
+    <ul>
+      <li>Nested list item</li>
+      <li>Nested list item</li>
+      <li>Nested list item</li>
+    </ul>
+  </li>
+  <li>List item</li>
+  <li>List item</li>
+  <li>List item</li>
+</ul>
+      </code>
+    </pre>
+  </div>
+  <div class="medium-6 block content">
+    <ul class="no-bullet">
+		  <li>List item with a much longer description or more content.</li>
+		  <li>List item</li>
+		  <li>List item
+		    <ul>
+		      <li>Nested list item</li>
+		      <li>Nested list item</li>
+		      <li>Nested list item</li>
+		    </ul>
+		  </li>
+		  <li>List item</li>
+		  <li>List item</li>
+		  <li>List item</li>
+ 		</ul>
+  </div>
+</div>
+<div class="block">
+  <div class="medium-6 block content">
+    <pre>
+      <code class="language-html">
+<ol>
+  <li>List item with a much longer description or more content.</li>
+  <li>List item</li>
+  <li>List item
+    <ol>
+      <li>Nested List Item</li>
+      <li>Nested List Item</li>
+      <li>Nested List Item</li>
+    </ol>
+  </li>
+  <li>List item</li>
+  <li>List item</li>
+  <li>List item</li>
+</ol>
+      </code>
+    </pre>
+  </div>
+  <div class="medium-6 block content">
+    <ul class="no-bullet">
+		  <ol>
+			  <li>List item with a much longer description or more content.</li>
+			  <li>List item</li>
+			  <li>List item
+			    <ol>
+			      <li>Nested List Item</li>
+			      <li>Nested List Item</li>
+			      <li>Nested List Item</li>
+			    </ol>
+			  </li>
+			  <li>List item</li>
+			  <li>List item</li>
+			  <li>List item</li>
+			</ol>
+ 		</ul>
+  </div>
+</div>
+<div class="block">
+  <div class="medium-6 block content">
+    <pre>
+      <code class="language-html">
+<dl>
+  <dt>Definition Title</dt>
+  <dd>Definition Cras justo odio, dapibus ac facilisis in, egestas eget quam. Nullam id dolor id nibh ultricies vehicula ut id elit.</dd>
+</dl>
+      </code>
+    </pre>
+  </div>
+  <div class="medium-6 block content">
+		<dl>
+		  <dt>Definition Title</dt>
+		  <dd>Definition Cras justo odio, dapibus ac facilisis in, egestas eget quam. Nullam id dolor id nibh ultricies vehicula ut id elit.</dd>
+		</dl>
+ 		</ul>
+  </div>
+</div>
+
+<hr>
+
+<h3>Blockquotes</h3>
+<p>Sometimes other people say smart things, and you may want to mention that through a blockquote callout. We've got you covered.</p>
+<ul class="segmented button-group">
+  <li class="is-active"><a href="#">HTML Markup</a></li>
+  <li><a href="#">Scss Variables</a></li>
+</ul>
+<div class="block">
+  <div class="medium-6 block content">
+    <pre>
+      <code class="language-html">
+<blockquote>Those people who think they know everything are a great annoyance to those of us who do.<cite>Isaac Asimov</cite></blockquote>
+      </code>
+    </pre>
+  </div>
+
+        <!--
+		<h3>Available SCSS Variables</h3>
+		<p>We've got plenty variables for you to use to customize your blockquotes.</p>
+		<div class="medium-6 block content">
+			<pre>
+		    <code class="language-html">
+		    	<span class="comment">// We use these to style blockquotes</span>
+					$blockquote-font-color: scale-color($header-font-color, $lightness: 35%);
+					$blockquote-padding: rem-calc(9 20 0 19);
+					$blockquote-border: 1px solid #ddd;
+					$blockquote-cite-font-size: rem-calc(13);
+					$blockquote-cite-font-color: scale-color($header-font-color, $lightness: 23%);
+					$blockquote-cite-link-color: $blockquote-cite-font-color;
+
+					<span class="comment">// We use these to control padding and margin</span>
+					$acronym-underline: 1px dotted #ddd;
+				</code>
+		  </pre>
+		</div> 
+		-->
+
+  <div class="medium-6 block content">
+    <blockquote>Those people who think they know everything are a great annoyance to those of us who do.<cite>Isaac Asimov</cite></blockquote>
+  </div>
+</div>
+
+<hr>
+
+<h3>V-Cards</h3>
+<p>Here's a handy microformat-friendly list to address all your needs.</p>
+<ul class="segmented button-group">
+  <li class="is-active"><a href="#">HTML Markup</a></li>
+  <li><a href="#">Scss Variables</a></li>
+</ul>
+<div class="block">
+  <div class="medium-6 block content">
+    <pre>
+      <code class="language-html">
+<ul class="vcard">
+  <li class="fn">Gaius Baltar</li>
+  <li class="street-address">123 Colonial Ave.</li>
+  <li class="locality">Caprica City</li>
+  <li><span class="state">Caprica</span>, <span class="zip">12345</span></li>
+  <li class="email"><a href="#">g.baltar@example.com</a></li>
+</ul>
+      </code>
+    </pre>
+  </div>
+        <!--
+		<h3>Available SCSS Variables</h3>
+		<p>We've got plenty variables for you to use to customize your V-cards.</p>
+		<div class="medium-6 block content">
+			<pre>
+		    <code class="language-html">
+		    	<span class="comment">// We use these to control padding and margin</span>
+					$microformat-padding: rem-calc(10 12);
+					$microformat-margin: rem-calc(0 0 20 0);
+
+					<span class="comment">// We use these to control the border styles</span>
+					$microformat-border-width: 1px;
+					$microformat-border-style: solid;
+					$microformat-border-color: #ddd;
+
+					<span class="comment">// We use these to control full name font styles</span>
+					$microformat-fullname-font-weight: bold;
+					$microformat-fullname-font-size: rem-calc(15);
+
+					<span class="comment">// We use this to control the summary font styles</span>
+					$microformat-summary-font-weight: bold;
+
+					<span class="comment">// We use this to control abbr padding</span>
+					$microformat-abbr-padding: rem-calc(0 1);
+
+					<span class="comment">// We use this to control abbr font styles</span>
+					$microformat-abbr-font-weight: bold;
+					$microformat-abbr-font-decoration: none;
+				</code>
+		  </pre>
+		</div> 
+		-->
+  <div class="medium-6 block content">
+    <ul class="vcard">
+		  <li class="fn">Gaius Baltar</li>
+		  <li class="street-address">123 Colonial Ave.</li>
+		  <li class="locality">Caprica City</li>
+		  <li><span class="state">Caprica</span>, <span class="zip">12345</span></li>
+		  <li class="email"><a href="#">g.baltar@example.com</a></li>
+		</ul>
+	</div>
+</div>
+
+<hr>
+
+<h3>Print Styles</h3>
+<p>Foundation includes print styles developed by HTML5 Boilerplate to give you some basic print-specific styles. These are activated when you print through a media query. It includes:</p>
+<ul class="segmented button-group">
+  <li class="is-active"><a href="#">HTML Markup</a></li>
+  <li><a href="#">Scss Variables</a></li>
+</ul>
+<div class="block">
+  <div class="small-12 block content">
+  	<ul>
+			<li>Clearing out backgrounds, box shadows and text shadows</li>
+			<li>Appending link URLs after the anchor text</li>
+			<li>Bordering blockquotes and pre elements</li>
+			<li>Page cleanup and window minimization</li>
+		</ul>
+    <p>On top of that, Foundation includes a couple of simple classes you can use to control elements printing, or not printing. Simply attach <code>.show-for-print</code> to an element to only show when printing, and <code>.hide-for-print</code> to hide something when printing.</p>
+  </div>
+</div>

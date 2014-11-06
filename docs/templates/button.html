@@ -1,0 +1,168 @@
+---
+name: button
+url: /button
+---
+
+<h2>Button</h2>
+<h3 class="subheader">Get more controll with our buttons. Foundation has many easy to use button styles that you can customize or override to fit your needs.</h3>
+
+<hr>
+
+<div class="block">
+	<div class="small-12 content block">
+		<a class="button" href="#">Default Button</a>
+		<a class="secondary button" href="#">Secondary Button</a>
+		<a class="success button" href="#">Success Button</a>
+		<a class="alert button" href="#">Alert Button</a>
+		<a class="warning button" href="#">Warning Button</a>
+	</div>
+</div>
+
+
+<hr>
+
+<h3>Basic HTML</h3>
+<p>You can create buttons with this basic HTML</p>
+<ul class="segmented button-group small">
+  <li class="is-active"><a href="#">CSS Classes</a></li>
+  <li><a href="#">Sass Mixins</a></li>
+</ul>
+<div class="block">
+  <div class="medium-6 block content">
+    <pre>
+      <code class="language-html">
+<a class="button" href="#">Default Button</a>
+      </code>
+    </pre>
+  </div>
+  <div class="medium-6 block content">
+    <a class="button" href="#">Default Button</a>
+  </div>
+</div>
+
+<h3>Colors</h3>
+<p>You can create buttons of various colors with these classes:</p>
+<ul class="segmented button-group">
+  <li class="is-active"><a href="#">CSS Classes</a></li>
+  <li><a href="#">Sass Mixins</a></li>
+</ul>
+<div class="block">
+  <div class="medium-6 block content">
+    <pre>
+      <code class="language-html">
+<span class="comment">&lt;!-- Color Classes --&gt;</span>
+<a class="button" href="#">Primary Color</a>
+<a class="secondary button" href="#">Secondary Color</a>
+<a class="success button" href="#">Success Color</a>
+<a class="alert button" href="#">Alert Color</a>
+<a class="warning button" href="#">Warning Color</a>
+      </code>
+    </pre>
+  </div>
+  <div class="medium-6 block content">
+    <a class="button" href="#">Primary Color</a>
+		<a class="secondary button" href="#">Secondary Color</a>
+		<a class="success button" href="#">Success Color</a>
+		<a class="alert button" href="#">Alert Color</a>
+		<a class="warning button" href="#">Warning Color</a>
+  </div>
+</div>
+
+<h3>Size</h3>
+<p>You can customize button sizing with these classes:</p>
+<ul class="segmented button-group">
+  <li class="is-active"><a href="#">CSS Classes</a></li>
+  <li><a href="#">Sass Mixins</a></li>
+</ul>
+<div class="block">
+  <div class="medium-6 block content">
+    <pre>
+      <code class="language-html">
+<span class="comment">&lt;!-- Size Classes --&gt;</span>
+<a class="tiny button" href="#">Tiny Button</a>
+<a class="small button" href="#">Small Button</a>
+<a class="button" href="#">Default Button</a>
+<a class="large button" href="#">Large Button</a>
+<a class="expand button" href="#">Expand Button</a>
+      </code>
+    </pre>
+  </div>
+  <div class="medium-6 block content">
+    <a class="tiny button" href="#">Tiny Button</a>
+    <br>
+		<a class="small button" href="#">Small Button</a>
+		<br>
+		<a class="button" href="#">Default Button</a>
+		<br>
+		<a class="large button" href="#">Large Button</a>
+		<br>
+		<a class="expand button" href="#">Expand Button</a>
+  </div>
+</div>
+
+<h3>Disabled Button</h3>
+<p>Adding a class of .disabled will disable the pointer &amp; hover state, while also changing the color.</p>
+<ul class="segmented button-group">
+  <li class="is-active"><a href="#">CSS Classes</a></li>
+  <li><a href="#">Sass Mixins</a></li>
+</ul>
+<div class="block">
+  <div class="medium-6 block content">
+		<pre>
+		  <code class="language-html">
+<a href="#" class="button disabled">Disabled Button</a>
+		  </code>
+		</pre>
+	</div>
+	<div class="medium-6 block content">
+		<a href="#" class="button disabled">Disabled Button</a>
+	</div>
+</div>
+
+<h3>Customize with Sass</h3>
+<p>Buttons can be easily customized using our Sass variables.</p>
+<div class="block">
+  <div class="small-12 block content">
+		<pre>
+		  <code class="language-html">
+$include-html-button-classes: $include-html-classes;
+
+<span class="comment">// We use these to build padding for buttons.</span>
+$button-med: rem-calc(12);
+$button-tny: rem-calc(7);
+$button-sml: rem-calc(9);
+$button-lrg: rem-calc(16);
+
+<span class="comment">// We use this to control the display property.</span>
+$button-display: inline-block;
+$button-margin-bottom: rem-calc(20);
+
+<span class="comment">// We use these to control button text styles.</span>
+$button-font-family: inherit;
+$button-font-color: #fff;
+$button-font-color-alt: #333;
+$button-font-med: rem-calc(16);
+$button-font-tny: rem-calc(11);
+$button-font-sml: rem-calc(13);
+$button-font-lrg: rem-calc(20);
+$button-font-weight: bold;
+$button-font-align: center;
+
+<span class="comment">// We use these to control various hover effects.</span>
+$button-function-factor: 10%;
+
+<span class="comment">// We use these to control button border styles.</span>
+$button-border-width: 1px;
+$button-border-style: solid;
+
+<span class="comment">// We use this to set the default radius used throughout the core.</span>
+$button-radius: $global-radius;
+$button-round: $global-rounded;
+
+<span class="comment">// We use this to set default opacity and cursor for disabled buttons.</span>
+$button-disabled-opacity: 0.6;
+$button-disabled-cursor: $cursor-default-value;
+		  </code>
+		</pre>
+	</div>
+</div>

@@ -1,0 +1,431 @@
+.docs {
+  // Header
+  &-header {
+    background: #073c56;
+    margin-bottom: 1em;
+
+    &, h1, { color: white; }
+  }
+
+  // Sidebar
+  &-sidebar {
+    background: #f8f8f8;
+    border: 1px solid #ccc;
+    padding: 1em;
+    border-radius: 8px;
+
+    .block-list {
+      margin-left: -1rem;
+      margin-right: -1rem;
+      > ul { background: #fff; }
+    }
+  }
+  // Container for examples
+  &-component-overview {
+    overflow: visible;
+
+    > section {
+      margin-bottom: 2em;
+    }
+  }
+  // Component examples
+  &-example {
+    &-grid {
+      text-align: center;
+      border: 1px solid #ccc;
+
+      .small-12 {
+        padding-bottom: 0;
+        border: 0;
+      }
+      .content.block {
+        display: flex;
+        justify-content: center;
+        align-items: stretch;
+      }
+      p {
+        background: #eee;
+        width: 100%;
+        text-align: center;
+        margin: 0;
+        padding: 1em;
+      }
+    }
+    &-panels {
+      border: 1px solid #ccc;
+      position: relative;
+      height: 200px;
+
+      .content.block {
+        display: flex;
+        flex: row wrap;
+        align-self: stretch;
+        align-items: center;
+        justify-content: center;
+      }
+      .button {
+        margin: 1em;
+      }
+      .panel {
+        background: #eee;
+
+        &-top, &-bottom {
+          text-align: center;
+        }
+      }
+    }
+    &-ofc {
+      border: 1px solid #ccc;
+      position: relative;
+      height: 200px;
+      overflow: hidden;
+
+      .frame {
+        height: 100%;
+        align-items: stretch;
+      }
+      .block {
+        display: flex;
+        flex: row wrap;
+        align-items: center;
+        justify-content: center;
+      }
+      .button {
+        margin: 1em;
+      }
+      .ofc-top, .ofc-bottom {
+        height: 50px;
+        p {
+          color: #fff;
+          font-weight: bold;
+          text-align: center;
+          line-height: 50px;
+          margin: 0;
+        }
+      }
+      .ofc-top {
+        &.is-active ~ .frame { transform: translateY(50px); }
+      }
+      .ofc-bottom {
+        &.is-active ~ .frame { transform: translateY(-50px); }
+      }
+    }
+  }
+}
+
+#docs {
+	background: rgb(7,60,86);
+	margin-bottom: 3rem;
+
+	h1, h2, h3, h4, h5, h6 {
+		color: #fff;
+
+		small { color: rgba(255,255,255,0.5); }
+	}
+}
+
+.docs.container {
+	max-width: 1000px;
+}
+
+section.docs {
+	// border-bottom: 1px solid #eee; padding-top: 1rem;
+}
+
+footer {
+	background: rgb(7,60,86);
+	padding: 1rem 0;
+
+	p { color: rgba(#fff, 0.5); margin: 0; padding: 0; }
+	a { color: #fff; }
+}
+
+.square {
+	width: 100px;
+	height: 100px;
+	background: $info-color;
+	display: block;
+	margin-bottom: rem-calc(15);
+}
+
+hr { border-color: #EEE; }
+
+hr.contain {
+	width: calc(100% - 2rem);
+	margin: 0 auto;
+	border-color: #EEE;
+	padding-bottom: rem-calc(30);
+}
+
+h6 {
+	font-weight: bold;
+	text-transform: uppercase;
+	font-size: rem-calc(14);
+	color: lighten(black, 40%);
+}
+
+.spinner {
+	width: 100px;
+	height: 100px;
+	border: 20px solid $secondary-color;
+	border-top-color: $info-color;
+	border-radius: $global-rounded;
+}
+
+// small.msg { display: block;}
+
+input[type=text].error {
+	border-color: $alert-color;
+}
+
+.side-nav {
+	list-style-type: none;
+	margin:0;
+	a { color: $body-font-color; }
+	li { margin-bottom: rem-calc(10); }
+	li.active {
+		font-weight: bold;
+		a { color: $primary-color; }
+	}
+}
+
+.top-bar {
+	background: $primary-color;
+	&, #{$headers}, a { color: #FFF; }
+}
+
+.side-bar {
+	background: $secondary-color;
+}
+
+.middle-bar {
+	background: scale-color($secondary-color, $lightness: 80%);
+}
+
+.msg {
+	border-bottom: 1px solid $secondary-color;
+	&.selected {
+		box-shadow: inset 3px 0 0 0 $primary-color;
+		background: scale-color($info-color, $lightness: 70%);
+	}
+}
+
+.compose {
+	@include spin();
+	height: rem-calc(500);
+	width: rem-calc(600);
+	position: absolute;
+	right: rem-calc(15);
+	bottom:0;
+	border: 1px solid $secondary-color;
+	z-index: 1000;
+	background: #FFF;
+	bottom: -20px;
+
+  .close {
+    position: absolute;
+    right: rem-calc(15);
+    top: rem-calc(10);
+    font-size: rem-calc(20);
+  }
+}
+small.error {
+	background: $alert-color;
+	color: #FFF;
+	display: block;
+	padding: 5px;
+}
+
+// Kevin's Temporary Styles
+
+%reset {
+  margin: 0;
+  padding: 0;
+}
+
+%base_image_styling {
+  display: block;
+  max-width: 100%;
+  height: 100%;
+
+  &.fullscreen {
+    width: 100%;
+  }
+}
+
+figure  {
+  @extend %reset;
+
+  img {
+    @extend %base_image_styling;
+  }
+}
+
+.resizeable{
+  resize: both;
+
+  img {
+    resize: both;
+  }
+}
+
+.groupOfButtons {
+  display: flex;
+  flex-direction: row;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 1em;
+
+  button {
+    flex: 30%;
+    margin-right: 2%;
+
+    &:last-of-type {
+      margin-right: 0;
+    }
+  }
+}
+
+.subheader {
+  line-height: 1.4;
+  color: #6f6f6f;
+}
+
+
+// table
+
+$primary: #002b36;
+$secondary: #d8d8d8;
+$alert: #cf2a0e;
+$success: #43AC6A;
+$gutter: 40px;
+$rad: 5px;
+
+@mixin font-size($sizeValue){
+  font-size: $sizeValue + px;
+  font-size: ($sizeValue / 10) + rem;
+}
+
+@mixin breakpoint($point) {
+  @if $point == smallmobile {
+    @media (max-width: 525px) { @content; }
+  }
+  @if $point == mobile {
+    @media (max-width: 767px) { @content; }
+  }
+  @if $point == tablet {
+    @media (max-width: 1000px) { @content; }
+  }
+  @if $point == smallscreen {
+    @media (max-width: 1120px) { @content; }
+  }
+}
+
+.comparison-table {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  border-collapse: separate;
+    thead tr {
+      color: $primary;
+      font-weight: bold;
+        @include font-size(16);
+        td { padding-bottom: 10px; }
+        td { border: none !important; }
+        @include breakpoint(mobile) {
+          @include font-size(14);
+          font-weight: normal;
+        }
+    }
+    tr {
+      width: 100%;
+        td {
+          border-right: 2px solid $primary;
+        }
+        &:first-child {
+          td { border-top: 2px solid $primary; }
+          td:first-child {
+            border-top-left-radius: $rad;
+          }
+          td:last-child {
+            border-top-right-radius: $rad;
+          }
+        }
+        &:last-child {
+          td { border-bottom: 2px solid $primary; }
+          td:first-child {
+            border-bottom-left-radius: $rad;
+          }
+          td:last-child {
+            border-bottom-right-radius: $rad;
+          }
+        }
+        td:first-child {
+          width: 25%;
+          padding: 10px;
+          color: $primary;
+          font-weight: bold;
+          border-left: 2px solid $primary;
+        }
+        td.marker {
+          width: 10%;
+          text-align: center;
+          vertical-align: middle;
+            &[content="✓"] {
+              color: $success;
+            }
+            &[content="χ"] {
+              color: $alert;
+            }
+        }
+    }
+    tr:nth-child(even) {
+        background: $secondary;
+    }
+    @include breakpoint(smallmobile) {
+      td, tr td, tr td.marker, tr td:first-child, tr td:first-child + td {
+        position: relative;
+        display: block;
+        width: 100%;
+        border-top: none;
+        border-bottom: none;
+        border-left: 2px solid $primary;
+      }
+      tr:first-child td:first-child {
+        border-top-right-radius: $rad;
+      }
+      tr:first-child td:last-child {
+        border-top-right-radius: 0;
+      }
+      tr:last-child td:first-child {
+        border-bottom-left-radius: 0;
+      }
+      tr:last-child td:last-child {
+        border-bottom-left-radius: $rad;
+        border-bottom: 2px solid $primary;
+      }
+      tr td:first-child {
+        border-top: 2px solid $primary;
+          & + td {
+            padding: 0 10px 10px;
+          }
+      }
+      tr td.marker {
+        padding: 10px;
+        font-weight: bold;
+          &:before {
+            content: "Grid: ";
+          }
+          & + td.marker:before {
+            content: "Layout/UI: ";
+          }
+          & + td.marker + td.marker:before {
+            content: "JS: ";
+          }
+      }
+      thead tr td.marker {
+        display: none;
+        }
+    }
+}
