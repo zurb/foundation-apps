@@ -23,9 +23,9 @@ $breakpoints: (
   large: rem-calc(1024),
   xlarge: rem-calc(1440),
   xxlarge: rem-calc(1920),
-);
+) !default;
 
-$breakpoint-classes: (small medium large);
+$breakpoint-classes: (small medium large) !default;
 
 /*
   Breakpoint
