@@ -177,6 +177,26 @@ $block-grid-max-size: 6;
 }
 
 /*
+  Resets styles set by panels. Use this when a panel transforms into a block on larger screens.
+
+  @group grid
+
+  @output Resets to transform, position, and a few visual styles.
+*/
+@mixin grid-panel-reset() {
+  transform: none;
+  width: auto;
+  height: auto;
+  z-index: auto;
+  box-shadow: none;
+  background: transparent;
+  top: auto;
+  right: auto;
+  bottom: auto;
+  left: auto;
+}
+
+/*
 	Frames are containers that stretch to the full dimmensions of the browser window.
 */
 @mixin grid-frame($size: expand, $vertical: false, $stretch: false, $align: left, $order: 0) {
@@ -210,18 +230,6 @@ $block-grid-max-size: 6;
 	}
 	-webkit-overflow-scrolling: touch;
 	-ms-overflow-style: -ms-autohiding-scrollbar;
-
-	// These properties reset the panel styles
-	transform: none;
-	width: auto;
-	height: auto;
-	z-index: auto;
-	box-shadow: none;
-	background: transparent;
-	top: auto;
-	right: auto;
-	bottom: auto;
-	left: auto;
 }
 
 /*
@@ -239,8 +247,42 @@ $block-grid-max-size: 6;
 	padding: 1rem;
 }
 
-@mixin block-css {
-  @include grid-block;
+/*
+	CSS Output
+*/
+
+/*
+  Shared styles for frames and blocks
+*/
+%block-core {
+  // Prevent flicker when grid items shift around
+  transition: all 300ms ease;
+  backface-visibility: hidden;
+
+  // Orientation classes
+  &.vertical { @include grid-orient(vertical); }
+  @each $size in $breakpoint-classes {
+    &.#{$size}-vertical   { @include grid-orient(vertical); }
+    &.#{$size}-horizontal { @include grid-orient(horizontal); }
+  }
+
+  // Block alignment
+  &.align-right   { @include grid-align(right); }
+  &.align-center  { @include grid-align(center); }
+  &.align-justify { @include grid-align(justify); }
+  &.align-spaced  { @include grid-align(spaced); }
+
+  // Stretch children along cross-axis
+  &.stretch { @include grid-stretch(true); }
+}
+
+.frame {
+  @extend %block-core;
+	@include grid-frame;
+}
+.block {
+  @extend %block-core;
+	@include grid-block;
 
   // Content blocks are for content and not layout
   &.content { @include grid-content; }
@@ -252,99 +294,67 @@ $block-grid-max-size: 6;
   &.nested { @include grid-nest(true); }
 
   // Collapsed blocks strip padding from their children
-  // ISSUE: now that groups and blocks are the same class, how does collapsing work?
-  // This is a possible solution: "collapse" is for self, "collapse-children is for immediate children"
-  &.collapse, .block.collapse-children > & { @include grid-collapse; }
+  &.collapse, &.collapse-children > & { @include grid-collapse; }
 
   // Shrink a flex item so it only takes up the space it needs
   &.shrink { @include grid-size(shrink); }
+
+  // Override panel styles
+  &.panel { @include grid-panel-reset; }
 }
 
-@include exports(grid) {
-  .frame {
-    @include grid-frame;
-  }
-  .block, .small-block {
-    @include block-css;
-  }
-  @include breakpoint(medium) {
-    .medium-block { @include block-css; }
-  }
-  @include breakpoint(large) {
-    .large-block { @include block-css; }
-  }
+/*
+  Breakpoint classes for blocks
+*/
+@each $size in $breakpoint-classes {
+  .#{$size}-block {
+    @extend .block;
 
-  /*
-    Shared styles for frames and blocks
-  */
-  .frame, .block, .medium-block {
-    // Orientation classes
-    &.vertical, &.small-vertical { @include grid-orient(vertical); }
-    @include breakpoint(medium) {
-      &.medium-horizontal { @include grid-orient(horizontal); }
-      &.medium-vertical   { @include grid-orient(vertical); }
-    }
-    @include breakpoint(large) {
-      &.medium-horizontal { @include grid-orient(horizontal); }
-      &.large-vertical    { @include grid-orient(vertical); }
-    }
-
-    // Block alignment
-    &.align-right   { @include grid-align(right); }
-    &.align-center  { @include grid-align(center); }
-    &.align-justify { @include grid-align(justify); }
-    &.align-spaced  { @include grid-align(spaced); }
-
-    // Stretch children along cross-axis
-    &.stretch { @include grid-stretch(true); }
-  }
-
-  /*
-    Sizing and ordering classes
-  */
-  @for $i from 1 through $total-columns {
-    .order-#{$i} { @include grid-order($i); }
-  }
-  @each $size in $breakpoint-classes {
-    @for $i from 1 through $total-columns {
-      @include breakpoint($size) {
-        // Block sizing
-        .#{$size}-#{$i} {
-          @include grid-size($i);
-        }
-        // Source ordering
-        .#{$size}-order-#{$i} {
-          @include grid-order($i);
-        }
-        // Offsets
-        @if ($total-columns < 12) {
-          .#{$size}-offset-#{$i} {
-            @include grid-offset($i);
-          }
-        }
-        // Parent sizing (block grids)
-        // TODO: Make mixin
-        .#{$size}-up-#{$i} {
-          display: flex;
-          overflow: visible;
-          margin: {
-            left:  -0.5rem;
-            right: -0.5rem;
-          }
-          list-style-type: none;
-
-          > li, > div, > section {
-            padding: 0 0.5rem 1rem;
-            flex: 0 0 percentage(1 / $i);
-          }
-        }
-      }
+    @include breakpoint($size) {
+      @include grid-block;
     }
   }
+}
 
-  // This prevents flicker when grid items shift around
-  .frame, .block {
-    transition: all 300ms ease;
-    backface-visibility: hidden;
-  }
+/*
+	Sizing and ordering classes
+*/
+@for $i from 1 through $total-columns {
+  .order-#{$i} { @include grid-order($i); }
+}
+@each $size in $breakpoint-classes {
+	@for $i from 1 through $total-columns {
+		@include breakpoint($size) {
+			// Block sizing
+			.#{$size}-#{$i} {
+				@include grid-size($i);
+			}
+      // Source ordering
+			.#{$size}-order-#{$i} {
+				@include grid-order($i);
+			}
+			// Offsets
+			@if ($total-columns < 12) {
+				.#{$size}-offset-#{$i} {
+					@include grid-offset($i);
+				}
+			}
+			// Parent sizing (block grids)
+			// TODO: Make mixin
+			.#{$size}-up-#{$i} {
+				display: flex;
+				overflow: visible;
+				margin: {
+					left:  -0.5rem;
+					right: -0.5rem;
+				}
+				list-style-type: none;
+
+			  > li, > div, > section {
+			  	padding: 0 0.5rem 1rem;
+			    flex: 0 0 percentage(1 / $i);
+			  }
+			}
+		}
+	}
 }
