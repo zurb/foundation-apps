@@ -20,7 +20,7 @@ angular.module('foundation.common.services')
           listeners[name] = [];
         }
 
-        angular.forEach(listeners[name], function(cb) {
+        listeners[name].forEach(function(cb) {
           cb(msg);
         });
 

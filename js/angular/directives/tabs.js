@@ -7,7 +7,7 @@ angular.module('foundation.tabs')
     var id         = '';
 
     controller.select = function(selectTab) {
-      angular.forEach(tabs, function(tab) {
+      tabs.forEach(function(tab) {
         tab.active = false;
         tab.scope.active = false;
 
@@ -91,7 +91,7 @@ angular.module('foundation.tabs')
       foundationApi.subscribe(id, function(msg) {
         if(msg[0] == 'activate') {
           var tabId = msg[1];
-          angular.forEach(scope.tabs, function (tab) {
+          scope.tabs.forEach(function (tab) {
             tab.scope.active = false;
             tab.active = false;
 
@@ -198,6 +198,7 @@ angular.module('foundation.tabs')
     restrict: 'A',
     link: function(scope, element, attrs) {
       var tabs = [];
+      var children;
 
       var activateTabs = function(msg, tabId) {
         var tabNodes = element.children();
@@ -211,7 +212,7 @@ angular.module('foundation.tabs')
         });
       };
 
-      angular.forEach(element.children(), function(node) {
+      children.forEach(function(node) {
         if(node.id) {
           var tabId = node.id;
           tabs.push(tabId);
