@@ -12,7 +12,7 @@ angular.module('foundation.notification')
     };
 
     controller.removeNotification = function(id) {
-      angular.forEach(notifications, function(notification) {
+      notifications.forEach(function(notification) {
         if(notification.id === id) {
           var ind = notifications.indexOf(notification);
           notifications.splice(ind, 1);
