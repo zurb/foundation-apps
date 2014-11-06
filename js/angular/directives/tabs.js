@@ -41,7 +41,7 @@ angular.module('foundation.tabs')
 angular.module('foundation.tabs')
   .directive('faTabs', ['FoundationApi', function(foundationApi) {
   return {
-    restrict: 'EA',
+    restrict: 'A',
     transclude: 'true',
     replace: true,
     templateUrl: '/partials/tabs.html',

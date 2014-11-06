@@ -20,7 +20,7 @@ angular.module('foundation.actionsheet')
 angular.module('foundation.actionsheet')
   .directive('faActionSheet', ['FoundationApi', function(foundationApi) {
   return {
-    restrict: 'EA',
+    restrict: 'A',
     transclude: true,
     replace: true,
     templateUrl: '/partials/actionsheet.html',
