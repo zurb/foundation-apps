@@ -12,11 +12,11 @@
 */
 
 $menubar-fontsize: 1rem !default;
-$menubar-background: $dark-color !default;
-$menubar-background-hover: $primary-color !default;
-$menubar-color: #fff !default;
-$menubar-color-hover: #fff !default;
-$menubar-border: 1px solid #666 !default;
+$menubar-background: #fff !default;
+$menubar-background-hover: smartscale($menubar-background, 7%) !default;
+$menubar-color: isitlight($menubar-background) !default;
+$menubar-color-hover: isitlight($menubar-background) !default;
+$menubar-border: 0 !default;
 
 $menubar-item-padding: $global-padding !default;
 $menubar-icon-size: 25px !default;
@@ -81,25 +81,65 @@ $menubar-icon-spacing: $menubar-item-padding !default;
   /*
     Borders
   */
-  @if hasvalue($border-width) {
-    $border-side: if($orientation == horizontal, left, top);
-    $border-side-not: if($border-side == left, top, left);
-    $border-side-opposite: if($border-side == left, right, bottom);
-    $border-side-opposite-not: if($border-side-opposite == right, bottom, right);
+  // @if hasvalue($border-width) {
+  //   $border-side: if($orientation == horizontal, left, top);
+  //   $border-side-not: if($border-side == left, top, left);
+  //   $border-side-opposite: if($border-side == left, right, bottom);
+  //   $border-side-opposite-not: if($border-side-opposite == right, bottom, right);
 
-    li:not(:first-child) {
-      border-#{$border-side}-width: $border-width;
-      border-#{$border-side-not}-width: 0;
+  //   li:not(:first-child) {
+  //     border-#{$border-side}-width: $border-width;
+  //     border-#{$border-side-not}-width: 0;
 
-      @if $stretch == false {
-        &:last-child {
-          border-#{$border-side-opposite}-width: $border-width;
-          border-#{$border-side-opposite-not}-width: 0;
-        }
-      }
+  //     @if $stretch == false {
+  //       &:last-child {
+  //         border-#{$border-side-opposite}-width: $border-width;
+  //         border-#{$border-side-opposite-not}-width: 0;
+  //       }
+  //     }
+  //   }
+  // }
+}
+
+@mixin menu-bar-style(
+  $background: $menubar-background,
+  $background-hover: $menubar-background-hover,
+  $color: $menubar-color,
+  $color-hover: $menubar-color-hover,
+  $border: $menubar-border
+) {
+  // Container
+  background: $background;
+  color: $color;
+
+  // Items
+  a {
+    @if $color == auto {
+      color: isitlight($background, $primary-color, #fff);
+    }
+    @else {
+      color: $color;
+    }
+
+    &:hover {
+      background: $background-hover;
+      color: $color-hover;
     }
   }
+
+  // Item borders
+  // @if hasvalue($border) {
+  //   li {
+  //     &:not(:first-child) { border-left: $border; }
+  //     &:hover {
+  //       &, & + li {
+  //         border-color: $background-hover;
+  //       }
+  //     }
+  //   }
+  // }
 }
+
 @mixin menu-bar-icons(
   $position: left,
   $size: $menubar-icon-size
@@ -147,44 +187,6 @@ $menubar-icon-spacing: $menubar-item-padding !default;
     }
   }
 }
-@mixin menu-bar-style(
-  $background: $menubar-background,
-  $background-hover: $menubar-background-hover,
-  $color: $menubar-color,
-  $color-hover: $menubar-color-hover,
-  $border: $menubar-border
-) {
-  // Container
-  background: $background;
-  color: $color;
-
-  // Items
-  a {
-    @if $color == auto {
-      color: isitlight($background, $primary-color, #fff);
-    }
-    @else {
-      color: $color;
-    }
-
-    &:hover {
-      background: $background-hover;
-      color: $color-hover;
-    }
-  }
-
-  // Item borders
-  @if hasvalue($border) {
-    li {
-      &:not(:first-child) { border-left: $border; }
-      &:hover {
-        &, & + li {
-          border-color: $background-hover;
-        }
-      }
-    }
-  }
-}
 
 /*
   Mixins
@@ -203,14 +205,17 @@ $menubar-icon-spacing: $menubar-item-padding !default;
   @extend %menu-bar;
   @include menu-bar-style;
 
+  // Positioning
   &, &.horizontal  { @include menu-bar-layout(horizontal); }
   &.vertical       { @include menu-bar-layout(vertical); }
 
+  // Condensed bar
   &.condense {
     &, &.horizontal { @include menu-bar-layout(horizontal, false); }
     &.vertical      { @include menu-bar-layout(horizontal, false); }
   }
 
+  // Responsive positioning
   @each $size in $breakpoint-classes {
     @include breakpoint($size) {
       &.#{$size}-horizontal {
@@ -222,8 +227,34 @@ $menubar-icon-spacing: $menubar-item-padding !default;
     }
   }
 
-  &, &.icon-top    { @include menu-bar-icons(top); }
+  // Icon positioning
+  &, &.icon-top { @include menu-bar-icons(top); }
   &.icon-right  { @include menu-bar-icons(right); }
   &.icon-bottom { @include menu-bar-icons(bottom); }
   &.icon-left   { @include menu-bar-icons(left); }
+  @each $size in $breakpoint-classes {
+    @each $pos in (top, right, bottom, left) {
+      .#{$size}-icon-#{$pos} { @include menu-bar-icons($pos); }
+    }
+  }
+
+  // Coloring
+  &.primary {
+    @include menu-bar-style(
+      $primary-color,
+      smartscale($primary-color, 10%),
+      isitlight($primary-color),
+      isitlight($primary-color),
+      0
+    );
+  }
+  &.dark {
+    @include menu-bar-style(
+      $dark-color,
+      $primary-color,
+      #fff,
+      #fff,
+      0
+    );
+  }
 }
