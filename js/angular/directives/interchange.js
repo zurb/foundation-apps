@@ -33,18 +33,20 @@ angular.module('foundation.interchange')
       named_queries = angular.extend(named_queries, globalQueries);
 
       var matched = function() {
-        var count = scenarios.length;
+        var count   = scenarios.length;
         var matches = [];
 
         if (count > 0) {
           while (count--) {
             var mq;
             var rule = scenarios[count].media;
+
             if (named_queries[rule]) {
               mq = matchMedia(named_queries[rule]);
             } else {
               mq = matchMedia(rule);
             }
+
             if (mq.matches) {
               matches.push({ ind: count});
             }
@@ -55,15 +57,15 @@ angular.module('foundation.interchange')
       };
 
       var collectInformation = function(parentElement) {
-        scenarios = [];
+        scenarios      = [];
         innerTemplates = [];
+
         var elements = parentElement.children();
-        var i = 0;
+        var i        = 0;
 
         angular.forEach(elements, function(el) {
           var elem = angular.element(el);
 
-          //save on-page templates
           if (!elem.attr('src')) {
             innerTemplates[i] = elem;
             scenarios[i] = { media: elem.attr('media'), templ: i };
@@ -73,13 +75,11 @@ angular.module('foundation.interchange')
 
           i++;
         });
-
       };
 
       var checkScenario = function(scenario) {
         return !current || (scenario.src !== current.src) || (scenario.templ && scenario.templ !== current.templ);
       };
-
 
       //setup
       foundationApi.subscribe('resize', function(msg) {
@@ -87,6 +87,7 @@ angular.module('foundation.interchange')
           if(!scope.scenarios || !scope.innerTemplates) {
             collectInformation(clone);
           }
+
           var ruleMatches = matched();
           var scenario = scenarios[ruleMatches[0].ind];
 
@@ -99,18 +100,15 @@ angular.module('foundation.interchange')
             }
 
             if(scenario.templ) {
-              //on page template logic
               childScope = newScope;
               element.html(innerTemplates[scenario.templ].html());
               $compile(element.contents())(childScope);
               current = scenario;
             } else {
-              //dynamic partial
               var loader = templateLoader(scenario.src);
               loader.success(function(html) {
                 childScope = newScope;
                 element.html(html);
-                //compiled = $compile(html)(childScope);
               }).then(function(){
                 $compile(element.contents())(childScope);
                 current = scenario;
@@ -123,7 +121,6 @@ angular.module('foundation.interchange')
 
       //init
       foundationApi.publish('resize', 'initial resize');
-
     }
   }
 }]);

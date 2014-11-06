@@ -23,6 +23,12 @@ angular.module('foundation.accordion')
       }
     };
 
+    controller.closeAll = function() {
+      angular.forEach(sections, function(section) {
+        section.scope.active = false;
+      });
+    };
+
 }]);
 
 angular.module('foundation.accordion')

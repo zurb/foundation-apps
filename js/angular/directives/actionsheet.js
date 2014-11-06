@@ -48,7 +48,6 @@ angular.module('foundation.actionsheet')
     scope: {
       position: '@?'
     },
-    controller: function() { },
     link: function(scope, element, attrs, controller) {
       scope.active = false;
       controller.registerContent(scope);
@@ -72,7 +71,6 @@ angular.module('foundation.actionsheet')
     scope: {
       title: '@?'
     },
-    controller: function() { },
     link: function(scope, element, attrs, controller) {
 
       element.on('click', function(e) {

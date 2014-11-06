@@ -15,10 +15,10 @@ angular.module('foundation.popup')
       link: function(scope, element, attrs) {
         scope.active = false;
         scope.target = scope.target || false;
+
         var attachment = scope.pinTo || 'top center';
         var tetherInit = false;
-
-        var tether = {};
+        var tether     = {};
 
         var tetherElement = function(target) {
           if(tetherInit) {
