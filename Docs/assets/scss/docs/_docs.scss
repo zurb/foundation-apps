@@ -308,18 +308,18 @@ $rad: 5px;
 }
 
 @mixin breakpoint($point) {
-    @if $point == smallmobile {
-        @media (max-width: 525px) { @content; }
-    }
-    @if $point == mobile {
-        @media (max-width: 767px) { @content; }
-    }
-    @if $point == tablet {
-        @media (max-width: 1000px) { @content; }
-    }
-    @if $point == smallscreen {
-        @media (max-width: 1120px) { @content; }
-    }
+  @if $point == smallmobile {
+    @media (max-width: 525px) { @content; }
+  }
+  @if $point == mobile {
+    @media (max-width: 767px) { @content; }
+  }
+  @if $point == tablet {
+    @media (max-width: 1000px) { @content; }
+  }
+  @if $point == smallscreen {
+    @media (max-width: 1120px) { @content; }
+  }
 }
 
 .comparison-table {
