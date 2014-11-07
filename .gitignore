@@ -1,3 +1,4 @@
+/app
 *.DS_Store
 *.coffee
 /css/*
