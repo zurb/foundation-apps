@@ -3,20 +3,6 @@
 // foundation.zurb.com
 // Licensed under MIT Open Source
 
-@function foundation($component, $setting) {
-  @return map-get(map-get($foundation, $component), $setting);
-}
-
-@mixin foundation-component($name, $settings) {
-  @if type-of($settings) != 'map' {
-    @error "The settings you pass in must be a map.";
-  }
-  $foundation: map-merge(
-    ($name: $settings),
-    $foundation
-  ) !global;
-}
-
 /**
  *   Exports
  *   Outputs the chunk of content passed if component $name hasn't yet been output.
