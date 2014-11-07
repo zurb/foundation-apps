@@ -21,6 +21,25 @@ $modules: () !default;
 }
 
 /**
+ *
+ *   Map Serialize
+ *   Convert a map to JSON. Don't you even try to get fancy with this just yet.
+ *
+ *   @param {map} $map - Map to convert.
+ *
+ *   @return A string with a map converted to JSON.
+ */
+@function map-serialize($map) {
+  $str: '{';
+  @each $key, $value in $map {
+    $str: $str + $key + ': ' + $value + ', ';
+  }
+  $str: str-slice($str, 1, -3) + '}';
+
+  @return $str;
+}
+
+/**
  *   Map Next
  *   Find the next key in a map.
  *
