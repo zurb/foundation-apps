@@ -5,7 +5,7 @@ var gulp           = require('gulp'),
     markdown       = require('gulp-markdown'),
     highlight      = require('gulp-highlight'),
     autoprefixer   = require('gulp-autoprefixer'),
-    sass           = require('gulp-sass'),
+    sass           = require('gulp-ruby-sass'),
     uglify         = require('gulp-uglify'),
     concat         = require('gulp-concat'),
     connect        = require('gulp-connect'),
@@ -44,9 +44,8 @@ gulp.task('copy-partials', ['clean-partials'], function() {
 gulp.task('sass', function() {
   return gulp.src('docs/assets/scss/app.scss')
     .pipe(sass({
-      includePaths: ['scss'],
-      outputStyle: 'nested',
-      errLogToConsole: true
+      loadPath: ['scss'],
+      style: 'nested'
     }))
     .pipe(autoprefixer({
       browsers: ['last 2 versions', 'ie 10']

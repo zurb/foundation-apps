@@ -23,6 +23,9 @@ Navigate into the directory:
 Install all the dependencies:
 `npm install`
 
+Install SASS:
+`gem install sass`
+
 While you're working on the project, run:
 `gulp`
 
