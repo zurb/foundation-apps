@@ -6,6 +6,7 @@ var gulp           = require('gulp'),
     highlight      = require('gulp-highlight'),
     autoprefixer   = require('gulp-autoprefixer'),
     sass           = require('gulp-ruby-sass'),
+    nodeSass       = require('gulp-sass'),
     uglify         = require('gulp-uglify'),
     concat         = require('gulp-concat'),
     connect        = require('gulp-connect'),
@@ -46,6 +47,19 @@ gulp.task('sass', function() {
     .pipe(sass({
       loadPath: ['scss'],
       style: 'nested'
+    }))
+    .pipe(autoprefixer({
+      browsers: ['last 2 versions', 'ie 10']
+    }))
+    .pipe(gulp.dest('./build/assets/css/'));
+});
+
+gulp.task('node-sass', function() {
+  return gulp.src('docs/assets/scss/app.scss')
+    .pipe(nodeSass({
+      includePaths: ['scss'],
+      outputStyle: 'nested',
+      errLogToConsole: true
     }))
     .pipe(autoprefixer({
       browsers: ['last 2 versions', 'ie 10']
