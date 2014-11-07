@@ -27,10 +27,13 @@ gulp.task('copy', function() {
     '!./docs/templates/**/*.*',
     '!./docs/assets/{scss,js}/**/*.*'
   ];
-  return gulp.src(dirs, {
+  gulp.src(dirs, {
     base: './docs/'
   })
     .pipe(gulp.dest('build'));
+
+  return gulp.src('./iconic/**/*')
+    .pipe(gulp.dest('build/assets/img/iconic/'));
 });
 
 gulp.task('clean-partials', function(cb) {
@@ -95,6 +98,7 @@ gulp.task('uglify-angular', function() {
     'bower_components/angular/angular.js',
     'bower_components/angular-animate/angular-animate.js',
     'bower_components/ui-router/release/angular-ui-router.js',
+    'js/vendor/**/*.js',
     'js/angular/**/*.js',
   ];
 
@@ -154,23 +158,12 @@ gulp.task('karma-test', ['build'], function() {
 
 });
 
-gulp.task('copy-iconic', function() {
-  var dirs = [
-    './iconic/**/*'
-  ];
-
-  return gulp.src(dirs, {
-  })
-    .pipe(gulp.dest('build/iconic'))
-  ;
-});
-
 gulp.task('test', ['karma-test'], function() {
   console.log('Tests finished.');
 });
 
 gulp.task('build', function(cb) {
-  runSequence('clean', ['copy', 'copy-iconic', 'copy-partials', 'sass', 'uglify'], 'copy-templates', function() {
+  runSequence('clean', ['copy', 'copy-partials', 'sass', 'uglify'], 'copy-templates', function() {
     console.log("Successfully built.");
     cb();
   });
