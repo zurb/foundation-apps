@@ -1,0 +1,24 @@
+$iconic-primary-fill: $primary-color;
+$iconic-primary-stroke: $primary-color;
+$iconic-accent-fill: $iconic-primary-fill;
+$iconic-accent-stroke: $iconic-accent-fill;
+
+.iconic * {
+  fill: $iconic-primary-fill;
+  stroke: $iconic-primary-stroke;
+}
+
+.iconic-property-accent {
+  fill: $iconic-accent-fill;
+  stroke: $iconic-accent-stroke;
+}
+
+@each $color in map-keys($foundation-colors) {
+  .iconic-color-#{$color} {
+    $color-value: map-get($foundation-colors, $color);
+    * {
+      fill: $color-value;
+      stroke: $color-value;
+    }
+  }
+}
