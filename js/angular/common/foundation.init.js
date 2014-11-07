@@ -4,21 +4,18 @@ angular.module('foundation.init')
   .factory('FoundationInit', ['helpers', 'FoundationApi', 'Utils', function(helpers, foundationApi, u){
     return {
       init: function() {
-        var mediaQueries = {};
-        var mediaClasses = [
-          'foundation-mq-small',
-          'foundation-mq-medium',
-          'foundation-mq-large',
-          'foundation-mq-xlarge',
-          'foundation-mq-xxlarge',
-        ];
+        var mediaQueries = [];
+        var extractedMedia;
+        var mediaObject;
 
-        helpers.headerHelper(mediaClasses);
+        helpers.headerHelper(['foundation-mq']);
+        extractedMedia = helpers.getStyle('.foundation-mq', 'font-family').slice(1, -1);
 
-        angular.forEach(mediaClasses, function(mediaClass) {
-          var type = mediaClass.split(/-/).pop();
-          mediaQueries[type] = helpers.getStyle('.' + mediaClass, 'font-family').replace(/^[\/\\'"]+|(;\s?})+|[\/\\'"]+$/g, '');
-        });
+        mediaQueries = JSON.parse(extractedMedia);
+
+        for(var key in mediaQueries) {
+          mediaQueries[key] = 'only screen and (min-width: ' + mediaQueries[key].replace('rem', 'em') + ')';
+        }
 
         foundationApi.modifySettings({
           media_queries: mediaQueries
