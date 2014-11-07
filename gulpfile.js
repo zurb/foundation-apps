@@ -49,7 +49,8 @@ gulp.task('sass', function() {
   return gulp.src('docs/assets/scss/app.scss')
     .pipe(sass({
       loadPath: ['scss'],
-      style: 'nested'
+      style: 'nested',
+      bundleExec: true
     }))
     .pipe(autoprefixer({
       browsers: ['last 2 versions', 'ie 10']
