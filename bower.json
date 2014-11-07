@@ -29,6 +29,11 @@
     "bower_components",
     "docs",
     "Docs",
-    "build"
+    "build",
+    "gulpfile.js",
+    "karma.conf.js",
+    "package.json",
+    "tests",
+    "variables.md"
   ]
 }
