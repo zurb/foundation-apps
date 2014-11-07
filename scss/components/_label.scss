@@ -2,20 +2,18 @@
   Label
 */
 
-$label-fontsize: 0.9rem !default;
-$label-padding: $global-padding / 2 !default;
-$label-radius: $global-radius !default;
+$label-fontsize: 0.8rem !default;
+$label-padding: ($global-padding / 3) ($global-padding / 2) !default;
+$label-radius: 0 !default;
 $label-background: $primary-color !default;
 $label-color: isitlight($primary-color) !default;
 
-//
-// @mixins
-//
-// We use this mixin to create a default label base.
+
 %label {
   line-height: 1;
   white-space: nowrap;
   display: inline-block;
+  cursor: default;
 }
 
 @mixin label-layout(
@@ -42,14 +40,24 @@ $label-color: isitlight($primary-color) !default;
   }
 }
 
+@mixin label(
+  $background: $label-background,
+  $color: $label-color,
+  $radius: $label-radius,
+  $fontsize: $label-fontsize,
+  $padding: $label-padding
+) {
+  @extend %label;
+  @include label-layout($fontsize, $padding);
+  @include label-style($background, $color, $radius);
+}
+
 /*
   CSS Output
 */
 
 .label {
-  @extend %label;
-  @include label-layout;
-  @include label-style;
+  @include label;
 
   @each $color in map-keys($foundation-colors) {
     &.#{$color} {

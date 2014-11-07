@@ -195,6 +195,7 @@ $blocklist-check-icons: true !default;
   }
 
   // Labels next to links move over to make room for the chevron
+  // TODO: this selector needs to be customiable, but adding a setting just for it might be weird
   .label {
     padding-right: get-side($padding, right) * 1.5;
   }
@@ -342,7 +343,7 @@ $blocklist-check-icons: true !default;
   li {
     @include block-list-item;
 
-    &.with-chevron { @include block-list-chevron; }
-    .label         { @include block-list-label; }
+    &.with-chevron    { @include block-list-chevron; }
+    .block-list-label { @include block-list-label; }
   }
 }
