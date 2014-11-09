@@ -16,7 +16,6 @@ $menubar-background: #fff !default;
 $menubar-background-hover: smartscale($menubar-background, 7%) !default;
 $menubar-color: isitlight($menubar-background) !default;
 $menubar-color-hover: isitlight($menubar-background) !default;
-$menubar-border: 0 !default;
 
 $menubar-item-padding: $global-padding !default;
 $menubar-icon-size: 25px !default;
@@ -50,8 +49,7 @@ $menubar-icon-spacing: $menubar-item-padding !default;
 
 @mixin menu-bar-layout (
   $orientation: horizontal,
-  $stretch: true,
-  $border-width: get-border-value($menubar-border, width)
+  $stretch: true
 ) {
   /*
     Orientation
@@ -77,36 +75,13 @@ $menubar-icon-spacing: $menubar-item-padding !default;
       flex: 0 0 auto;
     }
   }
-
-  /*
-    Borders
-  */
-  // @if hasvalue($border-width) {
-  //   $border-side: if($orientation == horizontal, left, top);
-  //   $border-side-not: if($border-side == left, top, left);
-  //   $border-side-opposite: if($border-side == left, right, bottom);
-  //   $border-side-opposite-not: if($border-side-opposite == right, bottom, right);
-
-  //   li:not(:first-child) {
-  //     border-#{$border-side}-width: $border-width;
-  //     border-#{$border-side-not}-width: 0;
-
-  //     @if $stretch == false {
-  //       &:last-child {
-  //         border-#{$border-side-opposite}-width: $border-width;
-  //         border-#{$border-side-opposite-not}-width: 0;
-  //       }
-  //     }
-  //   }
-  // }
 }
 
 @mixin menu-bar-style(
   $background: $menubar-background,
   $background-hover: $menubar-background-hover,
   $color: $menubar-color,
-  $color-hover: $menubar-color-hover,
-  $border: $menubar-border
+  $color-hover: $menubar-color-hover
 ) {
   // Container
   background: $background;
@@ -126,18 +101,6 @@ $menubar-icon-spacing: $menubar-item-padding !default;
       color: $color-hover;
     }
   }
-
-  // Item borders
-  // @if hasvalue($border) {
-  //   li {
-  //     &:not(:first-child) { border-left: $border; }
-  //     &:hover {
-  //       &, & + li {
-  //         border-color: $background-hover;
-  //       }
-  //     }
-  //   }
-  // }
 }
 
 @mixin menu-bar-icons(
@@ -244,8 +207,7 @@ $menubar-icon-spacing: $menubar-item-padding !default;
       $primary-color,
       smartscale($primary-color, 10%),
       isitlight($primary-color),
-      isitlight($primary-color),
-      0
+      isitlight($primary-color)
     );
   }
   &.dark {
@@ -253,8 +215,7 @@ $menubar-icon-spacing: $menubar-item-padding !default;
       $dark-color,
       $primary-color,
       #fff,
-      #fff,
-      0
+      #fff
     );
   }
 }
