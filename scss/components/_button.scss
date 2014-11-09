@@ -138,33 +138,31 @@ $button-tag-selector: true !default;
   @include button-style($background, $color, $style);
 }
 
-/*
-  CSS Output
-*/
+@include exports(button) {
+  .button {
+    @include button;
 
-.button {
-  @include button;
+    &.tiny   { @include button-size(tiny); }
+    &.small  { @include button-size(small); }
+    &.large  { @include button-size(large); }
+    &.expand { @include button-expand; }
 
-  &.tiny   { @include button-size(tiny); }
-  &.small  { @include button-size(small); }
-  &.large  { @include button-size(large); }
-  &.expand { @include button-expand; }
+    &.secondary { @include button-style($secondary-color) }
+    &.success   { @include button-style($success-color) }
+    &.warning   { @include button-style($warning-color) }
+    &.alert     { @include button-style($alert-color) }
 
-  &.secondary { @include button-style($secondary-color) }
-  &.success   { @include button-style($success-color) }
-  &.warning   { @include button-style($warning-color) }
-  &.alert     { @include button-style($alert-color) }
-
-  &.disabled { @include button-disabled;
-    &.secondary { @include button-disabled($secondary-color, false) }
-    &.success   { @include button-disabled($success-color, false) }
-    &.warning   { @include button-disabled($warning-color, false) }
-    &.alert     { @include button-disabled($alert-color, false) }
+    &.disabled { @include button-disabled;
+      &.secondary { @include button-disabled($secondary-color, false) }
+      &.success   { @include button-disabled($success-color, false) }
+      &.warning   { @include button-disabled($warning-color, false) }
+      &.alert     { @include button-disabled($alert-color, false) }
+    }
   }
-}
 
-@if $button-tag-selector {
-  button {
-    @extend .button;
+  @if $button-tag-selector {
+    button {
+      @extend .button;
+    }
   }
 }

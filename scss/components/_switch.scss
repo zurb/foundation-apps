@@ -63,7 +63,7 @@ $switch-paddle-offset: 4px;
       height: $height;
     }
   }
-  input:checked + label { 
+  input:checked + label {
     &::after {
       left: $width - $height;
     }
@@ -115,6 +115,8 @@ $switch-paddle-offset: 4px;
   @include switch-style;
 }
 
-.switch {
-  @include switch;
+@include exports(switch) {
+  .switch {
+    @include switch;
+  }
 }

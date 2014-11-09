@@ -54,6 +54,8 @@ $popup-shadow: 0 0 10px rgba(#000, 0.25) !default;
   @include popup-style($background, $radius, $shadow, $border);
 }
 
-.popup {
-  @include popup;
+@include exports(popup) {
+  .popup {
+    @include popup;
+  }
 }

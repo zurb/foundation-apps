@@ -52,17 +52,15 @@ $label-color: isitlight($primary-color) !default;
   @include label-style($background, $color, $radius);
 }
 
-/*
-  CSS Output
-*/
+@include exports(label) {
+  .label {
+    @include label;
 
-.label {
-  @include label;
-
-  @each $color in map-keys($foundation-colors) {
-    &.#{$color} {
-      $color-value: map-get($foundation-colors, $color);
-      @include label-style($color-value, auto);
+    @each $color in map-keys($foundation-colors) {
+      &.#{$color} {
+        $color-value: map-get($foundation-colors, $color);
+        @include label-style($color-value, auto);
+      }
     }
   }
 }

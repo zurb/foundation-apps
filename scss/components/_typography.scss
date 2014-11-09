@@ -1,7 +1,19 @@
-// Foundation for Apps ALPHA
-// by ZURB
-// foundation.zurb.com
-// Licensed under MIT Open Source
+/*
+  TYPOGRAPHY
+  ----------
+
+  Includes typographic resets for many common elements, and a few helper classes.
+   - Headers
+   - Subheaders
+   - Lead paragraphs
+   - Ordered/unordered lists
+   - Code samples
+   - Anchors
+   - Dividers
+   - Blockquotes
+   - Acronyms
+   - Print styles
+*/
 
 $include-html-type-classes: $include-html-classes !default;
 
@@ -117,307 +129,245 @@ $acronym-underline: 1px dotted #ddd !default;
   margin-top: $subheader-top-margin;
   margin-bottom: $subheader-bottom-margin;
 }
-@include exports("type") {
-  @if $include-html-type-classes {
 
-    /* Typography resets */
-    div,
-    dl,
-    dt,
-    dd,
-    ul,
-    ol,
-    li,
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6,
-    pre,
-    form,
-    p,
-    blockquote,
-    th,
-    td {
-      margin:0;
-      padding:0;
-    }
+@include exports(typography) {
+  /* Typography resets */
+  div,
+  dl,
+  dt,
+  dd,
+  ul,
+  ol,
+  li,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  pre,
+  form,
+  p,
+  blockquote,
+  th,
+  td {
+    margin:0;
+    padding:0;
+  }
 
-    /* Default Link Styles */
-    a {
-      color: $anchor-font-color;
-      text-decoration: $anchor-text-decoration;
-      line-height: inherit;
+  /* Default Link Styles */
+  a {
+    color: $anchor-font-color;
+    text-decoration: $anchor-text-decoration;
+    line-height: inherit;
 
-      &:hover,
-      &:focus {
-        color: $anchor-font-color-hover;
-        @if $anchor-text-decoration-hover != $anchor-text-decoration {
-        	text-decoration: $anchor-text-decoration-hover;
-        }
-      }
-
-      img { border:none; }
-    }
-
-    /* Default paragraph styles */
-    p {
-      font-family: $paragraph-font-family;
-      font-weight: $paragraph-font-weight;
-      font-size: $paragraph-font-size;
-      line-height: $paragraph-line-height;
-      margin-bottom: $paragraph-margin-bottom;
-      text-rendering: $paragraph-text-rendering;
-
-      &.lead { @include lead; }
-
-      & aside {
-        font-size: $paragraph-aside-font-size;
-        line-height: $paragraph-aside-line-height;
-        font-style: $paragraph-aside-font-style;
+    &:hover,
+    &:focus {
+      color: $anchor-font-color-hover;
+      @if $anchor-text-decoration-hover != $anchor-text-decoration {
+      	text-decoration: $anchor-text-decoration-hover;
       }
     }
 
-    /* Default header styles */
-    h1, h2, h3, h4, h5, h6 {
-      font-family: $header-font-family;
-      font-weight: $header-font-weight;
-      font-style: $header-font-style;
-      color: $header-font-color;
-      text-rendering: $header-text-rendering;
-      margin-top: $header-top-margin;
-      margin-bottom: $header-bottom-margin;
-      line-height: $header-line-height;
+    img { border:none; }
+  }
 
-      small {
-        font-size: $small-font-size;
-        color: $small-font-color;
-        line-height: 0;
-      }
+  /* Default paragraph styles */
+  p {
+    font-family: $paragraph-font-family;
+    font-weight: $paragraph-font-weight;
+    font-size: $paragraph-font-size;
+    line-height: $paragraph-line-height;
+    margin-bottom: $paragraph-margin-bottom;
+    text-rendering: $paragraph-text-rendering;
+
+    &.lead { @include lead; }
+
+    & aside {
+      font-size: $paragraph-aside-font-size;
+      line-height: $paragraph-aside-line-height;
+      font-style: $paragraph-aside-font-style;
     }
+  }
 
-    h1 { font-size: $h1-font-size - $h1-font-reduction; }
-    h2 { font-size: $h2-font-size - $h2-font-reduction; }
-    h3 { font-size: $h3-font-size - $h3-font-reduction; }
-    h4 { font-size: $h4-font-size - $h4-font-reduction; }
-    h5 { font-size: $h5-font-size - $h5-font-reduction; }
-    h6 { font-size: $h6-font-size - $h6-font-reduction; }
-
-    .subheader { @include subheader; }
-
-    hr {
-      border: $hr-border-style $hr-border-color;
-      border-width: $hr-border-width 0 0;
-      clear: both;
-      margin: $hr-margin 0 ($hr-margin - rem-calc($hr-border-width));
-      height: 0;
-    }
-
-    /* Helpful Typography Defaults */
-    em,
-    i {
-      font-style: italic;
-      line-height: inherit;
-    }
-
-    strong,
-    b {
-      font-weight: $font-weight-bold;
-      line-height: inherit;
-    }
+  /* Default header styles */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: $header-font-family;
+    font-weight: $header-font-weight;
+    font-style: $header-font-style;
+    color: $header-font-color;
+    text-rendering: $header-text-rendering;
+    margin-top: $header-top-margin;
+    margin-bottom: $header-bottom-margin;
+    line-height: $header-line-height;
 
     small {
       font-size: $small-font-size;
-      line-height: inherit;
+      color: $small-font-color;
+      line-height: 0;
     }
+  }
 
-    code {
-      font-family: $code-font-family;
-      font-weight: $code-font-weight;
-      color: $code-color;
-      background-color: $code-background-color;
-      border-width: $code-border-size;
-      border-style: $code-border-style;
-      border-color: $code-border-color;
-      padding: $code-padding;
-    }
+  h1 { font-size: $h1-font-size - $h1-font-reduction; }
+  h2 { font-size: $h2-font-size - $h2-font-reduction; }
+  h3 { font-size: $h3-font-size - $h3-font-reduction; }
+  h4 { font-size: $h4-font-size - $h4-font-reduction; }
+  h5 { font-size: $h5-font-size - $h5-font-reduction; }
+  h6 { font-size: $h6-font-size - $h6-font-reduction; }
 
-    /* Lists */
-    ul,
-    ol,
-    dl {
-      font-size: $list-font-size;
-      line-height: $list-line-height;
-      margin-bottom: $list-margin-bottom;
-      list-style-position: $list-style-position;
-      font-family: $list-font-family;
-    }
+  .subheader { @include subheader; }
 
-    ul {
-      margin-#{$default-float}: $list-side-margin;
-      &.no-bullet {
-        margin-#{$default-float}: $list-side-margin-no-bullet;
-        li {
-          ul,
-          ol {
-            margin-#{$default-float}: $list-nested-margin;
-            margin-bottom: 0;
-            list-style: none;
-          }
-        }
-      }
-    }
+  hr {
+    border: $hr-border-style $hr-border-color;
+    border-width: $hr-border-width 0 0;
+    clear: both;
+    margin: $hr-margin 0 ($hr-margin - rem-calc($hr-border-width));
+    height: 0;
+  }
 
-    /* Unordered Lists */
-    ul {
+  /* Helpful Typography Defaults */
+  em,
+  i {
+    font-style: italic;
+    line-height: inherit;
+  }
+
+  strong,
+  b {
+    font-weight: $font-weight-bold;
+    line-height: inherit;
+  }
+
+  small {
+    font-size: $small-font-size;
+    line-height: inherit;
+  }
+
+  code {
+    font-family: $code-font-family;
+    font-weight: $code-font-weight;
+    color: $code-color;
+    background-color: $code-background-color;
+    border-width: $code-border-size;
+    border-style: $code-border-style;
+    border-color: $code-border-color;
+    padding: $code-padding;
+  }
+
+  /* Lists */
+  ul,
+  ol,
+  dl {
+    font-size: $list-font-size;
+    line-height: $list-line-height;
+    margin-bottom: $list-margin-bottom;
+    list-style-position: $list-style-position;
+    font-family: $list-font-family;
+  }
+
+  ul {
+    margin-#{$default-float}: $list-side-margin;
+    &.no-bullet {
+      margin-#{$default-float}: $list-side-margin-no-bullet;
       li {
         ul,
         ol {
           margin-#{$default-float}: $list-nested-margin;
           margin-bottom: 0;
-        }
-      }
-      &.square,
-      &.circle,
-      &.disc {
-        li ul { list-style: inherit; }
-      }
-
-      &.square { list-style-type: square; margin-#{$default-float}: $list-side-margin;}
-      &.circle { list-style-type: circle; margin-#{$default-float}: $list-side-margin;}
-      &.disc { list-style-type: disc; margin-#{$default-float}: $list-side-margin;}
-      &.no-bullet { list-style: none; }
-    }
-
-    /* Ordered Lists */
-    ol {
-      margin-#{$default-float}: $list-ordered-side-margin;
-      li {
-        ul,
-        ol {
-          margin-#{$default-float}: $list-nested-margin;
-          margin-bottom: 0;
+          list-style: none;
         }
       }
     }
+  }
 
-    /* Definition Lists */
-    dl {
-      dt {
-        margin-bottom: $definition-list-header-margin-bottom;
-        font-weight: $definition-list-header-weight;
-      }
-      dd { margin-bottom: $definition-list-margin-bottom; }
-    }
-
-    /* Abbreviations */
-    abbr,
-    acronym {
-      text-transform: uppercase;
-      font-size: 90%;
-      color: $body-font-color;
-      border-bottom: $acronym-underline;
-      cursor: help;
-    }
-    abbr {
-      text-transform: none;
-    }
-
-    /* Blockquotes */
-    blockquote {
-      margin: 0 0 $paragraph-margin-bottom;
-      padding: $blockquote-padding;
-      border-#{$default-float}: $blockquote-border;
-
-      cite {
-        display: block;
-        font-size: $blockquote-cite-font-size;
-        color: $blockquote-cite-font-color;
-        &:before {
-          content: "\2014 \0020";
-        }
-
-        a,
-        a:visited {
-          color: $blockquote-cite-link-color;
-        }
+  /* Unordered Lists */
+  ul {
+    li {
+      ul,
+      ol {
+        margin-#{$default-float}: $list-nested-margin;
+        margin-bottom: 0;
       }
     }
-    blockquote,
-    blockquote p {
-      line-height: $paragraph-line-height;
-      color: $blockquote-font-color;
+    &.square,
+    &.circle,
+    &.disc {
+      li ul { list-style: inherit; }
     }
 
-    @include breakpoint(medium) {
-      h1,h2,h3,h4,h5,h6 { line-height: $header-line-height; }
-      h1 { font-size: $h1-font-size; }
-      h2 { font-size: $h2-font-size; }
-      h3 { font-size: $h3-font-size; }
-      h4 { font-size: $h4-font-size; }
-      h5 { font-size: $h5-font-size; }
-      h6 { font-size: $h6-font-size; }
-    }
+    &.square { list-style-type: square; margin-#{$default-float}: $list-side-margin;}
+    &.circle { list-style-type: circle; margin-#{$default-float}: $list-side-margin;}
+    &.disc { list-style-type: disc; margin-#{$default-float}: $list-side-margin;}
+    &.no-bullet { list-style: none; }
+  }
 
-    // Only include these styles if you want them.
-    @if $include-print-styles {
-      /*
-       * Print styles.
-       *
-       * Inlined to avoid required HTTP connection: www.phpied.com/delay-loading-your-print-css/
-       * Credit to Paul Irish and HTML5 Boilerplate (html5boilerplate.com)
-      */
-      .print-only { display: none !important; }
-      @media print {
-        * {
-          background: transparent !important;
-          color: #000 !important; /* Black prints faster: h5bp.com/s */
-          box-shadow: none !important;
-          text-shadow: none !important;
-        }
-
-        a,
-        a:visited { text-decoration: underline;}
-        a[href]:after { content: " (" attr(href) ")"; }
-
-        abbr[title]:after { content: " (" attr(title) ")"; }
-
-        // Don't show links for images, or javascript/internal links
-        .ir a:after,
-        a[href^="javascript:"]:after,
-        a[href^="#"]:after { content: ""; }
-
-        pre,
-        blockquote {
-          border: 1px solid #999;
-          page-break-inside: avoid;
-        }
-
-        thead { display: table-header-group; /* h5bp.com/t */ }
-
-        tr,
-        img { page-break-inside: avoid; }
-
-        img { max-width: 100% !important; }
-
-        @page { margin: 0.5cm; }
-
-        p,
-        h2,
-        h3 {
-          orphans: 3;
-          widows: 3;
-        }
-
-        h2,
-        h3 { page-break-after: avoid; }
-
-        .hide-on-print { display: none !important; }
-        .print-only { display: block !important; }
-        .hide-for-print { display: none !important; }
-        .show-for-print { display: inherit !important; }
+  /* Ordered Lists */
+  ol {
+    margin-#{$default-float}: $list-ordered-side-margin;
+    li {
+      ul,
+      ol {
+        margin-#{$default-float}: $list-nested-margin;
+        margin-bottom: 0;
       }
     }
+  }
+
+  /* Definition Lists */
+  dl {
+    dt {
+      margin-bottom: $definition-list-header-margin-bottom;
+      font-weight: $definition-list-header-weight;
+    }
+    dd { margin-bottom: $definition-list-margin-bottom; }
+  }
+
+  /* Abbreviations */
+  abbr,
+  acronym {
+    text-transform: uppercase;
+    font-size: 90%;
+    color: $body-font-color;
+    border-bottom: $acronym-underline;
+    cursor: help;
+  }
+  abbr {
+    text-transform: none;
+  }
+
+  /* Blockquotes */
+  blockquote {
+    margin: 0 0 $paragraph-margin-bottom;
+    padding: $blockquote-padding;
+    border-#{$default-float}: $blockquote-border;
+
+    cite {
+      display: block;
+      font-size: $blockquote-cite-font-size;
+      color: $blockquote-cite-font-color;
+      &:before {
+        content: "\2014 \0020";
+      }
+
+      a,
+      a:visited {
+        color: $blockquote-cite-link-color;
+      }
+    }
+  }
+  blockquote,
+  blockquote p {
+    line-height: $paragraph-line-height;
+    color: $blockquote-font-color;
+  }
+
+  @include breakpoint(medium) {
+    h1,h2,h3,h4,h5,h6 { line-height: $header-line-height; }
+    h1 { font-size: $h1-font-size; }
+    h2 { font-size: $h2-font-size; }
+    h3 { font-size: $h3-font-size; }
+    h4 { font-size: $h4-font-size; }
+    h5 { font-size: $h5-font-size; }
+    h6 { font-size: $h6-font-size; }
   }
 }

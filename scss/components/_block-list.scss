@@ -329,21 +329,19 @@ $blocklist-check-icons: true !default;
   }
 }
 
-/*
-  CSS Output
-*/
+@include exports(block-list) {
+  .block-list {
+    @include block-list-container;
+    @include block-list-inputs;
 
-.block-list {
-  @include block-list-container;
-  @include block-list-inputs;
+    &.with-icons { @include block-list-icons; }
+    header       { @include block-list-header; }
 
-  &.with-icons { @include block-list-icons; }
-  header       { @include block-list-header; }
+    li {
+      @include block-list-item;
 
-  li {
-    @include block-list-item;
-
-    &.with-chevron    { @include block-list-chevron; }
-    .block-list-label { @include block-list-label; }
+      &.with-chevron    { @include block-list-chevron; }
+      .block-list-label { @include block-list-label; }
+    }
   }
 }

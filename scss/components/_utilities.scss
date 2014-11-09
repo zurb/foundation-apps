@@ -11,104 +11,106 @@
    - Floating
 */
 
-/*
-  Vertical alignment
-*/
-.v-align {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+@include exports(utilities) {
+  /*
+    Vertical alignment
+  */
+  .v-align {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
-  $align-values: (
-    'top': flex-start,
-    'center': center,
-    'bottom': flex-end,
-  );
+    $align-values: (
+      'top': flex-start,
+      'center': center,
+      'bottom': flex-end,
+    );
 
-  @each $orient in (top, center, bottom) {
-    .align-#{$orient} {
-      align-self: map-get($align-values, $orient);
-    }
-  }
-  @each $size in $breakpoint-classes {
     @each $orient in (top, center, bottom) {
-      @include breakpoint($size) {
-        .#{$size}-align-#{$orient} {
-          align-self: map-get($align-values, $orient);
+      .align-#{$orient} {
+        align-self: map-get($align-values, $orient);
+      }
+    }
+    @each $size in $breakpoint-classes {
+      @each $orient in (top, center, bottom) {
+        @include breakpoint($size) {
+          .#{$size}-align-#{$orient} {
+            align-self: map-get($align-values, $orient);
+          }
         }
       }
     }
   }
-}
 
-/*
-  Visibility
-*/
-.hide {
-  display: none;
-}
-@each $size in $breakpoint-classes {
-  @include breakpoint($size) {
-    .hide-for-#{$size} {
-      display: none;
-    }
-    .show-for-#{$size} {
-      display: block;
-    }
+  /*
+    Visibility
+  */
+  .hide {
+    display: none;
   }
-  @include breakpoint($size only) {
-    .hide-for-#{$size}-only {
-      display: none;
-    }
-    .show-for-#{$size}-only {
-      display: block;
-    }
-  }
-}
-@each $orientation in (portrait, landscape) {
-  @include breakpoint($orientation) {
-    .hide-for-#{$orientation} {
-      display: none;
-    }
-    .show-for-#{$orientation} {
-      display: block;
-    }
-  }
-}
-
-/*
-  Text alignment
-*/
-@each $align in (left, right, center, justify) {
   @each $size in $breakpoint-classes {
-    .text-#{$align} {
-      text-align: $align;
-    }
     @include breakpoint($size) {
-      .#{$size}-text-#{$align} {
-        text-align: $align;
+      .hide-for-#{$size} {
+        display: none;
+      }
+      .show-for-#{$size} {
+        display: block;
       }
     }
     @include breakpoint($size only) {
-      .#{$size}-only-text-#{$align} {
-        text-align: $align;
+      .hide-for-#{$size}-only {
+        display: none;
+      }
+      .show-for-#{$size}-only {
+        display: block;
       }
     }
   }
-}
-
-/*
-  Floating
-*/
-.clearfix { @include clearfix; }
-@each $float in (left, right, none) {
-  .float-#{$float} {
-    float: #{$float};
+  @each $orientation in (portrait, landscape) {
+    @include breakpoint($orientation) {
+      .hide-for-#{$orientation} {
+        display: none;
+      }
+      .show-for-#{$orientation} {
+        display: block;
+      }
+    }
   }
-  @each $size in $breakpoint-classes {
-    @include breakpoint($size) {
-      .#{$size}-float-#{$float} {
-        float: #{$float};
+
+  /*
+    Text alignment
+  */
+  @each $align in (left, right, center, justify) {
+    @each $size in $breakpoint-classes {
+      .text-#{$align} {
+        text-align: $align;
+      }
+      @include breakpoint($size) {
+        .#{$size}-text-#{$align} {
+          text-align: $align;
+        }
+      }
+      @include breakpoint($size only) {
+        .#{$size}-only-text-#{$align} {
+          text-align: $align;
+        }
+      }
+    }
+  }
+
+  /*
+    Floating
+  */
+  .clearfix { @include clearfix; }
+  @each $float in (left, right, none) {
+    .float-#{$float} {
+      float: #{$float};
+    }
+    @each $size in $breakpoint-classes {
+      @include breakpoint($size) {
+        .#{$size}-float-#{$float} {
+          float: #{$float};
+        }
       }
     }
   }

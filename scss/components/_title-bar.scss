@@ -111,14 +111,12 @@ $titlebar-item-classes: (
   @include title-bar-style($background, $color, $border, $padding);
 }
 
-/*
-  CSS Output
-*/
-
-.title-bar {
-  @include title-bar;
-}
-  .title-bar-bottom {
-    border-bottom: 0;
-    border-top: $titlebar-border;
+@include exports(title-bar) {
+  .title-bar {
+    @include title-bar;
   }
+    .title-bar-bottom {
+      border-bottom: 0;
+      border-top: $titlebar-border;
+    }
+}

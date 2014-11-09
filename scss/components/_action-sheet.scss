@@ -208,18 +208,17 @@ $actionsheet-link-background-hover: smartscale($actionsheet-background) !default
   }
 }
 
-/*
-  CSS output
-*/
-.action-sheet-container {
-  position: relative;
-  display: inline-block;
-}
-.action-sheet {
-  @include action-sheet;
-  @include action-sheet-menu;
+@include exports(action-sheet) {
+  .action-sheet-container {
+    position: relative;
+    display: inline-block;
+  }
+  .action-sheet {
+    @include action-sheet;
+    @include action-sheet-menu;
 
-  @include breakpoint(medium) {
-    @include popup-menu;
+    @include breakpoint(medium) {
+      @include popup-menu;
+    }
   }
 }

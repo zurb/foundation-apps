@@ -109,21 +109,20 @@ $icon-bar-border-color: rgba(255,255,255,0.3) !default;
   }
 }
 
-/*
-  CSS output
-*/
-.icon-bar {
-  @include menu-bar;
+@include exports(menu-bar) {
+  .icon-bar {
+    @include menu-bar;
 
-  &.icon-left { @extend %menu-bar-icon-left; }
-  &.icon-right { @extend %menu-bar-icon-right; }
-  &.icon-bottom { @extend %menu-bar-icon-bottom; }
-  &.vertical { @include vertical-menu-bar; }
+    &.icon-left { @extend %menu-bar-icon-left; }
+    &.icon-right { @extend %menu-bar-icon-right; }
+    &.icon-bottom { @extend %menu-bar-icon-bottom; }
+    &.vertical { @include vertical-menu-bar; }
 
-  @each $size in $breakpoint-classes {
-    @include breakpoint($size) {
-      &.#{$size}-vertical {
-        @include vertical-menu-bar;
+    @each $size in $breakpoint-classes {
+      @include breakpoint($size) {
+        &.#{$size}-vertical {
+          @include vertical-menu-bar;
+        }
       }
     }
   }

@@ -57,31 +57,30 @@ $card-divider-background: smartscale($card-background, 7%);
   padding: $padding;
 }
 
-/*
-  CSS Output
-*/
-.card {
-  @include card-container;
+@include exports(card) {
+  .card {
+    @include card-container;
 
-  @each $color in map-keys($foundation-colors) {
-    &.#{$color} {
-      $color-value: map-get($foundation-colors, $color);
-      @include card-container(
-        $background: $color-value,
-        $color: isitlight($color-value),
-        $border: 0
-      );
-      .card-division {
-        @include card-divider(
-          $background: smartscale($color-value, 7%)
+    @each $color in map-keys($foundation-colors) {
+      &.#{$color} {
+        $color-value: map-get($foundation-colors, $color);
+        @include card-container(
+          $background: $color-value,
+          $color: isitlight($color-value),
+          $border: 0
         );
+        .card-division {
+          @include card-divider(
+            $background: smartscale($color-value, 7%)
+          );
+        }
       }
     }
   }
+    .card-division {
+      @include card-divider;
+    }
+    .card-item {
+      @include card-section;
+    }
 }
-  .card-division {
-    @include card-divider;
-  }
-  .card-item {
-    @include card-section;
-  }
