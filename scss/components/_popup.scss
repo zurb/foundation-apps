@@ -32,6 +32,7 @@ $popup-shadow: 0 0 10px rgba(#000, 0.25) !default;
 }
 @mixin popup-style(
   $background: $popup-background,
+  $color: #000,
   $radius: $popup-radius,
   $shadow: $popup-shadow,
   $border: $popup-border
@@ -51,11 +52,14 @@ $popup-shadow: 0 0 10px rgba(#000, 0.25) !default;
 ) {
   @extend %popup;
   @include popup-layout($width);
-  @include popup-style($background, $radius, $shadow, $border);
+  @include popup-style($background, isitlight($background), $radius, $shadow, $border);
 }
 
 @include exports(popup) {
   .popup {
     @include popup;
+
+    &.dark    { @include popup-style($dark-color, #fff); }
+    &.primary { @include popup-style($primary-color, isitlight($primary-color)); }
   }
 }
