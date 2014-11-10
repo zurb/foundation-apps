@@ -1,4 +1,4 @@
-angular.module('foundation.notification', []);
+angular.module('foundation.notification', ['foundation.common.services']);
 
 angular.module('foundation.notification')
   .controller('FaNotificationController', ['$scope', 'FoundationApi', function FaTabsController($scope, foundationApi) {
