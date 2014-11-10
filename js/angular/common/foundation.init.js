@@ -9,9 +9,9 @@ angular.module('foundation.init')
         var mediaObject;
 
         helpers.headerHelper(['foundation-mq']);
-        extractedMedia = helpers.getStyle('.foundation-mq', 'font-family').slice(1, -1);
+        extractedMedia = helpers.getStyle('.foundation-mq', 'font-family');
 
-        mediaQueries = JSON.parse(extractedMedia);
+        mediaQueries = JSON.parse(extractedMedia.replace(/\'/g, ''));
 
         for(var key in mediaQueries) {
           mediaQueries[key] = 'only screen and (min-width: ' + mediaQueries[key].replace('rem', 'em') + ')';
