@@ -57,15 +57,17 @@ $accordion-content-padding: $global-padding;
   }
 }
 
-.accordion {
-	@include accordion-container;
+@include exports(accordion) {
+  .accordion {
+    @include accordion-container;
+  }
+    .accordion-item {
+      @include accordion-item;
+    }
+    .accordion-title {
+      @include accordion-title;
+    }
+    .accordion-content {
+      @include accordion-content;
+    }
 }
-  .accordion-item {
-    @include accordion-item;
-  }
-  .accordion-title {
-    @include accordion-title;
-  }
-  .accordion-content {
-    @include accordion-content;
-  }

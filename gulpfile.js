@@ -27,10 +27,13 @@ gulp.task('copy', function() {
     '!./docs/templates/**/*.*',
     '!./docs/assets/{scss,js}/**/*.*'
   ];
-  return gulp.src(dirs, {
+  gulp.src(dirs, {
     base: './docs/'
   })
     .pipe(gulp.dest('build'));
+
+  return gulp.src('./iconic/**/*')
+    .pipe(gulp.dest('build/assets/img/iconic/'));
 });
 
 gulp.task('clean-partials', function(cb) {
@@ -46,7 +49,8 @@ gulp.task('sass', function() {
   return gulp.src('docs/assets/scss/app.scss')
     .pipe(sass({
       loadPath: ['scss'],
-      style: 'nested'
+      style: 'nested',
+      bundleExec: true
     }))
     .pipe(autoprefixer({
       browsers: ['last 2 versions', 'ie 10']
@@ -95,6 +99,7 @@ gulp.task('uglify-angular', function() {
     'bower_components/angular/angular.js',
     'bower_components/angular-animate/angular-animate.js',
     'bower_components/ui-router/release/angular-ui-router.js',
+    'js/vendor/**/*.js',
     'js/angular/**/*.js',
   ];
 
@@ -164,6 +169,7 @@ gulp.task('build', function(cb) {
     cb();
   });
 });
+
 
 gulp.task('default', ['build', 'server:start'], function() {
   // Watch Sass

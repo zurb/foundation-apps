@@ -337,3 +337,334 @@ $modules: () !default;
   }
   @return $remValues;
 }
+=======
+// Foundation for Apps ALPHA
+// by ZURB
+// foundation.zurb.com
+// Licensed under MIT Open Source
+
+/**
+ *   Exports
+ *   Outputs the chunk of content passed if component $name hasn't yet been output.
+ *   This prevents code duplication by keeping track of which components have already been output.
+ *
+ *   @param {string} $name - Name of component to output
+ *
+ *   @output The content passed, if the component has not yet been referenced.
+ */
+$modules: () !default;
+@mixin exports($name) {
+  // Check if the module has already been imported
+  $module-index: index($modules, $name);
+  @if (($module-index == null) or ($module-index == false)) {
+    // Check if it's on the Foundation export list
+    $module-key: map-get($include-css, $name);
+    // If $module-key is true, then the value is on the list and set to be exported
+    // if $module-key is false, then the value is on the list and set to NOT be exported
+    // If $module-key is null, then the value is not on the list, which means someone
+    // is using it with a custom component, so just export it anyway
+    @if $module-key == true or $module-key == null {
+      $modules: append($modules, $name);
+      @content;
+    }
+  }
+}
+
+/**
+ *   Map Next
+ *   Find the next key in a map.
+ *
+ *   @param {map} $map - Map to traverse.
+ *   @param {mixed} $key - Key to use as a starting point.
+ *
+ *   @return The value for the key after $key if $key was found. If $key was not found, or $key was
+ *     the last value in the map, returns null.
+ */
+@function map-next($map, $key) {
+  // Store the values of the map as a list, so we can access them with nth
+  $values: map-values($map);
+
+  // Ghetto for loop
+  $i: 1;
+  $found: false;
+  @each $val in map-keys($map) {
+    @if $found == false {
+      @if ($key == $val) {
+        $found: true;
+      }
+      $i: $i + 1;
+    }
+  }
+
+  // If the key doesn't exist, or it's the last key in the map, return null
+  @if $i > length($map) {
+    @return null;
+  }
+  // Otherwise return the value
+  @else {
+    @return nth($values, $i);
+  }
+}
+
+/**
+ *   Is It Light?
+ *   Checks the lightness of $color, and if it passes the $threshold of lightness, it returns the $yes color.
+ *   Otherwise, it returns the $no color. Use this function to dynamically output a foreground color based on
+ *   a given background color.
+ *
+ *   @param {color} $color - Color to check the lightness of.
+ *   @param {color} $yes - Color to return if $color is light.
+ *   @param {color} $no - Color to return if $color is dark.
+ *   @param {percentage} $threshold - Threshold of lightness to check against.
+ *
+ *   @return The $yes color or $no color.
+ */
+@function isitlight($color, $yes: #000, $no: #fff, $threshold: 60%) {
+  @if (lightness($color) > $threshold) {
+    @return $yes;
+  }
+  @else {
+    @return $no;
+  }
+}
+
+/**
+ *   Smart Scale
+ *   Scales a color to be lighter if it's light, or darker if it's dark.
+ *   Use this function to "fade" a color appropriate to its lightness.
+ *
+ *   @param {color} $color - Color to scale.
+ *   @param {percentage} $scale - Amount to scale up or down.
+ *   @param {percentage} $threshold - Threshold of lightness to check against.
+ *
+ *   @return A scaled color.
+ */
+@function smartscale($color, $scale: 5%, $threshold: 60%) {
+  @if lightness($color) > $threshold {
+    $scale: -$scale;
+  }
+  @return scale-color($color, $lightness: $scale);
+}
+
+/**
+ *   Has Value
+ *   Returns true if a value is not 0, null, or none.
+ *   Use this function to check for values like border: 0 or box-shadow: none.
+ *
+ *   @param $val - Value to check.
+ *
+ *   @return True if $val is not 0, null, or none.
+ */
+@function hasvalue($val) {
+  @if $val == null or $val == none {
+    @return false;
+  }
+  @if type-of($val) == 'number' and strip-unit($val) == 0 {
+    @return false;
+  }
+  @return true;
+}
+
+/**
+ *   Get Side
+ *   Determine a top/right/bottom/right value on a padding, margin, etc. property, no matter how many values were passed in.
+ *   Use this function if you need to know the specific side of a value, but don't know if the value is using shorthand.
+ *
+ *   @param {list|number} $val - Value to analyze. Should be a shorthand sizing property, e.g. "1em 2em 1em"
+ *   @param {keyword} $side - Side to return. Should be top, right, bottom, or left.
+ *
+ *   @return A single value based on $val and $side.
+ */
+@function get-side($val, $side) {
+  $length: length($val);
+
+  @if $length == 1 {
+    @return $val;
+  }
+  @if $length == 2 {
+    @return map-get((
+      top: nth($val, 1),
+      bottom: nth($val, 1),
+      left: nth($val, 2),
+      right: nth($val, 2),
+    ), $side);
+  }
+  @if $length == 3 {
+    @return map-get((
+      top: nth($val, 1),
+      left: nth($val, 2),
+      right: nth($val, 2),
+      bottom: nth($val, 3),
+    ), $side);
+  }
+  @if $length == 4 {
+    @return map-get((
+      top: nth($val, 1),
+      right: nth($val, 2),
+      bottom: nth($val, 3),
+      left: nth($val, 4),
+    ), $side);
+  }
+}
+
+/**
+ *   Get Border Value
+ *   Given border $val, find a specific element of the border, which is $elem.
+ *   Possible values for $elem are width, style, and color.
+ *
+ *   @param {list} $val - Border value to find a value in.
+ *   @param {keyword} $elem - Border component to extract.
+ *
+ *   @param If the value exists, returns the value. If the value is not in the border definition,
+ *     the function will return a 0px width, solid style, or black border.
+ */
+ @function get-border-value($val, $elem) {
+   // Find the width, style, or color and return it
+   @each $v in $val {
+     $type: type-of($v);
+     @if $elem == width and $type == 'number' {
+       @return $v;
+     }
+     @if $elem == style and $type == 'string' {
+       @return $v;
+     }
+     @if $elem == color and $type == 'color' {
+       @return $v;
+     }
+   }
+
+   // Defaults
+   $defaults: (
+     width: 0,
+     style: solid,
+     color: black,
+   );
+   @return map-get($defaults, $elem);
+ }
+
+/**
+ *   Get Shadow Value
+ *   Given shadow value $val, find a specific element of the shadow, which is $elem.
+ *   Possible values for $elem are x, y, size, spread, color, and offset.
+ *
+ *   @param {list} $val - Shadow value to find a value in.
+ *   @param {keyword} $elem - Shadow component to extract.
+ *
+ *   @return If the value exists, returns the value. If the value is not set, returns false.
+ *     If $elem is "inset", returns true, otherwise false.
+**/
+@function get-shadow-value($val, $elem) {
+  // Return "none" if there's no shadow
+  @if $val == none {
+    @return none;
+  }
+
+  // Inset and color are always at the beginning and end
+  @if $elem == inset {
+    @return nth($val, 1) == inset;
+  }
+  @if $elem == color {
+    @if type-of(nth($val, -1)) == color {
+      @return nth($val, -1);
+    }
+    @else {
+      @return false;
+    }
+  }
+
+  // The rest of the values are located perilously in the middle
+  $values: ();
+  @each $v in $val {
+    @if type-of($v) == 'number' {
+      $values: append($values, $v);
+    }
+  }
+  @if $elem == x {
+    @if length($values) >= 1 {
+      @return nth($values, 1);
+    }
+    @else {
+      @return false;
+    }
+  }
+  @else if $elem == y {
+    @if length($values) >= 2 {
+      @return nth($values, 2);
+    }
+    @else {
+      @return false;
+    }
+  }
+  @else if $elem == size {
+    @if length($values) >= 3 {
+      @return nth($values, 3);
+    }
+    @else {
+      @return false;
+    }
+  }
+  @else if $elem == spread {
+    @if length($values) >= 4 {
+      @return nth($values, 4);
+    }
+    @else {
+      @return false;
+    }
+  }
+  @else {
+    @return false;
+  }
+}
+
+/**
+ *   Strip Unit
+ *   Removes the unit (e.g. px, em, rem) from a value, returning the number only.
+ *
+ *   @param {number} $num - Number to strip unit from.
+ *
+ *   @return The same number, sans unit.
+ */
+@function strip-unit($num) {
+  @return $num / ($num * 0 + 1);
+}
+
+// CONVERT TO REM
+@function convert-to-rem($value, $base-value: $rem-base)  {
+  $value: strip-unit($value) / strip-unit($base-value) * 1rem;
+  @if ($value == 0rem) { $value: 0; } // Turn 0rem into 0
+  @return $value;
+}
+
+// REM CALC
+
+// New Syntax, allows to optionally calculate on a different base value to counter compounding effect of rem's.
+// Call with 1, 2, 3 or 4 parameters, 'px' is not required but supported:
+//
+//   rem-calc(10 20 30px 40);
+//
+// Space delimited, if you want to delimit using comma's, wrap it in another pair of brackets
+//
+//   rem-calc((10, 20, 30, 40px));
+//
+// Optionally call with a different base (eg: 8px) to calculate rem.
+//
+//   rem-calc(16px 32px 48px, 8px);
+//
+// If you require to comma separate your list
+//
+//   rem-calc((16px, 32px, 48), 8px);
+
+@function rem-calc($values, $base-value: null) {
+  @if $base-value == null {
+    $base-value: $rem-base;
+  }
+  $max: length($values);
+
+  @if $max == 1 { @return convert-to-rem(nth($values, 1), $base-value); }
+
+  $remValues: ();
+  @for $i from 1 through $max {
+    $remValues: append($remValues, convert-to-rem(nth($values, $i), $base-value));
+  }
+  @return $remValues;
+}

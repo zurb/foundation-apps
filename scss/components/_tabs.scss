@@ -74,26 +74,24 @@ $tab-content-padding: $global-padding;
   }
 }
 
-/*
-  CSS Output
-*/
+@include exports(tabs) {
+  .tabs {
+    @include tabstrip(horizontal);
 
-.tabs {
-  @include tabstrip(horizontal);
+    &.vertical {
+      @include tabstrip(vertical);
+    }
 
-  &.vertical {
-  	@include tabstrip(vertical);
+    .tab-item {
+      @include tabstrip-item;
+    }
   }
 
-	.tab-item {
-    @include tabstrip-item;
-	}
-}
+  .tab-content {
+    @include tab-content;
 
-.tab-content {
-	@include tab-content;
-
-  .tab-pane {
-    @include tab-content-item;
+    .tab-pane {
+      @include tab-content-item;
+    }
   }
 }

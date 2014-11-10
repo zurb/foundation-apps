@@ -146,22 +146,20 @@ $offcanvas-frame-selector: '.frame' !default;
   }
 }
 
-/*
-  CSS Output
-*/
+@include exports(off-canvas) {
+  .off-canvas {
+    @extend %off-canvas;
+    @include off-canvas-layout;
+    @include off-canvas-style;
 
-.off-canvas {
-  @extend %off-canvas;
-  @include off-canvas-layout;
-  @include off-canvas-style;
+    &.top    { @include off-canvas-layout(top); }
+    &.right  { @include off-canvas-layout(right); }
+    &.bottom { @include off-canvas-layout(bottom); }
+    &.left   { @include off-canvas-layout(left); }
 
-  &.top    { @include off-canvas-layout(top); }
-  &.right  { @include off-canvas-layout(right); }
-  &.bottom { @include off-canvas-layout(bottom); }
-  &.left   { @include off-canvas-layout(left); }
+    &.detached { @extend %off-canvas-detached; }
 
-  &.detached { @extend %off-canvas-detached; }
-
-  &.primary { @include off-canvas-style($primary-color, auto); }
-  &.dark    { @include off-canvas-style($dark-color, auto); }
+    &.primary { @include off-canvas-style($primary-color, auto); }
+    &.dark    { @include off-canvas-style($dark-color, auto); }
+  }
 }

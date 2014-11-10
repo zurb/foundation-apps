@@ -355,7 +355,7 @@ $motion-timings: (
 // 3. HTML Exports
 // - - - - - - - - - - - - - - - - - - - - - - - - -
 
-@if $include-html-motion-attributes("motion") {
+@include exports(motion) {
   /*
     Transitions
   */
@@ -444,5 +444,4 @@ $motion-timings: (
     &.short-delay { animation-delay: $motion-fast-duration; }
     &.long-delay  { animation-delay: $motion-slow-duration; }
   }
-
 }

@@ -4,3 +4,31 @@
 
   Other component settings will eventually be copied here.
 */
+
+$include-css: (
+  accordion: true,
+  action-sheet: true,
+  block-list: true,
+  button: true,
+  button-group: true,
+  card: true,
+  coloring: true,
+  extras: true,
+  forms: true,
+  grid: true,
+  iconic: true,
+  label: true,
+  list: true,
+  menu-bar: true,
+  modal: true,
+  motion: true,
+  notification: true,
+  off-canvas: true,
+  panel: true,
+  popup: true,
+  switch: true,
+  tabs: true,
+  title-bar: true,
+  typography: true,
+  utilities: true,
+) !default;

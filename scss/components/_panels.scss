@@ -130,18 +130,16 @@ $panel-animation-speed: 0.25s !default;
   transition: transform $animation-speed linear;
 }
 
-/*
-  CSS output
-*/
+@include exports(panels) {
+  .panel {
+    @extend %panel-base;
+    @include panel-style;
+  }
 
-.panel {
-  @extend %panel-base;
-  @include panel-style;
+  .panel-top    { @include panel-layout(top); }
+  .panel-right  { @include panel-layout(right); }
+  .panel-bottom { @include panel-layout(bottom); }
+  .panel-left   { @include panel-layout(left); }
+
+  .panel-fixed  { position: fixed; }
 }
-
-.panel-top    { @include panel-layout(top); }
-.panel-right  { @include panel-layout(right); }
-.panel-bottom { @include panel-layout(bottom); }
-.panel-left   { @include panel-layout(left); }
-
-.panel-fixed  { position: fixed; }

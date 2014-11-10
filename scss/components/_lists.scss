@@ -13,10 +13,12 @@
 	// }
 }
 
-.inline-list { 
-	@include inline-list(left); 
-	li { 
-		margin-right: 1rem; 
-		margin-left: 0;
-	}
+@include exports(list) {
+  .inline-list {
+    @include inline-list(left);
+    li {
+      margin-right: 1rem;
+      margin-left: 0;
+    }
+  }
 }

@@ -239,113 +239,112 @@ $block-grid-max-size: 6;
 	padding: 1rem;
 }
 
-/*
-	CSS Output
-*/
-
-.frame {
-	@include grid-frame;
-}
 @mixin block-css {
-	@include grid-block;
+  @include grid-block;
 
-	// Content blocks are for content and not layout
-	&.content { @include grid-content; }
+  // Content blocks are for content and not layout
+  &.content { @include grid-content; }
 
-	// Containers imitate the sizing of old Foundation rows
-	&.container { @include grid-container(true); }
+  // Containers imitate the sizing of old Foundation rows
+  &.container { @include grid-container(true); }
 
-	// Collapse margins when a group is not the direct child of a block
-	&.nested { @include grid-nest(true); }
+  // Collapse margins when a group is not the direct child of a block
+  &.nested { @include grid-nest(true); }
 
-	// Collapsed blocks strip padding from their children
-	// ISSUE: now that groups and blocks are the same class, how does collapsing work?
-	// This is a possible solution: "collapse" is for self, "collapse-children is for immediate children"
-	&.collapse, .block.collapse-children > & { @include grid-collapse; }
+  // Collapsed blocks strip padding from their children
+  // ISSUE: now that groups and blocks are the same class, how does collapsing work?
+  // This is a possible solution: "collapse" is for self, "collapse-children is for immediate children"
+  &.collapse, .block.collapse-children > & { @include grid-collapse; }
 
-	// Shrink a flex item so it only takes up the space it needs
-	&.shrink { @include grid-size(shrink); }
-}
-.block, .small-block {
-	@include block-css;
-}
-@include breakpoint(medium) {
-	.medium-block { @include block-css; }
-}
-@include breakpoint(large) {
-	.large-block { @include block-css; }
+  // Shrink a flex item so it only takes up the space it needs
+  &.shrink { @include grid-size(shrink); }
 }
 
-/*
-	Shared styles for frames and blocks
-*/
-.frame, .block, .medium-block {
-	// Orientation classes
-	&.vertical, &.small-vertical { @include grid-orient(vertical); }
-	@include breakpoint(medium) {
-		&.medium-horizontal { @include grid-orient(horizontal); }
-		&.medium-vertical   { @include grid-orient(vertical); }
-	}
-	@include breakpoint(large) {
-		&.medium-horizontal { @include grid-orient(horizontal); }
-		&.large-vertical    { @include grid-orient(vertical); }
-	}
+@include exports(grid) {
+  .frame {
+    @include grid-frame;
+  }
+  .block, .small-block {
+    @include block-css;
+  }
+  @include breakpoint(medium) {
+    .medium-block { @include block-css; }
+  }
+  @include breakpoint(large) {
+    .large-block { @include block-css; }
+  }
 
-	// Block alignment
-	&.align-right   { @include grid-align(right); }
-	&.align-center  { @include grid-align(center); }
-	&.align-justify { @include grid-align(justify); }
-	&.align-spaced  { @include grid-align(spaced); }
+  /*
+    Shared styles for frames and blocks
+  */
+  .frame, .block, .medium-block {
+    // Orientation classes
+    &.vertical, &.small-vertical { @include grid-orient(vertical); }
+    @include breakpoint(medium) {
+      &.medium-horizontal { @include grid-orient(horizontal); }
+      &.medium-vertical   { @include grid-orient(vertical); }
+    }
+    @include breakpoint(large) {
+      &.medium-horizontal { @include grid-orient(horizontal); }
+      &.large-vertical    { @include grid-orient(vertical); }
+    }
 
-	// Stretch children along cross-axis
-	&.stretch { @include grid-stretch(true); }
-}
+    // Block alignment
+    &.align-right   { @include grid-align(right); }
+    &.align-center  { @include grid-align(center); }
+    &.align-justify { @include grid-align(justify); }
+    &.align-spaced  { @include grid-align(spaced); }
 
-/*
-	Sizing and ordering classes
-*/
-@for $i from 1 through $total-columns {
-  .order-#{$i} { @include grid-order($i); }
-}
-@each $size in $breakpoint-classes {
-	@for $i from 1 through $total-columns {
-		@include breakpoint($size) {
-			// Block sizing
-			.#{$size}-#{$i} {
-				@include grid-size($i);
-			}
-      // Source ordering
-			.#{$size}-order-#{$i} {
-				@include grid-order($i);
-			}
-			// Offsets
-			@if ($total-columns < 12) {
-				.#{$size}-offset-#{$i} {
-					@include grid-offset($i);
-				}
-			}
-			// Parent sizing (block grids)
-			// TODO: Make mixin
-			.#{$size}-up-#{$i} {
-				display: flex;
-				overflow: visible;
-				margin: {
-					left:  -0.5rem;
-					right: -0.5rem;
-				}
-				list-style-type: none;
+    // Stretch children along cross-axis
+    &.stretch { @include grid-stretch(true); }
+  }
 
-			  > li, > div, > section {
-			  	padding: 0 0.5rem 1rem;
-			    flex: 0 0 percentage(1 / $i);
-			  }
-			}
-		}
-	}
-}
+  /*
+    Sizing and ordering classes
+  */
+  @for $i from 1 through $total-columns {
+    .order-#{$i} { @include grid-order($i); }
+  }
+  @each $size in $breakpoint-classes {
+    @for $i from 1 through $total-columns {
+      @include breakpoint($size) {
+        // Block sizing
+        .#{$size}-#{$i} {
+          @include grid-size($i);
+        }
+        // Source ordering
+        .#{$size}-order-#{$i} {
+          @include grid-order($i);
+        }
+        // Offsets
+        @if ($total-columns < 12) {
+          .#{$size}-offset-#{$i} {
+            @include grid-offset($i);
+          }
+        }
+        // Parent sizing (block grids)
+        // TODO: Make mixin
+        .#{$size}-up-#{$i} {
+          display: flex;
+          overflow: visible;
+          margin: {
+            left:  -0.5rem;
+            right: -0.5rem;
+          }
+          list-style-type: none;
 
-// This prevents flicker when grid items shift around
-.frame, .block {
-	transition: all 300ms ease;
-	backface-visibility: hidden;
+          > li, > div, > section {
+            padding: 0 0.5rem 1rem;
+            flex: 0 0 percentage(1 / $i);
+          }
+        }
+      }
+    }
+  }
+
+  // This prevents flicker when grid items shift around
+  .frame, .block {
+    transition: all 300ms ease;
+    backface-visibility: hidden;
+  }
 }

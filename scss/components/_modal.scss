@@ -88,41 +88,39 @@ $modal-overlay-background: rgba(#333, 0.7) !default;
   @include modal-style($border, $radius, $shadow);
 }
 
-/*
-  CSS Output
-*/
+@include exports(modal) {
+  .modal {
+    @include modal;
 
-.modal {
-  @include modal;
-
-  @each $size in map-keys($modal-sizes) {
-    $width: map-get($modal-sizes, $size);
-    @if $size != medium {
-      &.#{$size} { @include modal-layout($width); }
+    @each $size in map-keys($modal-sizes) {
+      $width: map-get($modal-sizes, $size);
+      @if $size != medium {
+        &.#{$size} { @include modal-layout($width); }
+      }
     }
   }
-}
 
-.#{$modal-overlay-class} {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: $modal-zindex;
-  display: none;
-  background-color: $modal-overlay-background;
-  opacity: 0;
-  transition: opacity 0.4s;
-  pointer-events: none;
+  .#{$modal-overlay-class} {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: $modal-zindex;
+    display: none;
+    background-color: $modal-overlay-background;
+    opacity: 0;
+    transition: opacity 0.4s;
+    pointer-events: none;
 
-  // Horizontally and vertically center the modal
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    // Horizontally and vertically center the modal
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-  &.is-active {
-    opacity: 1;
-    pointer-events: auto;
+    &.is-active {
+      opacity: 1;
+      pointer-events: auto;
+    }
   }
 }
