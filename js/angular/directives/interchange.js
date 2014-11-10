@@ -122,5 +122,5 @@ angular.module('foundation.interchange')
       //init
       foundationApi.publish('resize', 'initial resize');
     }
-  }
+  };
 }]);

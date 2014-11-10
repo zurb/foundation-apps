@@ -142,20 +142,10 @@ $breakpoint-classes: (small medium large) !default;
 // Forward slash placed around everything to convince PhantomJS to read the value.
 
 meta.foundation-version {
-  font-family: "/#{$foundation-version}/";
+  font-family: "#{$foundation-version}";
 }
-
-@each $size in map-keys($breakpoints) {
-  meta.foundation-mq-#{$size} {
-    $val: map-get($breakpoints, $size);
-    @if strip-unit($val) == 0 {
-      font-family: '/only screen/';
-    }
-    @else {
-      font-family: '/only screen and (min-width: #{$val})/';
-    }
-    width: $val;
-  }
+meta.foundation-mq {
+  font-family: "#{map-serialize($breakpoints)}";
 }
 
 
