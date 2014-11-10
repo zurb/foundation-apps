@@ -1,4 +1,4 @@
-angular.module('foundation.init', ['foundation.common.services', 'ui.router']);
+angular.module('foundation.init', ['foundation.common.services']);
 
 angular.module('foundation.init')
   .factory('FoundationInit', ['helpers', 'FoundationApi', 'Utils', function(helpers, foundationApi, u){
@@ -52,7 +52,7 @@ angular.module('foundation.init')
     };
 });
 
-angular.module('foundation.init')
+angular.module('foundation.init.state', ['ui.router'])
   .provider('$FoundationState', ['$stateProvider', function($stateProvider) {
     var complexViews = {};
 

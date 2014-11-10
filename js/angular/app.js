@@ -2,6 +2,7 @@ var app = angular.module('application', [
     'ui.router',
     'ngAnimate',
     'foundation.init',
+    'foundation.init.state',
     'foundation.common.services',
     'foundation.common.directives',
     'foundation.common.animations',
