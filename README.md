@@ -58,3 +58,7 @@ The docs are generated in the `docs` directory when you run the quickstart proce
 If you have feedback on the grid please report issues to the Foundation for Apps repo. If there is an existing issue covering your topic please use that so we can keep the issue list clean. Pull requests are welcome from the core team and invited contributors, but be explicit (not that kind) so we know what's what. Thanks!
 
 Please note that for the moment, new issues and PRs may be closed without warning. We are, in the interest of sanity, restricting commentary and changes to the Foundation Core team. If you absolutely MUST say something and are not core team, please reach out to us on twitter @zurbfoundation. Thanks!
+
+## Angular
+
+To learn more about the Angular side of things, check out the separate in-depth readme under `/js/angular`.
