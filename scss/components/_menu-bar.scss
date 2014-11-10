@@ -151,14 +151,50 @@ $menubar-icon-spacing: $menubar-item-padding !default;
   }
 }
 
-/*
-  Mixins
-*/
-@mixin menu-bar() {
-  @extend %menu-bar;
-  @include menu-bar-layout;
-  @include menu-bar-icons;
-  @include menu-bar-style;
+@mixin menu-bar-labels(
+  $x: right,
+  $y: center,
+  $offset: $menubar-item-padding,
+  $size: 1.2rem,
+  $background: red,
+  $color: auto,
+  $selector: '.menu-bar-label'
+) {
+  li {
+    position: relative;
+  }
+
+  a {
+    @if $x == left or $x == right {
+      padding-#{$x}: $size + $offset * 2;
+    }
+  }
+
+  #{$selector} {
+    display: block;
+    font-size: $size * 0.75;
+    width: $size;
+    height: $size;
+    line-height: $size;
+    text-align: center;
+    border-radius: 1000px;
+    background: $background;
+    color: if($color == auto, isitlight($background), $color);
+    position: absolute;
+    pointer-events: none;
+
+    @if $x == left or $x == right {
+      #{$x}: $offset;
+    }
+
+    @if $y == top or $y == bottom {
+      #{$y}: $offset;
+    }
+    @else {
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
 }
 
 /*
@@ -200,6 +236,10 @@ $menubar-icon-spacing: $menubar-item-padding !default;
       .#{$size}-icon-#{$pos} { @include menu-bar-icons($pos); }
     }
   }
+
+  // Labels
+  &.label-side   { @include menu-bar-labels(right, center); }
+  &.label-corner { @include menu-bar-labels(right, top); }
 
   // Coloring
   &.primary {
