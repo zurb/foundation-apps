@@ -198,7 +198,7 @@ angular.module('foundation.tabs')
     restrict: 'A',
     link: function(scope, element, attrs) {
       var tabs = [];
-      var children;
+      var children = element.children();
 
       var activateTabs = function(msg, tabId) {
         var tabNodes = element.children();
@@ -212,7 +212,7 @@ angular.module('foundation.tabs')
         });
       };
 
-      children.forEach(function(node) {
+      angular.forEach(children, function(node) {
         if(node.id) {
           var tabId = node.id;
           tabs.push(tabId);
