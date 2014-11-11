@@ -5,6 +5,8 @@ angular.module('foundation.common.animations')
     var events = ['webkitAnimationEnd', 'mozAnimationEnd', 'MSAnimationEnd', 'oanimationend', 'animationend',
                   'webkitTransitionEnd', 'otransitionend', 'transitionend'];
     var active = 'is-active';
+    var parentStyle = 'position-absolute';
+
     return {
       enter: function(element, done) {
         var scope = element.scope();
@@ -15,17 +17,19 @@ angular.module('foundation.common.animations')
           var animationOut = scope.vars.animationOut || '';
 
           //reset possible failed animations and bugs
+          element.parent().addClass(parentStyle);
           element.removeClass(active + ' ' + animationIn + ' ' + animationOut);
 
           element.addClass(animationIn);
 
           setTimeout(function() {
             element.addClass(active);
-          }, 50);
+          }, 100);
 
           element.one(events.join(' '), function() {
             //cleanup
             element.removeClass(active + ' ' + animationIn + ' ' + animationOut);
+            element.parent().removeClass(parentStyle);
             done();
           });
         } else {
@@ -44,6 +48,7 @@ angular.module('foundation.common.animations')
           var animationOut = scope.vars.animationOut;
 
           //reset possible failed animations and bugs
+          element.parent().addClass(parentStyle);
           element.removeClass(active + ' ' + animationIn + ' ' + animationOut);
           element.addClass(animationOut);
 
@@ -53,7 +58,8 @@ angular.module('foundation.common.animations')
 
           element.one(events.join(' '), function(){
             //cleanup
-            element.removeClass(active + ' ' + animationIn + ' ' + animationOut);
+            element.removeClass(parentStyle + ' ' + active + ' ' + animationIn + ' ' + animationOut);
+            element.parent().removeClass(parentStyle);
             done();
           });
 
