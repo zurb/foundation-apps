@@ -1,6 +1,7 @@
 var app = angular.module('application', [
     'ui.router',
     'ngAnimate',
+    'markdown',
     'foundation.init',
     'foundation.common.services',
     'foundation.common.directives',
