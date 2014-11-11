@@ -52,9 +52,7 @@ angular.module('foundation.common.animations')
           element.removeClass(active + ' ' + animationIn + ' ' + animationOut);
           element.addClass(animationOut);
 
-          setTimeout(function() {
-            element.addClass(active);
-          }, 50);
+          element.addClass(active);
 
           element.one(events.join(' '), function(){
             //cleanup
@@ -63,7 +61,6 @@ angular.module('foundation.common.animations')
             done();
           });
 
-          element.addClass(active);
 
         } else {
           done();
