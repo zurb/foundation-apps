@@ -19,13 +19,14 @@ angular.module('foundation.common.animations')
 
           element.addClass(animationIn);
 
-          element.one(events.join(' '), function() {
+          setTimeout(function() {
             element.addClass(active);
-            element.one(events.join(' '), function(){
-              //cleanup
-              element.removeClass(active + ' ' + animationIn + ' ' + animationOut);
-              done();
-            });
+          }, 50);
+
+          element.one(events.join(' '), function() {
+            //cleanup
+            element.removeClass(active + ' ' + animationIn + ' ' + animationOut);
+            done();
           });
         } else {
           done();
@@ -44,15 +45,20 @@ angular.module('foundation.common.animations')
 
           //reset possible failed animations and bugs
           element.removeClass(active + ' ' + animationIn + ' ' + animationOut);
-
           element.addClass(animationOut);
-          element.addClass(active);
+
+          setTimeout(function() {
+            element.addClass(active);
+          }, 50);
 
           element.one(events.join(' '), function(){
             //cleanup
             element.removeClass(active + ' ' + animationIn + ' ' + animationOut);
             done();
           });
+
+          element.addClass(active);
+
         } else {
           done();
         }
