@@ -1,4 +1,4 @@
-angular.module('foundation.popup', []);
+angular.module('foundation.popup', ['foundation.common.services']);
 
 angular.module('foundation.popup')
   .directive('faPopup', ['FoundationApi', function(foundationApi) {

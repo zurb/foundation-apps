@@ -1,4 +1,4 @@
-angular.module('foundation.offcanvas', []);
+angular.module('foundation.offcanvas', ['foundation.common.services']);
 
 angular.module('foundation.offcanvas')
   .directive('faOffcanvas', ['FoundationApi', function(foundationApi) {

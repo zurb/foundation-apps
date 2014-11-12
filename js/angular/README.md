@@ -449,3 +449,11 @@ foundationApi.publish('my-modal', 'open');
 Make sure to include FoundationApi as a dependency in the controller or wherever else you want to use it. The best bet to hooking into various directives is to check the code and see what each directive subscribes to.
 
 In fact, the directives `fa-close`, `fa-open`, and `fa-toggle` are wrappers for FoundationApi events.
+
+###Building your own app
+
+Most of the modules are dependent on the `foundation.common.services` module but outside of that, they're portable. You're welcome to take them and use them as you need to; however, there are some things to know about:
+
+- any and all helpers such as `fa-open` and `fa-close` are packaged in the `foundation.common.directives` module so if there is a need for them, require the module.
+- the `app.js` file which bootstraps the application can be fully bypassed so you can build your own. Make sure to use proper dependency injection for the modules you DO want to use.
+- if you install the repo as part of bower, make sure to reference all the right files in your build process in your Gulpfile

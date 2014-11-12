@@ -1,4 +1,4 @@
-angular.module('foundation.actionsheet', []);
+angular.module('foundation.actionsheet', ['foundation.common.services']);
 
 angular.module('foundation.actionsheet')
   .controller('FaActionSheetController', ['$scope', 'FoundationApi', function($scope, foundationApi) {

@@ -1,4 +1,4 @@
-angular.module('foundation.modal', []);
+angular.module('foundation.modal', ['foundation.common.services']);
 
 angular.module('foundation.modal')
   .directive('faModal', ['FoundationApi', function(foundationApi) {

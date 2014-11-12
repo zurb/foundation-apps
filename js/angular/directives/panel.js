@@ -1,4 +1,4 @@
-angular.module('foundation.panel', []);
+angular.module('foundation.panel', ['foundation.common.services']);
 
 angular.module('foundation.panel')
   .directive('faPanel', ['FoundationApi', function(foundationApi) {
