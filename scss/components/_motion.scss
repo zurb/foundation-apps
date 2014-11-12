@@ -18,7 +18,7 @@
 // - - - - - - - - - - - - - - - - - - - - - - - - -
 
 $transition-normal-duration: 700ms !default;
-$motion-class: "ng-enter-active, .ng-leave-active" !default;
+$motion-class: "ng-enter-active,.ng-leave-active" !default;
 
 $motion-default-origin: left !default;
 $slide-default-dir: left !default;

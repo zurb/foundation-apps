@@ -6,6 +6,10 @@ angular.module('foundation.common.animations')
                   'webkitTransitionEnd', 'otransitionend', 'transitionend'];
     var active = 'is-active';
     var parentStyle = 'position-absolute';
+    var enter = 'ng-enter';
+    var enterActive = 'ng-enter-active';
+    var leave = 'ng-leave';
+    var leaveActive = 'ng-leave-active';
 
     return {
       enter: function(element, done) {
@@ -18,17 +22,18 @@ angular.module('foundation.common.animations')
 
           //reset possible failed animations and bugs
           element.parent().addClass(parentStyle);
-          element.removeClass(active + ' ' + animationIn + ' ' + animationOut);
+          element.removeClass(enter + ' ' + enterActive + ' ' + leave + ' ' + leaveActive + ' ' + animationIn + ' ' + animationOut);
 
           element.addClass(animationIn);
+          element.addClass(enter);
 
           setTimeout(function() {
-            element.addClass(active);
+            element.addClass(enterActive);
           }, 100);
 
           element.one(events.join(' '), function() {
             //cleanup
-            element.removeClass(active + ' ' + animationIn + ' ' + animationOut);
+            element.removeClass(enter + ' ' + enterActive + ' ' + leave + ' ' + leaveActive + ' ' + animationIn + ' ' + animationOut);
             element.parent().removeClass(parentStyle);
             done();
           });
@@ -49,14 +54,19 @@ angular.module('foundation.common.animations')
 
           //reset possible failed animations and bugs
           element.parent().addClass(parentStyle);
-          element.removeClass(active + ' ' + animationIn + ' ' + animationOut);
-          element.addClass(animationOut);
+          element.removeClass(enter + ' ' + enterActive + ' ' + leave + ' ' + leaveActive + ' ' + animationIn + ' ' + animationOut);
 
-          element.addClass(active);
+          element.addClass(animationOut);
+          element.addClass(leave);
+
+          setTimeout(function() {
+            element.addClass(leaveActive);
+          });
+
 
           element.one(events.join(' '), function(){
             //cleanup
-            element.removeClass(parentStyle + ' ' + active + ' ' + animationIn + ' ' + animationOut);
+            element.removeClass(enter + ' ' + enterActive + ' ' + leave + ' ' + leaveActive + ' ' + animationIn + ' ' + animationOut);
             element.parent().removeClass(parentStyle);
             done();
           });
