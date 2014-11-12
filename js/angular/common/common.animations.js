@@ -22,18 +22,17 @@ angular.module('foundation.common.animations')
 
           //reset possible failed animations and bugs
           element.parent().addClass(parentStyle);
-          element.removeClass(enter + ' ' + enterActive + ' ' + leave + ' ' + leaveActive + ' ' + animationIn + ' ' + animationOut);
+          element.removeClass(enter + ' ' + leave + ' ' + animationIn + ' ' + animationOut);
 
           element.addClass(animationIn);
-          element.addClass(enter);
 
           setTimeout(function() {
-            element.addClass(enterActive);
+            element.addClass(enter);
           }, 100);
 
           element.one(events.join(' '), function() {
             //cleanup
-            element.removeClass(enter + ' ' + enterActive + ' ' + leave + ' ' + leaveActive + ' ' + animationIn + ' ' + animationOut);
+            element.removeClass(enter + ' ' + leave + ' ' + animationIn + ' ' + animationOut);
             element.parent().removeClass(parentStyle);
             done();
           });
@@ -54,19 +53,18 @@ angular.module('foundation.common.animations')
 
           //reset possible failed animations and bugs
           element.parent().addClass(parentStyle);
-          element.removeClass(enter + ' ' + enterActive + ' ' + leave + ' ' + leaveActive + ' ' + animationIn + ' ' + animationOut);
+          element.removeClass(enter + ' ' + leave + ' ' + animationIn + ' ' + animationOut);
 
           element.addClass(animationOut);
-          element.addClass(leave);
 
           setTimeout(function() {
-            element.addClass(leaveActive);
+            element.addClass(leave);
           });
 
 
           element.one(events.join(' '), function(){
             //cleanup
-            element.removeClass(enter + ' ' + enterActive + ' ' + leave + ' ' + leaveActive + ' ' + animationIn + ' ' + animationOut);
+            element.removeClass(enter + ' ' + leave + ' ' + animationIn + ' ' + animationOut);
             element.parent().removeClass(parentStyle);
             done();
           });
