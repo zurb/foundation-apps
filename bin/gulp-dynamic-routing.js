@@ -7,6 +7,7 @@ var fs           = require('fs');
 
 module.exports = function(options) {
   var configs = [];
+  var directory = process.cwd();
 
   function bufferContents(file, enc, cb) {
     var config;
@@ -24,7 +25,7 @@ module.exports = function(options) {
       if(content.attributes.name) {
         file.contents = new Buffer(content.body);
         config = content.attributes;
-        var relativePath = path.relative(__dirname + path.sep + '..' + path.sep + options.root, file.path);
+        var relativePath = path.relative(directory + path.sep + options.root, file.path);
         config.path = '/' + relativePath.split(path.sep).join('/');
         configs.push(config);
       }
