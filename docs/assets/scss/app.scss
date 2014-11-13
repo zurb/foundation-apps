@@ -53,23 +53,3 @@ nav {
 .position-absolute .ui-animation {
   position: absolute;
 }
-
-.fadeIn {
-  opacity: 0;
-  transition-property: -webkit-transform, opacity;
-  transition-property: transform, opacity;
-  transition-duration: 700ms;
-  transition-timing-function: ease;
-  transition-delay: 0; }
-  .fadeIn.ng-enter{
-    opacity: 1; }
-
-.fadeOut {
-  opacity: 1;
-  transition-property: -webkit-transform, opacity;
-  transition-property: transform, opacity;
-  transition-duration: 700ms;
-  transition-timing-function: ease;
-  transition-delay: 0; }
-  .fadeOut.ng-leave{
-    opacity: 0; }

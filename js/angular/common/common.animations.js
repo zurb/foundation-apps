@@ -1,15 +1,11 @@
 angular.module('foundation.common.animations', ['ngAnimate']);
 
 angular.module('foundation.common.animations')
-  .animation('.ui-animation', ['$state', function($state) {
+  .animation('.ui-animation', ['$state', '$rootScope', function($state, $rootScope) {
     var events = ['webkitAnimationEnd', 'mozAnimationEnd', 'MSAnimationEnd', 'oanimationend', 'animationend',
                   'webkitTransitionEnd', 'otransitionend', 'transitionend'];
     var active = 'is-active';
     var parentStyle = 'position-absolute';
-    var enter = 'ng-enter';
-    var enterActive = 'ng-enter-active';
-    var leave = 'ng-leave';
-    var leaveActive = 'ng-leave-active';
 
     return {
       enter: function(element, done) {
@@ -22,17 +18,21 @@ angular.module('foundation.common.animations')
 
           //reset possible failed animations and bugs
           element.parent().addClass(parentStyle);
-          element.removeClass(enter + ' ' + leave + ' ' + animationIn + ' ' + animationOut);
+          element.removeClass(active + ' ' + animationIn + ' ' + animationOut);
+          element[0].style.transitionDuration = 0;
 
+          //start animation
+          console.log(element[0].style);
           element.addClass(animationIn);
 
-          setTimeout(function() {
-            element.addClass(enter);
-          }, 100);
+          $rootScope.$digest();
+
+          element[0].style.transitionDuration = '';
+          element.addClass(active);
 
           element.one(events.join(' '), function() {
             //cleanup
-            element.removeClass(enter + ' ' + leave + ' ' + animationIn + ' ' + animationOut);
+            element.removeClass(active + ' ' + animationIn + ' ' + animationOut);
             element.parent().removeClass(parentStyle);
             done();
           });
@@ -51,24 +51,24 @@ angular.module('foundation.common.animations')
           var animationIn = scope.vars.animationIn || '';
           var animationOut = scope.vars.animationOut;
 
-          //reset possible failed animations and bugs
-          element.parent().addClass(parentStyle);
-          element.removeClass(enter + ' ' + leave + ' ' + animationIn + ' ' + animationOut);
+          element.removeClass(active + ' ' + animationIn + ' ' + animationOut);
+          element[0].style.transitionDuration = 0;
 
+          //start animation
+          console.log(element[0].style);
           element.addClass(animationOut);
 
-          setTimeout(function() {
-            element.addClass(leave);
-          });
+          $rootScope.$digest();
 
+          element[0].style.transitionDuration = '';
+          element.addClass(active);
 
-          element.one(events.join(' '), function(){
+          element.one(events.join(' '), function() {
             //cleanup
-            element.removeClass(enter + ' ' + leave + ' ' + animationIn + ' ' + animationOut);
+            element.removeClass(active + ' ' + animationIn + ' ' + animationOut);
             element.parent().removeClass(parentStyle);
             done();
           });
-
 
         } else {
           done();
