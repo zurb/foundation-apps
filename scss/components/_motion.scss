@@ -18,7 +18,7 @@
 // - - - - - - - - - - - - - - - - - - - - - - - - -
 
 $transition-normal-duration: 700ms !default;
-$motion-class: "ng-enter-active,.ng-leave-active" !default;
+$motion-class: "is-active" !default;
 
 $motion-default-origin: left !default;
 $slide-default-dir: left !default;
@@ -367,8 +367,8 @@ $motion-timings: (
   .slideFromLeft   { @include slide($from:left); }
 
   // Fade
-  .fadeIn.ng-enter  { @include fade(0, 1); }
-  .fadeOut.ng-leave { @include fade(1, 0); }
+  .fadeIn  { @include fade(0, 1); }
+  .fadeOut { @include fade(1, 0); }
 
   // Hinge
   .hingeFromTop     { @include hinge($from:top); }
