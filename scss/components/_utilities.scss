@@ -106,12 +106,5 @@
     .float-#{$float} {
       float: #{$float};
     }
-    @each $size in $breakpoint-classes {
-      @include breakpoint($size) {
-        .#{$size}-float-#{$float} {
-          float: #{$float};
-        }
-      }
-    }
   }
 }

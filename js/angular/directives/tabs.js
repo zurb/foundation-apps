@@ -1,4 +1,4 @@
-angular.module('foundation.tabs', []);
+angular.module('foundation.tabs', ['foundation.common.services']);
 
 angular.module('foundation.tabs')
   .controller('FaTabsController', ['$scope', 'FoundationApi', function FaTabsController($scope, foundationApi) {

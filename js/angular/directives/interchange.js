@@ -1,4 +1,4 @@
-angular.module('foundation.interchange', []);
+angular.module('foundation.interchange', ['foundation.common.services']);
 
 angular.module('foundation.interchange')
   .directive('faInterchange', ['FoundationApi', '$compile', '$http', '$templateCache', '$animate',  function(foundationApi, $compile, $http, $templateCache) {
