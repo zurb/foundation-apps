@@ -14,8 +14,10 @@
 $menubar-fontsize: 1rem !default;
 $menubar-background: #fff !default;
 $menubar-background-hover: smartscale($menubar-background, 7%) !default;
+$menubar-background-active: $menubar-background-hover;
 $menubar-color: isitlight($menubar-background) !default;
-$menubar-color-hover: isitlight($menubar-background) !default;
+$menubar-color-hover: $menubar-color !default;
+$menubar-color-active: $menubar-color-hover;
 
 $menubar-item-padding: $global-padding !default;
 $menubar-icon-size: 25px !default;
@@ -80,26 +82,37 @@ $menubar-icon-spacing: $menubar-item-padding !default;
 @mixin menu-bar-style(
   $background: $menubar-background,
   $background-hover: $menubar-background-hover,
+  $background-active: $menubar-background-active,
   $color: $menubar-color,
-  $color-hover: $menubar-color-hover
+  $color-hover: $menubar-color-hover,
+  $color-active: $menubar-color-active,
+  $autocolor: false
 ) {
+  // Autocoloring
+  @if ($autocolor) {
+    $background-hover: smartscale($background, 7%);
+    $background-active: $background-hover;
+
+    $color: isitlight($background);
+    $color-hover: $color;
+    $color-active: $color;
+  }
+
   // Container
   background: $background;
-  color: $color;
 
   // Items
   a {
-    @if $color == auto {
-      color: isitlight($background, $primary-color, #fff);
-    }
-    @else {
-      color: $color;
-    }
+    color: $color;
 
     &:hover {
       background: $background-hover;
       color: $color-hover;
     }
+  }
+  .is-active > a {
+    background: $background-active;
+    color: $color-active
   }
 }
 
@@ -243,19 +256,9 @@ $menubar-icon-spacing: $menubar-item-padding !default;
 
   // Coloring
   &.primary {
-    @include menu-bar-style(
-      $primary-color,
-      smartscale($primary-color, 10%),
-      isitlight($primary-color),
-      isitlight($primary-color)
-    );
+    @include menu-bar-style($primary-color, $autocolor: true);
   }
   &.dark {
-    @include menu-bar-style(
-      $dark-color,
-      $primary-color,
-      #fff,
-      #fff
-    );
+    @include menu-bar-style($dark-color, $autocolor: true);
   }
 }
