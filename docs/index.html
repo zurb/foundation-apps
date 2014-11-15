@@ -8,9 +8,44 @@
     <script src="/assets/js/app.js"></script>
     <script src="/assets/js/routes.js"></script>
     <script src="/assets/js/angular-app.js"></script>
+
+    <style>
+      #header {
+        background: #454d8d;
+        flex-basis: 50px;
+      }
+    </style>
   </head>
   <body>
-    <div class="vertical stretch frame">
+
+    <div class="vertical grid-frame">
+      <div class="shrink grid-content" id="header">
+        
+      </div>
+      <div class="grid-block">
+        <div fa-panel position="left" id="testPanel" class="vertical medium-grid-block medium-4">
+          <a href="#" fa-close class="close-button">&times;</a>
+          <div class="title-bar">
+            <span class="left title">Title!</span>
+          </div>
+          <div class="grid-block" style="background: #eee">
+            
+          </div>
+        </div>
+        <div class="grid-content">
+          <div class="grid-container contain-left">
+            <h1>Do a Thing</h1>
+            <p><a href="#" fa-toggle="testPanel">Lorem ipsum</a> dolor sit amet, consectetur adipisicing elit. Rem blanditiis, non adipisci molestias ducimus, quod, at inventore incidunt nam velit eius quo! Omnis placeat provident rem adipisci, repellendus optio eos?</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus ullam amet veniam consequatur, eveniet laudantium eum aliquam, expedita suscipit, officiis ratione inventore omnis tempora voluptatem corrupti? Esse fuga, fugiat aliquid.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. In eaque ab optio quidem iusto perspiciatis rerum, necessitatibus itaque molestias tenetur enim quasi voluptates, possimus non. Harum consequuntur maxime, laboriosam dolorem.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae, unde placeat nobis similique alias ipsam voluptatibus cupiditate dicta, sit nesciunt culpa est praesentium! Laborum inventore voluptatum nulla ducimus totam officia.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- <div class="vertical stretch frame">
       <div class="shrink block">
         <div class="content block" style="background: #002b36 !important; color: white;">
           <span fa-toggle="offCanvas" style="color:#fff;">Foundation for Apps - {{$state.current.data.vars.title}}</span>
@@ -88,6 +123,6 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </body>
 </html>

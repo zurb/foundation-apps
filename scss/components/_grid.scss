@@ -15,7 +15,7 @@
    - Offsets
 */
 
-$container-width: rem-calc(1000) !default;
+$container-width: rem-calc(900) !default;
 $block-padding: $global-padding !default;
 $total-columns: 12 !default;
 $block-grid-max-size: 6;
@@ -71,8 +71,15 @@ $block-grid-max-size: 6;
 
   @output Sets align-items to "stretch" if $stretch is true, or "flex-start" (the default value) if false.
 */
-@mixin grid-stretch($stretch: true) {
-	align-items: if($stretch, stretch, flex-start);
+@mixin grid-wrap($wrap: true) {
+  @if $wrap {
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+  @else {
+    flex-wrap: nowrap;
+    align-items: stretch;
+  }
 }
 /*
   Set the alignment of blocks within a grid.
@@ -140,11 +147,14 @@ $block-grid-max-size: 6;
 
   @output A maximum width and the good old margin: 0 auto for center alignment.
 */
-@mixin grid-container($container: true) {
-	@if ($container) {
-		max-width: 1200px;
-		margin: 0 auto;
-	}
+@mixin grid-container($width: $container-width, $align: center) {
+  $margins: (
+    left:  0 auto 0 0,
+    right: 0 0 0 auto,
+    center: 0 auto,
+  );
+	max-width: $width;
+	margin: map-get($margins, $align);
 }
 /*
   Add negative margins to a block, equal to the padding of a content block. This aligns the edges of a block nested inside a content block.
@@ -194,12 +204,13 @@ $block-grid-max-size: 6;
   right: auto;
   bottom: auto;
   left: auto;
+  padding: 0;
 }
 
 /*
 	Frames are containers that stretch to the full dimmensions of the browser window.
 */
-@mixin grid-frame($size: expand, $vertical: false, $stretch: false, $align: left, $order: 0) {
+@mixin grid-frame($size: expand, $vertical: false, $wrap: false, $align: left, $order: 0) {
 	display: flex;
 	height: 100vh;
 	position: relative;
@@ -207,7 +218,7 @@ $block-grid-max-size: 6;
 
 	@include grid-size($size);
 	@include grid-orient($vertical);
-	@include grid-stretch($stretch);
+	@include grid-wrap($wrap);
 	@include grid-align($align);
 	@include grid-order($order);
 }
@@ -215,8 +226,8 @@ $block-grid-max-size: 6;
 /*
 	Groups are collections of content items. They're the "rows" of Foundation for Apps.
 */
-@mixin grid-block($size: expand, $vertical: false, $stretch: false, $align: left, $order: 0) {
-	@include grid-frame($size, $vertical, $stretch, $align, $order);
+@mixin grid-block($size: expand, $vertical: false, $wrap: false, $align: left, $order: 0) {
+	@include grid-frame($size, $vertical, $wrap, $align, $order);
 
 	// Reset the height used by frames
 	height: auto;
@@ -228,6 +239,8 @@ $block-grid-max-size: 6;
 	@else {
 		overflow-y: auto;
 	}
+
+  // Add scrolling with inertia
 	-webkit-overflow-scrolling: touch;
 	-ms-overflow-style: -ms-autohiding-scrollbar;
 }
@@ -235,16 +248,19 @@ $block-grid-max-size: 6;
 /*
 	Blocks are containers for actual content. They're the "columns" of Foundation for Apps.
 */
-@mixin grid-content($incl-block: false, $size: expand, $vertical: false, $stretch: false, $align: left, $order: 0, $collapse: false) {
-	// Don't include the base block code by default
-	@if ($incl-block) {
-		@include grid-block($size, $vertical, $stretch, $align, $order);
-		@include grid-collapse($collapse);
-	}
-
+@mixin grid-content($size: expand, $offset: null, $order: null) {
 	// Content blocks are not flex items and have padding
 	display: block;
 	padding: 1rem;
+
+  // Add scrolling with inertia
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+
+  @include grid-size($size);
+  @if $offset != null { @include grid-offset($offset); }
+  @if $order != null  { @include grid-order($order); }
 }
 
 /*
@@ -252,11 +268,11 @@ $block-grid-max-size: 6;
 */
 
 /*
-  Shared styles for frames and blocks
+  Shared styles for frames and blocks (parent elements)
 */
 %block-core {
   // Prevent flicker when grid items shift around
-  transition: all 300ms ease;
+  // transition: all 300ms ease;
   backface-visibility: hidden;
 
   // Orientation classes
@@ -273,45 +289,69 @@ $block-grid-max-size: 6;
   &.align-spaced  { @include grid-align(spaced); }
 
   // Stretch children along cross-axis
-  &.stretch { @include grid-stretch(true); }
+  &.wrap { @include grid-wrap(true); }
 }
 
-.frame {
+/*
+  Shared styles for blocks and content blocks (child elements)
+*/
+%child-core {
+  // Shrink a flex item so it only takes up the space it needs
+  &.shrink { @include grid-size(shrink); }
+}
+
+/*
+  The core grid elements:
+   - Frame
+   - Block
+   - Content block
+   - Container
+*/
+.grid-frame {
   @extend %block-core;
 	@include grid-frame;
 }
-.block {
+.grid-block {
   @extend %block-core;
+  @extend %child-core;
 	@include grid-block;
 
-  // Content blocks are for content and not layout
-  &.content { @include grid-content; }
-
-  // Containers imitate the sizing of old Foundation rows
-  &.container { @include grid-container(true); }
-
-  // Collapse margins when a group is not the direct child of a block
   &.nested { @include grid-nest(true); }
+}
+.grid-content {
+  @extend %child-core;
+  @include grid-content;
+}
+.grid-container {
+  @include grid-container;
 
-  // Collapsed blocks strip padding from their children
-  &.collapse, &.collapse-children > & { @include grid-collapse; }
-
-  // Shrink a flex item so it only takes up the space it needs
-  &.shrink { @include grid-size(shrink); }
-
-  // Override panel styles
-  &.panel { @include grid-panel-reset; }
+  &.contain-left  { @include grid-container($align: left); }
+  &.contain-right { @include grid-container($align: right); }
 }
 
 /*
   Breakpoint classes for blocks
 */
 @each $size in $breakpoint-classes {
-  .#{$size}-block {
-    @extend .block;
+  .#{$size}-grid-block {
+    @extend %block-core;
+    @extend %child-core;
 
     @include breakpoint($size) {
       @include grid-block;
+
+      // Override panel styles
+      &.panel { @include grid-panel-reset; }
+    }
+  }
+  .#{$size}-grid-content {
+    @extend %child-core;
+
+    @include breakpoint($size) {
+      @include grid-content;
+
+      // Override panel styles
+      &.panel { @include grid-panel-reset; }
     }
   }
 }

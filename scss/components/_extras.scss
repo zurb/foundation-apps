@@ -20,7 +20,7 @@ $thumbnail-shadow: 0 3px 15px rgba(black, 0.25) !default;
   color: $closebutton-color;
   #{$x}: $global-padding;
   #{$y}: $global-padding;
-  font-size: $closebutton-color;
+  font-size: $closebutton-size;
   line-height: $closebutton-lineheight;
 
   &:hover {
