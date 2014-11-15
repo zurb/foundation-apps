@@ -8,19 +8,89 @@
     <script src="/assets/js/app.js"></script>
     <script src="/assets/js/routes.js"></script>
     <script src="/assets/js/angular-app.js"></script>
+
+    <style>
+      #header {
+        background: #454d8d;
+        flex-basis: 50px;
+      }
+      .thumbnail {
+        width: 100%;
+      }
+    </style>
   </head>
   <body>
-    <div class="vertical stretch frame">
-      <div class="shrink block">
-        <div class="content block" style="background: #002b36 !important; color: white;">
-          <span fa-toggle="offCanvas" style="color:#fff;">Foundation for Apps - {{$state.current.data.vars.title}}</span>
+
+    <!-- <div class="vertical grid-frame">
+      <div class="shrink grid-content" id="header">
+        
+      </div>
+      <div class="grid-block">
+        <div fa-panel position="left" id="testPanel" class="vertical medium-grid-block medium-4">
+          <a href="#" fa-close class="close-button">&times;</a>
+          <div class="title-bar">
+            <span class="left title">Title!</span>
+          </div>
+          <div class="grid-block" style="background: #eee">
+            
+          </div>
+        </div>
+        <div class="grid-content">
+          <div class="grid-container contain-left">
+            <h1>Do a Thing</h1>
+            <p><a href="#" fa-toggle="testPanel">Lorem ipsum</a> dolor sit amet, consectetur adipisicing elit. Rem blanditiis, non adipisci molestias ducimus, quod, at inventore incidunt nam velit eius quo! Omnis placeat provident rem adipisci, repellendus optio eos?</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus ullam amet veniam consequatur, eveniet laudantium eum aliquam, expedita suscipit, officiis ratione inventore omnis tempora voluptatem corrupti? Esse fuga, fugiat aliquid.</p>
+
+            <div class="grid-block">
+              <div class="small-6 grid-content">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus fuga id ea culpa velit cum, reprehenderit, officiis. Iste, consequuntur? Nulla minus a odit eum neque facere in nostrum, molestiae architecto.</p>
+
+                <div class="grid-block align-spaced">
+                  <div class="small-3 grid-content" style="background: #ccc">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus fuga id ea culpa velit cum, reprehenderit, officiis. Iste, consequuntur? Nulla minus a odit eum neque facere in nostrum, molestiae architecto.</p>
+                  </div>
+                  <div class="small-3 grid-content" style="background: #ccc">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus fuga id ea culpa velit cum, reprehenderit, officiis. Iste, consequuntur? Nulla minus a odit eum neque facere in nostrum, molestiae architecto.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="small-6 grid-content">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus fuga id ea culpa velit cum, reprehenderit, officiis. Iste, consequuntur? Nulla minus a odit eum neque facere in nostrum, molestiae architecto.</p>
+              </div>
+            </div>
+
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. In eaque ab optio quidem iusto perspiciatis rerum, necessitatibus itaque molestias tenetur enim quasi voluptates, possimus non. Harum consequuntur maxime, laboriosam dolorem.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae, unde placeat nobis similique alias ipsam voluptatibus cupiditate dicta, sit nesciunt culpa est praesentium! Laborum inventore voluptatum nulla ducimus totam officia.</p>
+
+            <div class="small-up-3 grid-block">
+              <div class="grid-content"><img class="thumbnail" src="http://placehold.it/100x100" alt=""></div>
+              <div class="grid-content"><img class="thumbnail" src="http://placehold.it/100x100" alt=""></div>
+              <div class="grid-content"><img class="thumbnail" src="http://placehold.it/100x100" alt=""></div>
+              <div class="grid-content"><img class="thumbnail" src="http://placehold.it/100x100" alt=""></div>
+              <div class="grid-content"><img class="thumbnail" src="http://placehold.it/100x100" alt=""></div>
+              <div class="grid-content"><img class="thumbnail" src="http://placehold.it/100x100" alt=""></div>
+              <div class="grid-content"><img class="thumbnail" src="http://placehold.it/100x100" alt=""></div>
+              <div class="grid-content"><img class="thumbnail" src="http://placehold.it/100x100" alt=""></div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="stretch block">
-        <div id="menu" class="panel panel-left medium-3 large-2 content medium-block" style="border-right: 1px solid #e2e6e6;">
-          <section class="block-list">
+    </div> -->
+
+
+    <!-- App frame -->
+    <div class="vertical grid-frame">
+      <!-- Title bar -->
+      <div class="shrink grid-content" style="background: #454d8d">
+        <span fa-toggle="offCanvas" style="color: #fff;">Foundation for Apps</span>
+      </div>
+      <!-- /Title bar -->
+      <div class="grid-block">
+        <!-- Sidebar nav -->
+        <div fa-panel position="left" class="medium-3 large-2 medium-grid-content" style="border-right: 1px solid #e2e6e6; padding: 0;">
+          <section>
             <header>Setup</header>
-            <ul>
+            <ul class="dark menu-bar vertical">
               <li><a ui-sref="install-update">Install &amp; Update</a></li>
               <li><a ui-sref="sass">Sass</a></li>
               <li><a ui-sref="motion-ui">Motion UI</a></li>
@@ -29,39 +99,39 @@
               <li><a ui-sref="changelog">Changelog</a></li>
             </ul>
           </section>
-          <section class="block-list">
+          <section>
             <header>Layout</header>
-            <ul>
+            <ul class="dark menu-bar vertical">
               <li><a ui-sref="grid">Grid</a></li>
               <li><a ui-sref="panel">Panel</a></li>
             </ul>
           </section>
-          <section class="block-list">
+          <section>
             <header>Navigation</header>
-            <ul>
+            <ul class="dark menu-bar vertical">
               <li><a ui-sref="action-sheet">Action Sheet</a></li>
               <li><a ui-sref="menu-bar">Menu Bar</a></li>
               <li><a ui-sref="off-canvas">Off-canvas Menu</a></li>
               <li><a ui-sref="title-bar">Title Bar</a></li>
             </ul>
           </section>
-          <section class="block-list">
+          <section>
             <header>Callouts</header>
-            <ul>
+            <ul class="dark menu-bar vertical">
               <li><a ui-sref="modal">Modal</a></li>
               <li><a ui-sref="notification">Notification</a></li>
             </ul>
           </section>
-          <section class="block-list">
+          <section>
             <header>Controls</header>
-            <ul>
+            <ul class="dark menu-bar vertical">
               <li><a ui-sref="button">Button</a></li>
               <li><a ui-sref="forms">Forms</a></li>
             </ul>
           </section>
-          <section class="block-list">
+          <section>
             <header>Content</header>
-            <ul>
+            <ul class="dark menu-bar vertical">
               <li><a ui-sref="accordion">Accordion</a></li>
               <li><a ui-sref="block-list">Block List</a></li>
               <li><a ui-sref="card">Card</a></li>
@@ -73,21 +143,25 @@
               <li><a ui-sref="typography">Typography</a></li>
             </ul>
           </section>
-          <section class="block-list">
+          <section>
             <header>Helpers</header>
-            <ul>
+            <ul class="dark menu-bar vertical">
               <li><a ui-sref="functions-mixins">Functions and Mixins</a></li>
               <li><a ui-sref="utilities">Utilities</a></li>
             </ul>
           </section>
         </div>
+        <!-- /Sidebar nav -->
 
-        <div class="medium-9 large-10 block content horizontal container">
-          <div ng-controller="MainController">
+        <!-- Main content -->
+        <div class="medium-9 large-10 grid-content">
+          <div class="grid-container contain-left">
             <div ng-class="[currentSlug, 'ui-animation']" ui-view></div>
           </div>
         </div>
+        <!-- /Main content -->
       </div>
     </div>
+    <!-- /App frame -->
   </body>
 </html>
