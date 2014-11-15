@@ -161,6 +161,10 @@ $acronym-underline: 1px dotted #ddd !default;
     text-decoration: $anchor-text-decoration;
     line-height: inherit;
 
+    &[ui-sref] {
+      cursor: pointer;
+    }
+
     &:hover,
     &:focus {
       color: $anchor-font-color-hover;

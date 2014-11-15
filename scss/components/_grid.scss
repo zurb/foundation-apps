@@ -195,6 +195,7 @@ $block-grid-max-size: 6;
 */
 @mixin grid-panel-reset() {
   transform: none;
+  position: relative;
   width: auto;
   height: auto;
   z-index: auto;
@@ -263,6 +264,17 @@ $block-grid-max-size: 6;
   @if $order != null  { @include grid-order($order); }
 }
 
+@mixin grid-layout($up) {
+  flex-flow: row wrap;
+  overflow: visible;
+  list-style-type: none;
+
+  > li, > div, > section {
+    padding: 0 1rem 1rem;
+    flex: 0 0 percentage(1 / $up);
+  }
+}
+
 /*
 	CSS Output
 */
@@ -316,7 +328,10 @@ $block-grid-max-size: 6;
   @extend %child-core;
 	@include grid-block;
 
-  &.nested { @include grid-nest(true); }
+  .grid-content & {
+    margin-left: -($block-padding);
+    margin-right: -($block-padding);
+  }
 }
 .grid-content {
   @extend %child-core;
@@ -382,18 +397,7 @@ $block-grid-max-size: 6;
 			// Parent sizing (block grids)
 			// TODO: Make mixin
 			.#{$size}-up-#{$i} {
-				display: flex;
-				overflow: visible;
-				margin: {
-					left:  -0.5rem;
-					right: -0.5rem;
-				}
-				list-style-type: none;
-
-			  > li, > div, > section {
-			  	padding: 0 0.5rem 1rem;
-			    flex: 0 0 percentage(1 / $i);
-			  }
+        @include grid-layout($i);
 			}
 		}
 	}
