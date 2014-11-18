@@ -16,9 +16,14 @@ $notification-color: white !default;
 $notification-padding: $global-padding !default;
 $notification-radius: 4px !default;
 
+$notification-icon-size: 60px !default;
+$notification-icon-margin: $global-padding !default;
+$notification-icon-align: top !default;
+
 %notification {
   position: fixed;
   z-index: 1000;
+  display: flex;
 
   h1 {
     font-size: 1.25em;
@@ -113,6 +118,26 @@ $notification-radius: 4px !default;
   @include notification-style($background, $color, $padding, $radius);
 }
 
+@mixin notification-icon(
+  $size: $notification-icon-size,
+  $margin: $notification-icon-margin,
+  $align: $notification-icon-align
+) {
+  $alignments: (
+    top: flex-start,
+    middle: middle,
+    bottom: flex-end,
+  );
+  flex: 0 0 $size;
+  margin-right: $global-padding;
+  align-self: map-get($alignments, $align);
+
+  img {
+    width: 100%;
+    height: auto;
+  }
+}
+
 /*
   CSS Output
 */
@@ -121,12 +146,12 @@ $notification-radius: 4px !default;
   .notification {
     @include notification;
 
-    &.top-right { @include notification-layout(right, top); }
-    &.top-left { @include notification-layout(left, top); }
-    &.top-middle { @include notification-layout(middle, top); }
+    &.top-right     { @include notification-layout(right, top); }
+    &.top-left      { @include notification-layout(left, top); }
+    &.top-middle    { @include notification-layout(middle, top); }
 
-    &.bottom-right { @include notification-layout(right, bottom); }
-    &.bottom-left { @include notification-layout(left, bottom); }
+    &.bottom-right  { @include notification-layout(right, bottom); }
+    &.bottom-left   { @include notification-layout(left, bottom); }
     &.bottom-middle { @include notification-layout(middle, bottom); }
 
     &.success   { @include notification-style($success-color) }
@@ -134,4 +159,8 @@ $notification-radius: 4px !default;
     &.alert     { @include notification-style($alert-color) }
     &.dark      { @include notification-style($dark-color, #fff) }
   }
+}
+
+.notification-icon {
+  @include notification-icon;
 }

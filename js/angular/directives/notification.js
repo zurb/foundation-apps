@@ -66,6 +66,7 @@ angular.module('foundation.notification')
     },
     link: function(scope, element, attrs, controller) {
       scope.active = false;
+      scope.position = scope.position ? scope.position.split(' ').join('-') : '';
 
       //allow DOM to change before activating
       setTimeout(function() {
@@ -143,12 +144,13 @@ angular.module('foundation.notification')
       title: '@?',
       content: '@?',
       position: '@?',
-      color: '@?'
+      color: '@?',
+      image: '@?'
     },
     link: function(scope, element, attrs, controller) {
       element.on('click', function(e) {
-        foundationApi.publish(attrs.faNotify, { title: scope.title, content: scope.content, position: scope.position, color: scope.color });
         e.preventDefault();
+        foundationApi.publish(attrs.faNotify, { title: scope.title, content: scope.content, position: scope.position, color: scope.color });
       });
     },
   };
