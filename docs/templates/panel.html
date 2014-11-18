@@ -2,10 +2,10 @@
 name: panel
 url: /panel
 ---
-<h2>Panels</h2>
+## Panels
 <h3 class="subheader">Panels are frames that slide in from the top, left, bottom, or right of the screen and appear over the interface. Grid blocks can also transform into panels, allowing you to hide content off-canvas on smaller screens.</h3>
 
-<hr>
+***
 
 <div class="docs-example-panels block" style="overflow: hidden;">
   <div class="panel panel-left" id="docs-panel-left" data-panel>Left panel</div>
@@ -20,53 +20,187 @@ url: /panel
   </div>
 </div>
 
-<hr>
+***
 
-<h3>Basic HTML</h3>
-<p>You can create Panels with this basic HTML</p>
+### Basic HTML
+
+You can create Panels with this basic HTML
 <ul class="segmented button-group small">
   <li class="is-active"><a href="#">CSS Classes</a></li>
   <li><a href="#">Sass Mixins</a></li>
 </ul>
 <div class="block">
   <div class="medium-6 block content">
-    <pre>
-      <code class="language-html">
-        <div class="panel panel-left" id="my-panel" data-panel>
-          This is example panel text, totes neat man.
-        </div>
-        <a href="#" class="button" data-panel-toggle="my-panel">Left panel</a>
-      </code>
-    </pre>
+
+```html
+<div class="block">
+  <div class="panel panel-left" id="panel-left" data-panel>Left panel content goes here</div>
+  <div class="panel panel-right" id="panel-right" data-panel>Right panel content goes here</div>
+  <div class="panel panel-top" id="panel-top" data-panel>Top panel content goes here</div>
+  <div class="panel panel-bottom" id="panel-bottom" data-panel>Bottom panel content goes here</div>
+  <div class="content block">
+    <a href="#" class="button" data-panel-toggle="panel-left">Left panel</a>
+    <a href="#" class="button" data-panel-toggle="panel-right">Right panel</a>
+    <a href="#" class="button" data-panel-toggle="panel-bottom">Bottom panel</a>
+    <a href="#" class="button" data-panel-toggle="panel-top">Top panel</a>
   </div>
+</div>
+```
+  </div>
+
   <div class="medium-6 block content">
-    [Demo of item]
+    <div class="block">
+      <div class="panel panel-left" id="panel-left" data-panel>Left panel</div>
+      <div class="panel panel-right" id="panel-right" data-panel>Right panel</div>
+      <div class="panel panel-top" id="panel-top" data-panel>Top panel</div>
+      <div class="panel panel-bottom" id="panel-bottom" data-panel>Bottom panel</div>
+      <div class="content block">
+        <a href="#" class="button" data-panel-toggle="panel-left">Left panel</a>
+        <a href="#" class="button" data-panel-toggle="panel-right">Right panel</a>
+        <a href="#" class="button" data-panel-toggle="panel-bottom">Bottom panel</a>
+        <a href="#" class="button" data-panel-toggle="panel-top">Top panel</a>
+      </div>
+    </div>
   </div>
 </div>
 
-<h3>Advanced HTML</h3>
-<p>You can create advanced versions of [Item] with this HTML</p>
+***
+
+### Alternate HTML Configuration
+
+You can create a fixed position panel with this HTML
+
 <ul class="segmented button-group">
   <li class="is-active"><a href="#">CSS Classes</a></li>
   <li><a href="#">Sass Mixins</a></li>
 </ul>
 <div class="block">
   <div class="medium-6 block content">
-    <pre>
-      <code class="language-html">
-        [html]
-      </code>
-    </pre>
+
+```html
+<div class="block">
+  <div class="panel panel-fixed" id="panel-fixed" data-panel>Fixed panel content goes here</div>
+  <div class="content block">
+    <a href="#" class="button" data-panel-toggle="panel-fixed">Left panel</a>
   </div>
+</div>
+```
+  </div>
+
   <div class="medium-6 block content">
-    [Demo of item]
+    <div class="block">
+      <div class="panel panel-fixed" id="panel-fixed" data-panel>Fixed panel content goes here</div>
+      <div class="content block">
+        <a href="#" class="button" data-panel-toggle="panel-fixed">Fixed panel</a>
+      </div>
+    </div>
   </div>
 </div>
 
-<h3>Sass Variables</h3>
-<p>You can customize with...</p>
-<pre>
-  <code class="language-html">
-    [Sass]
-  </code>
-</pre>
+***
+
+### Advanced HTML
+
+You can create transform a panel into a grid block with this HTML
+
+<ul class="segmented button-group">
+  <li class="is-active"><a href="#">CSS Classes</a></li>
+  <li><a href="#">Sass Mixins</a></li>
+</ul>
+<div class="block">
+  <div class="medium-6 block content">
+
+```html
+<div class="block">
+  <div class="panel panel-block" id="panel-block" data-panel>Block panel content goes here</div>
+  <div class="content block">
+    <a href="#" class="button" data-panel-toggle="panel-block">Left Block Panel</a>
+  </div>
+</div>
+```
+  </div>
+
+  <div class="medium-6 block content">
+    <div class="block">
+      <div class="panel panel-block" id="panel-block" data-panel>Block panel content goes here</div>
+      <div class="content block">
+        <a href="#" class="button" data-panel-toggle="panel-block">Left Block Panel</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+You can anchor a panel to a grid block or window with this HTML:
+
+<ul class="segmented button-group">
+  <li class="is-active"><a href="#">CSS Classes</a></li>
+  <li><a href="#">Sass Mixins</a></li>
+</ul>
+<div class="block">
+  <div class="medium-6 block content">
+
+```html
+<div class="block">
+  <div class="panel panel-left-window" id="panel-left-window" data-panel>Left window panel content goes here</div>
+  <div class="content block">
+    <a href="#" class="button" data-panel-toggle="panel-left-window">Left window panel</a>
+  </div>
+</div>
+```
+  </div>
+
+  <div class="medium-6 block content">
+    <div class="block">
+      <div class="panel panel-left-window" id="panel-left-window" data-panel>left window panel content goes here</div>
+      <div class="content block">
+        <a href="#" class="button" data-panel-toggle="panel-left-window">left window panel</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+You can Define max width or height with this HTML:
+
+<ul class="segmented button-group">
+  <li class="is-active"><a href="#">CSS Classes</a></li>
+  <li><a href="#">Sass Mixins</a></li>
+</ul>
+<div class="block">
+  <div class="medium-6 block content">
+
+```html
+<div class="block">
+  <div class="panel panel-left" id="panel-left" data-panel>Panel content goes here</div>
+  <div class="content block">
+    <a href="#" class="button" data-panel-toggle="panel-left">Panel</a>
+  </div>
+</div>
+```
+  </div>
+
+  <div class="medium-6 block content">
+    <div class="block">
+      <div class="panel panel-left" id="panel-left" data-panel>Panel content goes here</div>
+      <div class="content block">
+        <a href="#" class="button" data-panel-toggle="panel-left">Panel</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+***
+
+### Sass Variables
+
+You can customize panels with these variables in the `_settings.scss` file:
+
+```html
+$panel-size-horizontal: 300px;
+$panel-size-vertical: 300px;
+$panel-padding: $global-padding;
+
+$panel-background: #fff;
+$panel-shadow: 3px 0 10px rgba(black, 0.25);
+$panel-animation-speed: 0.25s;
+```
+

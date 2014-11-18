@@ -3,7 +3,118 @@ name: tabs
 url: /tabs
 ---
 
-<h2>Tabs</h2>
+## Tabs
 <h3 class="subheader">Tabs are elements that help you organize and navigate multiple documents in a single container. They can be used for switching between items in the container.</h3>
 
-<hr>
+***
+
+### Basic HTML
+
+You can create Tabs with this basic HTML:
+<ul class="segmented button-group small">
+  <li class="is-active"><a href="#">CSS Classes</a></li>
+  <li><a href="#">Sass Mixins</a></li>
+</ul>
+<div class="block">
+  <div class="medium-6 block content">
+
+Automatic Tabs
+```html
+<div fa-tabs>
+  <div fa-tab title="Tab 1">
+    Tab 1
+  </div>
+  <div fa-tab title="Tab 2">
+    Tab 2
+  </div>
+  <div fa-tab title="Tab 3">
+    Tab 3
+  </div>
+</div>   
+```
+  </div>
+
+  <div class="medium-6 block content">
+    <div class="block">
+      <div fa-tabs>
+			  <div fa-tab title="Tab 1">
+			    Tab 1
+			  </div>
+			  <div fa-tab title="Tab 2">
+			    Tab 2
+			  </div>
+			  <div fa-tab title="Tab 3">
+			    Tab 3
+			  </div>
+			</div>   
+  	</div>
+	</div>
+</div>
+
+***
+
+<ul class="segmented button-group small">
+  <li class="is-active"><a href="#">CSS Classes</a></li>
+  <li><a href="#">Sass Mixins</a></li>
+</ul>
+<div class="block">
+  <div class="medium-6 block content">
+
+Automatic Tabs with displaced tab content
+```html
+<div fa-tabs id="displaced-tabs" displaced="true">
+  <div fa-tab title="Tab 1">
+    Tab 1
+  </div>
+  <div fa-tab title="Tab 2">
+    Tab 2
+  </div>
+  <div fa-tab title="Tab 3">
+    Tab 3
+  </div>
+</div> 
+<!-- Displaced content -->
+<div fa-tab-content target="displaced-tabs">
+</div>
+```
+  </div>
+
+  <div class="medium-6 block content">
+    <div class="block">
+      <div fa-tabs id="displaced-tabs" displaced="true">
+			  <div fa-tab title="Tab 1">
+			    Tab 1
+			  </div>
+			  <div fa-tab title="Tab 2">
+			    Tab 2
+			  </div>
+			  <div fa-tab title="Tab 3">
+			    Tab 3
+			  </div>
+			</div>
+			<div fa-tab-content target="displaced-tabs">
+			</div>
+		</div>
+	</div>
+</div>
+
+***
+
+### Sass Variables
+
+You can customize tabs with these variables in the `_settings.scss` file:
+
+```html
+$tabstrip-background: transparent;
+
+$tab-title-background: #f4f4f4;
+$tab-title-background-hover: smartscale($tab-title-background, 5%);
+$tab-title-background-active: #fff;
+$tab-title-color: isitlight($tab-title-background);
+$tab-title-color-active: $tab-title-color;
+
+$tab-title-padding: $global-padding;
+$tab-content-padding: $global-padding;
+```
+
+

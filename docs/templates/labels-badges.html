@@ -3,7 +3,99 @@ name: labels-badges
 url: /labels-badges
 ---
 
-<h2>Label &amp; Badges</h2>
+## Label &amp; Badges
 <h3 class="subheader">Labels &amp; Badges are useful to highlight content, use as tags for content type, and more. For example, you can attach a label that notes when something was updated.</h3>
 
-<hr>
+***
+
+<div class="block">
+	<div class="small-12 content block">
+		<span class="label">Default Label</span>
+		&nbsp;&nbsp;
+		<span class="badge">7</span>
+	</div>
+</div>
+
+### Basic HTML
+
+#### Label
+
+You can create Labels with this basic HTML:
+<ul class="segmented button-group small">
+  <li class="is-active"><a href="#">CSS Classes</a></li>
+  <li><a href="#">Sass Mixins</a></li>
+</ul>
+<div class="block">
+  <div class="medium-6 block content">
+
+```html
+<!-- Color classes -->
+<span class="label">Default Label</span>
+<span class="success label">Success Label</span>
+<span class="alert label">Alert Label</span>
+<span class="warning label">Warning Label</span>
+```
+  </div>
+
+  <div class="medium-6 block content">
+		<span class="label">Default Label</span>
+		<span class="success label">Success Label</span>
+		<span class="alert label">Alert Label</span>
+		<span class="warning label">Warning Label</span>
+	</div>
+</div>
+
+***
+
+#### Badge
+
+<ul class="segmented button-group small">
+  <li class="is-active"><a href="#">CSS Classes</a></li>
+  <li><a href="#">Sass Mixins</a></li>
+</ul>
+<div class="block">
+  <div class="medium-6 block content">
+
+```html
+<span class="badge">7</span>
+<span class="secondary badge">1313</span>
+<span class="success badge">A</span>
+<span class="alert badge">7</span>
+<span class="warning badge">7</span>
+<span class="info badge">7</span>
+```
+  </div>
+
+  <div class="medium-6 block content">
+    <div class="block example">
+			<span class="badge">7</span>
+			<span class="secondary badge">1313</span>
+			<span class="success badge">A</span>
+			<span class="alert badge">7</span>
+			<span class="warning badge">7</span>
+			<span class="info badge">7</span>
+		</div>
+	</div>
+</div>
+
+***
+
+### Sass Variables
+
+You can customize tabs with these variables in the `_settings.scss` file:
+
+```html
+// Label styles
+$label-fontsize: 0.8rem;
+$label-padding: ($global-padding / 3) ($global-padding / 2);
+$label-radius: 0;
+$label-background: $primary-color;
+$label-color: isitlight($primary-color);
+
+// Badge styles
+$badge-fontsize: .8em;
+$badge-padding: .1em .61em;
+$badge-radius: $global-rounded;
+$badge-background: $primary-color;
+$badge-font-color: #fff;
+```
