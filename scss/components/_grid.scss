@@ -336,6 +336,10 @@ $block-grid-max-size: 6;
 .grid-content {
   @extend %child-core;
   @include grid-content;
+
+  &.collapse {
+    padding: 0;
+  }
 }
 .grid-container {
   @include grid-container;
