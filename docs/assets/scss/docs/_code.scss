@@ -1,14 +1,12 @@
-code[class^="lang-"] {
+pre > code {
   display: block;
   padding: 1rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   overflow-x: auto;
-}
-pre code {
-  display: block;
-  padding: 0.5em;
   background: #FAFAFA;
-  color: #333; }
+  color: #333;
+  line-height: 1.5;
+}
 
 .hljs {
   display: block;
