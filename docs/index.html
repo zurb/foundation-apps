@@ -17,67 +17,17 @@
       .thumbnail {
         width: 100%;
       }
+      .sidebar {
+        background: #f9f9f9 !important;
+        border-right: 1px solid #e7e7e7;
+      }
+
+      .sidebar ul.menu-bar {
+        background: #f9f9f9 !important;
+      }
     </style>
   </head>
   <body>
-
-    <!-- <div class="vertical grid-frame">
-      <div class="shrink grid-content" id="header">
-        
-      </div>
-      <div class="grid-block">
-        <div fa-panel position="left" id="testPanel" class="vertical medium-grid-block medium-4">
-          <a href="#" fa-close class="close-button">&times;</a>
-          <div class="title-bar">
-            <span class="left title">Title!</span>
-          </div>
-          <div class="grid-block" style="background: #eee">
-            
-          </div>
-        </div>
-        <div class="grid-content">
-          <div class="grid-container contain-left">
-            <h1>Do a Thing</h1>
-            <p><a href="#" fa-toggle="testPanel">Lorem ipsum</a> dolor sit amet, consectetur adipisicing elit. Rem blanditiis, non adipisci molestias ducimus, quod, at inventore incidunt nam velit eius quo! Omnis placeat provident rem adipisci, repellendus optio eos?</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus ullam amet veniam consequatur, eveniet laudantium eum aliquam, expedita suscipit, officiis ratione inventore omnis tempora voluptatem corrupti? Esse fuga, fugiat aliquid.</p>
-
-            <div class="grid-block">
-              <div class="small-6 grid-content">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus fuga id ea culpa velit cum, reprehenderit, officiis. Iste, consequuntur? Nulla minus a odit eum neque facere in nostrum, molestiae architecto.</p>
-
-                <div class="grid-block align-spaced">
-                  <div class="small-3 grid-content" style="background: #ccc">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus fuga id ea culpa velit cum, reprehenderit, officiis. Iste, consequuntur? Nulla minus a odit eum neque facere in nostrum, molestiae architecto.</p>
-                  </div>
-                  <div class="small-3 grid-content" style="background: #ccc">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus fuga id ea culpa velit cum, reprehenderit, officiis. Iste, consequuntur? Nulla minus a odit eum neque facere in nostrum, molestiae architecto.</p>
-                  </div>
-                </div>
-              </div>
-              <div class="small-6 grid-content">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus fuga id ea culpa velit cum, reprehenderit, officiis. Iste, consequuntur? Nulla minus a odit eum neque facere in nostrum, molestiae architecto.</p>
-              </div>
-            </div>
-
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. In eaque ab optio quidem iusto perspiciatis rerum, necessitatibus itaque molestias tenetur enim quasi voluptates, possimus non. Harum consequuntur maxime, laboriosam dolorem.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae, unde placeat nobis similique alias ipsam voluptatibus cupiditate dicta, sit nesciunt culpa est praesentium! Laborum inventore voluptatum nulla ducimus totam officia.</p>
-
-            <div class="small-up-3 grid-block">
-              <div class="grid-content"><img class="thumbnail" src="http://placehold.it/100x100" alt=""></div>
-              <div class="grid-content"><img class="thumbnail" src="http://placehold.it/100x100" alt=""></div>
-              <div class="grid-content"><img class="thumbnail" src="http://placehold.it/100x100" alt=""></div>
-              <div class="grid-content"><img class="thumbnail" src="http://placehold.it/100x100" alt=""></div>
-              <div class="grid-content"><img class="thumbnail" src="http://placehold.it/100x100" alt=""></div>
-              <div class="grid-content"><img class="thumbnail" src="http://placehold.it/100x100" alt=""></div>
-              <div class="grid-content"><img class="thumbnail" src="http://placehold.it/100x100" alt=""></div>
-              <div class="grid-content"><img class="thumbnail" src="http://placehold.it/100x100" alt=""></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div> -->
-
-
     <!-- App frame -->
     <div class="vertical grid-frame">
       <!-- Title bar -->
@@ -87,10 +37,10 @@
       <!-- /Title bar -->
       <div class="grid-block">
         <!-- Sidebar nav -->
-        <div fa-panel position="left" class="medium-3 large-2 medium-grid-content">
+        <div fa-panel position="left" class="medium-3 large-2 medium-grid-content sidebar">
           <section>
-            <header>Setup</header>
-            <ul class="dark menu-bar vertical">
+            <ul class="menu-bar vertical">
+              <li><a>Setup</a></li>
               <li><a ui-sref="install-update">Install &amp; Update</a></li>
               <li><a ui-sref="sass">Sass</a></li>
               <li><a ui-sref="motion-ui">Motion UI</a></li>
@@ -100,15 +50,15 @@
             </ul>
           </section>
           <section>
-            <header>Layout</header>
-            <ul class="dark menu-bar vertical">
+            <ul class="menu-bar vertical">
+              <li><a>Layout</a></li>
               <li><a ui-sref="grid">Grid</a></li>
               <li><a ui-sref="panel">Panel</a></li>
             </ul>
           </section>
           <section>
-            <header>Navigation</header>
-            <ul class="dark menu-bar vertical">
+            <ul class="menu-bar vertical">
+              <li><a>Navigation</a></li>
               <li><a ui-sref="action-sheet">Action Sheet</a></li>
               <li><a ui-sref="menu-bar">Menu Bar</a></li>
               <li><a ui-sref="off-canvas">Off-canvas Menu</a></li>
@@ -116,22 +66,22 @@
             </ul>
           </section>
           <section>
-            <header>Callouts</header>
-            <ul class="dark menu-bar vertical">
+            <ul class="menu-bar vertical">
+              <li><a>Callouts</a></li>
               <li><a ui-sref="modal">Modal</a></li>
               <li><a ui-sref="notification">Notification</a></li>
             </ul>
           </section>
           <section>
-            <header>Controls</header>
-            <ul class="dark menu-bar vertical">
+            <ul class="menu-bar vertical">
+              <li><a>Controlls</a></li>
               <li><a ui-sref="button">Button</a></li>
               <li><a ui-sref="forms">Forms</a></li>
             </ul>
           </section>
           <section>
-            <header>Content</header>
-            <ul class="dark menu-bar vertical">
+            <ul class="menu-bar vertical">
+              <li><a>Content</a></li>
               <li><a ui-sref="accordion">Accordion</a></li>
               <li><a ui-sref="block-list">Block List</a></li>
               <li><a ui-sref="card">Card</a></li>
@@ -144,8 +94,8 @@
             </ul>
           </section>
           <section>
-            <header>Helpers</header>
-            <ul class="dark menu-bar vertical">
+            <ul class="menu-bar vertical">
+              <li><a>Helpers</a></li>
               <li><a ui-sref="functions-mixins">Functions and Mixins</a></li>
               <li><a ui-sref="utilities">Utilities</a></li>
             </ul>
@@ -155,7 +105,7 @@
 
         <!-- Main content -->
         <div class="medium-9 large-10 grid-content">
-          <div class="grid-container contain-left">
+          <div class="grid-container">
             <div ng-class="[currentSlug, 'ui-animation']" ui-view></div>
           </div>
         </div>
