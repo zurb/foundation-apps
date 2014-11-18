@@ -10,20 +10,28 @@
     <script src="/assets/js/angular-app.js"></script>
 
     <style>
-      #header {
-        background: #454d8d;
-        flex-basis: 50px;
+      #header .menu-bar {
+        margin-bottom: 0;
       }
       .thumbnail {
         width: 100%;
       }
+
       .sidebar {
         background: #f9f9f9 !important;
         border-right: 1px solid #e7e7e7;
+        padding-top: 1rem !important;
       }
-
-      .sidebar ul.menu-bar {
+      .sidebar .menu-bar {
         background: #f9f9f9 !important;
+      }
+      .sidebar .menu-bar .title {
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        color: #666;
+        font-weight: bold;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
       }
     </style>
   </head>
@@ -31,16 +39,18 @@
     <!-- App frame -->
     <div class="vertical grid-frame">
       <!-- Title bar -->
-      <div class="shrink grid-content" style="background: #00558b">
-        <span fa-toggle="offCanvas" style="color: #fff;">Foundation for Apps</span>
+      <div id="header" class="shrink collapse grid-content">
+        <ul class="menu-bar primary condense">
+          <li fa-open="sidebar"><a href="#">Foundation for Apps</a></li>
+        </ul>
       </div>
       <!-- /Title bar -->
       <div class="grid-block">
         <!-- Sidebar nav -->
-        <div fa-panel position="left" class="medium-3 large-2 medium-grid-content sidebar">
+        <div fa-panel position="left" id="sidebar" class="medium-3 large-2 medium-grid-content sidebar">
           <section>
             <ul class="menu-bar vertical">
-              <li><a>Setup</a></li>
+              <li class="title">Setup</li>
               <li ui-sref-active="is-active"><a ui-sref="install-update">Install &amp; Update</a></li>
               <li ui-sref-active="is-active"><a ui-sref="sass">Sass</a></li>
               <li ui-sref-active="is-active"><a ui-sref="motion-ui">Motion UI</a></li>
@@ -51,14 +61,14 @@
           </section>
           <section>
             <ul class="menu-bar vertical">
-              <li><a>Layout</a></li>
+              <li class="title">Layout</li>
               <li ui-sref-active="is-active"><a ui-sref="grid">Grid</a></li>
               <li ui-sref-active="is-active"><a ui-sref="panel">Panel</a></li>
             </ul>
           </section>
           <section>
             <ul class="menu-bar vertical">
-              <li><a>Navigation</a></li>
+              <li class="title">Navigation</li>
               <li ui-sref-active="is-active"><a ui-sref="action-sheet">Action Sheet</a></li>
               <li ui-sref-active="is-active"><a ui-sref="menu-bar">Menu Bar</a></li>
               <li ui-sref-active="is-active"><a ui-sref="off-canvas">Off-canvas Menu</a></li>
@@ -67,21 +77,21 @@
           </section>
           <section>
             <ul class="menu-bar vertical">
-              <li><a>Callouts</a></li>
+              <li class="title">Callouts</li>
               <li ui-sref-active="is-active"><a ui-sref="modal">Modal</a></li>
               <li ui-sref-active="is-active"><a ui-sref="notification">Notification</a></li>
             </ul>
           </section>
           <section>
             <ul class="menu-bar vertical">
-              <li><a>Controlls</a></li>
+              <li class="title">Controls</li>
               <li ui-sref-active="is-active"><a ui-sref="button">Button</a></li>
               <li ui-sref-active="is-active"><a ui-sref="forms">Forms</a></li>
             </ul>
           </section>
           <section>
             <ul class="menu-bar vertical">
-              <li><a>Content</a></li>
+              <li class="title">Content</li>
               <li ui-sref-active="is-active"><a ui-sref="accordion">Accordion</a></li>
               <li ui-sref-active="is-active"><a ui-sref="block-list">Block List</a></li>
               <li ui-sref-active="is-active"><a ui-sref="card">Card</a></li>
@@ -95,7 +105,7 @@
           </section>
           <section>
             <ul class="menu-bar vertical">
-              <li><a>Helpers</a></li>
+              <li class="title">Helpers</li>
               <li ui-sref-active="is-active"><a ui-sref="functions-mixins">Functions and Mixins</a></li>
               <li ui-sref-active="is-active"><a ui-sref="utilities">Utilities</a></li>
             </ul>
