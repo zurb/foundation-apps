@@ -46,33 +46,33 @@
     Visibility
   */
   .hide {
-    display: none;
+    display: none !important;
   }
   @each $size in $breakpoint-classes {
     @include breakpoint($size) {
       .hide-for-#{$size} {
-        display: none;
+        display: none !important;
       }
       .show-for-#{$size} {
-        display: block;
+        display: block !important;
       }
     }
     @include breakpoint($size only) {
       .hide-for-#{$size}-only {
-        display: none;
+        display: none !important;
       }
       .show-for-#{$size}-only {
-        display: block;
+        display: block !important;
       }
     }
   }
   @each $orientation in (portrait, landscape) {
     @include breakpoint($orientation) {
       .hide-for-#{$orientation} {
-        display: none;
+        display: none !important;
       }
       .show-for-#{$orientation} {
-        display: block;
+        display: block !important;
       }
     }
   }

@@ -18,6 +18,7 @@
       }
 
       .sidebar {
+        padding: 0 !important;
         background: #f9f9f9 !important;
         border-right: 1px solid #e7e7e7;
         padding-top: 1rem !important;
@@ -41,13 +42,14 @@
       <!-- Title bar -->
       <div id="header" class="shrink collapse grid-content">
         <ul class="menu-bar primary condense">
-          <li fa-open="sidebar"><a href="#">Foundation for Apps</a></li>
+          <li fa-toggle="sidebar"><a href="#">Foundation for Apps</a></li>
         </ul>
       </div>
       <!-- /Title bar -->
       <div class="grid-block">
         <!-- Sidebar nav -->
-        <div fa-panel position="left" id="sidebar" class="medium-3 large-2 medium-grid-content sidebar">
+        <div fa-panel position="left" id="sidebar" class="fast bounceInOut medium-3 large-2 medium-grid-content sidebar">
+          <a fa-close class="close-button hide-for-medium">&times;</a>
           <section>
             <ul class="menu-bar vertical">
               <li class="title">Setup</li>
@@ -116,6 +118,7 @@
         <!-- Main content -->
         <div class="medium-9 large-10 grid-content">
           <div class="grid-container">
+            <a class="small secondary expand button hide-for-medium" fa-toggle="sidebar">Show Components</a>
             <div ng-class="[currentSlug, 'ui-animation']" ui-view></div>
           </div>
         </div>
