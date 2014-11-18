@@ -223,8 +223,9 @@ $menubar-icon-spacing: $menubar-item-padding !default;
 
   // Condensed bar
   &.condense {
-    &, &.horizontal { @include menu-bar-layout(horizontal, false); }
-    &.vertical      { @include menu-bar-layout(horizontal, false); }
+    li {
+      flex: 0 0 auto;
+    }
   }
 
   // Responsive positioning
@@ -260,5 +261,12 @@ $menubar-icon-spacing: $menubar-item-padding !default;
   }
   &.dark {
     @include menu-bar-style($dark-color, $autocolor: true);
+  }
+
+  // Title
+  > li.title {
+    padding: $menubar-item-padding;
+    cursor: default;
+    font-weight: bold;
   }
 }
