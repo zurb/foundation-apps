@@ -5,6 +5,8 @@
   The trusy accordion allows you to create a series of vertical tabs.
 */
 
+$accordion-border: 1px solid #ccc;
+
 $accordion-title-background: #f4f4f4;
 $accordion-title-background-hover: smartscale($accordion-title-background, 5%);
 $accordion-title-background-active: transparent;
@@ -60,6 +62,9 @@ $accordion-content-padding: $global-padding;
 @include exports(accordion) {
   .accordion {
     @include accordion-container;
+    @if hasvalue($accordion-border) {
+      border: $accordion-border;
+    }
   }
     .accordion-item {
       @include accordion-item;
