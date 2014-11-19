@@ -52,12 +52,7 @@ nav {
 
 .position-absolute .ui-animation {
   position: absolute;
-}
-
-[ui-view] {
-  .ng-enter, .ng-enter-active, .ng-enter-leave, .ng-leave-active {
-    [fa-offcanvas], [fa-panel] {
-      display: none !important;
-    }
+  [fa-offcanvas], [fa-panel] {
+    display: none !important;
   }
 }
