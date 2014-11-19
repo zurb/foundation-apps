@@ -87,10 +87,10 @@ $tab-content-padding: $global-padding;
     }
   }
 
-  .tab-content {
+  .tab-contents {
     @include tab-content;
 
-    .tab-pane {
+    .tab-content {
       @include tab-content-item;
     }
   }
