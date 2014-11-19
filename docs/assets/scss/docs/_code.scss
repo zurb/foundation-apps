@@ -9,32 +9,34 @@ pre > code {
 }
 
 .hljs {
-  display: block; padding: 0.5em;
-  background: #2a2626; color: #ffffff;
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  background: #232323;
+  color: #e6e1dc;
+  -webkit-text-size-adjust: none;
 }
 
 .hljs-comment,
-.hljs-template_comment,
-.hljs-javadoc {
-  color: #534b4b;
+.hljs-javadoc,
+.hljs-shebang {
+  color: #bc9458;
+  font-style: italic;
 }
 
 .hljs-keyword,
 .ruby .hljs-function .hljs-keyword,
 .hljs-request,
 .hljs-status,
-.nginx .hljs-title {
-  color: #F0624B;
-}
-
-.hljs-function .hljs-keyword,
-.hljs-sub .hljs-keyword,
+.nginx .hljs-title,
 .method,
 .hljs-list .hljs-title {
-  color: #B4B7AD;
+  color: #c26230;
 }
 
 .hljs-string,
+.hljs-number,
+.hljs-regexp,
 .hljs-tag .hljs-value,
 .hljs-cdata,
 .hljs-filter .hljs-argument,
@@ -42,105 +44,140 @@ pre > code {
 .apache .hljs-cbracket,
 .hljs-date,
 .tex .hljs-command,
-.coffeescript .hljs-attribute {
-  color: #F7A21B;
+.asciidoc .hljs-link_label,
+.markdown .hljs-link_label {
+  color: #a5c261;
 }
 
 .hljs-subst {
-  color: #DAEFA3;
+  color: #519f50;
 }
 
-.hljs-regexp {
-  color: #E9C062;
-}
-
-.hljs-title,
-.hljs-sub .hljs-identifier,
-.hljs-pi,
 .hljs-tag,
 .hljs-tag .hljs-keyword,
-.hljs-decorator,
-.hljs-shebang,
-.hljs-prompt {
-  color: #F0624B;
+.hljs-tag .hljs-title,
+.hljs-doctype,
+.hljs-sub .hljs-identifier,
+.hljs-pi,
+.input_number {
+  color: #e8bf6a;
 }
 
-.hljs-symbol,
-.ruby .hljs-symbol .hljs-string,
-.hljs-number {
-  color: #F7A21B;
+.hljs-identifier {
+  color: #d0d0ff;
 }
+
+.hljs-class .hljs-title,
+.hljs-type,
+.smalltalk .hljs-class,
+.hljs-javadoctag,
+.hljs-yardoctag,
+.hljs-phpdoc,
+.hljs-dartdoc {
+  text-decoration: none;
+}
+
+.hljs-constant {
+  color: #da4939;
+}
+
+
+.hljs-symbol,
+.hljs-built_in,
+.ruby .hljs-symbol .hljs-string,
+.ruby .hljs-symbol .hljs-identifier,
+.asciidoc .hljs-link_url,
+.markdown .hljs-link_url,
+.hljs-attribute {
+  color: #6d9cbe;
+}
+
+.asciidoc .hljs-link_url,
+.markdown .hljs-link_url {
+  text-decoration: underline;
+}
+
+
 
 .hljs-params,
 .hljs-variable,
 .clojure .hljs-attribute {
-  color: #3D8E91;
+  color: #d0d0ff;
 }
 
 .css .hljs-tag,
 .hljs-rules .hljs-property,
 .hljs-pseudo,
 .tex .hljs-special {
-  color: #F0624B;
+  color: #cda869;
 }
 
 .css .hljs-class {
-  color: #3D8E91;
+  color: #9b703f;
 }
 
 .hljs-rules .hljs-keyword {
-  color: #3D8E91;
+  color: #c5af75;
 }
 
 .hljs-rules .hljs-value {
-  color: #F0624B;
+  color: #cf6a4c;
 }
 
 .css .hljs-id {
-  color: #8B98AB;
+  color: #8b98ab;
 }
 
 .hljs-annotation,
 .apache .hljs-sqbracket,
 .nginx .hljs-built_in {
-  color: #9B859D;
+  color: #9b859d;
 }
 
 .hljs-preprocessor,
+.hljs-preprocessor *,
 .hljs-pragma {
-  color: #8996A8;
+  color: #8996a8 !important;
 }
 
 .hljs-hexcolor,
 .css .hljs-value .hljs-number {
-  color: #DD7B3B;
+  color: #a5c261;
 }
 
+.hljs-title,
+.hljs-decorator,
 .css .hljs-function {
-  color: #DAD085;
+  color: #ffc66d;
 }
 
 .diff .hljs-header,
-.hljs-chunk,
-.tex .hljs-formula {
-  background-color: #0E2231;
-  color: #F8F8F8;
-  font-style: italic;
+.hljs-chunk {
+  background-color: #2f33ab;
+  color: #e6e1dc;
+  display: inline-block;
+  width: 100%;
 }
 
 .diff .hljs-change {
-  background-color: #4A410D;
-  color: #F8F8F8;
+  background-color: #4a410d;
+  color: #f8f8f8;
+  display: inline-block;
+  width: 100%;
 }
 
 .hljs-addition {
-  background-color: #253B22;
-  color: #F8F8F8;
+  background-color: #144212;
+  color: #e6e1dc;
+  display: inline-block;
+  width: 100%;
 }
 
 .hljs-deletion {
-  background-color: #420E09;
-  color: #F8F8F8;
+  background-color: #600;
+  color: #e6e1dc;
+  display: inline-block;
+  width: 100%;
 }
 
 .coffeescript .javascript,
@@ -150,5 +187,5 @@ pre > code {
 .xml .vbscript,
 .xml .css,
 .xml .hljs-cdata {
-  opacity: 0.5;
+  opacity: 0.7;
 }
