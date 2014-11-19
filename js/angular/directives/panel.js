@@ -42,7 +42,7 @@ angular.module('foundation.panel')
           };
 
           scope.show = function() {
-            scope.active = false;
+            scope.active = true;
             return;
           };
 
