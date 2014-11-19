@@ -77,6 +77,11 @@ $btngroup-radius: $button-radius !default;
         @include button-style($background, $color);
         border-color: scale-color($background, $lightness: -15%);
       }
+      &.is-active {
+        > a, > label {
+          background: scale-color($background, $lightness: -15%);
+        }
+      }
     }
   }
   @else {
