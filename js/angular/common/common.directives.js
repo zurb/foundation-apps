@@ -56,46 +56,57 @@ angular.module('foundation.common.directives')
 }]);
 
 angular.module('foundation.common.directives')
-  .directive('faAnimationIn', ['FoundationApi', function(foundationApi) {
+  .directive('faAnimate', ['FoundationApi', function(foundationApi) {
   return {
     restrict: 'A',
     priority: 100, //set priority to override other directives
+    scope: {
+      animationIn: '@?',
+      animationOut: '@?'
+    },
     link: function(scope, element, attrs) {
-      var animation = attrs.faAnimationIn;
-      var active = 'is-active';
+      var isActive = false;
 
-      //subscribe
-      foundationApi.subbscribe(attrs.id, function(msg) {
-        //stop animation
+      var activeClass = 'is-active';
+
+      var reflow = function() {
+        return element[0].style.offsetWidth;
+      }
+
+      var reset = function() {
         element[0].style.transitionDuration = 0;
+        element.removeClass(activeClass + ' ' + scope.animationIn + ' ' + scope.animationOut);
+      }
 
-        element.addClass(animation);
+      var animate = function(animationClass, activation) {
+        //stop animation
+        reset();
+        element.addClass(animationClass);
 
         //force a "tick"
-        scope.$apply();
+        reflow();
 
         //activate
         element[0].style.transitionDuration = '';
-        element.addClass(active);
+        element.addClass(activeClass);
+        isActive = activation;
+      }
 
+      //subscribe
+      foundationApi.subbscribe(attrs.id, function(msg) {
+        if(msg === 'show' || msg === 'open') {
+          animate(animationIn, true);
+        } else if (msg === 'hide' || msg === 'close') {
+          animate(animationOut, false);
+        } else if (msg === 'toggle') {
+          var newState = !isActive;
+          var newAnimation = newState ? animationIn : animationOut;
 
-        element.one(events.join(' '), function() {
-          //cleanup
-          element.removeClass(animation);
-        });
+          animate(newAnimation, newState);
+        }
 
       });
     }
   };
-}]);
 
-angular.module('foundation.common.directives')
-  .directive('faAnimationIn', ['FoundationApi', function(foundationApi) {
-  return {
-    restrict: 'A',
-    priority: 100, //set priority to override other directives
-    link: function(scope, element, attrs) {
-      //animation logic
-    }
-  };
 }]);
