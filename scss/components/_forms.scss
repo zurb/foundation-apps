@@ -45,6 +45,15 @@ $inlinelabel-color: #333;
 $inlinelabel-background: #eee;
 $inlinelabel-border: $input-border;
 
+// Progress and meter
+$meter-maxwidth: 200px;
+$meter-height: 1rem;
+$meter-background: #ccc;
+$meter-fill: $primary-color;
+$meter-fill-high: $success-color;
+$meter-fill-medium: #e7cf00;
+$meter-fill-low: $alert-color;
+
 $text-input-selectors: '[type="text"], input[type="password"], input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="month"], input[type="week"], input[type="email"], input[type="number"], input[type="search"], input[type="tel"], input[type="time"], input[type="url"], input[type="color"], textarea';
 
 // Disable OS-level styles
@@ -128,6 +137,10 @@ label {
   }
   // Assumed to be a button
   > a {
+    display: flex;
+    align-items: center;
+    padding-top: 0;
+    padding-bottom: 0;
     margin: 0;
     border-radius: 0;
   }
@@ -246,59 +259,56 @@ input[type="number"] {
 /*
   Progress and meter
 */
-$background: #ccc;
-$meter-fill: $primary-color;
-$high-color: $success-color;
-$medium-color: #e7cf00;
-$low-color: $alert-color;
-
 progress, meter {
   @extend %no-appearance;
+  display: block;
   width: 100%;
-  max-width: 200px;
-  height: 1em;
+  max-width: $meter-maxwidth;
+  height: $meter-height;
 
   // For Firefox
-  background: $background;
+  background: $meter-background;
   border: 0;
 }
 
 progress {
   &::-webkit-progress-bar {
-    background: $background;
+    background: $meter-background;
   }
   &::-webkit-progress-value {
-    background: $primary-color;
+    background: $meter-fill;
   }
   &::-moz-progress-bar {
-    background: $primary-color;
+    background: $meter-fill;
   }
 }
 meter {
   // Chrome/Safari
   &::-webkit-meter-bar {
-    background: $background;
+    background: $meter-background;
   }
   &::-webkit-meter-optimum-value {
-    background: $high-color;
+    background: $meter-fill-high;
   }
   &::-webkit-meter-suboptimum-value {
-    background: $medium-color;
+    background: $meter-fill-medium;
   }
   &::-webkit-meter-even-less-good-value {
-    background: $low-color;
+    background: $meter-fill-low;
   }
 
+  // Firefox
+  background: $meter-background;
   &::-moz-meter-bar {
     background: $primary-color;
   }
   &:-moz-meter-optimum::-moz-meter-bar {
-    background: $high-color;
+    background: $meter-fill-high;
   }
   &:-moz-meter-sub-optimum::-moz-meter-bar {
-    background: $medium-color;
+    background: $meter-fill-medium;
   }
   &:-moz-meter-sub-sub-optimum::-moz-meter-bar {
-    background: $low-color;
+    background: $meter-fill-low;
   }
 }
