@@ -270,13 +270,13 @@ $acronym-underline: 1px dotted #ddd !default;
   }
 
   ul {
-    margin-#{$default-float}: $list-side-margin;
+    margin-left: $list-side-margin;
     &.no-bullet {
-      margin-#{$default-float}: $list-side-margin-no-bullet;
+      margin-left: $list-side-margin-no-bullet;
       li {
         ul,
         ol {
-          margin-#{$default-float}: $list-nested-margin;
+          margin-left: $list-nested-margin;
           margin-bottom: 0;
           list-style: none;
         }
@@ -285,33 +285,11 @@ $acronym-underline: 1px dotted #ddd !default;
   }
 
   /* Unordered Lists */
-  ul {
+  ul, ol {
     li {
       ul,
       ol {
-        margin-#{$default-float}: $list-nested-margin;
-        margin-bottom: 0;
-      }
-    }
-    &.square,
-    &.circle,
-    &.disc {
-      li ul { list-style: inherit; }
-    }
-
-    &.square { list-style-type: square; margin-#{$default-float}: $list-side-margin;}
-    &.circle { list-style-type: circle; margin-#{$default-float}: $list-side-margin;}
-    &.disc { list-style-type: disc; margin-#{$default-float}: $list-side-margin;}
-    &.no-bullet { list-style: none; }
-  }
-
-  /* Ordered Lists */
-  ol {
-    margin-#{$default-float}: $list-ordered-side-margin;
-    li {
-      ul,
-      ol {
-        margin-#{$default-float}: $list-nested-margin;
+        margin-left: $list-nested-margin;
         margin-bottom: 0;
       }
     }
@@ -343,7 +321,7 @@ $acronym-underline: 1px dotted #ddd !default;
   blockquote {
     margin: 0 0 $paragraph-margin-bottom;
     padding: $blockquote-padding;
-    border-#{$default-float}: $blockquote-border;
+    border-left: $blockquote-border;
 
     cite {
       display: block;
