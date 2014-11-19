@@ -52,6 +52,7 @@ $meter-fill: $primary-color;
 $meter-fill-high: $success-color;
 $meter-fill-medium: #e7cf00;
 $meter-fill-low: $alert-color;
+$meter-radius: 0;
 
 // Disable OS-level styles
 %no-appearance {
@@ -262,6 +263,10 @@ progress, meter {
   width: 100%;
   height: $meter-height;
 
+  @if hasvalue($meter-radius) {
+    border-radius: $meter-radius;
+  }
+
   // For Firefox
   background: $meter-background;
   border: 0;
@@ -270,12 +275,21 @@ progress, meter {
 progress {
   &::-webkit-progress-bar {
     background: $meter-background;
+    @if hasvalue($meter-radius) {
+      border-radius: $meter-radius;
+    }
   }
   &::-webkit-progress-value {
     background: $meter-fill;
+    @if hasvalue($meter-radius) {
+      border-radius: $meter-radius;
+    }
   }
   &::-moz-progress-bar {
     background: $meter-fill;
+    @if hasvalue($meter-radius) {
+      border-radius: $meter-radius;
+    }
   }
 
   @each $name, $color in (high: $meter-fill-high, medium: $meter-fill-medium, low: $meter-fill-low) {
@@ -293,21 +307,41 @@ meter {
   // Chrome/Safari
   &::-webkit-meter-bar {
     background: $meter-background;
+    @if hasvalue($meter-radius) {
+      border-radius: $meter-radius;
+    }
+  }
+  &::-webkit-meter-inner-element {
+    @if hasvalue($meter-radius) {
+      border-radius: $meter-radius;
+    }
   }
   &::-webkit-meter-optimum-value {
     background: $meter-fill-high;
+    @if hasvalue($meter-radius) {
+      border-radius: $meter-radius;
+    }
   }
   &::-webkit-meter-suboptimum-value {
     background: $meter-fill-medium;
+    @if hasvalue($meter-radius) {
+      border-radius: $meter-radius;
+    }
   }
   &::-webkit-meter-even-less-good-value {
     background: $meter-fill-low;
+    @if hasvalue($meter-radius) {
+      border-radius: $meter-radius;
+    }
   }
 
   // Firefox
   background: $meter-background;
   &::-moz-meter-bar {
     background: $primary-color;
+    @if hasvalue($meter-radius) {
+      border-radius: $meter-radius;
+    }
   }
   &:-moz-meter-optimum::-moz-meter-bar {
     background: $meter-fill-high;
