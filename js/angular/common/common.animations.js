@@ -22,7 +22,6 @@ angular.module('foundation.common.animations')
           element[0].style.transitionDuration = 0;
 
           //start animation
-          console.log(element[0].style);
           element.addClass(animationIn);
 
           $rootScope.$digest();
@@ -55,7 +54,6 @@ angular.module('foundation.common.animations')
           element[0].style.transitionDuration = 0;
 
           //start animation
-          console.log(element[0].style);
           element.addClass(animationOut);
 
           $rootScope.$digest();
