@@ -46,8 +46,7 @@ $inlinelabel-background: #eee;
 $inlinelabel-border: $input-border;
 
 // Progress and meter
-$meter-maxwidth: 200px;
-$meter-height: 1rem;
+$meter-height: 1.5rem;
 $meter-background: #ccc;
 $meter-fill: $primary-color;
 $meter-fill-high: $success-color;
@@ -261,7 +260,6 @@ progress, meter {
   @extend %no-appearance;
   display: block;
   width: 100%;
-  max-width: $meter-maxwidth;
   height: $meter-height;
 
   // For Firefox
@@ -278,6 +276,17 @@ progress {
   }
   &::-moz-progress-bar {
     background: $meter-fill;
+  }
+
+  @each $name, $color in (high: $meter-fill-high, medium: $meter-fill-medium, low: $meter-fill-low) {
+    &.#{$name} {
+      &::-webkit-progress-value {
+        background: $color;
+      }
+      &::-moz-progress-bar {
+        background: $color;
+      }
+    }
   }
 }
 meter {
