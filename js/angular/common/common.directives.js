@@ -77,7 +77,6 @@ angular.module('foundation.common.directives')
       };
 
       var animate = function(animationClass, activation) {
-        console.log(animationClass, activation, 'test');
         //stop animation
         reset();
         element.addClass(animationClass);
@@ -93,7 +92,6 @@ angular.module('foundation.common.directives')
 
       //subscribe
       foundationApi.subscribe(attrs.id, function(msg) {
-        console.log(msg);
         if(msg === 'show' || msg === 'open') {
           animate(animationIn, true);
         } else if (msg === 'hide' || msg === 'close') {
@@ -102,7 +100,10 @@ angular.module('foundation.common.directives')
           var newState = !isActive;
           var newAnimation = newState ? animationIn : animationOut;
 
-          animate(newAnimation, newState);
+          //allow other elements to do their job
+          setTimeout(function() {
+            animate(newAnimation, newState);
+          }, 1);
         }
 
       });
