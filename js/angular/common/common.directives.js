@@ -59,8 +59,32 @@ angular.module('foundation.common.directives')
   .directive('faAnimationIn', ['FoundationApi', function(foundationApi) {
   return {
     restrict: 'A',
+    priority: 100, //set priority to override other directives
     link: function(scope, element, attrs) {
-      //animation logic
+      var animation = attrs.faAnimationIn;
+      var active = 'is-active';
+
+      //subscribe
+      foundationApi.subbscribe(attrs.id, function(msg) {
+        //stop animation
+        element[0].style.transitionDuration = 0;
+
+        element.addClass(animation);
+
+        //force a "tick"
+        scope.$apply();
+
+        //activate
+        element[0].style.transitionDuration = '';
+        element.addClass(active);
+
+
+        element.one(events.join(' '), function() {
+          //cleanup
+          element.removeClass(animation);
+        });
+
+      });
     }
   };
 }]);
@@ -69,6 +93,7 @@ angular.module('foundation.common.directives')
   .directive('faAnimationIn', ['FoundationApi', function(foundationApi) {
   return {
     restrict: 'A',
+    priority: 100, //set priority to override other directives
     link: function(scope, element, attrs) {
       //animation logic
     }
