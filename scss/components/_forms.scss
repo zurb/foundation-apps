@@ -14,9 +14,8 @@
 */
 
 // Basic form variables
-$form-text-size: 16px;
+$form-fontsize: 1rem;
 $form-padding: 0.5rem;
-$form-label-color: #999;
 
 // Text fields
 $input-color: #000;
@@ -26,8 +25,15 @@ $input-background: #fff;
 $input-background-hover: $input-background;
 $input-background-focus: $input-background;
 $input-border: 1px solid #ccc;
-$input-border-hover: 1px solid #ddd;
+$input-border-hover: 1px solid #bbb;
 $input-border-focus: 1px solid #999;
+
+// Select menus
+$select-color: #000;
+$select-background: #fafafa;
+$select-background-hover: smartscale($select-background, 4%);
+$select-arrow: true;
+$select-arrow-color: $select-color;
 
 // Labels
 $label-fontsize: 0.9rem;
@@ -56,6 +62,7 @@ $text-input-selectors: '[type="text"], input[type="password"], input[type="date"
   border: $input-border;
   background: $input-background;
   color: $input-color;
+  font-size: $form-fontsize;
   line-height: 1;
   -webkit-font-smoothing: antialiased;
 
@@ -95,15 +102,18 @@ label {
   align-items: stretch;
   margin-bottom: $global-padding;
 
+  // Imitates the top margin on normal inputs
   label > & {
     margin-top: $label-margin;
   }
 
+  // Inputs stretch all the way out
   > input, > select {
     flex: 1;
     margin: 0;
   }
 
+  // Inline labels and buttons shrink
   > .form-label {
     flex: 0 0 auto;
     background: $inlinelabel-background;
@@ -116,7 +126,8 @@ label {
     &:first-child { border-right: 0; }
     &:last-child  { border-left: 0; }
   }
-  > .form-button {
+  // Assumed to be a button
+  > a {
     margin: 0;
     border-radius: 0;
   }
@@ -131,12 +142,28 @@ textarea {
 
 // Make select elements 100% width by default
 select {
+  $color: isitlight($select-background);
+
   @extend %no-appearance;
   display: block;
-  border-radius: 0;
   width: 100%;
   padding: $form-padding;
   margin: 0 0 $global-padding 0;
+  font-size: $form-fontsize;
+  color: $select-color;
+  border-radius: 0;
+
+  @if $select-arrow {
+    background: $select-background url(image-triangle($select-arrow-color)) right 10px center no-repeat;
+    background-size: 8px 8px;
+  }
+  @else {
+    background-color: $select-background
+  }
+
+  &:hover {
+    background-color: $select-background-hover;
+  }
 
   &:focus {
     outline: 0;
