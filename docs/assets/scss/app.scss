@@ -1,6 +1,6 @@
 // CUSTOMIZE FOUNDATION
 // Customize all settings and stuff here. Yay!
-@import "settings";	
+@import "settings";
 
 // FOUNDATION
 // The core of the framework. Woo!
@@ -8,19 +8,19 @@
 
 // DOCS
 // What's up?
-@import 
+@import
 	"docs/code",
 	"docs/docs";
 
 .band {
-	background: #EEE;  
+	background: #EEE;
 }
 
 nav {
 	background: $slate;
 	color: $secondary-color;
 	h1 {
-		font-size: 1rem; 
+		font-size: 1rem;
 	}
 }
 
@@ -41,7 +41,7 @@ nav {
 // Comment or uncomment out this line for debugging.
 // @include debug;
 
-.button [class*="fi-"] { 
+.button [class*="fi-"] {
 	position: relative;
 	top:2px;
 }
@@ -52,4 +52,12 @@ nav {
 
 .position-absolute .ui-animation {
   position: absolute;
+}
+
+[ui-view] {
+  .ng-enter, .ng-enter-active, .ng-enter-leave, .ng-leave-active {
+    [fa-offcanvas], [fa-panel] {
+      display: none !important;
+    }
+  }
 }
