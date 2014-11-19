@@ -219,6 +219,39 @@ $actionsheet-link-background-hover: smartscale($actionsheet-background) !default
 
     @include breakpoint(medium) {
       @include popup-menu;
+
+      &.top {
+        @include popup-menu(top);
+      }
+    }
+
+    &.primary {
+      background: $primary-color;
+      color: isitlight($primary-color);
+      border: 0;
+      &::before { display: none; }
+      &::before, &::after { border-top-color: $primary-color; }
+      &.top::before, &.top::after { border-bottom-color: $primary-color; }
+
+      @include action-sheet-menu(
+        $color: isitlight($primary-color),
+        $border-color: smartscale($primary-color, 10%),
+        $background-hover: smartscale($primary-color)
+      );
+    }
+    &.dark {
+      background: $dark-color;
+      color: isitlight($dark-color);
+      border: 0;
+      &::before { display: none; }
+      &::before, &::after { border-top-color: $dark-color; }
+      &.top::before, &.top::after { border-bottom-color: $dark-color; }
+
+      @include action-sheet-menu(
+        $color: isitlight($dark-color),
+        $border-color: smartscale($dark-color, 10%),
+        $background-hover: smartscale($dark-color)
+      );
     }
   }
 }
