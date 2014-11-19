@@ -3,7 +3,33 @@ name: action-sheet
 url: /action-sheet
 ---
 
-<h2>Action Sheet</h2>
+## Action Sheet
 <h3 class="subheader">Action sheets can be triggered in your app view to providing contextual actions on a component.</h3>
 
-<hr>
+***
+
+<div fa-action-sheet>
+  <div fa-as-button title="Action Sheet"></div>
+  <div fa-as-content position="bottom">
+    <p>Tap to share</p>
+    <ul>
+      <li><a href="#">Twitter</a></li>
+      <li caution><a href="#">Facebook</a></li>
+      <li disabled><a href="#">Mail</a></li>
+    </ul>
+  </div>
+</div>
+
+```html
+<div fa-action-sheet>
+  <div fa-as-button title="Action Sheet"></div>
+  <div fa-as-content position="bottom">
+    <p>Tap to share</p>
+    <ul>
+      <li><a href="#">Twitter</a></li>
+      <li caution><a href="#">Facebook</a></li>
+      <li disabled><a href="#">Mail</a></li>
+    </ul>
+  </div>
+</div>
+```
