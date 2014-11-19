@@ -4,14 +4,21 @@ angular.module('foundation.accordion')
   .controller('FaAccordionController', ['$scope', function($scope) {
     var controller = this;
     var sections = controller.sections = $scope.sections = [];
+    var multiOpen = controller.multiOpen = false;
 
     controller.select = function(selectSection) {
       sections.forEach(function(section) {
-        section.scope.active = false;
-
-        if(section.scope == selectSection) {
-          section.scope.active = true;
+        if(controller.multiOpen) {
+          if(section.scope === selectSection) {
+            section.scope.active = !section.scope.active;
+          }
+        } else {
+          section.scope.active = false;
+          if(section.scope === selectSection) {
+            section.scope.active = true;
+          }
         }
+
       });
     };
 
@@ -39,7 +46,11 @@ angular.module('foundation.accordion')
     replace: true,
     templateUrl: '/partials/accordion-set.html',
     controller: 'FaAccordionController',
+    scope: {
+      multiOpen: '@'
+    },
     link: function(scope, element, attrs, controller) {
+      controller.multiOpen = scope.multiOpen;
     }
   };
 });
