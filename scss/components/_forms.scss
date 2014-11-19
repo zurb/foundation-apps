@@ -1,161 +1,141 @@
-// Foundation for Apps Form Styles
+/*
+  FORMS
+  -----
 
-// Variables
+  Our form styles include basic resets for text fields, select menus, and so on, along with some of our own custom components.
 
+  Includes:
+   - Text fields
+   - Text areas
+   - Select menus
+   - Checkboxes and radio buttons
+   - Range slider
+   - Progress bars and meters
+*/
+
+// Basic form variables
 $form-text-size: 16px;
 $form-padding: 0.5rem;
 $form-label-color: #999;
 
-// Resets
+// Text fields
+$input-color: #000;
+$input-color-hover: $input-color;
+$input-color-focus: $input-color;
+$input-background: #fff;
+$input-background-hover: $input-background;
+$input-background-focus: $input-background;
+$input-border: 1px solid #ccc;
+$input-border-hover: 1px solid #ddd;
+$input-border-focus: 1px solid #999;
 
-// Make sure textarea takes on height automatically
-textarea { height: auto; min-height: 50px; }
+// Labels
+$label-fontsize: 0.9rem;
+$label-margin: 0.5rem;
+$label-color: #333;
 
-// Make select elements 100% width by default
-select { width: 100%; }
+// Inline labels
+$inlinelabel-color: #333;
+$inlinelabel-background: #eee;
+$inlinelabel-border: $input-border;
 
-// Styling
+$text-input-selectors: '[type="text"], input[type="password"], input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="month"], input[type="week"], input[type="email"], input[type="number"], input[type="search"], input[type="tel"], input[type="time"], input[type="url"], input[type="color"], textarea';
 
-input[type="text"],
-input[type="password"],
-input[type="date"],
-textarea {
-  display: block;
-  border: 1px solid $secondary-color;
-  width: 100%;
-  padding: $form-padding;
-  margin: 0 0 $form-padding 0;
-  -webkit-font-smoothing: antialiased;
-
-  &:focus {
-    outline: 0;
-    box-shadow: none;
-    border-color: darken($secondary-color, 20%);
-  }
-}
-
-.inline-labels {
-  display: flex;
-  flex-flow: row nowrap;
-  margin-bottom: $form-padding;
-
-  &>* {
-    flex: 1 1 auto;
-  }
-
-  input {
-    margin-bottom: 0;
-  }
-
-  label {
-    display: block;
-    margin: 0;
-    background: $secondary-color;
-    padding: $form-padding;
-    color: darken($secondary-color, 30%);
-    flex-shrink: 0;
-    flex-grow: 1;
-    flex-basis: auto;
-    line-height: 1.3;
-    font-size: 1rem;
-  }
-}
-
-form, form>* {
-
-  label {
-    display: block;
-    color: $form-label-color;
-    font-size: 0.8rem;
-    margin-bottom: $form-padding / 2;
-  }
-
-  @for $i from 2 through 6 { // 3
-    $small-count: $i - 1; // 2
-
-    &.small-#{$i}-up { // small-2-up
-
-      display: flex;
-      flex-flow: row wrap;
-
-      &>* {
-        $current-percentage: percentage(1 / $i); // 33.333333%
-        $reduction-amount: $form-padding * ($small-count / $i); // .5rem * (2 / 3)
-        flex: 0 0 auto;
-        width: calc(#{$current-percentage} - (#{$reduction-amount})); // 33.33333% - .36667777rem
-
-        margin-right: $form-padding / 2;
-        margin-left: $form-padding / 2;
-
-        &:nth-child(#{$i}n) { // 3, 6, 9, 12 etc
-          margin-right: 0;
-        }
-
-        &:nth-child(#{$i}n-#{$small-count}) { // 1, 4, 7, 10
-          margin-left: 0;
-        }
-      }
-    }
-
-    @include breakpoint(medium) {
-
-      &.medium-#{$i}-up { // small-2-up
-
-        display: flex;
-        flex-flow: row wrap;
-
-        &>* {
-          $current-percentage: percentage(1 / $i); // 33.333333%
-          $reduction-amount: $form-padding * ($small-count / $i); // .5rem * (2 / 3)
-          flex: 0 0 auto;
-          width: calc(#{$current-percentage} - (#{$reduction-amount})); // 33.33333% - .36667777rem
-
-          margin-right: $form-padding / 2;
-          margin-left: $form-padding / 2;
-
-          &:nth-child(#{$i}n) { // 3, 6, 9, 12 etc
-            margin-right: 0;
-          }
-
-          &:nth-child(#{$i}n-#{$small-count}) { // 1, 4, 7, 10
-            margin-left: 0;
-          }
-        }
-      }
-    }
-
-    @include breakpoint(large) {
-
-      &.large-#{$i}-up { // small-2-up
-
-        display: flex;
-        flex-flow: row wrap;
-
-        &>* {
-          $current-percentage: percentage(1 / $i); // 33.333333%
-          $reduction-amount: $form-padding * ($small-count / $i); // .5rem * (2 / 3)
-          flex: 0 0 auto;
-          width: calc(#{$current-percentage} - (#{$reduction-amount})); // 33.33333% - .36667777rem
-
-          margin-right: $form-padding / 2;
-          margin-left: $form-padding / 2;
-
-          &:nth-child(#{$i}n) { // 3, 6, 9, 12 etc
-            margin-right: 0;
-          }
-
-          &:nth-child(#{$i}n-#{$small-count}) { // 1, 4, 7, 10
-            margin-left: 0;
-          }
-        }
-      }
-    }
-  }
-}
-
+// Disable OS-level styles
 %no-appearance {
   -webkit-appearance: none;
      -moz-appearance: none;
+}
+
+// Text fields
+#{$text-input-selectors} {
+  display: block;
+  width: 100%;
+  padding: $form-padding;
+  margin: 0 0 $global-padding 0;
+  border: $input-border;
+  background: $input-background;
+  color: $input-color;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+
+  &:hover {
+    border: $input-border-hover;
+    background: $input-background-hover;
+    color: $input-color-hover;
+  }
+  &:focus {
+    outline: 0;
+    border: $input-border-focus;
+    background: $input-background-focus;
+    color: $input-color-focus;
+  }
+
+  label > & {
+    margin-top: $label-margin;
+  }
+}
+
+// Labels
+label {
+  display: block;
+  font-size: $label-fontsize;
+  margin-bottom: $label-margin;
+  color: $label-color;
+
+  > input, > textarea {
+    margin-top: $label-margin;
+  }
+}
+
+// Inline labels allow you to prefix or postfix special labels to inputs
+.inline-label {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: stretch;
+
+  label > & {
+    margin-top: $label-margin;
+  }
+
+  > input, > select {
+    flex: 1;
+    margin: 0;
+  }
+
+  > .form-label {
+    flex: 0 0 auto;
+    background: $inlinelabel-background;
+    color: $inlinelabel-color;
+    border: $inlinelabel-border;
+    padding: 0 $form-padding;
+    display: flex;
+    align-items: center;
+
+    &:first-child { border-right: 0; }
+    &:last-child  { border-left: 0; }
+  }
+}
+
+// Make sure textarea takes on height automatically
+textarea {
+  height: auto;
+  width: 100%;
+  min-height: 50px;
+}
+
+// Make select elements 100% width by default
+select {
+  @extend %no-appearance;
+  display: block;
+  border-radius: 0;
+  width: 100%;
+  padding: $form-padding;
+  margin: 0 0 $global-padding 0;
+
+  &:focus {
+    outline: 0;
+  }
 }
 
 /*
@@ -179,7 +159,7 @@ input[type="range"] {
   &::-webkit-slider-thumb {
     -webkit-appearance: none;
     background: $thumb-color;
-    border-radius: 1000px;;
+    border-radius: 1000px;
     width: $thumb-height;
     height: $thumb-height;
   }

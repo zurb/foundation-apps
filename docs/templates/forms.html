@@ -6,4 +6,50 @@ url: /forms
 <h2>Forms</h2>
 <h3 class="subheader">Easily create powerful and versatile form layouts with our built in form styles and the Foundation grid. We also included some handy form controlls to make your app more complete.</h3>
 
-<hr>
+---
+
+<style>
+  .grid-content .grid-block {
+    flex-flow: row wrap;
+  }
+  .grid-content .grid-block .grid-content {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+</style>
+
+<div class="grid-block">
+  <div class="grid-content">
+    <label>
+      Input Label
+      <input type="text" placeholder="Text field">
+    </label>
+    <div class="grid-block">
+      <div class="small-12 medium-6 grid-content">
+        <label>
+          Inline Label
+          <input type="text" placeholder="Text field">
+        </label>
+      </div>
+      <div class="small-12 medium-6 grid-content">
+        <label>Separate Label</label>
+        <select name="" id="">
+          <option value="">Breakfast</option>
+        </select>
+      </div>
+      <div class="small-12 medium-6 grid-content">
+        <label>
+          Prefix/postfix
+          <span class="inline-label">
+            <span class="form-label">www.</span>
+            <input type="text">
+            <span class="form-label">.com</span>
+          </span>
+        </label>
+      </div>
+      <div class="small-12 medium-6 grid-content">
+        <input type="range">
+      </div>
+    </div>
+  </div>
+</div>
