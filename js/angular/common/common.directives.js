@@ -60,25 +60,24 @@ angular.module('foundation.common.directives')
   return {
     restrict: 'A',
     priority: 100, //set priority to override other directives
-    scope: {
-      animationIn: '@?',
-      animationOut: '@?'
-    },
     link: function(scope, element, attrs) {
       var isActive = false;
+      var animationIn = attrs.animationIn;
+      var animationOut = attrs.animationOut;
 
       var activeClass = 'is-active';
 
       var reflow = function() {
-        return element[0].style.offsetWidth;
-      }
+        return element[0].offsetWidth;
+      };
 
       var reset = function() {
         element[0].style.transitionDuration = 0;
-        element.removeClass(activeClass + ' ' + scope.animationIn + ' ' + scope.animationOut);
-      }
+        element.removeClass(activeClass + ' ' + animationIn + ' ' + animationOut);
+      };
 
       var animate = function(animationClass, activation) {
+        console.log(animationClass, activation, 'test');
         //stop animation
         reset();
         element.addClass(animationClass);
@@ -90,10 +89,11 @@ angular.module('foundation.common.directives')
         element[0].style.transitionDuration = '';
         element.addClass(activeClass);
         isActive = activation;
-      }
+      };
 
       //subscribe
-      foundationApi.subbscribe(attrs.id, function(msg) {
+      foundationApi.subscribe(attrs.id, function(msg) {
+        console.log(msg);
         if(msg === 'show' || msg === 'open') {
           animate(animationIn, true);
         } else if (msg === 'hide' || msg === 'close') {
