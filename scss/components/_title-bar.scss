@@ -43,9 +43,7 @@ $titlebar-item-classes: (
   // Denotes left, right, and center sections of the bar
   .#{$left}, .#{$center}, .#{$right} {
     white-space: nowrap;
-    overflow-x: hidden; // For the ellipsis trick
-    overflow-y: visible; // To make descenders visible
-    text-overflow: ellipsis;
+    overflow: visible;
 
     // If only one section is in use, stretch it all the way out
     &:first-child:last-child {
@@ -114,6 +112,15 @@ $titlebar-item-classes: (
 @include exports(title-bar) {
   .title-bar {
     @include title-bar;
+
+    &.primary {
+      @include title-bar-style($primary-color, isitlight($primary-color));
+      a, a:hover { color: isitlight($primary-color); }
+    }
+    &.dark {
+      @include title-bar-style($dark-color, #fff);
+      a, a:hover { color: #fff; }
+    }
   }
     .title-bar-bottom {
       border-bottom: 0;
