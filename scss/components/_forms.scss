@@ -93,6 +93,7 @@ label {
   display: flex;
   flex-flow: row nowrap;
   align-items: stretch;
+  margin-bottom: $global-padding;
 
   label > & {
     margin-top: $label-margin;
@@ -114,6 +115,10 @@ label {
 
     &:first-child { border-right: 0; }
     &:last-child  { border-left: 0; }
+  }
+  > .form-button {
+    margin: 0;
+    border-radius: 0;
   }
 }
 
