@@ -54,3 +54,23 @@ angular.module('foundation.common.directives')
     }
   }
 }]);
+
+angular.module('foundation.common.directives')
+  .directive('faAnimationIn', ['FoundationApi', function(foundationApi) {
+  return {
+    restrict: 'A',
+    link: function(scope, element, attrs) {
+      //animation logic
+    }
+  };
+}]);
+
+angular.module('foundation.common.directives')
+  .directive('faAnimationIn', ['FoundationApi', function(foundationApi) {
+  return {
+    restrict: 'A',
+    link: function(scope, element, attrs) {
+      //animation logic
+    }
+  };
+}]);
