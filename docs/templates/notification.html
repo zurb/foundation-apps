@@ -3,9 +3,128 @@ name: notification
 url: /notification
 ---
 
-<h2>Notification</h2>
+## Notification
 <h3 class="subheader">An alert that pins to the corner of the screen when triggered by JavaScript. It can be set to disappear after a certain period of time, or to stay put until the user clicks on it. A custom action can be asigned to a notification as well.</h3>
 
 <h3 class="subheader">Optionally, the notifications directive can also tap into the browser's native notification support, if it exists.</h3>
 
-<hr>
+<div class="grid-block">
+  <div class="small-12 grid-content">
+	<a class="button" href="#"
+	  title="My notification"
+	  content="Notification example"
+	  color="success"
+	  position="top left"
+	  fa-notify="main-notifications">Dynamic Notification</a>
+	<a class="button" href="#" fa-open="static-example">Static Notification</a>
+	<fa-notification-set id="main-notifications"></fa-notification-set>
+	<fa-notification-static id="static-example" title="My static notification" image="http://www.clipartbest.com/cliparts/acq/X8R/acqX8RdcM.jpeg">
+	  This notification is static, it works similarly to a programmatic with some subtle differences
+	</fa-notification-static>
+  </div>
+</div>
+
+***
+
+<h3 class="subheader">There are two ways to access a notification. One via the static method and also dynamically (programmatic).</h3>
+
+### Basic HTML
+The static method is best used for prototyping since it doesn't involve any programming.
+
+You can create a Static Notification with this basic HTML
+<ul class="segmented button-group small">
+  <li class="is-active"><a href="#">CSS Classes</a></li>
+  <li><a href="#">Sass Mixins</a></li>
+</ul>
+<div class="grid-block">
+  <div class="medium-6 grid-content">
+```html
+<!-- notification trigger -->
+<a class="button" href="#" fa-open="my-notify">Static Notification</a>
+<!-- notification content -->
+<fa-notification-static id="my-notify" title="My static notification" image="http://placehold.it/40x40">
+	  <p>This notification is static, it works similarly to a programmatic with some subtle differences.</p>
+	</fa-notification-static>
+```
+  </div>
+  <div class="medium-6 grid-content">
+		<a class="button" href="#" fa-open="my-notify">Static Notification</a>
+		<fa-notification-static id="my-notify" title="My static notification" image="http://placehold.it/40x40">
+	  <p>This notification is static, it works similarly to a programmatic with some subtle differences.</p>
+	</fa-notification-static>
+  </div>
+</div>
+
+### Advanced HTML
+
+The FoundationApi service is a pretty useful service, one function of it is to send information from directives, controllers, and other parts to other directives, controllers, etc. It's a messaging system for the entire application.
+
+You can create a Dynamic Notification with this basic HTML
+<ul class="segmented button-group small">
+  <li class="is-active"><a href="#">CSS Classes</a></li>
+  <li><a href="#">Sass Mixins</a></li>
+</ul>
+<div class="grid-block">
+  <div class="medium-6 grid-content">
+```html
+<!-- notification trigger -->
+<a class="button" href="#"
+	title="My notification"
+	content="Notification example"
+	color="success"
+	position="top left"
+	fa-notify="main-notifications">Dynamic Notification</a>
+
+<fa-notification-set id="main-notifications"></fa-notification-set>
+```
+  </div>
+  <div class="medium-6 grid-content">
+    <a class="button" href="#"
+		title="My notification"
+		content="Notification example"
+		color="success"
+		position="top left"
+		fa-notify="main-notifications">Dynamic Notification</a>
+		<fa-notification-set id="main-notifications"></fa-notification-set>
+  </div>
+</div>
+
+And then send it a notification with via FoundationApi:
+
+````js
+foundationApi.publish('main-notifications', { title: 'Test', content: 'Test2' });
+````
+
+You can also use the `fa-notify` directive for simpler messages and prototyping:
+
+````html
+<a href="#" fa-notify title="Title of notification" content="Content of notification">Launch notification</a>
+````
+#### Additional Options
+
+On top of setting a title and content, you can also set:
+
+- image - enter the source
+- position
+- color
+
+***
+
+
+
+### Sass Variables
+You can customize with...
+```scss
+$notification-default-position: right top;
+$notification-width: rem-calc(400);
+$notification-offset: $global-padding;
+
+$notification-background: $primary-color;
+$notification-color: white;
+$notification-padding: $global-padding;
+$notification-radius: 4px;
+
+$notification-icon-size: 60px;
+$notification-icon-margin: $global-padding;
+$notification-icon-align: top;
+```
