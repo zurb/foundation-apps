@@ -92,17 +92,21 @@ angular.module('foundation.common.directives')
 
       //subscribe
       foundationApi.subscribe(attrs.id, function(msg) {
-        if(msg === 'show' || msg === 'open') {
+        if((msg === 'show' || msg === 'open') && animationIn) {
           animate(animationIn, true);
-        } else if (msg === 'hide' || msg === 'close') {
-          animate(animationOut, false);
+        } else if ((msg === 'hide' || msg === 'close') && animationOut) {
+          setTimeout(function() {
+            animate(animationOut, false);
+          }, 1);
         } else if (msg === 'toggle') {
           var newState = !isActive;
           var newAnimation = newState ? animationIn : animationOut;
 
           //allow other elements to do their job
           setTimeout(function() {
-            animate(newAnimation, newState);
+            if(newAnimation) {
+              animate(newAnimation, newState);
+            }
           }, 1);
         }
 
