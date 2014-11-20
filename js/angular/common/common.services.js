@@ -38,7 +38,7 @@ angular.module('foundation.common.services')
 
         //little trick to produce semi-random IDs
         do {
-          uuid += 'fa-uuid-';
+          uuid += 'zf-uuid-';
           for (var i=0; i<15; i++) {
             uuid += Math.floor(Math.random()*16).toString(16);
           }
@@ -70,7 +70,7 @@ angular.module('foundation.common.services')
         return function () {
           var context = this, args = arguments;
 
-          if (timer == null) {
+          if (timer === null) {
             timer = setTimeout(function () {
               func.apply(context, args);
               timer = null;

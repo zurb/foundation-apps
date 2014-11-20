@@ -1,7 +1,7 @@
 angular.module('foundation.notification', ['foundation.common.services']);
 
 angular.module('foundation.notification')
-  .controller('FaNotificationController', ['$scope', 'FoundationApi', function FaTabsController($scope, foundationApi) {
+  .controller('ZfNotificationController', ['$scope', 'FoundationApi', function ZfTabsController($scope, foundationApi) {
     var controller    = this;
     var notifications = controller.notifications = $scope.notifications = [];
 
@@ -27,11 +27,11 @@ angular.module('foundation.notification')
 }]);
 
 angular.module('foundation.notification')
-  .directive('faNotificationSet', ['FoundationApi', function(foundationApi) {
+  .directive('zfNotificationSet', ['FoundationApi', function(foundationApi) {
   return {
     restrict: 'EA',
     templateUrl: '/partials/notification-set.html',
-    controller: 'FaNotificationController',
+    controller: 'ZfNotificationController',
     link:function(scope, element, attrs, controller) {
       foundationApi.subscribe(attrs.id, function(msg) {
         if(msg === 'clearall') {
@@ -48,13 +48,13 @@ angular.module('foundation.notification')
 }]);
 
 angular.module('foundation.notification')
-  .directive('faNotification', function() {
+  .directive('zfNotification', function() {
   return {
     restrict: 'EA',
     templateUrl: '/partials/notification.html',
     replace: true,
     transclude: true,
-    require: '^faNotificationSet',
+    require: '^zfNotificationSet',
     controller: function() { },
     scope: {
       title: '=?',
@@ -85,7 +85,7 @@ angular.module('foundation.notification')
 });
 
 angular.module('foundation.notification')
-  .directive('faNotificationStatic', ['FoundationApi', function(foundationApi) {
+  .directive('zfNotificationStatic', ['FoundationApi', function(foundationApi) {
   return {
     restrict: 'EA',
     templateUrl: '/partials/notification.html',
@@ -137,7 +137,7 @@ angular.module('foundation.notification')
 }]);
 
 angular.module('foundation.notification')
-  .directive('faNotify', ['FoundationApi', function(foundationApi) {
+  .directive('zfNotify', ['FoundationApi', function(foundationApi) {
   return {
     restrict: 'A',
     scope: {
@@ -150,7 +150,7 @@ angular.module('foundation.notification')
     link: function(scope, element, attrs, controller) {
       element.on('click', function(e) {
         e.preventDefault();
-        foundationApi.publish(attrs.faNotify, { title: scope.title, content: scope.content, position: scope.position, color: scope.color });
+        foundationApi.publish(attrs.zfNotify, { title: scope.title, content: scope.content, position: scope.position, color: scope.color });
       });
     },
   };

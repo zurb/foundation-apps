@@ -1,7 +1,7 @@
 angular.module('foundation.popup', ['foundation.common.services']);
 
 angular.module('foundation.popup')
-  .directive('faPopup', ['FoundationApi', function(foundationApi) {
+  .directive('zfPopup', ['FoundationApi', function(foundationApi) {
     return {
       transclude: true,
       replace: true,
@@ -85,11 +85,11 @@ angular.module('foundation.popup')
 }]);
 
 angular.module('foundation.popup')
-  .directive('faPopupToggle', ['FoundationApi', function(foundationApi) {
+  .directive('zfPopupToggle', ['FoundationApi', function(foundationApi) {
     return {
       restrict: 'A',
       link: function(scope, element, attrs) {
-        var target = attrs.faPopupToggle;
+        var target = attrs.zfPopupToggle;
         var id = attrs.id || foundationApi.generateUuid();
         attrs.$set('id', id);
 

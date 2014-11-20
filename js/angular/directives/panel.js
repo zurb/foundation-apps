@@ -1,7 +1,7 @@
 angular.module('foundation.panel', ['foundation.common.services']);
 
 angular.module('foundation.panel')
-  .directive('faPanel', ['FoundationApi', function(foundationApi) {
+  .directive('zfPanel', ['FoundationApi', function(foundationApi) {
   return {
     restrict: 'EA',
     templateUrl: '/partials/panel.html',
@@ -15,7 +15,7 @@ angular.module('foundation.panel')
 
       return {
         pre: function preLink(scope, iElement, iAttrs, controller) {
-          iAttrs.$set('fa-closable', type);
+          iAttrs.$set('zf-closable', type);
         },
         post: function postLink(scope, element, attrs) {
           var currentStatus = 'hide';
