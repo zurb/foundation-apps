@@ -1,0 +1,67 @@
+@import "settings";
+@import "helpers/functions";
+@import "bootcamp";
+
+@include runner-start;
+
+@include describe("Is It Light") {
+  @include it("returns black if the input color is light") {
+    $actual: isitlight(#fff);
+    $expected: #000;
+
+    @include should(expect($actual), to(be($expected)));
+  }
+
+  @include it("returns white if the input color is dark") {
+    $actual: isitlight(#000);
+    $expected: #fff;
+
+    @include should(expect($actual), to(be($expected)));
+  }
+}
+
+@include describe("Smart Scale") {
+  @include it("returns a darker color if the input color is light") {
+    $color: #fff;
+    $scale: 5%;
+    $threshold: 60%;
+
+    $actual: smartscale($color, $scale, $threshold);
+    $expected: scale-color($color, $lightness: -$scale);
+
+    @include should(expect($actual), to(be($expected)));
+  }
+  @include it("returns a lighter color if the input color is dark") {
+    $color: #000;
+    $scale: 5%;
+    $threshold: 60%;
+
+    $actual: smartscale($color, $scale, $threshold);
+    $expected: scale-color($color, $lightness: $scale);
+
+    @include should(expect($actual), to(be($expected)));
+  }
+}
+
+@include describe("Has Value") {
+  @include it("returns false if the given value is zero") {
+    $actual: hasvalue(0px);
+    $expected: false;
+
+    @include should(expect($actual), to(be($expected)))
+  }
+  @include it("returns false if the given value is null") {
+    $actual: hasvalue(null);
+    $expected: false;
+
+    @include should(expect($actual), to(be($expected)))
+  }
+  @include it("returns false if the given value is none") {
+    $actual: hasvalue(none);
+    $expected: false;
+
+    @include should(expect($actual), to(be($expected)))
+  }
+}
+
+@include runner-end;

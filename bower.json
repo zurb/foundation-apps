@@ -45,6 +45,7 @@
     "angular-highlightjs": "~0.3.2",
     "allmighty-autocomplete": "*",
     "marked": "~0.3.2",
-    "jsdiff": "~1.0.8"
+    "jsdiff": "~1.0.8",
+    "bootcamp": "~1.1.7"
   }
 }
