@@ -18,7 +18,6 @@ angular.module('foundation.panel')
           iAttrs.$set('fa-closable', type);
         },
         post: function postLink(scope, element, attrs) {
-          var currentStatus = 'hide';
           scope.active = false;
 
           //setup
