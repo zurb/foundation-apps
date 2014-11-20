@@ -35,6 +35,8 @@ url: /forms
         <label>Separate Label</label>
         <select name="" id="">
           <option value="">Breakfast</option>
+          <option value="">Bacon Panckakes</option>
+          <option value="">Mountain Dew</option>
         </select>
       </div>
       <div class="small-12 medium-6 grid-content">
@@ -58,6 +60,18 @@ url: /forms
             <a href="#" class="button">Search</a>
           </span>
         </label>
+        <div class="switch">
+          <input type="checkbox" id="switch-1">
+          <label for="switch-1"></label>
+        </div>
+        <div class="switch">
+          <input type="checkbox" id="switch-2">
+          <label for="switch-2"></label>
+        </div>
+        <div class="switch">
+          <input type="checkbox" id="switch-3">
+          <label for="switch-3"></label>
+        </div>
       </div>
       <div class="small-12 medium-6 grid-content">
         <label>
@@ -75,3 +89,197 @@ url: /forms
     </div>
   </div>
 </div>
+
+<div class="grid-block">
+  <div class="small-12 grid-content">
+Example Here
+  </div>
+</div>
+
+***
+
+## Building Forms With HTML
+
+Creating a form in Foundation is designed to be easy but extremely flexible. Forms are built with a combination of standard form elements, as well as the Grid (grid-block and grid-content).
+
+You can size inputs using column sizes, like .large-6, .small-6.
+You can create grid-block elements inside your form and use grid-content for the form, including inputs, labels and more. Grid-block's inside a form inherit some special padding to even up input spacing.
+This is an example form we've created that is laid out using the grid:
+
+### Basic HTML
+You can create a Form with this basic HTML
+<ul class="segmented button-group small">
+  <li class="is-active"><a href="#">CSS Classes</a></li>
+  <li><a href="#">Sass Mixins</a></li>
+</ul>
+<div class="grid-block">
+  <div class="small-12 grid-content">
+```html
+<form>  
+  <label>
+    Input Label
+    <input type="text" placeholder="Text field">
+  </label>
+  <div class="grid-block">
+    <div class="small-12 medium-6 grid-content">
+      <label>
+        Inline Label
+        <input type="text" placeholder="Text field">
+      </label>
+    </div>
+    <div class="small-12 medium-6 grid-content">
+      <label>Separate Label</label>
+      <select name="" id="">
+        <option value="">Breakfast</option>
+        <option value="">Bacon Panckakes</option>
+        <option value="">Mountain Dew</option>
+      </select>
+    </div>
+    <div class="small-12 medium-6 grid-content">
+      <label>
+        Prefix/postfix
+        <span class="inline-label">
+          <span class="form-label">www.</span>
+          <input type="text">
+          <span class="form-label">.com</span>
+        </span>
+      </label>
+    </div>
+    <div class="small-12 medium-6 grid-content">
+      <input type="range">
+    </div>
+    <div class="small-12 medium-6 grid-content">
+      <label>
+        Search
+        <span class="inline-label">
+          <input type="search" placeholder="Search a thing">
+          <a href="#" class="button">Search</a>
+        </span>
+      </label>
+    </div>
+  </div>
+</form>
+```
+    <form>  
+      <label>
+        Input Label
+        <input type="text" placeholder="Text field">
+      </label>
+      <div class="grid-block">
+        <div class="small-12 medium-6 grid-content">
+          <label>
+            Inline Label
+            <input type="text" placeholder="Text field">
+          </label>
+        </div>
+        <div class="small-12 medium-6 grid-content">
+          <label>
+            Prefix/postfix
+            <span class="inline-label">
+              <span class="form-label">www.</span>
+              <input type="text">
+              <span class="form-label">.com</span>
+            </span>
+          </label>
+        </div>
+        <div class="small-12 medium-6 grid-content">
+          <label>
+            Search
+            <span class="inline-label">
+              <input type="search" placeholder="Search a thing">
+              <a href="#" class="button">Search</a>
+            </span>
+          </label>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+### Advanced HTML
+You can create advanced versions of [Item] with this HTML
+<ul class="segmented button-group">
+  <li class="is-active"><a href="#">CSS Classes</a></li>
+  <li><a href="#">Sass Mixins</a></li>
+</ul>
+<div class="grid-block">
+  <div class="medium-6 grid-content">
+```html
+<div class="lolwut"></div>
+```
+  </div>
+  <div class="medium-6 grid-content">
+    [Demo of item]
+  </div>
+</div>
+
+### Sass Variables
+You can customize with...
+```scss
+// Basic form variables
+$form-fontsize: 1rem;
+$form-padding: 0.5rem;
+
+// Text fields
+$input-color: #000;
+$input-color-hover: $input-color;
+$input-color-focus: $input-color;
+$input-background: #fff;
+$input-background-hover: $input-background;
+$input-background-focus: $input-background;
+$input-border: 1px solid #ccc;
+$input-border-hover: 1px solid #bbb;
+$input-border-focus: 1px solid #999;
+
+// Select menus
+$select-color: #000;
+$select-background: #fafafa;
+$select-background-hover: smartscale($select-background, 4%);
+$select-arrow: true;
+$select-arrow-color: $select-color;
+
+// Labels
+$label-fontsize: 0.9rem;
+$label-margin: 0.5rem;
+$label-color: #333;
+
+// Inline labels
+$inlinelabel-color: #333;
+$inlinelabel-background: #eee;
+$inlinelabel-border: $input-border;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// Range slider
+$slider-background: #ddd;
+$slider-height: 1rem;
+$slider-radius: 0px;
+$slider-thumb-height: 1.5rem;
+$slider-thumb-color: $primary-color;
+$slider-thumb-radius: 0px;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// Progress and meter
+$meter-height: 1.5rem;
+$meter-background: #ccc;
+$meter-fill: $primary-color;
+$meter-fill-high: $success-color;
+$meter-fill-medium: #e7cf00;
+$meter-fill-low: $alert-color;
+$meter-radius: 0;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// Switch
+$switch-width: rem-calc(50);
+$switch-height: rem-calc(32);
+$switch-background: #ccc;
+$switch-background-active: $primary-color;
+$switch-border: 0;
+$switch-radius: 9999px;
+$switch-animation-speed: 0.15s;
+
+$switch-paddle-color: white;
+$switch-paddle-offset: 4px;
+```
