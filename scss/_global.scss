@@ -57,7 +57,9 @@ $info-color: #A0D3E8 !default;
 $success-color: #43AC6A !default;
 $warning-color: #F08A24 !default;
 $dark-color: #232323 !default;
-$slate: #708090 !default;
+$gray: #dfdfdf !default;
+$gray-dark: darken($gray, 8) !default;
+$gray-light: lighten($gray, 8) !default;
 
 // For internal use: a color map
 $foundation-colors: (
