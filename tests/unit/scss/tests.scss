@@ -4,6 +4,44 @@
 
 @include runner-start;
 
+@include describe("Map Next") {
+  @include it("returns the value for the key after the given key") {
+    $input: (
+      one: 'One',
+      two: 'Two',
+      three: 'Three',
+    );
+    $actual: map-next($input, two);
+    $expected: map-get($input, three);
+
+    @include should(expect($actual), to(be($expected)));
+  }
+
+  @include it("returns null if the given key is last in the map") {
+    $input: (
+      one: 'One',
+      two: 'Two',
+      three: 'Three',
+    );
+    $actual: map-next($input, three);
+    $expected: null;
+
+    @include should(expect($actual), to(be($expected)));
+  }
+
+  @include it("returns null if the given key is not in the map") {
+    $input: (
+      one: 'One',
+      two: 'Two',
+      three: 'Three',
+    );
+    $actual: map-next($input, four);
+    $expected: null;
+
+    @include should(expect($actual), to(be($expected)));
+  }
+}
+
 @include describe("Is It Light") {
   @include it("returns black if the input color is light") {
     $actual: isitlight(#fff);
@@ -48,19 +86,85 @@
     $actual: hasvalue(0px);
     $expected: false;
 
-    @include should(expect($actual), to(be($expected)))
+    @include should(expect($actual), to(be($expected)));
   }
   @include it("returns false if the given value is null") {
     $actual: hasvalue(null);
     $expected: false;
 
-    @include should(expect($actual), to(be($expected)))
+    @include should(expect($actual), to(be($expected)));
   }
   @include it("returns false if the given value is none") {
     $actual: hasvalue(none);
     $expected: false;
 
-    @include should(expect($actual), to(be($expected)))
+    @include should(expect($actual), to(be($expected)));
+  }
+}
+
+@include describe("Get Side") {
+  @include it("returns correct sides when given one side value") {
+    $value: 1rem;
+    $actual: (
+      get-side($value, top),
+      get-side($value, right),
+      get-side($value, bottom),
+      get-side($value, left),
+    );
+    $expected: (1rem, 1rem, 1rem, 1rem,);
+
+    @include should(expect($actual), to(be($expected)));
+  }
+  @include it("returns correct sides when given two side values") {
+    $value: 1rem 2rem;
+    $actual: (
+      get-side($value, top),
+      get-side($value, right),
+      get-side($value, bottom),
+      get-side($value, left),
+    );
+    $expected: (1rem, 2rem, 1rem, 2rem,);
+
+    @include should(expect($actual), to(be($expected)));
+  }
+  @include it("returns correct sides when given three side values") {
+    $value: 1rem 2rem 3rem;
+    $actual: (
+      get-side($value, top),
+      get-side($value, right),
+      get-side($value, bottom),
+      get-side($value, left),
+    );
+    $expected: (1rem, 2rem, 3rem, 2rem,);
+
+    @include should(expect($actual), to(be($expected)));
+  }
+  @include it("returns correct sides when given four side values") {
+    $value: 1rem 2rem 3rem 4rem;
+    $actual: (
+      get-side($value, top),
+      get-side($value, right),
+      get-side($value, bottom),
+      get-side($value, left),
+    );
+    $expected: (1rem, 2rem, 3rem, 4rem,);
+
+    @include should(expect($actual), to(be($expected)));
+  }
+}
+
+@include describe("Strip Unit") {
+  @include it("returns a unitless number when given a value") {
+    $actual: strip-unit(20px);
+    $expected: 20;
+
+    @include should(expect($actual), to(be($expected)));
+  }
+  @include it("returns the same number when given a unitless value") {
+    $actual: strip-unit(20);
+    $expected: 20;
+
+    @include should(expect($actual), to(be($expected)));
   }
 }
 
