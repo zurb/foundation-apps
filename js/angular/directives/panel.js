@@ -31,6 +31,12 @@ angular.module('foundation.panel')
               scope.toggle();
             }
 
+            if(attrs.animationIn && attrs.animationOut) {
+              foundationApi.animate(element, scope.active, attrs.animationIn, attrs.animationOut);
+            } else {
+              //toggle animation
+            }
+
             scope.$apply();
 
             return;
