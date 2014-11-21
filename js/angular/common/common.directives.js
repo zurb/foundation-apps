@@ -14,7 +14,7 @@ angular.module('foundation.common.directives')
           parentElement = '';
         }
 
-        if(typeof tempElement.attr('fa-closable') !== 'undefined' && tempElement.attr('fa-closable') !== false) {
+        if(typeof tempElement.attr('zf-closable') !== 'undefined' && tempElement.attr('zf-closable') !== false) {
           parentElement = tempElement;
         }
 
