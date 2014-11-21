@@ -68,6 +68,7 @@ gulp.task('node-sass', function() {
     .pipe(autoprefixer({
       browsers: ['last 2 versions', 'ie 10']
     }))
+    .pipe(concat('app_node.css'))
     .pipe(gulp.dest('./build/assets/css/'));
 });
 
@@ -145,6 +146,8 @@ gulp.task('karma-test', ['build'], function() {
     'build/assets/js/app.js',
     'build/assets/js/angular-app.js',
     'bower_components/angular-mocks/angular-mocks.js',
+    'build/assets/css/app.css',
+    'build/assets/css/app_node.css',
     'tests/unit/**/*Spec.js'
   ];
 
