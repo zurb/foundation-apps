@@ -1,7 +1,7 @@
 angular.module('foundation.modal', ['foundation.common.services']);
 
 angular.module('foundation.modal')
-  .directive('faModal', ['FoundationApi', function(foundationApi) {
+  .directive('zfModal', ['FoundationApi', function(foundationApi) {
   return {
     restrict: 'EA',
     templateUrl: '/partials/modal.html',
@@ -13,7 +13,7 @@ angular.module('foundation.modal')
 
       return {
         pre: function preLink(scope, iElement, iAttrs, controller) {
-          iAttrs.$set('fa-closable', type);
+          iAttrs.$set('zf-closable', type);
         },
         post: function postLink(scope, element, attrs) {
           var dialog = angular.element(element.children()[0]);

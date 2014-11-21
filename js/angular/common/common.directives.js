@@ -1,7 +1,7 @@
 angular.module('foundation.common.directives', []);
 
 angular.module('foundation.common.directives')
-  .directive('faClose', ['FoundationApi', function(foundationApi) {
+  .directive('zfClose', ['FoundationApi', function(foundationApi) {
   return {
     restrict: 'A',
     link: function(scope, element, attrs) {
@@ -9,12 +9,12 @@ angular.module('foundation.common.directives')
       var tempElement = element.parent();
 
       //find parent modal
-      while(parentElement == false) {
+      while(parentElement === false) {
         if(tempElement[0].nodeName == 'BODY') {
           parentElement = '';
         }
 
-        if(typeof tempElement.attr('fa-closable') !== 'undefined' && tempElement.attr('fa-closable') !== false) {
+        if(typeof tempElement.attr('zf-closable') !== 'undefined' && tempElement.attr('zf-closable') !== false) {
           parentElement = tempElement;
         }
 
@@ -26,29 +26,29 @@ angular.module('foundation.common.directives')
         e.preventDefault();
       });
     }
-  }
+  };
 }]);
 
 angular.module('foundation.common.directives')
-  .directive('faOpen', ['FoundationApi', function(foundationApi) {
+  .directive('zfOpen', ['FoundationApi', function(foundationApi) {
   return {
     restrict: 'A',
     link: function(scope, element, attrs) {
       element.on('click', function(e) {
-        foundationApi.publish(attrs.faOpen, 'open');
+        foundationApi.publish(attrs.zfOpen, 'open');
         e.preventDefault();
       });
     }
-  }
+  };
 }]);
 
 angular.module('foundation.common.directives')
-  .directive('faToggle', ['FoundationApi', function(foundationApi) {
+  .directive('zfToggle', ['FoundationApi', function(foundationApi) {
   return {
     restrict: 'A',
     link: function(scope, element, attrs) {
       element.on('click', function(e) {
-        foundationApi.publish(attrs.faToggle, 'toggle');
+        foundationApi.publish(attrs.zfToggle, 'toggle');
         e.preventDefault();
       });
     }
