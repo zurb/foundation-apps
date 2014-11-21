@@ -7,7 +7,7 @@ angular.module('foundation.panel')
     templateUrl: '/partials/panel.html',
     transclude: true,
     scope: {
-      position: '@'
+      position: '@?'
     },
     replace: true,
     compile: function compile(tElement, tAttrs, transclude) {
@@ -18,7 +18,7 @@ angular.module('foundation.panel')
           iAttrs.$set('zf-closable', type);
         },
         post: function postLink(scope, element, attrs) {
-          var currentStatus = 'hide';
+          scope.position = scope.position || 'left';
           scope.active = false;
 
           //setup

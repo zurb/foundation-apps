@@ -47,10 +47,11 @@ angular.module('foundation.actionsheet')
     templateUrl: '/partials/actionsheet-content.html',
     require: '^zfActionSheet',
     scope: {
-      position: '@?'
+      position: '@?'
     },
     link: function(scope, element, attrs, controller) {
       scope.active = false;
+      scope.position = scope.position || 'bottom';
       controller.registerContent(scope);
 
       scope.toggle = function() {

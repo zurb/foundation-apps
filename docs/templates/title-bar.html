@@ -3,11 +3,30 @@ name: title-bar
 url: /title-bar
 ---
 
-<h2>Title Bar</h2>
+## Title Bar
 <h3 class="subheader">A navigational component which can display the current screen the user is on, along with additional controls or menu items.</h3>
 
-<hr>
+<div class="grid-block">
+  <div class="small-12 grid-content">
+		<div class="primary title-bar">
+		  <div class="center title">Title Bar</div>
+		  <span class="left"><a href="#">Left Link</a></span>
+		  <span class="right"><a href="#">Right Link</a></span>
+		</div>
+	</div>
+</div>
 
+***
+
+### Basic HTML
+You can create a Title-bar with this basic HTML
+<ul class="segmented button-group">
+  <li class="is-active"><a href="#">CSS Classes</a></li>
+  <li><a href="#">Sass Mixins</a></li>
+</ul>
+<div class="grid-block">
+  <div class="medium-6 grid-content">
+```html
 <div class="title-bar">
   <span class="title left">Left</span>
   <span class="right"><a href="#">Right</a></span>
@@ -23,3 +42,54 @@ url: /title-bar
   <span class="title center">Center</span>
   <span class="right"><a href="#">Right</a></span>
 </div>
+```
+  </div>
+  <div class="medium-6 grid-content">
+    <div class="title-bar">
+		  <span class="title left">Left Site Name</span>
+		  <span class="right"><a href="#">Right Link</a></span>
+		</div>
+		<br>
+		<div class="primary title-bar">
+		  <div class="center title">Center</div>
+		  <span class="left"><a href="#">Left</a></span>
+		  <span class="right"><a href="#">Right</a></span>
+		</div>
+		<br>
+		<div class="dark title-bar">
+		  <span class="title center">Center</span>
+		  <span class="right"><a href="#">Right</a></span>
+		</div>
+  </div>
+</div>
+
+#### Additional Options
+You can easily customize Title-bar with these classes:
+```html
+.primary = primary color
+.dark = dark color
+.left = float content left
+.right= float content right
+.center = center content
+```
+
+***
+
+### Sass Variables
+You can customize with...
+```scss
+$titlebar-center-width: 50%;
+$titlebar-side-width: (100% - $titlebar-center-width) / 2;
+$titlebar-background: #eee;
+$titlebar-color: #000;
+$titlebar-border: 1px solid #ccc;
+$titlebar-padding: $global-padding;
+$titlebar-item-classes: (
+  center: 'center',
+  left: 'left',
+  right: 'right',
+  title: 'title',
+);
+```
+
+

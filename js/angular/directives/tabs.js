@@ -43,7 +43,7 @@ angular.module('foundation.tabs')
 angular.module('foundation.tabs')
   .directive('zfTabs', ['FoundationApi', function(foundationApi) {
   return {
-    restrict: 'A',
+    restrict: 'EA',
     transclude: 'true',
     replace: true,
     templateUrl: '/partials/tabs.html',

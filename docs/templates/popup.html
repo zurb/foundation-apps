@@ -3,7 +3,70 @@ name: popup
 url: /popup
 ---
 
-<h2>Popup</h2>
+## Popup
 <h3 class="subheader">A window that has content and can be placed anywhere, like a popup. Trigger it when a view is loaded or from a button click.</h3>
 
-<hr>
+<div class="grid-block">
+  <div class="small-12 grid-content">
+  	<a class="button" href="#" fa-popup-toggle="popups">Open popup</a>
+		<div fa-popup
+		  title="My title"
+		  footer="Footer!"
+		  id="popups"
+		>Here is my popup content
+		</div>
+		<!-- this is what the markup should be but doesn't work
+
+		<a class="button" href="#" fa-popup-toggle="popups">Open Popup</a>
+		<fa-popup
+		  title="My title"
+		  footer="Footer content"
+		  id="my-popup"
+		>Content goes here</fa-popup> -->
+	</div>
+</div> 
+
+***
+
+### Basic HTML
+You can create [Item] with this basic HTML
+<ul class="segmented button-group">
+  <li class="is-active"><a href="#">CSS Classes</a></li>
+  <li><a href="#">Sass Mixins</a></li>
+</ul>
+<div class="grid-block">
+  <div class="medium-6 grid-content">
+```html
+<a class="button" href="#" fa-popup-toggle="popups">Open Popup</a>
+<fa-popup
+  title="My title"
+  footer="Footer content"
+  id="my-popup"
+>Content goes here</fa-popup>
+```
+  </div>
+  <div class="medium-6 grid-content">
+    <a class="button" href="#" fa-popup-toggle="popups">Open Popup</a>
+		<fa-popup
+		  title="My title"
+		  footer="Footer content"
+		  id="my-popup"
+		>Content goes here</fa-popup>
+  </div>
+</div>
+
+### Positioning
+
+Popups use a library called Tether. Tether attaches an element to another element with absolute positioning; however, there is one caveat. If your popup is nested within a scrollable area (not `body`) but it's not the immediate parent of that element, it will lose its positioning.
+
+***
+
+### Sass Variables
+You can customize with...
+```scss
+$popup-width: rem-calc(300);
+$popup-background: #fff;
+$popup-border: 0;
+$popup-radius: 8px;
+$popup-shadow: 0 0 10px rgba(#000, 0.25);
+```
