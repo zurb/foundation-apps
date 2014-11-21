@@ -50,6 +50,7 @@ angular.module('foundation.actionsheet')
     },
     link: function(scope, element, attrs, controller) {
       scope.active = false;
+      scope.position = scope.position || 'bottom';
       controller.registerContent(scope);
 
       scope.toggle = function() {
