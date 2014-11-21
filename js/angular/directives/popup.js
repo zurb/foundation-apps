@@ -15,6 +15,7 @@ angular.module('foundation.popup')
       link: function(scope, element, attrs) {
         scope.active = false;
         scope.target = scope.target || false;
+        attrs.$set('zf-closeable', 'popup');
 
         var attachment = scope.pinTo || 'top center';
         var tetherInit = false;

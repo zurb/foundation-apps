@@ -67,6 +67,7 @@ angular.module('foundation.notification')
     link: function(scope, element, attrs, controller) {
       scope.active = false;
       scope.position = scope.position ? scope.position.split(' ').join('-') : '';
+      attrs.$set('zf-closable', 'notification');
 
       //allow DOM to change before activating
       setTimeout(function() {

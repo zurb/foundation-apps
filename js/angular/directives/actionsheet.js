@@ -26,6 +26,7 @@ angular.module('foundation.actionsheet')
     templateUrl: '/partials/actionsheet.html',
     controller: 'ZfActionSheetController',
     link: function(scope, element, attrs, controller) {
+      attrs.$set('zf-closable', 'actionsheet');
       foundationApi.subscribe(attrs.id, function(msg) {
         if (msg == 'toggle') {
           controller.toggle();
