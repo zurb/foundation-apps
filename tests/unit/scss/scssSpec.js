@@ -1,4 +1,9 @@
 describe('Sass', function() {
+  var _$http_;
+  beforeEach(inject(function($http) {
+    _$http_ = $http;
+  }));
+
   describe('node-sass and ruby-sass', inject(function($http) {
     var cssFiles = document.querySelectorAll('link');
     var sass = '';
