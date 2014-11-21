@@ -18,6 +18,8 @@ angular.module('foundation.tabs')
           tab.scope.active = true;
         }
       });
+
+      $scope.$apply();
     };
 
     controller.addTab = function addTab(tabScope) {
