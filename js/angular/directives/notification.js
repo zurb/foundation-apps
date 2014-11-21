@@ -66,7 +66,7 @@ angular.module('foundation.notification')
     },
     link: function(scope, element, attrs, controller) {
       scope.active = false;
-      scope.position = scope.position ? scope.position.split(' ').join('-') : '';
+      scope.position = scope.position ? scope.position.split(' ').join('-') : 'top-right';
 
       //allow DOM to change before activating
       setTimeout(function() {

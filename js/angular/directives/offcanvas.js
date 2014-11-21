@@ -7,7 +7,7 @@ angular.module('foundation.offcanvas')
     templateUrl: '/partials/offcanvas.html',
     transclude: true,
     scope: {
-      position: '@'
+      position: '@?'
     },
     replace: true,
     compile: function compile(tElement, tAttrs, transclude) {
@@ -19,7 +19,7 @@ angular.module('foundation.offcanvas')
           document.body.classList.add('has-off-canvas');
         },
         post: function postLink(scope, element, attrs) {
-          var currentStatus = 'hide';
+          scope.position = scope.position || 'left';
           scope.active = false;
 
           //setup
