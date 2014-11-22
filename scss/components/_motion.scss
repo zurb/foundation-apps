@@ -17,31 +17,23 @@
 // 0. Variables
 // - - - - - - - - - - - - - - - - - - - - - - - - -
 
-$transition-normal-duration: 700ms !default;
-
 $motion-class: (
   in: "ng-enter",
   out: "ng-leave",
-);
+) !default;
 $motion-class-active: (
   in: "ng-enter-active",
   out: "ng-leave-active",
-);
+) !default;
 
 $motion-default-origin: left !default;
 $slide-default-dir: left !default;
 
-$include-html-motion-attributes: true !default;
-$auto-adjust-opacity: true !default;
+$motion-duration-default: 700ms !default;
+$motion-duration-slow: 1.4s !default;
+$motion-duration-fast: 300ms !default;
 
-$motion-default-property: transform !default;
-$motion-default-timing: ease !default;
-$motion-default-delay: 0 !default;
-
-$motion-slow-duration: 1.4s !default;
-$motion-default-duration: 700ms !default;
-$motion-fast-duration: 300ms !default;
-
+$motion-timing-default: ease !default;
 $motion-timings: (
   linear: linear,
   ease: ease,
@@ -52,6 +44,10 @@ $motion-timings: (
   bounceOut: cubic-bezier(0.485, 0.155, 0.515, 0.845),
   bounceInOut: cubic-bezier(0.760, -0.245, 0.240, 1.245),
 ) !default;
+
+$motion-delay-default: 0 !default;
+$motion-delay-short: 300ms !default;
+$motion-delay-long: 700ms !default;
 
 // Looks for a timing function in the list of presets
 // If none are found, returns the value as-is.
@@ -66,9 +62,9 @@ $motion-timings: (
 
 // Applies transition settings common to all mixins
 @mixin transition-basics(
-  $duration: $motion-default-duration,
-  $timing: $motion-default-timing,
-  $delay: $motion-default-delay
+  $duration: $motion-duration-default,
+  $timing: $motion-timing-default,
+  $delay: $motion-delay-default
 ) {
   transition-duration: $duration;
   transition-timing-function: get-timing($timing);
@@ -102,9 +98,9 @@ $motion-timings: (
   $dir: in,
   $from: $slide-default-dir,
   $fade: false,
-  $duration: $motion-default-duration,
-  $timing: $motion-default-timing,
-  $delay: $motion-default-delay
+  $duration: $motion-duration-default,
+  $timing: $motion-timing-default,
+  $delay: $motion-delay-default
 ) {
   $shiftDirections: (
     top:    translateY(-100%),
@@ -136,9 +132,9 @@ $motion-timings: (
   $dir: in,
   $from: 0,
   $to: 1,
-  $duration: $motion-default-duration,
-  $timing: $motion-default-timing,
-  $delay: $motion-default-delay
+  $duration: $motion-duration-default,
+  $timing: $motion-timing-default,
+  $delay: $motion-delay-default
 ) {
   @include transition-start($dir) {
     @include transition-basics($duration, $timing, $delay);
@@ -157,9 +153,9 @@ $motion-timings: (
   $perspective: 2000px,
   $turn-origin: from-back,
   $fade: true,
-  $duration: $motion-default-duration,
-  $timing: $motion-default-timing,
-  $delay: $motion-default-delay
+  $duration: $motion-duration-default,
+  $timing: $motion-timing-default,
+  $delay: $motion-delay-default
 ) {
 
   @if $from == top     {
@@ -247,9 +243,9 @@ $motion-timings: (
   $from: 1.5,
   $to: 1,
   $fade: true,
-  $duration: $motion-default-duration,
-  $timing: $motion-default-timing,
-  $delay: $motion-default-delay
+  $duration: $motion-duration-default,
+  $timing: $motion-timing-default,
+  $delay: $motion-delay-default
 ) {
   @include transition-start($dir) {
     @include transition-basics($duration, $timing, $delay);
@@ -269,9 +265,9 @@ $motion-timings: (
   $amount: 0.75turn,
   $ccw: false,
   $fade: true,
-  $duration: $motion-default-duration,
-  $timing: $motion-default-timing,
-  $delay: $motion-default-delay
+  $duration: $motion-duration-default,
+  $timing: $motion-timing-default,
+  $delay: $motion-delay-default
 ) {
   $amount: turn-to-deg($amount);
   $from: 0;
@@ -337,9 +333,9 @@ $motion-timings: (
 
 @mixin animation(
   $animation,
-  $duration: $motion-default-duration,
-  $timing: $motion-default-timing,
-  $delay: $motion-default-delay,
+  $duration: $motion-duration-default,
+  $timing: $motion-timing-default,
+  $delay: $motion-delay-default,
   $iterations: null
 ) {
 
@@ -409,20 +405,19 @@ $motion-timings: (
   */
 
   // Duration
-  .slow { transition-duration: $motion-slow-duration; }
-  .fast { transition-duration: $motion-fast-duration; }
+  .slow { transition-duration: $motion-duration-slow !important; }
+  .fast { transition-duration: $motion-duration-fast !important; }
 
   // Easing
   @each $easing in map-keys($motion-timings) {
     .#{$easing} {
-      transition-timing-function: map-get($motion-timings, $easing);
+      transition-timing-function: map-get($motion-timings, $easing) !important;
     }
   }
 
   // Delay
-  .delay       { transition-delay: $motion-default-duration; }
-  .short-delay { transition-delay: $motion-fast-duration; }
-  .long-delay  { transition-delay: $motion-slow-duration; }
+  .delay       { transition-delay: $motion-delay-short !important; }
+  .long-delay  { transition-delay: $motion-delay-long !important; }
 
   /*
     Animations
@@ -446,18 +441,17 @@ $motion-timings: (
 
     // Easing
     @each $timing in map-keys($motion-timings) {
-      .#{$timing} {
-        animation-timing-function: map-get($motion-timings, $timing);
+      &.#{$timing} {
+        animation-timing-function: map-get($motion-timings, $timing) !important;
       }
     }
 
     // Duration
-    &.slow { animation-duration: $motion-slow-duration; }
-    &.fast { animation-duration: $motion-fast-duration; }
+    &.slow { animation-duration: $motion-duration-slow !important; }
+    &.fast { animation-duration: $motion-duration-fast !important; }
 
     // Delay
-    &.delay       { animation-delay: $motion-default-duration; }
-    &.short-delay { animation-delay: $motion-fast-duration; }
-    &.long-delay  { animation-delay: $motion-slow-duration; }
+    &.delay       { animation-delay: $motion-delay-short !important; }
+    &.long-delay  { animation-delay: $motion-delay-long !important; }
   }
 }
