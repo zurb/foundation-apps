@@ -18,7 +18,15 @@
 // - - - - - - - - - - - - - - - - - - - - - - - - -
 
 $transition-normal-duration: 700ms !default;
-$motion-class: "is-active" !default;
+
+$motion-class: (
+  in: "ng-enter",
+  out: "ng-leave",
+);
+$motion-class-active: (
+  in: "ng-enter-active",
+  out: "ng-leave-active",
+);
 
 $motion-default-origin: left !default;
 $slide-default-dir: left !default;
@@ -54,75 +62,88 @@ $motion-timings: (
   }
 }
 
+@mixin transition-basics(
+  $duration: $motion-default-duration,
+  $timing: $motion-default-timing,
+  $delay: $motion-default-delay
+) {
+  transition-duration: $duration;
+  transition-timing-function: get-timing($timing);
+  transition-delay: $delay;
+}
+
+@mixin transition-start($dir) {
+  $sel: map-get($motion-class, $dir);
+  &.#{$sel} {
+    @content;
+  }
+}
+@mixin transition-end($dir) {
+  $sel:  map-get($motion-class, $dir);
+  $selA: map-get($motion-class-active, $dir);
+  &.#{$sel}.#{$selA} {
+    @content;
+  }
+}
+
 // 1. Base Transitions
 // - - - - - - - - - - - - - - - - - - - - - - - - -
 
 // SLIDE
 @mixin slide (
+  $dir: in,
   $from: $slide-default-dir,
-  $fade: true,
+  $fade: false,
   $duration: $motion-default-duration,
   $timing: $motion-default-timing,
   $delay: $motion-default-delay
 ) {
+  $shiftDirections: (
+    top:    translateY(-100%),
+    right:  translateX(100%),
+    bottom: translateY(100%),
+    left:   translateX(-100%),
+  );
+  $null: translateX(0) translateY(0);
+  $shift: map-get($shiftDirections, $from);
 
-  // origin
-  @if $from == top     { transform: translateY(-100%); }
-  @if $from == right   { transform: translateX(100%); }
-  @if $from == bottom  { transform: translateY(100%); }
-  @if $from == left    { transform: translateX(-100%); }
-
-  backface-visibility: hidden;
-  transition-property: transform;
-
-  @if $fade == true {
+  // CSS Output
+  @include transition-start($dir) {
+    @include transition-basics($duration, $timing, $delay);
     transition-property: transform, opacity;
-    opacity: 0;
+    backface-visibility: hidden;
+    transform: if($dir == in, $shift, $null);
+
+    @if $fade { opacity: if($dir == in, 0, 1); }
   }
+  @include transition-end($dir) {
+    transform: if($dir == in, $null, $shift);
 
-  // duration
-  transition-duration: $duration;
-
-  // timing function
-  transition-timing-function: get-timing($timing);
-
-  // delay
-  transition-delay: $delay;
-
-  &.#{$motion-class} {
-    transform: translateX(0) translateY(0);
-    opacity: 1;
+    @if $fade { opacity: if($dir == in, 1, 0); }
   }
-
 }
 
 // FADE
 @mixin fade(
+  $dir: in,
   $from: 0,
   $to: 1,
   $duration: $motion-default-duration,
   $timing: $motion-default-timing,
   $delay: $motion-default-delay
 ) {
-  opacity: $from;
-  transition-property: transform, opacity;
-
-  // duration
-  transition-duration: $duration;
-
-  // timing function
-  transition-timing-function: get-timing($timing);
-
-  // delay
-  transition-delay: $delay;
-
-  &.#{$motion-class} {
+  @include transition-start($dir) {
+    @include transition-basics($duration, $timing, $delay);
+    transition-property: opacity;
+    opacity: $from;
+  }
+  @include transition-end($dir) {
     opacity: $to;
   }
 }
 
-
 @mixin hinge (
+  $dir: in,
   $from: left,
   $axis: edge,
   $perspective: 2000px,
@@ -205,15 +226,16 @@ $motion-timings: (
   // delay
   transition-delay: $delay;
 
-  &.#{$motion-class} {
-    transform: rotate(0deg);
-    opacity: 1;
-  }
+  // &.#{$motion-class} {
+  //   transform: rotate(0deg);
+  //   opacity: 1;
+  // }
 
 }
 
 // scale
 @mixin scale(
+  $dir: in,
   $from: 1.5,
   $to: 1,
   $fade: true,
@@ -221,67 +243,49 @@ $motion-timings: (
   $timing: $motion-default-timing,
   $delay: $motion-default-delay
 ) {
-  opacity:1;
-  transform: scale($from);
-  transition-property: transform;
-
-  @if $fade == true {
-    transition-property: transform, opacity;
-    opacity: 0;
+  @include transition-start($dir) {
+    @include transition-basics($duration, $timing, $delay);
+    transition-property: transform, property;
+    transform: scale($from);
+    @if $fade { opacity: if($dir == in, 0, 1) }
   }
-
-  // duration
-  transition-duration: $duration;
-
-  // timing function
-  transition-timing-function: get-timing($timing);
-
-  // delay
-  transition-delay: $delay;
-
-  &.#{$motion-class} {
+  @include transition-end($dir) {
     transform: scale($to);
-    opacity:1;
+    @if $fade { opacity: if($dir == in, 1, 0) }
   }
 }
 
 // SPIN
 @mixin spin(
-  $dir: clockwise,
-  $from: 0.75turn,
-  $to: 0,
+  $dir: in,
+  $amount: 0.75turn,
+  $ccw: false,
   $fade: true,
   $duration: $motion-default-duration,
   $timing: $motion-default-timing,
   $delay: $motion-default-delay
 ) {
-  opacity:1;
-  transition-property: transform;
+  $amount: turn-to-deg($amount);
+  $from: 0;
+  $to: 0;
 
-  @if $dir == clockwise {
-    transform: rotate(($from * -1));
+  @if $dir == in {
+    $from: if($ccw, $amount, $amount * -1);
+    $to: 0;
   }
   @else {
-    transform: rotate($from);
+    $from: 0;
+    $to: if($ccw, $amount * -1, $amount);
   }
 
-  @if $fade == true {
+  @include transition-start($dir) {
     transition-property: transform, opacity;
-    opacity: 0;
+    transform: rotate($from);
+    @if $fade { opacity: if($dir == in, 0, 1); }
   }
-
-  // duration
-  transition-duration: $duration;
-
-  // timing function
-  transition-timing-function: get-timing($timing);
-
-  // delay
-  transition-delay: $delay;
-
-  &.#{$motion-class} {
+  @include transition-end($dir) {
     transform: rotate($to);
-    opacity:1;
+    @if $fade { opacity: if($dir == in, 1, 0); }
   }
 }
 
@@ -331,9 +335,9 @@ $motion-timings: (
   $iterations: null
 ) {
 
-  &.#{$motion-class} {
-    animation-name: $animation;
-  }
+  // &.#{$motion-class} {
+  //   animation-name: $animation;
+  // }
   animation-duration: $duration;
   animation-timing-function: $timing;
 
@@ -361,32 +365,36 @@ $motion-timings: (
   */
 
   // Slide
-  .slideFromTop    { @include slide($from:top); }
-  .slideFromRight  { @include slide($from:right); }
-  .slideFromBottom { @include slide($from:bottom); }
-  .slideFromLeft   { @include slide($from:left); }
+  .slideInFromTop     { @include slide($from:top); }
+  .slideInFromRight   { @include slide($from:right); }
+  .slideInFromBottom  { @include slide($from:bottom); }
+  .slideInFromLeft    { @include slide($from:left); }
+  .slideOutFromTop    { @include slide($dir: out, $from:top); }
+  .slideOutFromRight  { @include slide($dir: out, $from:right); }
+  .slideOutFromBottom { @include slide($dir: out, $from:bottom); }
+  .slideOutFromLeft   { @include slide($dir: out, $from:left); }
 
   // Fade
-  .fadeIn  { @include fade(0, 1); }
-  .fadeOut { @include fade(1, 0); }
+  .fadeIn  { @include fade(in, 0, 1); }
+  .fadeOut { @include fade(out, 1, 0); }
 
   // Hinge
   .hingeFromTop     { @include hinge($from:top); }
   .hingeFromRight   { @include hinge($from:right); }
   .hingeFromBottom  { @include hinge($from:bottom); }
   .hingeFromLeft    { @include hinge($from:left); }
-  .hingeFromMiddleX { @include hinge($from:top, $axis:center); }
+  .hingeFromMiddleX { @include hinge($from:top,   $axis:center); }
   .hingeFromMiddleY { @include hinge($from:right, $axis:center); }
 
   // Scale
-  .drop { @include scale(1.5, 1); }
-  .pop  { @include scale(0.5, 1); }
+  .zoomIn  { @include scale(in,  1.5, 1); }
+  .zoomOut { @include scale(out, 0.5, 1); }
 
   // Spin
-  .spin  {
-    @include spin;
-    &.ccw { @include spin($dir: counterclockwise); }
-  }
+  .spinIn     { @include spin(in, 0.75turn); }
+  .spinOut    { @include spin(out, 0.75turn); }
+  .spinInCCW  { @include spin(in, 0.75turn, true); }
+  .spinOutCCW { @include spin(out, 0.75turn, true); }
 
   /*
     Transition modifiers
