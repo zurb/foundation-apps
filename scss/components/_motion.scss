@@ -17,6 +17,7 @@
 // 0. Variables
 // - - - - - - - - - - - - - - - - - - - - - - - - -
 
+// Classes to use when triggering in/out animations
 $motion-class: (
   in: "ng-enter",
   out: "ng-leave",
@@ -26,14 +27,22 @@ $motion-class-active: (
   out: "ng-leave-active",
 ) !default;
 
-$motion-default-origin: left !default;
-$slide-default-dir: left !default;
+// Set if movement-based transitions should also fade the element in and out
+$motion-slide-and-fade: false !default;
+$motion-hinge-and-fade: true !default;
+$motion-scale-and-fade: true !default;
+$motion-spin-and-fade: true !default;
 
+// Default speed for transitions and animations
 $motion-duration-default: 700ms !default;
+// Slow and fast modifiders
 $motion-duration-slow: 1.4s !default;
 $motion-duration-fast: 300ms !default;
 
+// Default timing function for transitions and animations
 $motion-timing-default: ease !default;
+// Built-in and custom easing functions
+// Every item in this map becomes a CSS class
 $motion-timings: (
   linear: linear,
   ease: ease,
@@ -45,7 +54,9 @@ $motion-timings: (
   bounceInOut: cubic-bezier(0.760, -0.245, 0.240, 1.245),
 ) !default;
 
+// Default delay for all transitions and animations
 $motion-delay-default: 0 !default;
+// Short and long delay modifiers
 $motion-delay-short: 300ms !default;
 $motion-delay-long: 700ms !default;
 
@@ -96,8 +107,8 @@ $motion-delay-long: 700ms !default;
 // SLIDE
 @mixin slide (
   $dir: in,
-  $from: $slide-default-dir,
-  $fade: false,
+  $from: left,
+  $fade: $motion-slide-and-fade,
   $duration: $motion-duration-default,
   $timing: $motion-timing-default,
   $delay: $motion-delay-default
@@ -152,7 +163,7 @@ $motion-delay-long: 700ms !default;
   $axis: edge,
   $perspective: 2000px,
   $turn-origin: from-back,
-  $fade: true,
+  $fade: $motion-hinge-and-fade,
   $duration: $motion-duration-default,
   $timing: $motion-timing-default,
   $delay: $motion-delay-default
@@ -242,7 +253,7 @@ $motion-delay-long: 700ms !default;
   $dir: in,
   $from: 1.5,
   $to: 1,
-  $fade: true,
+  $fade: $motion-scale-and-fade,
   $duration: $motion-duration-default,
   $timing: $motion-timing-default,
   $delay: $motion-delay-default
@@ -264,7 +275,7 @@ $motion-delay-long: 700ms !default;
   $dir: in,
   $amount: 0.75turn,
   $ccw: false,
-  $fade: true,
+  $fade: $motion-spin-and-fade,
   $duration: $motion-duration-default,
   $timing: $motion-timing-default,
   $delay: $motion-delay-default
