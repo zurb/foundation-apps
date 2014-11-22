@@ -53,6 +53,8 @@ $motion-timings: (
   bounceInOut: cubic-bezier(0.760, -0.245, 0.240, 1.245),
 ) !default;
 
+// Looks for a timing function in the list of presets
+// If none are found, returns the value as-is.
 @function get-timing($timing) {
   @if map-has-key($motion-timings, $timing) {
     @return map-get($motion-timings, $timing);
@@ -62,6 +64,7 @@ $motion-timings: (
   }
 }
 
+// Applies transition settings common to all mixins
 @mixin transition-basics(
   $duration: $motion-default-duration,
   $timing: $motion-default-timing,
@@ -72,12 +75,17 @@ $motion-timings: (
   transition-delay: $delay;
 }
 
+// Wraps content in an enter/leave class, chained to the parent selector
+// Define the initial state of a transition here
 @mixin transition-start($dir) {
   $sel: map-get($motion-class, $dir);
   &.#{$sel} {
     @content;
   }
 }
+// Wraps content in an enter/leave active class, chained to the matching
+// enter/leave class, chained to the parent selector
+// Define the end state of a transition here
 @mixin transition-end($dir) {
   $sel:  map-get($motion-class, $dir);
   $selA: map-get($motion-class-active, $dir);
