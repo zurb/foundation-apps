@@ -6,7 +6,10 @@ angular.module('foundation.modal')
     restrict: 'EA',
     templateUrl: '/partials/modal.html',
     transclude: true,
-    scope: true,
+    scope: {
+      overlay: '@',
+      overlayClose: '@'
+    },
     replace: true,
     compile: function compile(tElement, tAttrs, transclude) {
       var type = 'modal';
@@ -18,6 +21,8 @@ angular.module('foundation.modal')
         post: function postLink(scope, element, attrs) {
           var dialog = angular.element(element.children()[0]);
           scope.active = false;
+          scope.overlay = scope.overlay || scope.overlayClose || false;
+          scope.overlayClose = scope.overlayClose || false;
 
           //setup
           foundationApi.subscribe(attrs.id, function(msg) {
