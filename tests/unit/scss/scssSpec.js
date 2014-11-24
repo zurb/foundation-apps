@@ -1,40 +1,58 @@
 describe('Sass', function() {
-  describe('node-sass and ruby-sass', inject(function($http) {
+
+  describe('node-sass and ruby-sass', function() {
     var cssFiles = document.querySelectorAll('link');
-    var sass = '';
-    var nodeSass = '';
+    var sUrl = '';
+    var nUrl = '';
+    var sass;
+    var nodeSass;
     var interval;
 
     for(var i = 0; i < cssFiles.length; i++) {
       if(cssFiles[i].href.indexOf('app_node') > -1) {
-        nodeSass = cssFiles[i].href;
+        nUrl = cssFiles[i].href;
       } else if(cssFiles[i].href.indexOf('app')) {
-        sass = cssFiles[i].href;
+        sUrl = cssFiles[i].href;
       }
     }
 
-    var deep = DeepDiff.noConflict();
+    var dd = DeepDiff.noConflict();
 
     beforeEach(function(done) {
-      $http.get(sass).success(function(data) {
-        sass = data;
-        done();
-      });
+      var request;
+
+      request = new XMLHttpRequest();
+      request.open('GET', sUrl, false);
+      request.onreadystatechange = function() {
+        if(request.readyState == 4 && request.status === 200){
+          sass = request.responseText;
+          done();
+        }
+      }
+      request.send(null);
+
     });
 
     beforeEach(function(done) {
-      $http.get(nodeSass).success(function(data) {
-        nodeSass = data;
-        done();
-      });
+      var request;
+
+      request = new XMLHttpRequest();
+      request.open('GET', nUrl, false);
+      request.onreadystatechange = function() {
+        if(request.readyState == 4 && request.status === 200){
+          nodeSass = request.responseText;
+          done();
+        }
+      }
+      request.send(null);
+
     });
 
     it('should be equal', function() {
-      var differences = diff(nodeSass, sass);
+      var differences = dd(nodeSass, sass);
 
       expect(differences).toEqual({});
-
     });
 
-  }));
+  });
 });
