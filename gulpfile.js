@@ -146,7 +146,7 @@ gulp.task('karma-test', ['build', 'node-sass'], function() {
     'build/assets/js/app.js',
     'build/assets/js/angular-app.js',
     'bower_components/angular-mocks/angular-mocks.js',
-    'bower_components/deep-diff/index.js',
+    'bower_components/jsdiff/diff.js',
     'build/assets/css/app.css',
     'build/assets/css/app_node.css',
     'tests/unit/**/*Spec.js'
