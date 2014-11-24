@@ -1,7 +1,7 @@
 angular.module('foundation.actionsheet', ['foundation.common.services']);
 
 angular.module('foundation.actionsheet')
-  .controller('FaActionSheetController', ['$scope', 'FoundationApi', function($scope, foundationApi) {
+  .controller('ZfActionSheetController', ['$scope', 'FoundationApi', function($scope, foundationApi) {
     var controller = this;
     var content = controller.content = $scope.content;
 
@@ -18,14 +18,15 @@ angular.module('foundation.actionsheet')
 }]);
 
 angular.module('foundation.actionsheet')
-  .directive('faActionSheet', ['FoundationApi', function(foundationApi) {
+  .directive('zfActionSheet', ['FoundationApi', function(foundationApi) {
   return {
     restrict: 'A',
     transclude: true,
     replace: true,
     templateUrl: '/partials/actionsheet.html',
-    controller: 'FaActionSheetController',
+    controller: 'ZfActionSheetController',
     link: function(scope, element, attrs, controller) {
+      attrs.$set('zf-closable', 'actionsheet');
       foundationApi.subscribe(attrs.id, function(msg) {
         if (msg == 'toggle') {
           controller.toggle();
@@ -38,18 +39,19 @@ angular.module('foundation.actionsheet')
 }]);
 
 angular.module('foundation.actionsheet')
-  .directive('faAsContent', ['FoundationApi', function(foundationApi) {
+  .directive('zfAsContent', ['FoundationApi', function(foundationApi) {
   return {
     restrict: 'EA',
     transclude: true,
     replace: true,
     templateUrl: '/partials/actionsheet-content.html',
-    require: '^faActionSheet',
+    require: '^zfActionSheet',
     scope: {
-      position: '@?'
+      position: '@?'
     },
     link: function(scope, element, attrs, controller) {
       scope.active = false;
+      scope.position = scope.position || 'bottom';
       controller.registerContent(scope);
 
       scope.toggle = function() {
@@ -61,13 +63,13 @@ angular.module('foundation.actionsheet')
 }]);
 
 angular.module('foundation.actionsheet')
-  .directive('faAsButton', ['FoundationApi', function(foundationApi) {
+  .directive('zfAsButton', ['FoundationApi', function(foundationApi) {
   return {
     restrict: 'EA',
     transclude: true,
     replace: true,
     templateUrl: '/partials/actionsheet-button.html',
-    require: '^faActionSheet',
+    require: '^zfActionSheet',
     scope: {
       title: '@?'
     },

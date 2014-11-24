@@ -1,7 +1,7 @@
 angular.module('foundation.accordion', []);
 
 angular.module('foundation.accordion')
-  .controller('FaAccordionController', ['$scope', function($scope) {
+  .controller('ZfAccordionController', ['$scope', function($scope) {
     var controller = this;
     var sections = controller.sections = $scope.sections = [];
     var multiOpen = controller.multiOpen = false;
@@ -39,13 +39,13 @@ angular.module('foundation.accordion')
 }]);
 
 angular.module('foundation.accordion')
-  .directive('faAccordionSet', function() {
+  .directive('zfAccordionSet', function() {
   return {
     restrict: 'EA',
     transclude: 'true',
     replace: true,
     templateUrl: '/partials/accordion-set.html',
-    controller: 'FaAccordionController',
+    controller: 'ZfAccordionController',
     scope: {
       multiOpen: '@'
     },
@@ -56,7 +56,7 @@ angular.module('foundation.accordion')
 });
 
 angular.module('foundation.accordion')
-  .directive('faAccordion', function() {
+  .directive('zfAccordion', function() {
     return {
       restrict: 'EA',
       templateUrl: '/partials/accordion.html',
@@ -64,7 +64,7 @@ angular.module('foundation.accordion')
       scope: {
         title: '@'
       },
-      require: '^faAccordionSet',
+      require: '^zfAccordionSet',
       replace: true,
       controller: function() {},
       link: function(scope, element, attrs, controller, transclude) {

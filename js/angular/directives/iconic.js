@@ -13,7 +13,7 @@ angular.module('foundation.iconic')
 });
 
 angular.module('foundation.iconic')
-  .directive('faIconic', ['Iconic', function(iconic) {
+  .directive('zfIconic', ['Iconic', function(iconic) {
   return {
     restrict: 'A',
     link: function(scope, element, attrs, controller) {

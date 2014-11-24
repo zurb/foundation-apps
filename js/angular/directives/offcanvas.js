@@ -1,7 +1,7 @@
 angular.module('foundation.offcanvas', ['foundation.common.services']);
 
 angular.module('foundation.offcanvas')
-  .directive('faOffcanvas', ['FoundationApi', function(foundationApi) {
+  .directive('zfOffcanvas', ['FoundationApi', function(foundationApi) {
   return {
     restrict: 'EA',
     templateUrl: '/partials/offcanvas.html',
@@ -15,11 +15,11 @@ angular.module('foundation.offcanvas')
 
       return {
         pre: function preLink(scope, iElement, iAttrs, controller) {
-          iAttrs.$set('fa-closable', type);
+          iAttrs.$set('zf-closable', type);
           document.body.classList.add('has-off-canvas');
         },
         post: function postLink(scope, element, attrs) {
-          var currentStatus = 'hide';
+          scope.position = scope.position || 'left';
           scope.active = false;
 
           //setup

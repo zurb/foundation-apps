@@ -5,13 +5,13 @@
   The trusy accordion allows you to create a series of vertical tabs.
 */
 
-$accordion-border: 1px solid #ccc;
+$accordion-border: 1px solid $gray-dark;
 
-$accordion-title-background: #f4f4f4;
+$accordion-title-background: $gray-light;
 $accordion-title-background-hover: smartscale($accordion-title-background, 5%);
-$accordion-title-background-active: transparent;
+$accordion-title-background-active: lighten($gray-light, 2);
 $accordion-title-color: isitlight($accordion-title-background);
-$accordion-title-color-active: $accordion-title-color;
+$accordion-title-color-active: isitlight($accordion-title-background);
 
 $accordion-title-padding: $global-padding;
 $accordion-content-padding: $global-padding;

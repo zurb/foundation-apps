@@ -1,7 +1,7 @@
 angular.module('foundation.tabs', ['foundation.common.services']);
 
 angular.module('foundation.tabs')
-  .controller('FaTabsController', ['$scope', 'FoundationApi', function FaTabsController($scope, foundationApi) {
+  .controller('ZfTabsController', ['$scope', 'FoundationApi', function ZfTabsController($scope, foundationApi) {
     var controller = this;
     var tabs       = controller.tabs = $scope.tabs = [];
     var id         = '';
@@ -18,6 +18,8 @@ angular.module('foundation.tabs')
           tab.scope.active = true;
         }
       });
+
+      $scope.$apply();
     };
 
     controller.addTab = function addTab(tabScope) {
@@ -39,13 +41,13 @@ angular.module('foundation.tabs')
 }]);
 
 angular.module('foundation.tabs')
-  .directive('faTabs', ['FoundationApi', function(foundationApi) {
+  .directive('zfTabs', ['FoundationApi', function(foundationApi) {
   return {
-    restrict: 'A',
+    restrict: 'EA',
     transclude: 'true',
     replace: true,
     templateUrl: '/partials/tabs.html',
-    controller: 'FaTabsController',
+    controller: 'ZfTabsController',
     scope: {
       displaced: '@?'
     },
@@ -74,7 +76,7 @@ angular.module('foundation.tabs')
 }]);
 
 angular.module('foundation.tabs')
-  .directive('faTabContent', ['FoundationApi', function(foundationApi) {
+  .directive('zfTabContent', ['FoundationApi', function(foundationApi) {
   return {
     restrict: 'A',
     transclude: 'true',
@@ -117,7 +119,7 @@ angular.module('foundation.tabs')
 }]);
 
 angular.module('foundation.tabs')
-  .directive('faTab', ['FoundationApi', function(foundationApi) {
+  .directive('zfTab', ['FoundationApi', function(foundationApi) {
     return {
       restrict: 'EA',
       templateUrl: '/partials/tab.html',
@@ -125,7 +127,7 @@ angular.module('foundation.tabs')
       scope: {
         title: '@'
       },
-      require: '^faTabs',
+      require: '^zfTabs',
       replace: true,
       link: function(scope, element, attrs, controller, transclude) {
         scope.id = attrs.id || foundationApi.generateUuid();
@@ -147,7 +149,7 @@ angular.module('foundation.tabs')
 }]);
 
 angular.module('foundation.tabs')
-  .directive('faTabIndividual', ['FoundationApi', function(foundationApi) {
+  .directive('zfTabIndividual', ['FoundationApi', function(foundationApi) {
     return {
       restrict: 'EA',
       transclude: 'true',
@@ -169,12 +171,12 @@ angular.module('foundation.tabs')
 
 //custom tabs
 angular.module('foundation.tabs')
-  .directive('faTabHref', ['FoundationApi', function(foundationApi) {
+  .directive('zfTabHref', ['FoundationApi', function(foundationApi) {
     return {
       restrict: 'A',
       replace: false,
       link: function postLink(scope, element, attrs, ctrl) {
-        var target = attrs.faTabHref;
+        var target = attrs.zfTabHref;
 
         var makeActive = function() {
           element.parent().children().removeClass('is-active');
@@ -198,7 +200,7 @@ angular.module('foundation.tabs')
 }]);
 
 angular.module('foundation.tabs')
-  .directive('faTabCustom', ['FoundationApi', function(foundationApi) {
+  .directive('zfTabCustom', ['FoundationApi', function(foundationApi) {
     return {
       restrict: 'A',
       replace: false,
@@ -210,7 +212,7 @@ angular.module('foundation.tabs')
 }]);
 
 angular.module('foundation.tabs')
-  .directive('faTabContentCustom', ['FoundationApi', function(foundationApi) {
+  .directive('zfTabContentCustom', ['FoundationApi', function(foundationApi) {
   return {
     restrict: 'A',
     link: function(scope, element, attrs) {
