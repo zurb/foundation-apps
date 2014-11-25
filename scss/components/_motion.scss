@@ -166,6 +166,7 @@ $motion-delay-long: 700ms !default;
   }
 }
 
+// HINGE
 @mixin hinge (
   $dir: in,
   $from: left,
@@ -178,86 +179,68 @@ $motion-delay-long: 700ms !default;
   $delay: $motion-delay-default
 ) {
 
-  @if $from == top     {
-    transform: perspective($perspective) rotateX(-90deg);
-    @if $axis == edge {
-      transform-origin: top;
-    }
-    @else if $axis == center {
-      transform-origin: center;
-    }
+  // Rotation directions when hinging from back vs. front
+  $rotationAmount: 90deg;
+  $rotationsBack: (
+    top: rotateX($rotationAmount * -1),
+    right: rotateY($rotationAmount * -1),
+    bottom: rotateX($rotationAmount),
+    left: rotateY($rotationAmount),
+  );
+  $rotationsFrom: (
+    top: rotateX($rotationAmount),
+    right: rotateY($rotationAmount),
+    bottom: rotateX($rotationAmount * -1),
+    left: rotateY($rotationAmount * -1),
+  );
 
-    @if $turn-origin == from-front {
-      transform: perspective($perspective) rotateX(90deg);
-    }
+  // Rotation origin
+  $rotation: '';
+  @if $turn-origin == from-front {
+    $rotation: map-get($rotationsFront, $from);
   }
-  @if $from == right   {
-    transform: perspective($perspective) rotateY(-90deg);
-    @if $axis == edge {
-      transform-origin: right;
-    }
-    @else if $axis == center {
-      transform-origin: center;
-    }
-
-     @if $turn-origin == from-front {
-      transform: perspective($perspective) rotateY(90deg);
-    }
+  @else if $turn-origin == from-back {
+    $rotation: map-get($rotationsBack, $from);
   }
-  @if $from == bottom  {
-    transform: perspective($perspective) rotateX(90deg);
-    @if $axis == edge {
-      transform-origin: bottom;
-    }
-    @else if $axis == center {
-      transform-origin: center;
-    }
-
-    @if $turn-origin == from-front {
-      transform: perspective($perspective) rotateX(-90deg);
-    }
-  }
-  @if $from == left   {
-    transform: perspective($perspective) rotateY(90deg);
-    @if $axis == edge {
-      transform-origin: left;
-    }
-    @else if $axis == center {
-      transform-origin: center;
-    }
-
-    @if $turn-origin == from-front {
-      transform: perspective($perspective) rotateY(-90deg);
-    }
+  @else {
+    @warn "`$turn-origin` must be either `from-back` or `from-front`";
   }
 
-  // Error messages
-  @if $turn-origin != (from-back or from-front) {
-    @warn "`$turn-origin` must be either `from-back` or `from-front`"
+  // Start and end state
+  $start: '';
+  $end: '';
+  @if $dir == in {
+    $start: perspective($perspective) $rotation;
+    $end: rotate(0deg);
+  }
+  @else {
+    $start: rotate(0deg);
+    $end: perspective($perspective) $rotation;
   }
 
-  @if $fade == true {
+  // Turn axis
+  $origin: '';
+  @if $axis == edge {
+    $origin: $from;
+  }
+  @else {
+    $origin: center;
+  }
+
+  @include transition-start($dir) {
+    @include transition-basics($duration, $timing, $delay);
     transition-property: transform, opacity;
-    opacity: 0;
+    transform: $start;
+    transform-origin: $origin;
+    @if $fade { opacity: if($dir == in, 0, 1); }
   }
-
-  // duration
-  transition-duration: $duration;
-
-  // timing function
-  transition-timing-function: get-timing($timing);
-
-  // delay
-  transition-delay: $delay;
-
-  // &.#{$motion-class} {
-  //   transform: rotate(0deg);
-  //   opacity: 1;
-  // }
-
+  @include transition-end($dir) {
+    transform: $end;
+    @if $fade { opacity: if($dir == in, 1, 0); }
+  }
 }
 
-// scale
+// SCALE
 @mixin scale(
   $dir: in,
   $from: 1.5,
@@ -402,12 +385,18 @@ $motion-delay-long: 700ms !default;
   .fadeOut { @include fade(out, 1, 0); }
 
   // Hinge
-  .hingeFromTop     { @include hinge($from: top); }
-  .hingeFromRight   { @include hinge($from: right); }
-  .hingeFromBottom  { @include hinge($from: bottom); }
-  .hingeFromLeft    { @include hinge($from: left); }
-  .hingeFromMiddleX { @include hinge($from: top,   $axis: center); }
-  .hingeFromMiddleY { @include hinge($from: right, $axis: center); }
+  .hingeInFromTop      { @include hinge($dir: in, $from: top); }
+  .hingeInFromRight    { @include hinge($dir: in, $from: right); }
+  .hingeInFromBottom   { @include hinge($dir: in, $from: bottom); }
+  .hingeInFromLeft     { @include hinge($dir: in, $from: left); }
+  .hingeInFromMiddleX  { @include hinge($dir: in, $from: top,   $axis: center); }
+  .hingeInFromMiddleY  { @include hinge($dir: in, $from: right, $axis: center); }
+  .hingeOutFromTop     { @include hinge($dir: out, $from: top); }
+  .hingeOutFromRight   { @include hinge($dir: out, $from: right); }
+  .hingeOutFromBottom  { @include hinge($dir: out, $from: bottom); }
+  .hingeOutFromLeft    { @include hinge($dir: out, $from: left); }
+  .hingeOutFromMiddleX { @include hinge($dir: out, $from: top,   $axis: center); }
+  .hingeOutFromMiddleY { @include hinge($dir: out, $from: right, $axis: center); }
 
   // Scale
   .zoomIn  { @include scale(in,  1.5, 1); }
