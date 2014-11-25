@@ -4,9 +4,9 @@ angular.module('foundation.init')
   .factory('FoundationInit', ['helpers', 'FoundationApi', 'Utils', function(helpers, foundationApi, u){
     return {
       init: function() {
-        var mediaQueries = [];
         var extractedMedia;
         var mediaObject;
+        var mediaQueries = [];
 
         helpers.headerHelper(['foundation-mq']);
         extractedMedia = helpers.getStyle('.foundation-mq', 'font-family');
