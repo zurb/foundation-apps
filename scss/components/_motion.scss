@@ -113,26 +113,35 @@ $motion-delay-long: 700ms !default;
   $timing: $motion-timing-default,
   $delay: $motion-delay-default
 ) {
-  $shiftDirections: (
+  $slideDirections: (
     top:    translateY(-100%),
     right:  translateX(100%),
     bottom: translateY(100%),
     left:   translateX(-100%),
   );
-  $null: translateX(0) translateY(0);
-  $shift: map-get($shiftDirections, $from);
+  $start: '';
+  $end: '';
+
+  @if $dir == in {
+    $start: map-get($slideDirections, $from);
+    $end: translateX(0) translateY(0);
+  }
+  @else {
+    $start: translateX(0) translateY(0);
+    $end: map-get($slideDirections, $from);
+  }
 
   // CSS Output
   @include transition-start($dir) {
     @include transition-basics($duration, $timing, $delay);
     transition-property: transform, opacity;
     backface-visibility: hidden;
-    transform: if($dir == in, $shift, $null);
+    transform: $start;
 
     @if $fade { opacity: if($dir == in, 0, 1); }
   }
   @include transition-end($dir) {
-    transform: if($dir == in, $null, $shift);
+    transform: $end;
 
     @if $fade { opacity: if($dir == in, 1, 0); }
   }
@@ -281,25 +290,25 @@ $motion-delay-long: 700ms !default;
   $delay: $motion-delay-default
 ) {
   $amount: turn-to-deg($amount);
-  $from: 0;
-  $to: 0;
+  $start: 0;
+  $end: 0;
 
   @if $dir == in {
-    $from: if($ccw, $amount, $amount * -1);
-    $to: 0;
+    $start: if($ccw, $amount, $amount * -1);
+    $end: 0;
   }
   @else {
-    $from: 0;
-    $to: if($ccw, $amount * -1, $amount);
+    $start: 0;
+    $end: if($ccw, $amount * -1, $amount);
   }
 
   @include transition-start($dir) {
     transition-property: transform, opacity;
-    transform: rotate($from);
+    transform: rotate($start);
     @if $fade { opacity: if($dir == in, 0, 1); }
   }
   @include transition-end($dir) {
-    transform: rotate($to);
+    transform: rotate($end);
     @if $fade { opacity: if($dir == in, 1, 0); }
   }
 }
@@ -329,7 +338,6 @@ $motion-delay-long: 700ms !default;
   0% { transform: rotate(0deg); }
   100% { transform: rotate(-360deg); }
 }
-
 
 // WIGGLE
 @keyframes wiggle {
@@ -380,26 +388,26 @@ $motion-delay-long: 700ms !default;
   */
 
   // Slide
-  .slideInFromTop     { @include slide($from:top); }
-  .slideInFromRight   { @include slide($from:right); }
-  .slideInFromBottom  { @include slide($from:bottom); }
-  .slideInFromLeft    { @include slide($from:left); }
-  .slideOutFromTop    { @include slide($dir: out, $from:top); }
-  .slideOutFromRight  { @include slide($dir: out, $from:right); }
-  .slideOutFromBottom { @include slide($dir: out, $from:bottom); }
-  .slideOutFromLeft   { @include slide($dir: out, $from:left); }
+  .slideInFromTop     { @include slide($from: top); }
+  .slideInFromRight   { @include slide($from: right); }
+  .slideInFromBottom  { @include slide($from: bottom); }
+  .slideInFromLeft    { @include slide($from: left); }
+  .slideOutFromTop    { @include slide($dir: out, $from: top); }
+  .slideOutFromRight  { @include slide($dir: out, $from: right); }
+  .slideOutFromBottom { @include slide($dir: out, $from: bottom); }
+  .slideOutFromLeft   { @include slide($dir: out, $from: left); }
 
   // Fade
   .fadeIn  { @include fade(in, 0, 1); }
   .fadeOut { @include fade(out, 1, 0); }
 
   // Hinge
-  .hingeFromTop     { @include hinge($from:top); }
-  .hingeFromRight   { @include hinge($from:right); }
-  .hingeFromBottom  { @include hinge($from:bottom); }
-  .hingeFromLeft    { @include hinge($from:left); }
-  .hingeFromMiddleX { @include hinge($from:top,   $axis:center); }
-  .hingeFromMiddleY { @include hinge($from:right, $axis:center); }
+  .hingeFromTop     { @include hinge($from: top); }
+  .hingeFromRight   { @include hinge($from: right); }
+  .hingeFromBottom  { @include hinge($from: bottom); }
+  .hingeFromLeft    { @include hinge($from: left); }
+  .hingeFromMiddleX { @include hinge($from: top,   $axis: center); }
+  .hingeFromMiddleY { @include hinge($from: right, $axis: center); }
 
   // Scale
   .zoomIn  { @include scale(in,  1.5, 1); }
