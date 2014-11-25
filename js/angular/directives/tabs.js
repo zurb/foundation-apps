@@ -19,7 +19,6 @@ angular.module('foundation.tabs')
         }
       });
 
-      $scope.$apply();
     };
 
     controller.addTab = function addTab(tabScope) {
@@ -163,6 +162,7 @@ angular.module('foundation.tabs')
 
         foundationApi.subscribe(tab.scope.id, function(msg) {
           foundationApi.publish(tab.parentContent, ['activate', tab.scope.id]);
+          scope.$apply();
         });
 
       }
