@@ -15,12 +15,12 @@ url: /notification
 	  content="Notification example"
 	  color="success"
 	  position="top left"
-	  fa-notify="main-notifications">Dynamic Notification</a>
-	<a class="button" href="#" fa-open="static-example">Static Notification</a>
-	<fa-notification-set id="main-notifications"></fa-notification-set>
-	<fa-notification-static id="static-example" title="My static notification" image="http://www.clipartbest.com/cliparts/acq/X8R/acqX8RdcM.jpeg">
+	  zf-notify="docs-notifications">Dynamic Notification</a>
+	<a class="button" href="#" zf-open="static-example">Static Notification</a>
+  <div zf-notification-set id="docs-notifications"></div>
+	<zf-notification-static id="static-example" title="My static notification" image="http://www.clipartbest.com/cliparts/acq/X8R/acqX8RdcM.jpeg">
 	  This notification is static, it works similarly to a programmatic with some subtle differences
-	</fa-notification-static>
+	</zf-notification-static>
   </div>
 </div>
 
@@ -40,18 +40,18 @@ You can create a Static Notification with this basic HTML
   <div class="medium-6 grid-content">
 ```html
 <!-- notification trigger -->
-<a class="button" href="#" fa-open="my-notify">Static Notification</a>
+<a class="button" href="#" zf-open="my-notify">Static Notification</a>
 <!-- notification content -->
-<fa-notification-static id="my-notify" title="My static notification" image="http://placehold.it/40x40">
+<zf-notification-static id="my-notify" title="My static notification" image="http://placehold.it/40x40">
 	  <p>This notification is static, it works similarly to a programmatic with some subtle differences.</p>
-	</fa-notification-static>
+	</zf-notification-static>
 ```
   </div>
   <div class="medium-6 grid-content">
-		<a class="button" href="#" fa-open="my-notify">Static Notification</a>
-		<fa-notification-static id="my-notify" title="My static notification" image="http://placehold.it/40x40">
+		<a class="button" href="#" zf-open="my-notify">Static Notification</a>
+		<zf-notification-static id="my-notify" title="My static notification" image="http://placehold.it/40x40">
 	  <p>This notification is static, it works similarly to a programmatic with some subtle differences.</p>
-	</fa-notification-static>
+	</zf-notification-static>
   </div>
 </div>
 
@@ -73,9 +73,9 @@ You can create a Dynamic Notification with this basic HTML
 	content="Notification example"
 	color="success"
 	position="top left"
-	fa-notify="main-notifications">Dynamic Notification</a>
+	zf-notify="main-notifications">Dynamic Notification</a>
 
-<fa-notification-set id="main-notifications"></fa-notification-set>
+<zf-notification-set id="main-notifications"></zf-notification-set>
 ```
   </div>
   <div class="medium-6 grid-content">
@@ -84,8 +84,8 @@ You can create a Dynamic Notification with this basic HTML
 		content="Notification example"
 		color="success"
 		position="top left"
-		fa-notify="main-notifications">Dynamic Notification</a>
-		<fa-notification-set id="main-notifications"></fa-notification-set>
+		zf-notify="main-notifications">Dynamic Notification</a>
+		<zf-notification-set id="main-notifications"></zf-notification-set>
   </div>
 </div>
 
@@ -95,10 +95,10 @@ And then send it a notification with via FoundationApi:
 foundationApi.publish('main-notifications', { title: 'Test', content: 'Test2' });
 ````
 
-You can also use the `fa-notify` directive for simpler messages and prototyping:
+You can also use the `zf-notify` directive for simpler messages and prototyping:
 
 ````html
-<a href="#" fa-notify title="Title of notification" content="Content of notification">Launch notification</a>
+<a href="#" zf-notify title="Title of notification" content="Content of notification">Launch notification</a>
 ````
 #### Additional Options
 

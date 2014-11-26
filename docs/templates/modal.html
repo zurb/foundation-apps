@@ -8,17 +8,17 @@ url: /modal
 
 <div class="grid-block">
   <div class="small-12 grid-content">
-	<a class="button" href="#" fa-open="mainModal">Open modal</a>
-	<fa-modal id="mainModal">
-	  <a href="#" fa-close>&times;</a>
+	<a class="button" href="#" zf-open="mainModal">Open modal</a>
+	<zf-modal id="mainModal" overlay="true">
+	  <a href="#" zf-close>&times;</a>
 	  <section class="grid-content">
 	    <img src="http://www.dumpaday.com/wp-content/uploads/2011/12/funny-meme-pictures.jpg">
 	  </section>
 	  <footer class="grid-content menu-bar">
-	    <span class="button" fa-close>Ok</span>
-	    <span class="button" fa-close>Cancel</span>
+	    <span class="button" zf-close>Ok</span>
+	    <span class="button" zf-close>Cancel</span>
 	  </footer>
-	</fa-modal>
+	</zf-modal>
   </div>
 </div>
 
@@ -33,27 +33,27 @@ You can create a Modal with this basic HTML
 <div class="grid-block">
   <div class="medium-6 grid-content">
 ```html
-<a href="#" fa-open="basicModal">Open modal</a>
+<a href="#" zf-open="basicModal">Open modal</a>
 
-<fa-modal id="basicModal">
-  <a href="#" fa-close>&times;</a>
+<zf-modal id="basicModal" overlay="true">
+  <a href="#" zf-close>&times;</a>
   <section class="grid-content">
     <p>Back in my days...</p>
     <p>There were 3 Star Wars movies and Disney only made cartoons.</p>
   </section>
-</fa-modal>
+</zf-modal>
 ```
   </div>
   <div class="medium-6 grid-content">
-    <a href="#" fa-open="basicModal">Open modal</a>
+    <a href="#" zf-open="basicModal">Open modal</a>
 
-		<fa-modal id="basicModal">
-		  <a href="#" fa-close>&times;</a>
+		<zf-modal id="basicModal" overlay="true">
+		  <a href="#" zf-close>&times;</a>
 		  <section class="grid-content">
 		    <p>Back in my days...</p>
 		    <p>There were 3 Star Wars movies and Disney only made cartoons.</p>
 		  </section>
-		<fa-modal>
+		<zf-modal>
   </div>
 </div>
 
@@ -67,32 +67,32 @@ You can trigger the Modal close &amp; open with a link or button
   <div class="medium-6 grid-content">
 
 ```html
-<a class="button" href="#" fa-open="advancedModal">Open modal</a>
-<fa-modal id="advancedModal">
-  <a href="#" fa-close>&times;</a>
+<a class="button" href="#" zf-open="advancedModal">Open modal</a>
+<zf-modal id="advancedModal" overlay="true">
+  <a href="#" zf-close>&times;</a>
   <section class="grid-content">
     <p>Add a button to close the modal.</p>
   </section>
   <footer class="grid-content menu-bar">
-    <span class="button" fa-close>Ok</span>
-    <span class="button" fa-close>Cancel</span>
+    <span class="button" zf-close>Ok</span>
+    <span class="button" zf-close>Cancel</span>
   </footer>
-</fa-modal>
+</zf-modal>
 ```
 
   </div>
   <div class="medium-6 grid-content">
-    <a class="button" href="#" fa-open="mainModal">Open modal</a>
-		<fa-modal id="mainModal">
-		  <a href="#" fa-close>&times;</a>
+    <a class="button" href="#" zf-open="mainModal">Open modal</a>
+		<zf-modal id="mainModal" overlay="true">
+		  <a href="#" zf-close>&times;</a>
 		  <section class="grid-content">
 		    <img src="http://www.dumpaday.com/wp-content/uploads/2011/12/funny-meme-pictures.jpg">
 		  </section>
 		  <footer class="grid-content menu-bar">
-		    <span class="button" fa-close>Ok</span>
-		    <span class="button" fa-close>Cancel</span>
+		    <span class="button" zf-close>Ok</span>
+		    <span class="button" zf-close>Cancel</span>
 		  </footer>
-		</fa-modal>
+		</zf-modal>
   </div>
 </div>
 
@@ -114,36 +114,36 @@ large: 800px
 
 #### Custom Helpers
 
-**fa-close**
-fa-close looks for a parent element that has the `fa-closeable` tag on it. This tag is added automatically for all directives that can be closed with `fa-close`. When clicked, the directive will send a message via the FoundationApi to close its parent `fa-closeable` element.
+**zf-close**
+zf-close looks for a parent element that has the `zf-closeable` tag on it. This tag is added automatically for all directives that can be closed with `zf-close`. When clicked, the directive will send a message via the FoundationApi to close its parent `zf-closeable` element.
 
 ````html
-<fa-modal id="pageModal">
-  <a href="#" fa-close>&times;</a>
-</fa-modal>
+<zf-modal id="pageModal" overlay="true">
+  <a href="#" zf-close>&times;</a>
+</zf-modal>
 ````
 
 Note that you can specify the ID of a specific closeable directive in order to close it remotely (whether it's a parent, child, or has any other relationship to the closeable directive).
 
 ````html
-<a href="#" fa-close="pageModal">&times;</a>
-<fa-modal id="pageModal"></fa-modal>
+<a href="#" zf-close="pageModal">&times;</a>
+<zf-modal id="pageModal" overlay="true"></zf-modal>
 ````
 
-**fa-open**
-The counter to `fa-close`, `fa-open` sends a signal to a directive that can be trigger through this method. Simply specify the ID of the target element.
+**zf-open**
+The counter to `zf-close`, `zf-open` sends a signal to a directive that can be trigger through this method. Simply specify the ID of the target element.
 
 ````html
-<a href="#" fa-open="pageModal">Open Modal</a>
-<fa-modal id="pageModal"></fa-modal>
+<a href="#" zf-open="pageModal">Open Modal</a>
+<zf-modal id="pageModal" overlay="true"></zf-modal>
 ````
 
-**fa-toggle**
-Similar to the previous two, `fa-toggle` sends a toggle command to a directive that can accept it. A target has to be specified in order for it to work.
+**zf-toggle**
+Similar to the previous two, `zf-toggle` sends a toggle command to a directive that can accept it. A target has to be specified in order for it to work.
 
 ````html
-<a href="#" fa-toggle="pageModal">Toggle Modal</a>
-<fa-modal id="pageModal"></fa-modal>
+<a href="#" zf-toggle="pageModal">Toggle Modal</a>
+<zf-modal id="pageModal" overlay="true"></zf-modal>
 ````
 
 ### Sass Variables

@@ -32,6 +32,7 @@ angular.module('foundation.notification')
     restrict: 'EA',
     templateUrl: '/partials/notification-set.html',
     controller: 'ZfNotificationController',
+    scope: true,
     link:function(scope, element, attrs, controller) {
       foundationApi.subscribe(attrs.id, function(msg) {
         if(msg === 'clearall') {
