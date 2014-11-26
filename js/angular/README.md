@@ -1,4 +1,5 @@
 ##AngularJS
+
 Gulp will watch for file changes in the `client` directory. Upon change, all files will be copied over to the `build` directory and the webserver will be reloaded. Note that the build directory will be deleted and recompiled upon each change. This means that any updates to files in the `build` directory will be deleted.
 
 ### Dynamic Routing
@@ -89,7 +90,6 @@ The ability to `sync` transitions together has been delayed from v1.2 to 1.3 and
 
 **Note** Please don't forget to add the `ui-animation` attribute wherever you have `ui-view` in order to hook your animations up to that event!
 
-
 ### Using Ng-include
 
 Sometimes, it's more beneficial to use composed views rather than simple one-off views. For instance, having a dedicated file for a navigation, or a sidebar is much more useful separate than embedded. For these purposes, there's Angular's `ng-include`:
@@ -127,7 +127,7 @@ All of the directives are supported as attribute directive so you can add them t
 
 However, some directives allow element-level declaration like so:
 
-`<zf-accordion-set></zf-accordion-set`
+`<zf-accordion-set></zf-accordion-set>`
 
 From now on, I will use the attribute declaration for directives that don't allow element declaration and use element declaration for elements that allow both.
 
@@ -231,6 +231,8 @@ Structure:
 </zf-accordion-set>
 ````
 
+The accordion also has an option to allow multi selection (meaning that you can open more than one accordion section at a time). You can enable this by setting `multi-open="true"` on the `zf-accordion-set`.
+
 ####Actionsheet
 Actionsheets allow users to specify some options on top of showing a regular actionsheet.
 
@@ -301,6 +303,8 @@ Structure:
 <zf-modal>
 ````
 
+Modal has several additional options. You can set `overlay` to "true" in order to show an overlay in the background. You can also enable `overlay-close` so that when a user clicks on the background, it closes out of the modal. When setting `overlay-close="true"`, the regular overlay setting is automatically set to true so you don't have to use both declarations.
+
 ####Notification
 There are two ways to access a notification. Via the static method and the programmatic method.
 
@@ -310,7 +314,10 @@ The static method is best used for prototyping since it doesn't involve any prog
 ````html
 <a href="#" zf-open="my-notification">Static notification</a>
 <zf-notification-static id="my-notify"
-  title="My static notification">
+  title="My static notification"
+  image="/src/to/my/image"
+  position="top left"
+  color="success">
   Content goes here
 </zf-notification-static>
 ````

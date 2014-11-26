@@ -157,7 +157,7 @@ angular.module('foundation.notification')
     link: function(scope, element, attrs, controller) {
       element.on('click', function(e) {
         e.preventDefault();
-        foundationApi.publish(attrs.zfNotify, { title: scope.title, content: scope.content, position: scope.position, color: scope.color });
+        foundationApi.publish(attrs.zfNotify, { title: scope.title, content: scope.content, position: scope.position, color: scope.color, image: scope.image });
       });
     },
   };

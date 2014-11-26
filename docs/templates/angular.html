@@ -3,16 +3,9 @@ name: angular
 url: /angular
 ---
 
-## AngularJS
-<h3 class="subheader">Foundation for Apps uses AngularJS to power your web application. It is a well tested, flexible, and powerful framework for building amazing web apps.</h3>
+##AngularJS
 
-<h3 class="subheader">We streamlined how you implement Foundation plugins by using Angular directives with simple naming, meaning fewer classes and divs for you to remember. Foundation is also built on top of <a href="http://angular-ui.github.io/ui-router/site/#/api/ui.router.router.%24urlRouter" target="_blank"> UI Router</a> which makes Angular more accessible for designers!</h3>
-
-***
-
-### App Structure
-
-Gulp will watch for file changes in the `client` directory. Upon change, all files will be copied over to the build directory and the webserver will be reloaded. Note that the build directory will be deleted and recompiled upon each change. This means that any updates to files in the `build` directory will be deleted.
+Gulp will watch for file changes in the `client` directory. Upon change, all files will be copied over to the `build` directory and the webserver will be reloaded. Note that the build directory will be deleted and recompiled upon each change. This means that any updates to files in the `build` directory will be deleted.
 
 ### Dynamic Routing
 
@@ -102,7 +95,6 @@ The ability to `sync` transitions together has been delayed from v1.2 to 1.3 and
 
 **Note** Please don't forget to add the `ui-animation` attribute wherever you have `ui-view` in order to hook your animations up to that event!
 
-
 ### Using Ng-include
 
 Sometimes, it's more beneficial to use composed views rather than simple one-off views. For instance, having a dedicated file for a navigation, or a sidebar is much more useful separate than embedded. For these purposes, there's Angular's `ng-include`:
@@ -136,11 +128,11 @@ If you are running in a subdirectory, try setting `requireBase` to the subdirect
 ###Directives
 All of the directives are supported as attribute directive so you can add them to an element like so:
 
-`<div fa-open></div>`
+`<div zf-open></div>`
 
 However, some directives allow element-level declaration like so:
 
-`<fa-accordion-set></fa-accordion-set`
+`<zf-accordion-set></zf-accordion-set>`
 
 From now on, I will use the attribute declaration for directives that don't allow element declaration and use element declaration for elements that allow both.
 
@@ -197,36 +189,36 @@ If none of this makes sense, stick with `ui-sref-active-eq`
 
 Foundation has some great helpers that foster better interaction between elements.
 
-**fa-close**
-fa-close looks for a parent element that has the `fa-closeable` tag on it. This tag is added automatically for all directives that can be closed with `fa-close`. When clicked, the directive will send a message via the FoundationApi to close its parent `fa-closeable` element.
+**zf-close**
+zf-close looks for a parent element that has the `zf-closeable` tag on it. This tag is added automatically for all directives that can be closed with `zf-close`. When clicked, the directive will send a message via the FoundationApi to close its parent `zf-closeable` element.
 
 ````html
-<fa-modal id="pageModal">
-  <a href="#" fa-close>&times;</a>
-</fa-modal>
+<zf-modal id="pageModal">
+  <a href="#" zf-close>&times;</a>
+</zf-modal>
 ````
 
 Note that you can specify the ID of a specific closeable directive in order to close it remotely (whether it's a parent, child, or has any other relationship to the closeable directive).
 
 ````html
-<a href="#" fa-close="pageModal">&times;</a>
-<fa-modal id="pageModal"></fa-modal>
+<a href="#" zf-close="pageModal">&times;</a>
+<zf-modal id="pageModal"></zf-modal>
 ````
 
-**fa-open**
-The counter to `fa-close`, `fa-open` sends a signal to a directive that can be trigger through this method. Simply specify the ID of the target element.
+**zf-open**
+The counter to `zf-close`, `zf-open` sends a signal to a directive that can be trigger through this method. Simply specify the ID of the target element.
 
 ````html
-<a href="#" fa-open="pageModal">Open Modal</a>
-<fa-modal id="pageModal"></fa-modal>
+<a href="#" zf-open="pageModal">Open Modal</a>
+<zf-modal id="pageModal"></zf-modal>
 ````
 
-**fa-toggle**
-Similar to the previous two, `fa-toggle` sends a toggle command to a directive that can accept it. A target has to be specified in order for it to work.
+**zf-toggle**
+Similar to the previous two, `zf-toggle` sends a toggle command to a directive that can accept it. A target has to be specified in order for it to work.
 
 ````html
-<a href="#" fa-toggle="pageModal">Toggle Modal</a>
-<fa-modal id="pageModal"></fa-modal>
+<a href="#" zf-toggle="pageModal">Toggle Modal</a>
+<zf-modal id="pageModal"></zf-modal>
 ````
 
 Please see documentation on the FoundationApi to learn how to open, close, toggle, and trigger other events programmatically.
@@ -236,13 +228,15 @@ Please see documentation on the FoundationApi to learn how to open, close, toggl
 Structure:
 
 ````html
-<fa-accordion-set>
-  <fa-accordion
+<zf-accordion-set>
+  <zf-accordion
     title="Input your title here">
     Content goes here
-  </fa-accordion>
-</fa-accordion-set>
+  </zf-accordion>
+</zf-accordion-set>
 ````
+
+The accordion also has an option to allow multi selection (meaning that you can open more than one accordion section at a time). You can enable this by setting `multi-open="true"` on the `zf-accordion-set`.
 
 ####Actionsheet
 Actionsheets allow users to specify some options on top of showing a regular actionsheet.
@@ -250,48 +244,48 @@ Actionsheets allow users to specify some options on top of showing a regular act
 Using the most default settings, an actionsheet looks like this:
 
 ````html
-<fa-action-sheet>
-  <fa-as-button title="My button"></fa-as-button>
-  <fa-as-content position="bottom">
+<zf-action-sheet>
+  <zf-as-button title="My button"></zf-as-button>
+  <zf-as-content position="bottom">
     My content goes here
-  </fa-as-content>
-</fa-action-sheet>
+  </zf-as-content>
+</zf-action-sheet>
 ````
 
-To use a custom buttom, ammend the `fa-as-button` declaration with your custom HTML like so:
+To use a custom buttom, ammend the `zf-as-button` declaration with your custom HTML like so:
 
 ````html
-<fa-as-button>my button goes here</fa-as-button>
+<zf-as-button>my button goes here</zf-as-button>
 ````
 
 There is also an option to remotely open an actionsheet; however, the actionsheet won't show up under the remote trigger but rather where it had already been placed.
 
 ````html
-<a href="#" fa-toggle="my-actionsheet">toggle</a>
-<fa-action-sheet id="my-actionsheet">
-  <fa-as-button title="My button"></fa-as-button>
-  <fa-as-content position="bottom">
+<a href="#" zf-toggle="my-actionsheet">toggle</a>
+<zf-action-sheet id="my-actionsheet">
+  <zf-as-button title="My button"></zf-as-button>
+  <zf-as-content position="bottom">
     My content goes here
-  </fa-as-content>
-</fa-action-sheet>
+  </zf-as-content>
+</zf-action-sheet>
 ````
 
 ####Interchange
 Interchange allows you to specify what specific content to view based on a media query. The last query to match will be shown.
 
-Because of some cool angular features, you're welcome to either specify the content right away (without including `src`) or, you can specify a partial to be loaded. Loading is done lazily, meaning that even with 20 different `fa-source` declarations, only the correct one will load for the current media query. So if you're on mobile, only the mobile partial will load up.
+Because of some cool angular features, you're welcome to either specify the content right away (without including `src`) or, you can specify a partial to be loaded. Loading is done lazily, meaning that even with 20 different `zf-source` declarations, only the correct one will load for the current media query. So if you're on mobile, only the mobile partial will load up.
 
 Note that partials do not get RELOADED, meaning that as long as the user is on the page, the various partials will be cached.
 
 Structure:
 
 ````html
-<fa-interchange>
-  <div fa-source media="media type such as 'small'" src="/path/to/partial"></div>
-  <div fa-source media="large">
+<zf-interchange>
+  <div zf-source media="media type such as 'small'" src="/path/to/partial"></div>
+  <div zf-source media="large">
     Page template
   </div>
-</fa-interchange>
+</zf-interchange>
 
 ````
 
@@ -301,18 +295,20 @@ The modal does not require any specific content within it; however, the example 
 Structure:
 
 ````html
-<a href="#" fa-open="pageModal">Open modal</a>
-<fa-modal id="pageModal">
-  <a href="#" fa-close>&times;</a>
+<a href="#" zf-open="pageModal">Open modal</a>
+<zf-modal id="pageModal">
+  <a href="#" zf-close>&times;</a>
   <section class="content block">
     content goes here
   </section>
   <footer class="content block menu-bar">
-    <span class="button" fa-close>Ok</span>
-    <span class="button" fa-close>Cancel</span>
+    <span class="button" zf-close>Ok</span>
+    <span class="button" zf-close>Cancel</span>
   </footer>
-<fa-modal>
+<zf-modal>
 ````
+
+Modal has several additional options. You can set `overlay` to "true" in order to show an overlay in the background. You can also enable `overlay-close` so that when a user clicks on the background, it closes out of the modal. When setting `overlay-close="true"`, the regular overlay setting is automatically set to true so you don't have to use both declarations.
 
 ####Notification
 There are two ways to access a notification. Via the static method and the programmatic method.
@@ -321,11 +317,14 @@ There are two ways to access a notification. Via the static method and the progr
 The static method is best used for prototyping since it doesn't involve any programming.
 
 ````html
-<a href="#" fa-open="my-notification">Static notification</a>
-<fa-notification-static id="my-notify"
-  title="My static notification">
+<a href="#" zf-open="my-notification">Static notification</a>
+<zf-notification-static id="my-notify"
+  title="My static notification"
+  image="/src/to/my/image"
+  position="top left"
+  color="success">
   Content goes here
-</fa-notification-static>
+</zf-notification-static>
 ````
 
 **Programmatic Method**
@@ -334,7 +333,7 @@ The FoundationApi service is a pretty useful service, one function of it is to s
 To use it, create a notification set like so:
 
 ````html
-<fa-notification-set id="main-notifications"></fa-notification-set>
+<zf-notification-set id="main-notifications"></zf-notification-set>
 ````
 
 And then send it a notification with via FoundationApi:
@@ -343,10 +342,10 @@ And then send it a notification with via FoundationApi:
 foundationApi.publish('main-notifications', { title: 'Test', content: 'Test2' });
 ````
 
-You can also use the `fa-notify` directive for simpler messages and prototyping:
+You can also use the `zf-notify` directive for simpler messages and prototyping:
 
 ````html
-<a href="#" fa-notify title="Title of notification" content="Content of notification">Launch notification</a>
+<a href="#" zf-notify title="Title of notification" content="Content of notification">Launch notification</a>
 ````
 
 **Additional options**
@@ -360,29 +359,29 @@ On top of setting a title and content, you can also set:
 ####Off Canvas
 
 ````html
-<a href="#" fa-open="pageCanvas">open offcanvas</a>
-<fa-offcanvas id="pageCanvas" position="right">
+<a href="#" zf-open="pageCanvas">open offcanvas</a>
+<zf-offcanvas id="pageCanvas" position="right">
   <p>My content!</p>
-</fa-offcanvas>
+</zf-offcanvas>
 ````
 
 ####Panel
 
 ````html
-<a href="#" fa-open="pagePanel">open panel</a>
-<fa-panel id="pagePanel" position="left"></fa-panel>
+<a href="#" zf-open="pagePanel">open panel</a>
+<zf-panel id="pagePanel" position="left"></zf-panel>
 ````
 
 ####Popup
 Popups use a library called Tether. Tether attaches an element to another element with absolute positioning; however, there is one caveat. If your popup is nested within a scrollable area (not `body`) but it's not the immediate parent of that element, it will lose its positioning.
 
 ````html
-<a href="#" fa-popup-toggle="popups">Open Popup</a>
-<fa-popup
+<a href="#" zf-popup-toggle="popups">Open Popup</a>
+<zf-popup
   title="My title"
   footer="Footer content"
   id="my-popup"
->Content goes here</fa-popup>
+>Content goes here</zf-popup>
 ````
 
 ####Tabs
@@ -391,30 +390,30 @@ Tabs can get a little complicated; however, they also allow for meo flexibility.
 **default use**
 
 ````html
-<fa-tabs>
-  <fa-tab title="This is my tab">
+<zf-tabs>
+  <zf-tab title="This is my tab">
     Tab content goes here
-  </fa-tab>
-  <fa-tab title="This is my tab">
+  </zf-tab>
+  <zf-tab title="This is my tab">
     Tab content goes here
-  </fa-tab>
-</fa-tabs>
+  </zf-tab>
+</zf-tabs>
 ````
 
 **displaced use**
-Displaced tabs allow us to build tabs (tab navigation) and display the content elsewhere with `fa-tab-content`
+Displaced tabs allow us to build tabs (tab navigation) and display the content elsewhere with `zf-tab-content`
 
 ````html
-<fa-tabs id="displaced-tabs" displaced="true">
-  <fa-tab title="This is my tab">
+<zf-tabs id="displaced-tabs" displaced="true">
+  <zf-tab title="This is my tab">
     Tab content goes here
-  </fa-tab>
-  <fa-tab title="This is my tab">
+  </zf-tab>
+  <zf-tab title="This is my tab">
     Tab content goes here
-  </fa-tab>
-</fa-tabs>
+  </zf-tab>
+</zf-tabs>
 
-<fa-tab-content target="displaced-tabs"></fa-tab-content>
+<zf-tab-content target="displaced-tabs"></zf-tab-content>
 ````
 
 **manual use**
@@ -423,16 +422,16 @@ Manual usage allows for custom styling and full versatility while retaining the 
 Here's what a custom menu may look like:
 
 ````html
-<ul class="button-group" fa-tab-custom>
-  <li fa-tab-href="tabOne">Tab One</li>
-  <li fa-tab-href="tabTwo">Tab Two</li>
+<ul class="button-group" zf-tab-custom>
+  <li zf-tab-href="tabOne">Tab One</li>
+  <li zf-tab-href="tabTwo">Tab Two</li>
 </ul>
 ````
 
-The directives `fa-tab-custom` and `fa-tab-href` ensure typical tab button behavior where active tab button gets an `is-active` class. `fa-tab-href` should point to an ID of a tab.
+The directives `zf-tab-custom` and `zf-tab-href` ensure typical tab button behavior where active tab button gets an `is-active` class. `zf-tab-href` should point to an ID of a tab.
 
 ````html
-<div fa-tab-content-custom>
+<div zf-tab-content-custom>
   <div id="tabOne">Content!</div>
   <div id="tabTwo">Second content!</div>
 </div>
@@ -448,7 +447,7 @@ Here's an example:
 
 ````html
 <!-- a directive placed in HTML -->
-<fa-modal id="my-modal"></fa-modal>
+<zf-modal id="my-modal"></zf-modal>
 ````
 
 The modal will automatically register itself as a subscriber in the FoundationApi under `my-modal`. The code for the directive indicates that it listens for 3 different messages: `open`, `close`, and `toggle` as well as aliases for the former two `show` and `hide`.
@@ -461,12 +460,12 @@ foundationApi.publish('my-modal', 'open');
 
 Make sure to include FoundationApi as a dependency in the controller or wherever else you want to use it. The best bet to hooking into various directives is to check the code and see what each directive subscribes to.
 
-In fact, the directives `fa-close`, `fa-open`, and `fa-toggle` are wrappers for FoundationApi events.
+In fact, the directives `zf-close`, `zf-open`, and `zf-toggle` are wrappers for FoundationApi events.
 
 ###Building your own app
 
 Most of the modules are dependent on the `foundation.common.services` module but outside of that, they're portable. You're welcome to take them and use them as you need to; however, there are some things to know about:
 
-- any and all helpers such as `fa-open` and `fa-close` are packaged in the `foundation.common.directives` module so if there is a need for them, require the module.
+- any and all helpers such as `zf-open` and `zf-close` are packaged in the `foundation.common.directives` module so if there is a need for them, require the module.
 - the `app.js` file which bootstraps the application can be fully bypassed so you can build your own. Make sure to use proper dependency injection for the modules you DO want to use.
-- if you install the repo as part of bower, make sure to reference all the right files in your build process in your Gulpfile.
+- if you install the repo as part of bower, make sure to reference all the right files in your build process in your Gulpfile
