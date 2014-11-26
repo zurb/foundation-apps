@@ -4,14 +4,14 @@ angular.module('foundation.init')
   .factory('FoundationInit', ['helpers', 'FoundationApi', 'Utils', function(helpers, foundationApi, u){
     return {
       init: function() {
+        var mediaQueries;
         var extractedMedia;
         var mediaObject;
-        var mediaQueries = [];
 
         helpers.headerHelper(['foundation-mq']);
         extractedMedia = helpers.getStyle('.foundation-mq', 'font-family');
 
-        mediaQueries = JSON.parse(extractedMedia.replace(/\'/g, ''));
+        mediaQueries = helpers.processStyleToJSON((extractedMedia));
 
         for(var key in mediaQueries) {
           mediaQueries[key] = 'only screen and (min-width: ' + mediaQueries[key].replace('rem', 'em') + ')';
@@ -48,6 +48,15 @@ angular.module('foundation.init')
         var style = window.getComputedStyle(elem, null);
 
         return style.getPropertyValue('font-family');
+      },
+      processStyleToJSON: function(str) {
+        var clean = str.replace(/\'/g, ''); //ready for FF and Chrome
+
+        if(clean[0] === '"' && clean[clean.length - 1] === '"') {
+          return JSON.parse(clean.slice(1, -1)); //ready for IE
+        } else {
+          return JSON.parse(clean);
+        }
       }
     };
 });
