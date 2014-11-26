@@ -11,7 +11,6 @@ angular.module('foundation.init')
         helpers.headerHelper(['foundation-mq']);
         extractedMedia = helpers.getStyle('.foundation-mq', 'font-family');
 
-
         mediaQueries = helpers.processStyleToJSON((extractedMedia));
 
         for(var key in mediaQueries) {

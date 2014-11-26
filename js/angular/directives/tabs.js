@@ -50,26 +50,20 @@ angular.module('foundation.tabs')
     scope: {
       displaced: '@?'
     },
-    compile: function(tElement, tAttr) {
-      return {
-        pre: function preLink(scope, element, attrs, controller) {
-        },
-        post: function postLink(scope, element, attrs, controller) {
-          scope.id = attrs.id || foundationApi.generateUuid();
-          scope.showTabContent = scope.displaced !== 'true';
-          attrs.$set('id', scope.id);
-          controller.setId(scope.id);
+    link: function(scope, element, attrs, controller) {
+      scope.id = attrs.id || foundationApi.generateUuid();
+      scope.showTabContent = scope.displaced !== 'true';
+      attrs.$set('id', scope.id);
+      controller.setId(scope.id);
 
-          //update tabs in case tab-content doesn't have them
-          var updateTabs = function() {
-            foundationApi.publish(scope.id + '-tabs', scope.tabs);
-          };
-
-          foundationApi.subscribe(scope.id + '-get-tabs', function() {
-            updateTabs();
-          });
-        }
+      //update tabs in case tab-content doesn't have them
+      var updateTabs = function() {
+        foundationApi.publish(scope.id + '-tabs', scope.tabs);
       };
+
+      foundationApi.subscribe(scope.id + '-get-tabs', function() {
+        updateTabs();
+      });
     }
   };
 }]);
@@ -103,7 +97,6 @@ angular.module('foundation.tabs')
           });
         }
       });
-
 
       //if tabs empty, request tabs
       if(scope.tabs.length === 0) {
@@ -181,7 +174,7 @@ angular.module('foundation.tabs')
         var makeActive = function() {
           element.parent().children().removeClass('is-active');
           element.addClass('is-active');
-        }
+        };
 
         foundationApi.subscribe(target, function(msg) {
           if(msg === 'activate' || msg === 'show' || msg === 'open') {

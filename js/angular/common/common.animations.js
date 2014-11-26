@@ -4,7 +4,7 @@ angular.module('foundation.common.animations')
   .animation('.ui-animation', ['$state', '$rootScope', function($state, $rootScope) {
     var events = ['webkitAnimationEnd', 'mozAnimationEnd', 'MSAnimationEnd', 'oanimationend', 'animationend',
                   'webkitTransitionEnd', 'otransitionend', 'transitionend'];
-    var active = 'is-active';
+
     var parentStyle = 'position-absolute';
 
     return {
@@ -15,24 +15,27 @@ angular.module('foundation.common.animations')
 
           var animationIn = scope.vars.animationIn;
           var animationOut = scope.vars.animationOut || '';
+          var initial = 'ng-enter';
+          var activate = 'ng-enter-active';
 
           //reset possible failed animations and bugs
           element.parent().addClass(parentStyle);
-          element.removeClass(active + ' ' + animationIn + ' ' + animationOut);
+          element.removeClass(activate + ' ' + initial + ' ' + animationIn + ' ' + animationOut);
           element[0].style.transitionDuration = 0;
 
           //start animation
           element.addClass(animationIn);
+          element.addClass(initial);
 
           $rootScope.$digest();
 
           element[0].style.transitionDuration = '';
-          element.addClass(active);
+          element.addClass(activate);
 
           element.one(events.join(' '), function() {
             //cleanup
-            element.removeClass(active + ' ' + animationIn + ' ' + animationOut);
             element.parent().removeClass(parentStyle);
+            element.removeClass(activate + ' ' + initial + ' ' + animationIn + ' ' + animationOut);
             done();
           });
         } else {
@@ -49,21 +52,24 @@ angular.module('foundation.common.animations')
         if(scope.vars && scope.vars.animationOut) {
           var animationIn = scope.vars.animationIn || '';
           var animationOut = scope.vars.animationOut;
+          var initial = 'ng-leave';
+          var activate = 'ng-leave-active';
 
-          element.removeClass(active + ' ' + animationIn + ' ' + animationOut);
+          element.removeClass(activate + ' ' + initial + ' ' + animationIn + ' ' + animationOut);
           element[0].style.transitionDuration = 0;
 
           //start animation
           element.addClass(animationOut);
+          element.addClass(initial);
 
           $rootScope.$digest();
 
           element[0].style.transitionDuration = '';
-          element.addClass(active);
+          element.addClass(activate);
 
           element.one(events.join(' '), function() {
             //cleanup
-            element.removeClass(active + ' ' + animationIn + ' ' + animationOut);
+            element.removeClass(activate + ' ' + initial + ' ' + animationIn + ' ' + animationOut);
             element.parent().removeClass(parentStyle);
             done();
           });
@@ -77,6 +83,4 @@ angular.module('foundation.common.animations')
         };
        }
     };
-
-
-  }]);
+}]);

@@ -64,25 +64,30 @@ angular.module('foundation.notification')
       position: '=?',
       color: '=?'
     },
-    link: function(scope, element, attrs, controller) {
-      scope.active = false;
-      scope.position = scope.position ? scope.position.split(' ').join('-') : 'top-right';
+    compile: function() {
+      return {
+        pre: function preLink(scope, iElement, iAttrs) {
+          iAttrs.$set('zf-closable', 'notification');
+        },
+        post: function postLink(scope, element, attrs, controller) {
+          scope.active = false;
+          scope.position = scope.position ? scope.position.split(' ').join('-') : 'top-right';
 
-      attrs.$set('zf-closable', 'notification');
+          //allow DOM to change before activating
+          setTimeout(function() {
+            scope.active = true;
+            scope.$apply();
+          }, 50);
 
-      //allow DOM to change before activating
-      setTimeout(function() {
-        scope.active = true;
-        scope.$apply();
-      }, 50);
-
-      scope.remove = function() {
-        scope.active = false;
-        setTimeout(function() {
-          controller.removeNotification(scope.notifId);
-        }, 50);
+          scope.remove = function() {
+            scope.active = false;
+            setTimeout(function() {
+              controller.removeNotification(scope.notifId);
+            }, 50);
+          };
+        }
       };
-    },
+    }
   };
 });
 
