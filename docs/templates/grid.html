@@ -21,9 +21,13 @@ For most apps, you'll want to contain all of your UI elements in the space of th
 
 The app frame always takes up 100% of the width and 100% of the height of the user's browser window.
 
+***
+
 ## The Basics: Grid Blocks
 
 Blocks are the... *building blocks* of apps in Foundation for Apps. They're flexbox-powered elements that can be intelligently sized, re-oriented, and re-ordered. Blocks are most analagous to rows in Foundation 5, but there's much more to them than that.
+
+***
 
 ### Automatic sizing
 
@@ -52,6 +56,7 @@ While these blocks *expand* to fill available space, it's also possible to have 
   <div id="main" class="grid-block"></div>
 </div>
 ```
+***
 
 ### Manual sizing
 
@@ -63,6 +68,7 @@ It's also possible to size the grid using column-based sizing classes. By defaul
   <div id="main" class="medium-8 grid-block"></div>
 </div>
 ```
+***
 
 ### Parent-level sizing
 
@@ -81,6 +87,8 @@ Lastly, the sizing of blocks can be set on the parent, rather than individual ch
 
 Note that this sizing method only works with horizontal grids.
 
+***
+
 ## Content Blocks
 
 If basic blocks are the *rows* of a Foundation for Apps layout, then content blocks are the *columns*. They can be sized and re-ordered just like normal blocks, but they're meant to house actual content, not just more blocks.
@@ -96,6 +104,8 @@ If basic blocks are the *rows* of a Foundation for Apps layout, then content blo
 ```
 
 In the above example, you can see that `grid-content` elements are the bottommost elements of the basic layout. Use `grid-block` when you intend to keep nesting more blocks for your layout, and use `grid-content` when you're filling the element with "normal" content, like lists, text, tabs, or menus.
+
+***
 
 ## The Vertical Grid
 
@@ -119,9 +129,13 @@ You can also reorient the grid at different screen sizes by using adding breakpo
 </div>
 ```
 
+***
+
 ## Other Options
 
 There are many ways you can customize the grid, using either our grid classes or the grid mixins, which allow you to write cleaner, more semantic HTML.
+
+***
 
 ### Wrapping items
 
@@ -136,6 +150,8 @@ By default, every block in a grid will try to fit on the same line&mdash;this is
 </div>
 ```
 
+***
+
 ### Container
 
 By default, all grids stretch the full width and height available. However, it's possible to wrap a grid's content in a container with a maximum width.
@@ -149,6 +165,8 @@ By default, all grids stretch the full width and height available. However, it's
 ```
 
 The container aligns to the center of the block it's inside by default, but this can be changed by adding the class `contain-left` or `contain-right` to the container.
+
+***
 
 ### Block Alignment
 
@@ -171,6 +189,8 @@ Grids can be aligned in five ways:
   - `align-spaced`: Blocks spread out so that the space *around* each one is the same.
 
 (show examples here)
+
+***
 
 ### Source Ordering
 
@@ -204,6 +224,8 @@ The ordering classes also come in responsive flavors, allowing you to reorder gr
   <div class="grid-block medium-order-1"></div>  
 </div>
 ```
+
+***
 
 ### Offsets
 

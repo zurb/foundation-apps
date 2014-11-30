@@ -1,191 +1,131 @@
-pre > code {
-  display: block;
-  padding: 1rem;
-  margin-bottom: 1rem;
-  overflow-x: auto;
-  background: #fafafa;
-  color: #555;
-  line-height: 1.5;
-}
+/*
 
-.hljs {
+github.com style (c) Vasily Polovnyov <vast@whiteants.net>
+
+*/
+
+pre code {
   display: block;
-  overflow-x: auto;
   padding: 0.5em;
-  background: #232323;
-  color: #e6e1dc;
-  -webkit-text-size-adjust: none;
+  background: #FAFAFA;
+  color: #333;
+  margin-bottom: 1.5rem;
 }
 
-.hljs-comment,
-.hljs-javadoc,
-.hljs-shebang {
-  color: #bc9458;
+pre .comment,
+pre .template_comment,
+pre .diff .header,
+pre .javadoc {
+  color: #998;
   font-style: italic;
 }
 
-.hljs-keyword,
-.ruby .hljs-function .hljs-keyword,
-.hljs-request,
-.hljs-status,
-.nginx .hljs-title,
-.method,
-.hljs-list .hljs-title {
-  color: #c26230;
+pre .keyword,
+pre .css .rule .keyword,
+pre .winutils,
+pre .javascript .title,
+pre .nginx .title,
+pre .subst,
+pre .request,
+pre .status {
+  color: #333;
+  font-weight: bold;
 }
 
-.hljs-string,
-.hljs-number,
-.hljs-regexp,
-.hljs-tag .hljs-value,
-.hljs-cdata,
-.hljs-filter .hljs-argument,
-.hljs-attr_selector,
-.apache .hljs-cbracket,
-.hljs-date,
-.tex .hljs-command,
-.asciidoc .hljs-link_label,
-.markdown .hljs-link_label {
-  color: #a5c261;
+pre .number,
+pre .hexcolor,
+pre .ruby .constant {
+  color: #099;
 }
 
-.hljs-subst {
-  color: #519f50;
+pre .string,
+pre .tag .value,
+pre .phpdoc,
+pre .tex .formula {
+  color: #d14;
 }
 
-.hljs-tag,
-.hljs-tag .hljs-keyword,
-.hljs-tag .hljs-title,
-.hljs-doctype,
-.hljs-sub .hljs-identifier,
-.hljs-pi,
-.input_number {
-  color: #e8bf6a;
+pre .title,
+pre .id,
+pre .coffeescript .params,
+pre .scss .preprocessor {
+  color: #900;
+  font-weight: bold;
 }
 
-.hljs-identifier {
-  color: #d0d0ff;
+pre .javascript .title,
+pre .lisp .title,
+pre .clojure .title,
+pre .subst {
+  font-weight: normal;
 }
 
-.hljs-class .hljs-title,
-.hljs-type,
-.smalltalk .hljs-class,
-.hljs-javadoctag,
-.hljs-yardoctag,
-.hljs-phpdoc,
-.hljs-dartdoc {
-  text-decoration: none;
+pre .class .title,
+pre .haskell .type,
+pre .vhdl .literal,
+pre .tex .command {
+  color: #458;
+  font-weight: bold;
 }
 
-.hljs-constant {
-  color: #da4939;
+pre .tag,
+pre .tag .title,
+pre .rules .property,
+pre .django .tag .keyword {
+  color: #000080;
+  font-weight: normal;
 }
 
-
-.hljs-symbol,
-.hljs-built_in,
-.ruby .hljs-symbol .hljs-string,
-.ruby .hljs-symbol .hljs-identifier,
-.asciidoc .hljs-link_url,
-.markdown .hljs-link_url,
-.hljs-attribute {
-  color: #6d9cbe;
+pre .attribute,
+pre .variable,
+pre .lisp .body {
+  color: #008080;
 }
 
-.asciidoc .hljs-link_url,
-.markdown .hljs-link_url {
-  text-decoration: underline;
+pre .regexp {
+  color: #009926;
 }
 
-
-
-.hljs-params,
-.hljs-variable,
-.clojure .hljs-attribute {
-  color: #d0d0ff;
+pre .class {
+  color: #458;
+  font-weight: bold;
 }
 
-.css .hljs-tag,
-.hljs-rules .hljs-property,
-.hljs-pseudo,
-.tex .hljs-special {
-  color: #cda869;
+pre .symbol,
+pre .ruby .symbol .string,
+pre .lisp .keyword,
+pre .tex .special,
+pre .prompt {
+  color: #990073;
 }
 
-.css .hljs-class {
-  color: #9b703f;
+pre .built_in,
+pre .lisp .title,
+pre .clojure .built_in {
+  color: #0086b3;
 }
 
-.hljs-rules .hljs-keyword {
-  color: #c5af75;
+pre .preprocessor,
+pre .pi,
+pre .doctype,
+pre .shebang,
+pre .cdata {
+  color: #999;
+  font-weight: bold;
 }
 
-.hljs-rules .hljs-value {
-  color: #cf6a4c;
+pre .deletion {
+  background: #fdd;
 }
 
-.css .hljs-id {
-  color: #8b98ab;
+pre .addition {
+  background: #dfd;
 }
 
-.hljs-annotation,
-.apache .hljs-sqbracket,
-.nginx .hljs-built_in {
-  color: #9b859d;
+pre .diff .change {
+  background: #0086b3;
 }
 
-.hljs-preprocessor,
-.hljs-preprocessor *,
-.hljs-pragma {
-  color: #8996a8 !important;
-}
-
-.hljs-hexcolor,
-.css .hljs-value .hljs-number {
-  color: #a5c261;
-}
-
-.hljs-title,
-.hljs-decorator,
-.css .hljs-function {
-  color: #ffc66d;
-}
-
-.diff .hljs-header,
-.hljs-chunk {
-  background-color: #2f33ab;
-  color: #e6e1dc;
-  display: inline-block;
-  width: 100%;
-}
-
-.diff .hljs-change {
-  background-color: #4a410d;
-  color: #f8f8f8;
-  display: inline-block;
-  width: 100%;
-}
-
-.hljs-addition {
-  background-color: #144212;
-  color: #e6e1dc;
-  display: inline-block;
-  width: 100%;
-}
-
-.hljs-deletion {
-  background-color: #600;
-  color: #e6e1dc;
-  display: inline-block;
-  width: 100%;
-}
-
-.coffeescript .javascript,
-.javascript .xml,
-.tex .hljs-formula,
-.xml .javascript,
-.xml .vbscript,
-.xml .css,
-.xml .hljs-cdata {
-  opacity: 0.7;
+pre .chunk {
+  color: #aaa;
 }
