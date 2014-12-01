@@ -11,6 +11,31 @@
    - Floating
 */
 
+@mixin show-for($size) {
+  display: none !important;
+  @include breakpoint($size) {
+    display: block !important;
+  }
+}
+@mixin show-for-only($size) {
+  display: none !important;
+  @include breakpoint($size only) {
+    display: block;
+  }
+}
+@mixin hide-for($size) {
+  display: block !important;
+  @include breakpoint($size) {
+    display: none !important;
+  }
+}
+@mixin hide-for-only($size) {
+  display: block !important;
+  @include breakpoint($size only) {
+    display: none !important;
+  }
+}
+
 @include exports(utilities) {
   /*
     Vertical alignment
@@ -45,25 +70,20 @@
   /*
     Visibility
   */
-  .hide {
-    display: none !important;
-  }
+  .hide { display: none !important; }
+  .invisible { visibility: hidden; }
   @each $size in $breakpoint-classes {
-    @include breakpoint($size) {
-      .hide-for-#{$size} {
-        display: none !important;
-      }
-      .show-for-#{$size} {
-        display: block !important;
-      }
+    .hide-for-#{$size} {
+      @include hide-for($size);
     }
-    @include breakpoint($size only) {
-      .hide-for-#{$size}-only {
-        display: none !important;
-      }
-      .show-for-#{$size}-only {
-        display: block !important;
-      }
+    .show-for-#{$size} {
+      @include show-for($size);
+    }
+    .hide-for-#{$size}-only {
+      @include hide-for-only($size);
+    }
+    .show-for-#{$size}-only {
+      @include show-for-only($size);
     }
   }
   @each $orientation in (portrait, landscape) {
