@@ -44,7 +44,7 @@ angular.module('foundation.accordion')
     restrict: 'EA',
     transclude: 'true',
     replace: true,
-    templateUrl: '/partials/accordion-set.html',
+    templateUrl: 'partials/accordion-set.html',
     controller: 'ZfAccordionController',
     scope: {
       multiOpen: '@'
@@ -59,7 +59,7 @@ angular.module('foundation.accordion')
   .directive('zfAccordion', function() {
     return {
       restrict: 'EA',
-      templateUrl: '/partials/accordion.html',
+      templateUrl: 'partials/accordion.html',
       transclude: true,
       scope: {
         title: '@'

@@ -4,7 +4,7 @@ angular.module('foundation.modal')
   .directive('zfModal', ['FoundationApi', function(foundationApi) {
   return {
     restrict: 'EA',
-    templateUrl: '/partials/modal.html',
+    templateUrl: 'partials/modal.html',
     transclude: true,
     scope: {
       overlay: '@',
