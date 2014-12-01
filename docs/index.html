@@ -16,23 +16,6 @@
       .thumbnail {
         width: 100%;
       }
-
-      .sidebar {
-        padding: 0 !important;
-        background: #f9f9f9 !important;
-        border-right: 1px solid #e7e7e7;
-        padding-top: 1rem !important;
-      }
-      .sidebar .menu-bar {
-        background: #f9f9f9 !important;
-      }
-      .sidebar .menu-bar .title {
-        font-size: 0.85rem;
-        text-transform: uppercase;
-        color: #666;
-        font-weight: bold;
-        padding-top: 0.5rem;
-      }
     </style>
   </head>
   <body>
@@ -40,15 +23,37 @@
     <div class="vertical grid-frame">
       <!-- Title bar -->
       <div id="header" class="shrink collapse grid-content">
-        <ul class="menu-bar primary condense">
-          <li zf-toggle="sidebar"><a href="#">Foundation for Apps</a></li>
+        
+      <nav class="global-nav">
+        <ul class="title-area">
+          <li class="name">
+            <!-- <a class="left-off-canvas-toggle show-for-small-up hide-for-medium-up sidebar-button" href="#"><img alt="Menu grey" src="assets/images/content/menu-grey.png"/></a> -->
+            <h1><a href="index.html">ZURB <strong>Foundation for Apps</strong></a></h1>
+          </li>
         </ul>
+        
+        <ul class="right">    
+            <li><a href="features.html">Features</a>
+            </li>
+            <li>
+              <a class="current" href="docs.html">Docs</a>
+            </li>
+            <li>
+              <a href="resources.html">Resources</a>
+            </li>
+            <li>
+              <a href="support.html">Support</a>
+            </li>
+            <li><a href="getting-started.html">Getting Started</a></li>
+          </ul>
+      </nav>
+
       </div>
       <!-- /Title bar -->
       <div class="grid-block">
-        <div zf-panel id="sidebar" class="fast bounceInOut medium-3 large-2 medium-grid-block sidebar vertical">
-          <div class="grid-content shrink">
-            This is search
+        <div zf-panel id="sidebar" class="fast bounceInOut medium-3 medium-grid-block sidebar vertical">
+          <div class="grid-content shrink docs-search-box">
+            <input type="text" placeholder="Search Docs: e.g. forms" />
           </div>
           <!-- Sidebar nav -->
           <div class="grid-content collapse">
@@ -120,7 +125,7 @@
         <!-- /Sidebar nav -->
 
         <!-- Main content -->
-        <div class="medium-9 large-10 grid-content">
+        <div class="medium-9 grid-content">
           <div class="grid-container">
             <a class="small secondary expand button hide-for-medium" zf-toggle="sidebar">Show Components</a>
             <div ng-class="[currentSlug, 'ui-animation']" ui-view></div>
