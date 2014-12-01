@@ -56,7 +56,7 @@ angular.module('foundation.common.directives')
 }]);
 
 angular.module('foundation.common.directives')
-  .directive('faAnimate', ['FoundationApi', function(foundationApi) {
+  .directive('zfAnimate', ['FoundationApi', function(foundationApi) {
   return {
     restrict: 'A',
     priority: 100, //set priority to override other directives

@@ -46,6 +46,42 @@ angular.module('foundation.common.services')
 
         uniqueIds.push(uuid);
         return uuid;
+      },
+      toggleAnimation: function(element, futureState) {
+        var activeClass = 'is-active';
+        if(futureState) {
+          element.addClass(activeClass);
+        } else {
+          element.removeClass(activeClass);
+        }
+      },
+      animate: function(element, futureState, animationIn, animationOut) {
+        var activeClass = 'is-active';
+
+        var reflow = function() {
+          return element[0].offsetWidth;
+        };
+
+        var reset = function() {
+          element[0].style.transitionDuration = 0;
+          element.removeClass(activeClass + ' ' + animationIn + ' ' + animationOut);
+        };
+
+        var animate = function(animationClass, activation) {
+          //stop animation
+          reset();
+          element.addClass(animationClass);
+
+          //force a "tick"
+          reflow();
+
+          //activate
+          element[0].style.transitionDuration = '';
+          element.addClass(activeClass);
+          isActive = activation;
+        };
+
+        animate(futureState ? animationIn : animationOut, futureState);
       }
     };
   }
@@ -80,4 +116,3 @@ angular.module('foundation.common.services')
       },
     };
 });
-
