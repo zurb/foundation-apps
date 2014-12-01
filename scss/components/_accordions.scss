@@ -16,14 +16,6 @@ $accordion-title-color-active: isitlight($accordion-title-background);
 $accordion-title-padding: $global-padding;
 $accordion-content-padding: $global-padding;
 
-@mixin accordion-container {
-
-}
-
-@mixin accordion-item {
-
-}
-
 @mixin accordion-title(
   $background: $accordion-title-background,
   $background-hover: $accordion-title-background-hover,
@@ -61,13 +53,12 @@ $accordion-content-padding: $global-padding;
 
 @include exports(accordion) {
   .accordion {
-    @include accordion-container;
     @if hasvalue($accordion-border) {
       border: $accordion-border;
     }
   }
     .accordion-item {
-      @include accordion-item;
+
     }
     .accordion-title {
       @include accordion-title;
