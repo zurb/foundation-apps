@@ -3,6 +3,20 @@
 // foundation.zurb.com
 // Licensed under MIT Open Source
 
+// [PH] Using
+@function using($name) {
+  // Import from global scope
+  $include-css: $include-css !global;
+  $module-key: map-get($include-css, $name);
+
+  @if $module-key == true or $module-key == null {
+    @return true;
+  }
+  @else {
+    @return false;
+  }
+}
+
 /**
  *   Exports
  *   Outputs the chunk of content passed if component $name hasn't yet been output.

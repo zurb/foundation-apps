@@ -114,15 +114,21 @@ $menubar-icon-spacing: $menubar-item-padding !default;
     background: $background-active;
     color: $color-active
   }
+
+  // Iconic
+  @if using(iconic) {
+    .iconic { @include color-icon($color); }
+  }
 }
 
 @mixin menu-bar-icons(
   $position: left,
-  $size: $menubar-icon-size
+  $size: $menubar-icon-size,
+  $color: null
 ) {
   li {
     // Sizing
-    img {
+    img, .iconic {
       margin: 0;
       @if $menubar-icon-size != false {
         width: $menubar-icon-size;
@@ -135,30 +141,30 @@ $menubar-icon-spacing: $menubar-item-padding !default;
       a {
         flex-flow: row nowrap;
         align-items: center;
-        img { margin-right: $menubar-icon-spacing; }
+        img, .iconic { margin-right: $menubar-icon-spacing; }
       }
     }
     @else {
       a {
-        img { margin-right: 0; }
+        img, .iconic { margin-right: 0; }
       }
     }
     @if $position == top {
       a {
         flex-flow: column nowrap;
-        img { margin-bottom: $menubar-icon-spacing; }
+        img, .iconic { margin-bottom: $menubar-icon-spacing; }
       }
     }
     @if $position == right {
       a {
         flex-flow: row-reverse nowrap;
-        img { margin-left: $menubar-icon-spacing; }
+        img, .iconic { margin-left: $menubar-icon-spacing; }
       }
     }
     @if $position == bottom {
       a {
         flex-flow: column-reverse nowrap;
-        img { margin-top: $menubar-icon-spacing; }
+        img, .iconic { margin-top: $menubar-icon-spacing; }
       }
     }
   }

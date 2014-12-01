@@ -23,6 +23,7 @@ $button-tag-selector: true !default;
   -webkit-appearance: none;
   -webkit-font-smoothing: antialiased;
   transition: background 0.25s ease-out;
+  vertical-align: middle;
 
   padding: $button-padding;
   margin: $button-margin;
@@ -56,6 +57,16 @@ $button-tag-selector: true !default;
 
   @if $expand {
     @include button-expand;
+  }
+
+  @if using(iconic) {
+    .iconic {
+      width: 1em;
+      height: 1em;
+      vertical-align: middle;
+      margin-right: 0.25em;
+      margin-top: -2px; // The icons are oddly misaligned
+    }
   }
 }
 @mixin button-expand($expand: true) {
@@ -111,6 +122,22 @@ $button-tag-selector: true !default;
     border-color: $background;
     &:hover {
       border-color: scale-color($background, $lightness: -25%);
+    }
+  }
+
+  @if using(iconic) {
+    @if $style == hollow {
+      .iconic {
+        @include color-icon($background);
+      }
+      &:hover .iconic {
+        @include color-icon(scale-color($background, $lightness: 25%));
+      }
+    }
+    @else {
+      .iconic {
+        @include color-icon($color);
+      }
     }
   }
 }
