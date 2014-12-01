@@ -117,34 +117,34 @@ large: 800px
 **zf-close**
 zf-close looks for a parent element that has the `zf-closeable` tag on it. This tag is added automatically for all directives that can be closed with `zf-close`. When clicked, the directive will send a message via the FoundationApi to close its parent `zf-closeable` element.
 
-````html
+```html
 <zf-modal id="pageModal" overlay="true">
   <a href="#" zf-close>&times;</a>
 </zf-modal>
-````
+```
 
 Note that you can specify the ID of a specific closeable directive in order to close it remotely (whether it's a parent, child, or has any other relationship to the closeable directive).
 
-````html
+```html
 <a href="#" zf-close="pageModal">&times;</a>
 <zf-modal id="pageModal" overlay="true"></zf-modal>
-````
+```
 
 **zf-open**
 The counter to `zf-close`, `zf-open` sends a signal to a directive that can be trigger through this method. Simply specify the ID of the target element.
 
-````html
+```html
 <a href="#" zf-open="pageModal">Open Modal</a>
 <zf-modal id="pageModal" overlay="true"></zf-modal>
-````
+```
 
 **zf-toggle**
 Similar to the previous two, `zf-toggle` sends a toggle command to a directive that can accept it. A target has to be specified in order for it to work.
 
-````html
+```html
 <a href="#" zf-toggle="pageModal">Toggle Modal</a>
 <zf-modal id="pageModal" overlay="true"></zf-modal>
-````
+```
 
 ### Sass Variables
 You can customize with...
