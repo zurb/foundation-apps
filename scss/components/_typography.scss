@@ -12,7 +12,6 @@
    - Dividers
    - Blockquotes
    - Acronyms
-   - Print styles
 */
 
 $include-html-type-classes: $include-html-classes !default;
@@ -272,13 +271,14 @@ $acronym-underline: 1px dotted #ddd !default;
   ul {
     margin-left: $list-side-margin;
     &.no-bullet {
+      list-style-type: none;
       margin-left: $list-side-margin-no-bullet;
       li {
         ul,
         ol {
           margin-left: $list-nested-margin;
           margin-bottom: 0;
-          list-style: none;
+          list-style-type: none;
         }
       }
     }
