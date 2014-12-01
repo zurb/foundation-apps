@@ -73,15 +73,17 @@ angular.module('foundation.notification')
         post: function postLink(scope, element, attrs, controller) {
           scope.active = false;
           scope.position = scope.position ? scope.position.split(' ').join('-') : 'top-right';
+          var animationIn = attrs.animationIn || 'fadeIn';
+          var animationOut = attrs.animationOut || 'fadeOut';
+
 
           //allow DOM to change before activating
-          setTimeout(function() {
-            scope.active = true;
-            scope.$apply();
-          }, 50);
+          scope.active = true;
+          foundationApi.animate(element, scope.active, animationIn, animationOut);
 
           scope.remove = function() {
-            scope.active = false;
+            scope.active = true;
+            foundationApi.animate(element, scope.active, animationIn, animationOut);
             setTimeout(function() {
               controller.removeNotification(scope.notifId);
             }, 50);
@@ -108,6 +110,8 @@ angular.module('foundation.notification')
     },
     link: function(scope, element, attrs, controller) {
       scope.position = scope.position ? scope.position.split(' ').join('-') : 'top-right';
+      var animationIn = attrs.animationIn || 'fadeIn';
+      var animationOut = attrs.animationOut || 'fadeOut';
 
       foundationApi.subscribe(attrs.id, function(msg) {
         if(msg == 'show' || msg == 'open') {
@@ -117,6 +121,8 @@ angular.module('foundation.notification')
         } else if (msg == 'toggle') {
           scope.toggle();
         }
+
+        foundationApi.animate(element, scope.active, animationIn, animationOut);
 
         scope.$apply();
 

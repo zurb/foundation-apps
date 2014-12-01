@@ -21,6 +21,9 @@ angular.module('foundation.panel')
           scope.position = scope.position || 'left';
           scope.active = false;
 
+          var animationIn = attrs.animationIn || (scope.position === 'left' ? 'slideInFromLeft' : 'slideInFromRight');
+          var animationOut = attrs.animationOut || (scope.position === 'left' ? 'slideOutFromLeft' : 'slideOutFromLeft');
+
           //setup
           foundationApi.subscribe(attrs.id, function(msg) {
             if(msg == 'show' || msg == 'open') {
@@ -31,11 +34,7 @@ angular.module('foundation.panel')
               scope.toggle();
             }
 
-            if(attrs.animationIn && attrs.animationOut) {
-              foundationApi.animate(element, scope.active, attrs.animationIn, attrs.animationOut);
-            } else {
-              //toggle animation
-            }
+            foundationApi.animate(element, scope.active, animationIn, animationOut);
 
             scope.$apply();
 
