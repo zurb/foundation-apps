@@ -4,7 +4,7 @@ angular.module('foundation.panel')
   .directive('zfPanel', ['FoundationApi', function(foundationApi) {
   return {
     restrict: 'EA',
-    templateUrl: '/partials/panel.html',
+    templateUrl: 'partials/panel.html',
     transclude: true,
     scope: {
       position: '@?'
