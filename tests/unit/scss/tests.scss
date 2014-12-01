@@ -82,23 +82,25 @@
 }
 
 @include describe("Has Value") {
-  @include it("returns false if the given value is zero") {
-    $actual: hasvalue(0px);
-    $expected: false;
-
-    @include should(expect($actual), to(be($expected)));
+  @include it("should return false if the given value is not falsey") {
+    $boolean: hasvalue(true);
+    $number:  hasvalue(1px);
+    $color:   hasvalue(#000);
+    $list:    hasvalue(1px solid black);
+    
+    @include should(expect($boolean), to(be(true)));
+    @include should(expect($number), to(be(true)));
+    @include should(expect($color), to(be(true)));
+    @include should(expect($list), to(be(true)));
   }
-  @include it("returns false if the given value is null") {
-    $actual: hasvalue(null);
-    $expected: false;
+  @include it("should return false if the given value is falsey") {
+    $zero:  hasvalue(0px);
+    $false: hasvalue(false);
+    $none:  hasvalue(none);
 
-    @include should(expect($actual), to(be($expected)));
-  }
-  @include it("returns false if the given value is none") {
-    $actual: hasvalue(none);
-    $expected: false;
-
-    @include should(expect($actual), to(be($expected)));
+    @include should(expect($zero), to(be(false)));
+    @include should(expect($false), to(be(false)));
+    @include should(expect($none), to(be(false)));
   }
 }
 
