@@ -13,7 +13,18 @@ var gulp           = require('gulp'),
     path           = require('path'),
     modRewrite     = require('connect-modrewrite'),
     dynamicRouting = require('./bin/gulp-dynamic-routing'),
-    karma          = require('gulp-karma');
+    karma          = require('gulp-karma'),
+    rsync          = require('gulp-rsync');
+
+// Deploy
+gulp.task('deploy', function() {
+  return gulp.src('build/**')
+    .pipe(rsync({
+      root: 'build',
+      hostname: 'deployer@72.32.134.77',
+      destination: '/home/deployer/sites/foundation-apps/current'
+    }));
+});
 
 // Clean build directory
 gulp.task('clean', function(cb) {
