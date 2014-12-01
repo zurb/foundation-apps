@@ -8,27 +8,27 @@ url: /panel
 ***
 
 <div class="docs-example-panels grid-block">
-  <div fa-panel id="l-panel" position="left">
-    <a href="#" fa-close>&times;</a>
+  <div zf-panel id="l-panel" position="left">
+    <a href="#" zf-close>&times;</a>
     <p>Left Panel</p>
   </div>
-  <div fa-panel id="r-panel" position="right">
-    <a href="#" fa-close>&times;</a>
+  <div zf-panel id="r-panel" position="right">
+    <a href="#" zf-close>&times;</a>
     <p>Right Panel</p>
   </div>
-  <div fa-panel id="t-panel" position="top">
-    <a href="#" fa-close>&times;</a>
+  <div zf-panel id="t-panel" position="top">
+    <a href="#" zf-close>&times;</a>
     <p>Top Panel</p>
   </div>
-  <div fa-panel id="b-panel" position="bottom">
-    <a href="#" fa-close>&times;</a>
+  <div zf-panel id="b-panel" position="bottom">
+    <a href="#" zf-close>&times;</a>
     <p>Bottom Panel</p>
   </div>
   <div class="grid-content">
-    <button fa-toggle="t-panel">Top Panel</button>
-    <button fa-toggle="r-panel">Right Panel</button>
-    <button fa-toggle="b-panel">Bottom Panel</button>
-    <button fa-toggle="l-panel">Left Panel</button>
+    <button zf-toggle="t-panel">Top Panel</button>
+    <button zf-toggle="r-panel">Right Panel</button>
+    <button zf-toggle="b-panel">Bottom Panel</button>
+    <button zf-toggle="l-panel">Left Panel</button>
   </div>
 </div>
 
@@ -46,53 +46,53 @@ You can create Panels with this basic HTML
 
 ```html
   <!-- trigger your panel -->
-  <a class="button" fa-toggle="top-panel">Top Panel</a>
-  <a class="button" fa-toggle="right-panel">Right Panel</a>
-  <a class="button" fa-toggle="bottom-panel">Bottom Panel</a>
-  <a class="button" fa-toggle="left-panel">Left Panel</a>
+  <a class="button" zf-toggle="top-panel">Top Panel</a>
+  <a class="button" zf-toggle="right-panel">Right Panel</a>
+  <a class="button" zf-toggle="bottom-panel">Bottom Panel</a>
+  <a class="button" zf-toggle="left-panel">Left Panel</a>
 
   <!-- panel content -->
-  <fa-panel id="left-panel" position="left">
-    <a href="#" fa-close>&times;</a>
+  <zf-panel id="left-panel" position="left">
+    <a href="#" zf-close>&times;</a>
     <p>Left Panel</p>
-  </fa-panel>
-  <fa-panel id="right-panel" position="right">
-    <a href="#" fa-close>&times;</a>
+  </zf-panel>
+  <zf-panel id="right-panel" position="right">
+    <a href="#" zf-close>&times;</a>
     <p>Right Panel</p>
-  </fa-panel>
-  <fa-panel id="top-panel" position="top">
-    <a href="#" fa-close>&times;</a>
+  </zf-panel>
+  <zf-panel id="top-panel" position="top">
+    <a href="#" zf-close>&times;</a>
     <p>Top Panel</p>
-  </fa-panel>
-  <fa-panel id="bottom-panel" position="bottom">
-    <a href="#" fa-close>&times;</a>
+  </zf-panel>
+  <zf-panel id="bottom-panel" position="bottom">
+    <a href="#" zf-close>&times;</a>
     <p>Bottom Panel</p>
-  </fa-panel>
+  </zf-panel>
 ```
   </div>
 
   <div class="medium-6 grid-content">
-    <a class="button" fa-toggle="top-panel">Top Panel</a>
-    <a class="button" fa-toggle="right-panel">Right Panel</a>
-    <a class="button" fa-toggle="bottom-panel">Bottom Panel</a>
-    <a class="button" fa-toggle="left-panel">Left Panel</a>
+    <a class="button" zf-toggle="top-panel">Top Panel</a>
+    <a class="button" zf-toggle="right-panel">Right Panel</a>
+    <a class="button" zf-toggle="bottom-panel">Bottom Panel</a>
+    <a class="button" zf-toggle="left-panel">Left Panel</a>
   </div>
-  <fa-panel id="left-panel" position="left">
-    <a href="#" fa-close>&times;</a>
+  <zf-panel id="left-panel" position="left">
+    <a href="#" zf-close>&times;</a>
     <p>Left Panel</p>
-  </fa-panel>
-  <fa-panel id="right-panel" position="right">
-    <a href="#" fa-close>&times;</a>
+  </zf-panel>
+  <zf-panel id="right-panel" position="right">
+    <a href="#" zf-close>&times;</a>
     <p>Right Panel</p>
-  </fa-panel>
-  <fa-panel id="top-panel" position="top">
-    <a href="#" fa-close>&times;</a>
+  </zf-panel>
+  <zf-panel id="top-panel" position="top">
+    <a href="#" zf-close>&times;</a>
     <p>Top Panel</p>
-  </fa-panel>
-  <fa-panel id="bottom-panel" position="bottom">
-    <a href="#" fa-close>&times;</a>
+  </zf-panel>
+  <zf-panel id="bottom-panel" position="bottom">
+    <a href="#" zf-close>&times;</a>
     <p>Bottom Panel</p>
-  </fa-panel>
+  </zf-panel>
 </div>
 
 ***
@@ -110,21 +110,21 @@ You can create a fixed position Panel with this HTML
 
 ```html
 <div class="grid-block">
-  <a class="button" fa-toggle="panel-fixed">Fixed Panel</a>
-  <fa-panel id="fixed-panel" position="fixed">
-    <a href="#" fa-close>&times;</a>
+  <a class="button" zf-toggle="panel-fixed">Fixed Panel</a>
+  <zf-panel id="fixed-panel" position="fixed">
+    <a href="#" zf-close>&times;</a>
     <p>Fixed Panel</p>
-  </fa-panel>
+  </zf-panel>
 </div>
 ```
   </div>
 
   <div class="medium-6 grid-content">
-      <a class="button" fa-toggle="panel-fixed">Fixed Panel</a>
-      <fa-panel id="panel-fixed" position="right">
-        <a href="#" fa-close>&times;</a>
+      <a class="button" zf-toggle="panel-fixed">Fixed Panel</a>
+      <zf-panel id="panel-fixed" position="right">
+        <a href="#" zf-close>&times;</a>
         <p>Fixed Panel</p>
-      </fa-panel>
+      </zf-panel>
       </div>
 
   </div>
@@ -144,11 +144,11 @@ You can create transform a panel into a grid block with this HTML
   <div class="medium-6 grid-content">
 
 ```html
-<a class="button" fa-toggle="panel-block">Grid Block Panel</a>
-<fa-panel id="panel-block" position="right">
-  <a href="#" fa-close>&times;</a>
+<a class="button" zf-toggle="panel-block">Grid Block Panel</a>
+<zf-panel id="panel-block" position="right">
+  <a href="#" zf-close>&times;</a>
   <p>Grid Block Panel</p>
-</fa-panel>
+</zf-panel>
 
 ```
   </div>
@@ -156,11 +156,11 @@ You can create transform a panel into a grid block with this HTML
   <div class="medium-6 grid-content">
     <div class="grid-block">
       <div class="grid-content">
-        <a class="button" fa-toggle="panel-block">Grid Block Panel</a>
-        <fa-panel id="panel-block" position="right">
-          <a href="#" fa-close>&times;</a>
+        <a class="button" zf-toggle="panel-block">Grid Block Panel</a>
+        <zf-panel id="panel-block" position="right">
+          <a href="#" zf-close>&times;</a>
           <p>Grid Block Panel</p>
-        </fa-panel>
+        </zf-panel>
       </div>
     </div>
   </div>
@@ -176,22 +176,22 @@ You can anchor a panel to a grid block or window with this HTML:
   <div class="medium-6 grid-content">
 
 ```html
-<a class="button" fa-toggle="panel-left-window">Grid Block Panel</a>
-<fa-panel id="panel-left-window" position="left">
-  <a href="#" fa-close>&times;</a>
+<a class="button" zf-toggle="panel-left-window">Grid Block Panel</a>
+<zf-panel id="panel-left-window" position="left">
+  <a href="#" zf-close>&times;</a>
   <p>Left Window Panel</p>
-</fa-panel>
+</zf-panel>
 ```
   </div>
 
   <div class="medium-6 grid-content">
     <div class="grid-block">
       <div class="grid-content">
-        <a class="button" fa-toggle="panel-left-window">Left Window Panel</a>
-        <fa-panel id="panel-left-window" position="left">
-          <a href="#" fa-close>&times;</a>
+        <a class="button" zf-toggle="panel-left-window">Left Window Panel</a>
+        <zf-panel id="panel-left-window" position="left">
+          <a href="#" zf-close>&times;</a>
           <p>Left Window Panel</p>
-        </fa-panel>
+        </zf-panel>
       </div>
     </div>
   </div>

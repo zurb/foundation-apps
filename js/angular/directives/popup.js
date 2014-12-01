@@ -3,6 +3,7 @@ angular.module('foundation.popup', ['foundation.common.services']);
 angular.module('foundation.popup')
   .directive('zfPopup', ['FoundationApi', function(foundationApi) {
     return {
+      restrict: 'EA',
       transclude: true,
       replace: true,
       templateUrl: '/partials/popup.html',

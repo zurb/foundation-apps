@@ -8,23 +8,14 @@ url: /popup
 
 <div class="grid-block">
   <div class="small-12 grid-content">
-  	<a class="button" href="#" fa-popup-toggle="popups">Open popup</a>
-		<div fa-popup
-		  title="My title"
-		  footer="Footer!"
-		  id="popups"
-		>Here is my popup content
-		</div>
-		<!-- this is what the markup should be but doesn't work
-
-		<a class="button" href="#" fa-popup-toggle="popups">Open Popup</a>
-		<fa-popup
+		<a class="button" href="#" zf-popup-toggle="my-popup">Open Popup</a>
+		<zf-popup
 		  title="My title"
 		  footer="Footer content"
 		  id="my-popup"
-		>Content goes here</fa-popup> -->
+		>Content goes here</zf-popup>
 	</div>
-</div> 
+</div>
 
 ***
 
@@ -37,21 +28,21 @@ You can create [Item] with this basic HTML
 <div class="grid-block">
   <div class="medium-6 grid-content">
 ```html
-<a class="button" href="#" fa-popup-toggle="popups">Open Popup</a>
-<fa-popup
+<a class="button" href="#" zf-popup-toggle="popups">Open Popup</a>
+<zf-popup
   title="My title"
   footer="Footer content"
-  id="my-popup"
->Content goes here</fa-popup>
+  id="popups"
+>Content goes here</zf-popup>
 ```
   </div>
   <div class="medium-6 grid-content">
-    <a class="button" href="#" fa-popup-toggle="popups">Open Popup</a>
-		<fa-popup
+    <a class="button" href="#" zf-popup-toggle="popups">Open Popup</a>
+		<zf-popup
 		  title="My title"
 		  footer="Footer content"
-		  id="my-popup"
-		>Content goes here</fa-popup>
+		  id="popups"
+		>Content goes here</zf-popup>
   </div>
 </div>
 
