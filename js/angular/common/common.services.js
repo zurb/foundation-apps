@@ -56,9 +56,11 @@ angular.module('foundation.common.services')
         }
       },
       animate: function(element, futureState, animationIn, animationOut) {
-        var initClasses = ['ng-enter', 'ng-leave'];
-        var activeClasses = ['ng-enter-active', 'ng-leave-active'];
+        var initClasses        = ['ng-enter', 'ng-leave'];
+        var activeClasses      = ['ng-enter-active', 'ng-leave-active'];
         var activeGenericClass = 'is-active';
+        var events = ['webkitAnimationEnd', 'mozAnimationEnd', 'MSAnimationEnd', 'oanimationend', 'animationend',
+                  'webkitTransitionEnd', 'otransitionend', 'transitionend'];
 
         var reflow = function() {
           return element[0].offsetWidth;
@@ -66,13 +68,12 @@ angular.module('foundation.common.services')
 
         var reset = function() {
           element[0].style.transitionDuration = 0;
-          element.removeClass(initClasses.join(' ') + ' ' + activeClasses.join(' ') + ' ' + animationIn + ' ' + animationOut + ' ' + activeGenericClass);
+          element.removeClass(initClasses.join(' ') + ' ' + activeClasses.join(' ') + ' ' + animationIn + ' ' + animationOut);
         };
 
         var animate = function(animationClass, activation) {
           var initClass = activation ? initClasses[0] : initClasses[1];
           var activeClass = activation ? activeClasses[0] : activeClasses[1];
-          var genericActivation = activation ? genericActivation : '';
 
           //stop animation
           reset();
@@ -86,6 +87,12 @@ angular.module('foundation.common.services')
           //activate
           element[0].style.transitionDuration = '';
           element.addClass(activeClass);
+
+          element.one(events.join(' '), function() {
+            reset(); //reset all classes
+            element.removeClass(!activation ? activeGenericClass : ''); //if not active, remove active class
+            reflow();
+          });
         };
 
         animate(futureState ? animationIn : animationOut, futureState);
