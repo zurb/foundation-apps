@@ -1,5 +1,7 @@
 <div class="notification {{ position }} {{ color }}" ng-class="{'is-active': active}" >
-  <a href="#" class="close-button" ng-click="remove(); $event.preventDefault(); $event.stopPropagation()">&times;</a>
+  <a href="#"
+    class="close-button"
+    ng-click="remove(); $event.preventDefault(); $event.stopPropagation()">&times;</a>
   <div class="notification-icon" ng-if="image">
     <img src="{{ image }}" />
   </div>

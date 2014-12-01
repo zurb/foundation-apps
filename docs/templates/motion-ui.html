@@ -3,19 +3,19 @@ name: motion-ui
 url: /motion-ui
 ---
 
-<h2>Motion UI</h2>
+## Motion UI
 <h3 class="subheader">Now you can rapidly prototype animated elements that integrate seamlessly into your site! We're using Sass mixins, CSS animations and transitions to make some really neat effects.</h3>
 
-<hr>
+***
 
 <div class="docs-example-grid">
-  <div class="content block">
-		<div class="medium-6 content block">
+  <div class="grid-block">
+		<div class="medium-6 grid-content">
 			<div id="example8" class="square" data-motion="spinner-cw ease infinite"></div>
 			<label for=""><code>spinner-cw ease infinite</code></label><br><br>
 			<span data-motion-id="example8" class="small button">Ease Spin</span>
 		</div>
-		<div class="medium-6 content block">
+		<div class="medium-6 grid-content">
 			<div id="example9" class="square" data-motion="spinner-cw linear infinite"></div>
 			<label for=""><code>spinner-cw linear infinite</code></label><br><br>
 			<span data-motion-id="example9" class="small button">Linear Spin</span>
@@ -23,62 +23,60 @@ url: /motion-ui
   </div>
 </div>
 
-<hr>
+***
 
-<h3>Basic HTML</h3>
-<p>You can create [Item] with this basic HTML</p>
+### Basic HTML
+You can create [Item] with this basic HTML
 <ul class="segmented button-group small">
   <li class="is-active"><a href="#">CSS Classes</a></li>
   <li><a href="#">Sass Mixins</a></li>
 </ul>
-<div class="block">
-  <div class="medium-6 block content">
+<div class="grid-block">
+  <div class="medium-6 grid-content">
     <pre>
       <code class="language-html">
         [html]
       </code>
     </pre>
   </div>
-  <div class="medium-6 block content">
+  <div class="medium-6 grid-content">
     [Demo of item]
   </div>
 </div>
 
-<h3>Advanced HTML</h3>
-<p>You can create advanced versions of [Item] with this HTML</p>
+### Advanced HTML
+You can create advanced versions of [Item] with this HTML
 <ul class="segmented button-group">
   <li class="is-active"><a href="#">CSS Classes</a></li>
   <li><a href="#">Sass Mixins</a></li>
 </ul>
-<div class="block">
-  <div class="medium-6 block content">
+<div class="grid-block">
+  <div class="medium-6 grid-content">
     <pre>
       <code class="language-html">
         [html]
       </code>
     </pre>
   </div>
-  <div class="medium-6 block content">
+  <div class="medium-6 grid-content">
     [Demo of item]
   </div>
 </div>
 
-<h3>Sass Variables</h3>
-<p>You can customize with...</p>
-<pre>
-  <code class="language-html">
+### Sass Variables
+You can customize with...
+```scss
     [Sass]
-  </code>
-</pre>
+```
 
 
 
-<section class="block">
+<section class="grid-block">
   <hr class="contain">
-  <div class="content block">
+  <div class="grid-content">
 
-    <div class="small-12 block">
-			<div class="medium-5 content block" markdown>
+    <div class="small-12 grid-block">
+			<div class="medium-5 grid-content" markdown>
 
 #### Base Motion
 
@@ -89,30 +87,30 @@ Quickly addding motion to an element is easy!
 3. [There's no step 3!](http://youtu.be/6uXJlX50Lj8)
 
 			</div>
-			<div class="medium-7 block">
+			<div class="medium-7 grid-block">
 
-				<div class="medium-12 content block"><h6>Examples</h6></div>
+				<div class="medium-12 grid-content"><h6>Examples</h6></div>
 
-				<div class="medium-4 content block">
+				<div class="medium-4 grid-content">
 
 					<div id="example1" class="motion square" data-motion="slide-from-left"></div>
 					<span data-motion-id="example1" class="small button">Slide</span>
 
 				</div>
-				<div class="medium-4 content block">
+				<div class="medium-4 grid-content">
 
 					<div id="example2" class="motion square" data-motion="hinge-from-middle-x"></div>
 					<span data-motion-id="example2" class="small button">Hinge</span>
 
 				</div>
-				<div class="medium-4 content block">
+				<div class="medium-4 grid-content">
 
 					<div id="example3" class="motion square" data-motion="spin"></div>
 					<span data-motion-id="example3" class="small button">Spin</span>
 
 				</div>
 
-				<div class="medium-12 content block" markdown>
+				<div class="medium-12 grid-content" markdown>
 
 You can choose from a number of basic motions:
 
@@ -161,10 +159,10 @@ You can choose from a number of basic motions:
 
 <section class="docs container">
   <hr class="contain">
-  <div class="group">
+  <div class="grid-block">
 
-    <div class="small-12 block">
-			<div class="medium-5 content block" markdown>
+    <div class="small-12 grid-block">
+			<div class="medium-5 grid-content" markdown>
 
 
 #### Modifiers
@@ -173,9 +171,9 @@ Don't want an out-of-the-box animation? No problemo! You have several modifiers 
 
 
 			</div>
-			<div class="medium-7 block">
+			<div class="medium-7 grid-block">
 
-				<div class="medium-12 content block" markdown>
+				<div class="medium-12 grid-content" markdown>
 
 
 ##### Speed
@@ -193,19 +191,19 @@ You have three speeds to choose from. By default, animations will execute in **7
 
 				</div>
 
-				<div class="medium-4 content block">
+				<div class="medium-4 grid-content">
 
 					<div id="example4" class="motion square" data-motion="drop fast"></div>
 					<span data-motion-id="example4" class="small button">Fast</span>
 
 				</div>
-				<div class="medium-4 content block">
+				<div class="medium-4 grid-content">
 
 					<div id="example5" class="motion square" data-motion="drop"></div>
 					<span data-motion-id="example5" class="small button">Normal</span>
 
 				</div>
-				<div class="medium-4 content block">
+				<div class="medium-4 grid-content">
 
 					<div id="example6" class="motion square" data-motion="drop slow"></div>
 					<span data-motion-id="example6" class="small button">Slow</span>
@@ -214,7 +212,7 @@ You have three speeds to choose from. By default, animations will execute in **7
 
 				<hr class="contain">
 
-				<div class="medium-12 content block" markdown>
+				<div class="medium-12 grid-content" markdown>
 
 
 ##### Iteration Count
@@ -236,7 +234,7 @@ You have three speeds to choose from. By default, animations will execute in **7
 
 				<hr class="contain">
 
-				<div class="medium-12 content block" markdown>
+				<div class="medium-12 grid-content" markdown>
 
 
 
@@ -258,14 +256,14 @@ Choose from:
 
 					</div>
 
-					<div class="medium-6 content block">
+					<div class="medium-6 grid-content">
 
 						<div id="example8" class="square" data-motion="spinner-cw ease infinite"></div>
 						<label for=""><code>spinner-cw ease infinite</code></label><br><br>
 						<span data-motion-id="example8" class="small button">Ease Spin</span>
 
 					</div>
-					<div class="medium-6 content block">
+					<div class="medium-6 grid-content">
 
 						<div id="example9" class="square" data-motion="spinner-cw linear infinite"></div>
 						<label for=""><code>spinner-cw linear infinite</code></label><br><br>
@@ -276,7 +274,7 @@ Choose from:
 
 					<hr class="contain">
 
-					<div class="medium-12 content block" markdown>
+					<div class="medium-12 grid-content" markdown>
 
 
 
@@ -295,21 +293,21 @@ You can add a delay to your animation with the `delay` modifier. By default, thi
 
 					</div>
 
-					<div class="medium-4 content block">
+					<div class="medium-4 grid-content">
 
 						<div id="example10" class="motion square" data-motion="pop short-delay"></div>
 						<span data-motion-id="example10" class="small button">Short Delay</span>
 
 					</div>
 
-					<div class="medium-4 content block">
+					<div class="medium-4 grid-content">
 
 						<div id="example11" class="motion square" data-motion="pop delay"></div>
 						<span data-motion-id="example11" class="small button">Delay</span>
 
 					</div>
 
-					<div class="medium-4 content block">
+					<div class="medium-4 grid-content">
 
 						<div id="example12" class="motion square" data-motion="pop long-delay"></div>
 						<span data-motion-id="example12" class="small button">Long Delay</span>
@@ -327,10 +325,10 @@ You can add a delay to your animation with the `delay` modifier. By default, thi
 
 <section class="docs container">
   <hr class="contain">
-  <div class="block">
+  <div class="grid-block">
 
-    <div class="small-12 group">
-			<div class="medium-5 content block" markdown>
+    <div class="small-12 grid-block">
+			<div class="medium-5 grid-content" markdown>
 
 
 #### Usage Examples
@@ -339,9 +337,9 @@ You can include `data-animation` values in any order to craft complex animations
 
 
 			</div>
-			<div class="medium-7 block">
+			<div class="medium-7 grid-block">
 
-				<div class="medium-12 content block" markdown>
+				<div class="medium-12 grid-content" markdown>
 
 
 ##### Examples
@@ -350,7 +348,7 @@ You can include `data-animation` values in any order to craft complex animations
 
 				</div>
 
-				<div class="medium-6 content block">
+				<div class="medium-6 grid-content">
 
 					<h6>Spinner</h6>
 					<label for=""><code>spin-cw linear infinite</code></label><br><br>
@@ -360,7 +358,7 @@ You can include `data-animation` values in any order to craft complex animations
 
 				</div>
 
-				<div class="medium-6 content block">
+				<div class="medium-6 grid-content">
 
 					<h6>Attention Grabber</h6>
 					<label for=""><code>wiggle slow infinite</code></label><br><br>
@@ -369,7 +367,7 @@ You can include `data-animation` values in any order to craft complex animations
 
 				</div>
 
-				<div class="medium-12 content block allow-overflow">
+				<div class="medium-12 grid-content allow-overflow">
 
 					<h6>Form Feedback</h6>
 					<code>shake</code>, <code>slide-in-from-north initially-hidden</code></label><br><br>
@@ -388,10 +386,10 @@ You can include `data-animation` values in any order to craft complex animations
 
 <section class="docs container">
   <hr class="contain">
-  <div class="block">
+  <div class="grid-block">
 
-    <div class="small-12 block">
-			<div class="medium-5 content block" markdown>
+    <div class="small-12 grid-content">
+			<div class="medium-5 grid-content" markdown>
 
 
 #### Build with Mixins
@@ -400,9 +398,9 @@ You can add motion directly with our Sass mixins for more semantic code and a fi
 
 
 			</div>
-			<div class="medium-7 block">
+			<div class="medium-7 grid-block">
 
-				<div class="medium-12 content block" markdown>
+				<div class="medium-12 grid-content" markdown>
 
 
 ##### Motion Variables
@@ -622,8 +620,8 @@ Options: `infinite`, `<number>`
 
 <footer>
   <section class="docs container">
-    <div class="block">
-      <div class="small-12 block">
+    <div class="grid-block">
+      <div class="small-12 grid-content">
         <p>These docs, like all of Foundation, are MIT-Licensed Open Source. From your friends at <a href="http://zurb.com">ZURB</a>.</p>
       </div>
     </div>

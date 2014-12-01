@@ -7,16 +7,28 @@ url: /panel
 
 ***
 
-<div class="docs-example-panels block" style="overflow: hidden;">
-  <div class="panel panel-left" id="docs-panel-left" data-panel>Left panel</div>
-  <div class="panel panel-right" id="docs-panel-right" data-panel>Right panel</div>
-  <div class="panel panel-top" id="docs-panel-top" data-panel>Top panel</div>
-  <div class="panel panel-bottom" id="docs-panel-bottom" data-panel>Bottom panel</div>
-  <div class="content block">
-    <a href="#" class="button" data-panel-toggle="docs-panel-left">Left panel</a>
-    <a href="#" class="button" data-panel-toggle="docs-panel-right">Right panel</a>
-    <a href="#" class="button" data-panel-toggle="docs-panel-bottom">Bottom panel</a>
-    <a href="#" class="button" data-panel-toggle="docs-panel-top">Top panel</a>
+<div class="docs-example-panels grid-block">
+  <div zf-panel id="l-panel" position="left">
+    <a href="#" zf-close>&times;</a>
+    <p>Left Panel</p>
+  </div>
+  <div zf-panel id="r-panel" position="right">
+    <a href="#" zf-close>&times;</a>
+    <p>Right Panel</p>
+  </div>
+  <div zf-panel id="t-panel" position="top">
+    <a href="#" zf-close>&times;</a>
+    <p>Top Panel</p>
+  </div>
+  <div zf-panel id="b-panel" position="bottom">
+    <a href="#" zf-close>&times;</a>
+    <p>Bottom Panel</p>
+  </div>
+  <div class="grid-content">
+    <button zf-toggle="t-panel">Top Panel</button>
+    <button zf-toggle="r-panel">Right Panel</button>
+    <button zf-toggle="b-panel">Bottom Panel</button>
+    <button zf-toggle="l-panel">Left Panel</button>
   </div>
 </div>
 
@@ -29,71 +41,92 @@ You can create Panels with this basic HTML
   <li class="is-active"><a href="#">CSS Classes</a></li>
   <li><a href="#">Sass Mixins</a></li>
 </ul>
-<div class="block">
-  <div class="medium-6 block content">
+<div class="grid-block">
+  <div class="medium-6 grid-content">
 
 ```html
-<div class="block">
-  <div class="panel panel-left" id="panel-left" data-panel>Left panel content goes here</div>
-  <div class="panel panel-right" id="panel-right" data-panel>Right panel content goes here</div>
-  <div class="panel panel-top" id="panel-top" data-panel>Top panel content goes here</div>
-  <div class="panel panel-bottom" id="panel-bottom" data-panel>Bottom panel content goes here</div>
-  <div class="content block">
-    <a href="#" class="button" data-panel-toggle="panel-left">Left panel</a>
-    <a href="#" class="button" data-panel-toggle="panel-right">Right panel</a>
-    <a href="#" class="button" data-panel-toggle="panel-bottom">Bottom panel</a>
-    <a href="#" class="button" data-panel-toggle="panel-top">Top panel</a>
-  </div>
-</div>
+  <!-- trigger your panel -->
+  <a class="button" zf-toggle="top-panel">Top Panel</a>
+  <a class="button" zf-toggle="right-panel">Right Panel</a>
+  <a class="button" zf-toggle="bottom-panel">Bottom Panel</a>
+  <a class="button" zf-toggle="left-panel">Left Panel</a>
+
+  <!-- panel content -->
+  <zf-panel id="left-panel" position="left">
+    <a href="#" zf-close>&times;</a>
+    <p>Left Panel</p>
+  </zf-panel>
+  <zf-panel id="right-panel" position="right">
+    <a href="#" zf-close>&times;</a>
+    <p>Right Panel</p>
+  </zf-panel>
+  <zf-panel id="top-panel" position="top">
+    <a href="#" zf-close>&times;</a>
+    <p>Top Panel</p>
+  </zf-panel>
+  <zf-panel id="bottom-panel" position="bottom">
+    <a href="#" zf-close>&times;</a>
+    <p>Bottom Panel</p>
+  </zf-panel>
 ```
   </div>
 
-  <div class="medium-6 block content">
-    <div class="block">
-      <div class="panel panel-left" id="panel-left" data-panel>Left panel</div>
-      <div class="panel panel-right" id="panel-right" data-panel>Right panel</div>
-      <div class="panel panel-top" id="panel-top" data-panel>Top panel</div>
-      <div class="panel panel-bottom" id="panel-bottom" data-panel>Bottom panel</div>
-      <div class="content block">
-        <a href="#" class="button" data-panel-toggle="panel-left">Left panel</a>
-        <a href="#" class="button" data-panel-toggle="panel-right">Right panel</a>
-        <a href="#" class="button" data-panel-toggle="panel-bottom">Bottom panel</a>
-        <a href="#" class="button" data-panel-toggle="panel-top">Top panel</a>
-      </div>
-    </div>
+  <div class="medium-6 grid-content">
+    <a class="button" zf-toggle="top-panel">Top Panel</a>
+    <a class="button" zf-toggle="right-panel">Right Panel</a>
+    <a class="button" zf-toggle="bottom-panel">Bottom Panel</a>
+    <a class="button" zf-toggle="left-panel">Left Panel</a>
   </div>
+  <zf-panel id="left-panel" position="left">
+    <a href="#" zf-close>&times;</a>
+    <p>Left Panel</p>
+  </zf-panel>
+  <zf-panel id="right-panel" position="right">
+    <a href="#" zf-close>&times;</a>
+    <p>Right Panel</p>
+  </zf-panel>
+  <zf-panel id="top-panel" position="top">
+    <a href="#" zf-close>&times;</a>
+    <p>Top Panel</p>
+  </zf-panel>
+  <zf-panel id="bottom-panel" position="bottom">
+    <a href="#" zf-close>&times;</a>
+    <p>Bottom Panel</p>
+  </zf-panel>
 </div>
 
 ***
 
 ### Alternate HTML Configuration
 
-You can create a fixed position panel with this HTML
+You can create a fixed position Panel with this HTML
 
 <ul class="segmented button-group">
   <li class="is-active"><a href="#">CSS Classes</a></li>
   <li><a href="#">Sass Mixins</a></li>
 </ul>
-<div class="block">
-  <div class="medium-6 block content">
+<div class="grid-block">
+  <div class="medium-6 grid-content">
 
 ```html
-<div class="block">
-  <div class="panel panel-fixed" id="panel-fixed" data-panel>Fixed panel content goes here</div>
-  <div class="content block">
-    <a href="#" class="button" data-panel-toggle="panel-fixed">Left panel</a>
-  </div>
+<div class="grid-block">
+  <a class="button" zf-toggle="panel-fixed">Fixed Panel</a>
+  <zf-panel id="fixed-panel" position="fixed">
+    <a href="#" zf-close>&times;</a>
+    <p>Fixed Panel</p>
+  </zf-panel>
 </div>
 ```
   </div>
 
-  <div class="medium-6 block content">
-    <div class="block">
-      <div class="panel panel-fixed" id="panel-fixed" data-panel>Fixed panel content goes here</div>
-      <div class="content block">
-        <a href="#" class="button" data-panel-toggle="panel-fixed">Fixed panel</a>
+  <div class="medium-6 grid-content">
+      <a class="button" zf-toggle="panel-fixed">Fixed Panel</a>
+      <zf-panel id="panel-fixed" position="right">
+        <a href="#" zf-close>&times;</a>
+        <p>Fixed Panel</p>
+      </zf-panel>
       </div>
-    </div>
+
   </div>
 </div>
 
@@ -107,24 +140,27 @@ You can create transform a panel into a grid block with this HTML
   <li class="is-active"><a href="#">CSS Classes</a></li>
   <li><a href="#">Sass Mixins</a></li>
 </ul>
-<div class="block">
-  <div class="medium-6 block content">
+<div class="grid-block">
+  <div class="medium-6 grid-content">
 
 ```html
-<div class="block">
-  <div class="panel panel-block" id="panel-block" data-panel>Block panel content goes here</div>
-  <div class="content block">
-    <a href="#" class="button" data-panel-toggle="panel-block">Left Block Panel</a>
-  </div>
-</div>
+<a class="button" zf-toggle="panel-block">Grid Block Panel</a>
+<zf-panel id="panel-block" position="right">
+  <a href="#" zf-close>&times;</a>
+  <p>Grid Block Panel</p>
+</zf-panel>
+
 ```
   </div>
 
-  <div class="medium-6 block content">
-    <div class="block">
-      <div class="panel panel-block" id="panel-block" data-panel>Block panel content goes here</div>
-      <div class="content block">
-        <a href="#" class="button" data-panel-toggle="panel-block">Left Block Panel</a>
+  <div class="medium-6 grid-content">
+    <div class="grid-block">
+      <div class="grid-content">
+        <a class="button" zf-toggle="panel-block">Grid Block Panel</a>
+        <zf-panel id="panel-block" position="right">
+          <a href="#" zf-close>&times;</a>
+          <p>Grid Block Panel</p>
+        </zf-panel>
       </div>
     </div>
   </div>
@@ -136,53 +172,26 @@ You can anchor a panel to a grid block or window with this HTML:
   <li class="is-active"><a href="#">CSS Classes</a></li>
   <li><a href="#">Sass Mixins</a></li>
 </ul>
-<div class="block">
-  <div class="medium-6 block content">
+<div class="grid-block">
+  <div class="medium-6 grid-content">
 
 ```html
-<div class="block">
-  <div class="panel panel-left-window" id="panel-left-window" data-panel>Left window panel content goes here</div>
-  <div class="content block">
-    <a href="#" class="button" data-panel-toggle="panel-left-window">Left window panel</a>
-  </div>
-</div>
+<a class="button" zf-toggle="panel-left-window">Grid Block Panel</a>
+<zf-panel id="panel-left-window" position="left">
+  <a href="#" zf-close>&times;</a>
+  <p>Left Window Panel</p>
+</zf-panel>
 ```
   </div>
 
-  <div class="medium-6 block content">
-    <div class="block">
-      <div class="panel panel-left-window" id="panel-left-window" data-panel>left window panel content goes here</div>
-      <div class="content block">
-        <a href="#" class="button" data-panel-toggle="panel-left-window">left window panel</a>
-      </div>
-    </div>
-  </div>
-</div>
-
-You can Define max width or height with this HTML:
-
-<ul class="segmented button-group">
-  <li class="is-active"><a href="#">CSS Classes</a></li>
-  <li><a href="#">Sass Mixins</a></li>
-</ul>
-<div class="block">
-  <div class="medium-6 block content">
-
-```html
-<div class="block">
-  <div class="panel panel-left" id="panel-left" data-panel>Panel content goes here</div>
-  <div class="content block">
-    <a href="#" class="button" data-panel-toggle="panel-left">Panel</a>
-  </div>
-</div>
-```
-  </div>
-
-  <div class="medium-6 block content">
-    <div class="block">
-      <div class="panel panel-left" id="panel-left" data-panel>Panel content goes here</div>
-      <div class="content block">
-        <a href="#" class="button" data-panel-toggle="panel-left">Panel</a>
+  <div class="medium-6 grid-content">
+    <div class="grid-block">
+      <div class="grid-content">
+        <a class="button" zf-toggle="panel-left-window">Left Window Panel</a>
+        <zf-panel id="panel-left-window" position="left">
+          <a href="#" zf-close>&times;</a>
+          <p>Left Window Panel</p>
+        </zf-panel>
       </div>
     </div>
   </div>

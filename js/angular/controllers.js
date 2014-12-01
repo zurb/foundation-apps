@@ -1,5 +1,5 @@
 angular.module('application')
-  .controller('DefaultController', ['$scope', '$stateParams', '$state', 'Utils', function($scope, $stateParams, $state, u) {
+  .controller('DefaultController', ['$scope', '$stateParams', '$state', function($scope, $stateParams, $state) {
     var params = [];
     angular.forEach($stateParams, function(value, key) {
       params[key] = value;
@@ -7,7 +7,6 @@ angular.module('application')
 
     $scope.params = params;
     $scope.current = $state.current.name;
-    $scope.currentSlug = u.prepareRoute($state.current.name);
 
     if($state.current.views) {
       $scope.vars = $state.current.data.vars;
@@ -19,8 +18,7 @@ angular.module('application')
 ]);
 
 angular.module('application')
-  .controller('MainController', ['$scope', '$state', 'Utils', '$rootScope', function($scope, $state, u, $rootScope) {
+  .controller('MainController', ['$scope', '$state', function($scope, $state) {
     $scope.current = $state.current.name;
-    $scope.currentSlug = u.prepareRoute($state.current.name);
   }
 ]);

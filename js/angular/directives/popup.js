@@ -1,8 +1,9 @@
 angular.module('foundation.popup', ['foundation.common.services']);
 
 angular.module('foundation.popup')
-  .directive('faPopup', ['FoundationApi', function(foundationApi) {
+  .directive('zfPopup', ['FoundationApi', function(foundationApi) {
     return {
+      restrict: 'EA',
       transclude: true,
       replace: true,
       templateUrl: '/partials/popup.html',
@@ -15,6 +16,7 @@ angular.module('foundation.popup')
       link: function(scope, element, attrs) {
         scope.active = false;
         scope.target = scope.target || false;
+        attrs.$set('zf-closeable', 'popup');
 
         var attachment = scope.pinTo || 'top center';
         var tetherInit = false;
@@ -85,11 +87,11 @@ angular.module('foundation.popup')
 }]);
 
 angular.module('foundation.popup')
-  .directive('faPopupToggle', ['FoundationApi', function(foundationApi) {
+  .directive('zfPopupToggle', ['FoundationApi', function(foundationApi) {
     return {
       restrict: 'A',
       link: function(scope, element, attrs) {
-        var target = attrs.faPopupToggle;
+        var target = attrs.zfPopupToggle;
         var id = attrs.id || foundationApi.generateUuid();
         attrs.$set('id', id);
 

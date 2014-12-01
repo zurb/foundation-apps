@@ -1,23 +1,28 @@
 angular.module('foundation.modal', ['foundation.common.services']);
 
 angular.module('foundation.modal')
-  .directive('faModal', ['FoundationApi', function(foundationApi) {
+  .directive('zfModal', ['FoundationApi', function(foundationApi) {
   return {
     restrict: 'EA',
     templateUrl: '/partials/modal.html',
     transclude: true,
-    scope: true,
+    scope: {
+      overlay: '@',
+      overlayClose: '@'
+    },
     replace: true,
     compile: function compile(tElement, tAttrs, transclude) {
       var type = 'modal';
 
       return {
         pre: function preLink(scope, iElement, iAttrs, controller) {
-          iAttrs.$set('fa-closable', type);
+          iAttrs.$set('zf-closable', type);
         },
         post: function postLink(scope, element, attrs) {
           var dialog = angular.element(element.children()[0]);
           scope.active = false;
+          scope.overlay = scope.overlay || scope.overlayClose || false;
+          scope.overlayClose = scope.overlayClose || false;
 
           //setup
           foundationApi.subscribe(attrs.id, function(msg) {

@@ -1,7 +1,7 @@
 angular.module('foundation.interchange', ['foundation.common.services']);
 
 angular.module('foundation.interchange')
-  .directive('faInterchange', ['FoundationApi', '$compile', '$http', '$templateCache', '$animate',  function(foundationApi, $compile, $http, $templateCache) {
+  .directive('zfInterchange', ['FoundationApi', '$compile', '$http', '$templateCache', '$animate',  function(foundationApi, $compile, $http, $templateCache) {
   var templateLoader = function(templateUrl) {
     return $http.get(templateUrl, {cache: $templateCache});
   };
@@ -89,9 +89,10 @@ angular.module('foundation.interchange')
           }
 
           var ruleMatches = matched();
-          var scenario = scenarios[ruleMatches[0].ind];
+          var scenario = ruleMatches.length === 0 ? null : scenarios[ruleMatches[0].ind];
 
-          if(checkScenario(scenario)) {
+          //this could use some love
+          if(scenario && checkScenario(scenario)) {
             var compiled;
 
             if(childScope) {
@@ -99,7 +100,7 @@ angular.module('foundation.interchange')
               childScope = null;
             }
 
-            if(scenario.templ) {
+            if(scenario.templ !== null) {
               childScope = newScope;
               element.html(innerTemplates[scenario.templ].html());
               $compile(element.contents())(childScope);

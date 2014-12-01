@@ -3,8 +3,80 @@ name: interchange
 url: /interchange
 ---
 
-<h2>Interchange</h2>
+## Interchange
 <h3 class="subheader">A simple JavaScript solution for responsive images. But not just images, it can evenload in HTML partials. Interchange uses media queries to dynamically load responsive content that is appropriate for different users' browsers.</h3>
 
-<hr>
+# Sample Component
+
+<div class="grid-block">
+  <div class="small-12 grid-content">
+```html
+<div zf-interchange>
+  <div media="small" src="/templates/interchange/partial_1.html"></div>
+  <div media="medium" src="/templates/interchange/partial_2.html"></div>
+  <div media="large">On-page template</div>
+</div>
+```
+  </div>
+</div>
+
+***
+
+### Basic HTML
+You can create an Interchange component with this basic HTML
+<ul class="segmented button-group small">
+  <li class="is-active"><a href="#">CSS Classes</a></li>
+  <li><a href="#">Sass Mixins</a></li>
+</ul>
+<div class="grid-block">
+  <div class="medium-6 grid-content">
+```html
+<div zf-interchange>
+  <div media="small" src="/templates/interchange/partial_1.html"></div>
+  <div media="medium" src="/templates/interchange/partial_2.html"></div>
+  <div media="large">On-page template</div>
+</div>
+```
+  </div>
+  <div class="medium-6 grid-content">
+    Resize the page to see the content change.
+    <div zf-interchange>
+      <div media="small">Small content</div>
+      <div media="medium">Medium Content</div>
+      <div media="large">Large content</div>
+    </div>
+  </div>
+</div>
+
+### Advanced HTML
+You can create advanced versions of [Item] with this HTML
+<ul class="segmented button-group small">
+  <li class="is-active"><a href="#">CSS Classes</a></li>
+  <li><a href="#">Sass Mixins</a></li>
+</ul>
+<div class="grid-block">
+  <div class="medium-6 grid-content">
+```html
+<div zf-interchange>
+  <div media="small" src="/templates/interchange/partial_1.html"></div>
+  <div media="medium" src="/templates/interchange/partial_2.html"></div>
+  <div media="large">On-page template</div>
+</div>
+```
+  </div>
+  <div class="medium-6 grid-content">
+    Add custom media query rules of your own
+    <div zf-interchange id="testid">
+      <div media="only screen and (min-width: 300px)">Small content</div>
+      <div media="large">Large content</div>
+    </div>
+  </div>
+</div>
+
+### Sass Variables
+You can customize with...
+```scss
+<div class="lolwut"></div>
+```
+
 

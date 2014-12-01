@@ -14,9 +14,8 @@
 */
 
 // Basic form variables
-$form-text-size: 16px;
+$form-fontsize: 1rem;
 $form-padding: 0.5rem;
-$form-label-color: #999;
 
 // Text fields
 $input-color: #000;
@@ -26,8 +25,15 @@ $input-background: #fff;
 $input-background-hover: $input-background;
 $input-background-focus: $input-background;
 $input-border: 1px solid #ccc;
-$input-border-hover: 1px solid #ddd;
+$input-border-hover: 1px solid #bbb;
 $input-border-focus: 1px solid #999;
+
+// Select menus
+$select-color: #000;
+$select-background: #fafafa;
+$select-background-hover: smartscale($select-background, 4%);
+$select-arrow: true;
+$select-arrow-color: $select-color;
 
 // Labels
 $label-fontsize: 0.9rem;
@@ -39,7 +45,22 @@ $inlinelabel-color: #333;
 $inlinelabel-background: #eee;
 $inlinelabel-border: $input-border;
 
-$text-input-selectors: '[type="text"], input[type="password"], input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="month"], input[type="week"], input[type="email"], input[type="number"], input[type="search"], input[type="tel"], input[type="time"], input[type="url"], input[type="color"], textarea';
+// Range slider
+$slider-background: #ddd;
+$slider-height: 1rem;
+$slider-radius: 0px;
+$slider-thumb-height: 1.5rem;
+$slider-thumb-color: $primary-color;
+$slider-thumb-radius: 0px;
+
+// Progress and meter
+$meter-height: 1.5rem;
+$meter-background: #ccc;
+$meter-fill: $primary-color;
+$meter-fill-high: $success-color;
+$meter-fill-medium: #e7cf00;
+$meter-fill-low: $alert-color;
+$meter-radius: 0;
 
 // Disable OS-level styles
 %no-appearance {
@@ -56,6 +77,7 @@ $text-input-selectors: '[type="text"], input[type="password"], input[type="date"
   border: $input-border;
   background: $input-background;
   color: $input-color;
+  font-size: $form-fontsize;
   line-height: 1;
   -webkit-font-smoothing: antialiased;
 
@@ -93,16 +115,20 @@ label {
   display: flex;
   flex-flow: row nowrap;
   align-items: stretch;
+  margin-bottom: $global-padding;
 
+  // Imitates the top margin on normal inputs
   label > & {
     margin-top: $label-margin;
   }
 
+  // Inputs stretch all the way out
   > input, > select {
     flex: 1;
     margin: 0;
   }
 
+  // Inline labels and buttons shrink
   > .form-label {
     flex: 0 0 auto;
     background: $inlinelabel-background;
@@ -115,6 +141,15 @@ label {
     &:first-child { border-right: 0; }
     &:last-child  { border-left: 0; }
   }
+  // Assumed to be a button
+  > a {
+    display: flex;
+    align-items: center;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin: 0;
+    border-radius: 0;
+  }
 }
 
 // Make sure textarea takes on height automatically
@@ -126,12 +161,28 @@ textarea {
 
 // Make select elements 100% width by default
 select {
+  $color: isitlight($select-background);
+
   @extend %no-appearance;
   display: block;
-  border-radius: 0;
   width: 100%;
   padding: $form-padding;
   margin: 0 0 $global-padding 0;
+  font-size: $form-fontsize;
+  color: $select-color;
+  border-radius: 0;
+
+  @if $select-arrow {
+    background: $select-background url(image-triangle($select-arrow-color)) right 10px center no-repeat;
+    background-size: 8px 8px;
+  }
+  @else {
+    background-color: $select-background
+  }
+
+  &:hover {
+    background-color: $select-background-hover;
+  }
 
   &:focus {
     outline: 0;
@@ -141,15 +192,22 @@ select {
 /*
   Range slider
 */
-$thumb-color: $primary-color;
-$thumb-height: 16px;
-
 input[type="range"] {
+  $margin: ($slider-thumb-height - $slider-height) / 2;
+
   @extend %no-appearance;
-  max-width: 300px;
-  height: 4px;
-  background: #ccc;
+  display: block;
+  width: 100%;
+  height: $slider-height;
+  background: $slider-background;
   cursor: pointer;
+  overflow: visible;
+  margin-top: $margin;
+  margin-bottom: $margin;
+
+  @if hasvalue($slider-radius) {
+    border-radius: $slider-radius;
+  }
 
   &:focus {
     outline: 0;
@@ -158,10 +216,12 @@ input[type="range"] {
   // Chrome/Safari
   &::-webkit-slider-thumb {
     -webkit-appearance: none;
-    background: $thumb-color;
-    border-radius: 1000px;
-    width: $thumb-height;
-    height: $thumb-height;
+    background: $slider-thumb-color;
+    width: $slider-thumb-height;
+    height: $slider-thumb-height;
+    @if hasvalue($slider-thumb-radius) {
+      border-radius: $slider-thumb-radius;
+    }
   }
   // Firefox
   &::-moz-range-track {
@@ -173,10 +233,12 @@ input[type="range"] {
   }
   &::-moz-range-thumb {
     -moz-appearance: none;
-    background: $thumb-color;
-    border-radius: 1000px;
-    width: $thumb-height;
-    height: $thumb-height;
+    background: $slider-thumb-color;
+    width: $slider-thumb-height;
+    height: $slider-thumb-height;
+    @if hasvalue($slider-thumb-radius) {
+      border-radius: $slider-thumb-radius;
+    }
   }
   // Internet Explorer
   &::-ms-track {
@@ -186,14 +248,16 @@ input[type="range"] {
     cursor: pointer;
   }
   &::-ms-thumb {
-    background: $thumb-color;
-    border-radius: 1000px;
-    width: $thumb-height;
-    height: $thumb-height;
+    background: $slider-thumb-color;
+    width: $slider-thumb-height;
+    height: $slider-thumb-height;
+    @if hasvalue($slider-thumb-radius) {
+      border-radius: $slider-thumb-radius;
+    }
   }
 }
 output {
-  line-height: $thumb-height;
+  line-height: $slider-thumb-height;
   vertical-align: middle;
   margin-left: 0.5em;
 }
@@ -214,59 +278,99 @@ input[type="number"] {
 /*
   Progress and meter
 */
-$background: #ccc;
-$meter-fill: $primary-color;
-$high-color: $success-color;
-$medium-color: #e7cf00;
-$low-color: $alert-color;
-
 progress, meter {
   @extend %no-appearance;
+  display: block;
   width: 100%;
-  max-width: 200px;
-  height: 1em;
+  height: $meter-height;
+
+  @if hasvalue($meter-radius) {
+    border-radius: $meter-radius;
+  }
 
   // For Firefox
-  background: $background;
+  background: $meter-background;
   border: 0;
 }
 
 progress {
   &::-webkit-progress-bar {
-    background: $background;
+    background: $meter-background;
+    @if hasvalue($meter-radius) {
+      border-radius: $meter-radius;
+    }
   }
   &::-webkit-progress-value {
-    background: $primary-color;
+    background: $meter-fill;
+    @if hasvalue($meter-radius) {
+      border-radius: $meter-radius;
+    }
   }
   &::-moz-progress-bar {
-    background: $primary-color;
+    background: $meter-fill;
+    @if hasvalue($meter-radius) {
+      border-radius: $meter-radius;
+    }
+  }
+
+  @each $name, $color in (high: $meter-fill-high, medium: $meter-fill-medium, low: $meter-fill-low) {
+    &.#{$name} {
+      &::-webkit-progress-value {
+        background: $color;
+      }
+      &::-moz-progress-bar {
+        background: $color;
+      }
+    }
   }
 }
 meter {
   // Chrome/Safari
   &::-webkit-meter-bar {
-    background: $background;
+    background: $meter-background;
+    @if hasvalue($meter-radius) {
+      border-radius: $meter-radius;
+    }
+  }
+  &::-webkit-meter-inner-element {
+    @if hasvalue($meter-radius) {
+      border-radius: $meter-radius;
+    }
   }
   &::-webkit-meter-optimum-value {
-    background: $high-color;
+    background: $meter-fill-high;
+    @if hasvalue($meter-radius) {
+      border-radius: $meter-radius;
+    }
   }
   &::-webkit-meter-suboptimum-value {
-    background: $medium-color;
+    background: $meter-fill-medium;
+    @if hasvalue($meter-radius) {
+      border-radius: $meter-radius;
+    }
   }
   &::-webkit-meter-even-less-good-value {
-    background: $low-color;
+    background: $meter-fill-low;
+    @if hasvalue($meter-radius) {
+      border-radius: $meter-radius;
+    }
   }
 
+  // Firefox
+  background: $meter-background;
   &::-moz-meter-bar {
     background: $primary-color;
+    @if hasvalue($meter-radius) {
+      border-radius: $meter-radius;
+    }
   }
   &:-moz-meter-optimum::-moz-meter-bar {
-    background: $high-color;
+    background: $meter-fill-high;
   }
   &:-moz-meter-sub-optimum::-moz-meter-bar {
-    background: $medium-color;
+    background: $meter-fill-medium;
   }
   &:-moz-meter-sub-sub-optimum::-moz-meter-bar {
-    background: $low-color;
+    background: $meter-fill-low;
   }
 }

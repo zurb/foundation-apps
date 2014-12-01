@@ -16,24 +16,6 @@
       .thumbnail {
         width: 100%;
       }
-
-      .sidebar {
-        padding: 0 !important;
-        background: #f9f9f9 !important;
-        border-right: 1px solid #e7e7e7;
-        padding-top: 1rem !important;
-      }
-      .sidebar .menu-bar {
-        background: #f9f9f9 !important;
-      }
-      .sidebar .menu-bar .title {
-        font-size: 0.85rem;
-        text-transform: uppercase;
-        color: #666;
-        font-weight: bold;
-        padding-top: 0.5rem;
-        padding-bottom: 0.5rem;
-      }
     </style>
   </head>
   <body>
@@ -41,85 +23,113 @@
     <div class="vertical grid-frame">
       <!-- Title bar -->
       <div id="header" class="shrink collapse grid-content">
-        <ul class="menu-bar primary condense">
-          <li fa-toggle="sidebar"><a href="#">Foundation for Apps</a></li>
+
+      <nav class="global-nav">
+        <ul class="title-area">
+          <li class="name">
+            <!-- <a class="left-off-canvas-toggle show-for-small-up hide-for-medium-up sidebar-button" href="#"><img alt="Menu grey" src="assets/images/content/menu-grey.png"/></a> -->
+            <h1><a href="index.html">ZURB <strong>Foundation for Apps</strong></a></h1>
+          </li>
         </ul>
+
+        <ul class="right">
+            <li><a href="features.html">Features</a>
+            </li>
+            <li>
+              <a class="current" href="docs.html">Docs</a>
+            </li>
+            <li>
+              <a href="resources.html">Resources</a>
+            </li>
+            <li>
+              <a href="support.html">Support</a>
+            </li>
+            <li><a href="getting-started.html">Getting Started</a></li>
+          </ul>
+      </nav>
+
       </div>
       <!-- /Title bar -->
       <div class="grid-block">
-        <!-- Sidebar nav -->
-        <div fa-panel position="left" id="sidebar" class="fast bounceInOut medium-3 large-2 medium-grid-content sidebar">
-          <a fa-close class="close-button hide-for-medium">&times;</a>
-          <section>
-            <ul class="menu-bar vertical">
-              <li class="title">Setup</li>
-              <li ui-sref-active="is-active"><a ui-sref="install-update">Install &amp; Update</a></li>
-              <li ui-sref-active="is-active"><a ui-sref="sass">Sass</a></li>
-              <li ui-sref-active="is-active"><a ui-sref="motion-ui">Motion UI</a></li>
-              <li ui-sref-active="is-active"><a ui-sref="angular">Angular</a></li>
-              <li ui-sref-active="is-active"><a ui-sref="compatibility">Compatibility</a></li>
-              <li ui-sref-active="is-active"><a ui-sref="changelog">Changelog</a></li>
-            </ul>
-          </section>
-          <section>
-            <ul class="menu-bar vertical">
-              <li class="title">Layout</li>
-              <li ui-sref-active="is-active"><a ui-sref="grid">Grid</a></li>
-              <li ui-sref-active="is-active"><a ui-sref="panel">Panel</a></li>
-            </ul>
-          </section>
-          <section>
-            <ul class="menu-bar vertical">
-              <li class="title">Navigation</li>
-              <li ui-sref-active="is-active"><a ui-sref="action-sheet">Action Sheet</a></li>
-              <li ui-sref-active="is-active"><a ui-sref="menu-bar">Menu Bar</a></li>
-              <li ui-sref-active="is-active"><a ui-sref="off-canvas">Off-canvas Menu</a></li>
-              <li ui-sref-active="is-active"><a ui-sref="title-bar">Title Bar</a></li>
-            </ul>
-          </section>
-          <section>
-            <ul class="menu-bar vertical">
-              <li class="title">Callouts</li>
-              <li ui-sref-active="is-active"><a ui-sref="modal">Modal</a></li>
-              <li ui-sref-active="is-active"><a ui-sref="notification">Notification</a></li>
-            </ul>
-          </section>
-          <section>
-            <ul class="menu-bar vertical">
-              <li class="title">Controls</li>
-              <li ui-sref-active="is-active"><a ui-sref="button">Button</a></li>
-              <li ui-sref-active="is-active"><a ui-sref="forms">Forms</a></li>
-            </ul>
-          </section>
-          <section>
-            <ul class="menu-bar vertical">
-              <li class="title">Content</li>
-              <li ui-sref-active="is-active"><a ui-sref="accordion">Accordion</a></li>
-              <li ui-sref-active="is-active"><a ui-sref="block-list">Block List</a></li>
-              <li ui-sref-active="is-active"><a ui-sref="card">Card</a></li>
-              <li ui-sref-active="is-active"><a ui-sref="inline-element">Inline Element</a></li>
-              <li ui-sref-active="is-active"><a ui-sref="interchange">Interchange</a></li>
-              <li ui-sref-active="is-active"><a ui-sref="labels-badges">Labels &amp; Badges</a></li>
-              <li ui-sref-active="is-active"><a ui-sref="popup">Popup</a></li>
-              <li ui-sref-active="is-active"><a ui-sref="tabs">Tabs</a></li>
-              <li ui-sref-active="is-active"><a ui-sref="typography">Typography</a></li>
-            </ul>
-          </section>
-          <section>
-            <ul class="menu-bar vertical">
-              <li class="title">Helpers</li>
-              <li ui-sref-active="is-active"><a ui-sref="functions-mixins">Functions and Mixins</a></li>
-              <li ui-sref-active="is-active"><a ui-sref="utilities">Utilities</a></li>
-            </ul>
-          </section>
+        <div zf-panel id="sidebar" class="fast bounceInOut medium-3 medium-grid-block sidebar vertical">
+          <div class="grid-content shrink docs-search-box">
+            <input type="text" placeholder="Search Docs: e.g. forms" />
+          </div>
+          <!-- Sidebar nav -->
+          <div class="grid-content collapse">
+            <a zf-close class="close-button hide-for-medium">&times;</a>
+            <section>
+              <ul class="menu-bar vertical">
+                <li class="title">Setup</li>
+                <li ui-sref-active="is-active"><a ui-sref="install-update">Install &amp; Update</a></li>
+                <li ui-sref-active="is-active"><a ui-sref="sass">Sass</a></li>
+                <li ui-sref-active="is-active"><a ui-sref="motion-ui">Motion UI</a></li>
+                <li ui-sref-active="is-active"><a ui-sref="angular">Angular</a></li>
+                <li ui-sref-active="is-active"><a ui-sref="compatibility">Compatibility</a></li>
+                <li ui-sref-active="is-active"><a ui-sref="changelog">Changelog</a></li>
+              </ul>
+            </section>
+            <section>
+              <ul class="menu-bar vertical">
+                <li class="title">Layout</li>
+                <li ui-sref-active="is-active"><a ui-sref="grid">Grid</a></li>
+                <li ui-sref-active="is-active"><a ui-sref="panel">Panel</a></li>
+              </ul>
+            </section>
+            <section>
+              <ul class="menu-bar vertical">
+                <li class="title">Navigation</li>
+                <li ui-sref-active="is-active"><a ui-sref="action-sheet">Action Sheet</a></li>
+                <li ui-sref-active="is-active"><a ui-sref="menu-bar">Menu Bar</a></li>
+                <li ui-sref-active="is-active"><a ui-sref="off-canvas">Off-canvas Menu</a></li>
+                <li ui-sref-active="is-active"><a ui-sref="title-bar">Title Bar</a></li>
+              </ul>
+            </section>
+            <section>
+              <ul class="menu-bar vertical">
+                <li class="title">Callouts</li>
+                <li ui-sref-active="is-active"><a ui-sref="modal">Modal</a></li>
+                <li ui-sref-active="is-active"><a ui-sref="notification">Notification</a></li>
+              </ul>
+            </section>
+            <section>
+              <ul class="menu-bar vertical">
+                <li class="title">Controls</li>
+                <li ui-sref-active="is-active"><a ui-sref="button">Button</a></li>
+                <li ui-sref-active="is-active"><a ui-sref="forms">Forms</a></li>
+              </ul>
+            </section>
+            <section>
+              <ul class="menu-bar vertical">
+                <li class="title">Content</li>
+                <li ui-sref-active="is-active"><a ui-sref="accordion">Accordion</a></li>
+                <li ui-sref-active="is-active"><a ui-sref="block-list">Block List</a></li>
+                <li ui-sref-active="is-active"><a ui-sref="card">Card</a></li>
+                <li ui-sref-active="is-active"><a ui-sref="inline-element">Inline Element</a></li>
+                <li ui-sref-active="is-active"><a ui-sref="interchange">Interchange</a></li>
+                <li ui-sref-active="is-active"><a ui-sref="labels-badges">Labels &amp; Badges</a></li>
+                <li ui-sref-active="is-active"><a ui-sref="popup">Popup</a></li>
+                <li ui-sref-active="is-active"><a ui-sref="tabs">Tabs</a></li>
+                <li ui-sref-active="is-active"><a ui-sref="typography">Typography</a></li>
+                <li ui-sref-active="is-active"><a ui-sref="iconic">Iconic</a></li>
+              </ul>
+            </section>
+            <section>
+              <ul class="menu-bar vertical">
+                <li class="title">Helpers</li>
+                <li ui-sref-active="is-active"><a ui-sref="functions-mixins">Functions and Mixins</a></li>
+                <li ui-sref-active="is-active"><a ui-sref="utilities">Utilities</a></li>
+              </ul>
+            </section>
+          </div>
         </div>
         <!-- /Sidebar nav -->
 
         <!-- Main content -->
-        <div class="medium-9 large-10 grid-content">
+        <div class="medium-9 grid-content">
           <div class="grid-container">
-            <a class="small secondary expand button hide-for-medium" fa-toggle="sidebar">Show Components</a>
-            <div ng-class="[currentSlug, 'ui-animation']" ui-view></div>
+            <a class="small secondary expand button hide-for-medium" zf-toggle="sidebar">Show Components</a>
+            <div ng-class="['ui-animation']" ui-view></div>
           </div>
         </div>
         <!-- /Main content -->

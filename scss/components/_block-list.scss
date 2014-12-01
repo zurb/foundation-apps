@@ -28,6 +28,7 @@ $blocklist-item-icon-size: 0.8 !default;
 
 $blocklist-header-fontsize: 0.8em !default;
 $blocklist-header-color: smartscale($blocklist-item-color, 40%) !default;
+$blocklist-header-uppercase: true;
 
 $blocklist-check-icons: true !default;
 
@@ -72,16 +73,17 @@ $blocklist-check-icons: true !default;
 @mixin block-list-header(
   $color: $blocklist-header-color,
   $font-size: $blocklist-header-fontsize,
+  $uppercase: $blocklist-header-uppercase,
   $offset: get-side($blocklist-item-padding, left)
 ) {
   margin-top: 1em;
-  text-transform: uppercase;
   color: $color;
   font-weight: bold;
   margin-bottom: 0.5em;
   margin-left: $offset;
   font-size: $font-size;
   cursor: default;
+  @if $uppercase { text-transform: uppercase; }
 }
 
 /*
@@ -179,7 +181,8 @@ $blocklist-check-icons: true !default;
 */
 @mixin block-list-chevron(
   $color: $blocklist-header-color,
-  $padding: $blocklist-item-padding
+  $padding: $blocklist-item-padding,
+  $label-class: 'block-list-label'
 ) {
   // Chevrons are a pseudo-element
   &::after {
@@ -196,7 +199,7 @@ $blocklist-check-icons: true !default;
 
   // Labels next to links move over to make room for the chevron
   // TODO: this selector needs to be customiable, but adding a setting just for it might be weird
-  .label {
+  .#{$label-class} {
     padding-right: get-side($padding, right) * 1.5;
   }
 }
@@ -255,19 +258,28 @@ $blocklist-check-icons: true !default;
   $switch-class: 'switch'
 ) {
   // Text fields
-  input[type="text"], input[type="password"] {
+  #{$text-input-selectors} {
     margin: 0;
     border: 0;
     line-height: 1;
     height: auto;
     padding: $padding;
     color: inherit;
+
+    &:hover, &:focus {
+      border: 0;
+    }
   }
 
   // Multiple select
-  input[type="checkbox"], input[type="radio"] {
+  li > input[type="checkbox"], li > input[type="radio"] {
     position: absolute;
     left: -9999px;
+
+    & + label {
+      font-size: $blocklist-fontsize;
+      margin: 0;
+    }
 
     @if $icons == true {
       &:checked + label {
@@ -297,13 +309,6 @@ $blocklist-check-icons: true !default;
   .#{$dropdown-class} {
     color: inherit;
 
-    &::after {
-      @include css-triangle(5px, $color, top);
-      position: absolute;
-      top: 50%;
-      margin-top: -3px;
-      right: get-side($padding, right);
-    }
     select {
       // Reset pesky <select> styles
       -webkit-appearance: none;
@@ -313,10 +318,11 @@ $blocklist-check-icons: true !default;
       border: 0;
       height: auto;
       padding: $padding;
+      margin: 0;
       font-size: 1em; // Same size as its parent
       line-height: 1;
       color: inherit;
-      background: transparent;
+      background-color: transparent;
     }
   }
 

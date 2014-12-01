@@ -10,6 +10,7 @@
 // What's up?
 @import
 	"docs/code",
+	"docs/topbar",
 	"docs/docs";
 
 .band {
@@ -17,7 +18,7 @@
 }
 
 nav {
-	background: $slate;
+	background: #708090;
 	color: $secondary-color;
 	h1 {
 		font-size: 1rem;
@@ -52,7 +53,7 @@ nav {
 
 .position-absolute .ui-animation {
   position: absolute;
-  [fa-offcanvas], [fa-panel] {
+  [zf-offcanvas], [zf-panel] {
     display: none !important;
   }
 }

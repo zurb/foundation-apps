@@ -5,9 +5,9 @@ animationIn: slideFromLeft
 animationOut: fadeOut
 ---
 <h4>Action sheet</h4>
-<div fa-action-sheet>
-  <div fa-as-button title="My button"></div>
-  <div fa-as-content position="bottom">
+<div zf-action-sheet>
+  <div zf-as-button title="My button"></div>
+  <div zf-as-content position="top" class="primary">
     <p>Some html</p>
     <ul>
       <li><a href="#">Option One</a></li>
@@ -20,9 +20,9 @@ animationOut: fadeOut
 
 Custom button:
 
-<div fa-action-sheet>
-  <div fa-as-button><a href="#" class="button secondary">my custom button</a></div>
-  <div fa-as-content position="bottom">
+<div zf-action-sheet>
+  <div zf-as-button><a href="#" class="button secondary">my custom button</a></div>
+  <div zf-as-content position="top" class="dark">
     <p>Some html</p>
     <ul>
       <li><a href="#">Option One</a></li>
@@ -34,11 +34,11 @@ Custom button:
 <br />
 
 Remote trigger:
-<a href="#" fa-toggle="my-actionsheet">remote trigger</a>
+<a href="#" zf-toggle="my-actionsheet">remote trigger</a>
 
-<div fa-action-sheet id="my-actionsheet">
-  <div fa-as-button></div>
-  <div fa-as-content position="bottom">
+<div zf-action-sheet id="my-actionsheet">
+  <div zf-as-button></div>
+  <div zf-as-content position="bottom">
     <p>Some html</p>
     <ul>
       <li><a href="#">Option One</a></li>

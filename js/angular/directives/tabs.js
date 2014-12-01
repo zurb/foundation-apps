@@ -1,7 +1,7 @@
 angular.module('foundation.tabs', ['foundation.common.services']);
 
 angular.module('foundation.tabs')
-  .controller('FaTabsController', ['$scope', 'FoundationApi', function FaTabsController($scope, foundationApi) {
+  .controller('ZfTabsController', ['$scope', 'FoundationApi', function ZfTabsController($scope, foundationApi) {
     var controller = this;
     var tabs       = controller.tabs = $scope.tabs = [];
     var id         = '';
@@ -18,6 +18,7 @@ angular.module('foundation.tabs')
           tab.scope.active = true;
         }
       });
+
     };
 
     controller.addTab = function addTab(tabScope) {
@@ -39,42 +40,36 @@ angular.module('foundation.tabs')
 }]);
 
 angular.module('foundation.tabs')
-  .directive('faTabs', ['FoundationApi', function(foundationApi) {
+  .directive('zfTabs', ['FoundationApi', function(foundationApi) {
   return {
-    restrict: 'A',
+    restrict: 'EA',
     transclude: 'true',
     replace: true,
     templateUrl: '/partials/tabs.html',
-    controller: 'FaTabsController',
+    controller: 'ZfTabsController',
     scope: {
       displaced: '@?'
     },
-    compile: function(tElement, tAttr) {
-      return {
-        pre: function preLink(scope, element, attrs, controller) {
-        },
-        post: function postLink(scope, element, attrs, controller) {
-          scope.id = attrs.id || foundationApi.generateUuid();
-          scope.showTabContent = scope.displaced !== 'true';
-          attrs.$set('id', scope.id);
-          controller.setId(scope.id);
+    link: function(scope, element, attrs, controller) {
+      scope.id = attrs.id || foundationApi.generateUuid();
+      scope.showTabContent = scope.displaced !== 'true';
+      attrs.$set('id', scope.id);
+      controller.setId(scope.id);
 
-          //update tabs in case tab-content doesn't have them
-          var updateTabs = function() {
-            foundationApi.publish(scope.id + '-tabs', scope.tabs);
-          };
-
-          foundationApi.subscribe(scope.id + '-get-tabs', function() {
-            updateTabs();
-          });
-        }
+      //update tabs in case tab-content doesn't have them
+      var updateTabs = function() {
+        foundationApi.publish(scope.id + '-tabs', scope.tabs);
       };
+
+      foundationApi.subscribe(scope.id + '-get-tabs', function() {
+        updateTabs();
+      });
     }
   };
 }]);
 
 angular.module('foundation.tabs')
-  .directive('faTabContent', ['FoundationApi', function(foundationApi) {
+  .directive('zfTabContent', ['FoundationApi', function(foundationApi) {
   return {
     restrict: 'A',
     transclude: 'true',
@@ -103,7 +98,6 @@ angular.module('foundation.tabs')
         }
       });
 
-
       //if tabs empty, request tabs
       if(scope.tabs.length === 0) {
         foundationApi.subscribe(id + '-tabs', function(tabs) {
@@ -117,7 +111,7 @@ angular.module('foundation.tabs')
 }]);
 
 angular.module('foundation.tabs')
-  .directive('faTab', ['FoundationApi', function(foundationApi) {
+  .directive('zfTab', ['FoundationApi', function(foundationApi) {
     return {
       restrict: 'EA',
       templateUrl: '/partials/tab.html',
@@ -125,13 +119,19 @@ angular.module('foundation.tabs')
       scope: {
         title: '@'
       },
-      require: '^faTabs',
+      require: '^zfTabs',
       replace: true,
       link: function(scope, element, attrs, controller, transclude) {
         scope.id = attrs.id || foundationApi.generateUuid();
         scope.active = false;
         scope.transcludeFn = transclude;
         controller.addTab(scope);
+
+        foundationApi.subscribe(scope.id, function(msg) {
+          if(msg === 'show' || msg === 'open' || msg === 'activate') {
+            scope.makeActive();
+          }
+        });
 
         scope.makeActive = function() {
           controller.select(scope);
@@ -141,7 +141,7 @@ angular.module('foundation.tabs')
 }]);
 
 angular.module('foundation.tabs')
-  .directive('faTabIndividual', ['FoundationApi', function(foundationApi) {
+  .directive('zfTabIndividual', ['FoundationApi', function(foundationApi) {
     return {
       restrict: 'EA',
       transclude: 'true',
@@ -155,6 +155,7 @@ angular.module('foundation.tabs')
 
         foundationApi.subscribe(tab.scope.id, function(msg) {
           foundationApi.publish(tab.parentContent, ['activate', tab.scope.id]);
+          scope.$apply();
         });
 
       }
@@ -163,17 +164,28 @@ angular.module('foundation.tabs')
 
 //custom tabs
 angular.module('foundation.tabs')
-  .directive('faTabHref', ['FoundationApi', function(foundationApi) {
+  .directive('zfTabHref', ['FoundationApi', function(foundationApi) {
     return {
       restrict: 'A',
       replace: false,
       link: function postLink(scope, element, attrs, ctrl) {
-        var target = attrs.faTabHref;
+        var target = attrs.zfTabHref;
+
+        var makeActive = function() {
+          element.parent().children().removeClass('is-active');
+          element.addClass('is-active');
+        };
+
+        foundationApi.subscribe(target, function(msg) {
+          if(msg === 'activate' || msg === 'show' || msg === 'open') {
+            makeActive();
+          }
+        });
+
 
         element.on('click', function(e) {
           foundationApi.publish(target, 'activate');
-          element.parent().children().removeClass('is-active');
-          element.addClass('is-active');
+          makeActive();
           e.preventDefault();
         });
       }
@@ -181,7 +193,7 @@ angular.module('foundation.tabs')
 }]);
 
 angular.module('foundation.tabs')
-  .directive('faTabCustom', ['FoundationApi', function(foundationApi) {
+  .directive('zfTabCustom', ['FoundationApi', function(foundationApi) {
     return {
       restrict: 'A',
       replace: false,
@@ -193,14 +205,14 @@ angular.module('foundation.tabs')
 }]);
 
 angular.module('foundation.tabs')
-  .directive('faTabContentCustom', ['FoundationApi', function(foundationApi) {
+  .directive('zfTabContentCustom', ['FoundationApi', function(foundationApi) {
   return {
     restrict: 'A',
     link: function(scope, element, attrs) {
       var tabs = [];
       var children = element.children();
 
-      var activateTabs = function(msg, tabId) {
+      var activateTabs = function(tabId) {
         var tabNodes = element.children();
         angular.forEach(tabNodes, function(node) {
           var el = angular.element(node);
@@ -217,7 +229,9 @@ angular.module('foundation.tabs')
           var tabId = node.id;
           tabs.push(tabId);
           foundationApi.subscribe(tabId, function(msg) {
-            activateTabs(msg, tabId);
+            if(msg === 'activate' || msg === 'show' || msg === 'open') {
+              activateTabs(tabId);
+            }
           });
 
           if(tabs.length === 1) {

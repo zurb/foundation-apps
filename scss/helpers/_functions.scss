@@ -309,6 +309,11 @@ $modules: () !default;
   @return $num / ($num * 0 + 1);
 }
 
+// CONVERT TURN TO DEG
+@function turn-to-deg($value) {
+  @return strip-unit($value) * 360deg;
+}
+
 // CONVERT TO REM
 @function convert-to-rem($value, $base-value: $rem-base)  {
   $value: strip-unit($value) / strip-unit($base-value) * 1rem;

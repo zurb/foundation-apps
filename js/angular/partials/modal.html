@@ -1,5 +1,10 @@
-<div class="modal-overlay" ng-class="{'is-active': active}">
-<aside class="modal block vertical" ng-class="{'is-active': active}">
-    <div ng-transclude></div>
+<div
+  ng-class="{'is-active': active, 'modal-overlay': overlay}"
+  ng-click="hide()">
+  <aside
+    class="modal block vertical"
+    ng-class="{'is-active': active}"
+    ng-click="$event.stopPropagation();"
+    ng-transclude>
   </aside>
 </div>
