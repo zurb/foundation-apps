@@ -23,7 +23,7 @@
     <div class="vertical grid-frame">
       <!-- Title bar -->
       <div id="header" class="shrink collapse grid-content">
-        
+
       <nav class="global-nav">
         <ul class="title-area">
           <li class="name">
@@ -31,8 +31,8 @@
             <h1><a href="index.html">ZURB <strong>Foundation for Apps</strong></a></h1>
           </li>
         </ul>
-        
-        <ul class="right">    
+
+        <ul class="right">
             <li><a href="features.html">Features</a>
             </li>
             <li>
@@ -50,10 +50,10 @@
 
       </div>
       <!-- /Title bar -->
-      <div class="grid-block">
+      <div class="grid-block" ng-controller="NavController">
         <div zf-panel id="sidebar" class="fast bounceInOut medium-3 medium-grid-block sidebar vertical">
           <div class="grid-content shrink docs-search-box">
-            <input type="text" placeholder="Search Docs: e.g. forms" />
+            <autocomplete data="routing" on-select="selectRoute" attr-placeholder="Search Docs: e.g. forms" ng-model="typedText" />
           </div>
           <!-- Sidebar nav -->
           <div class="grid-content collapse">

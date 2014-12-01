@@ -19,8 +19,22 @@ angular.module('application')
 ]);
 
 angular.module('application')
-  .controller('MainController', ['$scope', '$state', 'Utils', '$rootScope', function($scope, $state, u, $rootScope) {
+  .controller('NavController', ['$scope', '$state', function($scope, $state) {
     $scope.current = $state.current.name;
-    $scope.currentSlug = u.prepareRoute($state.current.name);
+
+    //setup autocomplete
+    $scope.routing = [];
+    $scope.typedText = '';
+
+    if(foundationRoutes) {
+      angular.forEach(foundationRoutes, function(r) {
+        $scope.routing.push(r.name.replace('.', ' '));
+      });
+    }
+
+    $scope.selectRoute = function(r) {
+      $state.go(r.replace(' ', '.'));
+    };
+
   }
 ]);

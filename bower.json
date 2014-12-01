@@ -14,7 +14,8 @@
     "angular-animate": "~1.3.2",
     "angular-mocks": "~1.3.2",
     "marked": "~0.3.2",
-    "jsdiff": "~1.0.8"
+    "jsdiff": "~1.0.8",
+    "allmighty-autocomplete": "*"
   },
   "homepage": "https://github.com/zurb/foundation-apps",
   "description": "A responsive, Angular-powered web apps framework from ZURB.",
