@@ -5,7 +5,7 @@
 @include runner-start;
 
 @include describe("Map Next") {
-  @include it("returns the value for the key after the given key") {
+  @include it("should return the value for the key after the given key") {
     $input: (
       one: 'One',
       two: 'Two',
@@ -17,7 +17,7 @@
     @include should(expect($actual), to(be($expected)));
   }
 
-  @include it("returns null if the given key is last in the map") {
+  @include it("should return null if the given key is last in the map") {
     $input: (
       one: 'One',
       two: 'Two',
@@ -29,7 +29,7 @@
     @include should(expect($actual), to(be($expected)));
   }
 
-  @include it("returns null if the given key is not in the map") {
+  @include it("should return null if the given key is not in the map") {
     $input: (
       one: 'One',
       two: 'Two',
@@ -43,14 +43,14 @@
 }
 
 @include describe("Is It Light") {
-  @include it("returns black if the input color is light") {
+  @include it("should return black if the input color is light") {
     $actual: isitlight(#fff);
     $expected: #000;
 
     @include should(expect($actual), to(be($expected)));
   }
 
-  @include it("returns white if the input color is dark") {
+  @include it("should return white if the input color is dark") {
     $actual: isitlight(#000);
     $expected: #fff;
 
@@ -59,7 +59,7 @@
 }
 
 @include describe("Smart Scale") {
-  @include it("returns a darker color if the input color is light") {
+  @include it("should darken a light color") {
     $color: #fff;
     $scale: 5%;
     $threshold: 60%;
@@ -69,7 +69,7 @@
 
     @include should(expect($actual), to(be($expected)));
   }
-  @include it("returns a lighter color if the input color is dark") {
+  @include it("should lighten a dark color") {
     $color: #000;
     $scale: 5%;
     $threshold: 60%;
@@ -95,17 +95,17 @@
   }
   @include it("should return false if the given value is falsey") {
     $zero:  hasvalue(0px);
-    $false: hasvalue(false);
+    $null:  hasvalue(null);
     $none:  hasvalue(none);
 
     @include should(expect($zero), to(be(false)));
-    @include should(expect($false), to(be(false)));
+    @include should(expect($null), to(be(false)));
     @include should(expect($none), to(be(false)));
   }
 }
 
 @include describe("Get Side") {
-  @include it("returns correct sides when given one side value") {
+  @include it("should return correct sides when given one side value") {
     $value: 1rem;
     $actual: (
       get-side($value, top),
@@ -117,7 +117,7 @@
 
     @include should(expect($actual), to(be($expected)));
   }
-  @include it("returns correct sides when given two side values") {
+  @include it("should return correct sides when given two side values") {
     $value: 1rem 2rem;
     $actual: (
       get-side($value, top),
@@ -129,7 +129,7 @@
 
     @include should(expect($actual), to(be($expected)));
   }
-  @include it("returns correct sides when given three side values") {
+  @include it("should return correct sides when given three side values") {
     $value: 1rem 2rem 3rem;
     $actual: (
       get-side($value, top),
@@ -141,7 +141,7 @@
 
     @include should(expect($actual), to(be($expected)));
   }
-  @include it("returns correct sides when given four side values") {
+  @include it("should return correct sides when given four side values") {
     $value: 1rem 2rem 3rem 4rem;
     $actual: (
       get-side($value, top),
@@ -156,13 +156,13 @@
 }
 
 @include describe("Strip Unit") {
-  @include it("returns a unitless number when given a value") {
+  @include it("should strip the unit from a number") {
     $actual: strip-unit(20px);
     $expected: 20;
 
     @include should(expect($actual), to(be($expected)));
   }
-  @include it("returns the same number when given a unitless value") {
+  @include it("should return the same number when given a unitless value") {
     $actual: strip-unit(20);
     $expected: 20;
 
