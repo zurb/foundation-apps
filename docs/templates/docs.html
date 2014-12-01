@@ -18,10 +18,6 @@ Example Here
 
 ### Basic HTML
 You can create [Item] with this basic HTML
-<ul class="segmented button-group small">
-  <li class="is-active"><a href="#">CSS Classes</a></li>
-  <li><a href="#">Sass Mixins</a></li>
-</ul>
 <div class="grid-block">
   <div class="medium-6 grid-content">
 ```html
@@ -35,10 +31,6 @@ You can create [Item] with this basic HTML
 
 ### Advanced HTML
 You can create advanced versions of [Item] with this HTML
-<ul class="segmented button-group">
-  <li class="is-active"><a href="#">CSS Classes</a></li>
-  <li><a href="#">Sass Mixins</a></li>
-</ul>
 <div class="grid-block">
   <div class="medium-6 grid-content">
 ```html
@@ -50,8 +42,31 @@ You can create advanced versions of [Item] with this HTML
   </div>
 </div>
 
+### Additional Options
+You can easily customize [Item] with these classes:
+<div class="grid-block">
+  <div class="medium-6 grid-content">
+```html
+.class = what it does
+```
+  </div>
+</div>
+
+***
+
 ### Sass Variables
-You can customize with...
+You can customize with [Item] with these variables in _settings.scss:
 ```scss
-<div class="lolwut"></div>
+$whatever-I-am: value;
+```
+
+***
+
+### Using the Javascript
+Optional Javascript Configurations:
+```js
+$locationProvider.html5Mode({
+  enabled: true,
+  requireBase: true
+});
 ```
