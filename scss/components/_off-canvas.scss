@@ -14,7 +14,7 @@ $offcanvas-padding: 0 !default;
 $offcanvas-shadow: 3px 0 10px rgba(black, 0.25) !default;
 $offcanvas-animation-speed: 0.25s !default;
 
-$offcanvas-frame-selector: '.frame' !default;
+$offcanvas-frame-selector: '.grid-frame' !default;
 
 %off-canvas {
   position: fixed;
