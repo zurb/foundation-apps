@@ -11,7 +11,11 @@ url: /interchange
 <div class="grid-block">
   <div class="small-12 grid-content">
 ```html
-<div class="lolwut"></div>
+<div zf-interchange>
+  <div media="small" src="/templates/interchange/partial_1.html"></div>
+  <div media="medium" src="/templates/interchange/partial_2.html"></div>
+  <div media="large">On-page template</div>
+</div>
 ```
   </div>
 </div>
@@ -19,7 +23,7 @@ url: /interchange
 ***
 
 ### Basic HTML
-You can create [Item] with this basic HTML
+You can create an Interchange component with this basic HTML
 <ul class="segmented button-group small">
   <li class="is-active"><a href="#">CSS Classes</a></li>
   <li><a href="#">Sass Mixins</a></li>
@@ -27,28 +31,45 @@ You can create [Item] with this basic HTML
 <div class="grid-block">
   <div class="medium-6 grid-content">
 ```html
-<div class="lolwut"></div>
+<div zf-interchange>
+  <div media="small" src="/templates/interchange/partial_1.html"></div>
+  <div media="medium" src="/templates/interchange/partial_2.html"></div>
+  <div media="large">On-page template</div>
+</div>
 ```
   </div>
   <div class="medium-6 grid-content">
-    [Demo of item]
+    Resize the page to see the content change.
+    <div zf-interchange>
+      <div media="small">Small content</div>
+      <div media="medium">Medium Content</div>
+      <div media="large">Large content</div>
+    </div>
   </div>
 </div>
 
 ### Advanced HTML
 You can create advanced versions of [Item] with this HTML
-<ul class="segmented button-group">
+<ul class="segmented button-group small">
   <li class="is-active"><a href="#">CSS Classes</a></li>
   <li><a href="#">Sass Mixins</a></li>
 </ul>
 <div class="grid-block">
   <div class="medium-6 grid-content">
 ```html
-<div class="lolwut"></div>
+<div zf-interchange>
+  <div media="small" src="/templates/interchange/partial_1.html"></div>
+  <div media="medium" src="/templates/interchange/partial_2.html"></div>
+  <div media="large">On-page template</div>
+</div>
 ```
   </div>
   <div class="medium-6 grid-content">
-    [Demo of item]
+    Add custom media query rules of your own
+    <div zf-interchange id="testid">
+      <div media="only screen and (min-width: 300px)">Small content</div>
+      <div media="large">Large content</div>
+    </div>
   </div>
 </div>
 
