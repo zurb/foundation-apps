@@ -23,12 +23,12 @@ url: /angular
 <h3>Usage</h3>
 <p>This app depends on the use of `front matter` which is text prepended to templates like so:</p>
 
-````
+<hljs>
 ---
 name: mail
 url: /mail
 ---
-````
+</hljs>
 
 <p>Front matter follows YAML conventions. For dynamic routing, a `name` and `url` have to be used (as discussed above). There are some other options.</p>
 
@@ -37,34 +37,34 @@ url: /mail
 <h3>Parent</h3>
 <p>`parent` to specify a parent template. This can also be done using standard dot-delimited convention in the name. So you can either do this:</p>
 
-````
+<hljs>
 ----
 name: inbox
 parent: mail
 ----
-````
+</hljs>
 
 <p>or this:</p>
 
-````
+<hljs>
 ----
 name: mail.inbox
 ----
-````
+</hljs>
 
 <p>Note that this specifies `child` templates. This means that when `mail` loads up, it'll have to have a `<div ui-view></div>` element into which a child is loaded. A child will need a `url` as well but note that the URL will be appended to the parent's URL like so:</p>
 
-````
+<hljs>
 name: mail
 url: /mail
-````
+</hljs>
 
 <p>will be accessible via `/mail` while the child:</p>
 
-````
+<hljs>
 name: mail.inbox
 url: /inbox
-````
+</hljs>
 
 <p>will be accessible via `/mail/inbox`. This specific URL has to be typed in in order for the child to show up. This allows us to specify several children (`inbox`, `sent`, `trash`, etc.).</p>
 
@@ -73,27 +73,27 @@ url: /inbox
 <h3>Controllers</h3>
 <p>Angular supports this neat thing called controllers. They can get confusing and so each template gets its own `DefaultController` which can be overriden like so:</p>
 
-````
+<hljs>
 controller: MyController
-````
+</hljs>
 
 <p>Among other things, the default controller passes a bunch of data through. For instance, all of your front-matter settings will be accessible via `vars` in your template. `{{ vars.name }}` will return the name of your route while `{{ vars.path }}` will return the relative path to the template.</p>
 
 <p>If you use dynamic parameters in your URL, those parameters will be accessible via `params` so if your URL is:</p>
 
-````
+<hljs>
 url: /mail/inbox/:id
-````
+</hljs>
 
 <p>It will match any URL that follows that pattern (so `/mail/inbox/383828` would match as well as `/mail/inbox/my-email` but not `/mail/inbox/3838/something`).</p>
 
 <p>Animations</p>
 <p>Angular and the UI router support animations. That means that when you transition from a page to another page, you can CSS animate it. It's easy to do with CSS; however, you can use front matter to register CSS animations:</p>
 
-````
+<hljs>
 animationIn: fadeIn
 animationOut: fadeOut
-````
+</hljs>
 
 <p>The animation data gets registered for the template (only if it's a child or parent, not a partial) and will fire in the appropriate times.</p>
 
@@ -109,9 +109,9 @@ animationOut: fadeOut
 
 <p>Sometimes, it's more beneficial to use composed views rather than simple one-off views. For instance, having a dedicated file for a navigation, or a sidebar is much more useful separate than embedded. For these purposes, there's Angular's `ng-include`:</p>
 
-````
+<hljs>
 <div ng-include src="path/to/partial"></div>
-````
+</hljs>
 
 <p>The partial will be automatically pulled in and placed in the correct place.</p>
 
@@ -123,12 +123,12 @@ animationOut: fadeOut
 
 <p>If you'd like to run Foundation for Apps without HTML5 mode there is a line of code in the `app.js` that can be commented out:</p>
 
-````
+<hljs>
 $locationProvider.html5Mode({
   enabled: true,
   requireBase: true
 });
-````
+</hljs>
 
 <p>Note that Foundation for Apps cannot be run directly through the browser because it uses XMLHttpRequests to load up templates/partials for directives and pages. Running it directly will cause cross origin issues and will not work with linking.</p>
 
@@ -160,23 +160,23 @@ $locationProvider.html5Mode({
 
 <p>Instead of using `<a href="/my/sub/page"></a>` in a page to access another page, it's common practice to use the router. Foundation for Apps uses UI Router for its routing which allows for named route references. For instance, let's say there is a page with this front matter:</p>
 
-````
+<hljs>
 name: mypage
 url: my/sub/page
-````
+</hljs>
 
 <p>You can easily link to it like so:</p>
 
-````
+<hljs>
 <a ui-sref="mypage">my page</a>
-````
+</hljs>
 
 <p>`ui-sref` can also take in parameters for pages that accept parameters. Here's another example page that uses parameters:</p>
 
-````
+<hljs>
 name: inbox.message
 url: inbox/:id
-````
+</hljs>
 
 <p>The page can be accessed via `<a ui-sref="inbox.message({ id: 5 })">5th messages</a>`.</p>
 
@@ -184,12 +184,12 @@ url: inbox/:id
 <strong>ui-sref-active</strong>
 Now let's say we want to create a menu of links and want to make sure that the active link gets an extra special class to indicate that it is, indeed, active. There are two very similar ways to do this. The first one is using `ui-sref-active`, you can place this directive on either the `ui-sref` element or on its parent. When active, it will add a class of your choosing:</p>
 
-````html
+<hljs>
 <ul>
-  <li ui-sref-active="my-active-class"><a ui-sref="mypage">My page</a>
-  <li ui-sref-active="my-active-class"><a ui-sref="myotherpage">My page</a>
+  <li ui-sref-active="my-active-class"><a ui-sref="mypage">My page</a></li>
+  <li ui-sref-active="my-active-class"><a ui-sref="myotherpage">My page</a></li>
 </ul>
-````
+</hljs>
 
 <p>The other way is using `ui-sref-active-eq` which works almost the same with one difference. Whenever accessing a child page, the parent page will show up as active whenever using `ui-sref-active`. The `ui-sref-active-eq` is triggered ONLY when a specific page is triggered, no matter what their parent is.</p>
 
@@ -206,34 +206,34 @@ Foundation has some great helpers that foster better interaction between element
 **zf-close**
 zf-close looks for a parent element that has the `zf-closeable` tag on it. This tag is added automatically for all directives that can be closed with `zf-close`. When clicked, the directive will send a message via the FoundationApi to close its parent `zf-closeable` element.
 
-````html
+<hljs>
 <zf-modal id="pageModal">
   <a href="#" zf-close>&times;</a>
 </zf-modal>
-````
+</hljs>
 
 Note that you can specify the ID of a specific closeable directive in order to close it remotely (whether it's a parent, child, or has any other relationship to the closeable directive).
 
-````html
+<hljs>
 <a href="#" zf-close="pageModal">&times;</a>
 <zf-modal id="pageModal"></zf-modal>
-````
+</hljs>
 
 **zf-open**
 The counter to `zf-close`, `zf-open` sends a signal to a directive that can be trigger through this method. Simply specify the ID of the target element.
 
-````html
+<hljs>
 <a href="#" zf-open="pageModal">Open Modal</a>
 <zf-modal id="pageModal"></zf-modal>
-````
+</hljs>
 
 **zf-toggle**
 Similar to the previous two, `zf-toggle` sends a toggle command to a directive that can accept it. A target has to be specified in order for it to work.
 
-````html
+<hljs>
 <a href="#" zf-toggle="pageModal">Toggle Modal</a>
 <zf-modal id="pageModal"></zf-modal>
-````
+</hljs>
 
 Please see documentation on the FoundationApi to learn how to open, close, toggle, and trigger other events programmatically.
 
@@ -241,14 +241,14 @@ Please see documentation on the FoundationApi to learn how to open, close, toggl
 
 Structure:
 
-````html
+<hljs>
 <zf-accordion-set>
   <zf-accordion
     title="Input your title here">
     Content goes here
   </zf-accordion>
 </zf-accordion-set>
-````
+</hljs>
 
 The accordion also has an option to allow multi selection (meaning that you can open more than one accordion section at a time). You can enable this by setting `multi-open="true"` on the `zf-accordion-set`.
 
@@ -257,24 +257,24 @@ Actionsheets allow users to specify some options on top of showing a regular act
 
 Using the most default settings, an actionsheet looks like this:
 
-````html
+<hljs>
 <zf-action-sheet>
   <zf-as-button title="My button"></zf-as-button>
   <zf-as-content position="bottom">
     My content goes here
   </zf-as-content>
 </zf-action-sheet>
-````
+</hljs>
 
 To use a custom buttom, ammend the `zf-as-button` declaration with your custom HTML like so:
 
-````html
+<hljs>
 <zf-as-button>my button goes here</zf-as-button>
-````
+</hljs>
 
 There is also an option to remotely open an actionsheet; however, the actionsheet won't show up under the remote trigger but rather where it had already been placed.
 
-````html
+<hljs>
 <a href="#" zf-toggle="my-actionsheet">toggle</a>
 <zf-action-sheet id="my-actionsheet">
   <zf-as-button title="My button"></zf-as-button>
@@ -282,7 +282,7 @@ There is also an option to remotely open an actionsheet; however, the actionshee
     My content goes here
   </zf-as-content>
 </zf-action-sheet>
-````
+</hljs>
 
 ####Interchange
 Interchange allows you to specify what specific content to view based on a media query. The last query to match will be shown.
@@ -293,22 +293,21 @@ Note that partials do not get RELOADED, meaning that as long as the user is on t
 
 Structure:
 
-````html
+<hljs>
 <zf-interchange>
   <div zf-source media="media type such as 'small'" src="/path/to/partial"></div>
   <div zf-source media="large">
     Page template
   </div>
 </zf-interchange>
-
-````
+</hljs>
 
 ####Modal
 The modal does not require any specific content within it; however, the example includes some options, including a a footer, main content block, and a close button.
 
 Structure:
 
-````html
+<hljs>
 <a href="#" zf-open="pageModal">Open modal</a>
 <zf-modal id="pageModal">
   <a href="#" zf-close>&times;</a>
@@ -319,8 +318,8 @@ Structure:
     <span class="button" zf-close>Ok</span>
     <span class="button" zf-close>Cancel</span>
   </footer>
-<zf-modal>
-````
+</zf-modal>
+</hljs>
 
 Modal has several additional options. You can set `overlay` to "true" in order to show an overlay in the background. You can also enable `overlay-close` so that when a user clicks on the background, it closes out of the modal. When setting `overlay-close="true"`, the regular overlay setting is automatically set to true so you don't have to use both declarations.
 
@@ -330,7 +329,7 @@ There are two ways to access a notification. Via the static method and the progr
 **Static Method**
 The static method is best used for prototyping since it doesn't involve any programming.
 
-````html
+<hljs>
 <a href="#" zf-open="my-notification">Static notification</a>
 <zf-notification-static id="my-notify"
   title="My static notification"
@@ -339,28 +338,28 @@ The static method is best used for prototyping since it doesn't involve any prog
   color="success">
   Content goes here
 </zf-notification-static>
-````
+</hljs>
 
 **Programmatic Method**
 The FoundationApi service is a pretty useful service, one function of it is to send information from directives, controllers, and other parts to other directives, controllers, etc. It's a messaging system for the entire application.
 
 To use it, create a notification set like so:
 
-````html
+<hljs>
 <zf-notification-set id="main-notifications"></zf-notification-set>
-````
+</hljs>
 
 And then send it a notification with via FoundationApi:
 
-````js
+<hljs>
 foundationApi.publish('main-notifications', { title: 'Test', content: 'Test2' });
-````
+</hljs>
 
 You can also use the `zf-notify` directive for simpler messages and prototyping:
 
-````html
+<hljs>
 <a href="#" zf-notify title="Title of notification" content="Content of notification">Launch notification</a>
-````
+</hljs>
 
 **Additional options**
 
@@ -372,38 +371,38 @@ On top of setting a title and content, you can also set:
 
 ####Off Canvas
 
-````html
+<hljs>
 <a href="#" zf-open="pageCanvas">open offcanvas</a>
 <zf-offcanvas id="pageCanvas" position="right">
   <p>My content!</p>
 </zf-offcanvas>
-````
+</hljs>
 
 ####Panel
 
-````html
+<hljs>
 <a href="#" zf-open="pagePanel">open panel</a>
 <zf-panel id="pagePanel" position="left"></zf-panel>
-````
+</hljs>
 
 ####Popup
 Popups use a library called Tether. Tether attaches an element to another element with absolute positioning; however, there is one caveat. If your popup is nested within a scrollable area (not `body`) but it's not the immediate parent of that element, it will lose its positioning.
 
-````html
+<hljs>
 <a href="#" zf-popup-toggle="popups">Open Popup</a>
 <zf-popup
   title="My title"
   footer="Footer content"
   id="my-popup"
 >Content goes here</zf-popup>
-````
+</hljs>
 
 ####Tabs
 Tabs can get a little complicated; however, they also allow for meo flexibility. There are three ways to use tabs: default, displaced, and custom.
 
 **default use**
 
-````html
+<hljs>
 <zf-tabs>
   <zf-tab title="This is my tab">
     Tab content goes here
@@ -412,12 +411,12 @@ Tabs can get a little complicated; however, they also allow for meo flexibility.
     Tab content goes here
   </zf-tab>
 </zf-tabs>
-````
+</hljs>
 
 **displaced use**
 Displaced tabs allow us to build tabs (tab navigation) and display the content elsewhere with `zf-tab-content`
 
-````html
+<hljs>
 <zf-tabs id="displaced-tabs" displaced="true">
   <zf-tab title="This is my tab">
     Tab content goes here
@@ -428,28 +427,28 @@ Displaced tabs allow us to build tabs (tab navigation) and display the content e
 </zf-tabs>
 
 <zf-tab-content target="displaced-tabs"></zf-tab-content>
-````
+</hljs>
 
 **manual use**
 Manual usage allows for custom styling and full versatility while retaining the basic functionality of the default tabs.
 
 Here's what a custom menu may look like:
 
-````html
+<hljs>
 <ul class="button-group" zf-tab-custom>
   <li zf-tab-href="tabOne">Tab One</li>
   <li zf-tab-href="tabTwo">Tab Two</li>
 </ul>
-````
+</hljs>
 
 The directives `zf-tab-custom` and `zf-tab-href` ensure typical tab button behavior where active tab button gets an `is-active` class. `zf-tab-href` should point to an ID of a tab.
 
-````html
+<hljs>
 <div zf-tab-content-custom>
   <div id="tabOne">Content!</div>
   <div id="tabTwo">Second content!</div>
 </div>
-````
+</hljs>
 
 ####FoundationApi
 
@@ -459,18 +458,18 @@ The most used feature is its subscribe/publish system. Every single directive th
 
 Here's an example:
 
-````html
+<hljs>
 <!-- a directive placed in HTML -->
 <zf-modal id="my-modal"></zf-modal>
-````
+</hljs>
 
 The modal will automatically register itself as a subscriber in the FoundationApi under `my-modal`. The code for the directive indicates that it listens for 3 different messages: `open`, `close`, and `toggle` as well as aliases for the former two `show` and `hide`.
 
 Sometimes, it's necessary to trigger a modal after some piece logic was satisfied. Whether the user scrolled past a certain point or some other action happened. Here's how to open our modal remotely:
 
-````js
+<hljs>
 foundationApi.publish('my-modal', 'open');
-````
+</hljs>
 
 Make sure to include FoundationApi as a dependency in the controller or wherever else you want to use it. The best bet to hooking into various directives is to check the code and see what each directive subscribes to.
 
