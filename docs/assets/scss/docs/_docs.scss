@@ -314,3 +314,55 @@ hr {
   padding: 1rem;
   background: #f7f7f7;
 }
+
+.docs-grid-demo {
+  height: 100px;
+  margin: 0 0 1.5rem 0 !important;
+
+  &, .grid-block, .grid-content, .grid-container {
+    background: rgba($primary-color, 0.1);
+    padding: 0;
+    margin: 1rem;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+  }
+  .shrink {
+    width: 100px;
+  }
+
+  &.small-up-3 {
+    height: auto;
+
+    .grid-block {
+      height: 50px;
+      margin: 0;
+    }
+  }
+
+  &.vertical {
+    .grid-block {
+      height: 50px;
+
+      @include breakpoint(medium) {
+        height: auto;
+      }
+    }
+  }
+
+  .grid-container {
+    max-width: 400px;
+    height: 100px;
+    margin: 0 auto -1rem auto;
+  }
+
+  .small-offset-3 {
+    margin-left: 25%;
+  }
+
+  .text {
+    font-size: 2rem;
+    align-items: center;
+    justify-content: center;
+  }
+}
