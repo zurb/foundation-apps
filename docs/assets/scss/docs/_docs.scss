@@ -211,18 +211,19 @@ $rad: 5px;
           font-weight: bold;
           border-left: 2px solid $primary;
         }
-        td.marker {
+        td.marker.yes {
           width: 10%;
           text-align: center;
           vertical-align: middle;
-            &[content="✓"] {
-              color: $success;
-            }
-            &[content="χ"] {
-              color: $alert;
-            }
+          color: $success;
+          }
+        td.marker.no {
+          width: 10%;
+          text-align: center;
+          vertical-align: middle;
+          color: $alert-color;
+          }
         }
-    }
     tr:nth-child(even) {
         background: $secondary;
     }
@@ -319,6 +320,13 @@ hr {
   position: relative;
   overflow: hidden;
   height: 300px;
+}
+
+.badge.docs-example-badges {
+  display: inline-block;
+  position: relative; 
+  margin-right: 1rem;
+}
 
 // ZURB Footer
 .upper-footer {
@@ -841,4 +849,3 @@ hr {
     justify-content: center;
     }
   }
-}
