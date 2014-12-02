@@ -29,7 +29,7 @@ animateOut: fadeOut
 <div class="grid-block">
   <div class="medium-6 grid-content">
 
-````html
+<hljs>
 <div zf-action-sheet>
   <div zf-as-button title="I'm an Action Sheet"></div>
   <div zf-as-content position="bottom">
@@ -41,7 +41,7 @@ animateOut: fadeOut
     </ul>
   </div>
 </div>
-````
+</hljs>
   </div>
   <div class="medium-6 grid-content">
     <div zf-action-sheet>
@@ -63,7 +63,7 @@ animateOut: fadeOut
 <h3>Additional Options</h3>
 <p>To use a custom buttom, ammend the `zf-as-button` declaration with your custom HTML like so:</p>
 
-````html
+<hljs>
 <a href="#" zf-toggle="my-actionsheet">toggle</a>
 <zf-action-sheet id="my-actionsheet">
   <zf-as-button>my button goes here</zf-as-button>
@@ -71,13 +71,13 @@ animateOut: fadeOut
     My content goes here
   </zf-as-content>
 </zf-action-sheet>
-````
+</hljs>
 <hr />
 
 <h3>Sass Variables</h3>
 <p>You can customize with [Item] with these variables in _settings.scss:</p>
 
-````html
+<hljs>
 $actionsheet-background: white !default;
 $actionsheet-border-color: #ccc !default;
 $actionsheet-animate: transform opacity !default;
@@ -92,4 +92,4 @@ $actionsheet-popup-shadow: 0 0 10px rgba(black, 0.25) !default;
 
 $actionsheet-link-color: #000 !default;
 $actionsheet-link-background-hover: smartscale($actionsheet-background) !default;
-````
+</hljs>

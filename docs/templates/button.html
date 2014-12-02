@@ -29,9 +29,9 @@ url: /button
 <div class="grid-block">
   <div class="medium-6 grid-content">
 
-```html
+<hljs>
 <a class="button" href="#">Default Button</a>
-```
+</hljs>
 
   </div>
   <div class="medium-6 grid-content">
@@ -43,16 +43,15 @@ url: /button
 <p>You can create buttons of various colors with these classes:</p>
 <div class="grid-block">
   <div class="medium-6 grid-content">
-    <pre>
-      <code class="language-html">
+
+<hljs>
 <span class="comment">&lt;!-- Color Classes --&gt;</span>
 <a class="button" href="#">Primary Color</a>
 <a class="secondary button" href="#">Secondary Color</a>
 <a class="success button" href="#">Success Color</a>
 <a class="alert button" href="#">Alert Color</a>
 <a class="warning button" href="#">Warning Color</a>
-      </code>
-    </pre>
+</hljs>
   </div>
   <div class="medium-6 grid-content">
     <a class="button" href="#">Primary Color</a>
@@ -67,16 +66,14 @@ url: /button
 <p>You can customize button sizing with these classes:</p>
 <div class="grid-block">
   <div class="medium-6 grid-content">
-    <pre>
-      <code class="language-html">
+<hljs>
 <span class="comment">&lt;!-- Size Classes --&gt;</span>
 <a class="tiny button" href="#">Tiny Button</a>
 <a class="small button" href="#">Small Button</a>
 <a class="button" href="#">Default Button</a>
 <a class="large button" href="#">Large Button</a>
 <a class="expand button" href="#">Expand Button</a>
-      </code>
-    </pre>
+</hljs>
   </div>
   <div class="medium-6 grid-content">
     <a class="tiny button" href="#">Tiny Button</a>
@@ -95,11 +92,9 @@ url: /button
 <p>Adding a class of .disabled will disable the pointer &amp; hover state, while also changing the color.</p>
 <div class="grid-block">
   <div class="medium-6 grid-content">
-		<pre>
-		  <code class="language-html">
+<hljs>
 <a href="#" class="button disabled">Disabled Button</a>
-		  </code>
-		</pre>
+</hljs>
 	</div>
 	<div class="medium-6 grid-content">
 		<a href="#" class="button disabled">Disabled Button</a>
@@ -110,11 +105,9 @@ url: /button
 <p>Buttons can be turned into button groups which strings buttons together.</p>
 <div class="grid-block">
   <div class="medium-6 grid-content">
-    <pre>
-      <code class="language-html">
+<hljs>
 <a href="#" class="button disabled">Disabled Button</a>
-      </code>
-    </pre>
+</hljs>
   </div>
   <div class="medium-6 grid-content">
     <ul class="button-group">
@@ -129,15 +122,13 @@ url: /button
 <p>Button groups can have sizing modifiers applied straight to the ul.</p>
 <div class="grid-block">
   <div class="medium-6 grid-content">
-    <pre>
-      <code class="language-html">
+<hljs>
 <ul class="button-group [tiny small large secondary success warning alert]">
   <li><a href="#">Button a</a></li>
   <li><a href="#">Button b</a></li>
   <li><a href="#">Button c</a></li>
 </ul>
-      </code>
-    </pre>
+</hljs>
   </div>
   <div class="medium-6 grid-content">
     <ul class="button-group small success">
@@ -152,15 +143,13 @@ url: /button
 <p>Button groups can have a segemented look with an active class applied.</p>
 <div class="grid-block">
   <div class="medium-6 grid-content">
-    <pre>
-      <code class="language-html">
+<hljs>
 <ul class="button-group segmented">
   <li class="is-active"><a href="#">Button a</a></li>
   <li><a href="#">Button b</a></li>
   <li><a href="#">Button c</a></li>
 </ul>
-      </code>
-    </pre>
+</hljs>
   </div>
   <div class="medium-6 grid-content">
     <ul class="button-group segmented">
@@ -175,28 +164,26 @@ url: /button
 <p>Buttons can be easily customized using our Sass variables.</p>
 <div class="grid-block">
   <div class="small-12 grid-content">
-		<pre>
-		  <code class="language-html">
-        $button-padding: 0.85em 1em !default;
-        $button-margin: 0 $global-padding $global-padding 0 !default;
-        $button-style: solid !default;
-        $button-background: $primary-color !default;
-        $button-color: auto !default;
-        $button-radius: 0 !default;
-        $button-sizes: (
-          tiny: 0.7,
-          small: 0.8,
-          medium: 1,
-          large: 1.3,
-        ) !default;
-        $button-font-size: 0.9rem !default;
-        $button-opacity-disabled: 0.8 !default;
-        $button-tag-selector: true !default;
+<hljs>
+$button-padding: 0.85em 1em !default;
+$button-margin: 0 $global-padding $global-padding 0 !default;
+$button-style: solid !default;
+$button-background: $primary-color !default;
+$button-color: auto !default;
+$button-radius: 0 !default;
+$button-sizes: (
+  tiny: 0.7,
+  small: 0.8,
+  medium: 1,
+  large: 1.3,
+) !default;
+$button-font-size: 0.9rem !default;
+$button-opacity-disabled: 0.8 !default;
+$button-tag-selector: true !default;
 
-        $btngroup-background: $primary-color !default;
-        $btngroup-color: #fff !default;
-        $btngroup-radius: $button-radius !default;
-		  </code>
-		</pre>
+$btngroup-background: $primary-color !default;
+$btngroup-color: #fff !default;
+$btngroup-radius: $button-radius !default;
+</hljs>
 	</div>
 </div>

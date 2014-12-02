@@ -13,9 +13,9 @@ url: /tabs
 <p>You can create automatic tabs with this basic directive:</p>
 
 <div class="grid-block">
-  <div class="medium-6 block content">
+  <div class="medium-6 grid-content">
 
-```html
+<hljs>
 <div zf-tabs>
   <div zf-tab title="Tab 1">
     Tab content 1
@@ -27,35 +27,33 @@ url: /tabs
     Tab content 3
   </div>
 </div>
-```
+</hljs>
   </div>
 
-  <div class="medium-6 block content">
-    <div class="block">
-      <div zf-tabs>
-			  <div zf-tab title="Tab 1">
-			    Tab content 1
-			  </div>
-			  <div zf-tab title="Tab 2">
-			    Tab content 2
-			  </div>
-			  <div zf-tab title="Tab 3">
-			    Tab content 3
-			  </div>
-			</div>
+  <div class="medium-6 grid-content">
+    <div zf-tabs>
+		  <div zf-tab title="Tab 1">
+		    Tab content 1
+		  </div>
+		  <div zf-tab title="Tab 2">
+		    Tab content 2
+		  </div>
+		  <div zf-tab title="Tab 3">
+		    Tab content 3
+		  </div>
   	</div>
 	</div>
 </div>
 
 <hr />
 
-<h3>Basic HTML</h3>
+<h3>Advanced HTML</h3>
 
 <p>You can create Automatic tabs with displaced tab content with this basic directive:</p>
 
 <div class="grid-block">
-  <div class="medium-6 block content">
-```html
+  <div class="medium-6 grid-content">
+<hljs>
 <div zf-tabs id="displaced-tabs" displaced="true">
   <div zf-tab title="Tab 1">
     Tab 1
@@ -70,35 +68,33 @@ url: /tabs
 <!-- Displaced content -->
 <div zf-tab-content target="displaced-tabs">
 </div>
-```
+</hljs>
   </div>
 
-  <div class="medium-6 block content">
-    <div class="block">
-      <div zf-tabs id="displaced-tabs" displaced="true">
-			  <div zf-tab title="Tab 1">
-			    Tab 1
-			  </div>
-			  <div zf-tab title="Tab 2">
-			    Tab 2
-			  </div>
-			  <div zf-tab title="Tab 3">
-			    Tab 3
-			  </div>
-			</div>
-			<div zf-tab-content target="displaced-tabs">
-			</div>
+  <div class="medium-6 grid-content">
+    <div zf-tabs id="displaced-tabs" displaced="true">
+		  <div zf-tab title="Tab 1">
+		    Tab 1
+		  </div>
+		  <div zf-tab title="Tab 2">
+		    Tab 2
+		  </div>
+		  <div zf-tab title="Tab 3">
+		    Tab 3
+		  </div>
+		</div>
+		<div zf-tab-content target="displaced-tabs">
 		</div>
 	</div>
 </div>
 
-***
+<hr />
 
-### Sass Variables
+<h3>Sass Variables</h3>
 
-You can customize tabs with these variables in the `_settings.scss` file:
+<p>You can customize tabs with these variables in the `_settings.scss` file:</p>
 
-```html
+<hljs>
 $tabstrip-background: transparent;
 
 $tab-title-background: #f4f4f4;
@@ -109,6 +105,6 @@ $tab-title-color-active: $tab-title-color;
 
 $tab-title-padding: $global-padding;
 $tab-content-padding: $global-padding;
-```
+</hljs>
 
 
