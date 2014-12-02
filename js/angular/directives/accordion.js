@@ -39,12 +39,12 @@ angular.module('foundation.accordion')
 }]);
 
 angular.module('foundation.accordion')
-  .directive('zfAccordionSet', function() {
+  .directive('zfAccordion', function() {
   return {
     restrict: 'EA',
     transclude: 'true',
     replace: true,
-    templateUrl: 'partials/accordion-set.html',
+    templateUrl: 'partials/accordion.html',
     controller: 'ZfAccordionController',
     scope: {
       multiOpen: '@'
@@ -56,15 +56,15 @@ angular.module('foundation.accordion')
 });
 
 angular.module('foundation.accordion')
-  .directive('zfAccordion', function() {
+  .directive('zfAccordionItem', function() {
     return {
       restrict: 'EA',
-      templateUrl: 'partials/accordion.html',
+      templateUrl: 'partials/accordion-item.html',
       transclude: true,
       scope: {
         title: '@'
       },
-      require: '^zfAccordionSet',
+      require: '^zfAccordion',
       replace: true,
       controller: function() {},
       link: function(scope, element, attrs, controller, transclude) {
