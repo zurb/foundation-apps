@@ -20,9 +20,15 @@ angular.module('foundation.modal')
         },
         post: function postLink(scope, element, attrs) {
           var dialog = angular.element(element.children()[0]);
+
           scope.active = false;
           scope.overlay = scope.overlay || scope.overlayClose || false;
           scope.overlayClose = scope.overlayClose || false;
+
+          var animationIn = attrs.animationIn || 'fadeIn';
+          var animationOut = attrs.animationOut || 'fadeOut';
+          var overlayIn = 'fadeIn';
+          var overlayOut = 'fadeOut';
 
           //setup
           foundationApi.subscribe(attrs.id, function(msg) {
@@ -39,18 +45,31 @@ angular.module('foundation.modal')
             return;
           });
 
+          var animate = function() {
+            if(scope.overlay) {
+              //animate both overlay and dialog
+              foundationApi.animate(element, scope.active, overlayIn, overlayOut);
+              foundationApi.animate(dialog, scope.active, animationIn, animationOut);
+            } else {
+              foundationApi.animate(element, scope.active, overlayIn, overlayOut);
+            }
+          }
+
           scope.hide = function() {
             scope.active = false;
+            animate();
             return;
           };
 
           scope.show = function() {
             scope.active = true;
+            animate();
             return;
           };
 
           scope.toggle = function() {
             scope.active = !scope.active;
+            animate();
             return;
           };
         }

@@ -1,9 +1,8 @@
 <div
-  ng-class="{'is-active': active, 'modal-overlay': overlay}"
+  ng-class="{'modal-overlay': overlay}"
   ng-click="hide()">
   <aside
     class="modal"
-    ng-class="{'is-active': active}"
     ng-click="$event.stopPropagation();"
     ng-transclude>
   </aside>
