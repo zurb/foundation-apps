@@ -283,6 +283,7 @@ progress, meter {
   display: block;
   width: 100%;
   height: $meter-height;
+  margin-bottom: 1rem;
 
   @if hasvalue($meter-radius) {
     border-radius: $meter-radius;
