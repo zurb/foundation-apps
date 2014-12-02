@@ -162,7 +162,7 @@ gulp.task('karma-test', ['build', 'node-sass'], function() {
     'bower_components/jsdiff/diff.js',
     'build/assets/css/app.css',
     'build/assets/css/app_node.css',
-    'tests/unit/**/*Spec.js'
+    'tests/unit/common/*Spec.js'
   ];
 
   return gulp.src(testFiles)
