@@ -242,7 +242,9 @@ hr {
 }
 
 .zurb-footer-top {
-  padding: 40px 0;
+  margin-top: 3rem;
+  overflow:hidden;
+  padding: 40px 10px;
   color: white;
   background: #435159;
   .row .columns {
@@ -386,8 +388,9 @@ hr {
 
 .zurb-footer-bottom {
   background: #333;
-  padding: 24px 0 10px;
+  padding: 24px 10px;
   margin: 0 -1rem -1rem -1rem;
+  overflow:hidden;
   .design-border {
     border-bottom: 1px solid #484848;
     padding-bottom: 5px;
