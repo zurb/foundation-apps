@@ -40,6 +40,8 @@ url: /menu-bar
   </div>
 </div>
 
+<hr>
+
 <h3>Advanced HTML</h3>
 
 <h4>Orientation</h4>
@@ -48,13 +50,13 @@ By default, menu bars are horizontal, but they can also be vertically oriented b
 
 <div class="grid-block">
   <div class="grid-content">
-```html
+<hljs>
 <ul class="vertical menu-bar">
   <li><a href="#">Item</a></li>
   <li><a href="#">Item</a></li>
   <li><a href="#">Item</a></li>
 </ul>
-```
+</hljs>
   </div>
   <div class="grid-content">
     <ul class="vertical menu-bar">
@@ -69,13 +71,13 @@ The orientation classes also come in responsive flavors, allowing a menu bar to 
 
 <div class="grid-block">
   <div class="grid-content">
-```html
+<hljs>
 <ul class="vertical medium-horizontal menu-bar">
   <li><a href="#">Item</a></li>
   <li><a href="#">Item</a></li>
   <li><a href="#">Item</a></li>
 </ul>
-```
+</hljs>
   </div>
   <div class="grid-content">
     <ul class="vertical medium-horizontal menu-bar">
@@ -92,13 +94,13 @@ The items of the menu bar automatically space out evenly. The items can also be 
 
 <div class="grid-block">
   <div class="grid-content">
-```html
+<hljs>
 <ul class="condense menu-bar">
   <li><a href="#">Item</a></li>
   <li><a href="#">Item</a></li>
   <li><a href="#">Item</a></li>
 </ul>
-```
+</hljs>
   </div>
   <div class="grid-content">
     <ul class="condense menu-bar">
@@ -115,7 +117,7 @@ The items of the menu bar automatically space out evenly. The items can also be 
 
 <div class="grid-block">
   <div class="grid-content">
-```html
+<hljs>
 <ul class="dark menu-bar">
   <li><a href="#">Dark</a></li>
   <li><a href="#">Menu</a></li>
@@ -126,7 +128,7 @@ The items of the menu bar automatically space out evenly. The items can also be 
   <li><a href="#">Menu</a></li>
   <li><a href="#">Bar</a></li>
 </ul>
-```
+</hljs>
   </div>
   <div class="grid-content">
     <ul class="dark menu-bar">
@@ -156,13 +158,13 @@ By default, the icon is positioned above the text. However, this can be changed 
 
 <div class="grid-block">
   <div class="grid-content">
-```html
+<hljs>
 <ul class="icon-left primary menu-bar">
   <li><a href="#"><img zf-iconic data-src="/assets/img/iconic/ban.svg"> Delete</a></li>
   <li><a href="#"><img zf-iconic data-src="/assets/img/iconic/ban.svg"> Delete</a></li>
   <li><a href="#"><img zf-iconic data-src="/assets/img/iconic/ban.svg"> Delete</a></li>
 </ul>
-```
+</hljs>
   </div>
   <div class="grid-content">
     <ul class="icon-left primary menu-bar">
@@ -182,13 +184,13 @@ These classes can also be used responsively! In the below code example, the menu
 
 <div class="grid-block">
   <div class="grid-content">
-```html
+<hljs>
 <ul class="icon-top large-icon-left menu-bar">
   <li><a href="#"><img zf-iconic data-src="/assets/img/iconic/ban.svg"> Delete</a></li>
   <li><a href="#"><img zf-iconic data-src="/assets/img/iconic/ban.svg"> Delete</a></li>
   <li><a href="#"><img zf-iconic data-src="/assets/img/iconic/ban.svg"> Delete</a></li>
 </ul>
-```
+</hljs>
   </div>
   <div class="grid-content">
     <ul class="icon-top large-icon-left menu-bar">
@@ -198,3 +200,59 @@ These classes can also be used responsively! In the below code example, the menu
     </ul>
   </div>
 </div>
+
+<hr>
+
+<h3>Sass Mixins</h3>
+
+<p>Use the menu bar mixins to create this component with custom classes and settings.</p>
+
+<hljs>
+.custom-menu-bar {
+  // This placeholder selector gets you the core structural styles for the menu
+  @extend %menu-bar;
+
+  // Set the orientation and sizing of the menu bar
+  @include menu-bar-layout(
+    $orientation: horizontal, // Can be horizontal or vertical
+    $stretch: true // Set to false for a condensed menu
+  );
+
+  // Add styles for the menu bar items and text
+  @include menu-bar-style(
+    $background: #000, // Background color of items
+    $background-hover: #333, // Background color of item on hover
+    $background-hover: #666, // Background color of an active item
+    $color: #fff, // Text color of items
+    $color-hover, // Text color of item on hover
+    $color-active, // Text color of item when active
+    $autocolor: false // When true, all the above colors will be derived from $background
+  );
+
+  // Add support for icons
+  @include menu-bar-icons(
+    $position: left, // Can be top, right, bottom, or left
+    $size: 20px // Can be px, em, or rem
+  );
+}
+</hljs>
+
+<hr>
+
+<h3>Sass Variables</h3>
+
+<p>Use these variables to change the core styles of the menu bar.</p>
+
+<hljs>
+$menubar-fontsize: 1rem !default;
+$menubar-background: #fff !default;
+$menubar-background-hover: smartscale($menubar-background, 7%) !default;
+$menubar-background-active: $menubar-background-hover;
+$menubar-color: isitlight($menubar-background) !default;
+$menubar-color-hover: $menubar-color !default;
+$menubar-color-active: $menubar-color-hover;
+
+$menubar-item-padding: $global-padding !default;
+$menubar-icon-size: 25px !default;
+$menubar-icon-spacing: $menubar-item-padding !default;
+</hljs>
