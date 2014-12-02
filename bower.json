@@ -11,8 +11,8 @@
     "fastclick": "~1.0.3",
     "angular": "~1.3.4",
     "ui-router": "~0.2.12",
-    "angular-animate": "~1.3.2",
-    "angular-mocks": "~1.3.2",
+    "angular-animate": "~1.3.4",
+    "angular-mocks": "~1.3.4",
     "marked": "~0.3.2",
     "jsdiff": "~1.0.8"
   },
