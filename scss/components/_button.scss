@@ -46,11 +46,6 @@ $button-tag-selector: true !default;
   }
 }
 
-%button-disabled {
-  opacity: $button-opacity-disabled;
-  pointer-events: none;
-}
-
 @mixin button-size($size: medium, $expand: false) {
   $size: $button-font-size * map-get($button-sizes, $size);
   font-size: $size;
@@ -141,16 +136,9 @@ $button-tag-selector: true !default;
     }
   }
 }
-@mixin button-disabled(
-  $background: $button-background,
-  $base: true
-) {
-  @if not $base {
-    @extend %button-disabled;
-  }
-  &, &:hover {
-    background: $background;
-  }
+@mixin button-disabled() {
+  opacity: $button-opacity-disabled;
+  pointer-events: none;
 }
 @mixin button(
   $size: medium,
@@ -189,10 +177,10 @@ $button-tag-selector: true !default;
     }
 
     &.disabled { @include button-disabled;
-      &.secondary { @include button-disabled($secondary-color, false) }
-      &.success   { @include button-disabled($success-color, false) }
-      &.warning   { @include button-disabled($warning-color, false) }
-      &.alert     { @include button-disabled($alert-color, false) }
+      &.secondary { @include button-disabled; }
+      &.success   { @include button-disabled; }
+      &.warning   { @include button-disabled; }
+      &.alert     { @include button-disabled; }
     }
   }
 

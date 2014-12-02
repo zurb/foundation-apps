@@ -51,6 +51,7 @@ $btngroup-radius: $button-radius !default;
   // This is the button
   > li > a,
   > li > label {
+    border: 0;
     margin-right: 0;
     background: transparent;
   }
