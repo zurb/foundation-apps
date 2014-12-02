@@ -3,35 +3,198 @@ name: menu-bar
 url: /menu-bar
 ---
 
-## Menu Bar
+<h2>Menu Bar</h2>
 <h3 class="subheader">Our menu bar gives you the ability to switch between different subtasks, views, or modes in an app. It can be used vertically or horizontally.</h3>
 
-***
+<hr>
 
-<ul class="menu-bar condense">
-  <li class="is-active"><a href="#"><img src="http://placehold.it/1x1">Eggs</a></li>
-  <li><a href="#"><img src="http://placehold.it/1x1">Bacon</a></li>
-  <li><a href="#"><img src="http://placehold.it/1x1">Sausage</a></li>
-  <li><a href="#"><img src="http://placehold.it/1x1">Pancakes</a></li>
+<ul class="primary menu-bar icon-left">
+  <li><a href="#"><img src="http://placehold.it/1x1">Email</a></li>
+  <li><a href="#"><img src="http://placehold.it/1x1">Apps</a></li>
+  <li><a href="#"><img src="http://placehold.it/1x1">Messages</a></li>
+  <li><a href="#"><img src="http://placehold.it/1x1">Friends</a></li>
 </ul>
 
-<ul class="menu-bar icon-top">
-  <li><a href="#"><img src="http://placehold.it/1x1">Eggs</a></li>
-  <li><a href="#"><img src="http://placehold.it/1x1">Bacon</a></li>
-  <li><a href="#"><img src="http://placehold.it/1x1">Sausage</a></li>
-  <li><a href="#"><img src="http://placehold.it/1x1">Pancakes</a></li>
+<hr>
+
+<h3>Basic HTML</h3>
+
+<p>Creating a basic menu bar is as easy as writing an unordered list with links.</p>
+
+<div class="grid-block">
+  <div class="grid-content">
+```html
+<ul class="menu-bar">
+  <li><a href="#">Item</a></li>
+  <li><a href="#">Item</a></li>
+  <li><a href="#">Item</a></li>
+</ul>
+```
+  </div>
+  <div class="grid-content">
+    <ul class="menu-bar">
+      <li><a href="#">Item</a></li>
+      <li><a href="#">Item</a></li>
+      <li><a href="#">Item</a></li>
+    </ul>
+  </div>
+</div>
+
+<h3>Advanced HTML</h3>
+
+<h4>Orientation</h4>
+
+By default, menu bars are horizontal, but they can also be vertically oriented by adding the `vertical` class.
+
+<div class="grid-block">
+  <div class="grid-content">
+```html
+<ul class="vertical menu-bar">
+  <li><a href="#">Item</a></li>
+  <li><a href="#">Item</a></li>
+  <li><a href="#">Item</a></li>
+</ul>
+```
+  </div>
+  <div class="grid-content">
+    <ul class="vertical menu-bar">
+      <li><a href="#">Item</a></li>
+      <li><a href="#">Item</a></li>
+      <li><a href="#">Item</a></li>
+    </ul>
+  </div>
+</div>
+
+The orientation classes also come in responsive flavors, allowing a menu bar to change orientation on different screen sizes. For example, the below menu will start out vertical on small screens and shift to horizontal on medium-sized screens and up.
+
+<div class="grid-block">
+  <div class="grid-content">
+```html
+<ul class="vertical medium-horizontal menu-bar">
+  <li><a href="#">Item</a></li>
+  <li><a href="#">Item</a></li>
+  <li><a href="#">Item</a></li>
+</ul>
+```
+  </div>
+  <div class="grid-content">
+    <ul class="vertical medium-horizontal menu-bar">
+      <li><a href="#">Item</a></li>
+      <li><a href="#">Item</a></li>
+      <li><a href="#">Item</a></li>
+    </ul>
+  </div>
+</div>
+
+<h4>Spacing</h4>
+
+The items of the menu bar automatically space out evenly. The items can also be condensed on the left instead of spread out, by adding the `condensed` class to the menu bar container.
+
+<div class="grid-block">
+  <div class="grid-content">
+```html
+<ul class="condense menu-bar">
+  <li><a href="#">Item</a></li>
+  <li><a href="#">Item</a></li>
+  <li><a href="#">Item</a></li>
+</ul>
+```
+  </div>
+  <div class="grid-content">
+    <ul class="condense menu-bar">
+      <li><a href="#">Item</a></li>
+      <li><a href="#">Item</a></li>
+      <li><a href="#">Item</a></li>
+    </ul>
+  </div>
+</div>
+
+<h4>Coloring</h4>
+
+<p>The menu bar can be recolored to be dark, or match your primary color.</p>
+
+<div class="grid-block">
+  <div class="grid-content">
+```html
+<ul class="dark menu-bar">
+  <li><a href="#">Dark</a></li>
+  <li><a href="#">Menu</a></li>
+  <li><a href="#">Bar</a></li>
+</ul>
+<ul class="primary menu-bar">
+  <li><a href="#">Primary</a></li>
+  <li><a href="#">Menu</a></li>
+  <li><a href="#">Bar</a></li>
+</ul>
+```
+  </div>
+  <div class="grid-content">
+    <ul class="dark menu-bar">
+      <li><a href="#">Dark</a></li>
+      <li><a href="#">Menu</a></li>
+      <li><a href="#">Bar</a></li>
+    </ul>
+    <ul class="primary menu-bar">
+      <li><a href="#">Primary</a></li>
+      <li><a href="#">Menu</a></li>
+      <li><a href="#">Bar</a></li>
+    </ul>
+  </div>
+</div>
+
+<h4>Icons</h4>
+
+The menu bar supports icons, which can be positioned above, below, to the left, or to the right of the text. Icons can also be used standalone.
+
+<ul class="primary menu-bar">
+  <li><a href="#"><img zf-iconic data-src="/assets/img/iconic/ban.svg"> Delete</a></li>
+  <li><a href="#"><img zf-iconic data-src="/assets/img/iconic/ban.svg"> Delete</a></li>
+  <li><a href="#"><img zf-iconic data-src="/assets/img/iconic/ban.svg"> Delete</a></li>
 </ul>
 
-<ul class="primary menu-bar label-corner icon-left">
-  <li><a href="#"><img src="http://placehold.it/1x1">Eggs</a><span class="menu-bar-label">1</span></li>
-  <li><a href="#"><img src="http://placehold.it/1x1">Bacon</a></li>
-  <li><a href="#"><img src="http://placehold.it/1x1">Sausage</a></li>
-  <li><a href="#"><img src="http://placehold.it/1x1">Pancakes</a></li>
-</ul>
+By default, the icon is positioned above the text. However, this can be changed by adding the classes `icon-left`, `icon-right`, or `icon-bottom` to the menu bar container.
 
-<ul class="dark vertical menu-bar icon-bottom">
-  <li><a href="#"><img src="http://placehold.it/1x1">Eggs</a></li>
-  <li><a href="#"><img src="http://placehold.it/1x1">Bacon</a></li>
-  <li><a href="#"><img src="http://placehold.it/1x1">Sausage</a></li>
-  <li><a href="#"><img src="http://placehold.it/1x1">Pancakes</a></li>
+<div class="grid-block">
+  <div class="grid-content">
+```html
+<ul class="icon-left primary menu-bar">
+  <li><a href="#"><img zf-iconic data-src="/assets/img/iconic/ban.svg"> Delete</a></li>
+  <li><a href="#"><img zf-iconic data-src="/assets/img/iconic/ban.svg"> Delete</a></li>
+  <li><a href="#"><img zf-iconic data-src="/assets/img/iconic/ban.svg"> Delete</a></li>
 </ul>
+```
+  </div>
+  <div class="grid-content">
+    <ul class="icon-left primary menu-bar">
+      <li><a href="#"><img zf-iconic data-src="/assets/img/iconic/ban.svg"> Delete</a></li>
+      <li><a href="#"><img zf-iconic data-src="/assets/img/iconic/ban.svg"> Delete</a></li>
+      <li><a href="#"><img zf-iconic data-src="/assets/img/iconic/ban.svg"> Delete</a></li>
+    </ul>
+    <ul class="icon-right dark menu-bar">
+      <li><a href="#"><img zf-iconic data-src="/assets/img/iconic/ban.svg"> Delete</a></li>
+      <li><a href="#"><img zf-iconic data-src="/assets/img/iconic/ban.svg"> Delete</a></li>
+      <li><a href="#"><img zf-iconic data-src="/assets/img/iconic/ban.svg"> Delete</a></li>
+    </ul>
+  </div>
+</div>
+
+These classes can also be used responsively! In the below code example, the menu bar's icons are top-aligned on small screens, and left-aligned on large screens.
+
+<div class="grid-block">
+  <div class="grid-content">
+```html
+<ul class="icon-top large-icon-left menu-bar">
+  <li><a href="#"><img zf-iconic data-src="/assets/img/iconic/ban.svg"> Delete</a></li>
+  <li><a href="#"><img zf-iconic data-src="/assets/img/iconic/ban.svg"> Delete</a></li>
+  <li><a href="#"><img zf-iconic data-src="/assets/img/iconic/ban.svg"> Delete</a></li>
+</ul>
+```
+  </div>
+  <div class="grid-content">
+    <ul class="icon-top large-icon-left menu-bar">
+      <li><a href="#"><img zf-iconic data-src="/assets/img/iconic/ban.svg"> Delete</a></li>
+      <li><a href="#"><img zf-iconic data-src="/assets/img/iconic/ban.svg"> Delete</a></li>
+      <li><a href="#"><img zf-iconic data-src="/assets/img/iconic/ban.svg"> Delete</a></li>
+    </ul>
+  </div>
+</div>

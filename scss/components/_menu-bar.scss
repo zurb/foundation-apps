@@ -141,30 +141,25 @@ $menubar-icon-spacing: $menubar-item-padding !default;
       a {
         flex-flow: row nowrap;
         align-items: center;
-        img, .iconic { margin-right: $menubar-icon-spacing; }
-      }
-    }
-    @else {
-      a {
-        img, .iconic { margin-right: 0; }
+        img, .iconic { margin: 0 $menubar-icon-spacing 0 0; }
       }
     }
     @if $position == top {
       a {
         flex-flow: column nowrap;
-        img, .iconic { margin-bottom: $menubar-icon-spacing; }
+        img, .iconic { margin: 0 0 $menubar-icon-spacing 0; }
       }
     }
     @if $position == right {
       a {
         flex-flow: row-reverse nowrap;
-        img, .iconic { margin-left: $menubar-icon-spacing; }
+        img, .iconic { margin: 0 0 0 $menubar-icon-spacing; }
       }
     }
     @if $position == bottom {
       a {
         flex-flow: column-reverse nowrap;
-        img, .iconic { margin-top: $menubar-icon-spacing; }
+        img, .iconic { margin: $menubar-icon-spacing 0 0 0; }
       }
     }
   }
@@ -253,7 +248,9 @@ $menubar-icon-spacing: $menubar-item-padding !default;
   &.icon-left   { @include menu-bar-icons(left); }
   @each $size in $breakpoint-classes {
     @each $pos in (top, right, bottom, left) {
-      .#{$size}-icon-#{$pos} { @include menu-bar-icons($pos); }
+      @include breakpoint($size) {
+        &.#{$size}-icon-#{$pos} { @include menu-bar-icons($pos); }
+      }
     }
   }
 
