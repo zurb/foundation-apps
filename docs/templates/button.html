@@ -3,10 +3,10 @@ name: button
 url: /button
 ---
 
-## Button
+<h2>Button</h2>
 <h3 class="subheader">Get more controll with our buttons. Foundation has many easy to use button styles that you can customize or override to fit your needs.</h3>
 
-***
+<hr />
 
 <div class="grid-block">
 	<div class="small-12 grid-content">
@@ -22,14 +22,10 @@ url: /button
 	</div>
 </div>
 
-***
+<hr />
 
-### Basic HTML
-You can create buttons with this basic HTML
-<ul class="segmented button-group small">
-  <li class="is-active"><a href="#">CSS Classes</a></li>
-  <li><a href="#">Sass Mixins</a></li>
-</ul>
+<h3>Basic HTML</h3>
+<p>You can create buttons with this basic HTML</p>
 <div class="grid-block">
   <div class="medium-6 grid-content">
 
@@ -43,12 +39,8 @@ You can create buttons with this basic HTML
   </div>
 </div>
 
-### Colors
-You can create buttons of various colors with these classes:
-<ul class="segmented button-group">
-  <li class="is-active"><a href="#">CSS Classes</a></li>
-  <li><a href="#">Sass Mixins</a></li>
-</ul>
+<h3>Colors</h3>
+<p>You can create buttons of various colors with these classes:</p>
 <div class="grid-block">
   <div class="medium-6 grid-content">
     <pre>
@@ -71,12 +63,8 @@ You can create buttons of various colors with these classes:
   </div>
 </div>
 
-### Size
-You can customize button sizing with these classes:
-<ul class="segmented button-group">
-  <li class="is-active"><a href="#">CSS Classes</a></li>
-  <li><a href="#">Sass Mixins</a></li>
-</ul>
+<h3>Size</h3>
+<p>You can customize button sizing with these classes:</p>
 <div class="grid-block">
   <div class="medium-6 grid-content">
     <pre>
@@ -103,12 +91,8 @@ You can customize button sizing with these classes:
   </div>
 </div>
 
-### Disabled Button
-Adding a class of .disabled will disable the pointer &amp; hover state, while also changing the color.
-<ul class="segmented button-group">
-  <li class="is-active"><a href="#">CSS Classes</a></li>
-  <li><a href="#">Sass Mixins</a></li>
-</ul>
+<h3>Disabled Button</h3>
+<p>Adding a class of .disabled will disable the pointer &amp; hover state, while also changing the color.</p>
 <div class="grid-block">
   <div class="medium-6 grid-content">
 		<pre>
@@ -122,49 +106,96 @@ Adding a class of .disabled will disable the pointer &amp; hover state, while al
 	</div>
 </div>
 
-### Customize with Sass
-Buttons can be easily customized using our Sass variables.
+<h3>Button Groups</h3>
+<p>Buttons can be turned into button groups which strings buttons together.</p>
+<div class="grid-block">
+  <div class="medium-6 grid-content">
+    <pre>
+      <code class="language-html">
+<a href="#" class="button disabled">Disabled Button</a>
+      </code>
+    </pre>
+  </div>
+  <div class="medium-6 grid-content">
+    <ul class="button-group">
+      <li><a href="#">Button a</a></li>
+      <li><a href="#">Button b</a></li>
+      <li><a href="#">Button c</a></li>
+    </ul>
+  </div>
+</div>
+
+<h3>Button Group Sizing &amp; colors</h3>
+<p>Button groups can have sizing modifiers applied straight to the ul.</p>
+<div class="grid-block">
+  <div class="medium-6 grid-content">
+    <pre>
+      <code class="language-html">
+<ul class="button-group [tiny small large secondary success warning alert]">
+  <li><a href="#">Button a</a></li>
+  <li><a href="#">Button b</a></li>
+  <li><a href="#">Button c</a></li>
+</ul>
+      </code>
+    </pre>
+  </div>
+  <div class="medium-6 grid-content">
+    <ul class="button-group small success">
+      <li><a href="#">Button a</a></li>
+      <li><a href="#">Button b</a></li>
+      <li><a href="#">Button c</a></li>
+    </ul>
+  </div>
+</div>
+
+<h3>Button Group Segmented</h3>
+<p>Button groups can have a segemented look with an active class applied.</p>
+<div class="grid-block">
+  <div class="medium-6 grid-content">
+    <pre>
+      <code class="language-html">
+<ul class="button-group segmented">
+  <li class="is-active"><a href="#">Button a</a></li>
+  <li><a href="#">Button b</a></li>
+  <li><a href="#">Button c</a></li>
+</ul>
+      </code>
+    </pre>
+  </div>
+  <div class="medium-6 grid-content">
+    <ul class="button-group segmented">
+      <li class="is-active"><a href="#">Button a</a></li>
+      <li><a href="#">Button b</a></li>
+      <li><a href="#">Button c</a></li>
+    </ul>
+  </div>
+</div>
+
+<h3>Customize with Sass</h3>
+<p>Buttons can be easily customized using our Sass variables.</p>
 <div class="grid-block">
   <div class="small-12 grid-content">
 		<pre>
 		  <code class="language-html">
-$include-html-button-classes: $include-html-classes;
+        $button-padding: 0.85em 1em !default;
+        $button-margin: 0 $global-padding $global-padding 0 !default;
+        $button-style: solid !default;
+        $button-background: $primary-color !default;
+        $button-color: auto !default;
+        $button-radius: 0 !default;
+        $button-sizes: (
+          tiny: 0.7,
+          small: 0.8,
+          medium: 1,
+          large: 1.3,
+        ) !default;
+        $button-font-size: 0.9rem !default;
+        $button-opacity-disabled: 0.8 !default;
+        $button-tag-selector: true !default;
 
-<span class="comment">// We use these to build padding for buttons.</span>
-$button-med: rem-calc(12);
-$button-tny: rem-calc(7);
-$button-sml: rem-calc(9);
-$button-lrg: rem-calc(16);
-
-<span class="comment">// We use this to control the display property.</span>
-$button-display: inline-block;
-$button-margin-bottom: rem-calc(20);
-
-<span class="comment">// We use these to control button text styles.</span>
-$button-font-family: inherit;
-$button-font-color: #fff;
-$button-font-color-alt: #333;
-$button-font-med: rem-calc(16);
-$button-font-tny: rem-calc(11);
-$button-font-sml: rem-calc(13);
-$button-font-lrg: rem-calc(20);
-$button-font-weight: bold;
-$button-font-align: center;
-
-<span class="comment">// We use these to control various hover effects.</span>
-$button-function-factor: 10%;
-
-<span class="comment">// We use these to control button border styles.</span>
-$button-border-width: 1px;
-$button-border-style: solid;
-
-<span class="comment">// We use this to set the default radius used throughout the core.</span>
-$button-radius: $global-radius;
-$button-round: $global-rounded;
-
-<span class="comment">// We use this to set default opacity and cursor for disabled buttons.</span>
-$button-disabled-opacity: 0.6;
-$button-disabled-cursor: $cursor-default-value;
+        $btngroup-background: $primary-color !default;
+        $btngroup-color: #fff !default;
+        $btngroup-radius: $button-radius !default;
 		  </code>
 		</pre>
 	</div>
