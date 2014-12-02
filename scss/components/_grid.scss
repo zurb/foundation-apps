@@ -205,7 +205,6 @@ $block-grid-max-size: 6;
   right: auto;
   bottom: auto;
   left: auto;
-  padding: 0;
 }
 
 /*
@@ -252,7 +251,7 @@ $block-grid-max-size: 6;
 @mixin grid-content($size: expand, $offset: null, $order: null) {
 	// Content blocks are not flex items and have padding
 	display: block;
-	padding: 1rem;
+	padding: 0 $block-padding;
 
   // Add scrolling with inertia
   overflow-y: auto;

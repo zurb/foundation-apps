@@ -268,24 +268,9 @@ $acronym-underline: 1px dotted #ddd !default;
     font-family: $list-font-family;
   }
 
-  ul {
-    margin-left: $list-side-margin;
-    &.no-bullet {
-      list-style-type: none;
-      margin-left: $list-side-margin-no-bullet;
-      li {
-        ul,
-        ol {
-          margin-left: $list-nested-margin;
-          margin-bottom: 0;
-          list-style-type: none;
-        }
-      }
-    }
-  }
-
-  /* Unordered Lists */
+  /* Lists */
   ul, ol {
+    margin-left: $list-side-margin;
     li {
       ul,
       ol {
@@ -293,6 +278,14 @@ $acronym-underline: 1px dotted #ddd !default;
         margin-bottom: 0;
       }
     }
+  }
+
+  /* Lists without bullets */
+  ul.no-bullet {
+    &, li ul, li ol {
+      list-style-type: none;
+    }
+    margin-left: $list-side-margin-no-bullet;
   }
 
   /* Definition Lists */
