@@ -3,36 +3,34 @@ name: modal
 url: /modal
 ---
 
-## Modal
+<h2>Modal</h2>
 <h3 class="subheader">Modal dialogs, or pop-up windows, are handy for prototyping and production. It focusses the user on the modal content. You can add images, links, and even a grid inside.</h3>
 
-<div class="grid-block">
-  <div class="small-12 grid-content">
+<hr>
 	<a class="button" href="#" zf-open="mainModal">Open modal</a>
-	<zf-modal id="mainModal" overlay="true">
-	  <a href="#" zf-close>&times;</a>
-	  <section class="grid-content">
-	    <img src="http://www.dumpaday.com/wp-content/uploads/2011/12/funny-meme-pictures.jpg">
-	  </section>
-	  <footer class="grid-content menu-bar">
-	    <span class="button" zf-close>Ok</span>
-	    <span class="button" zf-close>Cancel</span>
-	  </footer>
+	<zf-modal size="small" id="mainModal" overlay="true">
+    <div class="grid-block vertical">
+      <div class="primary title-bar">
+        <div class="center title">Title Bar</div>
+        <span zf-close class="left"><a href="#">Close</a></span>
+        <span zf-close class="right"><a href="#">Done</a></span>
+      </div>
+      <div class="grid-content">
+	     <p>
+        <img src="http://www.dumpaday.com/wp-content/uploads/2011/12/funny-meme-pictures.jpg">
+        </p>
+	     <span class="button" zf-close>Ok</span>
+	     <span class="button" zf-close>Cancel</span>
+      </div>
+	  </div>
 	</zf-modal>
-  </div>
-</div>
+<hr>
 
-***
-
-### Basic HTML
-You can create a Modal with this basic HTML
-<ul class="segmented button-group small">
-  <li class="is-active"><a href="#">CSS Classes</a></li>
-  <li><a href="#">Sass Mixins</a></li>
-</ul>
+<h3>Basic HTML</h3>
+<p>You can create a Modal with this basic HTML</p>
 <div class="grid-block">
   <div class="medium-6 grid-content">
-```html
+<hljs>
 <a href="#" zf-open="basicModal">Open modal</a>
 
 <zf-modal id="basicModal" overlay="true">
@@ -41,8 +39,8 @@ You can create a Modal with this basic HTML
     <p>Back in my days...</p>
     <p>There were 3 Star Wars movies and Disney only made cartoons.</p>
   </section>
-</zf-modal>
-```
+<zf-modal>
+</hljs>
   </div>
   <div class="medium-6 grid-content">
     <a href="#" zf-open="basicModal">Open modal</a>
@@ -57,18 +55,16 @@ You can create a Modal with this basic HTML
   </div>
 </div>
 
-### Advanced HTML
-You can trigger the Modal close &amp; open with a link or button
-<ul class="segmented button-group">
-  <li class="is-active"><a href="#">CSS Classes</a></li>
-  <li><a href="#">Sass Mixins</a></li>
-</ul>
+<hr>
+
+<h3>Advanced HTML</h3>
+<p>You can trigger the Modal close &amp; open with a link or button</p>
 <div class="grid-block">
   <div class="medium-6 grid-content">
 
-```html
+<hljs>
 <a class="button" href="#" zf-open="advancedModal">Open modal</a>
-<zf-modal id="advancedModal" overlay="true">
+<zf-modal class="small" id="advancedModal" overlay="false">
   <a href="#" zf-close>&times;</a>
   <section class="grid-content">
     <p>Add a button to close the modal.</p>
@@ -78,12 +74,12 @@ You can trigger the Modal close &amp; open with a link or button
     <span class="button" zf-close>Cancel</span>
   </footer>
 </zf-modal>
-```
+</hljs>
 
   </div>
   <div class="medium-6 grid-content">
-    <a class="button" href="#" zf-open="mainModal">Open modal</a>
-		<zf-modal id="mainModal" overlay="true">
+    <a class="button" href="#" zf-open="advancedModal">Open modal</a>
+		<zf-modal class="small" id="advancedModal" overlay="false">
 		  <a href="#" zf-close>&times;</a>
 		  <section class="grid-content">
 		    <img src="http://www.dumpaday.com/wp-content/uploads/2011/12/funny-meme-pictures.jpg">
@@ -96,67 +92,74 @@ You can trigger the Modal close &amp; open with a link or button
   </div>
 </div>
 
-### Sizing Class
+<hr>
 
-Use these classes affect the width of the Modal
-```html
+<h3>Sizing Class</h3>
+<p>Use these classes to affect the width of the Modal</p>
+<hljs>
 tiny: 300px
 small: 500px
 medium: 600px (default)
 large: 800px
-```
+</hljs>
 
-***
+<hr>
 
-### Angular
+<h3>Angular</h3>
 
 <p class="subheader">Foundation has some great helpers that foster better interaction between elements.
 
-#### Custom Helpers
+<h4>Custom Helpers</h4>
 
-**zf-close**
-zf-close looks for a parent element that has the `zf-closeable` tag on it. This tag is added automatically for all directives that can be closed with `zf-close`. When clicked, the directive will send a message via the FoundationApi to close its parent `zf-closeable` element.
+<strong>zf-close</strong>
+<p>zf-close looks for a parent element that has the `zf-closeable` tag on it. This tag is added automatically for all directives that can be closed with `zf-close`. When clicked, the directive will send a message via the FoundationApi to close its parent `zf-closeable` element.</p>
 
-```html
+<hljs>
 <zf-modal id="pageModal" overlay="true">
   <a href="#" zf-close>&times;</a>
 </zf-modal>
-```
+</hljs>
 
-Note that you can specify the ID of a specific closeable directive in order to close it remotely (whether it's a parent, child, or has any other relationship to the closeable directive).
+<p>Note that you can specify the ID of a specific closeable directive in order to close it remotely (whether it's a parent, child, or has any other relationship to the closeable directive).</p>
 
-```html
+<hljs>
 <a href="#" zf-close="pageModal">&times;</a>
 <zf-modal id="pageModal" overlay="true"></zf-modal>
-```
+</hljs>
 
-**zf-open**
-The counter to `zf-close`, `zf-open` sends a signal to a directive that can be trigger through this method. Simply specify the ID of the target element.
+<strong>zf-open</strong>
+<p>The counter to `zf-close`, `zf-open` sends a signal to a directive that can be trigger through this method. Simply specify the ID of the target element.</p>
 
-```html
+<hljs>
 <a href="#" zf-open="pageModal">Open Modal</a>
 <zf-modal id="pageModal" overlay="true"></zf-modal>
-```
+</hljs>
 
-**zf-toggle**
-Similar to the previous two, `zf-toggle` sends a toggle command to a directive that can accept it. A target has to be specified in order for it to work.
+<strong>zf-toggle</strong>
+<p>Similar to the previous two, `zf-toggle` sends a toggle command to a directive that can accept it. A target has to be specified in order for it to work.</p>
 
-```html
+<hljs>
 <a href="#" zf-toggle="pageModal">Toggle Modal</a>
 <zf-modal id="pageModal" overlay="true"></zf-modal>
-```
+</hljs>
 
-### Sass Variables
-You can customize with...
-```scss
-$modal-background: #fff;
-$modal-border: 0;
-$modal-radius: 0px;
-$modal-shadow: none;
-$modal-zindex: 1000;
+<hr>
+
+<h3>Sass Variables</h3>
+<p>You can customize with the sass in the _settings.scss file </p>
+<hljs>
+$modal-background: #fff !default;
+$modal-border: 0 !default;
+$modal-radius: 0px !default;
+$modal-shadow: none !default;
+$modal-zindex: 1000 !default;
 $modal-sizes: (
   tiny: 300px,
   small: 500px,
   medium: 600px,
-  large: 800px,);
-```
+  large: 800px,
+) !default;
+
+$modal-overlay-class: 'modal-overlay' !default;
+$modal-overlay-background: rgba(#333, 0.7) !default;
+</hljs>
