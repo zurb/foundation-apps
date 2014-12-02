@@ -432,7 +432,7 @@ hr {
     .learn-links, .support-links, .connect-links {
       padding: 50px 0 0 0;
       border-left: 1px solid rgba(255, 255, 255, 0.2);
-      background: url("../images/icons/footer-top-icons.png") no-repeat center 0;
+      background: url("../img/footer-top-icons.png") no-repeat center 0;
       height: 220px;
       margin-bottom: 30px;
       ul {
@@ -474,16 +474,16 @@ hr {
       display: block;
       margin: 30px 0 0 0;
       &.services {
-        background: url("../images/icons/footer-studios.png") left top no-repeat;
+        background: url("../img/footer-studios.png") left top no-repeat;
       }
       &.foundation {
-        background: url("../images/icons/footer-foundation.png") left top no-repeat;
+        background: url("../img/footer-foundation.png") left top no-repeat;
       }
       &.apps {
-        background: url("../images/icons/footer-products.png") left top no-repeat;
+        background: url("../img/footer-products.png") left top no-repeat;
       }
       &.expo {
-        background: url("../images/icons/footer-expo.png") left top no-repeat;
+        background: url("../img/footer-expo.png") left top no-repeat;
       }
       span {
         display: block;
@@ -513,7 +513,7 @@ hr {
   a.zurb-logo {
     color: #858585;
     font-weight: normal;
-    background: url("../images/icons/footer-icons.png") no-repeat 0 3px;
+    background: url("../img/footer-icons.png") no-repeat 0 3px;
     padding: 25px 0 0 0;
     font-size: 16px;
     display: inline-block;
@@ -563,7 +563,7 @@ hr {
         display: block;
         height: 50px;
         width: 50px;
-        background: url("../images/icons/social.png") no-repeat center 0;
+        background: url("../img/social.png") no-repeat center 0;
         &:hover {
           opacity: 0.8;
         }
@@ -710,11 +710,11 @@ hr {
 /* Retina Images */
 @media only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2) {
   .zurb-footer-top .info-padding {
-    background-image: url("../images/icons/footer-large-icon-retina.png");
+    background-image: url("../img/footer-large-icon-retina.png");
     background-size: 100px 400px;
   }
   .zurb-footer-bottom ul.home-social li a {
-    background-image: url("../images/icons/social-retina.png");
+    background-image: url("../img/social-retina.png");
     background-size: 50px 600px;
   }
   .zurb-footer-top .global .footer-link-block {
@@ -722,35 +722,35 @@ hr {
     display: block;
     margin: 30px 0 0 0;
     &.services {
-      background: url("../images/icons/footer-studios-retina.png") left top no-repeat;
+      background: url("../img/footer-studios-retina.png") left top no-repeat;
     }
     &.foundation {
-      background: url("../images/icons/footer-foundation-retina.png") left top no-repeat;
+      background: url("../img/footer-foundation-retina.png") left top no-repeat;
     }
     &.apps {
-      background: url("../images/icons/footer-products-retina.png") left top no-repeat;
+      background: url("../img/footer-products-retina.png") left top no-repeat;
     }
     &.expo {
-      background: url("../images/icons/footer-expo-retina.png") left top no-repeat;
+      background: url("../img/footer-expo-retina.png") left top no-repeat;
     }
   }
   .zurb-footer-bottom a.zurb-logo {
-    background-image: url("../../images/icons/footer-icons-retina.png");
+    background-image: url("../../img/footer-icons-retina.png");
     background-size: 100px 1400px;
   }
   .zurb-footer-top .property .learn-links, .zurb-footer-top .property .support-links, .zurb-footer-top .property .connect-links {
-    background-image: url("../images/icons/footer-top-icons-retina.png");
+    background-image: url("../img/footer-top-icons-retina.png");
     background-size: 100px 1400px;
   }
 }
 
 @media only screen and (max-width: 320px), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2) {
   .zurb-footer-top .info-padding {
-    background-image: url("../images/icons/footer-large-icon-retina.png");
+    background-image: url("../img/footer-large-icon-retina.png");
     background-size: 100px 400px;
   }
   .zurb-footer-bottom ul.home-social li a {
-    background-image: url("../images/icons/social-retina.png");
+    background-image: url("../img/social-retina.png");
     background-size: 50px 600px;
   }
   .zurb-footer-top .global .footer-link-block {
@@ -758,28 +758,28 @@ hr {
     display: block;
     margin: 30px 0 0 0;
     &.services {
-      background: url("../images/icons/footer-studios-retina.png") left top no-repeat;
+      background: url("../img/footer-studios-retina.png") left top no-repeat;
       background-size: 30px;
     }
     &.foundation {
-      background: url("../images/icons/footer-foundation-retina.png") left top no-repeat;
+      background: url("../img/footer-foundation-retina.png") left top no-repeat;
       background-size: 30px;
     }
     &.apps {
-      background: url("../images/icons/footer-products-retina.png") left top no-repeat;
+      background: url("../img/footer-products-retina.png") left top no-repeat;
       background-size: 30px;
     }
     &.expo {
-      background: url("../images/icons/footer-expo-retina.png") left top no-repeat;
+      background: url("../img/footer-expo-retina.png") left top no-repeat;
       background-size: 30px;
     }
   }
   .zurb-footer-bottom a.zurb-logo {
-    background-image: url("../images/icons/footer-icons-retina.png");
+    background-image: url("../img/footer-icons-retina.png");
     background-size: 100px 1400px;
   }
   .zurb-footer-top .property .support-links, .zurb-footer-top .property .connect-links {
-    background-image: url("../images/icons/footer-top-icons-retina.png");
+    background-image: url("../img/footer-top-icons-retina.png");
     background-size: 100px 1400px;
   }
 }
