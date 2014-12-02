@@ -1,12 +1,14 @@
 ---
 name: action-sheet
 url: /action-sheet
+animateIn:  fadeIn
+animateOut: fadeOut
 ---
 
-## Action Sheet
-<h3 class="subheader">Action sheets can be triggered in your app view to providing contextual actions on a component.</h3>
+<h2>Action Sheet</h2>
+<h3 class="subheader">Action sheets can be triggered in your app view to providing contextual actions on a component. They act as slide up menus on small devices and drop downs on larger screens.</h3>
 
-***
+<hr />
 
 <div zf-action-sheet>
   <div zf-as-button title="Action Sheet"></div>
@@ -14,22 +16,80 @@ url: /action-sheet
     <p>Tap to share</p>
     <ul>
       <li><a href="#">Twitter</a></li>
-      <li caution><a href="#">Facebook</a></li>
-      <li disabled><a href="#">Mail</a></li>
+      <li><a href="#">Facebook</a></li>
+      <li><a href="#">Mail</a></li>
     </ul>
   </div>
 </div>
 
-```html
+<hr />
+
+<h3>Basic HTML</h3>
+<p>You can create an actionsheet with this basic directive.</p>
+<div class="grid-block">
+  <div class="medium-6 grid-content">
+
+````html
 <div zf-action-sheet>
-  <div zf-as-button title="Action Sheet"></div>
+  <div zf-as-button title="I'm an Action Sheet"></div>
   <div zf-as-content position="bottom">
     <p>Tap to share</p>
     <ul>
       <li><a href="#">Twitter</a></li>
-      <li caution><a href="#">Facebook</a></li>
-      <li disabled><a href="#">Mail</a></li>
+      <li><a href="#">Facebook</a></li>
+      <li><a href="#">Mail</a></li>
     </ul>
   </div>
 </div>
-```
+````
+  </div>
+  <div class="medium-6 grid-content">
+    <div zf-action-sheet>
+      <div zf-as-button title="I'm an Action Sheet"></div>
+      <div zf-as-content position="bottom">
+        <p>Tap to share</p>
+        <ul>
+          <li><a href="#">Twitter</a></li>
+          <li><a href="#">Facebook</a></li>
+          <li><a href="#">Mail</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr />
+
+<h3>Additional Options</h3>
+<p>To use a custom buttom, ammend the `zf-as-button` declaration with your custom HTML like so:</p>
+
+````html
+<a href="#" zf-toggle="my-actionsheet">toggle</a>
+<zf-action-sheet id="my-actionsheet">
+  <zf-as-button>my button goes here</zf-as-button>
+  <zf-as-content position="bottom">
+    My content goes here
+  </zf-as-content>
+</zf-action-sheet>
+````
+<hr />
+
+<h3>Sass Variables</h3>
+<p>You can customize with [Item] with these variables in _settings.scss:</p>
+
+````html
+$actionsheet-background: white !default;
+$actionsheet-border-color: #ccc !default;
+$actionsheet-animate: transform opacity !default;
+$actionsheet-animation-speed: 0.25s !default;
+$actionsheet-width: 300px !default;
+$actionsheet-radius: 4px !default;
+$actionsheet-shadow: 0 -3px 10px rgba(black, 0.25) !default;
+$actionsheet-padding: $global-padding !default;
+$actionsheet-tail-size: 10px !default;
+
+$actionsheet-popup-shadow: 0 0 10px rgba(black, 0.25) !default;
+
+$actionsheet-link-color: #000 !default;
+$actionsheet-link-background-hover: smartscale($actionsheet-background) !default;
+````
