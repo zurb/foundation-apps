@@ -10,8 +10,6 @@ angular.module('foundation.popup')
       scope: {
         pinTo: '@?',
         pinAt: '@?',
-        footer: '@?',
-        title: '@?'
       },
       link: function(scope, element, attrs) {
         scope.active = false;
