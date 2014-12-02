@@ -114,8 +114,10 @@ gulp.task('uglify-angular', function() {
     'bower_components/ui-router/release/angular-ui-router.js',
     'bower_components/angular-highlightjs/angular-highlightjs.js',
     'bower_components/highlightjs/highlight.pack.js',
+    'docs/assets/js/angular.js',
     'js/vendor/**/*.js',
-    'js/angular/**/*.js'
+    'js/angular/**/*.js',
+    '!js/angular/app.js'
   ];
 
   return gulp.src(libs)
