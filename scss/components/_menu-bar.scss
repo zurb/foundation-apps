@@ -34,7 +34,7 @@ $menubar-icon-spacing: $menubar-item-padding !default;
   // Menu item
   li {
     // This flex setting makes each item an equal width
-    flex: 1;
+    flex: 1 0 auto;
     align-items: center;
 
     // Link inside menu item
