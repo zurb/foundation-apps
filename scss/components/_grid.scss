@@ -290,8 +290,10 @@ $block-grid-max-size: 6;
   // Orientation classes
   &.vertical { @include grid-orient(vertical); }
   @each $size in $breakpoint-classes {
-    &.#{$size}-vertical   { @include grid-orient(vertical); }
-    &.#{$size}-horizontal { @include grid-orient(horizontal); }
+    @include breakpoint($size) {
+      &.#{$size}-vertical   { @include grid-orient(vertical); }
+      &.#{$size}-horizontal { @include grid-orient(horizontal); }
+    }
   }
 
   // Block alignment
@@ -393,10 +395,8 @@ $block-grid-max-size: 6;
 				@include grid-order($i);
 			}
 			// Offsets
-			@if ($total-columns < 12) {
-				.#{$size}-offset-#{$i} {
-					@include grid-offset($i);
-				}
+			.#{$size}-offset-#{$i} {
+				@include grid-offset($i);
 			}
 			// Parent sizing (block grids)
 			// TODO: Make mixin

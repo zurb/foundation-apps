@@ -123,8 +123,7 @@ $menubar-icon-spacing: $menubar-item-padding !default;
 
 @mixin menu-bar-icons(
   $position: left,
-  $size: $menubar-icon-size,
-  $color: null
+  $size: $menubar-icon-size
 ) {
   li {
     // Sizing
