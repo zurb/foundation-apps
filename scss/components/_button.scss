@@ -3,7 +3,7 @@ $button-margin: 0 $global-padding $global-padding 0 !default;
 $button-style: solid !default;
 $button-background: $primary-color !default;
 $button-color: auto !default;
-$button-radius: 6px !default;
+$button-radius: 0 !default;
 $button-sizes: (
   tiny: 0.7,
   small: 0.8,
@@ -178,6 +178,15 @@ $button-tag-selector: true !default;
     &.success   { @include button-style($success-color) }
     &.warning   { @include button-style($warning-color) }
     &.alert     { @include button-style($alert-color) }
+
+    @if $button-style != hollow {
+      &.hollow { @include button-style($style: hollow);
+        &.secondary { @include button-style($secondary-color, $style: hollow); }
+        &.success   { @include button-style($success-color, $style: hollow); }
+        &.warning   { @include button-style($warning-color, $style: hollow); }
+        &.alert     { @include button-style($alert-color, $style: hollow); }
+      }
+    }
 
     &.disabled { @include button-disabled;
       &.secondary { @include button-disabled($secondary-color, false) }
