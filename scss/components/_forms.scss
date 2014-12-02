@@ -63,12 +63,13 @@ $meter-fill-low: $alert-color;
 $meter-radius: 0;
 
 // Disable OS-level styles
-%no-appearance {
+@mixin no-appearance {
   -webkit-appearance: none;
      -moz-appearance: none;
 }
 
 // Text fields
+// - - - - - - - - - - - - - - - - - - - - - - - - -
 #{$text-input-selectors} {
   display: block;
   width: 100%;
@@ -99,6 +100,7 @@ $meter-radius: 0;
 }
 
 // Labels
+// - - - - - - - - - - - - - - - - - - - - - - - - -
 label {
   display: block;
   font-size: $label-fontsize;
@@ -110,7 +112,9 @@ label {
   }
 }
 
+// Inline labels
 // Inline labels allow you to prefix or postfix special labels to inputs
+// - - - - - - - - - - - - - - - - - - - - - - - - -
 .inline-label {
   display: flex;
   flex-flow: row nowrap;
@@ -152,18 +156,20 @@ label {
   }
 }
 
-// Make sure textarea takes on height automatically
+// Text areas
+// - - - - - - - - - - - - - - - - - - - - - - - - -
 textarea {
   height: auto;
   width: 100%;
   min-height: 50px;
 }
 
-// Make select elements 100% width by default
+// Select menus
+// - - - - - - - - - - - - - - - - - - - - - - - - -
 select {
   $color: isitlight($select-background);
 
-  @extend %no-appearance;
+  @include no-appearance;
   display: block;
   width: 100%;
   padding: $form-padding;
@@ -189,13 +195,12 @@ select {
   }
 }
 
-/*
-  Range slider
-*/
+// Range slider
+// - - - - - - - - - - - - - - - - - - - - - - - - -
 input[type="range"] {
   $margin: ($slider-thumb-height - $slider-height) / 2;
 
-  @extend %no-appearance;
+  @include no-appearance;
   display: block;
   width: 100%;
   height: $slider-height;
@@ -262,9 +267,8 @@ output {
   margin-left: 0.5em;
 }
 
-/*
-  Number inputs
-*/
+// Number inputs
+// - - - - - - - - - - - - - - - - - - - - - - - - -
 input[type="number"] {
   &::-webkit-inner-spin-button {
 
@@ -275,11 +279,10 @@ input[type="number"] {
   }
 }
 
-/*
-  Progress and meter
-*/
+// Progress and meter
+// - - - - - - - - - - - - - - - - - - - - - - - - -
 progress, meter {
-  @extend %no-appearance;
+  @include no-appearance;
   display: block;
   width: 100%;
   height: $meter-height;
