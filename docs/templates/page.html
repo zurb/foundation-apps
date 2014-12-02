@@ -23,7 +23,7 @@ composed: true
     <div ng-class="['ui-animation' ]" ui-view></div>
   </div>
 </div>
-<div zf-modal id="pageModal" overlay="true" >
+<div zf-modal id="pageModal" overlay="true" animation-in="hingeInFromTop">
   <a href="#" zf-close>&times;</a>
   <section class="content block">
     {{ vars.name }} | {{ vars.url }}
