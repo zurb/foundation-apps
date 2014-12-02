@@ -49,7 +49,7 @@ angular.module('foundation.notification')
 }]);
 
 angular.module('foundation.notification')
-  .directive('zfNotification', function() {
+  .directive('zfNotification', ['FoundationApi', function(foundationApi) {
   return {
     restrict: 'EA',
     templateUrl: '/partials/notification.html',
@@ -77,12 +77,14 @@ angular.module('foundation.notification')
           var animationOut = attrs.animationOut || 'fadeOut';
 
 
-          //allow DOM to change before activating
-          scope.active = true;
-          foundationApi.animate(element, scope.active, animationIn, animationOut);
+          //due to dynamic insertion of DOM, we need to wait for it to show up and get working!
+          setTimeout(function() {
+            scope.active = true;
+            foundationApi.animate(element, scope.active, animationIn, animationOut);
+          }, 50);
 
           scope.remove = function() {
-            scope.active = true;
+            scope.active = false;
             foundationApi.animate(element, scope.active, animationIn, animationOut);
             setTimeout(function() {
               controller.removeNotification(scope.notifId);
@@ -92,7 +94,7 @@ angular.module('foundation.notification')
       };
     }
   };
-});
+}]);
 
 angular.module('foundation.notification')
   .directive('zfNotificationStatic', ['FoundationApi', function(foundationApi) {
@@ -108,45 +110,58 @@ angular.module('foundation.notification')
       position: '@?',
       color: '@?'
     },
-    link: function(scope, element, attrs, controller) {
-      scope.position = scope.position ? scope.position.split(' ').join('-') : 'top-right';
-      var animationIn = attrs.animationIn || 'fadeIn';
-      var animationOut = attrs.animationOut || 'fadeOut';
+    compile: function() {
+      var type = 'notification';
 
-      foundationApi.subscribe(attrs.id, function(msg) {
-        if(msg == 'show' || msg == 'open') {
-          scope.show();
-        } else if (msg == 'close' || msg == 'hide') {
-          scope.hide();
-        } else if (msg == 'toggle') {
-          scope.toggle();
+      return {
+        pre: function preLink(scope, iElement, iAttrs, controller) {
+          iAttrs.$set('zf-closable', type);
+        },
+        post: function(scope, element, attrs, controller) {
+          scope.position = scope.position ? scope.position.split(' ').join('-') : 'top-right';
+          var animationIn = attrs.animationIn || 'fadeIn';
+          var animationOut = attrs.animationOut || 'fadeOut';
+
+          foundationApi.subscribe(attrs.id, function(msg) {
+            if(msg == 'show' || msg == 'open') {
+              scope.show();
+            } else if (msg == 'close' || msg == 'hide') {
+              scope.hide();
+            } else if (msg == 'toggle') {
+              scope.toggle();
+            }
+
+            scope.$apply();
+
+            return;
+          });
+
+          scope.hide = function() {
+            scope.active = false;
+            foundationApi.animate(element, scope.active, animationIn, animationOut);
+            return;
+          };
+
+          scope.remove = function() {
+            scope.hide();
+            foundationApi.animate(element, scope.active, animationIn, animationOut);
+          };
+
+          scope.show = function() {
+            scope.active = true;
+            foundationApi.animate(element, scope.active, animationIn, animationOut);
+            return;
+          };
+
+          scope.toggle = function() {
+            scope.active = !scope.active;
+            foundationApi.animate(element, scope.active, animationIn, animationOut);
+            return;
+          };
+
         }
-
-        foundationApi.animate(element, scope.active, animationIn, animationOut);
-
-        scope.$apply();
-
-        return;
-      });
-
-      scope.hide = function() {
-        scope.active = false;
-        return;
-      };
-
-      scope.remove = function() { scope.hide(); };
-
-      scope.show = function() {
-        scope.active = true;
-        return;
-      };
-
-      scope.toggle = function() {
-        scope.active = !scope.active;
-        return;
-      };
-
-    },
+      }
+    }
   };
 }]);
 
