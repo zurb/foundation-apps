@@ -136,5 +136,9 @@ $include-html-global-classes: $include-html-classes !default;
       embed,
       object { max-width: none !important; }
     }
+
+    .padding {
+      padding: $global-padding;
+    }
   }
 }

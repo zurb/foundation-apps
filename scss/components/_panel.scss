@@ -13,7 +13,7 @@
 
 $panel-size-horizontal: 300px !default;
 $panel-size-vertical: 300px !default;
-$panel-padding: $global-padding !default;
+$panel-padding: 0 !default;
 
 $panel-background: #fff !default;
 $panel-shadow: 3px 0 10px rgba(black, 0.25) !default;
@@ -74,9 +74,14 @@ $panel-animation-speed: 0.25s !default;
   */
   // Horizontal panels are always all the way tall and have a set width
   @if $position == left or $position == right {
-    width: 100%;
-    @include breakpoint($size) {
+    @if unit($size) == '%' {
       width: $size;
+    }
+    @else {
+      width: 100%;
+      @include breakpoint($size) {
+        width: $size;
+      }
     }
   }
   // (For now) vertical panels don't change size
@@ -128,4 +133,3 @@ $panel-animation-speed: 0.25s !default;
 
   .panel-fixed  { position: fixed; }
 }
-

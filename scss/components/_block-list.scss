@@ -227,7 +227,7 @@ $blocklist-check-icons: true !default;
     > a, > span, > label {
       padding-left: (get-side($blocklist-item-padding, left) * 2) + $blocklist-item-icon-size;
     }
-    img {
+    img, .iconic {
       position: absolute;
       top: $icon-offset;
       left: $icon-offset;

@@ -28,7 +28,7 @@ angular.module('foundation.actionsheet')
     restrict: 'A',
     transclude: true,
     replace: true,
-    templateUrl: '/partials/actionsheet.html',
+    templateUrl: 'partials/actionsheet.html',
     controller: 'ZfActionSheetController',
     compile: function compile() {
 
@@ -61,7 +61,7 @@ angular.module('foundation.actionsheet')
     restrict: 'EA',
     transclude: true,
     replace: true,
-    templateUrl: '/partials/actionsheet-content.html',
+    templateUrl: 'partials/actionsheet-content.html',
     require: '^zfActionSheet',
     scope: {
       position: '@?'
@@ -90,7 +90,7 @@ angular.module('foundation.actionsheet')
     restrict: 'EA',
     transclude: true,
     replace: true,
-    templateUrl: '/partials/actionsheet-button.html',
+    templateUrl: 'partials/actionsheet-button.html',
     require: '^zfActionSheet',
     scope: {
       title: '@?'

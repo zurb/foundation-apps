@@ -1,0 +1,25 @@
+@charset "UTF-8";
+/*
+  SETTINGS
+  --------
+
+  Other component settings will eventually be copied here.
+*/
+/*! sassyjson - v1.1.8 - 2014-06-01 */
+/* >> Bootcamp >> */
+Map Next returns the value for the key after the given key {
+  ✗: Expected "Three" to be false;
+  Test: Failed; }
+
+Test Results {
+  Success: false;
+  Stats:  ✗ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔;
+  Tests: 16;
+  Asserts: 16;
+  Passed: 15;
+  Failed: 1;
+  Skipped: 0; }
+
+/* << Bootcamp << */
+
+/*# sourceMappingURL=tests.css.map */

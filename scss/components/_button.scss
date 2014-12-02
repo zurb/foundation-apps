@@ -3,12 +3,12 @@ $button-margin: 0 $global-padding $global-padding 0 !default;
 $button-style: solid !default;
 $button-background: $primary-color !default;
 $button-color: auto !default;
-$button-radius: 6px !default;
+$button-radius: 0 !default;
 $button-sizes: (
-  tiny: 0.8,
-  small: 0.9,
+  tiny: 0.7,
+  small: 0.8,
   medium: 1,
-  large: 1.2,
+  large: 1.3,
 ) !default;
 $button-font-size: 0.9rem !default;
 $button-opacity-disabled: 0.8 !default;
@@ -44,11 +44,6 @@ $button-tag-selector: true !default;
       margin-top: -3px;
     }
   }
-}
-
-%button-disabled {
-  opacity: $button-opacity-disabled;
-  pointer-events: none;
 }
 
 @mixin button-size($size: medium, $expand: false) {
@@ -141,16 +136,9 @@ $button-tag-selector: true !default;
     }
   }
 }
-@mixin button-disabled(
-  $background: $button-background,
-  $base: true
-) {
-  @if not $base {
-    @extend %button-disabled;
-  }
-  &, &:hover {
-    background: $background;
-  }
+@mixin button-disabled() {
+  opacity: $button-opacity-disabled;
+  pointer-events: none;
 }
 @mixin button(
   $size: medium,
@@ -179,11 +167,20 @@ $button-tag-selector: true !default;
     &.warning   { @include button-style($warning-color) }
     &.alert     { @include button-style($alert-color) }
 
+    @if $button-style != hollow {
+      &.hollow { @include button-style($style: hollow);
+        &.secondary { @include button-style($secondary-color, $style: hollow); }
+        &.success   { @include button-style($success-color, $style: hollow); }
+        &.warning   { @include button-style($warning-color, $style: hollow); }
+        &.alert     { @include button-style($alert-color, $style: hollow); }
+      }
+    }
+
     &.disabled { @include button-disabled;
-      &.secondary { @include button-disabled($secondary-color, false) }
-      &.success   { @include button-disabled($success-color, false) }
-      &.warning   { @include button-disabled($warning-color, false) }
-      &.alert     { @include button-disabled($alert-color, false) }
+      &.secondary { @include button-disabled; }
+      &.success   { @include button-disabled; }
+      &.warning   { @include button-disabled; }
+      &.alert     { @include button-disabled; }
     }
   }
 

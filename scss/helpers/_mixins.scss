@@ -93,21 +93,6 @@
 
 // @mixins
 //
-// We use this to add a glowing effect to block elements
-// $selector - Used for selector state. Default: focus, Options: hover, active, visited
-// $fade-time - Default: 300ms
-// $glowing-effect-color - Default: fade-out($primary-color, .25)
-@mixin block-glowing-effect($selector:focus, $fade-time:300ms, $glowing-effect-color:fade-out($primary-color, .25)) {
-  transition: box-shadow $fade-time, border-color $fade-time ease-in-out;
-
-  &:#{$selector} {
-    box-shadow: 0 0 5px $glowing-effect-color;
-    border-color: $glowing-effect-color;
-  }
-}
-
-// @mixins
-//
 // Makes an element visually hidden, but accessible.
 // @see http://snook.ca/archives/html_and_css/hiding-content-for-accessibility
 @mixin element-invisible {

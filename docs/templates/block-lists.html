@@ -3,31 +3,65 @@ name: block-list
 url: /block-list
 ---
 
-## Block List
+<h2> Block List</h2>
 <h3 class="subheader">A useful list component that can accomodate a variety of styles and controls.</h3>
 
-***
+<hr />
 
 <section class="block-list">
   <header>List title</header>
   <ul>
     <!-- With a label -->
     <li class="with-chevron"><a href="#">List item 1</a></li>
-    <li class="with-chevron"><a href="#">List item 3</a></li>
-    <li><a href="#">List item 4</a></li>
+    <li class="with-chevron"><a href="#">List item 2</a></li>
+    <li><a href="#">List item 3</a></li>
   </ul>
 </section>
 
-***
+<hr />
 
+<h3>Basic HTML</h3>
+<p>You can create a block list with this basic HTML</p>
+<div class="grid-block">
+  <div class="medium-6 grid-content">
 
-
-
-
-
-
+<hljs>
 <section class="block-list">
-  <header>Does life matter?</header>
+  <header>List title</header>
+  <ul>
+    <!-- With a label -->
+    <li class="with-chevron"><a href="#">List item 1</a></li>
+    <li class="with-chevron"><a href="#">List item 2</a></li>
+    <li><a href="#">List item 3</a></li>
+  </ul>
+</section>
+</hljs>
+
+  </div>
+  <div class="medium-6 grid-content">
+    <section class="block-list">
+      <header>List title</header>
+      <ul>
+        <!-- With a label -->
+        <li class="with-chevron"><a href="#">List item 1</a></li>
+        <li class="with-chevron"><a href="#">List item 2</a></li>
+        <li><a href="#">List item 3</a></li>
+      </ul>
+    </section>
+  </div>
+</div>
+
+<hr />
+
+<h3>Advanced HTML</h3>
+<p>You can create advanced versions of block lists that include form elements and icons with this HTML.</p>
+
+<div class="grid-block">
+  <div class="medium-6 grid-content">
+
+<hljs>
+<section class="block-list">
+  <header>I'm a Checkbox</header>
   <ul>
     <li>
       <input type="checkbox" id="life">
@@ -37,7 +71,7 @@ url: /block-list
 </section>
 
 <section class="block-list">
-  <header>What is delicious?</header>
+  <header>I Have Radio Buttons</header>
   <ul>
     <li>
       <input type="radio" name="delicious" id="eggs" value="eggs" checked>
@@ -55,7 +89,7 @@ url: /block-list
 </section>
 
 <section class="block-list">
-  <header>Switch a Switch</header>
+  <header>Look, I gotta Switch</header>
   <ul>
     <li>
       <span>Switch!</span>
@@ -68,7 +102,7 @@ url: /block-list
 </section>
 
 <section class="block-list">
-  <header>Log In</header>
+  <header>I Hold Forms</header>
   <ul>
     <li><input type="text" placeholder="User name"></li>
     <li><input type="password" placeholder="Password"></li>
@@ -76,7 +110,7 @@ url: /block-list
 </section>
 
 <section class="block-list">
-  <header>Duration</header>
+  <header>I Even Have Selectboxes</header>
   <ul>
     <li class="with-dropdown"><select name="" id="">
       <option>Now</option>
@@ -86,3 +120,94 @@ url: /block-list
     </select></li>
   </ul>
 </section>
+</hljs>
+
+  </div>
+  <div class="medium-6 grid-content">
+    <section class="block-list">
+      <header>I'm a Checkbox</header>
+      <ul>
+        <li>
+          <input type="checkbox" id="life">
+          <label for="life">Yeah!</label>
+        </li>
+      </ul>
+    </section>
+
+    <section class="block-list">
+      <header>I Have Radio Buttons</header>
+      <ul>
+        <li>
+          <input type="radio" name="delicious" id="eggs" value="eggs" checked>
+          <label for="eggs">Eggs</label>
+        </li>
+        <li>
+          <input type="radio" name="delicious" id="bacon" value="bacon">
+          <label for="bacon">Bacon</label>
+        </li>
+        <li>
+          <input type="radio" name="delicious" id="toast" value="toast">
+          <label for="toast">Toast</label>
+        </li>
+      </ul>
+    </section>
+
+    <section class="block-list">
+      <header>Look, I gotta Switch</header>
+      <ul>
+        <li>
+          <span>Switch!</span>
+          <div class="switch">
+            <input type="checkbox" id="switchOne">
+            <label for="switchOne"></label>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <section class="block-list">
+      <header>I Hold Forms</header>
+      <ul>
+        <li><input type="text" placeholder="User name"></li>
+        <li><input type="password" placeholder="Password"></li>
+      </ul>
+    </section>
+
+    <section class="block-list">
+      <header>I Even Have Selectboxes</header>
+      <ul>
+        <li class="with-dropdown"><select name="" id="">
+          <option>Now</option>
+          <option>Later</option>
+          <option>Eventually</option>
+          <option>Forever</option>
+        </select></li>
+      </ul>
+    </section>
+  </div>
+</div>
+
+<hr />
+
+<h3>Sass Variables</h3>
+<p>You can customize with  with these variables in</p>
+<hljs>
+  $blocklist-background: #fff !default;
+  $blocklist-fullbleed: true !default;
+  $blocklist-fontsize: 1rem !default;
+
+  $blocklist-item-padding: 0.8rem 1rem !default;
+  $blocklist-item-color: isitlight($blocklist-background, #000, #fff) !default;
+  $blocklist-item-background-hover: smartscale($blocklist-background, 4.5%) !default;
+  $blocklist-item-color-disabled: #999 !default;
+  $blocklist-item-border: 1px solid smartscale($blocklist-background, 18.5%) !default;
+
+  $blocklist-item-label-color: scale-color($blocklist-item-color, $lightness: 60%) !default;
+  $blocklist-item-icon-size: 0.8 !default;
+
+  $blocklist-header-fontsize: 0.8em !default;
+  $blocklist-header-color: smartscale($blocklist-item-color, 40%) !default;
+  $blocklist-header-uppercase: true;
+
+  $blocklist-check-icons: true !default;
+</hljs>
