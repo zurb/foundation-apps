@@ -57,6 +57,7 @@ $menubar-icon-spacing: $menubar-item-padding !default;
     Orientation
   */
   @if $orientation == horizontal {
+    overflow-x: hidden;
     flex-flow: row nowrap;
     a {
       flex-flow: column nowrap;
