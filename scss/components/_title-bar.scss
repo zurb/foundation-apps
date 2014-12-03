@@ -42,6 +42,7 @@ $titlebar-item-classes: (
 
   // Denotes left, right, and center sections of the bar
   .#{$left}, .#{$center}, .#{$right} {
+    display: block;
     white-space: nowrap;
     overflow: visible;
 
