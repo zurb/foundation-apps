@@ -10,10 +10,19 @@ title: Motion UI
 
 <hr>
 
+<style type="text/css">
+	.square {
+		height: 100px;
+		width: 100px;
+		background-color: red;
+	}
+</style>
+
 <h3>Constructor</h3>
 <div class="grid-block">
   <div class="small-12 medium-6 grid-content">
   <div id="demo-card-parent">
+  	<img id="kitty" src="http://placekitten.com/g/600/300" />
   </div>
   </div>
   <div class="small-12 medium-6 grid-content">
@@ -47,17 +56,23 @@ title: Motion UI
 	      </ul>
 	    </div>
 	    <div class="grid-content">
+	      <label>Speed</label>
+	      <select ng-model="element.speed"name="" id="">
+	        	<option ng-repeat="speed in speeds" value="{{speed}}">{{speed}}</option>
+	      </select>
+	    </div>
+	    <div class="grid-content">
 	      <button ng-click="update(element)">GO FORTH AND BUILD</button>
 	    </div>
     </form>
   </div>
 </div>
 
-***
+<hr>
 <div class="docs-example-grid">
   <div class="grid-block">
 		<div class="small-12 medium-6 grid-content">
-			<div id="example8" class="square" data-motion="spinner linear infinite"></div>
+			<div id="example8" class="square wiggle linear"></div>
 			<label for=""><code>spinner-cw ease infinite</code></label><br><br>
 			<span data-motion-id="example8" class="small button">Ease Spin</span>
 		</div>
@@ -69,9 +84,9 @@ title: Motion UI
   </div>
 </div>
 
-***
+<hr>
 
-### Basic HTML
+<h3>Basic HTML</h3>
 You can create [Item] with this basic HTML
 <ul class="segmented button-group small">
   <li class="is-active"><a href="#">CSS Classes</a></li>
