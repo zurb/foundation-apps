@@ -52,11 +52,12 @@ angular.module('foundation.init')
       processStyleToJSON: function(str) {
         var clean = str.replace(/\'/g, ''); //ready for FF and Chrome
 
-        if(clean[0] === '"' && clean[clean.length - 1] === '"') {
-          return JSON.parse(clean.slice(1, -1)); //ready for IE
-        } else {
+        try {
           return JSON.parse(clean);
+        } catch (e) {
+          return JSON.parse(clean.slice(1, -1)); //ready for IE
         }
+
       }
     };
 });
