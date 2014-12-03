@@ -2,6 +2,7 @@ var app = angular.module('application', [
     'ui.router',
     'ngAnimate',
     'markdown',
+    'autocomplete',
     'hljs',
     'foundation.init',
     'foundation.init.state',
