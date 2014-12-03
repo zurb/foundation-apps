@@ -20,7 +20,7 @@
 @mixin show-for-only($size) {
   display: none !important;
   @include breakpoint($size only) {
-    display: block;
+    display: block !important;
   }
 }
 @mixin hide-for($size) {
