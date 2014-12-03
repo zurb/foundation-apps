@@ -66,7 +66,9 @@ angular.module('foundation.interchange')
         angular.forEach(elements, function(el) {
           var elem = angular.element(el);
 
-          if (!elem.attr('src')) {
+
+          //if no source or no html, capture element itself
+          if (!elem.attr('src') || !elem.attr('src').match(/.html$/)) {
             innerTemplates[i] = elem;
             scenarios[i] = { media: elem.attr('media'), templ: i };
           } else {
@@ -78,13 +80,13 @@ angular.module('foundation.interchange')
       };
 
       var checkScenario = function(scenario) {
-        return !current || (scenario.src !== current.src) || (scenario.templ && scenario.templ !== current.templ);
+        return !current || current !== scenario;
       };
 
       //setup
       foundationApi.subscribe('resize', function(msg) {
         transclude(function(clone, newScope) {
-          if(!scope.scenarios || !scope.innerTemplates) {
+          if(!scenarios || !innerTemplates) {
             collectInformation(clone);
           }
 
@@ -100,9 +102,14 @@ angular.module('foundation.interchange')
               childScope = null;
             }
 
-            if(scenario.templ !== null) {
+            if(typeof scenario.templ !== 'undefined') {
               childScope = newScope;
-              element.html(innerTemplates[scenario.templ].html());
+
+              //temp container
+              var tmp = document.createElement('div');
+              tmp.appendChild(innerTemplates[scenario.templ][0]);
+
+              element.html(tmp.innerHTML);
               $compile(element.contents())(childScope);
               current = scenario;
             } else {
