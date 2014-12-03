@@ -54,9 +54,19 @@ angular.module('application')
 ]);
 
 angular.module('application')
-  .controller('MotionUIController', ['$scope', '$state', 'FoundationApi', '$animate', function($scope, $state, FoundationApi, $animate) {
+  .controller('MotionUIController', ['$scope', '$state', 'FoundationApi', '$animate', '$window', function($scope, $state, FoundationApi, $animate, $window) {
     $scope.current = $state.current.name;
     $scope.element = {};
+    $scope.speeds = [
+      "linear",
+      "ease",
+      "easeIn",
+      "easeOut",
+      "easeInOut",
+      "bounceIn",
+      "bounceOut",
+      "bounceInOut"
+    ];
     $scope.transitions = [
       {
         direction: "enter",
@@ -149,8 +159,9 @@ angular.module('application')
     ];
 
     $scope.update = function(element) {
-      var kitty = angular.element('<img id="#demo-card" src="http://placekitten.com/g/600/300" />');
-      var demoElementParent = angular.element(document.querySelector('#demo-card-parent'));
+      var kitty = angular.element('<img id="kitty" src="http://placekitten.com/g/600/300" />');
+      var presentKitty = $window.document.getElementById('kitty');
+      var demoElementParent = $window.document.getElementById('demo-card-parent');;
       var animationClasses = '';
       for (prop in $scope.element) {
         if ($scope.element[prop] !== 'default' && $scope.element[prop] !== 'undefined') {
@@ -159,14 +170,19 @@ angular.module('application')
       }
       kitty.addClass(animationClasses);
       if ($scope.animationFilter === 'enter') {
+        if (presentKitty) {
+          presentKitty.remove();
+        }
         $animate.enter(kitty, demoElementParent).then(function() {
           kitty.removeClass(animationClasses);
-          $animate.leave(kitty);
         });
       }
       else {
         $animate.enter(kitty, demoElementParent);
         $animate.leave(kitty);
+        if (presentKitty) {
+          presentKitty.remove();
+        }
       }
     };
   }
