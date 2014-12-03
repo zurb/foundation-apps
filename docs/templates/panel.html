@@ -4,38 +4,57 @@ url: /panel
 title: Panel
 ---
 
+<style>
+  .docs-example-panel {
+    text-align: center;
+    color: #666;
+    padding: 1rem;
+  }
+  .docs-example-panel p {
+    font-size: 1.5rem;
+  }
+</style>
+
+<!-- Example set -->
+<div zf-panel class="docs-example-panel" id="l-panel" position="left">
+  <a zf-close class="close-button">&times;</a>
+  <p>This is a left panel.</p>
+</div>
+<div zf-panel class="docs-example-panel" id="r-panel" position="right">
+  <a zf-close class="close-button">&times;</a>
+  <p>This is a right panel.</p>
+</div>
+<div zf-panel class="docs-example-panel" id="t-panel" position="top">
+  <a zf-close class="close-button">&times;</a>
+  <p>This is a top panel.</p>
+</div>
+<div zf-panel class="docs-example-panel" id="b-panel" position="bottom">
+  <a zf-close class="close-button">&times;</a>
+  <p>This is a bottom panel.</p>
+</div>
+
+<!-- Basic example -->
+<zf-panel id="example-panel-1" position="right">
+  <a href="#" zf-close class="close-button">&times;</a>
+  <p>Right Panel</p>
+</zf-panel>
+
+<!-- Fixed example -->
+<zf-panel id="panel-fixed" position="right">
+  <a href="#" zf-close class="close-button">&times;</a>
+  <p>Fixed Panel</p>
+</zf-panel>
+
 <h2>Panels</h2>
+
 <h3 class="subheader">Panels are frames that slide in from the top, left, bottom, or right of the screen and appear over the interface. Grid blocks can also transform into panels, allowing you to hide content off-canvas on smaller screens.</h3>
 
 <hr>
-<div class="grid-block">
-  <div class="small-12 grid-content">
-    <div class="docs-example-panels grid-block">
-      <div zf-panel id="l-panel" position="left">
-        <a href="#" zf-close>&times;</a>
-        <p>Left Panel</p>
-      </div>
-      <div zf-panel id="r-panel" position="right">
-        <a href="#" zf-close>&times;</a>
-        <p>Right Panel</p>
-      </div>
-      <div zf-panel id="t-panel" position="top">
-        <a href="#" zf-close>&times;</a>
-        <p>Top Panel</p>
-      </div>
-      <div zf-panel id="b-panel" position="bottom">
-        <a href="#" zf-close>&times;</a>
-        <p>Bottom Panel</p>
-      </div>
-      <div class="small-12 grid-content">
-        <button zf-toggle="t-panel">Top Panel</button>
-        <button zf-toggle="r-panel">Right Panel</button>
-        <button zf-toggle="b-panel">Bottom Panel</button>
-        <button zf-toggle="l-panel">Left Panel</button>
-      </div>
-    </div>
-  </div>
-</div>
+
+<button zf-toggle="t-panel">Top Panel</button>
+<button zf-toggle="r-panel">Right Panel</button>
+<button zf-toggle="b-panel">Bottom Panel</button>
+<button zf-toggle="l-panel">Left Panel</button>
 
 <hr>
 
@@ -44,60 +63,28 @@ title: Panel
 <div class="grid-block">
   <div class="small-12 medium-6 grid-content">
 <hljs>
-<!-- trigger your panel -->
+<!-- Use zf-toggle or zf-open to open a panel. -->
 <a class="button" zf-toggle="top-panel">Top Panel</a>
 <a class="button" zf-toggle="right-panel">Right Panel</a>
 <a class="button" zf-toggle="bottom-panel">Bottom Panel</a>
 <a class="button" zf-toggle="left-panel">Left Panel</a>
 
-<!-- panel content -->
-<zf-panel id="left-panel" position="left">
-  <a href="#" zf-close>&times;</a>
-  <p>Left Panel</p>
-</zf-panel>
-<zf-panel id="right-panel" position="right">
-  <a href="#" zf-close>&times;</a>
-  <p>Right Panel</p>
-</zf-panel>
-<zf-panel id="top-panel" position="top">
-  <a href="#" zf-close>&times;</a>
-  <p>Top Panel</p>
-</zf-panel>
-<zf-panel id="bottom-panel" position="bottom">
-  <a href="#" zf-close>&times;</a>
-  <p>Bottom Panel</p>
-</zf-panel>
+<!-- This is your panel. -->
+<div class="small-12 medium-6 grid-content">
+  <a class="button" zf-toggle="example-panel-1">Basic Panel</a>
+</div>
 </hljs>
   </div>
 
   <div class="small-12 medium-6 grid-content">
-    <a class="button" zf-toggle="top-panel">Top Panel</a>
-    <a class="button" zf-toggle="right-panel">Right Panel</a>
-    <a class="button" zf-toggle="bottom-panel">Bottom Panel</a>
-    <a class="button" zf-toggle="left-panel">Left Panel</a>
+    <a class="button" zf-toggle="example-panel-1">Basic Panel</a>
   </div>
-  <zf-panel id="left-panel" position="left">
-    <a href="#" zf-close>&times;</a>
-    <p>Left Panel</p>
-  </zf-panel>
-  <zf-panel id="right-panel" position="right">
-    <a href="#" zf-close>&times;</a>
-    <p>Right Panel</p>
-  </zf-panel>
-  <zf-panel id="top-panel" position="top">
-    <a href="#" zf-close>&times;</a>
-    <p>Top Panel</p>
-  </zf-panel>
-  <zf-panel id="bottom-panel" position="bottom">
-    <a href="#" zf-close>&times;</a>
-    <p>Bottom Panel</p>
-  </zf-panel>
 </div>
 
 <hr>
 
-<h3>Alternate HTML Configuration</h3>
-<p>You can create a fixed position Panel with this HTML:</p>
+<h3>Advanced HTML</h3>
+<p>You can create a fixed position panel with this HTML:</p>
 <div class="grid-block">
   <div class="small-12 medium-6 grid-content">
 <hljs>
@@ -113,17 +100,10 @@ title: Panel
 
   <div class="small-12 medium-6 grid-content">
     <a class="button" zf-toggle="panel-fixed">Fixed Panel</a>
-    <zf-panel id="panel-fixed" position="right">
-      <a href="#" zf-close>&times;</a>
-      <p>Fixed Panel</p>
-    </zf-panel>
   </div>
 </div>
 
-<hr>
-
-<h3>Advanced HTML</h3>
-<p>You can create transform a Panel into a grid block with this HTML:</p>
+<p>You can create transform a panel into a grid block with this HTML:</p>
 <div class="grid-block">
   <div class="small-12 medium-6 grid-content">
 
@@ -143,31 +123,6 @@ title: Panel
         <zf-panel id="panel-block" position="right">
           <a href="#" zf-close>&times;</a>
           <p>Grid Block Panel</p>
-        </zf-panel>
-      </div>
-    </div>
-  </div>
-</div>
-
-<p>You can anchor a panel to a grid block or window with this HTML:</p>
-<div class="grid-block">
-  <div class="small-12 medium-6 grid-content">
-<hljs>
-<a class="button" zf-toggle="panel-left-window">Grid Block Panel</a>
-<zf-panel id="panel-left-window" position="left">
-  <a href="#" zf-close>&times;</a>
-  <p>Left Window Panel</p>
-</zf-panel>
-</hljs>
-  </div>
-
-  <div class="small-12 medium-6 grid-content">
-    <div class="grid-block">
-      <div class="grid-content">
-        <a class="button" zf-toggle="panel-left-window">Left Window Panel</a>
-        <zf-panel id="panel-left-window" position="left">
-          <a href="#" zf-close>&times;</a>
-          <p>Left Window Panel</p>
         </zf-panel>
       </div>
     </div>

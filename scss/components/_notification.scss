@@ -163,4 +163,7 @@ $notification-icon-align: top !default;
   .notification-icon {
     @include notification-icon;
   }
+  .notification-content {
+    flex: 1;
+  }
 }
