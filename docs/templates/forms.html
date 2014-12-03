@@ -8,16 +8,6 @@ url: /forms
 
 <hr>
 
-<style>
-  .grid-content .grid-block {
-    flex-flow: row wrap;
-  }
-  .grid-content .grid-block .grid-content {
-    padding-top: 0;
-    padding-bottom: 0;
-  }
-</style>
-
 <div class="grid-block">
   <div class="small-6 grid-content">
     <h4>Form Elements</h4>
@@ -86,7 +76,7 @@ url: /forms
 <p>You can size inputs using column sizes, like <code>.large-6</code>, <code>.small-6.</code> You can create grid-block elements inside your form and use grid-content for the form, including inputs, labels and more. Grid-block's inside a form inherit some special padding to even up input spacing. This is an example form we've created that is laid out using the grid:</p>
 
 <h4>Basic Forms</h4>
-You can create a Form with this basic HTML:
+<p>You can create a Form with this basic HTML:</p>
 <div class="grid-block">
   <div class="small-12 grid-content">
 <hljs>
@@ -195,7 +185,7 @@ You can create a Form with this basic HTML:
 <h4>Pre/Postfix Labels &amp; Buttons</h4>
 <p>You can attach labels before or after the form input. Wrap the input with a class of <code>inline-label</code> then use the <code>form-label</code> class on the label. Buttons just need the <code>inline-label</code> class. Example HTML:</p>
 <div class="grid-block">
-  <div class="medium-6 grid-content">
+  <div class="small-12 medium-6 grid-content">
 <hljs>
 <!-- Pre/Postfix Labels -->
 <label>
@@ -217,7 +207,7 @@ You can create a Form with this basic HTML:
 </label>
 </hljs>
   </div>
-  <div class="medium-6 grid-content">
+  <div class="small-12 medium-6 grid-content">
     <label>
       Prefix/postfix
       <span class="inline-label">
@@ -241,7 +231,7 @@ You can create a Form with this basic HTML:
 <h3>Switch</h3>
 <p>Switches are toggle element that switch between an Off and On state on tap or click. They make use of checkbox inputs (or radio buttons) and require no javascript.</p>
 <div class="grid-block">
-  <div class="medium-6 grid-content">
+  <div class="small-12 medium-6 grid-content">
 <hljs>
 <div class="switch">
   <input type="checkbox" id="switch-example">
@@ -249,7 +239,7 @@ You can create a Form with this basic HTML:
 </div>
 </hljs>
   </div>
-  <div class="medium-6 grid-content">
+  <div class="small-12 medium-6 grid-content">
     <div class="switch">
       <input type="checkbox" id="switch-example">
       <label for="switch-example"></label>
@@ -262,12 +252,12 @@ You can create a Form with this basic HTML:
 <h3>Range Slider</h3>
 <p>You can make a fancy Range slider with this simple markup:</p>
 <div class="grid-block">
-  <div class="medium-6 grid-content">
+  <div class="small-12 medium-6 grid-content">
 <hljs>
 <input type="range">
 </hljs>
   </div>
-  <div class="medium-6 grid-content">
+  <div class="small-12 medium-6 grid-content">
     <input type="range">
   </div>
 </div>
@@ -277,12 +267,12 @@ You can create a Form with this basic HTML:
 <h3>Number Input</h3>
 <p>The Number input is used for input fields that should contain a numeric value:</p>
 <div class="grid-block">
-  <div class="medium-6 grid-content">
+  <div class="small-12 medium-6 grid-content">
 <hljs>
 <input type="number" name="quantity" min="1" max="5">
 </hljs>
   </div>
-  <div class="medium-6 grid-content">
+  <div class="small-12 medium-6 grid-content">
     <input type="number" name="quantity" min="1" max="5">
   </div>
 </div>
@@ -294,7 +284,7 @@ You can create a Form with this basic HTML:
 <h4>Progress</h4>
 <p>The Progress element is used to display the progress of a task.</p>
 <div class="grid-block">
-  <div class="medium-6 grid-content">
+  <div class="small-12 medium-6 grid-content">
 <hljs>
 <progress value="50" max="100"></progress>
 <progress max="100"></progress>
@@ -303,7 +293,7 @@ You can create a Form with this basic HTML:
 <progress class="low" value="60" max="100"></progress>
 </hljs>
   </div>
-  <div class="medium-6 grid-content">
+  <div class="small-12 medium-6 grid-content">
     <progress value="50" max="100"></progress><br>
     <progress max="100"></progress><br>
     <progress class="high" value="25" max="100"></progress><br>
@@ -315,14 +305,14 @@ You can create a Form with this basic HTML:
 <h4>Meter</h4>
 <p>The Meter element is used to display a measurement on a known scale. For example, like a volume or capacity of a venue or hard-drive. The maximum and minimum are known in advance.</p>
 <div class="grid-block">
-  <div class="medium-6 grid-content">
+  <div class="small-12 medium-6 grid-content">
 <hljs>
 <meter min="0" max="100" low="25" high="75" optimum="100" value="10"></meter>
 <meter min="0" max="100" low="25" high="75" optimum="100" value="50"></meter>
 <meter min="0" max="100" low="25" high="75" optimum="100" value="80"></meter>
 </hljs>
   </div>
-  <div class="medium-6 grid-content">
+  <div class="small-12 medium-6 grid-content">
     <meter min="0" max="100" low="25" high="75" optimum="100" value="10"></meter><br>
     <meter min="0" max="100" low="25" high="75" optimum="100" value="50"></meter><br>
     <meter min="0" max="100" low="25" high="75" optimum="100" value="80"></meter>
