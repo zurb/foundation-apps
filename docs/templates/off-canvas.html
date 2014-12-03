@@ -3,89 +3,118 @@ name: off-canvas
 url: /off-canvas
 ---
 
-## Off-canvas
-<h3 class="subheader">A container that is hidden off-screen and is summoned when needed. It can be opened from the top, botton, right, or left of the screen.</h3>
+<h2>Off-canvas</h2>
+<h3 class="subheader">A container that is hidden off-screen and pushes its way in view when needed. It can be opened from the top, bottom, right, or left of the screen.</h3>
 
-<div class="grid-block">
-  <div class="small-12 grid-content">
-	<a class="button" href="#" zf-open="example-canvas">Open Off-canvas</a>
-	<zf-offcanvas id="example-canvas" position="right">
-		<a href="#" zf-close>&times;</a>
-  		<img src="http://placehold.it/350x150">
-  		<p>Example Off-Canvas. Who knows what could be hiding in here.</p>
-  		<section class="block-list with-icons">
-		  <header>List title</header>
-		  <ul>
-		    <!-- With a label -->
-		    <li class="with-chevron">
-		      <a href="#">
-		        List item 1
-		        <span class="block-list-label">Right Label</span>
-		      </a>
-		    </li>
-		    <!-- With an icon -->
-		    <li>
-		      <img src="http://placehold.it/1x1" alt="">
-		      <a href="#">
-		        List item 2
-		        <span class="left block-list-label">Left Label</span>
-		      </a>
-		    </li>
-		    <li class="with-chevron"><a href="#">List item 3</a></li>
-		    <li><a href="#">List item 4</a></li>
-		  </ul>
-		</section>
-		<div class="inline-list">
-			<li><a href="#">Twitter</a></li>
-			<li><a href="#">Facebook</a></li>
-			<li><a href="#">Instagram</a></li>
-		</div>
-	</zf-offcanvas>
-  </div>
-</div>
+<hr>
 
-***
+<a class="button" href="#" zf-toggle="example-canvas-top">Open Top Off-canvas</a>
+<a class="button" href="#" zf-toggle="example-canvas-right">Open Right Off-canvas</a>
+<a class="button" href="#" zf-toggle="example-canvas-bottom">Open Bottom Off-canvas</a>
+<a class="button" href="#" zf-toggle="example-canvas-left">Open Left Off-canvas</a>
 
-### Basic HTML
-You can create [Item] with this basic HTML
-<ul class="segmented button-group small">
-  <li class="is-active"><a href="#">CSS Classes</a></li>
-  <li><a href="#">Sass Mixins</a></li>
-</ul>
-<div class="grid-block">
-  <div class="medium-6 grid-content">
-```html
-<!-- this triggers the off-canvas -->
-<a href="#" zf-open="pageCanvas">Open Off-canvas</a>
+<hr>
 
-<zf-offcanvas id="pageCanvas" position="right">
-	<!-- make sure to add a close -->
-	<a href="#" zf-close>&times;</a>
+<h3>Basic HTML</h3>
 
-  <p>My content!</p>
+<p>An off-canvas pane must be placed <em>before</em> the frame of your app. This allows the frame to animate in and out along with the pane.</p>
+
+<hljs>
+<zf-offcanvas position="left">
+  <!-- Off-canvas content -->
 </zf-offcanvas>
-```
-  </div>
-  <div class="medium-6 grid-content">
-		<a href="#" zf-open="pageCanvas">Open Off-canvas</a>
-		<zf-offcanvas id="pageCanvas" position="right">
-			<a href="#" zf-close>&times;</a>
-  		<p>My content!</p>
-		</zf-offcanvas>
-  </div>
+<div class="grid-frame">
+  <!-- Main app content -->
 </div>
+</hljs>
 
-### Sass Variables
-You can customize with...
+The pane can be positioned at the top, right, bottom, or left of the screen with the `position` attribute.
+
+<hljs>
+<zf-offcanvas position="left">
+</zf-offcanvas>
+
+<zf-offcanvas position="bottom">
+</zf-offcanvas>
+</hljs>
+
+Add the `zf-open`, `zf-close`, and `zf-toggle` directives to other elements to open and close the off-canvas pane.
+
+<hljs>
+<zf-offcanvas id="menu" position="left">
+  <a zf-close class="close-button">&times;</a>
+  <!-- Modal content -->
+</zf-offcanvas>
+
+<a zf-open="menu" class="button">Open Off-canvas</a>
+</hljs>
+
+<hr>
+
+<h3>Advanced HTML</h3>
+
+<p>Add the `detached` class to an off-canvas to change how the animation works. Instead of sliding with the frame, the off-canvas pane will stay in place, as the pane slides to reveal the pane.</p>
+
+<hljs>
+<zf-offcanvas position="left" class="detached">
+</zf-offcanvas>
+</hljs>
+
+<p>Lastly, the off-canvas pane supports the coloring classes `primary` and `dark`:</p>
+
+<hljs>
+<zf-offcanvas position="left" class="primary">
+</zf-offcanvas>
+</hljs>
+
+<hr>
+
+<h3>Sass Mixins</h3>
+
+<p>Use the off-canvas mixins to write your own custom classes for this component.</p>
+
+<hljs no-escape>
+.custom-off-canvas {
+  // Extend the off-canvas selector to get the basic structural styles
+  @extend %off-canvas;
+
+  // Use this mixin to set the position and size of the menu
+  // The shadow is also included in this mixin; its style will change depending on the position of the pane
+  @include off-canvas-layout(
+    $position: left, // Can be top, right, bottom, or left
+    $size: default, // Can be a px, rem, or em value. "default" will use the values in the settings variables
+    $shadow: $offcanvas-shadow // Pass in a shadow value with a Y offset, like 0 2px 10px black
+  );
+
+  // Use this mixin to define visual styles for the pane
+  @include off-canvas-style(
+    $background: $offcanvas-background, // Background color
+    $color: $offcanvas-color, // Text color
+    $padding: $offcanvas-padding // Padding inside the pane
+  );
+
+  &.custom-detached-class {
+    // Use this mixin to add the detached visual style
+    @include off-canvas-detached;
+  }
+}
+</hljs>
+
+<hr>
+
+<h3>Sass Variables</h3>
+
+<p>Use these variables to customize the basic off-canvas menu.</p>
+
 ```scss
-$offcanvas-size-horizontal: 250px;
-$offcanvas-size-vertical: 250px;
+$offcanvas-size-horizontal: 250px !default;
+$offcanvas-size-vertical: 250px !default;
 
-$offcanvas-background: #fff;
-$offcanvas-color: isitlight($offcanvas-background);
-$offcanvas-padding: 0;
-$offcanvas-shadow: 3px 0 10px rgba(black, 0.25);
-$offcanvas-animation-speed: 0.25s;
+$offcanvas-background: #fff !default;
+$offcanvas-color: isitlight($offcanvas-background) !default;
+$offcanvas-padding: 0 !default;
+$offcanvas-shadow: 3px 0 10px rgba(black, 0.25) !default;
+$offcanvas-animation-speed: 0.25s !default;
 
-$offcanvas-frame-selector: '.frame';
+$offcanvas-frame-selector: '.grid-frame' !default;
 ```

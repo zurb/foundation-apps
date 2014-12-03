@@ -26,7 +26,7 @@ module.exports = function(options) {
         file.contents = new Buffer(content.body);
         config = content.attributes;
         var relativePath = path.relative(directory + path.sep + options.root, file.path);
-        config.path = '/' + relativePath.split(path.sep).join('/');
+        config.path = relativePath.split(path.sep).join('/');
         configs.push(config);
       }
     }

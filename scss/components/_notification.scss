@@ -159,8 +159,8 @@ $notification-icon-align: top !default;
     &.alert     { @include notification-style($alert-color) }
     &.dark      { @include notification-style($dark-color, #fff) }
   }
-}
 
-.notification-icon {
-  @include notification-icon;
+  .notification-icon {
+    @include notification-icon;
+  }
 }

@@ -5,6 +5,7 @@ angular.module('foundation.accordion')
     var controller = this;
     var sections = controller.sections = $scope.sections = [];
     var multiOpen = controller.multiOpen = false;
+    var autoOpen = controller.autoOpen = $scope.autoOpen = $scope.autoOpen || "true";
 
     controller.select = function(selectSection) {
       sections.forEach(function(section) {
@@ -25,8 +26,9 @@ angular.module('foundation.accordion')
     controller.addSection = function addsection(sectionScope) {
       sections.push({ scope: sectionScope });
 
-      if(sections.length === 1) {
+      if(sections.length === 1 && autoOpen === "true") {
         sections[0].active = true;
+        sections[0].scope.active = true;
       }
     };
 
@@ -39,32 +41,33 @@ angular.module('foundation.accordion')
 }]);
 
 angular.module('foundation.accordion')
-  .directive('zfAccordionSet', function() {
+  .directive('zfAccordion', function() {
   return {
     restrict: 'EA',
     transclude: 'true',
     replace: true,
-    templateUrl: '/partials/accordion-set.html',
+    templateUrl: 'partials/accordion.html',
     controller: 'ZfAccordionController',
     scope: {
-      multiOpen: '@'
+      multiOpen: '@?',
+      autoOpen: '@?'
     },
     link: function(scope, element, attrs, controller) {
-      controller.multiOpen = scope.multiOpen;
+      controller.multiOpen = scope.multiOpen === "true" ? true : false; //parse string into boolean
     }
   };
 });
 
 angular.module('foundation.accordion')
-  .directive('zfAccordion', function() {
+  .directive('zfAccordionItem', function() {
     return {
       restrict: 'EA',
-      templateUrl: '/partials/accordion.html',
+      templateUrl: 'partials/accordion-item.html',
       transclude: true,
       scope: {
         title: '@'
       },
-      require: '^zfAccordionSet',
+      require: '^zfAccordion',
       replace: true,
       controller: function() {},
       link: function(scope, element, attrs, controller, transclude) {

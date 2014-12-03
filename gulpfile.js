@@ -13,7 +13,18 @@ var gulp           = require('gulp'),
     path           = require('path'),
     modRewrite     = require('connect-modrewrite'),
     dynamicRouting = require('./bin/gulp-dynamic-routing'),
-    karma          = require('gulp-karma');
+    karma          = require('gulp-karma'),
+    rsync          = require('gulp-rsync');
+
+// Deploy
+gulp.task('deploy', function() {
+  return gulp.src('build/**')
+    .pipe(rsync({
+      root: 'build',
+      hostname: 'deployer@72.32.134.77',
+      destination: '/home/deployer/sites/foundation-apps/current'
+    }));
+});
 
 // Clean build directory
 gulp.task('clean', function(cb) {
@@ -115,8 +126,12 @@ gulp.task('uglify-angular', function() {
     'bower_components/allmighty-autocomplete/script/autocomplete.js',
     'bower_components/angular-animate/angular-animate.js',
     'bower_components/ui-router/release/angular-ui-router.js',
+    'bower_components/angular-highlightjs/angular-highlightjs.js',
+    'bower_components/highlightjs/highlight.pack.js',
+    'docs/assets/js/angular.js',
     'js/vendor/**/*.js',
     'js/angular/**/*.js',
+    '!js/angular/app.js'
   ];
 
   return gulp.src(libs)
@@ -163,7 +178,7 @@ gulp.task('karma-test', ['build', 'node-sass'], function() {
     'bower_components/jsdiff/diff.js',
     'build/assets/css/app.css',
     'build/assets/css/app_node.css',
-    'tests/unit/**/*Spec.js'
+    'tests/unit/common/*Spec.js'
   ];
 
   return gulp.src(testFiles)

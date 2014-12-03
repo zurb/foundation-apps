@@ -116,10 +116,12 @@ $titlebar-item-classes: (
     &.primary {
       @include title-bar-style($primary-color, isitlight($primary-color));
       a, a:hover { color: isitlight($primary-color); }
+      @if using(iconic) { .iconic { @include color-icon(isitlight($primary-color)); } }
     }
     &.dark {
       @include title-bar-style($dark-color, #fff);
       a, a:hover { color: #fff; }
+      @if using(iconic) { .iconic { @include color-icon(#fff); } }
     }
   }
     .title-bar-bottom {

@@ -26,18 +26,18 @@ $foundation-version: '0.0.1';
 
 // Components
 @import
-	"components/action-sheet",
+  "components/iconic",
+  "components/action-sheet",
   "components/block-list",
   "components/button",
   "components/button-group",
-	"components/cards",
+  "components/card",
   "components/extras",
-	"components/forms",
-	"components/grid",
-	"components/title-bar",
-  "components/iconic",
+  "components/forms",
+  "components/grid",
+  "components/title-bar",
   "components/label",
-  "components/lists",
+  "components/list",
 	"components/menu-bar",
 	"components/modal",
   "components/motion",
@@ -46,8 +46,6 @@ $foundation-version: '0.0.1';
   "components/popup",
   "components/switch",
   "components/tabs",
-  "components/accordions",
+  "components/accordion",
   "components/typography",
-  "components/utilities",
-  "components/coloring",
-	"components/z-index";
+  "components/utilities";

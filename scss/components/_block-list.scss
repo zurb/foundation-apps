@@ -58,8 +58,8 @@ $blocklist-check-icons: true !default;
   font-size: $font-size;
 
   @if $full-bleed {
-    margin-left: -1rem;
-    margin-right: -1rem;
+    margin-left: -$global-padding;
+    margin-right: -$global-padding;
   }
 }
 
@@ -227,7 +227,7 @@ $blocklist-check-icons: true !default;
     > a, > span, > label {
       padding-left: (get-side($blocklist-item-padding, left) * 2) + $blocklist-item-icon-size;
     }
-    img {
+    img, .iconic {
       position: absolute;
       top: $icon-offset;
       left: $icon-offset;

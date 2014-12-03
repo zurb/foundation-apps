@@ -14,7 +14,7 @@ $offcanvas-padding: 0 !default;
 $offcanvas-shadow: 3px 0 10px rgba(black, 0.25) !default;
 $offcanvas-animation-speed: 0.25s !default;
 
-$offcanvas-frame-selector: '.frame' !default;
+$offcanvas-frame-selector: '.grid-frame' !default;
 
 %off-canvas {
   position: fixed;
@@ -35,7 +35,7 @@ $offcanvas-frame-selector: '.frame' !default;
     background: white;
   }
 }
-%off-canvas-detached {
+@mixin off-canvas-detached {
   z-index: 0;
   box-shadow: none;
 
@@ -157,7 +157,7 @@ $offcanvas-frame-selector: '.frame' !default;
     &.bottom { @include off-canvas-layout(bottom); }
     &.left   { @include off-canvas-layout(left); }
 
-    &.detached { @extend %off-canvas-detached; }
+    &.detached { @include off-canvas-detached; }
 
     &.primary { @include off-canvas-style($primary-color, auto); }
     &.dark    { @include off-canvas-style($dark-color, auto); }

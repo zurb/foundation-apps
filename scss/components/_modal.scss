@@ -49,6 +49,9 @@ $modal-overlay-background: rgba(#333, 0.7) !default;
       width: 95%;
       height: auto;
     }
+    .grid-content, .grid-block {
+      margin: 0;
+    }
 	}
 
   .close-button, [fa-close] {

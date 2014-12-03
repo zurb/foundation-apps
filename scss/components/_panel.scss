@@ -13,7 +13,7 @@
 
 $panel-size-horizontal: 300px !default;
 $panel-size-vertical: 300px !default;
-$panel-padding: $global-padding !default;
+$panel-padding: 0 !default;
 
 $panel-background: #fff !default;
 $panel-shadow: 3px 0 10px rgba(black, 0.25) !default;
@@ -24,6 +24,11 @@ $panel-animation-speed: 0.25s !default;
   position: absolute;
   z-index: 100;
   overflow-y: auto;
+  display: none;
+
+  &.is-active {
+    display: block;
+  }
 }
 
 @mixin panel-layout(
@@ -47,41 +52,21 @@ $panel-animation-speed: 0.25s !default;
     top: 0;
     left: 0;
     width: 100%;
-    transform: translateY(-100%);
-
-    &.is-active {
-      transform: translateY(0%);
-    }
   }
   @else if $position == right {
     top: 0;
     right: 0;
     height: 100%;
-    transform: translateX(100%);
-
-    &.is-active {
-      transform: translateX(0%);
-    }
   }
   @else if $position == bottom {
     bottom: 0;
     left: 0;
     width: 100%;
-    transform: translateY(100%);
-
-    &.is-active {
-      transform: translateY(0%);
-    }
   }
   @else if $position == left {
     top: 0;
     left: 0;
     height: 100%;
-    transform: translateX(-100%);
-
-    &.is-active {
-      transform: translateX(0%);
-    }
   }
 
   /*
@@ -89,9 +74,14 @@ $panel-animation-speed: 0.25s !default;
   */
   // Horizontal panels are always all the way tall and have a set width
   @if $position == left or $position == right {
-    width: 100%;
-    @include breakpoint($size) {
+    @if unit($size) == '%' {
       width: $size;
+    }
+    @else {
+      width: 100%;
+      @include breakpoint($size) {
+        width: $size;
+      }
     }
   }
   // (For now) vertical panels don't change size
@@ -115,19 +105,13 @@ $panel-animation-speed: 0.25s !default;
 
 @mixin panel-style(
   $padding: $panel-padding,
-  $background: $panel-background,
-  $animation-speed: $panel-animation-speed
+  $background: $panel-background
 ) {
   /*
     Basic styles
   */
   padding: $padding;
   background: $background;
-
-  /*
-    Animation
-  */
-  transition: transform $animation-speed linear;
 }
 
 @include exports(panels) {
@@ -143,4 +127,3 @@ $panel-animation-speed: 0.25s !default;
 
   .panel-fixed  { position: fixed; }
 }
-

@@ -4,7 +4,7 @@ angular.module('foundation.offcanvas')
   .directive('zfOffcanvas', ['FoundationApi', function(foundationApi) {
   return {
     restrict: 'EA',
-    templateUrl: '/partials/offcanvas.html',
+    templateUrl: 'partials/offcanvas.html',
     transclude: true,
     scope: {
       position: '@'
@@ -19,7 +19,8 @@ angular.module('foundation.offcanvas')
           document.body.classList.add('has-off-canvas');
         },
         post: function postLink(scope, element, attrs) {
-          scope.position = scope.position || 'left';
+          scope.position = scope.position || 'left';
+
           scope.active = false;
 
           //setup

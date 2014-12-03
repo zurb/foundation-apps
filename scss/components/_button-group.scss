@@ -27,6 +27,16 @@ $btngroup-radius: $button-radius !default;
       border-right: 1px solid scale-color($btngroup-background, $lightness: -25%);
     }
   }
+
+  @if using(iconic) {
+    .iconic {
+      width: 1em;
+      height: 1em;
+      vertical-align: middle;
+      margin-right: 0.25em;
+      margin-top: -2px; // The icons are oddly misaligned
+    }
+  }
 }
 
 %button-group-segmented {
@@ -41,6 +51,7 @@ $btngroup-radius: $button-radius !default;
   // This is the button
   > li > a,
   > li > label {
+    border: 0;
     margin-right: 0;
     background: transparent;
   }
@@ -100,6 +111,10 @@ $btngroup-radius: $button-radius !default;
           background: $hover-color;
           color: $background;
         }
+
+        @if using(iconic) {
+          .iconic { @include color-icon($background); }
+        }
       }
 
       // This is the button when it's active
@@ -107,7 +122,11 @@ $btngroup-radius: $button-radius !default;
       > input:checked + label {
         &, &:hover {
           background: $background;
-          color: if(lightness($background) > 60%, #000, #fff);
+          color: isitlight($background);
+        }
+
+        @if using(iconic) {
+          .iconic { @include color-icon(isitlight($background)); }
         }
       }
     }

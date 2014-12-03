@@ -4,21 +4,46 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title ng-bind="$state.current.data.vars.title"></title>
-    <link href="/assets/css/app.css" rel="stylesheet" type="text/css">
-    <script src="/assets/js/app.js"></script>
-    <script src="/assets/js/routes.js"></script>
-    <script src="/assets/js/angular-app.js"></script>
-
-    <style>
-      #header .menu-bar {
-        margin-bottom: 0;
-      }
-      .thumbnail {
-        width: 100%;
-      }
-    </style>
+    <link href="assets/css/app.css" rel="stylesheet" type="text/css">
+    <script src="assets/js/app.js"></script>
+    <script src="assets/js/routes.js"></script>
+    <script src="assets/js/angular-app.js"></script>
+    <!-- TEST COMMENT -->
   </head>
   <body>
+
+      <!-- Right Off Canvas -->
+      <zf-offcanvas id="example-canvas-top" position="top">
+        <div class="grid-content">
+          <a href="#" zf-close class="close-button">&times;</a>
+          <h3>This is a top off-canvas menu.</h3>
+        </div>
+      </zf-offcanvas>
+
+      <!-- Bottom Off Canvas -->
+      <zf-offcanvas id="example-canvas-right" position="right">
+        <div class="grid-content">
+          <a href="#" zf-close class="close-button">&times;</a>
+          <h3>This is a right off-canvas menu.</h3>
+        </div>
+      </zf-offcanvas>
+
+      <!-- Left Off Canvas -->
+      <zf-offcanvas id="example-canvas-bottom" position="bottom">
+      <div class="grid-content">
+        <a href="#" zf-close class="close-button">&times;</a>
+        <h3>This is a bottom off-canvas menu.</h3>
+      </div>
+      </zf-offcanvas>
+
+      <!-- Top Off Canvas -->
+      <zf-offcanvas id="example-canvas-left" position="left">
+      <div class="grid-content">
+        <a href="#" zf-close class="close-button">&times;</a>
+        <h3>This is a left off-canvas menu.</h3>
+      </div>
+      </zf-offcanvas>
+
     <!-- App frame -->
     <div class="vertical grid-frame">
       <!-- Title bar -->
@@ -50,8 +75,8 @@
 
       </div>
       <!-- /Title bar -->
-      <div class="grid-block" ng-controller="NavController">
-        <div zf-panel id="sidebar" class="fast bounceInOut medium-3 medium-grid-block sidebar vertical">
+      <div class="grid-block">
+        <div zf-panel id="sidebar" class="fast bounceInOut medium-3 large-2 medium-grid-block sidebar vertical">
           <div class="grid-content shrink docs-search-box">
             <autocomplete data="routing" on-select="selectRoute" attr-placeholder="Search Docs: e.g. forms" ng-model="typedText" />
           </div>
@@ -126,11 +151,107 @@
         <!-- /Sidebar nav -->
 
         <!-- Main content -->
-        <div class="medium-9 grid-content">
-          <div class="grid-container">
+        <div class="medium-9 large-10 grid-content">
+          <div class="grid-container main-docs-section">
             <a class="small secondary expand button hide-for-medium" zf-toggle="sidebar">Show Components</a>
             <div ng-class="['ui-animation']" ui-view></div>
           </div>
+
+          <div class="zurb-footer-top">
+            <div class="grid-block property">
+              <div class="large-4 medium-4 grid-content">
+                <div class="property-info">
+                  <h3><a href="index" class="home" title="Foundation">Foundation</a></h3>
+                  <p>Foundation is made by <a href="http://zurb.com/" target="_blank">ZURB</a>, a product design company in Campbell, California. We've put more than 15 years of experience building web products, services and websites into this framework.</p>
+                </div>
+              </div>
+
+              <div class="large-8 medium-8 grid-content">
+                <div class="grid-block">
+                  <div class="large-4 medium-4 grid-content">
+                    <div class="learn-links">
+                      <h4 class="hide-for-small">Want More?</h4>
+                      <ul>
+                        <li><a href="http://http://foundation.zurb.com//">Foundation for Sites</a></li>
+                        <li><a href="http://http://zurb.com/ink/">Foundation for Email</a></li>
+                        <li><a href="http://http://foundation.zurb.com/forum/">Foundation Forum</a></li>
+                        <li><a href="support.html">Support</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="large-4 medium-4 grid-content">
+                    <div class="support-links">
+                      <h4>Need Help?</h4>
+                      <p><a href="support.html" target="_blank">Read our Support FAQs</a></p>
+                      <p>Tweet <a href="https://twitter.com/ZURBfoundation">@ZURBfoundation</a><br> Or email us at <a href="mailto:support@foundation.com">support@foundation.com</a></p>
+                    </div>
+                  </div>
+                  <div class="large-4 medium-4 grid-content">
+                    <div class="connect-links">
+                      <h4>Stay Updated</h4>
+                      <p>Keep up with the latest <br class="hide-for-small"> <a href="http://zurb.com/blog/topic/foundation" target="_blank">Foundation news</a></p>
+                      <a href="#" class="small secondary button">What’s New</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Global Row -->
+            <div class="grid-block global">
+              <div class="large-3 medium-3 small-6 grid-content">
+                <a href="http://zurb.com/studios" class="footer-link-block services">
+                  <span class="title">Studios</span>
+                  <span>Helping more than 250 startups succeed since 1998.</span>
+                </a>
+              </div>
+              <div class="large-3 medium-3 small-6 grid-content">
+                <a href="http://foundation.zurb.com/" class="footer-link-block foundation">
+                  <span class="title">Foundation</span>
+                  <span>The most advanced front-end framework in the world.</span>
+                </a>
+              </div>
+              <div class="large-3 medium-3 small-6 grid-content">
+                <a href="http://zurb.com/apps" class="footer-link-block apps">
+                  <span class="title">Notable</span>
+                  <span>Prototype, iterate and collect feedback on your products.</span>
+                </a>
+              </div>
+              <div class="large-3 medium-3 small-6 grid-content">
+                <a href="http://zurb.com/university" class="footer-link-block expo">
+                  <span class="title">University</span>
+                  <span>Ideas, thoughts and design resources shared with you.</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="zurb-footer-bottom">
+            <div class="row">
+              <div class="large-4 medium-4 medium-push-8 grid-content">
+                <ul class="home-social">
+                  <li><a href="http://www.twitter.com/ZURB" class="twitter"></a></li>
+                  <li><a href="http://www.facebook.com/ZURB" class="facebook"></a></li>
+                  <li><a href="/contact" class="mail"></a></li>
+                </ul>
+              </div>
+              <div class="large-8  medium-8 grid-content">
+                <a href="http://www.zurb.com" class="zurb-logo regular"></a>
+                <ul class="zurb-links">
+                  <li><a href="http://zurb.com/about">About</a></li>
+                  <li><a href="http://zurb.com/blog">Blog</a></li>
+                  <li><a href="http://zurb.com/news">News<span class="show-for-medium-up"> &amp; Events</span></a></li>
+                  <li><a href="http://zurb.com/contact">Contact</a></li>
+                  <li><a href="http://zurb.com/sitemap">Sitemap</a></li>
+                </ul>
+                <p class="copyright">&copy; 1998&ndash;2014 ZURB, Inc. All rights reserved.</p>
+              </div>
+            </div>
+          </div>
+
+
+
+
         </div>
         <!-- /Main content -->
       </div>

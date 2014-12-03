@@ -4,7 +4,145 @@ url: /accordion
 ---
 
 <h2>Accordion</h2>
-<h3 class="subheader">The trusy accordion allows you to create a series of vertical tabs containing various content.</h3>
+<h3 class="subheader">The trusty accordion allows you to create a series of vertical tabs containing various content.</h3>
+
+<hr />
+
+<zf-accordion>
+  <zf-accordion-item
+    title="Input your title here">
+    Content goes here
+  </zf-accordion-item>
+    <zf-accordion-item
+    title="Input your title here">
+    Content goes here
+  </zf-accordion-item>
+    <zf-accordion-item
+    title="Input your title here">
+    Content goes here
+  </zf-accordion-item>
+</zf-accordion>
+
+<hr />
+
+<h3>Basic HTML</h3>
+<p>You can create an accordion with this basic directive</p>
+<div class="grid-block">
+  <div class="medium-6 grid-content">
+<hljs>
+  <zf-accordion-set>
+    <zf-accordion
+      title="Input your title here">
+      Content goes here
+    </zf-accordion>
+      <zf-accordion
+      title="Input your title here">
+      Content goes here
+    </zf-accordion>
+      <zf-accordion
+      title="Input your title here">
+      Content goes here
+    </zf-accordion>
+  </zf-accordion-set>
+</hljs>
+  </div>
+  <div class="medium-6 grid-content">
+    <zf-accordion>
+		  <zf-accordion-item
+		    title="Input your title here">
+		    Content goes here
+		  </zf-accordion-item>
+		    <zf-accordion-item
+		    title="Input your title here">
+		    Content goes here
+		  </zf-accordion-item>
+		    <zf-accordion-item
+		    title="Input your title here">
+		    Content goes here
+		  </zf-accordion-item>
+		</zf-accordion>
+  </div>
+</div>
 
 <hr>
 
+<h3>Advanced HTML</h3>
+<p>You can create advanced versions of an accordion with these additional directive options</p>
+<div class="grid-block">
+  <div class="medium-6 grid-content">
+<hljs>
+<zf-accordion multi-open="true" auto-open="false">
+  <zf-accordion-item
+    title="Input your title here">
+    Content goes here
+  </zf-accordion-item>
+    <zf-accordion-item
+    title="Input your title here">
+    Content goes here
+  </zf-accordion-item>
+    <zf-accordion-item
+    title="Input your title here">
+    Content goes here
+  </zf-accordion-item>
+</zf-accordion>
+</hljs>
+  </div>
+  <div class="medium-6 grid-content">
+    <zf-accordion multi-open="true" auto-open="false">
+		  <zf-accordion-item
+		    title="Input your title here">
+		    Content goes here
+		  </zf-accordion-item>
+		    <zf-accordion-item
+		    title="Input your title here">
+		    Content goes here
+		  </zf-accordion-item>
+		    <zf-accordion-item
+		    title="Input your title here">
+		    Content goes here
+		  </zf-accordion-item>
+		</zf-accordion>
+  </div>
+</div>
+
+<hr />
+
+<h3>Sass Mixins</h3>
+
+<p>Use our mixins to write a custom accordion. There are only mixins for the two components of accordion items: the title and the content.</p>
+
+<hljs>
+.custom-accordion-title {
+  @include accordion-title(
+    $background: #fff, // Default background
+    $background-hover: #fff, // Background on hover
+    $background-active: #fff, // Background when active
+    $color: #000, // Default color
+    $color-active: #000, // Color when active
+    $padding: 1rem
+  );
+}
+
+.custom-accordion-content {
+  @include accordion-content(
+    $padding: 1rem
+  );
+}
+</hljs>
+
+<hr>
+
+<h3>Sass Variables</h3>
+<p>You can customize with accordions with these variables in _settings.scss</p>
+<hljs>
+$accordion-border: 1px solid $gray-dark;
+
+$accordion-title-background: $gray-light;
+$accordion-title-background-hover: smartscale($accordion-title-background, 5%);
+$accordion-title-background-active: lighten($gray-light, 2);
+$accordion-title-color: isitlight($accordion-title-background);
+$accordion-title-color-active: isitlight($accordion-title-background);
+
+$accordion-title-padding: $global-padding;
+$accordion-content-padding: $global-padding;
+</hljs>

@@ -6,12 +6,10 @@ angular.module('foundation.popup')
       restrict: 'EA',
       transclude: true,
       replace: true,
-      templateUrl: '/partials/popup.html',
+      templateUrl: 'partials/popup.html',
       scope: {
         pinTo: '@?',
         pinAt: '@?',
-        footer: '@?',
-        title: '@?'
       },
       link: function(scope, element, attrs) {
         scope.active = false;

@@ -1,4 +1,4 @@
-@import "panels";
+@import "panel";
 
 /*
 	THE GRID
@@ -205,7 +205,6 @@ $block-grid-max-size: 6;
   right: auto;
   bottom: auto;
   left: auto;
-  padding: 0;
 }
 
 /*
@@ -252,7 +251,7 @@ $block-grid-max-size: 6;
 @mixin grid-content($size: expand, $offset: null, $order: null) {
 	// Content blocks are not flex items and have padding
 	display: block;
-	padding: 1rem;
+	padding: 0 $block-padding;
 
   // Add scrolling with inertia
   overflow-y: auto;
@@ -290,8 +289,10 @@ $block-grid-max-size: 6;
   // Orientation classes
   &.vertical { @include grid-orient(vertical); }
   @each $size in $breakpoint-classes {
-    &.#{$size}-vertical   { @include grid-orient(vertical); }
-    &.#{$size}-horizontal { @include grid-orient(horizontal); }
+    @include breakpoint($size) {
+      &.#{$size}-vertical   { @include grid-orient(vertical); }
+      &.#{$size}-horizontal { @include grid-orient(horizontal); }
+    }
   }
 
   // Block alignment
@@ -393,10 +394,8 @@ $block-grid-max-size: 6;
 				@include grid-order($i);
 			}
 			// Offsets
-			@if ($total-columns < 12) {
-				.#{$size}-offset-#{$i} {
-					@include grid-offset($i);
-				}
+			.#{$size}-offset-#{$i} {
+				@include grid-offset($i);
 			}
 			// Parent sizing (block grids)
 			// TODO: Make mixin

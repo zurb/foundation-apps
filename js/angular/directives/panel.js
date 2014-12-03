@@ -4,7 +4,7 @@ angular.module('foundation.panel')
   .directive('zfPanel', ['FoundationApi', function(foundationApi) {
   return {
     restrict: 'EA',
-    templateUrl: '/partials/panel.html',
+    templateUrl: 'partials/panel.html',
     transclude: true,
     scope: {
       position: '@?'
@@ -21,6 +21,9 @@ angular.module('foundation.panel')
           scope.position = scope.position || 'left';
           scope.active = false;
 
+          var animationIn = attrs.animationIn || (scope.position === 'left' ? 'slideInFromLeft' : 'slideInFromRight');
+          var animationOut = attrs.animationOut || (scope.position === 'left' ? 'slideOutFromLeft' : 'slideOutFromLeft');
+
           //setup
           foundationApi.subscribe(attrs.id, function(msg) {
             if(msg == 'show' || msg == 'open') {
@@ -30,6 +33,8 @@ angular.module('foundation.panel')
             } else if (msg == 'toggle') {
               scope.toggle();
             }
+
+            foundationApi.animate(element, scope.active, animationIn, animationOut);
 
             scope.$apply();
 
