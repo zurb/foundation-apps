@@ -69,10 +69,35 @@ url: /title-bar
 .center = center content
 </hljs>
 
-<hr />
+<hr>
+
+<h3>Sass Mixins</h3>
+
+<p>Write a title bar with a custom class using our mixins.</p>
+
+<hljs>
+.custom-title-bar {
+  // Extend the base selector to get core structural styles
+  @extend %title-bar;
+
+  // Add visual styles with this mixin
+  @include title-bar-style(
+    $background: #fff, // Background color
+    $color: #000, // Text color
+    $border: 1px solid #000,
+    $padding: 1rem
+  );
+}
+</hljs>
+
+<p>Note that the names of the <code>left</code>, <code>right</code>, <code>center</code>, and <code>title</code> classes are changed in the settings variables&mdash;see below.</p>
+
+<hr>
 
 <h3>Sass Variables</h3>
+
 <p>You can customize with Title Bar with these variables in _settings.scss:</p>
+
 <hljs>
 $titlebar-center-width: 50%;
 $titlebar-side-width: (100% - $titlebar-center-width) / 2;

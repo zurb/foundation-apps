@@ -158,8 +158,46 @@ Add an image and <code>card-divider</code> class and you have one fancy looking 
 
 <hr>
 
+<h3>Sass Mixins</h3>
+
+<p>Use our mixins to build a card with a custom class.</p>
+
+<hljs>
+// This is a card container
+.custom-card {
+  @include card-container(
+    $background: #fff, // Background color
+    $color: #000, // Text color
+    $border: 1px solid #000, // Border
+    $radius: 4px, // Border radius
+    $shadow: 0 4px 10px black, // Box shadow
+    $padding: 1rem,
+    $margin: 1rem // Margin bottom
+  );
+}
+
+// This is a card divider
+.custom-card-divider {
+  @include card-divider(
+    $background: #ccc,
+    $padding: 1rem
+  );
+}
+
+// This is a card section
+.custom-card-section {
+  @include card-section(
+    $padding: 1rem
+  );
+}
+</hljs>
+
+<hr>
+
 <h3>Sass Variables</h3>
-<p>You can customize with [Item] with these variables in _settings.scss:</p>
+
+<p>You can customize cards with these variables in _settings.scss:</p>
+
 <hljs>
 $card-background: #fff;
 $card-color: isitlight($card-background);

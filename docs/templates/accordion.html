@@ -107,6 +107,31 @@ url: /accordion
 
 <hr />
 
+<h3>Sass Mixins</h3>
+
+<p>Use our mixins to write a custom accordion. There are only mixins for the two components of accordion items: the title and the content.</p>
+
+<hljs>
+.custom-accordion-title {
+  @include accordion-title(
+    $background: #fff, // Default background
+    $background-hover: #fff, // Background on hover
+    $background-active: #fff, // Background when active
+    $color: #000, // Default color
+    $color-active: #000, // Color when active
+    $padding: 1rem
+  );
+}
+
+.custom-accordion-content {
+  @include accordion-content(
+    $padding: 1rem
+  );
+}
+</hljs>
+
+<hr>
+
 <h3>Sass Variables</h3>
 <p>You can customize with accordions with these variables in _settings.scss</p>
 <hljs>

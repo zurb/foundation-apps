@@ -160,10 +160,42 @@ url: /button
   </div>
 </div>
 
-<h3>Customize with Sass</h3>
+<hr>
+
+<h3>Sass Variables</h3>
+
+<p>Write a custom button class using our button mixins.</p>
+
+<hljs no-escape>
+.custom-button {
+  // Extend the base selector to get core styles
+  @extend %button;
+
+  // Use the size mixin to set a size
+  @include button-size(
+    $size: medium, // tiny, small, medium, or large
+    $expand: false
+  );
+
+  // Use the style mixin to set visual styles
+  @include button-style(
+    $background: #fff, // Background color
+    $color: #000, // Text color
+    $style: solid // Can be solid or hollow
+  );
+
+  &.custom-disabled {
+    @include button-disabled;
+  }
+}
+</hljs>
+
+<hr>
+
+<h3>Sass Mixins</h3>
+
 <p>Buttons can be easily customized using our Sass variables.</p>
-<div class="grid-block">
-  <div class="small-12 grid-content">
+
 <hljs>
 $button-padding: 0.85em 1em !default;
 $button-margin: 0 $global-padding $global-padding 0 !default;
@@ -185,5 +217,3 @@ $btngroup-background: $primary-color !default;
 $btngroup-color: #fff !default;
 $btngroup-radius: $button-radius !default;
 </hljs>
-	</div>
-</div>
