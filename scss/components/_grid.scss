@@ -313,100 +313,102 @@ $block-grid-max-size: 6;
   &.shrink { @include grid-size(shrink); }
 }
 
-/*
-  The core grid elements:
-   - Frame
-   - Block
-   - Content block
-   - Container
-*/
-.grid-frame {
-  @extend %block-core;
-	@include grid-frame;
-}
-.grid-block {
-  @extend %block-core;
-  @extend %child-core;
-	@include grid-block;
-
-  .grid-content & {
-    margin-left: -($block-padding);
-    margin-right: -($block-padding);
+@include exports(grid) {
+  /*
+    The core grid elements:
+     - Frame
+     - Block
+     - Content block
+     - Container
+  */
+  .grid-frame {
+    @extend %block-core;
+    @include grid-frame;
   }
-}
-.grid-content {
-  @extend %child-core;
-  @include grid-content;
-
-  &.collapse {
-    padding: 0;
-  }
-}
-.grid-container {
-  @include grid-container;
-
-  &.contain-left  { @include grid-container($align: left); }
-  &.contain-right { @include grid-container($align: right); }
-}
-
-/*
-  Breakpoint classes for blocks
-*/
-@each $size in $breakpoint-classes {
-  .#{$size}-grid-block {
+  .grid-block {
     @extend %block-core;
     @extend %child-core;
+    @include grid-block;
 
-    @include breakpoint($size) {
-      @include grid-block;
-
-      // Override panel styles
-      &.panel { @include grid-panel-reset; }
+    .grid-content & {
+      margin-left: -($block-padding);
+      margin-right: -($block-padding);
     }
   }
-  .#{$size}-grid-content {
+  .grid-content {
     @extend %child-core;
+    @include grid-content;
 
-    @include breakpoint($size) {
-      @include grid-content;
-
-      // Override panel styles
-      &.panel { @include grid-panel-reset; }
+    &.collapse {
+      padding: 0;
     }
   }
-}
+  .grid-container {
+    @include grid-container;
 
-/*
-	Sizing and ordering classes
-*/
-@for $i from 1 through $total-columns {
-  .order-#{$i} { @include grid-order($i); }
-}
-@each $size in $breakpoint-classes {
-	@for $i from 1 through $total-columns {
-		@include breakpoint($size) {
-			// Block sizing
-			.#{$size}-#{$i} {
-				@include grid-size($i);
-			}
-      // Source ordering
-			.#{$size}-order-#{$i} {
-				@include grid-order($i);
-			}
-			// Offsets
-			.#{$size}-offset-#{$i} {
-				@include grid-offset($i);
-			}
-			// Parent sizing (block grids)
-			// TODO: Make mixin
-			.#{$size}-up-#{$i} {
-        @include grid-layout($i);
-			}
-		}
-	}
-}
+    &.contain-left  { @include grid-container($align: left); }
+    &.contain-right { @include grid-container($align: right); }
+  }
 
-.grid-content .grid-block {
-  flex-flow: row wrap;
-  overflow: visible;
+  /*
+    Breakpoint classes for blocks
+  */
+  @each $size in $breakpoint-classes {
+    .#{$size}-grid-block {
+      @extend %block-core;
+      @extend %child-core;
+
+      @include breakpoint($size) {
+        @include grid-block;
+
+        // Override panel styles
+        &.panel { @include grid-panel-reset; }
+      }
+    }
+    .#{$size}-grid-content {
+      @extend %child-core;
+
+      @include breakpoint($size) {
+        @include grid-content;
+
+        // Override panel styles
+        &.panel { @include grid-panel-reset; }
+      }
+    }
+  }
+
+  /*
+    Sizing and ordering classes
+  */
+  @for $i from 1 through $total-columns {
+    .order-#{$i} { @include grid-order($i); }
+  }
+  @each $size in $breakpoint-classes {
+    @for $i from 1 through $total-columns {
+      @include breakpoint($size) {
+        // Block sizing
+        .#{$size}-#{$i} {
+          @include grid-size($i);
+        }
+        // Source ordering
+        .#{$size}-order-#{$i} {
+          @include grid-order($i);
+        }
+        // Offsets
+        .#{$size}-offset-#{$i} {
+          @include grid-offset($i);
+        }
+        // Parent sizing (block grids)
+        // TODO: Make mixin
+        .#{$size}-up-#{$i} {
+          @include grid-layout($i);
+        }
+      }
+    }
+  }
+
+  .grid-content .grid-block {
+    flex-flow: row wrap;
+    overflow: visible;
+  }
 }
