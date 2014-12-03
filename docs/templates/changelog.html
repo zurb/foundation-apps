@@ -8,24 +8,45 @@ url: /changelog
 
 <hr>
 
-<h3>1.0 - December 4, 2014</h3>
-
-<p>Initial public release. Thanks to everyone who helped us with feedback while we built another amazing Framework!</p>
-
-<p>Here are some featured updates:</p>
-<ul>
-	<li>Cool stuff</li>
-	<li>Meh</li>
-	<li>Scooby Snacks</li>
-	<li>TS</li>
-</ul>
-
-<p>Initial Release, enjoy!</p>
+<h3>How to update</h3>
+<ol>
+  <li>Specify the version you want to update to in your bower.json file.</li>
+  <li>To update, <code>cd</code> into the project folder, then run <code>bower update</code>.</li>
+</ol>
 
 <hr>
 
-<h3>How to update</h3>
-<ol>
-	<li>Specify the version you want to update to in your bower.json file.</li>
-	<li>To update, <code>cd</code> into the project folder, then run <code>bower update</code>.</li>
-</ol>
+<h3>Version 1.0.0 RC1 — Mont Blanc</h3>
+
+<p>It's our 1.0 release candidate! Thanks for stopping by to take a look.
+
+<h4>How to mess with it</h4>
+
+<p>If you want a quick way to jump in, check out our <a href="https://github.com/zurb/foundation-apps-template">starter template</a>, which has a basic directory structure and a blank index file for you to work with. Follow the instructions in the <a href="https://github.com/zurb/foundation-apps-template/blob/master/readme.md">readme</a> to get going.</p>
+
+<p>The first thing you'll probably want to check out is the grid. If you compile this repo on your machine, you can find the grid documentation at <a href="http://localhost:8080/#!/grid">http://localhost:8080/#!/grid</a>. You can also view the source of that file <a href="https://github.com/zurb/foundation-apps/blob/master/docs/templates/grid.html">here</a>.</p>
+
+<p>To incorporate our Sass components and Angular directives into your own project, install Foundation using Bower:</p>
+
+<hljs>
+bower install zurb/foundation-apps
+</hljs>
+
+<p>The JavaScript is organized into common components, specific directives, and vendor files. There's also a sample `app.js` that shows how to import the Foundation modules, but you'll likely want to set up your Angular application your own way.</p>
+
+<h4>How to contribute</h4>
+
+<p>We love feedback! We have a few <a href="https://github.com/zurb/foundation-apps/issues?q=is%3Aopen+is%3Aissue+label%3Adiscussion">discussion topics</a> open on our issue tracker, but if you have more specific feedback, please open a new issue! If you encounter any bugs, let us know as well. Be sure to specify the browser and operating system you're using, and show us how we can recreate the issue. Code samples are great!</p>
+
+<h4>What's left</h4>
+
+<p>The codebase is very close to feature-complete. Here are the things we're still working on:</p>
+<ul>
+ <li>Fully-working motion classes (see #113)</li>
+ <li>Loose ends on components (see #109, #110, #111)</li>
+ <li>Animation on directives (see #107)</li>
+ <li>Unit tests for Angular and Sass (see #106)</li>
+ <li>A finished settings file</li>
+ <li>The command-line interface (being built in a separate repo, currently private)</li>
+ <li>Testing, testing, testing</li>
+</ul>
