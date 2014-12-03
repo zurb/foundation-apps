@@ -340,10 +340,8 @@ $motion-delay-long: 700ms !default;
   $delay: $motion-delay-default,
   $iterations: null
 ) {
-
-  // &.#{$motion-class} {
-  //   animation-name: $animation;
-  // }
+  
+  animation-name: $animation;
   animation-duration: $duration;
   animation-timing-function: $timing;
 
