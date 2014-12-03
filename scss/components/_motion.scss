@@ -371,14 +371,14 @@ $motion-delay-long: 700ms !default;
   */
 
   // Slide
-  .slideInFromTop     { @include slide($from: top); }
-  .slideInFromRight   { @include slide($from: right); }
-  .slideInFromBottom  { @include slide($from: bottom); }
-  .slideInFromLeft    { @include slide($from: left); }
-  .slideOutFromTop    { @include slide($dir: out, $from: top); }
-  .slideOutFromRight  { @include slide($dir: out, $from: right); }
-  .slideOutFromBottom { @include slide($dir: out, $from: bottom); }
-  .slideOutFromLeft   { @include slide($dir: out, $from: left); }
+  .slideInDown    { @include slide($from: top); }
+  .slideInLeft    { @include slide($from: right); }
+  .slideInUp      { @include slide($from: bottom); }
+  .slideInRight   { @include slide($from: left); }
+  .slideOutBottom { @include slide($dir: out, $from: top); }
+  .slideOutRight  { @include slide($dir: out, $from: right); }
+  .slideOutUp     { @include slide($dir: out, $from: bottom); }
+  .slideOutLeft   { @include slide($dir: out, $from: left); }
 
   // Fade
   .fadeIn  { @include fade(in, 0, 1); }
