@@ -87,7 +87,9 @@ url: /mail/inbox/:id
 
 <p>It will match any URL that follows that pattern (so `/mail/inbox/383828` would match as well as `/mail/inbox/my-email` but not `/mail/inbox/3838/something`).</p>
 
-<p>Animations</p>
+<hr />
+
+<h3>Animations</h3>
 <p>Angular and the UI router support animations. That means that when you transition from a page to another page, you can CSS animate it. It's easy to do with CSS; however, you can use front matter to register CSS animations:</p>
 
 <hljs>
@@ -101,7 +103,7 @@ animationOut: fadeOut
 
 <p>The ability to `sync` transitions together has been delayed from v1.2 to 1.3 and finally as a possibility for 2.0 ([ref](https://github.com/angular/angular.js/issues/2310))</p>
 
-<p><em>Note</em> Please don't forget to add the `ui-animation` attribute wherever you have `ui-view` in order to hook your animations up to that event!</p>
+<p><em>Note:</em> Please don't forget to add the `ui-animation` attribute wherever you have `ui-view` in order to hook your animations up to that event!</p>
 
 <hr />
 

@@ -10,7 +10,6 @@ angular.module('foundation.common.animations')
     return {
       enter: function(element, done) {
         var scope = element.scope();
-
         if(scope.vars && scope.vars.animationIn) {
 
           var animationIn = scope.vars.animationIn;
