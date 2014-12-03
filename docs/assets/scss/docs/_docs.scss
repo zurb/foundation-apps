@@ -180,6 +180,24 @@ $rad: 5px;
   border-bottom: 1px solid #e7e7e7;
   padding: 1rem;
   input {margin-bottom: 0;}
+  overflow: visible;
+
+  .autocomplete input {
+    font-size: 1rem;
+    padding: 0.5rem;
+  }
+
+  .autocomplete > ul {
+    margin-left: 0;
+    border: 1px solid #ccc;
+    border-top: 0;
+    box-shadow: 0 4px 5px rgba(#000, 0.25);
+
+    li.active {
+      background: $primary-color;
+      color: white;
+    }
+  }
 }
 
 h3.subheader {
