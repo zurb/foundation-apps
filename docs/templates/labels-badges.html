@@ -47,12 +47,12 @@ url: /labels-badges
   <div class="medium-6 grid-content">
 
 <hljs>
-	<span class="badge">7</span>
-	<span class="secondary badge">1313</span>
-	<span class="success badge">A</span>
-	<span class="alert badge">7</span>
-	<span class="warning badge">7</span>
-	<span class="info badge">7</span>
+<span class="badge">7</span>
+<span class="secondary badge">1313</span>
+<span class="success badge">A</span>
+<span class="alert badge">7</span>
+<span class="warning badge">7</span>
+<span class="info badge">7</span>
 </hljs>
   </div>
 
@@ -70,8 +70,46 @@ url: /labels-badges
 
 <hr>
 
+<h3>Sass Mixins</h3>
+
+<p>Use these mixins to create custom labels and badges.</p>
+
+<hljs>
+.custom-label {
+  @extend %label;
+
+  @include label-layout(
+    $fontsize: 1rem,
+    $padding: 0.25em
+  );
+
+  @include label-style(
+    $background: red,
+    $color: #fff,
+    $radius: 20px
+  );
+}
+
+.custom-badge {
+  @extend %badge;
+
+  @include badge-layout(
+    $fontsize: 1rem,
+    $padding: 0.25em
+  );
+
+  @include badge-style(
+    $background: red,
+    $color: #fff,
+    $radius: 1000px
+  );
+}
+</hljs>
+
+<hr>
+
 <h3>Sass Variables</h3>
-<p>You can customize tabs with these variables in the <code>_settings.scss</code> file:</p>
+<p>You can customize labels and badges with these variables in the <code>_settings.scss</code> file:</p>
 
 <hljs>
 // Label styles

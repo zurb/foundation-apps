@@ -105,19 +105,13 @@ $panel-animation-speed: 0.25s !default;
 
 @mixin panel-style(
   $padding: $panel-padding,
-  $background: $panel-background,
-  $animation-speed: $panel-animation-speed
+  $background: $panel-background
 ) {
   /*
     Basic styles
   */
   padding: $padding;
   background: $background;
-
-  /*
-    Animation
-  */
-  transition: transform $animation-speed linear;
 }
 
 @include exports(panels) {

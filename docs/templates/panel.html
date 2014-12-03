@@ -175,8 +175,41 @@ url: /panel
 
 <hr>
 
+<h3>Sass Mixins</h3>
+
+<p>Use these mixins to write a panel with a custom class.</p>
+
+<hljs no-escape>
+.custom-panel {
+  // Extend the panel selector to get basic structural styles
+  @extend %panel-base;
+
+  // Use the layout mixin to set the position and sizing
+  @include panel-layout(
+    $position: left, // Can be top, right, bottom, or left
+    $size: default, // Can be any unit, or "default" to use the settings variables
+    $shadow: 0 4px 10px black // The shadow will be auto-adjusted based on the position of the panel
+  );
+
+  // Use the style mixin to define visual styles
+  @include panel-style(
+    $padding: 1rem,
+    $background: #fff
+  );
+
+  &.fixed {
+    // Add position: fixed to anchor the panel to the window instead of the panel's parent
+    position: fixed;
+  }
+}
+</hljs>
+
+<hr>
+
 <h3>Sass Variables</h3>
+
 <p>You can customize Panels with these variables in the <code>_settings.scss</code> file:</p>
+
 <hljs>
 $panel-size-horizontal: 300px;
 $panel-size-vertical: 300px;

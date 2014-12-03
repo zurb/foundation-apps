@@ -72,24 +72,70 @@ animateOut: fadeOut
   </zf-as-content>
 </zf-action-sheet>
 </hljs>
-<hr />
 
-<h3>Sass Variables</h3>
-<p>You can customize with [Item] with these variables in _settings.scss:</p>
+<h3>Sass Mixins</h3>
+
+<p>Create an action sheet with custom class names using our mixins.</p>
 
 <hljs>
-$actionsheet-background: white !default;
-$actionsheet-border-color: #ccc !default;
-$actionsheet-animate: transform opacity !default;
-$actionsheet-animation-speed: 0.25s !default;
-$actionsheet-width: 300px !default;
-$actionsheet-radius: 4px !default;
-$actionsheet-shadow: 0 -3px 10px rgba(black, 0.25) !default;
-$actionsheet-padding: $global-padding !default;
-$actionsheet-tail-size: 10px !default;
+// This is the wrapper for your button and action sheet
+.custom-action-sheet-container {
+  position: relative;
+  display: inline-block;
+}
 
-$actionsheet-popup-shadow: 0 0 10px rgba(black, 0.25) !default;
+// This is the action sheet itself
+.custom-action-sheet {
+  // These are the core styles for the sheet's menu
+  @include action-sheet-menu(
+    $padding: 1rem,
+    $color: #000, // Text color
+    $border-color, // Border color
+    $background-hover: #ccc // Background color of menu items when hovered on
+  );
 
-$actionsheet-link-color: #000 !default;
-$actionsheet-link-background-hover: smartscale($actionsheet-background) !default;
+  // This mixin sets up styles for the mobile action sheet
+  @include action-sheet(
+    $position: bottom, // Can be top or bottom
+    $shadow: 0 3px 10px black,
+    $animate: transform opacity, // Properties to animate when the menu is shown and hidden. Remove "transform" or "opacity" to turn off those animations
+    $animation-speed: 0.25s, // Speed at which the menu animates in and out
+    $padding: 1rem,
+    $background: #fff // Background color
+  );
+
+  // This mixin sets up styles for the desktop popup menu
+  // Here we're only applying the styles on medium-sized screens and larger
+  @include breakpoint(medium) {
+    $position: bottom, // Can be top or bottom
+    $background: #fff, // Background color
+    $width: 300px, // Width of whole menu
+    $radius: 3px, // Border radius of menu
+    $shadow: 0 4px 10px black, // Box shadow of menu
+    $tail-size: 5px // Size of tail that is attached to the menu
+  }
+}
+</hljs>
+
+<hr>
+
+<h3>Sass Variables</h3>
+
+<p>Customize the base styles for action sheets with these settings variables.</p>
+
+<hljs>
+$actionsheet-background: white;
+$actionsheet-border-color: #ccc;
+$actionsheet-animate: transform opacity;
+$actionsheet-animation-speed: 0.25s;
+$actionsheet-width: 300px;
+$actionsheet-radius: 4px;
+$actionsheet-shadow: 0 -3px 10px rgba(black, 0.25);
+$actionsheet-padding: $global-padding;
+$actionsheet-tail-size: 10px;
+
+$actionsheet-popup-shadow: 0 0 10px rgba(black, 0.25);
+
+$actionsheet-link-color: #000;
+$actionsheet-link-background-hover: smartscale($actionsheet-background);
 </hljs>

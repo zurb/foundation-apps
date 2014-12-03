@@ -58,8 +58,8 @@ $blocklist-check-icons: true !default;
   font-size: $font-size;
 
   @if $full-bleed {
-    margin-left: -1rem;
-    margin-right: -1rem;
+    margin-left: -$global-padding;
+    margin-right: -$global-padding;
   }
 }
 

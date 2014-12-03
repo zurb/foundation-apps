@@ -187,27 +187,103 @@ url: /block-list
   </div>
 </div>
 
-<hr />
+<hr>
+
+<h3>Sass Mixins</h3>
+
+<p>Use our Sass mixins to define your own markup structure for a block list.</p>
+
+<hljs no-escape>
+// This is the block list container
+.custom-block-list {
+  // This gets you basic styles
+  @include block-list-container(
+    $font-size: 1rem, // Base font size for entire list
+    $full-bleed: true // If true, negative margins are added on the left and right to push the list to the edge of the container
+  );
+
+  // This adds support for text fields, dropdowns, and radio/check inputs
+  @include block-list-inputs(
+    $color: #000, // Foreground color
+    $background, #fff, // Background color
+    $background-hover: #fff, // Background color of elements on hover
+    $padding: 1rem, // 
+  );
+
+  // This adds support for icons
+  &.with-icons {
+    @include block-list-icons(
+      $size: 0.8, // This should be a decimal point. 0.8 makes the icon 80% the size of its parent
+      $item-selector: 'li' // This should be whatever tag or class your block list uses for items
+    );
+  }
+
+  // Define what tag or class your list items are with this mixin
+  li {
+    @include block-list-item(
+      $color: #000, // Color of items
+      $color-hover, // Color of items on hover
+      $color-disabled, // Color of items when disabled
+      $background: transparent, // Background color
+      $background-hover: #ccc, // Background color on hover
+      $border: 1px solid #ccc, // Top and bottom border of items
+      $padding: 1rem
+    );
+
+    // Add styles for list items with chevrons
+    &.with-chevron {
+      @include block-list-chevron(
+        $color: #000, // Color of chevron
+        $padding: 1rem, // Insert the same padding as the block list item here
+        $label-class: 'block-list-label' // Insert the class you're using for labels
+      );
+    }
+  }
+
+  // Define what tag or class your headers are with this mixin
+  header {
+    @include block-list-header(
+      $color: #000, // Text color
+      $font-size: 1rem, // Font size
+      $uppercase: true, // If true, the text becomes all-caps
+      $offset: 1rem // Left-side offset for text
+    );
+  }
+
+  // Define the class for labels
+  .block-list-label {
+    @include block-list-label(
+      $color: #999, // Color of label
+      $left-class: 'left', // Define a modifier class for left-aligned labels
+      $left-padding: 1rem // Padding to add when a label is left-aligned
+    );
+  }
+}
+</hljs>
+
+<hr>
 
 <h3>Sass Variables</h3>
-<p>You can customize with  with these variables in</p>
+
+<p>You can customize block lists with these settings variables.</p>
+
 <hljs>
-  $blocklist-background: #fff !default;
-  $blocklist-fullbleed: true !default;
-  $blocklist-fontsize: 1rem !default;
+$blocklist-background: #fff;
+$blocklist-fullbleed: true;
+$blocklist-fontsize: 1rem;
 
-  $blocklist-item-padding: 0.8rem 1rem !default;
-  $blocklist-item-color: isitlight($blocklist-background, #000, #fff) !default;
-  $blocklist-item-background-hover: smartscale($blocklist-background, 4.5%) !default;
-  $blocklist-item-color-disabled: #999 !default;
-  $blocklist-item-border: 1px solid smartscale($blocklist-background, 18.5%) !default;
+$blocklist-item-padding: 0.8rem 1rem;
+$blocklist-item-color: isitlight($blocklist-background, #000, #fff);
+$blocklist-item-background-hover: smartscale($blocklist-background, 4.5%);
+$blocklist-item-color-disabled: #999;
+$blocklist-item-border: 1px solid smartscale($blocklist-background, 18.5%);
 
-  $blocklist-item-label-color: scale-color($blocklist-item-color, $lightness: 60%) !default;
-  $blocklist-item-icon-size: 0.8 !default;
+$blocklist-item-label-color: scale-color($blocklist-item-color, $lightness: 60%);
+$blocklist-item-icon-size: 0.8;
 
-  $blocklist-header-fontsize: 0.8em !default;
-  $blocklist-header-color: smartscale($blocklist-item-color, 40%) !default;
-  $blocklist-header-uppercase: true;
+$blocklist-header-fontsize: 0.8em;
+$blocklist-header-color: smartscale($blocklist-item-color, 40%);
+$blocklist-header-uppercase: true;
 
-  $blocklist-check-icons: true !default;
+$blocklist-check-icons: true;
 </hljs>

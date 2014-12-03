@@ -88,7 +88,45 @@ url: /tabs
 	</div>
 </div>
 
-<hr />
+<hr>
+
+<h3>Sass Mixins</h3>
+
+<p>Use our mixins to write your own tab classes.</p>
+
+<hljs>
+// This is the container for your tabstrip
+.custom-tabs {
+  @include tabstrip(
+    $orientation: horizontal, // Can also be vertical
+    $background: #fff
+  );
+}
+// This is an individual tab
+.custom-tabs-item {
+  @include tabstrip-item(
+    $background: #fff, // Background color
+    $background-hover: #fff, // Background color on hover
+    $background-active: #fff, // Background color when active
+    $color: #000, // Text color
+    $color-active: #000, // Text color when active
+    $padding: 1rem
+  );
+}
+
+// This is the container for tab content panes
+.custom-tab-content {
+  @include tab-content(
+    $padding: 1rem
+  );
+}
+// This is an individual tab pane
+.custom-tab-content-item {
+  @include tab-content-item;
+}
+</hljs>
+
+<hr>
 
 <h3>Sass Variables</h3>
 

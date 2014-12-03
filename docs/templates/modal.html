@@ -150,8 +150,34 @@ large: 800px
 
 <hr>
 
+<h3>Sass Mixins</h3>
+
+<p>Write a modal with a custom class using our Sass mixins. Note that the class for the modal overlay can't be changed.</p>
+
+<hljs>
+.custom-modal {
+  // Extend the base modal class to get core structural styles
+  @extend %modal;
+
+  // Use the layout mixin to define the modal's width
+  @include modal-layout(
+    $width: 300px // Can be an absolute value or percentage
+  );
+
+  // Use the style mixin to define the modal's visual style
+  @include modal-style(
+    $border: 1px solid black,
+    $radius: 10px, // Border radius
+    $shadow: 0 4px 10px #000 // Box shadow
+  );
+}
+</hljs>
+
+<hr>
+
 <h3>Sass Variables</h3>
-<p>You can customize with the sass in the <code>_settings.scss</code> file </p>
+<p>You can customize with the Sass variables in the <code>_settings.scss</code> file:</p>
+
 <hljs>
 $modal-background: #fff !default;
 $modal-border: 0 !default;

@@ -102,8 +102,47 @@ foundationApi.publish('main-notifications', { title: 'Test', content: 'Test2' })
 
 <hr>
 
+<h3>Sass Mixins</h3>
+
+<p>Use our mixins to create custom notification styles.</p>
+
+<hljs>
+.custom-notification {
+  // Extend the base selector to get core styles
+  @extend %notification;
+
+  // Use the layout mixin to position and structure the notification
+  @include notification-layout(
+    $x: left, // Can be left, middle, or right
+    $y: top, // Can be top or bottom
+    $size: 200px, // Width of notification
+    $offset: 1rem // Offset from the edge of the window
+  );
+
+  // Use the style mixin to style the notification
+  @include notification-layout(
+    $background: #fff, // Background color
+    $color: #000, // Text color
+    $padding: 1rem,
+    $radius: 4px
+  );
+
+  .custom-notification-icon {
+    @include notification-icon(
+      $size: 50px, // Width and height of the icon
+      $margin: 1rem, // Right-hand margin
+      $align: top // Can be top, middle, or bottom
+    );
+  }
+}
+</hljs>
+
+<hr>
+
 <h3>Sass Variables</h3>
-<p>You can customize with Notifications with these Sass variables:</p>
+
+<p>You can customize notifications with these Sass variables:</p>
+
 <hljs>
 $notification-default-position: right top;
 $notification-width: rem-calc(400);
