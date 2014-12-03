@@ -32,20 +32,20 @@ angular.module('application')
         direction: "enter",
         type: "Slide",
         classes: [
-          "slideInFromTop",
-          "slideInFromBottom",
-          "slideInFromRight",
-          "slideInFromLeft"
+          "slideInDown",
+          "slideInUp",
+          "slideInLeft",
+          "slideInRight"
         ]
       },
       {
         direction: "leave",
         type: "Slide",
         classes: [
-          "slideOutFromTop",
-          "slideOutFromBottom",
-          "slideOutFromRight",
-          "slideOutFromLeft"
+          "slideOutBottom",
+          "slideOutUp",
+          "slideOutLeft",
+          "slideOutRight"
         ]
       },
       {
@@ -122,7 +122,6 @@ angular.module('application')
       var kitty = angular.element('<img id="#demo-card" src="http://placekitten.com/g/600/300" />');
       var demoElementParent = angular.element(document.querySelector('#demo-card-parent'));
       var animationClasses = '';
-
       for (prop in $scope.element) {
         if ($scope.element[prop] !== 'default' && $scope.element[prop] !== 'undefined') {
           animationClasses += $scope.element[prop] + ' ';
@@ -130,19 +129,15 @@ angular.module('application')
       }
       kitty.addClass(animationClasses);
       if ($scope.animationFilter === 'enter') {
-        $scope.animateEnter(kitty, demoElementParent, animationClasses);
+        $animate.enter(kitty, demoElementParent).then(function() {
+          kitty.removeClass(animationClasses);
+          $animate.leave(kitty);
+        });
       }
       else {
         $animate.enter(kitty, demoElementParent);
         $animate.leave(kitty);
       }
-    };
-
-    $scope.animateEnter = function(element, parentElement, classes) {
-      $animate.enter(element, parentElement).then(function() {
-        element.removeClass(classes);
-        $animate.leave(element);
-      });
     };
   }
 ]);
