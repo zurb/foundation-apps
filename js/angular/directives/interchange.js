@@ -80,7 +80,7 @@ angular.module('foundation.interchange')
       };
 
       var checkScenario = function(scenario) {
-        return !current || (scenario.src !== current.src) || (scenario.templ && scenario.templ !== current.templ);
+        return !current || current !== scenario;
       };
 
       //setup
@@ -104,8 +104,11 @@ angular.module('foundation.interchange')
 
             if(typeof scenario.templ !== 'undefined') {
               childScope = newScope;
+
+              //temp container
               var tmp = document.createElement('div');
               tmp.appendChild(innerTemplates[scenario.templ][0]);
+
               element.html(tmp.innerHTML);
               $compile(element.contents())(childScope);
               current = scenario;
