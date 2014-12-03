@@ -17,7 +17,7 @@ url: /modal
       </div>
       <div class="grid-content">
 	     <p>
-        <img src="http://www.dumpaday.com/wp-content/uploads/2011/12/funny-meme-pictures.jpg">
+        <img src="http://fc07.deviantart.net/fs70/i/2012/014/b/e/snowy_peak_by_cassiopeiaart-d4mb6aq.jpg">
         </p>
 	     <span class="button" zf-close>Ok</span>
 	     <span class="button" zf-close>Cancel</span>
@@ -48,6 +48,7 @@ url: /modal
 		<zf-modal id="basicModal" overlay="true">
 		  <a href="#" zf-close>&times;</a>
 		  <section class="grid-content">
+        <br>
 		    <p>Back in my days...</p>
 		    <p>There were 3 Star Wars movies and Disney only made cartoons.</p>
 		  </section>
@@ -66,13 +67,15 @@ url: /modal
 <a class="button" href="#" zf-open="advancedModal">Open modal</a>
 <zf-modal class="small" id="advancedModal" overlay="false">
   <a href="#" zf-close>&times;</a>
-  <section class="grid-content">
-    <p>Add a button to close the modal.</p>
-  </section>
-  <footer class="grid-content menu-bar">
-    <span class="button" zf-close>Ok</span>
-    <span class="button" zf-close>Cancel</span>
-  </footer>
+  <div class="grid-block vertical">
+    <div class="shrink grid-content">
+      <img src="http://fc07.deviantart.net/fs70/i/2012/014/b/e/snowy_peak_by_cassiopeiaart-d4mb6aq.jpg">
+    </div>
+    <div class="grid-content button-group">
+      <a class="button" zf-close>Ok</a>
+      <a class="button" zf-close>Cancel</a>
+    </div>
+  </div>
 </zf-modal>
 </hljs>
 
@@ -81,13 +84,15 @@ url: /modal
     <a class="button" href="#" zf-open="advancedModal">Open modal</a>
 		<zf-modal class="small" id="advancedModal" overlay="false">
 		  <a href="#" zf-close>&times;</a>
-		  <section class="grid-content">
-		    <img src="http://www.dumpaday.com/wp-content/uploads/2011/12/funny-meme-pictures.jpg">
-		  </section>
-		  <footer class="grid-content menu-bar">
-		    <span class="button" zf-close>Ok</span>
-		    <span class="button" zf-close>Cancel</span>
-		  </footer>
+		  <div class="grid-block vertical">
+        <div class="shrink grid-content">
+  		    <img src="http://fc07.deviantart.net/fs70/i/2012/014/b/e/snowy_peak_by_cassiopeiaart-d4mb6aq.jpg">
+  		  </div>
+  		  <div class="grid-content button-group">
+  		    <a class="button" zf-close>Ok</a>
+  		    <a class="button" zf-close>Cancel</a>
+  		  </div>
+      </div>
 		</zf-modal>
   </div>
 </div>
@@ -112,7 +117,7 @@ large: 800px
 <h4>Custom Helpers</h4>
 
 <strong>zf-close</strong>
-<p>zf-close looks for a parent element that has the `zf-closeable` tag on it. This tag is added automatically for all directives that can be closed with `zf-close`. When clicked, the directive will send a message via the FoundationApi to close its parent `zf-closeable` element.</p>
+<p>zf-close looks for a parent element that has the <code>zf-closeable</code> tag on it. This tag is added automatically for all directives that can be closed with <code>zf-close</code>. When clicked, the directive will send a message via the FoundationApi to close its parent <code>zf-closeable</code> element.</p>
 
 <hljs>
 <zf-modal id="pageModal" overlay="true">
@@ -128,7 +133,7 @@ large: 800px
 </hljs>
 
 <strong>zf-open</strong>
-<p>The counter to `zf-close`, `zf-open` sends a signal to a directive that can be trigger through this method. Simply specify the ID of the target element.</p>
+<p>The counter to <code>zf-close</code>, <code>zf-open</code> sends a signal to a directive that can be trigger through this method. Simply specify the ID of the target element.</p>
 
 <hljs>
 <a href="#" zf-open="pageModal">Open Modal</a>
@@ -136,7 +141,7 @@ large: 800px
 </hljs>
 
 <strong>zf-toggle</strong>
-<p>Similar to the previous two, `zf-toggle` sends a toggle command to a directive that can accept it. A target has to be specified in order for it to work.</p>
+<p>Similar to the previous two, <code>zf-toggle</code> sends a toggle command to a directive that can accept it. A target has to be specified in order for it to work.</p>
 
 <hljs>
 <a href="#" zf-toggle="pageModal">Toggle Modal</a>
@@ -146,7 +151,7 @@ large: 800px
 <hr>
 
 <h3>Sass Variables</h3>
-<p>You can customize with the sass in the _settings.scss file </p>
+<p>You can customize with the sass in the <code>_settings.scss</code> file </p>
 <hljs>
 $modal-background: #fff !default;
 $modal-border: 0 !default;
