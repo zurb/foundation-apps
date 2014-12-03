@@ -9,15 +9,11 @@ title: Interchange
 
 <hr>
 
-<div class="grid-block">
-  <div class="small-12 grid-content">
-    <zf-interchange>
-      <div media="small" src="/docs/assets/img/small.jpg"></div>
-      <div media="medium" src="/docs/assets/img/medium.jpg"></div>
-      <div media="large"src="/docs/assets/img/large.jpg"></div>
-    </zf-interchange>
-  </div>
-</div>
+<zf-interchange>
+  <div media="small" src="/docs/assets/img/small.jpg"></div>
+  <div media="medium" src="/docs/assets/img/medium.jpg"></div>
+  <div media="large"src="/docs/assets/img/large.jpg"></div>
+</zf-interchange>
 
 <hr>
 
@@ -30,7 +26,7 @@ title: Interchange
 
 <p>You can use Interchange with this simple markup:</p>
 <div class="grid-block">
-  <div class="medium-6 grid-content">
+  <div class="small-12 medium-6 grid-content">
 <hljs>
 <zf-interchange>
   <div media="small" src="/docs/assets/img/small.jpg"></div>
@@ -39,7 +35,7 @@ title: Interchange
 </zf-interchange>
 </hljs>
   </div>
-  <div class="medium-6 grid-content">
+  <div class="small-12 medium-6 grid-content">
     Resize the page to see the content change.
     <zf-interchange>
       <div media="small" src="/docs/assets/img/small.jpg"></div>
@@ -52,7 +48,7 @@ title: Interchange
 <h3>Advanced HTML</h3>
 <p>You can use Interchange to display HTML partials depending on screen size like so:</p>
 <div class="grid-block">
-  <div class="medium-6 grid-content">
+  <div class="small-12 medium-6 grid-content">
 <hljs>
 <div zf-interchange>
   <div media="small" src="/templates/interchange/partial_1.html"></div>
@@ -61,7 +57,7 @@ title: Interchange
 </div>
 </hljs>
   </div>
-  <div class="medium-6 grid-content">
+  <div class="small-12 medium-6 grid-content">
     Add custom media query rules of your own
     <div zf-interchange id="testid">
       <div media="only screen and (min-width: 300px)">Small content</div>
