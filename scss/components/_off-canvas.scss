@@ -115,7 +115,7 @@ $offcanvas-frame-selector: '.grid-frame' !default;
       & ~ #{$offcanvas-frame-selector} { transform: translateY($size) !important; }
     }
   }
-  @else if $position == right {
+  @else if $position == bottom {
     top: auto;
     bottom: 0;
     left: 0;
