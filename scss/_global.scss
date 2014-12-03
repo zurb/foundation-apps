@@ -75,8 +75,8 @@ $global-radius: 4px !default;
 $global-rounded: 1000px !default;
 
 // We use this for default spacing
-$global-padding: 1rem;
-$global-spacing: rem-calc(15);
+$global-padding: 1rem !default;
+$global-spacing: rem-calc(15) !default;
 
 // We use this to control whether or not global CSS styles are output.
 $include-html-classes: true !default;

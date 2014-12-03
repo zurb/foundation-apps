@@ -3,16 +3,16 @@
   ------
 */
 
-$switch-width: rem-calc(50);
-$switch-height: rem-calc(32);
-$switch-background: #ccc;
-$switch-background-active: $primary-color;
-$switch-border: 0;
-$switch-radius: 9999px;
-$switch-animation-speed: 0.15s;
+$switch-width: rem-calc(50) !default;
+$switch-height: rem-calc(32) !default;
+$switch-background: #ccc !default;
+$switch-background-active: $primary-color !default;
+$switch-border: 0 !default;
+$switch-radius: 9999px !default;
+$switch-animation-speed: 0.15s !default;
 
-$switch-paddle-color: white;
-$switch-paddle-offset: 4px;
+$switch-paddle-color: white !default;
+$switch-paddle-offset: 4px !default;
 
 %switch {
   position: relative;

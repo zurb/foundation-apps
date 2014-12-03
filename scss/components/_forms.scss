@@ -14,53 +14,53 @@
 */
 
 // Basic form variables
-$form-fontsize: 1rem;
-$form-padding: 0.5rem;
+$form-fontsize: 1rem !default;
+$form-padding: 0.5rem !default;
 
 // Text fields
-$input-color: #000;
-$input-color-hover: $input-color;
-$input-color-focus: $input-color;
-$input-background: #fff;
-$input-background-hover: $input-background;
-$input-background-focus: $input-background;
-$input-border: 1px solid #ccc;
-$input-border-hover: 1px solid #bbb;
-$input-border-focus: 1px solid #999;
+$input-color: #000 !default;
+$input-color-hover: $input-color !default;
+$input-color-focus: $input-color !default;
+$input-background: #fff !default;
+$input-background-hover: $input-background !default;
+$input-background-focus: $input-background !default;
+$input-border: 1px solid #ccc !default;
+$input-border-hover: 1px solid #bbb !default;
+$input-border-focus: 1px solid #999 !default;
 
 // Select menus
-$select-color: #000;
-$select-background: #fafafa;
-$select-background-hover: smartscale($select-background, 4%);
-$select-arrow: true;
-$select-arrow-color: $select-color;
+$select-color: #000 !default;
+$select-background: #fafafa !default;
+$select-background-hover: smartscale($select-background, 4%) !default;
+$select-arrow: true !default;
+$select-arrow-color: $select-color !default;
 
 // Labels
-$label-fontsize: 0.9rem;
-$label-margin: 0.5rem;
-$label-color: #333;
+$label-fontsize: 0.9rem !default;
+$label-margin: 0.5rem !default;
+$label-color: #333 !default;
 
 // Inline labels
-$inlinelabel-color: #333;
-$inlinelabel-background: #eee;
-$inlinelabel-border: $input-border;
+$inlinelabel-color: #333 !default;
+$inlinelabel-background: #eee !default;
+$inlinelabel-border: $input-border !default;
 
 // Range slider
-$slider-background: #ddd;
-$slider-height: 1rem;
-$slider-radius: 0px;
-$slider-thumb-height: 1.5rem;
-$slider-thumb-color: $primary-color;
-$slider-thumb-radius: 0px;
+$slider-background: #ddd !default;
+$slider-height: 1rem !default;
+$slider-radius: 0px !default;
+$slider-thumb-height: 1.5rem !default;
+$slider-thumb-color: $primary-color !default;
+$slider-thumb-radius: 0px !default;
 
 // Progress and meter
-$meter-height: 1.5rem;
-$meter-background: #ccc;
-$meter-fill: $primary-color;
-$meter-fill-high: $success-color;
-$meter-fill-medium: #e7cf00;
-$meter-fill-low: $alert-color;
-$meter-radius: 0;
+$meter-height: 1.5rem !default;
+$meter-background: #ccc !default;
+$meter-fill: $primary-color !default;
+$meter-fill-high: $success-color !default;
+$meter-fill-medium: #e7cf00 !default;
+$meter-fill-low: $alert-color !default;
+$meter-radius: 0 !default;
 
 // Disable OS-level styles
 @mixin no-appearance {
