@@ -36,9 +36,9 @@ $select-arrow: true !default;
 $select-arrow-color: $select-color !default;
 
 // Labels
-$label-fontsize: 0.9rem !default;
-$label-margin: 0.5rem !default;
-$label-color: #333 !default;
+$form-label-fontsize: 0.9rem !default;
+$form-label-margin: 0.5rem !default;
+$form-label-color: #333 !default;
 
 // Inline labels
 $inlinelabel-color: #333 !default;
@@ -71,11 +71,13 @@ $meter-radius: 0 !default;
 // Text fields
 // - - - - - - - - - - - - - - - - - - - - - - - - -
 #{$text-input-selectors} {
+  @include no-appearance;
   display: block;
   width: 100%;
   padding: $form-padding;
   margin: 0 0 $global-padding 0;
   border: $input-border;
+  border-radius: 0;
   background: $input-background;
   color: $input-color;
   font-size: $form-fontsize;
@@ -95,7 +97,7 @@ $meter-radius: 0 !default;
   }
 
   label > & {
-    margin-top: $label-margin;
+    margin-top: $form-label-margin;
   }
 }
 
@@ -103,12 +105,12 @@ $meter-radius: 0 !default;
 // - - - - - - - - - - - - - - - - - - - - - - - - -
 label {
   display: block;
-  font-size: $label-fontsize;
-  margin-bottom: $label-margin;
-  color: $label-color;
+  font-size: $form-label-fontsize;
+  margin-bottom: $form-label-margin;
+  color: $form-label-color;
 
   > input, > textarea {
-    margin-top: $label-margin;
+    margin-top: $form-label-margin;
   }
 }
 
@@ -123,7 +125,7 @@ label {
 
   // Imitates the top margin on normal inputs
   label > & {
-    margin-top: $label-margin;
+    margin-top: $form-label-margin;
   }
 
   // Inputs stretch all the way out

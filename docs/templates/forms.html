@@ -1,6 +1,7 @@
 ---
 name: forms
 url: /forms
+title: Forms
 ---
 
 <h2>Forms</h2>
@@ -9,7 +10,7 @@ url: /forms
 <hr>
 
 <div class="grid-block">
-  <div class="small-6 grid-content">
+  <div class="small-12 medium-6 grid-content">
     <h4>Form Elements</h4>
     <label>
       Input Label
@@ -49,7 +50,7 @@ url: /forms
       </div>
     </div>
   </div>
-  <div class="small-6 grid-content">
+  <div class="small-12 medium-6 grid-content">
     <h4>Range Slider</h4>
     <input type="range">
     <br>
@@ -61,7 +62,6 @@ url: /forms
     <br>
     <h4>Meter &amp; Progress</h4>
     <label>
-      Meter
       <progress value="50" max="100"></progress><br>
       <progress class="low" value="50" max="100"></progress><br>
       <meter min="0" max="100" low="25" high="75" optimum="100" value="10"></meter><br>
@@ -303,7 +303,7 @@ url: /forms
 </div>
 
 <h4>Meter</h4>
-<p>The Meter element is used to display a measurement on a known scale. For example, like a volume or capacity of a venue or hard-drive. The maximum and minimum are known in advance.</p>
+<p>The Meter element is used to display a measurement on a known scale. For example, like a volume or capacity of a venue or hard-drive. The maximum and minimum are known in advance. <strong>Not supported in Internet Explorer.</strong></p>
 <div class="grid-block">
   <div class="small-12 medium-6 grid-content">
 <hljs>
@@ -324,7 +324,6 @@ url: /forms
 <h3>Sass Variables</h3>
 <p>You can customize Form elements including Switch, Range Slider, and Progress/Meter with these variables:</p>
 <hljs>
-
 // Basic form variables
 $form-fontsize: 1rem;
 $form-padding: 0.5rem;

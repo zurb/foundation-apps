@@ -22,7 +22,6 @@ angular.module('foundation.offcanvas')
           scope.position = scope.position || 'left';
 
           scope.active = false;
-
           //setup
           foundationApi.subscribe(attrs.id, function(msg) {
             if(msg == 'show' || msg == 'open') {
@@ -54,6 +53,6 @@ angular.module('foundation.offcanvas')
           };
         }
       };
-    },
+    }
   };
 }]);

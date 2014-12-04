@@ -7,7 +7,6 @@ angular.module('foundation.common.directives')
     link: function(scope, element, attrs) {
       var parentElement= false;
       var tempElement = element.parent();
-
       //find parent modal
       while(parentElement === false) {
         if(tempElement[0].nodeName == 'BODY') {
@@ -49,6 +48,25 @@ angular.module('foundation.common.directives')
     link: function(scope, element, attrs) {
       element.on('click', function(e) {
         foundationApi.publish(attrs.zfToggle, 'toggle');
+        e.preventDefault();
+      });
+    }
+  }
+}]);
+
+angular.module('foundation.common.directives')
+  .directive('zfHardToggle', ['FoundationApi', function(foundationApi) {
+  return {
+    restrict: 'A',
+    link: function(scope, element, attrs) {
+      element.on('click', function(e) {
+        var activeElements = document.querySelectorAll('.is-active[zf-closable]');
+        if (activeElements.length) {
+          angular.forEach(activeElements, function(el) {
+            foundationApi.publish(el.id, 'close');
+          });
+        }
+        foundationApi.publish(attrs.zfHardToggle, 'toggle');
         e.preventDefault();
       });
     }

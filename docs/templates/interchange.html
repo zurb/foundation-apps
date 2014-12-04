@@ -1,6 +1,7 @@
 ---
 name: interchange
 url: /interchange
+title: Interchange
 ---
 
 <h2>Interchange</h2>
@@ -9,9 +10,9 @@ url: /interchange
 <hr>
 
 <zf-interchange>
-  <div media="small" src="/docs/assets/img/small.jpg"></div>
-  <div media="medium" src="/docs/assets/img/medium.jpg"></div>
-  <div media="large"src="/docs/assets/img/large.jpg"></div>
+  <img media="small" src="/assets/img/small.jpg">
+  <img media="medium" src="/assets/img/medium.jpg">
+  <img media="large"src="/assets/img/large.jpg">
 </zf-interchange>
 
 <hr>
@@ -28,18 +29,18 @@ url: /interchange
   <div class="small-12 medium-6 grid-content">
 <hljs>
 <zf-interchange>
-  <div media="small" src="/docs/assets/img/small.jpg"></div>
-  <div media="medium" src="/docs/assets/img/medium.jpg"></div>
-  <div media="large"src="/docs/assets/img/large.jpg"></div>
+  <div media="small" src="/assets/img/small.jpg"></div>
+  <div media="medium" src="/assets/img/medium.jpg"></div>
+  <div media="large"src="/assets/img/large.jpg"></div>
 </zf-interchange>
 </hljs>
   </div>
   <div class="small-12 medium-6 grid-content">
     Resize the page to see the content change.
     <zf-interchange>
-      <div media="small" src="/docs/assets/img/small.jpg"></div>
-      <div media="medium" src="/docs/assets/img/medium.jpg"></div>
-      <div media="large"src="/docs/assets/img/large.jpg"></div>
+      <img media="small" src="/assets/img/small.jpg" />
+      <img media="medium" src="/assets/img/medium.jpg" />
+      <img media="large"src="/assets/img/large.jpg" />
     </zf-interchange>
   </div>
 </div>
@@ -49,19 +50,20 @@ url: /interchange
 <div class="grid-block">
   <div class="small-12 medium-6 grid-content">
 <hljs>
-<div zf-interchange>
+<zf-interchange>
   <div media="small" src="/templates/interchange/partial_1.html"></div>
   <div media="medium" src="/templates/interchange/partial_2.html"></div>
-  <div media="large">On-page template</div>
-</div>
+  <div media="large">THIS IS THE STUFF IN THE TAG</div>
+</zf-interchange>
 </hljs>
   </div>
   <div class="small-12 medium-6 grid-content">
     Add custom media query rules of your own
-    <div zf-interchange id="testid">
-      <div media="only screen and (min-width: 300px)">Small content</div>
-      <div media="large">Large content</div>
-    </div>
+    <zf-interchange id="testid">
+      <div media="small" src="/templates/interchange/partial_1.html"></div>
+      <div media="medium" src="/templates/interchange/partial_2.html"></div>
+      <div media="large">THIS IS THE STUFF IN THE TAG</div>
+    </zf-interchange>
   </div>
 </div>
 

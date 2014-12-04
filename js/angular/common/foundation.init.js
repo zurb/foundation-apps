@@ -50,14 +50,9 @@ angular.module('foundation.init')
         return style.getPropertyValue('font-family');
       },
       processStyleToJSON: function(str) {
-        var clean = str.replace(/\'/g, ''); //ready for FF and Chrome
+        var clean = str.slice(1, -1).replace(/\\"/g, '"'); //ready for FF and Chrome
 
-        try {
-          return JSON.parse(clean);
-        } catch (e) {
-          return JSON.parse(clean.slice(1, -1)); //ready for IE
-        }
-
+        return JSON.parse(clean);
       }
     };
 });

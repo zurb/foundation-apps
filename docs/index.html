@@ -68,27 +68,27 @@
         </ul>
 
         <ul class="right">
-            <li><a href="features.html">Features</a>
+            <li><a href="http://foundation.zurb.com/apps/features.html">Features</a>
+            </li>
+            <li>
+              <a href="http://foundation.zurb.com/apps/resources.html">Resources</a>
+            </li>
+            <li>
+              <a href="http://foundation.zurb.com/apps/support.html">Support</a>
             </li>
             <li>
               <a class="current" href="docs.html">Docs</a>
             </li>
-            <li>
-              <a href="resources.html">Resources</a>
-            </li>
-            <li>
-              <a href="support.html">Support</a>
-            </li>
-            <li><a href="getting-started.html">Getting Started</a></li>
+            <li><a href="http://foundation.zurb.com/apps/getting-started.html">Getting Started</a></li>
           </ul>
       </nav>
 
       </div>
       <!-- /Title bar -->
-      <div class="grid-block">
+      <div class="grid-block" ng-controller="NavController">
         <div zf-panel id="sidebar" class="fast bounceInOut medium-3 large-2 medium-grid-block sidebar vertical">
-          <div class="grid-content shrink docs-search-box">
-            <input type="text" placeholder="Search Docs: e.g. forms" />
+          <div class="grid-content shrink docs-search-box hide-for-small-only">
+            <autocomplete data="routing" on-select="selectRoute" attr-placeholder="Search Docs: e.g. forms" ng-model="typedText" />
           </div>
           <!-- Sidebar nav -->
           <div class="grid-content collapse">
@@ -140,7 +140,6 @@
                 <li ui-sref-active="is-active"><a ui-sref="accordion">Accordion</a></li>
                 <li ui-sref-active="is-active"><a ui-sref="block-list">Block List</a></li>
                 <li ui-sref-active="is-active"><a ui-sref="card">Card</a></li>
-                <li ui-sref-active="is-active"><a ui-sref="inline-element">Inline Element</a></li>
                 <li ui-sref-active="is-active"><a ui-sref="interchange">Interchange</a></li>
                 <li ui-sref-active="is-active"><a ui-sref="labels-badges">Labels &amp; Badges</a></li>
                 <li ui-sref-active="is-active"><a ui-sref="popup">Popup</a></li>
@@ -164,15 +163,15 @@
         <div class="medium-9 large-10 grid-content">
           <div class="grid-container main-docs-section">
             <a class="small secondary expand button hide-for-medium" zf-toggle="sidebar">Show Components</a>
-            <div ng-class="['ui-animation']" ui-view></div>
+            <div ng-class="['ui-animation']" ui-view autoscroll='true'></div>
           </div>
 
           <div class="zurb-footer-top">
             <div class="grid-block property">
               <div class="small-12 large-4 medium-4 grid-content">
                 <div class="property-info">
-                  <h3><a href="index" class="home" title="Foundation">Foundation</a></h3>
-                  <p>Foundation is made by <a href="http://zurb.com/" target="_blank">ZURB</a>, a product design company in Campbell, California. We've put more than 15 years of experience building web products, services and websites into this framework.</p>
+                  <h3><a href="index" class="home" title="Foundation">Foundation for Apps</a></h3>
+                  <p>Foundation for Apps is a framework you can use to build better, more polished single-page web applications that work across many devices. We’ve taken what we’ve learned from building the original Foundation framework to build an entirely new framework just for web apps.</p>
                 </div>
               </div>
 
@@ -182,10 +181,10 @@
                     <div class="learn-links">
                       <h4 class="hide-for-small">Want More?</h4>
                       <ul>
-                        <li><a href="http://http://foundation.zurb.com//">Foundation for Sites</a></li>
-                        <li><a href="http://http://zurb.com/ink/">Foundation for Email</a></li>
-                        <li><a href="http://http://foundation.zurb.com/forum/">Foundation Forum</a></li>
-                        <li><a href="support.html">Support</a></li>
+                        <li><a href="http://foundation.zurb.com/">Foundation for Sites</a></li>
+                        <li><a href="http://zurb.com/ink/">ZURB Ink</a></li>
+                        <li><a href="http://foundation.zurb.com/forum/">Foundation Forum</a></li>
+                        <li><a href="http://foundation.zurb.com//support/support.html">Support</a></li>
                       </ul>
                     </div>
                   </div>
@@ -200,7 +199,7 @@
                     <div class="connect-links">
                       <h4>Stay Updated</h4>
                       <p>Keep up with the latest <br class="hide-for-small"> <a href="http://zurb.com/blog/topic/foundation" target="_blank">Foundation news</a></p>
-                      <a href="#" class="small secondary button">What’s New</a>
+                      <a href="http://zurb.com/news" class="small secondary button">What’s New</a>
                     </div>
                   </div>
                 </div>
@@ -240,9 +239,9 @@
             <div class="row">
               <div class="large-4 medium-4 medium-push-8 grid-content">
                 <ul class="home-social">
-                  <li><a href="http://www.twitter.com/ZURB" class="twitter"></a></li>
+                  <li><a href="http://www.twitter.com/ZURBfoundation" class="twitter"></a></li>
                   <li><a href="http://www.facebook.com/ZURB" class="facebook"></a></li>
-                  <li><a href="/contact" class="mail"></a></li>
+                  <li><a href="http://zurb.com/contact" class="mail"></a></li>
                 </ul>
               </div>
               <div class="large-8  medium-8 grid-content">
@@ -265,7 +264,48 @@
         </div>
         <!-- /Main content -->
       </div>
+
+
     </div>
     <!-- /App frame -->
+
+        <div zf-modal size="small" id="mainModal" overlay="true">
+          <div class="grid-block vertical">
+            <div class="primary title-bar">
+              <div class="center title">Title Bar</div>
+              <span zf-close class="left"><a href="#">Close</a></span>
+              <span zf-close class="right"><a href="#">Done</a></span>
+            </div>
+            <div class="grid-content padding">
+             <p>
+              <img src="http://fc07.deviantart.net/fs70/i/2012/014/b/e/snowy_peak_by_cassiopeiaart-d4mb6aq.jpg">
+              </p>
+             <span class="button" zf-close>Ok</span>
+             <span class="button" zf-close>Cancel</span>
+            </div>
+          </div>
+        </div>
+
+        <zf-modal id="basicModal" overlay="true">
+          <a href="#" zf-close class="close-button">&times;</a>
+          <section class="grid-content">
+            <br>
+            <p>Back in my days...</p>
+            <p>There were 3 Star Wars movies and Disney only made cartoons.</p>
+          </section>
+        <zf-modal>
+
+        <zf-modal class="small" id="advancedModal" overlay="false">
+          <a href="#" zf-close class="close-button">&times;</a>
+          <div class="grid-block vertical">
+            <div class="shrink grid-content">
+              <img src="http://fc07.deviantart.net/fs70/i/2012/014/b/e/snowy_peak_by_cassiopeiaart-d4mb6aq.jpg">
+            </div>
+            <div class="grid-content button-group">
+              <a class="button" zf-close>Ok</a>
+              <a class="button" zf-close>Cancel</a>
+            </div>
+          </div>
+        </zf-modal>
   </body>
 </html>

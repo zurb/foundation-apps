@@ -56,6 +56,19 @@ gulp.task('copy-partials', ['clean-partials'], function() {
     .pipe(gulp.dest('./build/partials/'));
 });
 
+gulp.task('css', ['sass'], function() {
+  //copy css
+  var dirs = [
+    'bower_components/allmighty-autocomplete/style/autocomplete.css',
+    'build/assets/css/app.css'
+  ];
+  return gulp.src(dirs)
+    .pipe(concat('app.css'))
+    .pipe(gulp.dest('build/assets/css'))
+  ;
+
+});
+
 gulp.task('sass', function() {
   return gulp.src('docs/assets/scss/app.scss')
     .pipe(sass({
@@ -110,6 +123,7 @@ gulp.task('uglify', ['uglify-angular'], function() {
 gulp.task('uglify-angular', function() {
   var libs = [
     'bower_components/angular/angular.js',
+    'bower_components/allmighty-autocomplete/script/autocomplete.js',
     'bower_components/angular-animate/angular-animate.js',
     'bower_components/ui-router/release/angular-ui-router.js',
     'bower_components/angular-highlightjs/angular-highlightjs.js',
@@ -184,7 +198,7 @@ gulp.task('test', ['karma-test'], function() {
 });
 
 gulp.task('build', function(cb) {
-  runSequence('clean', ['copy', 'copy-partials', 'sass', 'uglify'], 'copy-templates', function() {
+  runSequence('clean', ['copy', 'copy-partials', 'css', 'uglify'], 'copy-templates', function() {
     console.log("Successfully built.");
     cb();
   });
@@ -193,7 +207,7 @@ gulp.task('build', function(cb) {
 
 gulp.task('default', ['build', 'server:start'], function() {
   // Watch Sass
-  gulp.watch(['./docs/assets/scss/**/*', './scss/**/*'], ['sass']);
+  gulp.watch(['./docs/assets/scss/**/*', './scss/**/*'], ['css']);
 
   // Watch JavaScript
   gulp.watch(['./docs/assets/js/**/*', './js/**/*'], ['uglify']);

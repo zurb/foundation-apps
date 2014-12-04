@@ -8,7 +8,6 @@ $label-radius: 0 !default;
 $label-background: $primary-color !default;
 $label-color: isitlight($primary-color) !default;
 
-
 %label {
   line-height: 1;
   white-space: nowrap;
@@ -30,7 +29,7 @@ $label-color: isitlight($primary-color) !default;
   $radius: $label-radius
 ) {
   background: $background;
-  border-radius: $label-radius;
+  border-radius: $radius;
 
   @if $color == auto {
     color: isitlight($background);

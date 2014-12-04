@@ -1,6 +1,7 @@
 ---
 name: action-sheet
 url: /action-sheet
+title: Action Sheet
 animateIn:  fadeIn
 animateOut: fadeOut
 ---
@@ -73,11 +74,13 @@ animateOut: fadeOut
 </zf-action-sheet>
 </hljs>
 
+<hr>
+
 <h3>Sass Mixins</h3>
 
 <p>Create an action sheet with custom class names using our mixins.</p>
 
-<hljs>
+<hljs language="scss">
 // This is the wrapper for your button and action sheet
 .custom-action-sheet-container {
   position: relative;
@@ -86,12 +89,12 @@ animateOut: fadeOut
 
 // This is the action sheet itself
 .custom-action-sheet {
-  // These are the core styles for the sheet's menu
-  @include action-sheet-menu(
+  // These are the core styles for the sheet menu
+
     $padding: 1rem,
-    $color: #000, // Text color
-    $border-color, // Border color
-    $background-hover: #ccc // Background color of menu items when hovered on
+    $color: #000,
+    $border-color,
+    $background-hover: #ccc
   );
 
   // This mixin sets up styles for the mobile action sheet

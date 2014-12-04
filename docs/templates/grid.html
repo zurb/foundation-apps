@@ -1,6 +1,7 @@
 ---
 name: grid
 url: /grid
+title: Grid
 ---
 
 <h2>The Grid</h2>
@@ -84,12 +85,13 @@ url: /grid
   <div id="main" class="medium-8 grid-block"></div>
 </div>
 </hljs>
-<hr>
 
-<div class="docs-grid-demo grid-block">
+<div class="docs-grid-demo manual-size grid-block">
   <div id="sidebar" class="medium-4 grid-block"></div>
-  <div id="main" class="medium-8 grid-block"></div>
+  <div id="main" class="medium-7 grid-block"></div>
 </div>
+
+<hr>
 
 <h4>Parent-level sizing</h4>
 
@@ -148,7 +150,7 @@ url: /grid
 </div>
 </hljs>
 
-<div class="docs-grid-demo vertical grid-block">
+<div class="docs-grid-demo vertical-demo vertical grid-block">
   <div class="grid-block"></div>
   <div class="grid-block"></div>
 </div>
@@ -228,7 +230,7 @@ url: /grid
 
 <p>In this example, our blocks only take up eight columns of space, leaving four columns worth of empty space. By adding the `align-right` class to the parent block, the empty space will appear on the left instead of the right.</p>
 
-<p>Grids can be aligned in five ways:
+<p>Grids can be aligned in five ways:</p>
 
 <ul>
   <li>`align-left`: Blocks clump together on the left. This is the default.</li>
@@ -238,15 +240,21 @@ url: /grid
   <li>`align-spaced`: Blocks spread out so that the space <em>around</em> each one is the same.</li>
 </ul>
 
+<h5>Center</h5>
+
 <div class="docs-grid-demo align-center grid-block">
   <div class="small-4 grid-block"></div>
   <div class="small-4 grid-block"></div>
 </div>
 
+<h5>Justify</h5>
+
 <div class="docs-grid-demo align-justify grid-block">
   <div class="small-4 grid-block"></div>
   <div class="small-4 grid-block"></div>
 </div>
+
+<h5>Spaced</h5>
 
 <div class="docs-grid-demo align-spaced grid-block">
   <div class="small-4 grid-block"></div>
@@ -271,7 +279,7 @@ url: /grid
   <div class="grid-block order-1 text">1</div>
 </div>
 
-<p>In the above example, the first child block will actually appear <em>after</em> the second one, because it has a lower order number. Blocks with the highest order number appear first in the layout. If multiple blocks share an order, they're then grouped by their order in the HTML.</p>
+<p>In the above example, the first child block will actually appear <em>after</em> the second one, because it has a lower order number. Blocks with the lower order (e.g. 1 is lower than 2) number appear first in the layout. If multiple blocks share an order, they're then grouped by their order in the HTML.</p>
 
 <hljs>
 <div class="grid-block">
@@ -313,13 +321,13 @@ url: /grid
 <hljs>
 <div class="grid-block">
   <div class="small-6 grid-block"></div>
-  <div class="small-3 small-offset-3 grid-block"></div>
+  <div class="small-2 small-offset-2 grid-block"></div>
 </div>
 </hljs>
 
 <div class="docs-grid-demo grid-block">
   <div class="small-6 grid-block"></div>
-  <div class="small-3 small-offset-3 grid-block"></div>
+  <div class="small-2 small-offset-2 grid-block"></div>
 </div>
 
 <p>Offset classes allow you to fine-tune the spacing of blocks at different screen sizes. However, many common spacing options can also be achieved with the grid alignment classes described above.</p>

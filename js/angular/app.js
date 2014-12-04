@@ -37,4 +37,3 @@ var app = angular.module('application', [
     $rootScope.$state = $state;
     $rootScope.$stateParams = $stateParams;
 }]);
-

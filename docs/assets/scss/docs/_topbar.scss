@@ -21,9 +21,10 @@
     list-style: none;
     li.name {
       img.zurb-logo {
-        width:72px;
-        height:16px;
-        margin-top: -3px;
+        width:72px !important;
+        height:16px !important;
+        margin-right: 5px;
+        margin-bottom: -3px;
       }
       a { 
         display: inline-block;
