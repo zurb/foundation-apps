@@ -8,23 +8,23 @@ title: Modal
 <h3 class="subheader">Modal dialogs, or pop-up windows, are handy for prototyping and production. It focuses the user on the modal content. You can add images, links, and even a grid inside.</h3>
 
 <hr>
-	<a class="button" href="#" zf-open="mainModal">Open modal</a>
-	<zf-modal size="small" id="mainModal" overlay="true">
-    <div class="grid-block vertical">
-      <div class="primary title-bar">
-        <div class="center title">Title Bar</div>
-        <span zf-close class="left"><a href="#">Close</a></span>
-        <span zf-close class="right"><a href="#">Done</a></span>
-      </div>
-      <div class="grid-content">
-	     <p>
-        <img src="http://fc07.deviantart.net/fs70/i/2012/014/b/e/snowy_peak_by_cassiopeiaart-d4mb6aq.jpg">
-        </p>
-	     <span class="button" zf-close>Ok</span>
-	     <span class="button" zf-close>Cancel</span>
-      </div>
-	  </div>
-	</zf-modal>
+<a class="button" href="#" zf-open="mainModal">Open modal</a>
+<div zf-modal size="small" id="mainModal" overlay="true">
+  <div class="grid-block vertical">
+    <div class="primary title-bar">
+      <div class="center title">Title Bar</div>
+      <span zf-close class="left"><a href="#">Close</a></span>
+      <span zf-close class="right"><a href="#">Done</a></span>
+    </div>
+    <div class="grid-content padding">
+     <p>
+      <img src="http://fc07.deviantart.net/fs70/i/2012/014/b/e/snowy_peak_by_cassiopeiaart-d4mb6aq.jpg">
+      </p>
+     <span class="button" zf-close>Ok</span>
+     <span class="button" zf-close>Cancel</span>
+    </div>
+  </div>
+</div>
 <hr>
 
 <h3>Basic HTML</h3>
