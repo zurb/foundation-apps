@@ -6,10 +6,7 @@ angular.module('foundation.modal')
     restrict: 'EA',
     templateUrl: 'partials/modal.html',
     transclude: true,
-    scope: {
-      overlay: '@',
-      overlayClose: '@'
-    },
+    scope: true,
     replace: true,
     compile: function compile(tElement, tAttrs, transclude) {
       var type = 'modal';
@@ -22,8 +19,8 @@ angular.module('foundation.modal')
           var dialog = angular.element(element.children()[0]);
 
           scope.active = false;
-          scope.overlay = scope.overlay === 'true' || scope.overlayClose === 'true' ? true : false;
-          scope.overlayClose = scope.overlayClose === 'true' ? true : false;
+          scope.overlay = attrs.overlay === 'true' || attrs.overlayClose === 'true' ? true : false;
+          scope.overlayClose = attrs.overlayClose === 'true' ? true : false;
 
           var animationIn = attrs.animationIn || 'fadeIn';
           var animationOut = attrs.animationOut || 'fadeOut';
@@ -46,17 +43,17 @@ angular.module('foundation.modal')
           });
 
           var animate = function() {
-            if(scope.overlay) {
-              //animate both overlay and dialog
-              foundationApi.animate(element, scope.active, overlayIn, overlayOut);
-              foundationApi.animate(dialog, scope.active, animationIn, animationOut);
-            } else {
-              foundationApi.animate(element, scope.active, overlayIn, overlayOut);
+            //animate both overlay and dialog
+            if(!scope.overlay) {
+              element.css('background', 'transparent');
             }
+
+            foundationApi.animate(element, scope.active, overlayIn, overlayOut);
+            foundationApi.animate(dialog, scope.active, animationIn, animationOut);
           };
 
           scope.hideOverlay = function() {
-            if(scope.overlayClose === 'true') {
+            if(scope.overlayClose) {
               scope.hide();
             }
           };
