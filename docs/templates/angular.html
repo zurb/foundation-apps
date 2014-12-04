@@ -236,6 +236,14 @@ Similar to the previous two, `zf-toggle` sends a toggle command to a directive t
 <zf-modal id="pageModal"></zf-modal>
 </hljs>
 
+**zf-hard-toggle**
+ `zf-hard-toggle` behaves exactly like toggle, but upon opening the target, it will close any other element that is currently open (essentially clearing the board). These might include modals, notifications, panels, off-canvas menus, etc.
+
+<hljs>
+<a href="#" zf-hard-toggle="pageModal">Hard Toggle Me, Baby</a>
+<zf-modal id="pageModal">Opening me will close all other things</zf-modal>
+</hljs>
+
 Please see documentation on the FoundationApi to learn how to open, close, toggle, and trigger other events programmatically.
 
 ####Accordion
