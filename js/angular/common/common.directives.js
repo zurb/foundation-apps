@@ -55,6 +55,25 @@ angular.module('foundation.common.directives')
 }]);
 
 angular.module('foundation.common.directives')
+  .directive('zfHardToggle', ['FoundationApi', function(foundationApi) {
+  return {
+    restrict: 'A',
+    link: function(scope, element, attrs) {
+      element.on('click', function(e) {
+        var activeElements = document.querySelectorAll('.is-active[zf-closable]');
+        if (activeElements.length) {
+          angular.forEach(activeElements, function(el) {
+            foundationApi.publish(el.id, 'close');
+          });
+        }
+        foundationApi.publish(attrs.zfHardToggle, 'toggle');
+        e.preventDefault();
+      });
+    }
+  }
+}]);
+
+angular.module('foundation.common.directives')
   .directive('zfAnimate', ['FoundationApi', function(foundationApi) {
   return {
     restrict: 'A',
