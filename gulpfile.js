@@ -1,7 +1,8 @@
+'use strict'
+
 var gulp           = require('gulp'),
     rimraf         = require('rimraf'),
     runSequence    = require('run-sequence'),
-    frontMatter    = require('gulp-front-matter'),
     markdown       = require('gulp-markdown'),
     highlight      = require('gulp-highlight'),
     autoprefixer   = require('gulp-autoprefixer'),
@@ -10,7 +11,6 @@ var gulp           = require('gulp'),
     uglify         = require('gulp-uglify'),
     concat         = require('gulp-concat'),
     connect        = require('gulp-connect'),
-    path           = require('path'),
     modRewrite     = require('connect-modrewrite'),
     dynamicRouting = require('./bin/gulp-dynamic-routing'),
     karma          = require('gulp-karma'),
@@ -199,7 +199,7 @@ gulp.task('test', ['karma-test'], function() {
 
 gulp.task('build', function(cb) {
   runSequence('clean', ['copy', 'copy-partials', 'css', 'uglify'], 'copy-templates', function() {
-    console.log("Successfully built.");
+    console.log('Successfully built.');
     cb();
   });
 });
