@@ -53,11 +53,6 @@ angular.module('foundation.offcanvas')
           };
         }
       };
-    },
-    link: function(scope, elem, attrs) {
-      elem.on('click', function() {
-        console.log("hello");
-      });
     }
   };
 }]);

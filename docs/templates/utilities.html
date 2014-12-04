@@ -26,8 +26,8 @@ title: Utilities
 <p class="show-for-small-only">You are on a small device.</p>
 <p class="show-for-medium-only">You are on a medium device.</p>
 <p class="show-for-large-only">You are on a large device.</p>
-<p class="show-for-landscape">You are on a landscape device.</p>
-<p class="show-for-portrait">You are on a portrait device.</p>
+<p class="show-for-landscape">You are in a landscape orientation.</p>
+<p class="show-for-portrait">You are in a portrait orientation.</p>
 </hljs>
   </div>
   <div class="small-12 medium-6 grid-content">
@@ -132,3 +132,96 @@ These classes are also available as mixins, if you'd rather not add these classe
     </div>
   </div>
 </div>
+
+<hr>
+
+<h3>Thumbnails</h3>
+<p>You can create Thumbnails by adding a <code>thumbnail</code> class in the img tag like so:</p>
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+<hljs>
+<a href="http://placehold.it/350x150">
+  <img class="thumbnail" src="http://placehold.it/350x150">
+</a>
+</hljs>
+  </div>
+  <div class="small-12 medium-4 grid-content">
+    <a href="/assets/img/matterhorn.jpg">
+      <img class="thumbnail" src="/assets/img/matterhorn.jpg">
+    </a>
+  </div>
+</div>
+
+<p>You can use the <code>thumbnail</code> class in a <code>ul</code>to affect all the images in it.</p>
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+<hljs>
+<ul class="thumbnail no-bullet">
+  <li>
+    <a href="http://placehold.it/350x150">
+      <img src="http://placehold.it/350x150">
+    </a>
+  </li>
+  <li>
+    <a href="http://placehold.it/350x150">
+      <img src="http://placehold.it/350x150">
+    </a>
+  </li>
+  <li>
+    <a href="http://placehold.it/350x150">
+      <img src="http://placehold.it/350x150">
+    </a>
+  </li>
+</ul>
+</hljs>
+  </div>
+  <div class="small-12 medium-3 grid-content">
+    <ul class="thumbnail no-bullet">
+      <li>
+        <a href="assets/img/matterhorn-small.jpg">
+          <img src="assets/img/matterhorn-small.jpg">
+        </a>
+      </li>
+      <li>
+        <a href="assets/img/matterhorn-small.jpg">
+          <img src="assets/img/matterhorn-small.jpg">
+        </a>
+      </li>
+      <li>
+        <a href="assets/img/matterhorn-small.jpg">
+          <img src="assets/img/matterhorn-small.jpg">
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<hr>
+
+<h3>Close Class</h3>
+<p>You can create a nice close button for components like Panel and Modal with this markup:</p>
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+<hljs>
+<div class="card">
+  <div class="card-section">
+  <a class="close-button">x</a>
+    <h4>Basic Card</h4>
+    <p>The Close will automatically place itself in the upper right corner. On JS components, this will trigger a close action.</p>
+  </div>
+</div>
+</hljs>
+  </div>
+  <div class="small-12 medium-6 grid-content">
+    <div class="card">
+      <div class="card-section">
+      <a class="close-button">X</a>
+        <h4>Basic Card</h4>
+        <p>The Close will automatically place itself in the upper right corner. On JS components, this will trigger a close action.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

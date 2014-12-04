@@ -38,7 +38,13 @@ var app = angular.module('application', [
 
     $rootScope.$state = $state;
     $rootScope.$stateParams = $stateParams;
-}]);
+}])
+  .run(['$rootScope','$window', '$location', function($rootScope, $window, $location) {
+    var track = function() {
+      $window.ga('send', 'pageview', { page: $location.path() });
+    };
+    $rootScope.$on('$locationChangeSuccess', track);
+  }]);
 
 angular.module('application')
   .controller('MotionUIController', ['$scope', '$state', 'FoundationApi', '$animate', '$window', function($scope, $state, FoundationApi, $animate, $window) {
