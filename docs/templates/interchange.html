@@ -50,19 +50,20 @@ title: Interchange
 <div class="grid-block">
   <div class="small-12 medium-6 grid-content">
 <hljs>
-<div zf-interchange>
+<zf-interchange>
   <div media="small" src="/templates/interchange/partial_1.html"></div>
   <div media="medium" src="/templates/interchange/partial_2.html"></div>
-  <div media="large">On-page template</div>
-</div>
+  <div media="large">THIS IS THE STUFF IN THE TAG</div>
+</zf-interchange>
 </hljs>
   </div>
   <div class="small-12 medium-6 grid-content">
     Add custom media query rules of your own
-    <div zf-interchange id="testid">
-      <div media="only screen and (min-width: 300px)">Small content</div>
-      <div media="large">Large content</div>
-    </div>
+    <zf-interchange id="testid">
+      <div media="small" src="/templates/interchange/partial_1.html"></div>
+      <div media="medium" src="/templates/interchange/partial_2.html"></div>
+      <div media="large">THIS IS THE STUFF IN THE TAG</div>
+    </zf-interchange>
   </div>
 </div>
 

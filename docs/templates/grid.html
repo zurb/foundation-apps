@@ -85,12 +85,13 @@ title: Grid
   <div id="main" class="medium-8 grid-block"></div>
 </div>
 </hljs>
-<hr>
 
 <div class="docs-grid-demo grid-block">
   <div id="sidebar" class="medium-4 grid-block"></div>
   <div id="main" class="medium-8 grid-block"></div>
 </div>
+
+<hr>
 
 <h4>Parent-level sizing</h4>
 
@@ -272,7 +273,7 @@ title: Grid
   <div class="grid-block order-1 text">1</div>
 </div>
 
-<p>In the above example, the first child block will actually appear <em>after</em> the second one, because it has a lower order number. Blocks with the highest order number appear first in the layout. If multiple blocks share an order, they're then grouped by their order in the HTML.</p>
+<p>In the above example, the first child block will actually appear <em>after</em> the second one, because it has a lower order number. Blocks with the lower order (e.g. 1 is lower than 2) number appear first in the layout. If multiple blocks share an order, they're then grouped by their order in the HTML.</p>
 
 <hljs>
 <div class="grid-block">

@@ -7,7 +7,6 @@ angular.module('foundation.common.directives')
     link: function(scope, element, attrs) {
       var parentElement= false;
       var tempElement = element.parent();
-
       //find parent modal
       while(parentElement === false) {
         if(tempElement[0].nodeName == 'BODY') {

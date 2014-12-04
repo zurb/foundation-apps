@@ -34,7 +34,7 @@ angular.module('foundation.panel')
             animationOut = attrs.animationOut || 'slideOutUp';
           } else if (scope.position === 'bottom') {
             animationIn  = attrs.animationIn || 'slideInUp';
-            animationOut = attrs.animationOut || 'slideOutDown';
+            animationOut = attrs.animationOut || 'slideOutBottom';
           }
 
 
