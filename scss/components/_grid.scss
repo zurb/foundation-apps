@@ -410,5 +410,9 @@ $block-grid-max-size: 6;
   .grid-content .grid-block {
     flex-flow: row wrap;
     overflow: visible;
+
+    .grid-content {
+      overflow: visible;
+    }
   }
 }
