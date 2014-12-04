@@ -18,7 +18,7 @@ title: Motion UI
 	}
 </style>
 
-<h3>Constructor</h3>
+<h3>Transitions</h3>
 <div class="grid-block">
   <div class="small-12 medium-6 grid-content">
   <div id="demo-card-parent">
@@ -28,7 +28,7 @@ title: Motion UI
   <div class="small-12 medium-6 grid-content">
     <form>
     	<div class="grid-content">
-	      <label>Animation</label>
+	      <label>Transition</label>
 	      <ul class="segmented button-group" ng-init="animationFilter = 'enter'">
 	        <li><input type="radio" id="demo-filter-enter" ng-model="animationFilter" name="filter" value="enter"><label for="demo-filter-enter">Enter</label></li>
 	        <li><input type="radio" id="demo-filter-leave" ng-model="animationFilter" name="filter" value="leave"><label for="demo-filter-leave">Leave</label></li>
@@ -69,17 +69,17 @@ title: Motion UI
 </div>
 
 <hr>
+<h3>WIGGLIES aka Animations</h3>
 <div class="docs-example-grid">
   <div class="grid-block">
-		<div class="small-12 medium-6 grid-content">
-			<div id="example8" class="square wiggle linear"></div>
-			<label for=""><code>spinner-cw ease infinite</code></label><br><br>
-			<span data-motion-id="example8" class="small button">Ease Spin</span>
+		<div class="grid-content">
+			<div class="square linear" ng-class="animateSquare"></div>
 		</div>
-		<div class="small-12 medium-6 grid-content">
-			<div id="example9" class="square" data-motion="spinner-cw linear infinite"></div>
-			<label for=""><code>spinner-cw linear infinite</code></label><br><br>
-			<span data-motion-id="example9" class="small button">Linear Spin</span>
+		<div class="grid-content text-center">
+			<button ng-click="animateSquare='wiggle'">Wiggle Wiggle Wiggle</button>
+			<button ng-click="animateSquare='shake'">Shake It, Shake It, Girl</button>
+			<button ng-click="animateSquare='spin-cw'">Spin Clockwise</button>
+			<button ng-click="animateSquare='spin-ccw'">Spin Counter Clockwise</button>
 		</div>
   </div>
 </div>
