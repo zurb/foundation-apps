@@ -195,3 +195,32 @@ url: /iconic
 
 
 <hr>
+
+<h3>Icon Sizing</h3>
+<p>You can affect the size of the icons with our color classes like so:</p>
+<div class="grid-block">
+  <div class="small-12 grid-content">
+<hljs>
+<img zf-iconic data-src="/assets/img/iconic/thumb.svg" class="iconic-sm iconic-color-primary">
+<img zf-iconic data-src="/assets/img/iconic/thumb.svg" class="iconic-md iconic-color-success">
+<img zf-iconic data-src="/assets/img/iconic/thumb.svg" class="iconic-lg iconic-color-dark">
+</hljs>
+  </div>
+  <div class="small-12 grid-content">
+    <img zf-iconic data-src="/assets/img/iconic/thumb.svg" class="iconic-sm iconic-color-primary"><span class="icon-label">Small</span> &nbsp;&nbsp;&nbsp;&nbsp;
+    <img zf-iconic data-src="/assets/img/iconic/thumb.svg" class="iconic-md iconic-color-success"><span class="icon-label">Medium</span> &nbsp;&nbsp;&nbsp;&nbsp;
+    <img zf-iconic data-src="/assets/img/iconic/thumb.svg" class="iconic-lg iconic-color-secondary"><span class="icon-label">Large</span> 
+  </div>
+</div>
+
+<hr>
+
+<h3>Customize with Sass</h3>
+<p>You can use these Sass variables to customize the icons:</p>
+<hljs>
+$iconic-primary-fill: $primary-color;
+$iconic-primary-stroke: $primary-color;
+$iconic-accent-fill: $iconic-primary-fill;
+$iconic-accent-stroke: $iconic-accent-fill;
+</hljs>
+
