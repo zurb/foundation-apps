@@ -74,6 +74,7 @@ title: Motion UI
   <div class="grid-block">
 		<div class="grid-content">
 			<div class="square linear" ng-class="animateSquare"></div>
+			<p><strong>class="square linear {{animateSquare}}"</strong></p>
 		</div>
 		<div class="grid-content text-center">
 			<button ng-click="animateSquare='wiggle'">Wiggle Wiggle Wiggle</button>
@@ -86,25 +87,56 @@ title: Motion UI
 
 <hr>
 
-<h3>Basic HTML</h3>
-You can create [Item] with this basic HTML
-<ul class="segmented button-group small">
-  <li class="is-active"><a href="#">CSS Classes</a></li>
-  <li><a href="#">Sass Mixins</a></li>
-</ul>
+<h3>Basic Motions</h3>
 <div class="grid-block">
-  <div class="small-12 medium-6 grid-content">
-    <pre>
-      <code class="language-html">
-        [html]
-      </code>
-    </pre>
-  </div>
-  <div class="small-12 medium-6 grid-content">
-    [Demo of item]
-  </div>
+	<div class="grid-content">
+	<h3 class="subheader">Transitions</h3>
+		<ul ng-repeat="transition in transitions"><strong>{{transition.type}}</strong>
+			<li ng-repeat="class in transition.classes">{{class}}</li>
+		</ul>
+	</div>
+	<div class="grid-content">
+	<h3 class="subheader">Transition Modifiers</h3>
+		<ul><strong>Duration</strong>
+			<li>slow</li>
+			<li>fast</li>
+		</ul>
+		<ul><strong>Easing</strong>
+			<li ng-repeat="speed in speeds">{{speed}}</li>
+		</ul>
+		<ul><strong>Delay</strong>
+			<li>delay</li>
+			<li>long-delay</li>
+		</ul>
+	</div>
+	<div class="grid-content">
+	<h3 class="subheader">Animations</h3>
+		<ul>
+			<li>shake</li>
+			<li>spin-cw</li>
+			<li>spin-ccw</li>
+			<li>shake</li>
+			<li>wiggle</li>
+		</ul>
+	<h3 class="subheader">Animation Modifiers</h3>
+		<ul><strong>Duration</strong>
+			<li>slow</li>
+			<li>fast</li>
+		</ul>
+		<ul><strong>Repeat</strong>
+			<li>delay</li>
+			<li>long-delay</li>
+		</ul>
+		<ul><strong>Easing</strong>
+			<li ng-repeat="speed in speeds">{{speed}}</li>
+		</ul>
+		<ul><strong>Delay</strong>
+			<li>delay</li>
+			<li>long-delay</li>
+		</ul>
+	</div>
 </div>
-
+</hr>
 ### Advanced HTML
 You can create advanced versions of [Item] with this HTML
 <ul class="segmented button-group">
