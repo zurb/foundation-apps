@@ -22,8 +22,8 @@ angular.module('foundation.modal')
           var dialog = angular.element(element.children()[0]);
 
           scope.active = false;
-          scope.overlay = scope.overlay || scope.overlayClose || false;
-          scope.overlayClose = scope.overlayClose || false;
+          scope.overlay = scope.overlay === 'true' || scope.overlayClose === 'true' ? true : false;
+          scope.overlayClose = scope.overlayClose === 'true' ? true : false;
 
           var animationIn = attrs.animationIn || 'fadeIn';
           var animationOut = attrs.animationOut || 'fadeOut';
@@ -53,7 +53,13 @@ angular.module('foundation.modal')
             } else {
               foundationApi.animate(element, scope.active, overlayIn, overlayOut);
             }
-          }
+          };
+
+          scope.hideOverlay = function() {
+            if(scope.overlayClose === 'true') {
+              scope.hide();
+            }
+          };
 
           scope.hide = function() {
             scope.active = false;
