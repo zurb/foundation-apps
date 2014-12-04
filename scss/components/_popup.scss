@@ -8,7 +8,7 @@
 $popup-width: rem-calc(300) !default;
 $popup-background: #fff !default;
 $popup-border: 0 !default;
-$popup-radius: 8px !default;
+$popup-radius: 0 !default;
 $popup-shadow: 0 0 10px rgba(#000, 0.25) !default;
 
 %popup {

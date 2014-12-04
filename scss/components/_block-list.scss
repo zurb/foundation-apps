@@ -283,7 +283,7 @@ $blocklist-check-icons: true !default;
 
     @if $icons == true {
       &:checked + label {
-        // PH - change to iconography
+        color: red !important;
         &::before {
           content: '';
           background-size: 100% 100%;
