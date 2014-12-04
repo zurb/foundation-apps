@@ -71,11 +71,13 @@ $meter-radius: 0 !default;
 // Text fields
 // - - - - - - - - - - - - - - - - - - - - - - - - -
 #{$text-input-selectors} {
+  @include no-appearance;
   display: block;
   width: 100%;
   padding: $form-padding;
   margin: 0 0 $global-padding 0;
   border: $input-border;
+  border-radius: 0;
   background: $input-background;
   color: $input-color;
   font-size: $form-fontsize;

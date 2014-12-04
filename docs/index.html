@@ -77,7 +77,7 @@
       <!-- /Title bar -->
       <div class="grid-block" ng-controller="NavController">
         <div zf-panel id="sidebar" class="fast bounceInOut medium-3 large-2 medium-grid-block sidebar vertical">
-          <div class="grid-content shrink docs-search-box">
+          <div class="grid-content shrink docs-search-box hide-for-small-only">
             <autocomplete data="routing" on-select="selectRoute" attr-placeholder="Search Docs: e.g. forms" ng-model="typedText" />
           </div>
           <!-- Sidebar nav -->
@@ -130,7 +130,6 @@
                 <li ui-sref-active="is-active"><a ui-sref="accordion">Accordion</a></li>
                 <li ui-sref-active="is-active"><a ui-sref="block-list">Block List</a></li>
                 <li ui-sref-active="is-active"><a ui-sref="card">Card</a></li>
-                <li ui-sref-active="is-active"><a ui-sref="inline-element">Inline Element</a></li>
                 <li ui-sref-active="is-active"><a ui-sref="interchange">Interchange</a></li>
                 <li ui-sref-active="is-active"><a ui-sref="labels-badges">Labels &amp; Badges</a></li>
                 <li ui-sref-active="is-active"><a ui-sref="popup">Popup</a></li>
@@ -154,7 +153,7 @@
         <div class="medium-9 large-10 grid-content">
           <div class="grid-container main-docs-section">
             <a class="small secondary expand button hide-for-medium" zf-toggle="sidebar">Show Components</a>
-            <div ng-class="['ui-animation']" ui-view></div>
+            <div ng-class="['ui-animation']" ui-view autoscroll='true'></div>
           </div>
 
           <div class="zurb-footer-top">
@@ -255,7 +254,48 @@
         </div>
         <!-- /Main content -->
       </div>
+
+
     </div>
     <!-- /App frame -->
+
+        <div zf-modal size="small" id="mainModal" overlay="true">
+          <div class="grid-block vertical">
+            <div class="primary title-bar">
+              <div class="center title">Title Bar</div>
+              <span zf-close class="left"><a href="#">Close</a></span>
+              <span zf-close class="right"><a href="#">Done</a></span>
+            </div>
+            <div class="grid-content padding">
+             <p>
+              <img src="http://fc07.deviantart.net/fs70/i/2012/014/b/e/snowy_peak_by_cassiopeiaart-d4mb6aq.jpg">
+              </p>
+             <span class="button" zf-close>Ok</span>
+             <span class="button" zf-close>Cancel</span>
+            </div>
+          </div>
+        </div>
+
+        <zf-modal id="basicModal" overlay="true">
+          <a href="#" zf-close class="close-button">&times;</a>
+          <section class="grid-content">
+            <br>
+            <p>Back in my days...</p>
+            <p>There were 3 Star Wars movies and Disney only made cartoons.</p>
+          </section>
+        <zf-modal>
+
+        <zf-modal class="small" id="advancedModal" overlay="false">
+          <a href="#" zf-close class="close-button">&times;</a>
+          <div class="grid-block vertical">
+            <div class="shrink grid-content">
+              <img src="http://fc07.deviantart.net/fs70/i/2012/014/b/e/snowy_peak_by_cassiopeiaart-d4mb6aq.jpg">
+            </div>
+            <div class="grid-content button-group">
+              <a class="button" zf-close>Ok</a>
+              <a class="button" zf-close>Cancel</a>
+            </div>
+          </div>
+        </zf-modal>
   </body>
 </html>
