@@ -65,43 +65,6 @@ title: Motion UI
       <div class="grid-content">
         <button ng-click="update(element)">GO FORTH AND BUILD</button>
       </div>
-    	<div class="grid-content">
-	      <label>Animation</label>
-	      <ul class="segmented button-group" ng-init="animationFilter = 'enter'">
-	        <li><input type="radio" id="demo-filter-enter" ng-model="animationFilter" name="filter" value="enter"><label for="demo-filter-enter">Enter</label></li>
-	        <li><input type="radio" id="demo-filter-leave" ng-model="animationFilter" name="filter" value="leave"><label for="demo-filter-leave">Leave</label></li>
-	      </ul>
-	      <select ng-model="element.motion" name="" id="">
-	        <optgroup ng-repeat="transition in transitions | filter: {direction: animationFilter}" label="{{transition.type}}">
-	        	<option ng-repeat="class in transition.classes" value="{{class}}">{{class}}</option>
-	        </optgroup>
-	      </select>
-	    </div>
-    	<div class="grid-content">
-	      <label>Delay</label>
-	      <ul class="segmented button-group" ng-init="element.delay = 'default'">
-	        <li><input type="radio" id="demo-delay-default" ng-model="element.delay" name="delay" value="default"><label for="demo-delay-default">None</label></li>
-	        <li><input type="radio" id="demo-delay-short" ng-model="element.delay" name="delay" value="delay"><label for="demo-delay-short">Short</label></li>
-	        <li><input type="radio" id="demo-delay-long" ng-model="element.delay" name="delay" value="long-delay"><label for="demo-delay-long">Long</label></li>
-	      </ul>
-	    </div>
-	    <div class="grid-content">
-	      <label>Duration</label>
-	      <ul class="segmented button-group" ng-init="element.duration = 'default'">
-	        <li><input type="radio" id="demo-duration-slow" ng-model="element.duration" name="duration" value="slow"><label for="demo-duration-slow">Slow</label></li>
-	        <li><input type="radio" id="demo-duration-default" ng-model="element.duration" name="duration" value="default"><label for="demo-duration-default">Default</label></li>
-	        <li><input type="radio" id="demo-duration-fast" ng-model="element.duration" name="duration" value="fast"><label for="demo-duration-fast">Fast</label></li>
-	      </ul>
-	    </div>
-	    <div class="grid-content">
-	      <label>Speed</label>
-	      <select ng-model="element.speed"name="" id="">
-        	<option ng-repeat="speed in speeds" value="{{speed}}">{{speed}}</option>
-	      </select>
-	    </div>
-	    <div class="grid-content">
-	      <button ng-click="update(element)">GO FORTH AND BUILD</button>
-	    </div>
     </form>
   </div>
 </div>
