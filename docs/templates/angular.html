@@ -5,10 +5,13 @@ title: Angular
 ---
 
 <h2>AngularJS</h2>
+<h3 class="subheader">Foundation uses AngularJS in tons of neat ways, from dynamic routing to component directives. Learn about our AngularJS integration here.</h3>
 
+<hr>
+<h3>Gulp Tasks</h3>
 <p>Gulp will watch for file changes in the `client` directory. Upon change, all files will be copied over to the `build` directory and the webserver will be reloaded. Note that the build directory will be deleted and recompiled upon each change. This means that any updates to files in the `build` directory will be deleted.</p>
 
-<hr />
+<hr>
 
 <h3>Dynamic Routing</h3>
 <p>To simplify the routing process, this project includes dynamic routing. Here's how it works:</p>
@@ -34,6 +37,27 @@ url: /mail
 <p>Front matter follows YAML conventions. For dynamic routing, a `name` and `url` have to be used (as discussed above). There are some other options.</p>
 
 <hr />
+
+<h3>UI Views</h3>
+<p>Your routes will be called into a view, which is essentially a hole in your page for the content to go in. A route looks like the following:</p>
+
+<hljs>
+<!-- Basic UI View -->
+<div ui-view>
+          
+</div>
+
+<!-- Or add Ui View to our existing grid classes -->
+<div ui-view class="grid-block small-12">
+          
+</div>
+
+<!-- Or to animate your views you can add the ng-class of ui-animation -->
+<div ng-class="['ui-animation']" ui-view>
+
+</div>
+</hljs>
+
 
 <h3>Parent</h3>
 <p>`parent` to specify a parent template. This can also be done using standard dot-delimited convention in the name. So you can either do this:</p>
