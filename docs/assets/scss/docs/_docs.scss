@@ -717,14 +717,27 @@ hr {
     height: auto;
 
     .grid-block {
-      height: 50px;
+      height: 70px;
       margin: 0;
+      background: transparent;
+      position: relative;
+      &::after {
+        position: absolute;
+        display: block;
+        content: '';
+        top: 1rem; left: 1rem; right: 1rem; bottom: 1rem;
+        background: rgba($primary-color, 0.1);
+      }
     }
   }
 
   &.vertical {
     .grid-block {
       height: 50px;
+
+      &:first-child {
+        margin-bottom: 0.5rem;
+      }
 
       @include breakpoint(medium) {
         height: auto;
