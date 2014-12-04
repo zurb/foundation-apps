@@ -77,7 +77,7 @@
       <!-- /Title bar -->
       <div class="grid-block" ng-controller="NavController">
         <div zf-panel id="sidebar" class="fast bounceInOut medium-3 large-2 medium-grid-block sidebar vertical">
-          <div class="grid-content shrink docs-search-box">
+          <div class="grid-content shrink docs-search-box hide-for-small">
             <autocomplete data="routing" on-select="selectRoute" attr-placeholder="Search Docs: e.g. forms" ng-model="typedText" />
           </div>
           <!-- Sidebar nav -->
