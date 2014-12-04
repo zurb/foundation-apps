@@ -112,18 +112,13 @@ $modal-overlay-background: rgba(#333, 0.7) !default;
     z-index: $modal-zindex;
     display: none;
     background-color: $modal-overlay-background;
-    opacity: 0;
-    transition: opacity 0.4s;
-    pointer-events: none;
 
     // Horizontally and vertically center the modal
-    display: flex;
     align-items: center;
     justify-content: center;
 
     &.is-active {
-      opacity: 1;
-      pointer-events: auto;
+      display: flex;
     }
   }
 }
