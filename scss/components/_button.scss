@@ -184,9 +184,9 @@ $button-tag-selector: true !default;
     }
   }
 
-  @if $button-tag-selector {
-    button {
-      @extend .button;
-    }
-  }
+  // @if $button-tag-selector {
+  //   button {
+  //     @extend .button;
+  //   }
+  // }
 }
