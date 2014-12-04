@@ -1,8 +1,8 @@
-# Foundation for Apps Alpha
+# Foundation for Apps
 
 [![Build Status](https://travis-ci.org/zurb/foundation-apps.svg)](https://travis-ci.org/zurb/foundation-apps)
 
-Work in progress for Foundation for Apps, an Angular-powered framework for responsive web apps, from your friends at [ZURB](http://zurb.com). At this time we will only be accepting pull requests from the core team and invited contributors, as we work toward an initial release. Thanks!
+This is [Foundation for Apps](http://foundation.zurb.com/apps), an Angular-powered framework for building powerful responsive web apps, from your friends at [ZURB](http://zurb.com).
 
 ## Requirements
 
@@ -17,11 +17,22 @@ You'll need the following software installed to get started.
 
 ## Get Started
 
-You can use our [starter template](https://github.com/zurb/foundation-apps-template) to quickly get going with Foundation for Apps.
+The Sass and JavaScript components are available on Bower.
 ```
-git clone https://github.com/zurb/foundation-apps-template.git app
-cd app
-npm install
+bower install foundation-apps --save
+```
+
+You can also use our command-line interface to quickly setup a basic Foundation for Apps project. It includes a pre-built Gulpfile that compiles an Angular-powered web app for you.
+
+Install it with this command:
+```
+npm install -g foundation-cli bower gulp
+```
+
+Now you can make a new project:
+```
+foundation-apps new myApp
+cd myApp
 ```
 
 While working on your project, run:
@@ -32,11 +43,6 @@ npm start
 This will aseemble the templates, static assets, Sass, and JavaScript. You can view the test server at this URL:
 ```
 http://localhost:8080
-```
-
-Or, you can incorporate our components into your own stack by installing with Bower.
-```
-bower install zurb/foundation-apps
 ```
 
 ## Building this Repo
@@ -66,6 +72,6 @@ The documentation can be viewed at the same URL as above.
 
 ## Contributing
 
-We love opinions! If you have feedback on the grid system, the UI components, the Angular modules, or anything else, open a new issue or contribute to one of our existing [discussion topics](https://github.com/zurb/foundation-apps/labels/discussion).
+We love feedback! Help us find bugs and suggest improvements or new features. Follow us on Twitter at [@ZURBFoundation](https://twitter.com/zurbfoundation) to keep up-to-date with what's new, or to just shoot the breeze.
 
-While we work towards a release candidate, we'll only be accepting PRs for new features from the core Foundation team.
+If you find a problem or have an idea, open a [new issue](https://github.com/zurb/foundation-apps/issues) on GitHub. When filing a bug report, make sure you specify the browser and operating system you're on, and toss us a screenshot or show us how we can recreate the issue.
