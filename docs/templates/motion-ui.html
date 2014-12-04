@@ -92,49 +92,30 @@ title: Motion UI
 <div class="grid-block">
   <div class="small-12 medium-4 grid-content">
     <h3 class="subheader">Transitions</h3>
-    <ul ng-repeat="transition in transitions"><strong>{{transition.type}}</strong>
-      <li ng-repeat="class in transition.classes">{{class}}</li>
-    </ul>
-  </div>
-  <div class="small-12 medium-4 grid-content">
-    <h3 class="subheader">Transition Modifiers</h3>
-    <ul>
-      <li>slow</li>
-      <li>fast</li>
-    </ul>
-    <ul><strong>Easing</strong>
-      <li ng-repeat="speed in speeds">{{speed}}</li>
-    </ul>
-    <ul><strong>Delay</strong>
-      <li>delay</li>
-      <li>long-delay</li>
-    </ul>
+        <div ng-repeat="transition in transitions">
+            <p ng-repeat="class in transition.classes">.{{class}}</p>
+        </div>
   </div>
   <div class="small-12 medium-4 grid-content">
     <h3 class="subheader">Animations</h3>
-    <ul>
-      <li>shake</li>
-      <li>spin-cw</li>
-      <li>spin-ccw</li>
-      <li>shake</li>
-      <li>wiggle</li>
-    </ul>
-    <h3 class="subheader">Animation Modifiers</h3>
-    <ul><strong>Duration</strong>
-      <li>slow</li>
-      <li>fast</li>
-    </ul>
-    <ul><strong>Repeat</strong>
-      <li>delay</li>
-      <li>long-delay</li>
-    </ul>
-    <ul><strong>Easing</strong>
-      <li ng-repeat="speed in speeds">{{speed}}</li>
-    </ul>
-    <ul><strong>Delay</strong>
-      <li>delay</li>
-      <li>long-delay</li>
-    </ul>
+      <p>.shake</p>
+      <p>.spin-cw</p>
+      <p>.spin-ccw</p>
+      <p>.shake</p>
+      <p>.wiggle</p>
+  </div>
+  <div class="small-12 medium-4 grid-content">
+    <h3 class="subheader">Modifiers</h3>
+      <p>.slow</p>
+      <p>.fast</p>
+    <h3 class="subheader">Easing</h3>
+      <p ng-repeat="speed in speeds">.{{speed}}</p>
+    <h3 class="subheader">Delay</h3>
+      <p>.delay</p>
+      <p>.long-delay</p>
+    <h3 class="subheader">Duration</h3>
+      <p>.slow</p>
+      <p>.fast</p>
   </div>
 </div>
 
