@@ -27,6 +27,7 @@ title: Motion UI
   </div>
   <div class="small-12 medium-6 grid-content">
     <form>
+
       <div class="grid-content">
         <label>Transition</label>
         <ul class="segmented button-group" ng-init="animationFilter = 'enter'">
@@ -64,6 +65,43 @@ title: Motion UI
       <div class="grid-content">
         <button ng-click="update(element)">GO FORTH AND BUILD</button>
       </div>
+    	<div class="grid-content">
+	      <label>Animation</label>
+	      <ul class="segmented button-group" ng-init="animationFilter = 'enter'">
+	        <li><input type="radio" id="demo-filter-enter" ng-model="animationFilter" name="filter" value="enter"><label for="demo-filter-enter">Enter</label></li>
+	        <li><input type="radio" id="demo-filter-leave" ng-model="animationFilter" name="filter" value="leave"><label for="demo-filter-leave">Leave</label></li>
+	      </ul>
+	      <select ng-model="element.motion" name="" id="">
+	        <optgroup ng-repeat="transition in transitions | filter: {direction: animationFilter}" label="{{transition.type}}">
+	        	<option ng-repeat="class in transition.classes" value="{{class}}">{{class}}</option>
+	        </optgroup>
+	      </select>
+	    </div>
+    	<div class="grid-content">
+	      <label>Delay</label>
+	      <ul class="segmented button-group" ng-init="element.delay = 'default'">
+	        <li><input type="radio" id="demo-delay-default" ng-model="element.delay" name="delay" value="default"><label for="demo-delay-default">None</label></li>
+	        <li><input type="radio" id="demo-delay-short" ng-model="element.delay" name="delay" value="delay"><label for="demo-delay-short">Short</label></li>
+	        <li><input type="radio" id="demo-delay-long" ng-model="element.delay" name="delay" value="long-delay"><label for="demo-delay-long">Long</label></li>
+	      </ul>
+	    </div>
+	    <div class="grid-content">
+	      <label>Duration</label>
+	      <ul class="segmented button-group" ng-init="element.duration = 'default'">
+	        <li><input type="radio" id="demo-duration-slow" ng-model="element.duration" name="duration" value="slow"><label for="demo-duration-slow">Slow</label></li>
+	        <li><input type="radio" id="demo-duration-default" ng-model="element.duration" name="duration" value="default"><label for="demo-duration-default">Default</label></li>
+	        <li><input type="radio" id="demo-duration-fast" ng-model="element.duration" name="duration" value="fast"><label for="demo-duration-fast">Fast</label></li>
+	      </ul>
+	    </div>
+	    <div class="grid-content">
+	      <label>Speed</label>
+	      <select ng-model="element.speed"name="" id="">
+        	<option ng-repeat="speed in speeds" value="{{speed}}">{{speed}}</option>
+	      </select>
+	    </div>
+	    <div class="grid-content">
+	      <button ng-click="update(element)">GO FORTH AND BUILD</button>
+	    </div>
     </form>
   </div>
 </div>
@@ -88,6 +126,7 @@ title: Motion UI
 
 <hr>
 
+
 <h3>Motion Classes</h3>
 <div class="grid-block">
   <div class="small-12 medium-4 grid-content">
@@ -109,6 +148,35 @@ title: Motion UI
       <li>delay</li>
       <li>long-delay</li>
     </ul>
+<h3>Basic HTML</h3>
+<p>You can create [Item] with this basic HTML</p>
+<ul class="segmented button-group small">
+  <li class="is-active"><a href="#">CSS Classes</a></li>
+  <li><a href="#">Sass Mixins</a></li>
+</ul>
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+<hljs>
+        [html]
+</hljs>
+  </div>
+  <div class="small-12 medium-6 grid-content">
+    [Demo of item]
+  </div>
+</div>
+
+<h3>Advanced HTML</h3>
+<p>You can create advanced versions of [Item] with this HTML</p>
+<ul class="segmented button-group">
+  <li class="is-active"><a href="#">CSS Classes</a></li>
+  <li><a href="#">Sass Mixins</a></li>
+</ul>
+<div class="grid-block">
+  <div class="medium-6 grid-content">
+<hljs>
+        [html]
+</hljs>
+
   </div>
   <div class="small-12 medium-4 grid-content">
     <h3 class="subheader">Animations</h3>
