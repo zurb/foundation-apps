@@ -9,6 +9,14 @@ title: Grid
 
 <hr>
 
+<h3>The Grid in Action</h3>
+
+<p>The new grid is a complex beast, with a lot of different options, especially when it comes to creating responsive layouts. Check out our template apps to see the grid in action, and get some ideas of how you can build your own responsive apps!</p>
+
+<a href="http://foundation.zurb.com/apps/resources.html" class="button">View Templates</a>
+
+<hr>
+
 <h3>The App Frame</h3>
 
 <p>For most apps, you'll want to contain all of your UI elements in the space of the window, and then make certain sections of the app scrollable. To achieve this, wrap your entire app in a grid frame:</p>
@@ -331,3 +339,137 @@ title: Grid
 </div>
 
 <p>Offset classes allow you to fine-tune the spacing of blocks at different screen sizes. However, many common spacing options can also be achieved with the grid alignment classes described above.</p>
+
+<hr>
+
+<h3>Building with Mixins</h3>
+
+<p>The grid has many features, and to create a robust responsive design you'll need to use many of them, often times on the same element. That can lead to HTML like this:</p>
+
+<hljs>
+<div zf-panel position="left" class="medium-grid-block medium-4 large-3"></div>
+</hljs>
+
+<p>Using the grid mixins, we can create the same grid element with one class:</p>
+
+<hljs>
+.sidebar {
+  // Panel on small screens
+  @extend %panel-base;
+  @include panel-position(left);
+
+  // Override styles to become a block on medium screens
+  @include breakpoint(medium) {
+    @include grid-panel-reset;
+    @include grid-block(4);
+  }
+
+  // Change size to 3 columns on large screens
+  @include breakpoint(large) {
+    @include grid-size(3);
+  }
+}
+</hljs>
+
+<p>Then our HTML looks like this (note that the `zf-panel` attribute is still required; this is what makes the panel function.):</p>
+
+<hljs>
+<div zf-panel class="sidebar"></div>
+</hljs>
+
+<h4>Frames</h4>
+
+<p>The grid frame has its own mixin.</p>
+
+<hljs>
+.custom-frame {
+  // Orientation can be horizontal or vertical
+  @include grid-frame(vertical);
+}
+</hljs>
+
+<h4>Blocks</h4>
+
+<p>When creating a block, you can define all of its properties in one mixin, or use individual feature mixins instead.</p>
+
+<hljs>
+.custom-block {
+  @include grid-block(
+    $size: expand, // Can be expand, shrink, or a number of columns
+    $vertical: false, // Set to true for a vertical grid
+    $wrap: false, // Set to true to make columns wrap if they get too wide
+    $align: left, // Can be left, right, center, justify, or spaced
+    $order: 0, // Can be any positive number
+  );
+}
+
+.custom-block {
+  @include grid-block;
+  @include grid-size(expand);
+  @include grid-orient(vertical);
+  @include grid-wrap(false);
+  @include grid-align(left);
+  @include grid-order(0);
+}
+</hljs>
+
+<p>When changing your layout at other breakpoints, we recommend using the feature mixins instead of using the base `grid-block` mixin again. This will prevent extraneous code from being output in your CSS.</p>
+
+<hljs>
+.custom-block {
+  @include grid-block(4);
+
+  // Only the size is changing, so only the size mixin is used
+  @include breakpoint(medium) {
+    @include grid-size(3);
+  }
+}
+</hljs>
+
+<h4>Content Blocks</h4>
+
+<p>Creating a content block (`grid-content` when using our classes), is similar to creating a standard grid block, and you have access to a few of the same options.</p>
+
+<hljs>
+.custom-grid-content {
+  @include grid-content(
+    $size: expand, // Can be expand, shrink, or a number of columns
+    $offset: 0, // Number of columns to offset to the right by
+    $order: 0, // Can be any positive number
+  );
+}
+</hljs>
+
+<h4>Parent-level Sizing</h4>
+
+<p>To create Foundation 5-style block grids, add the <code>grid-layout</code> mixin to your parent block, and set how many child blocks you want to appear on each row.</p>
+
+<hljs>
+.custom-block-grid {
+  // Each child block will be 100% width
+  @include grid-layout(1);
+
+  // Now 50%
+  @include breakpoint(medium) {
+    @include grid-layout(2);
+  }
+
+  // Now 33%
+  @include breakpoint(large) {
+    @include grid-layout(3);
+  }
+}
+</hljs>
+
+<h4>Containers</h4>
+
+<p>Don't forget the container! It has its own mixin as well. You can define a maximum width and a position.</p>
+
+<hljs>
+.custom-container {
+  @include grid-container(
+    $width: 800px, // Can be any unit with a value
+    $align: center // Can be left, right, or center
+  );
+}
+</hljs>
