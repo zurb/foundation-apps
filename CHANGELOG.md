@@ -1,3 +1,50 @@
+# Version 1.0.0 — Matterhorn
+
+Welcome to Foundation for Apps 1.0.0! Thanks for swinging by to try it out.
+
+Our initial release of the framework includes:
+
+ - **An awesome, responsive flexbox-based grid** for creating robust, responsive app layouts.
+ - **The Motion UI library** for easily animating pages and components. You can also use our mixins to write custom animations.
+ - **Our Gulp-powered Angular helpers** which allow you to harness the power of the Angular UI Router library without writing any JavaScript.
+
+The framework also includes these sweet components:
+ - Block list
+ - Button
+ - Button group
+ - Card
+ - Forms
+ - Label and badge
+ - Menu bar
+ - Switch
+ - Title bar
+ - Typography
+ - Visibility and utility classes
+
+These components are also available as Angular directives:
+ - Accordion
+ - Action sheet
+ - Modal
+ - Notification
+ - Off-canvas
+ - Panel
+ - Popup
+ - Tabs
+
+## How to Contribute
+
+We love feedback! Help us find bugs and suggest improvements or new features. Follow us on Twitter at [@ZURBFoundation](https://twitter.com/zurbfoundation) to keep up-to-date with what's new, or to just shoot the breeze.
+
+If you find a problem or have an idea, open a [new issue](https://github.com/zurb/foundation-apps/issues) on GitHub. When filing a bug report, make sure you specify the browser and operating system you're on, and toss us a screenshot or show us how we can recreate the issue.
+
+## Known Issues
+
+ - Some issues with the flexbox grid in IE10
+ - Mobile Safari doesn't place fixed-position elements (modals, notifications) at the right z-index — #190
+ - Range sliders aren't properly styled in IE10+ — #191
+
+*The iconic Matterhorn gets its name from the German words Matte, meaning "meadow", and Horn, which means "peak".*
+
 # Version 1.0.0 RC1 — Mont Blanc
 
 It's our 1.0 release candidate! Thanks for stopping by to take a look.
