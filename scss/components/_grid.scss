@@ -217,7 +217,11 @@ $block-grid-max-size: 6;
 	overflow: hidden;
 
 	@include grid-size($size);
-	@include grid-orient($vertical);
+  if($vertical) {
+    @include grid-orient(vertical);
+  } else {
+    @include grid-orient(horizontal);
+  }
 	@include grid-wrap($wrap);
 	@include grid-align($align);
 	@include grid-order($order);
