@@ -145,6 +145,8 @@ animationOut: fadeOut
 
 <p>The partial will be automatically pulled in and placed in the correct place.</p>
 
+<hr>
+
 <h3>Enabling HTML5 Mode and working with Angular on a server</h3>
 
 <p>To enable HTML5 mode with Angular (using regular URLs unprefixed by "\#"), a server has to support URL rewrites. The UI Router docs have a great <a href="https://github.com/angular-ui/ui-router/wiki/Frequently-Asked-Questions#how-to-configure-your-server-to-work-with-html5mode">write up</a> on working with the HTML5mode and how to enable it on a variety of servers.</p>
@@ -169,11 +171,15 @@ $locationProvider.html5Mode({
 <h3>Directives</h3>
 <p>All of the directives are supported as attribute directive so you can add them to an element like so:</p>
 
-<code><div zf-open></div></code>
+<hljs>
+<div zf-open></div>
+</hljs>
 
 <p>However, some directives allow element-level declaration like so:</p>
 
-<code><zf-accordion-set></zf-accordion-set></code>
+<hljs>
+<zf-accordion-set></zf-accordion-set>
+</hljs>
 
 <p>Note that some directives will REPLACE your original element, in others the directive will become a child of the original element.</p>
 
@@ -186,7 +192,7 @@ $locationProvider.html5Mode({
 
 <strong>ui-sref</strong>
 
-<p>Instead of using <code><a href="/my/sub/page"></a></code> in a page to access another page, it's common practice to use the router. Foundation for Apps uses UI Router for its routing which allows for named route references. For instance, let's say there is a page with this front matter:</p>
+<p>Instead of using <code>&lt;a href="/my/sub/page"&gt;</a></code> in a page to access another page, it's common practice to use the router. Foundation for Apps uses UI Router for its routing which allows for named route references. For instance, let's say there is a page with this front matter:</p>
 
 <hljs>
 name: mypage
