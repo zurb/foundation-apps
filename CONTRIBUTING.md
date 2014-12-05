@@ -19,7 +19,7 @@ ZURB loves its community! We always want to hear from our users, whether they're
 
 ## Submitting Pull Requests
 
-If you think you can solve a problem yourself, or want to implement a new feature, go for it! Follow these guidlines to make the most killer PR ever.
+If you think you can solve a problem yourself, or want to implement a new feature, go for it! Follow these guidelines to make the most killer PR ever.
 
  - **Test, test, and test.** The Foundation frameworks are used by thousands and thousands of designers and developers, so making sure your changes work in every browser is important! Foundation for Apps is officially supported on:
    - Newest Chrome
