@@ -55,17 +55,27 @@ angular.module('foundation.common.directives')
 }]);
 
 angular.module('foundation.common.directives')
+  .directive('zfEscClose', ['FoundationApi', function(foundationApi) {
+  return {
+    restrict: 'A',
+    link: function(scope, element, attrs) {
+      element.on('keyup', function(e) {
+        if (e.keyCode === 27) {
+          foundationApi.closeActiveElements();
+        }
+        e.preventDefault();
+      });
+    }
+  };
+}]);
+
+angular.module('foundation.common.directives')
   .directive('zfHardToggle', ['FoundationApi', function(foundationApi) {
   return {
     restrict: 'A',
     link: function(scope, element, attrs) {
       element.on('click', function(e) {
-        var activeElements = document.querySelectorAll('.is-active[zf-closable]');
-        if (activeElements.length) {
-          angular.forEach(activeElements, function(el) {
-            foundationApi.publish(el.id, 'close');
-          });
-        }
+        foundationApi.closeActiveElements();
         foundationApi.publish(attrs.zfHardToggle, 'toggle');
         e.preventDefault();
       });

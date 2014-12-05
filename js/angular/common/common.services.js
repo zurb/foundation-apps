@@ -55,6 +55,15 @@ angular.module('foundation.common.services')
           element.removeClass(activeClass);
         }
       },
+      closeActiveElements: function() {
+          var self = this;
+          var activeElements = document.querySelectorAll('.is-active[zf-closable]');
+          if (activeElements.length) {
+            angular.forEach(activeElements, function(el) {
+              self.publish(el.id, 'close');
+            });
+          }
+      },
       animate: function(element, futureState, animationIn, animationOut) {
         var initClasses        = ['ng-enter', 'ng-leave'];
         var activeClasses      = ['ng-enter-active', 'ng-leave-active'];
