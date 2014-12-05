@@ -37,18 +37,6 @@ $body-font-weight: $font-weight-normal !default;
 $body-font-style: normal !default;
 $body-antialiased: true;
 
-// We use these to control text direction settings
-$text-direction: ltr !default;
-$default-float: left !default;
-$opposite-direction: right !default;
-@if $text-direction == ltr {
-  $default-dir: left;
-  $opposite-dir: right;
-} @else {
-  $default-dir: right;
-  $opposite-dir: left;
-}
-
 // Application Colors
 $primary-color: #00558b !default;
 $secondary-color: #f1f1f1 !default;
