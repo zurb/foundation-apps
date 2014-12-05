@@ -19,6 +19,16 @@ angular.module('foundation.popup')
         var attachment = scope.pinTo || 'top center';
         var tetherInit = false;
         var tether     = {};
+        var body       = angular.element(document.body);
+
+        //crude disable
+        var listenerEnable = function() {
+          setTimeout(function() {
+            body.one('click', function(e) {
+              scope.hide();
+            });
+          }, 1);
+        };
 
         var tetherElement = function(target) {
           if(tetherInit) {
@@ -55,8 +65,7 @@ angular.module('foundation.popup')
 
         scope.hide = function() {
           scope.active = false;
-          tetherElement(newTarget);
-          tether.disable();
+          tether.destroy();
           return;
         };
 
@@ -64,6 +73,7 @@ angular.module('foundation.popup')
           scope.active = true;
           tetherElement(newTarget);
           tether.enable();
+          listenerEnable();
 
           return;
         };
@@ -73,9 +83,9 @@ angular.module('foundation.popup')
           tetherElement(newTarget);
 
           if(scope.active) {
-            tether.enable();
+            scope.show();
           } else  {
-            tether.disable();
+            scope.hide();
           }
 
           return;
