@@ -18,7 +18,7 @@
 $container-width: rem-calc(900) !default;
 $block-padding: $global-padding !default;
 $total-columns: 12 !default;
-$block-grid-max-size: 6;
+$block-grid-max-size: 6 !default;
 
 /*
   Define the size of a grid block. Blocks are flex items. By default, they stretch to fill all available space, based on the size of sibling blocks. This is the "expand" behavior.

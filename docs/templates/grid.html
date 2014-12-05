@@ -473,3 +473,24 @@ title: Grid
   );
 }
 </hljs>
+
+<hr>
+
+<h3>Sass Variables</h3>
+
+<p>Adjust core grid settings using the grid variables in your settings file.</p>
+
+<hljs>
+// Maximum width of a grid-container element
+$container-width: rem-calc(900);
+// Left and right padding on content blocks
+$block-padding: $global-padding;
+// Total number of columns
+$total-columns: 12;
+// Highest grid layout class to output in CSS
+$block-grid-max-size: 6;
+</hljs>
+
+<p>The <code>$total-columns</code> variable not only affects the math of column widths, but it also affects how many CSS classes are output. For example, increasing the number of columns to 16 will add new CSS classes like <code>small-13</code>, <code>medium-14</code>, and so on.</p>
+
+<p>Similarly, the <code>$block-grid-max-size</code> variable determines the highest block grid class that will be output to CSS. This means by default, the classes will range from <code>up-1</code> to <code>up-6</code>. However, the mixin is not affected by this variable, so even if <code>$block-grid-max-size</code> is set to 6, you can still use <code>@include grid-layout(7);</code> just fine.</p>
