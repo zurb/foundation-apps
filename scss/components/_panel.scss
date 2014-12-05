@@ -97,9 +97,9 @@ $panel-animation-speed: 0.25s !default;
   $shadow-color: get-shadow-value($shadow, color);
   &.is-active {
     @if $position == left        { box-shadow: $shadow-distance 0 $shadow-size $shadow-color; }
-    @else if $position == right  { box-shadow: -$shadow-distance 0 $shadow-size $shadow-color; }
+    @else if $position == right  { box-shadow: (-$shadow-distance) 0 $shadow-size $shadow-color; }
     @else if $position == top    { box-shadow: 0 $shadow-distance $shadow-size $shadow-color; }
-    @else if $position == bottom { box-shadow: 0 -$shadow-distance $shadow-size $shadow-color; }
+    @else if $position == bottom { box-shadow: 2px (-$shadow-distance) $shadow-size $shadow-color; }
   }
 }
 
