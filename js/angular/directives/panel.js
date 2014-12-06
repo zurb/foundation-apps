@@ -20,6 +20,7 @@ angular.module('foundation.panel')
         },
         post: function postLink(scope, element, attrs) {
           var animationIn, animationOut;
+          var globalQueries = foundationApi.getSettings().media_queries;
           scope.position = scope.position || 'left';
           scope.active = false;
 
@@ -70,6 +71,15 @@ angular.module('foundation.panel')
             scope.active = !scope.active;
             return;
           };
+
+          element.on('click', function(e) {
+            //check sizing
+            if(!matchMedia(globalQueries.medium).matches) {
+              //hide element if it can't match at least medium
+              scope.hide();
+              foundationApi.animate(element, scope.active, animationIn, animationOut);
+            }
+          });
         }
       };
     },
