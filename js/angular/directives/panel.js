@@ -17,10 +17,10 @@ angular.module('foundation.panel')
           var type = 'panel';
 
           iAttrs.$set('zf-closable', type);
+          scope.positionClass = 'panel-' + (scope.position || 'left');
         },
         post: function postLink(scope, element, attrs) {
           var animationIn, animationOut;
-          scope.position = scope.position || 'left';
           scope.active = false;
 
           //urgh, there must be a better way
