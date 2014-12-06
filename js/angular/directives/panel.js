@@ -17,11 +17,13 @@ angular.module('foundation.panel')
           var type = 'panel';
 
           iAttrs.$set('zf-closable', type);
-          scope.positionClass = 'panel-' + (scope.position || 'left');
+          scope.position = scope.position || 'left';
+          scope.positionClass = 'panel-' + scope.position;
         },
         post: function postLink(scope, element, attrs) {
-          var animationIn, animationOut;
           scope.active = false;
+          var animationIn, animationOut;
+          var globalQueries = foundationApi.getSettings().media_queries;
 
           //urgh, there must be a better way
           if(scope.position === 'left') {
@@ -70,6 +72,15 @@ angular.module('foundation.panel')
             scope.active = !scope.active;
             return;
           };
+
+          element.on('click', function(e) {
+            //check sizing
+            if(!matchMedia(globalQueries.medium).matches) {
+              //hide element if it can't match at least medium
+              scope.hide();
+              foundationApi.animate(element, scope.active, animationIn, animationOut);
+            }
+          });
         }
       };
     },
