@@ -17,12 +17,13 @@ angular.module('foundation.panel')
           var type = 'panel';
 
           iAttrs.$set('zf-closable', type);
+          scope.position = scope.position || 'left';
+          scope.positionClass = 'panel-' + scope.position;
         },
         post: function postLink(scope, element, attrs) {
+          scope.active = false;
           var animationIn, animationOut;
           var globalQueries = foundationApi.getSettings().media_queries;
-          scope.position = scope.position || 'left';
-          scope.active = false;
 
           //urgh, there must be a better way
           if(scope.position === 'left') {
