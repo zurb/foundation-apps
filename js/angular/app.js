@@ -33,7 +33,9 @@ var app = angular.module('application', [
 }])
   .run(['FoundationInit', '$rootScope', '$state', '$stateParams', function(foundationInit, $rootScope, $state, $stateParams) {
     foundationInit.init();
-
     $rootScope.$state = $state;
     $rootScope.$stateParams = $stateParams;
-}]);
+}])
+.run(function() {
+    FastClick.attach(document.body);
+});

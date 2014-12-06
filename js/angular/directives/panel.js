@@ -11,10 +11,11 @@ angular.module('foundation.panel')
     },
     replace: true,
     compile: function compile(tElement, tAttrs, transclude) {
-      var type = 'panel';
 
       return {
         pre: function preLink(scope, iElement, iAttrs, controller) {
+          var type = 'panel';
+
           iAttrs.$set('zf-closable', type);
         },
         post: function postLink(scope, element, attrs) {
