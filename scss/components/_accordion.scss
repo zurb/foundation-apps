@@ -9,7 +9,7 @@ $accordion-border: 1px solid $gray-dark !default;
 
 $accordion-title-background: $gray-light !default;
 $accordion-title-background-hover: smartscale($accordion-title-background, 5%) !default;
-$accordion-title-background-active: lighten($gray-light, 2) !default;
+$accordion-title-background-active: smartscale($accordion-title-background, 3%) !default;
 $accordion-title-color: isitlight($accordion-title-background) !default;
 $accordion-title-color-active: isitlight($accordion-title-background) !default;
 
