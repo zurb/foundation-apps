@@ -3,25 +3,25 @@ angular.module('foundation.notification', ['foundation.common.services']);
 angular.module('foundation.notification')
   .controller('ZfNotificationController', ['$scope', 'FoundationApi', function ZfTabsController($scope, foundationApi) {
     var controller    = this;
-    var notifications = controller.notifications = $scope.notifications = [];
+    controller.notifications = $scope.notifications = [];
 
     controller.addNotification = function(info) {
       var id  = foundationApi.generateUuid();
       info.id = id;
-      notifications.push(info);
+      $scope.notifications.push(info);
     };
 
     controller.removeNotification = function(id) {
-      notifications.forEach(function(notification) {
+      $scope.notifications.forEach(function(notification) {
         if(notification.id === id) {
-          var ind = notifications.indexOf(notification);
-          notifications.splice(ind, 1);
+          var ind = $scope.notifications.indexOf(notification);
+          $scope.notifications.splice(ind, 1);
         }
       });
     };
 
     controller.clearAll = function() {
-      notifications = [];
+      $scope.notifications = [];
     };
 
 }]);
@@ -39,11 +39,9 @@ angular.module('foundation.notification')
           controller.clearAll();
         } else {
           controller.addNotification(msg);
+          scope.$apply();
         }
-
-        scope.$apply();
       });
-
     },
   };
 }]);
@@ -178,8 +176,8 @@ angular.module('foundation.notification')
     },
     link: function(scope, element, attrs, controller) {
       element.on('click', function(e) {
-        e.preventDefault();
         foundationApi.publish(attrs.zfNotify, { title: scope.title, content: scope.content, position: scope.position, color: scope.color, image: scope.image });
+        e.preventDefault();
       });
     },
   };
