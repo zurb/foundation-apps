@@ -7,7 +7,7 @@ $tabstrip-background: transparent !default;
 
 $tab-title-background: $gray-light !default;
 $tab-title-background-hover: smartscale($tab-title-background, 5%) !default;
-$tab-title-background-active: lighten($gray-light, 2) !default;
+$tab-title-background-active: smartscale($tab-title-background, 3%) !default;
 $tab-title-color: isitlight($tab-title-background) !default;
 $tab-title-color-active: $tab-title-color !default;
 
