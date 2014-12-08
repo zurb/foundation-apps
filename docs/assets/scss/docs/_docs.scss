@@ -697,6 +697,17 @@ hr {
   }
 }
 
+.docs-example-panel {
+  text-align: center;
+  color: #666;
+  padding: 1rem;
+  align-items: center;
+  justify-content: center;
+}
+.docs-example-panel p {
+  font-size: 1.5rem;
+}
+
 .docs-grid-demo {
   height: 100px;
   margin: 0 0 1.5rem 0 !important;
