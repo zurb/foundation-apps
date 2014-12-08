@@ -32,7 +32,6 @@ angular.module('foundation.init')
 angular.module('foundation.init')
   .factory('helpers', function() {
     return {
-
       headerHelper: function(classArray) {
         var i = classArray.length;
         var head = angular.element(document.querySelectorAll('head'));
@@ -59,20 +58,13 @@ angular.module('foundation.init')
 
 angular.module('foundation.init.state', ['ui.router'])
   .provider('$FoundationState', ['$stateProvider', function($stateProvider) {
-    // jshint validthis:true
-    // jshint latedef:false
-
     var complexViews = {};
 
-    this.registerDynamicRoutes = registerDynamicRoutes;
-    this.$get = angular.noop;
-
-    /////
-
-    function registerDynamicRoutes(routes) {
+    this.registerDynamicRoutes = function(routes) {
       var dynamicRoutes = routes || foundationRoutes;
+
       angular.forEach(dynamicRoutes, function(page) {
-        if (page.hasComposed === true) {
+        if (page.hasComposed) {
           if (!angular.isDefined(complexViews[page.parent])) {
             complexViews[page.parent] = { children: {} };
           }
@@ -83,7 +75,7 @@ angular.module('foundation.init.state', ['ui.router'])
 
           complexViews[page.parent].children[page.name] = page;
 
-        } else if (page.composed === true) {
+        } else if (page.composed) {
           if(!angular.isDefined(complexViews[page.name])) {
             complexViews[page.name] = { children: {} };
           }
@@ -122,7 +114,9 @@ angular.module('foundation.init.state', ['ui.router'])
 
           $stateProvider.state(page.name, state);
       });
-    }
+    };
+
+    this.$get = angular.noop;
 
     function buildState(path, state) {
       return {
@@ -140,5 +134,4 @@ angular.module('foundation.init.state', ['ui.router'])
 
       return ctrl;
     }
-
-}]);
+  }]);
