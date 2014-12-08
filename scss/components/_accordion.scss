@@ -30,11 +30,11 @@ $accordion-content-padding: $global-padding !default;
   line-height: 1;
   cursor: pointer;
 
-  &:hover, .is-active &:hover {
+  &:hover, .is-active > &:hover {
     background: $background-hover;
   }
 
-  .is-active & {
+  .is-active > & {
     background: $background-active;
     color: $color-active;
   }
@@ -46,7 +46,7 @@ $accordion-content-padding: $global-padding !default;
   padding: $padding;
 
   display: none;
-  .is-active & {
+  .is-active > & {
     display: block;
   }
 }
