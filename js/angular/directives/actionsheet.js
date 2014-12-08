@@ -25,7 +25,7 @@ angular.module('foundation.actionsheet')
 angular.module('foundation.actionsheet')
   .directive('zfActionSheet', ['FoundationApi', function(foundationApi) {
   return {
-    restrict: 'A',
+    restrict: 'EA',
     transclude: true,
     replace: true,
     templateUrl: 'partials/actionsheet.html',
