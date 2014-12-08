@@ -17,7 +17,7 @@ var gulp           = require('gulp'),
     rsync          = require('gulp-rsync');
 
 // Deploy
-gulp.task('deploy', function() {
+gulp.task('deploy', ['build'], function() {
   return gulp.src('build/**')
     .pipe(rsync({
       root: 'build',
