@@ -34,7 +34,7 @@ $accordion-content-padding: $global-padding !default;
     background: $background-hover;
   }
 
-  .is-active & {
+  .is-active > & {
     background: $background-active;
     color: $color-active;
   }
@@ -46,7 +46,7 @@ $accordion-content-padding: $global-padding !default;
   padding: $padding;
 
   display: none;
-  .is-active & {
+  .is-active > & {
     display: block;
   }
 }
