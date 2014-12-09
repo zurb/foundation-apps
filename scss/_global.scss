@@ -70,13 +70,12 @@ $foundation-colors: (
   dark: $dark-color,
 );
 
-@include exports("global") {
+@include exports(global) {
   // Make extra sure we're using the whole window
   html, body {
     height: 100%;
     font-size: $base-font-size;
   }
-
   // Set box-sizing globally to handle padding and border widths
   html {
     box-sizing: border-box;
