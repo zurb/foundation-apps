@@ -81,16 +81,16 @@ angular.module('foundation.common.services')
           element.removeClass(initClasses.join(' ') + ' ' + activeClasses.join(' ') + ' ' + animationIn + ' ' + animationOut);
         };
 
-        var finishAnimation = function() {
-          reset(); //reset all classes
-          element.removeClass(!activation ? activeGenericClass : ''); //if not active, remove active class
-          reflow();
-          timedOut = false;
-        };
-
         var animate = function(animationClass, activation) {
           var initClass = activation ? initClasses[0] : initClasses[1];
           var activeClass = activation ? activeClasses[0] : activeClasses[1];
+
+          var finishAnimation = function() {
+            reset(); //reset all classes
+            element.removeClass(!activation ? activeGenericClass : ''); //if not active, remove active class
+            reflow();
+            timedOut = false;
+          };
 
           //stop animation
           reset();
