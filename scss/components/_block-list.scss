@@ -283,8 +283,8 @@ $blocklist-check-icons: true !default;
 
     @if $icons == true {
       &:checked + label {
-        color: red !important;
         &::before {
+          @include image-checkmark($color);
           content: '';
           background-size: 100% 100%;
           width: 1.5em;
@@ -293,13 +293,6 @@ $blocklist-check-icons: true !default;
           float: right;
           pointer-events: none;
           margin-top: -0.25em;
-
-          @if lightness($background) > 60% {
-            background-image: url(map-get($foundation-images, checkmark-black));
-          }
-          @else {
-            background-image: url(map-get($foundation-images, checkmark-white));
-          }
         }
       }
     }
