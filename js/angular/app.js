@@ -1,4 +1,4 @@
-var app = angular.module('application', [
+angular.module('application', [
     'ui.router',
     'ngAnimate',
     'markdown',

@@ -100,14 +100,20 @@ gulp.task('node-sass', function() {
 });
 
 // Process Foundation JS
-gulp.task('uglify', ['uglify-angular'], function() {
+gulp.task('uglify', ['uglify-app'], function() {
   var libs = [
     'bower_components/fastclick/lib/fastclick.js',
     'bower_components/viewport-units-buggyfill/viewport-units-buggyfill.js',
     'bower_components/notify.js/notify.js',
     'bower_components/tether/tether.js',
     'bower_components/marked/lib/marked.js',
-    'docs/assets/js/app.js'
+    'bower_components/angular/angular.js',
+    'bower_components/allmighty-autocomplete/script/autocomplete.js',
+    'bower_components/angular-animate/angular-animate.js',
+    'bower_components/ui-router/release/angular-ui-router.js',
+    'bower_components/angular-highlightjs/angular-highlightjs.js',
+    'bower_components/highlightjs/highlight.pack.js',
+    'js/vendor/**/*.js',
   ];
 
   return gulp.src(libs)
@@ -123,16 +129,9 @@ gulp.task('uglify', ['uglify-angular'], function() {
 });
 
 // Process Angular JS
-gulp.task('uglify-angular', function() {
+gulp.task('uglify-app', function() {
   var libs = [
-    'bower_components/angular/angular.js',
-    'bower_components/allmighty-autocomplete/script/autocomplete.js',
-    'bower_components/angular-animate/angular-animate.js',
-    'bower_components/ui-router/release/angular-ui-router.js',
-    'bower_components/angular-highlightjs/angular-highlightjs.js',
-    'bower_components/highlightjs/highlight.pack.js',
     'docs/assets/js/angular.js',
-    'js/vendor/**/*.js',
     'js/angular/**/*.js',
     '!js/angular/app.js'
   ];
