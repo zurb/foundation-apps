@@ -12,10 +12,11 @@ angular.module('foundation.common.animations')
         var scope = element.scope();
         if(scope.vars && scope.vars.animationIn) {
 
-          var animationIn = scope.vars.animationIn;
+          var animationIn  = scope.vars.animationIn;
           var animationOut = scope.vars.animationOut || '';
-          var initial = 'ng-enter';
+          var initial  = 'ng-enter';
           var activate = 'ng-enter-active';
+          var timedOut = true;
 
           //reset possible failed animations and bugs
           element.parent().addClass(parentStyle);
@@ -31,12 +32,23 @@ angular.module('foundation.common.animations')
           element[0].style.transitionDuration = '';
           element.addClass(activate);
 
-          element.one(events.join(' '), function() {
-            //cleanup
+          var finishAnimation = function() {
             element.parent().removeClass(parentStyle);
             element.removeClass(activate + ' ' + initial + ' ' + animationIn + ' ' + animationOut);
+            timedOut = false;
             done();
+          }
+
+          element.one(events.join(' '), function() {
+            finishAnimation();
           });
+
+          setTimeout(function() {
+            if (timedOut) {
+              finishAnimation();
+            }
+          }, 3000);
+
         } else {
           done();
         }
@@ -49,10 +61,11 @@ angular.module('foundation.common.animations')
         var scope = element.scope();
 
         if(scope.vars && scope.vars.animationOut) {
-          var animationIn = scope.vars.animationIn || '';
+          var animationIn  = scope.vars.animationIn || '';
           var animationOut = scope.vars.animationOut;
-          var initial = 'ng-leave';
+          var initial  = 'ng-leave';
           var activate = 'ng-leave-active';
+          var timedOut = true;
 
           element.removeClass(activate + ' ' + initial + ' ' + animationIn + ' ' + animationOut);
           element[0].style.transitionDuration = 0;
@@ -66,12 +79,22 @@ angular.module('foundation.common.animations')
           element[0].style.transitionDuration = '';
           element.addClass(activate);
 
-          element.one(events.join(' '), function() {
-            //cleanup
-            element.removeClass(activate + ' ' + initial + ' ' + animationIn + ' ' + animationOut);
+          var finishAnimation = function() {
             element.parent().removeClass(parentStyle);
+            element.removeClass(activate + ' ' + initial + ' ' + animationIn + ' ' + animationOut);
+            timedOut = false;
             done();
+          }
+
+          element.one(events.join(' '), function() {
+            finishAnimation();
           });
+
+          setTimeout(function() {
+            if (timedOut) {
+              finishAnimation();
+            }
+          }, 3000);
 
         } else {
           done();
