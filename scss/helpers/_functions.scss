@@ -58,7 +58,7 @@ $modules: () !default;
 @function map-serialize($map) {
   $str: '{';
   @each $key, $value in $map {
-    $str: $str + '"' + $key + '": "' + $value + '", ';
+    $str: $str + '\"' + $key + '\": \"' + $value + '\", ';
   }
   $str: str-slice($str, 1, -3) + '}';
 
