@@ -11,7 +11,7 @@ angular.module('foundation.init')
         helpers.headerHelper(['foundation-mq']);
         extractedMedia = helpers.getStyle('.foundation-mq', 'font-family');
 
-        mediaQueries = helpers.processStyleToJSON((extractedMedia));
+        mediaQueries = helpers.parseQueryString((extractedMedia));
 
         for(var key in mediaQueries) {
           mediaQueries[key] = 'only screen and (min-width: ' + mediaQueries[key].replace('rem', 'em') + ')';
@@ -49,10 +49,31 @@ angular.module('foundation.init')
 
         return style.getPropertyValue('font-family');
       },
-      processStyleToJSON: function(str) {
-        var clean = str.slice(1, -1).replace(/\\"/g, '"'); //ready for FF and Chrome
+      // https://github.com/sindresorhus/query-string
+      parseQueryString: function(str) {
+        if (typeof str !== 'string') return {};
+        str = str.trim();
+        if (!str) return {};
 
-        return JSON.parse(clean);
+        return str.split('&').reduce(function(ret, param) {
+          var parts = param.replace(/\+/g, ' ').split('=');
+          var key = parts[0];
+          var val = parts[1];
+          key = decodeURIComponent(key);
+
+          // missing `=` should be `null`:
+          // http://w3.org/TR/2012/WD-url-20120524/#collect-url-parameters
+          val = val === undefined ? null : decodeURIComponent(val);
+
+          if (!ret.hasOwnProperty(key)) {
+            ret[key] = val;
+          } else if (Array.isArray(ret[key])) {
+            ret[key].push(val);
+          } else {
+            ret[key] = [ret[key], val];
+          }
+          return ret;
+        }, {});
       }
     };
 });
