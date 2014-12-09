@@ -212,6 +212,11 @@ $actionsheet-link-background-hover: smartscale($actionsheet-background) !default
   .action-sheet-container {
     position: relative;
     display: inline-block;
+
+    .button {
+      margin-left: 0;
+      margin-right: 0;
+    }
   }
   .action-sheet {
     @include action-sheet;
