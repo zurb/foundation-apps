@@ -9,7 +9,7 @@ angular.module('foundation.common.directives')
       var tempElement = element.parent();
       //find parent modal
       while(parentElement === false) {
-        if(tempElement[0].nodeName == 'BODY') {
+        if(tempElement[0].nodeName === 'BODY') {
           parentElement = '';
         }
 

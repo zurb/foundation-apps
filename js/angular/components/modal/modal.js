@@ -29,11 +29,11 @@ angular.module('foundation.modal')
 
           //setup
           foundationApi.subscribe(attrs.id, function(msg) {
-            if(msg == 'show' || msg == 'open') {
+            if(msg === 'show' || msg === 'open') {
               scope.show();
-            } else if (msg == 'close' || msg == 'hide') {
+            } else if (msg === 'close' || msg === 'hide') {
               scope.hide();
-            } else if (msg == 'toggle') {
+            } else if (msg === 'toggle') {
               scope.toggle();
             }
 

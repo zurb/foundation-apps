@@ -38,7 +38,7 @@ angular.module('foundation.actionsheet')
         },
         post: function postLink(scope, element, attrs, controller) {
           foundationApi.subscribe(attrs.id, function(msg) {
-            if (msg == 'toggle') {
+            if (msg === 'toggle') {
               controller.toggle();
             }
 

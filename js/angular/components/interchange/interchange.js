@@ -23,7 +23,7 @@ angular.module('foundation.interchange')
         }
 
         foundationApi.modifySettings({
-          media_queries: mediaQueries
+          mediaQueries: mediaQueries
         });
 
         window.addEventListener('resize', u.throttle(function() {
@@ -56,9 +56,9 @@ angular.module('foundation.interchange')
       },
       // https://github.com/sindresorhus/query-string
       parseStyleToObject: function(str) {
-        if (typeof str !== 'string') return {};
+        if (typeof str !== 'string') { return {}; }
         str = str.trim().slice(1, -1); // browsers re-quote string style values
-        if (!str) return {};
+        if (!str) { return {}; }
 
         return str.split('&').reduce(function(ret, param) {
           var parts = param.replace(/\+/g, ' ').split('=');
@@ -100,7 +100,7 @@ angular.module('foundation.interchange')
     link: function(scope, element, attrs, ctrl, transclude) {
       var childScope, current, scenarios, innerTemplates;
 
-      var named_queries = {
+      var namedQueries = {
         'default' : 'only screen',
         landscape : 'only screen and (orientation: landscape)',
         portrait : 'only screen and (orientation: portrait)',
@@ -112,8 +112,8 @@ angular.module('foundation.interchange')
           'only screen and (min-resolution: 2dppx)'
       };
 
-      var globalQueries = foundationApi.getSettings().media_queries;
-      named_queries = angular.extend(named_queries, globalQueries);
+      var globalQueries = foundationApi.getSettings().mediaQueries;
+      namedQueries = angular.extend(namedQueries, globalQueries);
 
       var matched = function() {
         var count   = scenarios.length;
@@ -124,8 +124,8 @@ angular.module('foundation.interchange')
             var mq;
             var rule = scenarios[count].media;
 
-            if (named_queries[rule]) {
-              mq = matchMedia(named_queries[rule]);
+            if (namedQueries[rule]) {
+              mq = matchMedia(namedQueries[rule]);
             } else {
               mq = matchMedia(rule);
             }
@@ -216,4 +216,3 @@ angular.module('foundation.interchange')
   };
 }]);
 
-//initializers

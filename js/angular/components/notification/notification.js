@@ -121,11 +121,11 @@ angular.module('foundation.notification')
           var animationOut = attrs.animationOut || 'fadeOut';
 
           foundationApi.subscribe(attrs.id, function(msg) {
-            if(msg == 'show' || msg == 'open') {
+            if(msg === 'show' || msg === 'open') {
               scope.show();
-            } else if (msg == 'close' || msg == 'hide') {
+            } else if (msg === 'close' || msg === 'hide') {
               scope.hide();
-            } else if (msg == 'toggle') {
+            } else if (msg === 'toggle') {
               scope.toggle();
             }
 
@@ -176,7 +176,13 @@ angular.module('foundation.notification')
     },
     link: function(scope, element, attrs, controller) {
       element.on('click', function(e) {
-        foundationApi.publish(attrs.zfNotify, { title: scope.title, content: scope.content, position: scope.position, color: scope.color, image: scope.image });
+        foundationApi.publish(attrs.zfNotify, {
+          title: scope.title,
+          content: scope.content,
+          position: scope.position,
+          color: scope.color,
+          image: scope.image
+        });
         e.preventDefault();
       });
     },
