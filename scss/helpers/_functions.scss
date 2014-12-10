@@ -56,11 +56,11 @@ $modules: () !default;
  *   @return A string with a map converted to JSON.
  */
 @function map-serialize($map) {
-  $str: '{';
+  $str: '';
   @each $key, $value in $map {
-    $str: $str + '"' + $key + '": "' + $value + '", ';
+    $str: $str + $key + '=' + $value + '&';
   }
-  $str: str-slice($str, 1, -3) + '}';
+  $str: str-slice($str, 1, -2);
 
   @return $str;
 }
