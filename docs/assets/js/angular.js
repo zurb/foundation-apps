@@ -20,7 +20,7 @@ angular.module('application', [
     'foundation.tabs',
     'foundation.iconic'
   ])
-    .config(['$FoundationStateProvider', '$urlRouterProvider', '$locationProvider', function(FoundationStateProvider, $urlProvider, $locationProvider) {
+    .config(['$FoundationStateProvider', '$urlRouterProvider', '$locationProvider', 'hljsServiceProvider', function(FoundationStateProvider, $urlProvider, $locationProvider, hljsServiceProvider) {
 
     $urlProvider.otherwise('/');
 
@@ -32,6 +32,10 @@ angular.module('application', [
     });
 
     $locationProvider.hashPrefix('!');
+
+    hljsServiceProvider.setOptions({
+      languages: ['bash', 'html', 'js', 'sass', 'scss']
+    });
 }])
   .run(['FoundationInit', '$rootScope', '$state', '$stateParams', function(foundationInit, $rootScope, $state, $stateParams) {
     foundationInit.init();
