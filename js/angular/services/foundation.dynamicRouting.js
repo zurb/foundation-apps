@@ -1,14 +1,5 @@
 angular.module('foundation.dynamicRouting', ['foundation.services', 'ui.router']);
 
-angular.module('foundation.dynamicRouting')
-  .config(['$FoundationStateProvider', function(FoundationStateProvider) {
-    FoundationStateProvider.registerDynamicRoutes();
-}])
-  .run(['$rootScope', '$state', '$stateParams', function($rootScope, $state, $stateParams) {
-    $rootScope.$state = $state;
-    $rootScope.$stateParams = $stateParams;
-}]);
-
 angular.module('foundation.dynamicRouting', ['ui.router'])
   .provider('$FoundationState', ['$stateProvider', function($stateProvider) {
     var complexViews = {};
@@ -88,3 +79,11 @@ angular.module('foundation.dynamicRouting')
   }
 ]);
 
+angular.module('foundation.dynamicRouting')
+  .config(['$FoundationStateProvider', function(FoundationStateProvider) {
+    FoundationStateProvider.registerDynamicRoutes(foundationRoutes);
+}])
+  .run(['$rootScope', '$state', '$stateParams', function($rootScope, $state, $stateParams) {
+    $rootScope.$state = $state;
+    $rootScope.$stateParams = $stateParams;
+}]);

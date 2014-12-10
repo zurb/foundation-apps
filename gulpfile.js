@@ -52,8 +52,8 @@ gulp.task('clean-partials', function(cb) {
 });
 
 gulp.task('copy-partials', ['clean-partials'], function() {
-  return gulp.src(['js/angular/partials/**.*'])
-    .pipe(gulp.dest('./build/partials/'));
+  return gulp.src(['js/angular/components/**/*.html'])
+    .pipe(gulp.dest('./build/components/'));
 });
 
 gulp.task('css', ['sass'], function() {
@@ -212,13 +212,13 @@ gulp.task('default', ['build', 'server:start'], function() {
   gulp.watch(['./docs/assets/scss/**/*', './scss/**/*'], ['css']);
 
   // Watch JavaScript
-  gulp.watch(['./docs/assets/js/**/*', './js/**/*'], ['uglify']);
+  gulp.watch(['./docs/assets/js/**/*', './js/**/*.js'], ['uglify']);
 
   // Watch static files
   gulp.watch(['./docs/**/*.*', '!./docs/templates/**/*.*', '!./docs/assets/{scss,js}/**/*.*'], ['copy']);
 
   // Watch Angular partials
-  gulp.watch(['js/angular/partials/**.*'], ['copy-partials']);
+  gulp.watch(['js/angular/components/**/**.html'], ['copy-partials']);
 
   // Watch Angular templates
   gulp.watch(['./docs/templates/**/*.html'], ['copy-templates']);

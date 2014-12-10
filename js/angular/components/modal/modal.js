@@ -4,7 +4,7 @@ angular.module('foundation.modal')
   .directive('zfModal', ['FoundationApi', function(foundationApi) {
   return {
     restrict: 'EA',
-    templateUrl: 'partials/modal.html',
+    templateUrl: 'components/modal/modal.html',
     transclude: true,
     scope: true,
     replace: true,

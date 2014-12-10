@@ -4,7 +4,7 @@ angular.module('foundation.offcanvas')
   .directive('zfOffcanvas', ['FoundationApi', function(foundationApi) {
   return {
     restrict: 'EA',
-    templateUrl: 'partials/offcanvas.html',
+    templateUrl: 'components/offcanvas/offcanvas.html',
     transclude: true,
     scope: {
       position: '@'

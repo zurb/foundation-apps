@@ -45,7 +45,7 @@ angular.module('foundation.tabs')
     restrict: 'EA',
     transclude: 'true',
     replace: true,
-    templateUrl: 'partials/tabs.html',
+    templateUrl: 'components/tabs/tabs.html',
     controller: 'ZfTabsController',
     scope: {
       displaced: '@?'
@@ -78,7 +78,7 @@ angular.module('foundation.tabs')
       tabs: '=?',
       target: '@'
     },
-    templateUrl: 'partials/tab-content.html',
+    templateUrl: 'components/tabs/tab-content.html',
     link: function(scope, element, attrs, ctrl) {
       scope.tabs = scope.tabs || [];
       var id = scope.target;
@@ -114,7 +114,7 @@ angular.module('foundation.tabs')
   .directive('zfTab', ['FoundationApi', function(foundationApi) {
     return {
       restrict: 'EA',
-      templateUrl: 'partials/tab.html',
+      templateUrl: 'components/tabs/tab.html',
       transclude: true,
       scope: {
         title: '@'

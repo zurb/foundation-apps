@@ -30,7 +30,7 @@ angular.module('foundation.notification')
   .directive('zfNotificationSet', ['FoundationApi', function(foundationApi) {
   return {
     restrict: 'EA',
-    templateUrl: 'partials/notification-set.html',
+    templateUrl: 'components/notification/notification-set.html',
     controller: 'ZfNotificationController',
     scope: true,
     link:function(scope, element, attrs, controller) {
@@ -50,7 +50,7 @@ angular.module('foundation.notification')
   .directive('zfNotification', ['FoundationApi', function(foundationApi) {
   return {
     restrict: 'EA',
-    templateUrl: 'partials/notification.html',
+    templateUrl: 'components/notification/notification.html',
     replace: true,
     transclude: true,
     require: '^zfNotificationSet',
@@ -98,7 +98,7 @@ angular.module('foundation.notification')
   .directive('zfNotificationStatic', ['FoundationApi', function(foundationApi) {
   return {
     restrict: 'EA',
-    templateUrl: 'partials/notification.html',
+    templateUrl: 'components/notification/notification.html',
     replace: true,
     transclude: true,
     scope: {

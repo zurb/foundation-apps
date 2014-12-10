@@ -6,7 +6,7 @@ angular.module('foundation.popup')
       restrict: 'EA',
       transclude: true,
       replace: true,
-      templateUrl: 'partials/popup.html',
+      templateUrl: 'components/popup/popup.html',
       scope: {
         pinTo: '@?',
         pinAt: '@?',
