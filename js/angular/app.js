@@ -1,9 +1,8 @@
 angular.module('application', [
     'ui.router',
     'ngAnimate',
-    'markdown',
     'foundation.init',
-    'foundation.init.state',
+    'foundation.dynamicRouting',
     'foundation.common.services',
     'foundation.common.directives',
     'foundation.common.animations',

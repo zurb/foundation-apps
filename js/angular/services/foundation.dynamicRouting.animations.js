@@ -1,6 +1,6 @@
-angular.module('foundation.common.animations', ['ngAnimate']);
+angular.module('foundation.dynamicRouting.animations', ['ngAnimate', 'foundation.dynamicRouting']);
 
-angular.module('foundation.common.animations')
+angular.module('foundation.dynamicRouting.animations')
   .animation('.ui-animation', ['$state', '$rootScope', function($state, $rootScope) {
     var events = ['webkitAnimationEnd', 'mozAnimationEnd', 'MSAnimationEnd', 'oanimationend', 'animationend',
                   'webkitTransitionEnd', 'otransitionend', 'transitionend'];

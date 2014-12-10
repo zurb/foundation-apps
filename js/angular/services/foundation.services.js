@@ -1,6 +1,6 @@
-angular.module('foundation.common.services', []);
+angular.module('foundation.services', []);
 
-angular.module('foundation.common.services')
+angular.module('foundation.services')
   .service('FoundationApi', function() {
     var listeners = [];
     var settings  = {};
@@ -110,14 +110,14 @@ angular.module('foundation.common.services')
   }
 );
 
-angular.module('foundation.common.services')
+angular.module('foundation.services')
   .filter('prepareRoute', function() {
       return function(input) {
         return 'route-' + input.replace(/\./, '-').toLowerCase();
       };
 });
 
-angular.module('foundation.common.services')
+angular.module('foundation.services')
   .factory('Utils', function() {
     return {
       prepareRoute: function(input) {

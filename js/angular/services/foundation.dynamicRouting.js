@@ -1,6 +1,6 @@
-angular.module('foundation.init', ['foundation.common.services']);
+angular.module('foundation.dynamicRouting', ['foundation.services']);
 
-angular.module('foundation.init.state', ['ui.router'])
+angular.module('foundation.dynamicRouting', ['ui.router'])
   .provider('$FoundationState', ['$stateProvider', function($stateProvider) {
     var complexViews = {};
 
@@ -59,3 +59,23 @@ angular.module('foundation.init.state', ['ui.router'])
       return {};
     };
 }]);
+
+angular.module('foundation.dynamicRouting')
+  .controller('DefaultController', ['$scope', '$stateParams', '$state', function($scope, $stateParams, $state) {
+    var params = [];
+    angular.forEach($stateParams, function(value, key) {
+      params[key] = value;
+    });
+
+    $scope.params = params;
+    $scope.current = $state.current.name;
+
+    if($state.current.views) {
+      $scope.vars = $state.current.data.vars;
+      $scope.composed = $state.current.data.vars.children;
+    } else {
+      $scope.vars = $state.current.data.vars;
+    }
+  }
+]);
+
