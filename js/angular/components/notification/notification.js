@@ -158,7 +158,7 @@ angular.module('foundation.notification')
           };
 
         }
-      }
+      };
     }
   };
 }]);

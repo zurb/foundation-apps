@@ -51,7 +51,7 @@ angular.module('foundation.common.directives')
         e.preventDefault();
       });
     }
-  }
+  };
 }]);
 
 angular.module('foundation.common.directives')
@@ -80,7 +80,7 @@ angular.module('foundation.common.directives')
         e.preventDefault();
       });
     }
-  }
+  };
 }]);
 
 angular.module('foundation.common.directives')
@@ -137,5 +137,4 @@ angular.module('foundation.common.directives')
       });
     }
   };
-
 }]);

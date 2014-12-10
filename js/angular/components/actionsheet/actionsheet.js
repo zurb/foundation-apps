@@ -18,7 +18,7 @@ angular.module('foundation.actionsheet')
     controller.hide = function() {
       content.hide();
       content.$apply();
-    }
+    };
 
 }]);
 
@@ -50,7 +50,7 @@ angular.module('foundation.actionsheet')
           });
 
         }
-      }
+      };
     }
   };
 }]);
@@ -79,7 +79,7 @@ angular.module('foundation.actionsheet')
       scope.hide = function() {
         scope.active = false;
         return;
-      }
+      };
     },
   };
 }]);
