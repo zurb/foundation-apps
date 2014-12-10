@@ -70,6 +70,7 @@ angular.module('foundation.common.services')
         var activeGenericClass = 'is-active';
         var events = ['webkitAnimationEnd', 'mozAnimationEnd', 'MSAnimationEnd', 'oanimationend', 'animationend',
                   'webkitTransitionEnd', 'otransitionend', 'transitionend'];
+        var timedOut = true;
 
         var reflow = function() {
           return element[0].offsetWidth;
@@ -83,6 +84,13 @@ angular.module('foundation.common.services')
         var animate = function(animationClass, activation) {
           var initClass = activation ? initClasses[0] : initClasses[1];
           var activeClass = activation ? activeClasses[0] : activeClasses[1];
+
+          var finishAnimation = function() {
+            reset(); //reset all classes
+            element.removeClass(!activation ? activeGenericClass : ''); //if not active, remove active class
+            reflow();
+            timedOut = false;
+          };
 
           //stop animation
           reset();
@@ -98,10 +106,14 @@ angular.module('foundation.common.services')
           element.addClass(activeClass);
 
           element.one(events.join(' '), function() {
-            reset(); //reset all classes
-            element.removeClass(!activation ? activeGenericClass : ''); //if not active, remove active class
-            reflow();
+            finishAnimation();
           });
+
+          setTimeout(function() {
+            if(timedOut) {
+              finishAnimation();
+            }
+          }, 3000);
         };
 
         animate(futureState ? animationIn : animationOut, futureState);
