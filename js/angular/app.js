@@ -31,8 +31,7 @@ angular.module('application', [
 
     $locationProvider.hashPrefix('!');
 }])
-  .run(['FoundationInit', '$rootScope', '$state', '$stateParams', function(foundationInit, $rootScope, $state, $stateParams) {
-    foundationInit.init();
+  .run(['$rootScope', '$state', '$stateParams', function($rootScope, $state, $stateParams) {
     $rootScope.$state = $state;
     $rootScope.$stateParams = $stateParams;
 }])
