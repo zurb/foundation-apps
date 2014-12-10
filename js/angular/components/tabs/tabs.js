@@ -1,4 +1,4 @@
-angular.module('foundation.tabs', ['foundation.common.services']);
+angular.module('foundation.tabs', ['foundation.services']);
 
 angular.module('foundation.tabs')
   .controller('ZfTabsController', ['$scope', 'FoundationApi', function ZfTabsController($scope, foundationApi) {

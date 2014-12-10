@@ -1,4 +1,4 @@
-angular.module('foundation.interchange', ['foundation.common.services']);
+angular.module('foundation.interchange', ['foundation.services']);
 
 angular.module('foundation.interchange')
   .run(['FoundationInterchangeInit', function(interchangeInit) {

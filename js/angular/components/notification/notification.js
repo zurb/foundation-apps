@@ -1,4 +1,4 @@
-angular.module('foundation.notification', ['foundation.common.services']);
+angular.module('foundation.notification', ['foundation.services']);
 
 angular.module('foundation.notification')
   .controller('ZfNotificationController', ['$scope', 'FoundationApi', function ZfTabsController($scope, foundationApi) {

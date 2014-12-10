@@ -1,4 +1,4 @@
-angular.module('foundation.actionsheet', ['foundation.common.services']);
+angular.module('foundation.actionsheet', ['foundation.services']);
 
 angular.module('foundation.actionsheet')
   .controller('ZfActionSheetController', ['$scope', 'FoundationApi', function($scope, foundationApi) {

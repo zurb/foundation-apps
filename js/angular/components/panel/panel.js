@@ -1,4 +1,4 @@
-angular.module('foundation.panel', ['foundation.common.services']);
+angular.module('foundation.panel', ['foundation.services']);
 
 angular.module('foundation.panel')
   .directive('zfPanel', ['FoundationApi', function(foundationApi) {
