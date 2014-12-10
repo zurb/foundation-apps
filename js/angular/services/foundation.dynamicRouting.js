@@ -87,3 +87,4 @@ angular.module('foundation.dynamicRouting')
     $rootScope.$state = $state;
     $rootScope.$stateParams = $stateParams;
 }]);
+

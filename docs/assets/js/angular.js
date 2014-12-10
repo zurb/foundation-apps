@@ -4,20 +4,9 @@ angular.module('application', [
     'markdown',
     'autocomplete',
     'hljs',
-    'foundation.services',
-    'foundation.common.directives',
+    'foundation.components',
     'foundation.dynamicRouting',
-    'foundation.dynamicRouting.animations',
-    'foundation.accordion',
-    'foundation.actionsheet',
-    'foundation.iconic',
-    'foundation.interchange',
-    'foundation.modal',
-    'foundation.notification',
-    'foundation.offcanvas',
-    'foundation.panel',
-    'foundation.popup',
-    'foundation.tabs'
+    'foundation.dynamicRouting.animations'
   ])
     .config(['$urlRouterProvider', '$locationProvider', function($urlProvider, $locationProvider) {
 
@@ -77,21 +66,21 @@ angular.module('application')
       },
       {
         direction: "enter",
-        type: "Fade", 
+        type: "Fade",
         classes: [
           "fadeIn"
         ]
       },
       {
         direction: "leave",
-        type: "Fade", 
+        type: "Fade",
         classes: [
           "fadeOut"
         ]
       },
       {
         direction: "enter",
-        type: "Hinge", 
+        type: "Hinge",
         classes: [
           "hingeInFromTop",
           "hingeInFromBottom",
@@ -103,7 +92,7 @@ angular.module('application')
       },
       {
         direction: "leave",
-        type: "Hinge", 
+        type: "Hinge",
         classes: [
           "hingeOutFromTop",
           "hingeOutFromBottom",
@@ -115,21 +104,21 @@ angular.module('application')
       },
       {
         direction: "enter",
-        type: "Scale", 
+        type: "Scale",
         classes: [
           "zoomIn"
         ]
       },
       {
         direction: "leave",
-        type: "Scale", 
+        type: "Scale",
         classes: [
           "zoomOut"
         ]
       },
       {
         direction: "enter",
-        type: "Spin", 
+        type: "Spin",
         classes: [
           "spinIn",
           "spinInCCW"
@@ -137,7 +126,7 @@ angular.module('application')
       },
       {
         direction: "leave",
-        type: "Spin", 
+        type: "Spin",
         classes: [
           "spinOut",
           "spinOutCCW"
