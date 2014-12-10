@@ -11,7 +11,7 @@ angular.module('foundation.init')
         helpers.headerHelper(['foundation-mq']);
         extractedMedia = helpers.getStyle('.foundation-mq', 'font-family');
 
-        mediaQueries = helpers.parseQueryString((extractedMedia));
+        mediaQueries = helpers.parseStyleToObject((extractedMedia));
 
         for(var key in mediaQueries) {
           mediaQueries[key] = 'only screen and (min-width: ' + mediaQueries[key].replace('rem', 'em') + ')';
@@ -50,9 +50,9 @@ angular.module('foundation.init')
         return style.getPropertyValue('font-family');
       },
       // https://github.com/sindresorhus/query-string
-      parseQueryString: function(str) {
+      parseStyleToObject: function(str) {
         if (typeof str !== 'string') return {};
-        str = str.trim();
+        str = str.trim().slice(1, -1); // browsers re-quote string style values
         if (!str) return {};
 
         return str.split('&').reduce(function(ret, param) {
