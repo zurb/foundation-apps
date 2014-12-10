@@ -8,7 +8,6 @@ angular.module('application', [
   'foundation.actionsheet',
   'foundation.directives',
   'foundation.iconic',
-  'foundation.init',
   'foundation.interchange',
   'foundation.modal',
   'foundation.notification',

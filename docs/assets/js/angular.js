@@ -4,27 +4,24 @@ angular.module('application', [
     'markdown',
     'autocomplete',
     'hljs',
-    'foundation.init',
-    'foundation.init.state',
-    'foundation.common.services',
-    'foundation.common.directives',
-    'foundation.common.animations',
+    'foundation.services',
+    'foundation.dynamicRouting',
+    'foundation.dynamicRouting.animations',
     'foundation.accordion',
     'foundation.actionsheet',
+    'foundation.directives',
+    'foundation.iconic',
     'foundation.interchange',
     'foundation.modal',
     'foundation.notification',
     'foundation.offcanvas',
     'foundation.panel',
     'foundation.popup',
-    'foundation.tabs',
-    'foundation.iconic'
+    'foundation.tabs'
   ])
-    .config(['$FoundationStateProvider', '$urlRouterProvider', '$locationProvider', function(FoundationStateProvider, $urlProvider, $locationProvider) {
+    .config(['$urlRouterProvider', '$locationProvider', function($urlProvider, $locationProvider) {
 
     $urlProvider.otherwise('/');
-
-    FoundationStateProvider.registerDynamicRoutes();
 
     $locationProvider.html5Mode({
       enabled:false,
@@ -32,11 +29,6 @@ angular.module('application', [
     });
 
     $locationProvider.hashPrefix('!');
-}])
-  .run(['$rootScope', '$state', '$stateParams', function($rootScope, $state, $stateParams) {
-
-    $rootScope.$state = $state;
-    $rootScope.$stateParams = $stateParams;
 }])
   .run(function() {
     FastClick.attach(document.body);
@@ -156,9 +148,9 @@ angular.module('application')
     $scope.update = function(element) {
       var kitty = angular.element('<img id="kitty" src="http://placekitten.com/g/600/300" />');
       var presentKitty = $window.document.getElementById('kitty');
-      var demoElementParent = $window.document.getElementById('demo-card-parent');;
+      var demoElementParent = $window.document.getElementById('demo-card-parent');
       var animationClasses = '';
-      for (prop in $scope.element) {
+      for (var prop in $scope.element) {
         if ($scope.element[prop] !== 'default' && $scope.element[prop] !== 'undefined') {
           animationClasses += $scope.element[prop] + ' ';
         }
@@ -214,7 +206,6 @@ angular.module('application')
           return;
         }
       });
-
     };
   }
 ]);
