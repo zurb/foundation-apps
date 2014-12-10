@@ -13,14 +13,15 @@ title: Modal
 <hr>
 
 <h3>Basic HTML</h3>
-<p>You can create a Modal with this basic HTML</p>
+<p>Modals are made with the custom <code>zf-modal</code> tag. To create a trigger to open the modal, add the attribute <code>zf-open="id"</code> to an element, where <code>id</code> is the ID of the modal.</p>
+<p>Add the attribute <code>zf-close</code> to an element inside the modal to create a close button. We also have a handy close button element you can use—just add the class <code>close-button</code> to an element.</p>
 <div class="grid-block">
   <div class="small-12 medium-6 grid-content">
 <hljs language="html">
-<a href="#" zf-open="basicModal">Open modal</a>
+<a zf-open="basicModal" class="button">Open modal</a>
 
 <zf-modal id="basicModal" overlay="true">
-  <a href="#" zf-close>&times;</a>
+  <a class="close-button" zf-close>&times;</a>
   <section class="grid-content">
     <p>Back in my days...</p>
     <p>There were 3 Star Wars movies and Disney only made cartoons.</p>
@@ -29,14 +30,14 @@ title: Modal
 </hljs>
   </div>
   <div class="small-12 medium-6 grid-content">
-    <a href="#" zf-open="basicModal">Open modal</a>
+    <a class="button" zf-open="basicModal">Open modal</a>
   </div>
 </div>
 
 <hr>
 
-<h3>Advanced HTML</h3>
-<p>You can trigger the Modal close &amp; open with a link or button</p>
+<h3>Using the Grid</h3>
+<p>You can embed a grid inside of a modal, complete with scrolling panels, fixed areas, and responsive adjustments.</p>
 <div class="grid-block">
   <div class="small-12 medium-6 grid-content">
 
@@ -46,7 +47,7 @@ title: Modal
   <a href="#" zf-close>&times;</a>
   <div class="grid-block vertical">
     <div class="shrink grid-content">
-      <img src="http://fc07.deviantart.net/fs70/i/2012/014/b/e/snowy_peak_by_cassiopeiaart-d4mb6aq.jpg">
+      <img src="assets/img/mountain.jpg">
     </div>
     <div class="grid-content button-group">
       <a class="button" zf-close>Ok</a>
@@ -58,12 +59,12 @@ title: Modal
 
   </div>
   <div class="small-12 medium-6 grid-content">
-    <a class="button" href="#" zf-open="advancedModal">Open modal</a>
-      <zf-modal class="small" id="advancedModal" overlay="false">
+    <a class="button" href="#" zf-open="mainModal">Open modal</a>
+      <zf-modal class="small" id="mainModal" overlay="false">
         <a href="#" zf-close>&times;</a>
         <div class="grid-block vertical">
           <div class="shrink grid-content">
-            <img src="http://fc07.deviantart.net/fs70/i/2012/014/b/e/snowy_peak_by_cassiopeiaart-d4mb6aq.jpg">
+            <img src="assets/img/mountain.jpg">
           </div>
           <div class="grid-content button-group">
             <a class="button" zf-close>Ok</a>
@@ -76,54 +77,21 @@ title: Modal
 
 <hr>
 
-<h3>Sizing Class</h3>
-<p>Use these classes to affect the width of the Modal</p>
-<hljs>
-tiny: 300px
-small: 500px
-medium: 600px (default)
-large: 800px
-</hljs>
+<h3>Sizing Classes</h3>
+<p>You can add the classes <code>tiny</code>, <code>small</code>, or <code>large</code> to change the maximum width of the modal. The default modal sizes are:</p>
+<ul>
+  <li><strong>Tiny:</strong> 300px</li>
+  <li><strong>Small:</strong> 500px</li>
+  <li><strong>Default:</strong> 600px</li>
+  <li><strong>Large</strong> 800px</li>
+</ul>
+<p>You can change the names and sizes of the sizing classes by modifying the <code>$modal-sizes</code> Sass variable in your settings file.</p>
 
 <hr>
 
-<h3>Angular</h3>
+<h3>Changing the Overlay</h3>
 
-<p class="subheader">Foundation has some great helpers that foster better interaction between elements.
-
-<h4>Custom Helpers</h4>
-
-<strong>zf-close</strong>
-<p>zf-close looks for a parent element that has the <code>zf-closeable</code> tag on it. This tag is added automatically for all directives that can be closed with <code>zf-close</code>. When clicked, the directive will send a message via the FoundationApi to close its parent <code>zf-closeable</code> element.</p>
-
-<hljs>
-<zf-modal id="pageModal" overlay="true">
-  <a href="#" zf-close>&times;</a>
-</zf-modal>
-</hljs>
-
-<p>Note that you can specify the ID of a specific closeable directive in order to close it remotely (whether it's a parent, child, or has any other relationship to the closeable directive).</p>
-
-<hljs>
-<a href="#" zf-close="pageModal">&times;</a>
-<zf-modal id="pageModal" overlay="true"></zf-modal>
-</hljs>
-
-<strong>zf-open</strong>
-<p>The counter to <code>zf-close</code>, <code>zf-open</code> sends a signal to a directive that can be trigger through this method. Simply specify the ID of the target element.</p>
-
-<hljs>
-<a href="#" zf-open="pageModal">Open Modal</a>
-<zf-modal id="pageModal" overlay="true"></zf-modal>
-</hljs>
-
-<strong>zf-toggle</strong>
-<p>Similar to the previous two, <code>zf-toggle</code> sends a toggle command to a directive that can accept it. A target has to be specified in order for it to work.</p>
-
-<hljs>
-<a href="#" zf-toggle="pageModal">Toggle Modal</a>
-<zf-modal id="pageModal" overlay="true"></zf-modal>
-</hljs>
+<p>You can override the styling of the modal overlay by styling <code>.modal-overlay</code> in your Sass. The class name of the modal overlay can be changed by changing the <code>$modal-overlay-class</code> variable in your Sass settings file.</p>
 
 <hr>
 
