@@ -18,6 +18,7 @@ $menubar-background-active: $menubar-background-hover;
 $menubar-color: isitlight($menubar-background) !default;
 $menubar-color-hover: $menubar-color !default;
 $menubar-color-active: $menubar-color-hover;
+$menubar-active-class: "is-active" !default;
 
 $menubar-item-padding: $global-padding !default;
 $menubar-icon-size: 25px !default;
@@ -111,7 +112,7 @@ $menubar-icon-spacing: $menubar-item-padding !default;
       color: $color-hover;
     }
   }
-  .is-active > a {
+  .#{$menubar-active-class} > a {
     background: $background-active;
     color: $color-active
   }
