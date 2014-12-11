@@ -1,53 +1,61 @@
 (function() {
   'use strict';
 
-  angular.module('foundation.notification', ['foundation.core']);
+  angular.module('foundation.notification', ['foundation.core'])
+    .controller('ZfNotificationController', ZfNotificationController)
+    .directive('zfNotificationSet', zfNotificationSet)
+  ;
 
-  angular.module('foundation.notification')
-    .controller('ZfNotificationController', ['$scope', 'FoundationApi', function ZfTabsController($scope, foundationApi) {
-      var controller    = this;
-      controller.notifications = $scope.notifications = [];
+  ZfNotificationController.$inject = ['$scope', 'FoundationApi'];
 
-      controller.addNotification = function(info) {
-        var id  = foundationApi.generateUuid();
-        info.id = id;
-        $scope.notifications.push(info);
-      };
+  function ZfNotificationController($scope, foundationApi) {
+    var controller    = this;
+    controller.notifications = $scope.notifications = [];
 
-      controller.removeNotification = function(id) {
-        $scope.notifications.forEach(function(notification) {
-          if(notification.id === id) {
-            var ind = $scope.notifications.indexOf(notification);
-            $scope.notifications.splice(ind, 1);
-          }
-        });
-      };
+    controller.addNotification = function(info) {
+      var id  = foundationApi.generateUuid();
+      info.id = id;
+      $scope.notifications.push(info);
+    };
 
-      controller.clearAll = function() {
-        $scope.notifications = [];
-      };
+    controller.removeNotification = function(id) {
+      $scope.notifications.forEach(function(notification) {
+        if(notification.id === id) {
+          var ind = $scope.notifications.indexOf(notification);
+          $scope.notifications.splice(ind, 1);
+        }
+      });
+    };
 
-  }]);
+    controller.clearAll = function() {
+      $scope.notifications = [];
+    };
+  }
 
-  angular.module('foundation.notification')
-    .directive('zfNotificationSet', ['FoundationApi', function(foundationApi) {
-    return {
+  zfNotificationSet.$inject = ['FoundationApi'];
+
+  function zfNotificationSet(foundationApi) {
+    var directive = {
       restrict: 'EA',
       templateUrl: 'components/notification/notification-set.html',
       controller: 'ZfNotificationController',
       scope: true,
-      link:function(scope, element, attrs, controller) {
-        foundationApi.subscribe(attrs.id, function(msg) {
-          if(msg === 'clearall') {
-            controller.clearAll();
-          } else {
-            controller.addNotification(msg);
-            scope.$apply();
-          }
-        });
-      },
-    };
-  }]);
+      link: link
+    }
+
+    return directive;
+
+    function link(scope, element, attrs, controller) {
+      foundationApi.subscribe(attrs.id, function(msg) {
+        if(msg === 'clearall') {
+          controller.clearAll();
+        } else {
+          controller.addNotification(msg);
+          scope.$apply();
+        }
+      });
+    }
+  }
 
   angular.module('foundation.notification')
     .directive('zfNotification', ['FoundationApi', function(foundationApi) {

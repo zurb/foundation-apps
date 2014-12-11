@@ -1,15 +1,15 @@
 (function() {
   'use strict';
 
-  angular.module('foundation.interchange', ['foundation.core']);
+  angular.module('foundation.interchange', ['foundation.core'])
+    .directive('zfInterchange', zfInterchange)
+  ;
 
-  angular.module('foundation.interchange')
-    .directive('zfInterchange', ['FoundationApi', '$compile', '$http', '$templateCache', '$animate',  function(foundationApi, $compile, $http, $templateCache) {
-    var templateLoader = function(templateUrl) {
-      return $http.get(templateUrl, {cache: $templateCache});
-    };
+  zfInterchange.$inject = ['FoundationApi', '$compile', '$http', '$templateCache', '$animate'];
 
-    return {
+  function zfInterchange(foundationApi, $compile, $http, $templateCache) {
+
+    var directive = {
       restrict: 'EA',
       transclude: 'element',
       scope: {
@@ -17,123 +17,131 @@
       },
       replace: true,
       template: '<div></div>',
-      link: function(scope, element, attrs, ctrl, transclude) {
-        var childScope, current, scenarios, innerTemplates;
+      link: link
+    };
 
-        var namedQueries = {
-          'default' : 'only screen',
-          landscape : 'only screen and (orientation: landscape)',
-          portrait : 'only screen and (orientation: portrait)',
-          retina : 'only screen and (-webkit-min-device-pixel-ratio: 2),' +
-            'only screen and (min--moz-device-pixel-ratio: 2),' +
-            'only screen and (-o-min-device-pixel-ratio: 2/1),' +
-            'only screen and (min-device-pixel-ratio: 2),' +
-            'only screen and (min-resolution: 192dpi),' +
-            'only screen and (min-resolution: 2dppx)'
-        };
+    return directive;
 
-        var globalQueries = foundationApi.getSettings().mediaQueries;
-        namedQueries = angular.extend(namedQueries, globalQueries);
+    function link(scope, element, attrs, ctrl, transclude) {
+      var childScope, current, scenarios, innerTemplates;
 
-        var matched = function() {
-          var count   = scenarios.length;
-          var matches = [];
+      var namedQueries = {
+        'default' : 'only screen',
+        landscape : 'only screen and (orientation: landscape)',
+        portrait : 'only screen and (orientation: portrait)',
+        retina : 'only screen and (-webkit-min-device-pixel-ratio: 2),' +
+          'only screen and (min--moz-device-pixel-ratio: 2),' +
+          'only screen and (-o-min-device-pixel-ratio: 2/1),' +
+          'only screen and (min-device-pixel-ratio: 2),' +
+          'only screen and (min-resolution: 192dpi),' +
+          'only screen and (min-resolution: 2dppx)'
+      };
 
-          if (count > 0) {
-            while (count--) {
-              var mq;
-              var rule = scenarios[count].media;
+      var globalQueries = foundationApi.getSettings().mediaQueries;
+      namedQueries = angular.extend(namedQueries, globalQueries);
 
-              if (namedQueries[rule]) {
-                mq = matchMedia(namedQueries[rule]);
-              } else {
-                mq = matchMedia(rule);
-              }
-
-              if (mq.matches) {
-                matches.push({ ind: count});
-              }
-            }
+      //setup
+      foundationApi.subscribe('resize', function(msg) {
+        transclude(function(clone, newScope) {
+          if(!scenarios || !innerTemplates) {
+            collectInformation(clone);
           }
 
-          return matches;
-        };
+          var ruleMatches = matched();
+          var scenario = ruleMatches.length === 0 ? null : scenarios[ruleMatches[0].ind];
 
-        var collectInformation = function(parentElement) {
-          scenarios      = [];
-          innerTemplates = [];
+          //this could use some love
+          if(scenario && checkScenario(scenario)) {
+            var compiled;
 
-          var elements = parentElement.children();
-          var i        = 0;
+            if(childScope) {
+              childScope.$destroy();
+              childScope = null;
+            }
 
-          angular.forEach(elements, function(el) {
-            var elem = angular.element(el);
+            if(typeof scenario.templ !== 'undefined') {
+              childScope = newScope;
 
+              //temp container
+              var tmp = document.createElement('div');
+              tmp.appendChild(innerTemplates[scenario.templ][0]);
 
-            //if no source or no html, capture element itself
-            if (!elem.attr('src') || !elem.attr('src').match(/.html$/)) {
-              innerTemplates[i] = elem;
-              scenarios[i] = { media: elem.attr('media'), templ: i };
+              element.html(tmp.innerHTML);
+              $compile(element.contents())(childScope);
+              current = scenario;
             } else {
-              scenarios[i] = { media: elem.attr('media'), src: elem.attr('src') };
-            }
-
-            i++;
-          });
-        };
-
-        var checkScenario = function(scenario) {
-          return !current || current !== scenario;
-        };
-
-        //setup
-        foundationApi.subscribe('resize', function(msg) {
-          transclude(function(clone, newScope) {
-            if(!scenarios || !innerTemplates) {
-              collectInformation(clone);
-            }
-
-            var ruleMatches = matched();
-            var scenario = ruleMatches.length === 0 ? null : scenarios[ruleMatches[0].ind];
-
-            //this could use some love
-            if(scenario && checkScenario(scenario)) {
-              var compiled;
-
-              if(childScope) {
-                childScope.$destroy();
-                childScope = null;
-              }
-
-              if(typeof scenario.templ !== 'undefined') {
+              var loader = templateLoader(scenario.src);
+              loader.success(function(html) {
                 childScope = newScope;
-
-                //temp container
-                var tmp = document.createElement('div');
-                tmp.appendChild(innerTemplates[scenario.templ][0]);
-
-                element.html(tmp.innerHTML);
+                element.html(html);
+              }).then(function(){
                 $compile(element.contents())(childScope);
                 current = scenario;
-              } else {
-                var loader = templateLoader(scenario.src);
-                loader.success(function(html) {
-                  childScope = newScope;
-                  element.html(html);
-                }).then(function(){
-                  $compile(element.contents())(childScope);
-                  current = scenario;
-                });
-              }
+              });
             }
-          });
-
+          }
         });
 
-        //init
-        foundationApi.publish('resize', 'initial resize');
+      });
+
+      //init
+      foundationApi.publish('resize', 'initial resize');
+
+      function templateLoader(templateUrl) {
+        return $http.get(templateUrl, {cache: $templateCache});
       }
-    };
-  }]);
+
+      function matched() {
+        var count   = scenarios.length;
+        var matches = [];
+
+        if (count > 0) {
+          while (count--) {
+            var mq;
+            var rule = scenarios[count].media;
+
+            if (namedQueries[rule]) {
+              mq = matchMedia(namedQueries[rule]);
+            } else {
+              mq = matchMedia(rule);
+            }
+
+            if (mq.matches) {
+              matches.push({ ind: count});
+            }
+          }
+        }
+
+        return matches;
+      }
+
+      function collectInformation(parentElement) {
+        scenarios      = [];
+        innerTemplates = [];
+
+        var elements = parentElement.children();
+        var i        = 0;
+
+        angular.forEach(elements, function(el) {
+          var elem = angular.element(el);
+
+
+          //if no source or no html, capture element itself
+          if (!elem.attr('src') || !elem.attr('src').match(/.html$/)) {
+            innerTemplates[i] = elem;
+            scenarios[i] = { media: elem.attr('media'), templ: i };
+          } else {
+            scenarios[i] = { media: elem.attr('media'), src: elem.attr('src') };
+          }
+
+          i++;
+        });
+      }
+
+      function checkScenario(scenario) {
+        return !current || current !== scenario;
+      }
+    }
+  }
 
 })();

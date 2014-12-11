@@ -1,29 +1,40 @@
 (function() {
   'use strict';
 
-  angular.module('foundation.iconic', []);
+  angular.module('foundation.iconic', [])
+    .service('Iconic', iconic)
+    .directive('zfIconic', zfIconic)
+  ;
 
   //iconic wrapper
-  angular.module('foundation.iconic')
-    .service('Iconic', function() {
-      var iconic = IconicJS();
+  function iconic() {
+    var iconicObject = IconicJS();
 
-      return {
-        getAccess: function() {
-          return iconic;
-        }
-      };
-  });
+    var service = {};
 
-  angular.module('foundation.iconic')
-    .directive('zfIconic', ['Iconic', function(iconic) {
-    return {
+    service.getAccess = getAccess;
+
+    return service;
+
+    function getAccess() {
+      return iconicObject;
+    }
+  }
+
+  zfIconic.$inject = ['Iconic']
+
+  function zfIconic(iconic) {
+    var directive = {
       restrict: 'A',
-      link: function(scope, element, attrs, controller) {
-        var ico = iconic.getAccess();
-        ico.inject(element[0]);
-      }
+      link: link
     };
-  }]);
+
+    return directive;
+
+    function link(scope, element, attrs, controller) {
+      var ico = iconic.getAccess();
+      ico.inject(element[0]);
+    }
+  }
 
 })();
