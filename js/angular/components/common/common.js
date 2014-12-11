@@ -1,145 +1,120 @@
 (function() {
   'use strict';
 
-  angular.module('foundation.common', ['foundation.core']);
+  angular.module('foundation.common', ['foundation.core'])
+    .directive('zfClose', zfClose)
+    .directive('zfOpen', zfOpen)
+    .directive('zfToggle', zfToggle)
+    .directive('zfEscClose', zfEscClose)
+    .directive('zfHardToggle', zfHardToggle)
+  ;
 
-  angular.module('foundation.common')
-    .directive('zfClose', ['FoundationApi', function(foundationApi) {
-    return {
+  zfClose.$inject = ['FoundationApi'];
+
+  function zfClose(foundationApi) {
+    var directive = {
       restrict: 'A',
-      link: function(scope, element, attrs) {
-        var parentElement= false;
-        var tempElement = element.parent();
-        //find parent modal
-        while(parentElement === false) {
-          if(tempElement[0].nodeName === 'BODY') {
-            parentElement = '';
-          }
+      link: link
+    }
 
-          if(typeof tempElement.attr('zf-closable') !== 'undefined' && tempElement.attr('zf-closable') !== false) {
-            parentElement = tempElement;
-          }
+    return directive;
 
-          tempElement = tempElement.parent();
+    function link(scope, element, attrs) {
+      var parentElement= false;
+      var tempElement = element.parent();
+      //find parent modal
+      while(parentElement === false) {
+        if(tempElement[0].nodeName === 'BODY') {
+          parentElement = '';
         }
 
-        element.on('click', function(e) {
-          foundationApi.publish(parentElement.attr('id'), 'close');
-          e.preventDefault();
-        });
-      }
-    };
-  }]);
+        if(typeof tempElement.attr('zf-closable') !== 'undefined' && tempElement.attr('zf-closable') !== false) {
+          parentElement = tempElement;
+        }
 
-  angular.module('foundation.common')
-    .directive('zfOpen', ['FoundationApi', function(foundationApi) {
-    return {
-      restrict: 'A',
-      link: function(scope, element, attrs) {
-        element.on('click', function(e) {
-          foundationApi.publish(attrs.zfOpen, 'open');
-          e.preventDefault();
-        });
+        tempElement = tempElement.parent();
       }
-    };
-  }]);
 
-  angular.module('foundation.common')
-    .directive('zfToggle', ['FoundationApi', function(foundationApi) {
-    return {
-      restrict: 'A',
-      link: function(scope, element, attrs) {
-        element.on('click', function(e) {
-          foundationApi.publish(attrs.zfToggle, 'toggle');
-          e.preventDefault();
-        });
-      }
-    };
-  }]);
+      element.on('click', function(e) {
+        foundationApi.publish(parentElement.attr('id'), 'close');
+        e.preventDefault();
+      });
+    }
+  }
 
-  angular.module('foundation.common')
-    .directive('zfEscClose', ['FoundationApi', function(foundationApi) {
-    return {
-      restrict: 'A',
-      link: function(scope, element, attrs) {
-        element.on('keyup', function(e) {
-          if (e.keyCode === 27) {
-            foundationApi.closeActiveElements();
-          }
-          e.preventDefault();
-        });
-      }
-    };
-  }]);
+  zfOpen.$inject = ['FoundationApi'];
 
-  angular.module('foundation.common')
-    .directive('zfHardToggle', ['FoundationApi', function(foundationApi) {
-    return {
+  function zfOpen(foundationApi) {
+    var directive = {
       restrict: 'A',
-      link: function(scope, element, attrs) {
-        element.on('click', function(e) {
+      link: link
+    };
+
+    return directive;
+
+    function link(scope, element, attrs) {
+      element.on('click', function(e) {
+        foundationApi.publish(attrs.zfOpen, 'open');
+        e.preventDefault();
+      });
+    }
+  }
+
+  zfToggle.$inject = ['FoundationApi'];
+
+  function zfToggle(foundationApi) {
+    var directive = {
+      restrict: 'A',
+      link: link
+    }
+
+    return directive;
+
+    function link(scope, element, attrs) {
+      element.on('click', function(e) {
+        foundationApi.publish(attrs.zfToggle, 'toggle');
+        e.preventDefault();
+      });
+    }
+  }
+
+  zfEscClose.$inject = ['FoundationApi'];
+
+  function zfEscClose(foundationApi) {
+    var directive = {
+      restrict: 'A',
+      link: link
+    };
+
+    return directive;
+
+    function link(scope, element, attrs) {
+      element.on('keyup', function(e) {
+        if (e.keyCode === 27) {
           foundationApi.closeActiveElements();
-          foundationApi.publish(attrs.zfHardToggle, 'toggle');
-          e.preventDefault();
-        });
-      }
-    };
-  }]);
+        }
+        e.preventDefault();
+      });
+    }
+  }
 
-  angular.module('foundation.common')
-    .directive('zfAnimate', ['FoundationApi', function(foundationApi) {
-    return {
+  zfHardToggle.$inject = ['FoundationApi'];
+
+  function zfHardToggle(foundationApi) {
+    var directive = {
       restrict: 'A',
-      priority: 100, //set priority to override other directives
-      link: function(scope, element, attrs) {
-        var isActive = false;
-        var animationIn = attrs.animationIn;
-        var animationOut = attrs.animationOut;
-
-        var activeClass = 'is-active';
-
-        var reflow = function() {
-          return element[0].offsetWidth;
-        };
-
-        var reset = function() {
-          element[0].style.transitionDuration = 0;
-          element.removeClass(activeClass + ' ' + animationIn + ' ' + animationOut);
-        };
-
-        var animate = function(animationClass, activation) {
-          //stop animation
-          reset();
-          element.addClass(animationClass);
-
-          //force a "tick"
-          reflow();
-
-          //activate
-          element[0].style.transitionDuration = '';
-          element.addClass(activeClass);
-          isActive = activation;
-        };
-
-        //subscribe
-        foundationApi.subscribe(attrs.id, function(msg) {
-          if(msg === 'show' || msg === 'open') {
-            animate(animationIn, true);
-          } else if (msg === 'hide' || msg === 'close') {
-            animate(animationOut, false);
-          } else if (msg === 'toggle') {
-            var newState = !isActive;
-            var newAnimation = newState ? animationIn : animationOut;
-
-            //allow other elements to do their job
-            setTimeout(function() {
-              animate(newAnimation, newState);
-            }, 1);
-          }
-
-        });
-      }
+      link: link
     };
-  }]);
+
+    return directive;
+
+    function link(scope, element, attrs) {
+      element.on('click', function(e) {
+        foundationApi.closeActiveElements();
+        foundationApi.publish(attrs.zfHardToggle, 'toggle');
+        e.preventDefault();
+      });
+    }
+  }
 
 })();
