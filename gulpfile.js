@@ -221,5 +221,5 @@ gulp.task('default', ['build', 'server:start'], function() {
   gulp.watch(['js/angular/partials/**.*'], ['copy-partials']);
 
   // Watch Angular templates
-  gulp.watch(['./docs/templates/**/*.html'], ['copy-templates']);
+  gulp.watch(['docs/templates/**/*.html'], ['copy-templates']);
 });
