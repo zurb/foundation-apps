@@ -1,85 +1,90 @@
-angular.module('foundation.dynamicRouting.animations', ['ngAnimate', 'foundation.dynamicRouting']);
+(function() {
+  'use strict';
 
-angular.module('foundation.dynamicRouting.animations')
-  .animation('.ui-animation', ['$state', '$rootScope', function($state, $rootScope) {
-    var events = ['webkitAnimationEnd', 'mozAnimationEnd', 'MSAnimationEnd', 'oanimationend', 'animationend',
-                  'webkitTransitionEnd', 'otransitionend', 'transitionend'];
+  angular.module('foundation.dynamicRouting.animations', ['ngAnimate', 'foundation.dynamicRouting']);
 
-    var parentStyle = 'position-absolute';
+  angular.module('foundation.dynamicRouting.animations')
+    .animation('.ui-animation', ['$state', '$rootScope', function($state, $rootScope) {
+      var events = ['webkitAnimationEnd', 'mozAnimationEnd', 'MSAnimationEnd', 'oanimationend', 'animationend',
+                    'webkitTransitionEnd', 'otransitionend', 'transitionend'];
 
-    return {
-      enter: function(element, done) {
-        var scope = element.scope();
-        if(scope.vars && scope.vars.animationIn) {
+      var parentStyle = 'position-absolute';
 
-          var animationIn = scope.vars.animationIn;
-          var animationOut = scope.vars.animationOut || '';
-          var initial = 'ng-enter';
-          var activate = 'ng-enter-active';
+      return {
+        enter: function(element, done) {
+          var scope = element.scope();
+          if(scope.vars && scope.vars.animationIn) {
 
-          //reset possible failed animations and bugs
-          element.parent().addClass(parentStyle);
-          element.removeClass(activate + ' ' + initial + ' ' + animationIn + ' ' + animationOut);
-          element[0].style.transitionDuration = 0;
+            var animationIn = scope.vars.animationIn;
+            var animationOut = scope.vars.animationOut || '';
+            var initial = 'ng-enter';
+            var activate = 'ng-enter-active';
 
-          //start animation
-          element.addClass(animationIn);
-          element.addClass(initial);
-
-          $rootScope.$digest();
-
-          element[0].style.transitionDuration = '';
-          element.addClass(activate);
-
-          element.one(events.join(' '), function() {
-            //cleanup
-            element.parent().removeClass(parentStyle);
+            //reset possible failed animations and bugs
+            element.parent().addClass(parentStyle);
             element.removeClass(activate + ' ' + initial + ' ' + animationIn + ' ' + animationOut);
+            element[0].style.transitionDuration = 0;
+
+            //start animation
+            element.addClass(animationIn);
+            element.addClass(initial);
+
+            $rootScope.$digest();
+
+            element[0].style.transitionDuration = '';
+            element.addClass(activate);
+
+            element.one(events.join(' '), function() {
+              //cleanup
+              element.parent().removeClass(parentStyle);
+              element.removeClass(activate + ' ' + initial + ' ' + animationIn + ' ' + animationOut);
+              done();
+            });
+          } else {
             done();
-          });
-        } else {
-          done();
-        }
+          }
 
-        return function(isCancelled) {
+          return function(isCancelled) {
 
-        };
-      },
-      leave: function(element, done) {
-        var scope = element.scope();
+          };
+        },
+        leave: function(element, done) {
+          var scope = element.scope();
 
-        if(scope.vars && scope.vars.animationOut) {
-          var animationIn = scope.vars.animationIn || '';
-          var animationOut = scope.vars.animationOut;
-          var initial = 'ng-leave';
-          var activate = 'ng-leave-active';
+          if(scope.vars && scope.vars.animationOut) {
+            var animationIn = scope.vars.animationIn || '';
+            var animationOut = scope.vars.animationOut;
+            var initial = 'ng-leave';
+            var activate = 'ng-leave-active';
 
-          element.removeClass(activate + ' ' + initial + ' ' + animationIn + ' ' + animationOut);
-          element[0].style.transitionDuration = 0;
-
-          //start animation
-          element.addClass(animationOut);
-          element.addClass(initial);
-
-          $rootScope.$digest();
-
-          element[0].style.transitionDuration = '';
-          element.addClass(activate);
-
-          element.one(events.join(' '), function() {
-            //cleanup
             element.removeClass(activate + ' ' + initial + ' ' + animationIn + ' ' + animationOut);
-            element.parent().removeClass(parentStyle);
+            element[0].style.transitionDuration = 0;
+
+            //start animation
+            element.addClass(animationOut);
+            element.addClass(initial);
+
+            $rootScope.$digest();
+
+            element[0].style.transitionDuration = '';
+            element.addClass(activate);
+
+            element.one(events.join(' '), function() {
+              //cleanup
+              element.removeClass(activate + ' ' + initial + ' ' + animationIn + ' ' + animationOut);
+              element.parent().removeClass(parentStyle);
+              done();
+            });
+
+          } else {
             done();
-          });
+          }
 
-        } else {
-          done();
-        }
+          return function(isCancelled) {
 
-        return function(isCancelled) {
+          };
+         }
+      };
+  }]);
 
-        };
-       }
-    };
-}]);
+})();

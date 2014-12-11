@@ -1,107 +1,112 @@
-angular.module('foundation.actionsheet', ['foundation.core']);
+(function() {
+  'use strict';
 
-angular.module('foundation.actionsheet')
-  .controller('ZfActionSheetController', ['$scope', 'FoundationApi', function($scope, foundationApi) {
-    var controller = this;
-    var content = controller.content = $scope.content;
+  angular.module('foundation.actionsheet', ['foundation.core']);
 
-    controller.registerContent = function(scope) {
-      content = scope;
-      content.active = false;
-    };
+  angular.module('foundation.actionsheet')
+    .controller('ZfActionSheetController', ['$scope', 'FoundationApi', function($scope, foundationApi) {
+      var controller = this;
+      var content = controller.content = $scope.content;
 
-    controller.toggle = function() {
-      content.toggle();
-      content.$apply();
-    };
-
-    controller.hide = function() {
-      content.hide();
-      content.$apply();
-    };
-
-}]);
-
-angular.module('foundation.actionsheet')
-  .directive('zfActionSheet', ['FoundationApi', function(foundationApi) {
-  return {
-    restrict: 'EA',
-    transclude: true,
-    replace: true,
-    templateUrl: 'components/actionsheet/actionsheet.html',
-    controller: 'ZfActionSheetController',
-    compile: function compile() {
-
-      return {
-        pre: function preLink(scope, iElement, iAttrs) {
-          iAttrs.$set('zf-closable', 'actionsheet');
-        },
-        post: function postLink(scope, element, attrs, controller) {
-          foundationApi.subscribe(attrs.id, function(msg) {
-            if (msg === 'toggle') {
-              controller.toggle();
-            }
-
-            if (msg === 'hide' || msg === 'close') {
-              controller.hide();
-            }
-
-            return;
-          });
-
-        }
-      };
-    }
-  };
-}]);
-
-angular.module('foundation.actionsheet')
-  .directive('zfAsContent', ['FoundationApi', function(foundationApi) {
-  return {
-    restrict: 'EA',
-    transclude: true,
-    replace: true,
-    templateUrl: 'components/actionsheet/actionsheet-content.html',
-    require: '^zfActionSheet',
-    scope: {
-      position: '@?'
-    },
-    link: function(scope, element, attrs, controller) {
-      scope.active = false;
-      scope.position = scope.position || 'bottom';
-      controller.registerContent(scope);
-
-      scope.toggle = function() {
-        scope.active = !scope.active;
-        return;
+      controller.registerContent = function(scope) {
+        content = scope;
+        content.active = false;
       };
 
-      scope.hide = function() {
+      controller.toggle = function() {
+        content.toggle();
+        content.$apply();
+      };
+
+      controller.hide = function() {
+        content.hide();
+        content.$apply();
+      };
+
+  }]);
+
+  angular.module('foundation.actionsheet')
+    .directive('zfActionSheet', ['FoundationApi', function(foundationApi) {
+    return {
+      restrict: 'EA',
+      transclude: true,
+      replace: true,
+      templateUrl: 'components/actionsheet/actionsheet.html',
+      controller: 'ZfActionSheetController',
+      compile: function compile() {
+
+        return {
+          pre: function preLink(scope, iElement, iAttrs) {
+            iAttrs.$set('zf-closable', 'actionsheet');
+          },
+          post: function postLink(scope, element, attrs, controller) {
+            foundationApi.subscribe(attrs.id, function(msg) {
+              if (msg === 'toggle') {
+                controller.toggle();
+              }
+
+              if (msg === 'hide' || msg === 'close') {
+                controller.hide();
+              }
+
+              return;
+            });
+
+          }
+        };
+      }
+    };
+  }]);
+
+  angular.module('foundation.actionsheet')
+    .directive('zfAsContent', ['FoundationApi', function(foundationApi) {
+    return {
+      restrict: 'EA',
+      transclude: true,
+      replace: true,
+      templateUrl: 'components/actionsheet/actionsheet-content.html',
+      require: '^zfActionSheet',
+      scope: {
+        position: '@?'
+      },
+      link: function(scope, element, attrs, controller) {
         scope.active = false;
-        return;
-      };
-    },
-  };
-}]);
+        scope.position = scope.position || 'bottom';
+        controller.registerContent(scope);
 
-angular.module('foundation.actionsheet')
-  .directive('zfAsButton', ['FoundationApi', function(foundationApi) {
-  return {
-    restrict: 'EA',
-    transclude: true,
-    replace: true,
-    templateUrl: 'components/actionsheet/actionsheet-button.html',
-    require: '^zfActionSheet',
-    scope: {
-      title: '@?'
-    },
-    link: function(scope, element, attrs, controller) {
+        scope.toggle = function() {
+          scope.active = !scope.active;
+          return;
+        };
 
-      element.on('click', function(e) {
-        controller.toggle();
-        e.preventDefault();
-      });
+        scope.hide = function() {
+          scope.active = false;
+          return;
+        };
+      },
+    };
+  }]);
 
-    },
-  };
-}]);
+  angular.module('foundation.actionsheet')
+    .directive('zfAsButton', ['FoundationApi', function(foundationApi) {
+    return {
+      restrict: 'EA',
+      transclude: true,
+      replace: true,
+      templateUrl: 'components/actionsheet/actionsheet-button.html',
+      require: '^zfActionSheet',
+      scope: {
+        title: '@?'
+      },
+      link: function(scope, element, attrs, controller) {
+
+        element.on('click', function(e) {
+          controller.toggle();
+          e.preventDefault();
+        });
+
+      },
+    };
+  }]);
+
+})();

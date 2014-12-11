@@ -1,20 +1,25 @@
-angular.module('application', [
-  'ui.router',
-  'ngAnimate',
-  'foundation',
-  'foundation.dynamicRouting',
-  'foundation.dynamicRouting.animations'
-])
-  .config(['$urlRouterProvider', '$locationProvider', function($urlProvider, $locationProvider) {
-    $urlProvider.otherwise('/');
+(function() {
+  'use strict';
 
-    $locationProvider.html5Mode({
-      enabled:false,
-      requireBase: false
-    });
+  angular.module('application', [
+    'ui.router',
+    'ngAnimate',
+    'foundation',
+    'foundation.dynamicRouting',
+    'foundation.dynamicRouting.animations'
+  ])
+    .config(['$urlRouterProvider', '$locationProvider', function($urlProvider, $locationProvider) {
+      $urlProvider.otherwise('/');
 
-    $locationProvider.hashPrefix('!');
-}])
-  .run(function() {
-    FastClick.attach(document.body);
-});
+      $locationProvider.html5Mode({
+        enabled:false,
+        requireBase: false
+      });
+
+      $locationProvider.hashPrefix('!');
+  }])
+    .run(function() {
+      FastClick.attach(document.body);
+  });
+
+})();
