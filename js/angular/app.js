@@ -1,7 +1,7 @@
 angular.module('application', [
   'ui.router',
   'ngAnimate',
-  'foundation.components',
+  'foundation',
   'foundation.dynamicRouting',
   'foundation.dynamicRouting.animations'
 ])

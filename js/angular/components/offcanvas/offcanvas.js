@@ -1,4 +1,4 @@
-angular.module('foundation.offcanvas', ['foundation.services']);
+angular.module('foundation.offcanvas', ['foundation.core']);
 
 angular.module('foundation.offcanvas')
   .directive('zfOffcanvas', ['FoundationApi', function(foundationApi) {

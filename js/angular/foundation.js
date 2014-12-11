@@ -1,9 +1,10 @@
 // imports all components and dependencies under a single namespace
 
-angular.module('foundation.components', [
-  'foundation.common.directives',
+angular.module('foundation', [
+  'foundation.core',
   'foundation.accordion',
   'foundation.actionsheet',
+  'foundation.common',
   'foundation.iconic',
   'foundation.interchange',
   'foundation.modal',

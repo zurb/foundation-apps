@@ -1,6 +1,6 @@
-angular.module('foundation.common.directives', ['foundation.services']);
+angular.module('foundation.common', ['foundation.core']);
 
-angular.module('foundation.common.directives')
+angular.module('foundation.common')
   .directive('zfClose', ['FoundationApi', function(foundationApi) {
   return {
     restrict: 'A',
@@ -28,7 +28,7 @@ angular.module('foundation.common.directives')
   };
 }]);
 
-angular.module('foundation.common.directives')
+angular.module('foundation.common')
   .directive('zfOpen', ['FoundationApi', function(foundationApi) {
   return {
     restrict: 'A',
@@ -41,7 +41,7 @@ angular.module('foundation.common.directives')
   };
 }]);
 
-angular.module('foundation.common.directives')
+angular.module('foundation.common')
   .directive('zfToggle', ['FoundationApi', function(foundationApi) {
   return {
     restrict: 'A',
@@ -54,7 +54,7 @@ angular.module('foundation.common.directives')
   };
 }]);
 
-angular.module('foundation.common.directives')
+angular.module('foundation.common')
   .directive('zfEscClose', ['FoundationApi', function(foundationApi) {
   return {
     restrict: 'A',
@@ -69,7 +69,7 @@ angular.module('foundation.common.directives')
   };
 }]);
 
-angular.module('foundation.common.directives')
+angular.module('foundation.common')
   .directive('zfHardToggle', ['FoundationApi', function(foundationApi) {
   return {
     restrict: 'A',
@@ -83,7 +83,7 @@ angular.module('foundation.common.directives')
   };
 }]);
 
-angular.module('foundation.common.directives')
+angular.module('foundation.common')
   .directive('zfAnimate', ['FoundationApi', function(foundationApi) {
   return {
     restrict: 'A',

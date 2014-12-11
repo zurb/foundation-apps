@@ -4,7 +4,7 @@ angular.module('application', [
     'markdown',
     'autocomplete',
     'hljs',
-    'foundation.components',
+    'foundation',
     'foundation.dynamicRouting',
     'foundation.dynamicRouting.animations'
   ])

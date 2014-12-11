@@ -1,4 +1,4 @@
-angular.module('foundation.panel', ['foundation.services']);
+angular.module('foundation.panel', ['foundation.core']);
 
 angular.module('foundation.panel')
   .directive('zfPanel', ['FoundationApi', function(foundationApi) {
@@ -23,7 +23,7 @@ angular.module('foundation.panel')
         post: function postLink(scope, element, attrs) {
           scope.active = false;
           var animationIn, animationOut;
-          var globalQueries = foundationApi.getSettings().media_queries;
+          var globalQueries = foundationApi.getSettings().mediaQueries;
 
           //urgh, there must be a better way
           if(scope.position === 'left') {
@@ -43,11 +43,11 @@ angular.module('foundation.panel')
 
           //setup
           foundationApi.subscribe(attrs.id, function(msg) {
-            if(msg == 'show' || msg == 'open') {
+            if(msg === 'show' || msg === 'open') {
               scope.show();
-            } else if (msg == 'close' || msg == 'hide') {
+            } else if (msg === 'close' || msg === 'hide') {
               scope.hide();
-            } else if (msg == 'toggle') {
+            } else if (msg === 'toggle') {
               scope.toggle();
             }
 
