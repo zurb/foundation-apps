@@ -1,5 +1,5 @@
 describe('Common Foundation Services', function() {
-  beforeEach(module('foundation.services'));
+  beforeEach(module('foundation.core'));
 
   it('should exist', inject(function(FoundationApi) {
     expect(FoundationApi).not.toEqual(null);
