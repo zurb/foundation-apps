@@ -1,51 +1,55 @@
 (function() {
   'use strict';
 
-  angular.module('foundation.accordion', []);
+  angular.module('foundation.accordion', [])
+    .controller('ZfAccordionController', zfAccordionController)
+    .directive('zfAccordion', zfAccordion)
+    .directive('zfAccordionItem', zfAccordionItem)
+  ;
 
-  angular.module('foundation.accordion')
-    .controller('ZfAccordionController', ['$scope', function($scope) {
-      var controller = this;
-      var sections = controller.sections = $scope.sections = [];
-      var multiOpen = controller.multiOpen = false;
-      var autoOpen = controller.autoOpen = $scope.autoOpen = $scope.autoOpen || 'true';
 
-      controller.select = function(selectSection) {
-        sections.forEach(function(section) {
-          if(controller.multiOpen) {
-            if(section.scope === selectSection) {
-              section.scope.active = !section.scope.active;
-            }
-          } else {
-            section.scope.active = false;
-            if(section.scope === selectSection) {
-              section.scope.active = true;
-            }
+  zfAccordionController.$inject = ['$scope'];
+
+  function zfAccordionController($scope) {
+    var controller = this;
+    var sections = controller.sections = $scope.sections = [];
+    var multiOpen = controller.multiOpen = false;
+    var autoOpen = controller.autoOpen = $scope.autoOpen = $scope.autoOpen || 'true';
+
+    controller.select = function(selectSection) {
+      sections.forEach(function(section) {
+        if(controller.multiOpen) {
+          if(section.scope === selectSection) {
+            section.scope.active = !section.scope.active;
           }
-
-        });
-      };
-
-      controller.addSection = function addsection(sectionScope) {
-        sections.push({ scope: sectionScope });
-
-        if(sections.length === 1 && autoOpen === 'true') {
-          sections[0].active = true;
-          sections[0].scope.active = true;
-        }
-      };
-
-      controller.closeAll = function() {
-        sections.forEach(function(section) {
+        } else {
           section.scope.active = false;
-        });
-      };
+          if(section.scope === selectSection) {
+            section.scope.active = true;
+          }
+        }
 
-  }]);
+      });
+    };
 
-  angular.module('foundation.accordion')
-    .directive('zfAccordion', function() {
-    return {
+    controller.addSection = function addsection(sectionScope) {
+      sections.push({ scope: sectionScope });
+
+      if(sections.length === 1 && autoOpen === 'true') {
+        sections[0].active = true;
+        sections[0].scope.active = true;
+      }
+    };
+
+    controller.closeAll = function() {
+      sections.forEach(function(section) {
+        section.scope.active = false;
+      });
+    };
+  }
+
+  function zfAccordion() {
+    var directive = {
       restrict: 'EA',
       transclude: 'true',
       replace: true,
@@ -55,15 +59,19 @@
         multiOpen: '@?',
         autoOpen: '@?'
       },
-      link: function(scope, element, attrs, controller) {
-        controller.multiOpen = scope.multiOpen === 'true' ? true : false; //parse string into boolean
-      }
+      link: link
     };
-  });
 
-  angular.module('foundation.accordion')
-    .directive('zfAccordionItem', function() {
-      return {
+    return directive;
+
+    function link(scope, element, attrs, controller) {
+      controller.multiOpen = scope.multiOpen === 'true' ? true : false; //parse string into boolean
+    }
+  }
+
+  //accordion item
+  function zfAccordionItem() {
+    var directive = {
         restrict: 'EA',
         templateUrl: 'components/accordion/accordion-item.html',
         transclude: true,
@@ -73,16 +81,20 @@
         require: '^zfAccordion',
         replace: true,
         controller: function() {},
-        link: function(scope, element, attrs, controller, transclude) {
-          scope.active = false;
-          controller.addSection(scope);
+        link: link
+    };
 
-          scope.activate = function() {
-            controller.select(scope);
-          };
+    return directive;
 
-        }
+    function link(scope, element, attrs, controller, transclude) {
+      scope.active = false;
+      controller.addSection(scope);
+
+      scope.activate = function() {
+        controller.select(scope);
       };
-  });
+
+    }
+  }
 
 })();
