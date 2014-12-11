@@ -88,7 +88,7 @@ describe('Common Foundation Services', function() {
     settings = FoundationApi.getSettings();
 
     //make sure settings are empty
-    expect(settings).toEqual({});
+    expect(settings).toEqual({ mediaQueries: { small : 'only screen and (min-width: 0)', medium : 'only screen and (min-width: 40em)', large : 'only screen and (min-width: 75em)', xlarge : 'only screen and (min-width: 90em)', xxlarge : 'only screen and (min-width: 120em)' } });
 
     //extend settings
     settings = FoundationApi.modifySettings(newSettings);
