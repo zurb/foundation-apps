@@ -64,6 +64,13 @@ Angular supports this neat thing called controllers. They can get confusing and 
 controller: MyController
 ````
 
+To follow Angular's best practices, we use `controllerAs` syntax. If no `controllerAs` is provided, default value of `PageCtrl` will be used.
+Inside your templates, you can call it's controller's methods by calling `PageCtrl.methodName()`. You can override the `PageCtrl` value like so:
+
+````
+controller: MyController as MyCtrl
+````
+
 Among other things, the default controller passes a bunch of data through. For instance, all of your front-matter settings will be accessible via `vars` in your template. `{{ vars.name }}` will return the name of your route while `{{ vars.path }}` will return the relative path to the template.
 
 If you use dynamic parameters in your URL, those parameters will be accessible via `params` so if your URL is:

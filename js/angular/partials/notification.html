@@ -3,7 +3,7 @@
     class="close-button"
     ng-click="remove(); $event.preventDefault(); $event.stopPropagation()">&times;</a>
   <div class="notification-icon" ng-if="image">
-    <img src="{{ image }}" />
+    <img ng-src="{{ image }}"/>
   </div>
   <div class="notification-content">
     <h1>{{ title }}</h1>
