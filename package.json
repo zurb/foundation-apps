@@ -1,6 +1,6 @@
 {
   "name": "foundation-apps",
-  "version": "0.0.1",
+  "version": "1.0.1",
   "description": "Foundation for Apps",
   "scripts": {
     "postinstall": "bower install && bundle",
@@ -30,7 +30,7 @@
     "gulp-concat": "^2.4.1",
     "gulp-front-matter": "^1.0.0",
     "gulp-karma": "0.0.4",
-    "gulp-ruby-sass": "^0.7.1",
+    "gulp-ruby-sass": "1.0.0-alpha",
     "gulp-sass": "1.2.3",
     "gulp-uglify": "^1.0.1",
     "gulp-util": "^3.0.1",
@@ -46,6 +46,7 @@
     "gulp-highlight": "0.0.3",
     "gulp-markdown": "^1.0.0",
     "highlight.js": "~7.5.0",
+    "merge-stream": "^0.1.6",
     "rimraf": "^2.2.8",
     "run-sequence": "^1.0.1"
   },

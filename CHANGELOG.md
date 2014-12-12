@@ -1,3 +1,33 @@
+# Version 1.0.1
+
+*December 12, 2014*
+
+Lots of fixes for the Sass, JavaScript, and documentation. Thanks so much to everyone who's been giving feedback, reporting bugs, and most importantly, *fixing our typos* this past week.
+
+## CSS
+
+- Fixed an alignment issue with action sheet dropdowns.
+- #157: Fixed misbehaving box shadows on panels.
+- #180: Added a PNG fallback for the SVG icons used in block lists, for IE10.
+- #212: Corrected a misused parameter in the `grid-frame()` and `grid-block()` mixins.
+- #215: Removed unused text direction variables.
+- #225: Fixed some components not working inside of an off-canvas menu because of selector specificity.
+- #226: Configured the Gulpfile to catch Sass errors instead of exiting.
+- #268: Changed `map-serialize()` to escape quotes in the outputted JSON.
+- #247: Set the `$accordion-title-background-active` variable to be relative to `$accordion-title-background`.
+  - #261: `$tab-title-background-active` got the same treatment.
+- #295: Fixed a error that came up when creating a media query with `@include breakpoint(xxlarge only)`.
+
+## JavaScript
+
+- Added the `zf-hard-toggle` directive, to force other open components to close when the targeted component opens.
+- Integrated the FastClick library.
+- #199: Modals can be configured to not close when clicked outside of.
+- #258: Accordions can be set to allow every item to be closed at once with `collapsible="true"`.
+- #260: Added the element restriction to action sheets.
+- #274: Added a timeout to hide elements that are missing an animationOut class.
+- #290: Updated the Gulpfile to properly run `copy` when template pages are added or removed.
+
 # Version 1.0.0 — Matterhorn
 
 Welcome to Foundation for Apps 1.0.0! Thanks for swinging by to try it out.
