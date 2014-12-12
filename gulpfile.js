@@ -6,15 +6,16 @@
 // and deploy changes to the live documentation and CDN.
 //
 // The tasks are grouped into these categories:
-//  1. Libraries
-//  2. Cleaning files
-//  3. Copying files
-//  4. Stylesheets
-//  5. JavaScript
-//  6. Testing
-//  7. Server
-//  8. Deployment
-//  9. Default tasks
+//   1. Libraries
+//   2. Variables
+//   3. Cleaning files
+//   4. Copying files
+//   5. Stylesheets
+//   6. JavaScript
+//   7. Testing
+//   8. Server
+//   9. Deployment
+//  10. Default tasks
 
 // 1. LIBRARIES
 // - - - - - - - - - - - - - - -
@@ -36,7 +37,28 @@ var gulp           = require('gulp'),
     rsync          = require('gulp-rsync'),
     merge          = require('merge-stream');
 
-// 2. CLEANIN'
+// 2. VARIABLES
+// - - - - - - - - - - - - - - -
+
+var foundationJS = [
+  'bower_components/fastclick/lib/fastclick.js',
+  'bower_components/viewport-units-buggyfill/viewport-units-buggyfill.js',
+  'bower_components/tether/tether.js',
+  'bower_components/angular/angular.js',
+  'bower_components/angular-animate/angular-animate.js',
+  'bower_components/ui-router/release/angular-ui-router.js',
+  'js/vendor/**/*.js',
+  'js/angular/**/*.js'
+];
+var docsJS = [
+  'bower_components/marked/lib/marked.js',
+  'bower_components/angular-highlightjs/angular-highlightjs.js',
+  'bower_components/highlightjs/highlight.pack.js',
+  'bower_components/allmighty-autocomplete/script/autocomplete.js',
+  'docs/assets/js/app.js'
+];
+
+// 3. CLEANIN' FILES
 // - - - - - - - - - - - - - - -
 
 // Clean build directory
@@ -49,7 +71,7 @@ gulp.task('clean:partials', function(cb) {
   rimraf('./build/partials', cb);
 });
 
-// 3. COPYING FILES
+// 4. COPYING FILES
 // - - - - - - - - - - - - - - -
 
 // Copy static files (but not the Angular templates, Sass, or JS)
@@ -89,8 +111,11 @@ gulp.task('copy:partials', ['clean:partials'], function() {
     .pipe(gulp.dest('./build/partials/'));
 });
 
+// 5. STYLESHEETS
+// - - - - - - - - - - - - - - -
+
+// Inject styles for docs-specific libraries
 gulp.task('css', ['sass'], function() {
-  //copy css
   var dirs = [
     'bower_components/allmighty-autocomplete/style/autocomplete.css',
     'build/assets/css/app.css'
@@ -99,11 +124,7 @@ gulp.task('css', ['sass'], function() {
     .pipe(concat('app.css'))
     .pipe(gulp.dest('build/assets/css'))
   ;
-
 });
-
-// 4. STYLESHEETS
-// - - - - - - - - - - - - - - -
 
 // Compile stylesheets with Ruby Sass
 gulp.task('sass', function() {
@@ -136,27 +157,12 @@ gulp.task('node-sass', function() {
     .pipe(gulp.dest('./build/assets/css/'));
 });
 
-// 5. JAVASCRIPT
+// 6. JAVASCRIPT
 // - - - - - - - - - - - - - - -
 
 // Compile Foundation JavaScript
 gulp.task('javascript', function() {
-  var libs = [
-    'bower_components/fastclick/lib/fastclick.js',
-    'bower_components/viewport-units-buggyfill/viewport-units-buggyfill.js',
-    'bower_components/tether/tether.js',
-    'bower_components/angular/angular.js',
-    'bower_components/angular-animate/angular-animate.js',
-    'bower_components/ui-router/release/angular-ui-router.js',
-    'bower_components/marked/lib/marked.js',
-    'bower_components/angular-highlightjs/angular-highlightjs.js',
-    'bower_components/highlightjs/highlight.pack.js',
-    'bower_components/allmighty-autocomplete/script/autocomplete.js',
-    'js/vendor/**/*.js',
-    'js/angular/**/*.js'
-  ];
-
-  return gulp.src(libs)
+  return gulp.src(foundationJS)
     .pipe(uglify({
       beautify: true,
       mangle: false
@@ -170,11 +176,7 @@ gulp.task('javascript', function() {
 
 // Compile documentation-specific JavaScript
 gulp.task('javascript:docs', function() {
-  var libs = [
-    'docs/assets/js/app.js'
-  ];
-
-  return gulp.src(libs)
+  return gulp.src(docsJS)
     .pipe(uglify({
       beautify: true,
       mangle: false
@@ -185,7 +187,7 @@ gulp.task('javascript:docs', function() {
 
 });
 
-// 6. SERVER
+// 7. SERVER
 // - - - - - - - - - - - - - - -
 
 gulp.task('server:start', function() {
@@ -199,7 +201,7 @@ gulp.task('server:start', function() {
   });
 });
 
-// 7. TESTING
+// 8. TESTING
 // - - - - - - - - - - - - - - -
 
 gulp.task('karma:test', ['build', 'node-sass'], function() {
@@ -229,7 +231,7 @@ gulp.task('test', ['karma:test'], function() {
   console.log('Tests finished.');
 });
 
-// 8. DEPLOYMENT
+// 9. DEPLOYMENT
 // - - - - - - - - - - - - - - -
 
 // Deploy documentation
@@ -244,18 +246,7 @@ gulp.task('deploy', ['build'], function() {
 
 // Deploy to CDN
 gulp.task('deploy:cdn', function() {
-  var libs = [
-    'bower_components/fastclick/lib/fastclick.js',
-    'bower_components/viewport-units-buggyfill/viewport-units-buggyfill.js',
-    'bower_components/tether/tether.js',
-    'bower_components/angular/angular.js',
-    'bower_components/angular-animate/angular-animate.js',
-    'bower_components/ui-router/release/angular-ui-router.js',
-    'js/vendor/**/*.js',
-    'js/angular/**/*.js'
-  ];
-
-  var js = gulp.src(libs)
+  var js = gulp.src(foundationJS)
     .pipe(uglify())
     .pipe(concat('foundation.js'));
   var css = sass('scss/', {
@@ -266,12 +257,12 @@ gulp.task('deploy:cdn', function() {
     .pipe(gulp.dest('./test'));
 });
 
-// 9. NOW BRING IT TOGETHER
+// 10. NOW BRING IT TOGETHER
 // - - - - - - - - - - - - - - -
 
 // Build the documentation once
 gulp.task('build', function(cb) {
-  runSequence('clean', ['copy', 'copy:partials', 'css', 'javascript', 'uglify:docs'], 'copy:templates', function() {
+  runSequence('clean', ['copy', 'copy:partials', 'css', 'javascript', 'javascript:docs'], 'copy:templates', function() {
     console.log('Successfully built.');
     cb();
   });
