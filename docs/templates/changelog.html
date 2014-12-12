@@ -17,6 +17,42 @@ title: Changelog
 
 <hr>
 
+<h3>Version 1.0.1</h3>
+
+<p><em>December 12, 2014</em></p>
+
+Lots of fixes for the Sass, JavaScript, and documentation. Thanks so much to everyone who's been giving feedback, reporting bugs, and most importantly, *fixing our typos* this past week.
+
+<h4>CSS</h4>
+
+<ul>
+  <li>Fixed an alignment issue with action sheet dropdowns.</li>
+  <li>#157: Fixed misbehaving box shadows on panels.</li>
+  <li>#180: Added a PNG fallback for the SVG icons used in block lists, for IE10.</li>
+  <li>#212: Corrected a misused parameter in the `grid-frame()` and `grid-block()` mixins.</li>
+  <li>#215: Removed unused text direction variables.</li>
+  <li>#225: Fixed some components not working inside of an off-canvas menu because of selector specificity.</li>
+  <li>#226: Configured the Gulpfile to catch Sass errors instead of exiting.</li>
+  <li>#268: Changed `map-serialize()` to escape quotes in the outputted JSON.</li>
+  <li>#247: Set the `$accordion-title-background-active` variable to be relative to </li>`$accordion-title-background`.
+  <li>#261: `$tab-title-background-active` got the same treatment.</li>
+  <li>#295: Fixed a error that came up when creating a media query with `@include breakpoint(xxlarge only)`.</li>
+</ul>
+
+<h4>JavaScript</h4>
+
+<ul>
+  <li>Added the `zf-hard-toggle` directive, to force other open components to close when the targeted component opens.</li>
+  <li>Integrated the FastClick library.</li>
+  <li>#199: Modals can be configured to not close when clicked outside of.</li>
+  <li>#258: Accordions can be set to allow every item to be closed at once with `collapsible="true"`.</li>
+  <li>#260: Added the element restriction to action sheets.</li>
+  <li>#274: Added a timeout to hide elements that are missing an animationOut class.</li>
+  <li>#290: Updated the Gulpfile to properly run `copy` when template pages are added or removed.</li>
+</ul>
+
+<hr>
+
 <h3>Version 1.0.0 — Matterhorn</h3>
 
 <p>Welcome to Foundation for Apps 1.0.0! Thanks for swinging by to try it out.</p>
