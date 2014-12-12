@@ -32,7 +32,6 @@ angular.module('foundation.init')
 angular.module('foundation.init')
   .factory('helpers', function() {
     return {
-
       headerHelper: function(classArray) {
         var i = classArray.length;
         var head = angular.element(document.querySelectorAll('head'));
@@ -84,16 +83,26 @@ angular.module('foundation.init.state', ['ui.router'])
 
     this.registerDynamicRoutes = function(routes) {
       var dynamicRoutes = routes || foundationRoutes;
+
       angular.forEach(dynamicRoutes, function(page) {
-        if (page.hasComposed === true) {
+        if (page.hasComposed) {
           if (!angular.isDefined(complexViews[page.parent])) {
             complexViews[page.parent] = { children: {} };
           }
 
+          if (page.controller) {
+            page.controller = getController(page);
+          }
+
           complexViews[page.parent].children[page.name] = page;
-        } else if (page.composed === true) {
+
+        } else if (page.composed) {
           if(!angular.isDefined(complexViews[page.name])) {
             complexViews[page.name] = { children: {} };
+          }
+
+          if (page.controller) {
+            page.controller = getController(page);
           }
 
           angular.extend(complexViews[page.name], page);
@@ -102,7 +111,7 @@ angular.module('foundation.init.state', ['ui.router'])
             url: page.url,
             templateUrl: page.path,
             parent: page.parent || '',
-            controller: page.controller || 'DefaultController',
+            controller: getController(page),
             data: { vars: page },
           };
 
@@ -115,25 +124,35 @@ angular.module('foundation.init.state', ['ui.router'])
             url: page.url,
             parent: page.parent || '',
             data: { vars: page },
-            views: { '': {
-                templateUrl: page.path,
-                controller: page.controller || 'DefaultController',
-              }
+            views: {
+              '': buildState(page.path, page)
             }
           };
 
           angular.forEach(page.children, function(sub) {
-            state.views[sub.name + '@' + page.name] = {
-              templateUrl: sub.path,
-              controller: page.controller || 'DefaultController',
-              };
+            state.views[sub.name + '@' + page.name] = buildState(sub.path, page);
           });
 
           $stateProvider.state(page.name, state);
       });
     };
 
-    this.$get = function() {
-      return {};
-    };
-}]);
+    this.$get = angular.noop;
+
+    function buildState(path, state) {
+      return {
+        templateUrl: path,
+        controller: getController(state),
+      }
+    }
+
+    function getController(state) {
+      var ctrl = state.controller || 'DefaultController';
+
+      if (!/\w\s+as\s+\w/.test(ctrl)) {
+        ctrl += ' as PageCtrl';
+      }
+
+      return ctrl;
+    }
+  }]);
