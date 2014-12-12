@@ -4,6 +4,9 @@
   angular.module('foundation.notification', ['foundation.core'])
     .controller('ZfNotificationController', ZfNotificationController)
     .directive('zfNotificationSet', zfNotificationSet)
+    .directive('zfNotification', zfNotification)
+    .directive('zfNotificationStatic', zfNotificationStatic)
+    .directive('zfNotify', zfNotify)
   ;
 
   ZfNotificationController.$inject = ['$scope', 'FoundationApi'];
@@ -41,7 +44,7 @@
       controller: 'ZfNotificationController',
       scope: true,
       link: link
-    }
+    };
 
     return directive;
 
@@ -57,9 +60,10 @@
     }
   }
 
-  angular.module('foundation.notification')
-    .directive('zfNotification', ['FoundationApi', function(foundationApi) {
-    return {
+  zfNotification.$inject = ['FoundationApi'];
+
+  function zfNotification(foundationApi) {
+    var directive = {
       restrict: 'EA',
       templateUrl: 'components/notification/notification.html',
       replace: true,
@@ -74,40 +78,49 @@
         position: '=?',
         color: '=?'
       },
-      compile: function() {
-        return {
-          pre: function preLink(scope, iElement, iAttrs) {
-            iAttrs.$set('zf-closable', 'notification');
-          },
-          post: function postLink(scope, element, attrs, controller) {
-            scope.active = false;
-            scope.position = scope.position ? scope.position.split(' ').join('-') : 'top-right';
-            var animationIn = attrs.animationIn || 'fadeIn';
-            var animationOut = attrs.animationOut || 'fadeOut';
+      compile: compile
+    };
 
+    return directive;
 
-            //due to dynamic insertion of DOM, we need to wait for it to show up and get working!
-            setTimeout(function() {
-              scope.active = true;
-              foundationApi.animate(element, scope.active, animationIn, animationOut);
-            }, 50);
+    function compile() {
 
-            scope.remove = function() {
-              scope.active = false;
-              foundationApi.animate(element, scope.active, animationIn, animationOut);
-              setTimeout(function() {
-                controller.removeNotification(scope.notifId);
-              }, 50);
-            };
-          }
+      return {
+        pre: preLink,
+        post: postLink
+      };
+
+      function preLink(scope, iElement, iAttrs) {
+        iAttrs.$set('zf-closable', 'notification');
+      }
+
+      function postLink(scope, element, attrs, controller) {
+        scope.active = false;
+        scope.position = scope.position ? scope.position.split(' ').join('-') : 'top-right';
+        var animationIn = attrs.animationIn || 'fadeIn';
+        var animationOut = attrs.animationOut || 'fadeOut';
+
+        //due to dynamic insertion of DOM, we need to wait for it to show up and get working!
+        setTimeout(function() {
+          scope.active = true;
+          foundationApi.animate(element, scope.active, animationIn, animationOut);
+        }, 50);
+
+        scope.remove = function() {
+          scope.active = false;
+          foundationApi.animate(element, scope.active, animationIn, animationOut);
+          setTimeout(function() {
+            controller.removeNotification(scope.notifId);
+          }, 50);
         };
       }
-    };
-  }]);
+    }
+  }
 
-  angular.module('foundation.notification')
-    .directive('zfNotificationStatic', ['FoundationApi', function(foundationApi) {
-    return {
+  zfNotificationStatic.$inject = ['FoundationApi'];
+
+  function zfNotificationStatic(foundationApi) {
+    var directive = {
       restrict: 'EA',
       templateUrl: 'components/notification/notification.html',
       replace: true,
@@ -119,64 +132,72 @@
         position: '@?',
         color: '@?'
       },
-      compile: function() {
-        var type = 'notification';
+      compile: compile
+    };
 
-        return {
-          pre: function preLink(scope, iElement, iAttrs, controller) {
-            iAttrs.$set('zf-closable', type);
-          },
-          post: function(scope, element, attrs, controller) {
-            scope.position = scope.position ? scope.position.split(' ').join('-') : 'top-right';
-            var animationIn = attrs.animationIn || 'fadeIn';
-            var animationOut = attrs.animationOut || 'fadeOut';
+    return directive;
 
-            foundationApi.subscribe(attrs.id, function(msg) {
-              if(msg === 'show' || msg === 'open') {
-                scope.show();
-              } else if (msg === 'close' || msg === 'hide') {
-                scope.hide();
-              } else if (msg === 'toggle') {
-                scope.toggle();
-              }
+    function compile() {
+      var type = 'notification';
 
-              scope.$apply();
+      return {
+        pre: preLink,
+        post: postLink
+      };
 
-              return;
-            });
+      function preLink(scope, iElement, iAttrs, controller) {
+        iAttrs.$set('zf-closable', type);
+      }
 
-            scope.hide = function() {
-              scope.active = false;
-              foundationApi.animate(element, scope.active, animationIn, animationOut);
-              return;
-            };
+      function postLink(scope, element, attrs, controller) {
+        scope.position = scope.position ? scope.position.split(' ').join('-') : 'top-right';
+        var animationIn = attrs.animationIn || 'fadeIn';
+        var animationOut = attrs.animationOut || 'fadeOut';
 
-            scope.remove = function() {
-              scope.hide();
-              foundationApi.animate(element, scope.active, animationIn, animationOut);
-            };
-
-            scope.show = function() {
-              scope.active = true;
-              foundationApi.animate(element, scope.active, animationIn, animationOut);
-              return;
-            };
-
-            scope.toggle = function() {
-              scope.active = !scope.active;
-              foundationApi.animate(element, scope.active, animationIn, animationOut);
-              return;
-            };
-
+        foundationApi.subscribe(attrs.id, function(msg) {
+          if(msg === 'show' || msg === 'open') {
+            scope.show();
+          } else if (msg === 'close' || msg === 'hide') {
+            scope.hide();
+          } else if (msg === 'toggle') {
+            scope.toggle();
           }
+
+          scope.$apply();
+
+          return;
+        });
+
+        scope.hide = function() {
+          scope.active = false;
+          foundationApi.animate(element, scope.active, animationIn, animationOut);
+          return;
+        };
+
+        scope.remove = function() {
+          scope.hide();
+          foundationApi.animate(element, scope.active, animationIn, animationOut);
+        };
+
+        scope.show = function() {
+          scope.active = true;
+          foundationApi.animate(element, scope.active, animationIn, animationOut);
+          return;
+        };
+
+        scope.toggle = function() {
+          scope.active = !scope.active;
+          foundationApi.animate(element, scope.active, animationIn, animationOut);
+          return;
         };
       }
-    };
-  }]);
+    }
+  }
 
-  angular.module('foundation.notification')
-    .directive('zfNotify', ['FoundationApi', function(foundationApi) {
-    return {
+  zfNotify.$inject = ['FoundationApi'];
+
+  function zfNotify(foundationApi) {
+    var directive = {
       restrict: 'A',
       scope: {
         title: '@?',
@@ -185,19 +206,23 @@
         color: '@?',
         image: '@?'
       },
-      link: function(scope, element, attrs, controller) {
-        element.on('click', function(e) {
-          foundationApi.publish(attrs.zfNotify, {
-            title: scope.title,
-            content: scope.content,
-            position: scope.position,
-            color: scope.color,
-            image: scope.image
-          });
-          e.preventDefault();
-        });
-      },
+      link: link
     };
-  }]);
+
+    return directive;
+
+    function link(scope, element, attrs, controller) {
+      element.on('click', function(e) {
+        foundationApi.publish(attrs.zfNotify, {
+          title: scope.title,
+          content: scope.content,
+          position: scope.position,
+          color: scope.color,
+          image: scope.image
+        });
+        e.preventDefault();
+      });
+    }
+  }
 
 })();

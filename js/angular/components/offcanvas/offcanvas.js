@@ -1,11 +1,14 @@
 (function() {
   'use strict';
 
-  angular.module('foundation.offcanvas', ['foundation.core']);
+  angular.module('foundation.offcanvas', ['foundation.core'])
+    .directive('zfOffcanvas', zfOffcanvas)
+  ;
 
-  angular.module('foundation.offcanvas')
-    .directive('zfOffcanvas', ['FoundationApi', function(foundationApi) {
-    return {
+  zfOffcanvas.$inject = ['FoundationApi'];
+
+  function zfOffcanvas(foundationApi) {
+    var directive = {
       restrict: 'EA',
       templateUrl: 'components/offcanvas/offcanvas.html',
       transclude: true,
@@ -13,51 +16,59 @@
         position: '@'
       },
       replace: true,
-      compile: function compile(tElement, tAttrs, transclude) {
-        var type = 'offcanvas';
+      compile: compile
+    };
 
-        return {
-          pre: function preLink(scope, iElement, iAttrs, controller) {
-            iAttrs.$set('zf-closable', type);
-            document.body.classList.add('has-off-canvas');
-          },
-          post: function postLink(scope, element, attrs) {
-            scope.position = scope.position || 'left';
+    return directive;
 
-            scope.active = false;
-            //setup
-            foundationApi.subscribe(attrs.id, function(msg) {
-              if(msg === 'show' || msg === 'open') {
-                scope.show();
-              } else if (msg === 'close' || msg === 'hide') {
-                scope.hide();
-              } else if (msg === 'toggle') {
-                scope.toggle();
-              }
+    function compile(tElement, tAttrs, transclude) {
+      var type = 'offcanvas';
 
-              scope.$apply();
+      return {
+        pre: preLink,
+        post: postLink
+      }
 
-              return;
-            });
+      function preLink(scope, iElement, iAttrs, controller) {
+        iAttrs.$set('zf-closable', type);
+        document.body.classList.add('has-off-canvas');
+      }
 
-            scope.hide = function() {
-              scope.active = false;
-              return;
-            };
+      function postLink(scope, element, attrs) {
+        scope.position = scope.position || 'left';
 
-            scope.show = function() {
-              scope.active = true;
-              return;
-            };
-
-            scope.toggle = function() {
-              scope.active = !scope.active;
-              return;
-            };
+        scope.active = false;
+        //setup
+        foundationApi.subscribe(attrs.id, function(msg) {
+          if(msg === 'show' || msg === 'open') {
+            scope.show();
+          } else if (msg === 'close' || msg === 'hide') {
+            scope.hide();
+          } else if (msg === 'toggle') {
+            scope.toggle();
           }
+
+          scope.$apply();
+
+          return;
+        });
+
+        scope.hide = function() {
+          scope.active = false;
+          return;
+        };
+
+        scope.show = function() {
+          scope.active = true;
+          return;
+        };
+
+        scope.toggle = function() {
+          scope.active = !scope.active;
+          return;
         };
       }
-    };
-  }]);
+    }
+  }
 
 })();
