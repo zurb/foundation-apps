@@ -254,9 +254,7 @@ gulp.task('deploy:cdn', function() {
   });
 
   merge(js, css)
-    .pipe(gulp.dest('./test'))
     .pipe(rsync({
-      root: 'build',
       hostname: 'deployer@72.32.134.77',
       destination: '/home/deployer/sites/foundation-apps/current/cdn'
     }));
