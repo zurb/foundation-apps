@@ -75,7 +75,9 @@ angular.module('foundation.panel')
 
           element.on('click', function(e) {
             //check sizing
-            if(!matchMedia(globalQueries.medium).matches && e.srcElement.hash && e.srcElement.hash.lenght > 0) {
+            var srcEl = e.srcElement;
+
+            if(!matchMedia(globalQueries.medium).matches && srcEl.href && srcEl.href.length > 0) {
               //hide element if it can't match at least medium
               scope.hide();
               foundationApi.animate(element, scope.active, animationIn, animationOut);
