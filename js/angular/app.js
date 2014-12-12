@@ -4,22 +4,31 @@
   angular.module('application', [
     'ui.router',
     'ngAnimate',
+
+    //foundation
     'foundation',
     'foundation.dynamicRouting',
     'foundation.dynamicRouting.animations'
   ])
-    .config(['$urlRouterProvider', '$locationProvider', function($urlProvider, $locationProvider) {
-      $urlProvider.otherwise('/');
+    .config(config)
+    .run(run)
+  ;
 
-      $locationProvider.html5Mode({
-        enabled:false,
-        requireBase: false
-      });
+  config.$inject = ['$urlRouterProvider', '$locationProvider'];
 
-      $locationProvider.hashPrefix('!');
-  }])
-    .run(function() {
-      FastClick.attach(document.body);
-  });
+  function config($urlProvider, $locationProvider) {
+    $urlProvider.otherwise('/');
+
+    $locationProvider.html5Mode({
+      enabled:false,
+      requireBase: false
+    });
+
+    $locationProvider.hashPrefix('!');
+  }
+
+  function run() {
+    FastClick.attach(document.body);
+  }
 
 })();
