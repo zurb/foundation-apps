@@ -14,9 +14,10 @@ angular.module('foundation.accordion')
             section.scope.active = !section.scope.active;
           }
         } else {
-          section.scope.active = false;
           if(section.scope === selectSection) {
-            section.scope.active = true;
+            section.scope.active = !section.scope.active;
+          } else {
+            section.scope.active = false;
           }
         }
 
