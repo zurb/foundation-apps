@@ -1,7 +1,6 @@
-angular.module('application', [
+angular.module('foundation', [
     'ui.router',
     'ngAnimate',
-    'markdown',
     'foundation.init',
     'foundation.init.state',
     'foundation.common.services',
