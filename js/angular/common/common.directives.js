@@ -75,7 +75,7 @@ angular.module('foundation.common.directives')
     restrict: 'A',
     link: function(scope, element, attrs) {
       element.on('click', function(e) {
-        foundationApi.closeActiveElements();
+        foundationApi.closeActiveElements({exclude: attrs.zfHardToggle});
         foundationApi.publish(attrs.zfHardToggle, 'toggle');
         e.preventDefault();
       });
