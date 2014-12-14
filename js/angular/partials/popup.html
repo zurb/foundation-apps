@@ -1,2 +1,6 @@
-<div class="popup" ng-class="{'is-active': active }" ng-transclude>
+<div
+  class="popup"
+  ng-class="{'is-active': active }"
+  ng-click="$event.stopPropagation();"
+  ng-transclude>
 </div>
