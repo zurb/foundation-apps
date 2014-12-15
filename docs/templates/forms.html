@@ -9,73 +9,10 @@ title: Forms
 
 <hr>
 
-<div class="grid-block">
-  <div class="small-12 medium-6 grid-content">
-    <h4>Form Elements</h4>
-    <label>
-      Input Label
-      <input type="text" placeholder="Text field">
-    </label>
-    <div class="grid-block">
-      <div class="small-12 medium-6 grid-content">
-        <label>
-          Input Label
-          <input type="text" placeholder="Text field">
-        </label>
-      </div>
-      <div class="small-12 medium-6 grid-content">
-        <label>Separate Label</label>
-        <select name="" id="">
-          <option value="">Breakfast</option>
-          <option value="">Bacon Pancakes</option>
-          <option value="">Mountain Dew</option>
-        </select>
-      </div>
-      <div class="small-12 grid-content">
-        <label>
-          Prefix/postfix
-          <span class="inline-label">
-            <span class="form-label">www.</span>
-            <input type="text">
-            <span class="form-label">.com</span>
-          </span>
-        </label>
-        <label>
-          Search
-          <span class="inline-label">
-            <input type="search" placeholder="Search a thing">
-            <a href="#" class="button">Search</a>
-          </span>
-        </label>
-      </div>
-    </div>
-  </div>
-  <div class="small-12 medium-6 grid-content">
-    <h4>Range Slider</h4>
-    <input type="range">
-    <br>
-    <h4>Switch</h4>
-    <div class="switch">
-      <input type="checkbox" id="switch-1">
-      <label for="switch-1"></label>
-    </div>
-    <br>
-    <h4>Meter &amp; Progress</h4>
-    <label>
-      <progress value="50" max="100"></progress><br>
-      <progress class="low" value="50" max="100"></progress><br>
-      <meter min="0" max="100" low="25" high="75" optimum="100" value="10"></meter><br>
-    </label>
-  </div>
-</div>
-
-<hr>
-
 <h3>Building Forms With HTML</h3>
 <p>Creating a form in Foundation is designed to be easy but extremely flexible. Forms are built with a combination of standard form elements, as well as the Grid (grid-block and grid-content).</p>
 <p>You can size inputs using column sizes, like <code>.large-6</code>, <code>.small-6.</code> You can create grid-block elements inside your form and use grid-content for the form, including inputs, labels and more. Grid-block's inside a form inherit some special padding to even up input spacing. This is an example form we've created that is laid out using the grid:</p>
 
-<h4>Basic Forms</h4>
 <p>You can create a Form with this basic HTML:</p>
 <div class="grid-block">
   <div class="small-12 grid-content">
@@ -180,9 +117,9 @@ title: Forms
   </div>
 </div>
 
-<br>
+<hr>
 
-<h4>Pre/Postfix Labels &amp; Buttons</h4>
+<h3>Pre/Postfix Labels &amp; Buttons</h3>
 <p>You can attach labels before or after the form input. Wrap the input with a class of <code>inline-label</code> then use the <code>form-label</code> class on the label. Buttons just need the <code>inline-label</code> class. Example HTML:</p>
 <div class="grid-block">
   <div class="small-12 medium-6 grid-content">
