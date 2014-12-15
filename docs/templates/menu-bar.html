@@ -91,7 +91,7 @@ title: Menu Bar
 
 <h4>Spacing</h4>
 
-<p>The items of the menu bar automatically space out evenly. The items can also be condensed on the left instead of spread out, by adding the `condensed` class to the menu bar container.</p>
+<p>The items of the menu bar automatically space out evenly. The items can also be condensed on the left instead of spread out, by adding the `condense` class to the menu bar container.</p>
 
 <div class="grid-block">
   <div class="small-12 medium-6 grid-content">
@@ -108,6 +108,25 @@ title: Menu Bar
       <li><a href="#">Item</a></li>
       <li><a href="#">Item</a></li>
       <li><a href="#">Item</a></li>
+    </ul>
+  </div>
+</div>
+
+<p>Using responsive classes, a menu bar can switch between being expanded and being condensed at different screen sizes. Use the classes <code>medium-condense</code>, <code>large-condense</code>, <code>medium-expand</code>, and <code>large-expand</code>.</p>
+
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+<hljs>
+<ul class="menu-bar condense medium-expand">
+  <li><a href="#">Item One</a></li>
+  <li><a href="#">Item Too</a></li>
+</ul>
+</hljs>
+  </div>
+  <div class="small-12 medium-6 grid-content">
+    <ul class="menu-bar condense medium-expand">
+      <li><a href="#">Item One</a></li>
+      <li><a href="#">Item Too</a></li>
     </ul>
   </div>
 </div>

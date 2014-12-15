@@ -224,8 +224,12 @@ $menubar-icon-spacing: $menubar-item-padding !default;
 
   // Condensed bar
   &.condense {
-    li {
-      flex: 0 0 auto;
+    li { flex: 0 0 auto; }
+  }
+  @each $size in $breakpoint-classes {
+    @include breakpoint($size) {
+      &.#{$size}-condense { li { flex: 0 0 auto; } }
+      &.#{$size}-expand   { li { flex: 1 0 auto; } }
     }
   }
 
