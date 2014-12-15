@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en" ng-app="application">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title ng-bind="$state.current.data.vars.title"></title>
+    <link rel="shortcut icon" href="assets/img/favicon.ico">
+    <link href="assets/css/app.css" rel="stylesheet" type="text/css">
+    <script src="assets/js/routes.js"></script>
+    <script src="assets/js/foundation.js"></script>
+    <script src="assets/js/app.js"></script>
+  </head>
+  <body zf-esc-close>
+
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-2195009-60', 'auto');
+
+      </script>
+
+      <!-- Right Off Canvas -->
+      <zf-offcanvas id="example-canvas-top" position="top">
+        <div class="grid-content">
+          <a href="#" zf-close class="close-button">&times;</a>
+          <h3>This is a top off-canvas menu.</h3>
+        </div>
+      </zf-offcanvas>
+
+      <!-- Bottom Off Canvas -->
+      <zf-offcanvas id="example-canvas-right" position="right">
+        <div class="grid-content">
+          <a href="#" zf-close class="close-button">&times;</a>
+          <h3>This is a right off-canvas menu.</h3>
+        </div>
+      </zf-offcanvas>
+
+      <!-- Left Off Canvas -->
+      <zf-offcanvas id="example-canvas-bottom" position="bottom">
+      <div class="grid-content">
+        <a href="#" zf-close class="close-button">&times;</a>
+        <h3>This is a bottom off-canvas menu.</h3>
+      </div>
+      </zf-offcanvas>
+
+      <!-- Top Off Canvas -->
+      <zf-offcanvas id="example-canvas-left" position="left">
+      <div class="grid-content">
+        <a href="#" zf-close class="close-button">&times;</a>
+        <h3>This is a left off-canvas menu.</h3>
+      </div>
+      </zf-offcanvas>
+
+    <!-- App frame -->
+    <div class="vertical grid-frame">
+      <!-- Title bar -->
+      <div id="header" class="shrink collapse grid-content">
+
+      <nav class="global-nav">
+        <ul class="title-area">
+          <li class="name">
+            <!-- <a class="left-off-canvas-toggle show-for-small-up hide-for-medium-up sidebar-button" href="#"><img alt="Menu grey" src="assets/images/content/menu-grey.png"/></a> -->
+            <h1><a href="http://foundation.zurb.com/apps"><img class="zurb-logo" src="assets/img/zurb-logo.svg"> <strong>Foundation for Apps</strong></a></h1>
+          </li>
+        </ul>
+
+        <ul class="right">
+            <li><a href="http://foundation.zurb.com/apps/features.html">Features</a>
+            </li>
+            <li>
+              <a href="http://foundation.zurb.com/apps/resources.html">Resources</a>
+            </li>
+            <li>
+              <a href="http://foundation.zurb.com/apps/support.html">Support</a>
+            </li>
+            <li>
+              <a class="current" href="http://foundation.zurb.com/apps/docs">Docs</a>
+            </li>
+            <li><a href="http://foundation.zurb.com/apps/getting-started.html">Getting Started</a></li>
+          </ul>
+      </nav>
+
+      </div>
+      <!-- /Title bar -->
+      <div class="grid-block" ng-controller="NavController">
+        <div zf-panel id="sidebar" class="fast bounceInOut medium-3 large-2 medium-grid-block sidebar vertical">
+          <div class="grid-content shrink docs-search-box hide-for-small-only">
+            <autocomplete data="routing" on-select="selectRoute" attr-placeholder="Search Docs: e.g. forms" ng-model="typedText" />
+          </div>
+          <!-- Sidebar nav -->
+          <div class="grid-content collapse">
+            <a zf-close class="close-button hide-for-medium">&times;</a>
+            <section>
+              <ul class="menu-bar vertical">
+                <li class="title">Setup</li>
+                <li ui-sref-active="is-active"><a ui-sref="install-update">Install &amp; Update</a></li>
+                <li ui-sref-active="is-active"><a ui-sref="sass">Sass</a></li>
+                <li ui-sref-active="is-active"><a ui-sref="motion-ui">Motion UI</a></li>
+                <li ui-sref-active="is-active"><a ui-sref="angular">Angular</a></li>
+                <li ui-sref-active="is-active"><a ui-sref="compatibility">Compatibility</a></li>
+                <li ui-sref-active="is-active"><a ui-sref="changelog">Changelog</a></li>
+              </ul>
+            </section>
+            <section>
+              <ul class="menu-bar vertical">
+                <li class="title">Layout</li>
+                <li ui-sref-active="is-active"><a ui-sref="grid">Grid</a></li>
+                <li ui-sref-active="is-active"><a ui-sref="panel">Panel</a></li>
+              </ul>
+            </section>
+            <section>
+              <ul class="menu-bar vertical">
+                <li class="title">Navigation</li>
+                <li ui-sref-active="is-active"><a ui-sref="action-sheet">Action Sheet</a></li>
+                <li ui-sref-active="is-active"><a ui-sref="menu-bar">Menu Bar</a></li>
+                <li ui-sref-active="is-active"><a ui-sref="off-canvas">Off-canvas Menu</a></li>
+                <li ui-sref-active="is-active"><a ui-sref="title-bar">Title Bar</a></li>
+              </ul>
+            </section>
+            <section>
+              <ul class="menu-bar vertical">
+                <li class="title">Callouts</li>
+                <li ui-sref-active="is-active"><a ui-sref="modal">Modal</a></li>
+                <li ui-sref-active="is-active"><a ui-sref="notification">Notification</a></li>
+              </ul>
+            </section>
+            <section>
+              <ul class="menu-bar vertical">
+                <li class="title">Controls</li>
+                <li ui-sref-active="is-active"><a ui-sref="button">Button</a></li>
+                <li ui-sref-active="is-active"><a ui-sref="forms">Forms</a></li>
+              </ul>
+            </section>
+            <section>
+              <ul class="menu-bar vertical">
+                <li class="title">Content</li>
+                <li ui-sref-active="is-active"><a ui-sref="accordion">Accordion</a></li>
+                <li ui-sref-active="is-active"><a ui-sref="block-list">Block List</a></li>
+                <li ui-sref-active="is-active"><a ui-sref="card">Card</a></li>
+                <li ui-sref-active="is-active"><a ui-sref="interchange">Interchange</a></li>
+                <li ui-sref-active="is-active"><a ui-sref="labels-badges">Labels &amp; Badges</a></li>
+                <li ui-sref-active="is-active"><a ui-sref="popup">Popup</a></li>
+                <li ui-sref-active="is-active"><a ui-sref="tabs">Tabs</a></li>
+                <li ui-sref-active="is-active"><a ui-sref="typography">Typography</a></li>
+                <li ui-sref-active="is-active"><a ui-sref="iconic">Iconic</a></li>
+              </ul>
+            </section>
+            <section>
+              <ul class="menu-bar vertical">
+                <li class="title">Helpers</li>
+                <li ui-sref-active="is-active"><a ui-sref="functions-mixins">Functions and Mixins</a></li>
+                <li ui-sref-active="is-active"><a ui-sref="utilities">Utilities</a></li>
+              </ul>
+            </section>
+          </div>
+        </div>
+        <!-- /Sidebar nav -->
+
+        <!-- Main content -->
+        <div class="medium-9 large-10 grid-content" ng-show="$state.current.name.length">
+          <div class="grid-container main-docs-section">
+            <a class="small secondary expand button hide-for-medium" zf-toggle="sidebar">Show Components</a>
+            <div ng-class="['ui-animation']" ui-view></div>
+          </div>
+
+          <div class="zurb-footer-top">
+            <div class="grid-block property">
+              <div class="small-12 large-4 medium-4 grid-content">
+                <div class="property-info">
+                  <h3><a href="index" class="home" title="Foundation">Foundation for Apps</a></h3>
+                  <p>Foundation for Apps is a framework you can use to build better, more polished single-page web applications that work across many devices. We’ve taken what we’ve learned from building the original Foundation framework to build an entirely new framework just for web apps.</p>
+                </div>
+              </div>
+
+              <div class="small-12 large-8 medium-8 grid-content">
+                <div class="grid-block">
+                  <div class="small-12 large-4 medium-4 grid-content">
+                    <div class="learn-links">
+                      <h4 class="hide-for-small">Want More?</h4>
+                      <ul>
+                        <li><a href="http://foundation.zurb.com/">Foundation for Sites</a></li>
+                        <li><a href="http://zurb.com/ink/">ZURB Ink</a></li>
+                        <li><a href="http://foundation.zurb.com/forum/">Foundation Forum</a></li>
+                        <li><a href="http://foundation.zurb.com//support/support.html">Support</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="small-12 large-4 medium-4 grid-content">
+                    <div class="support-links">
+                      <h4>Need Help?</h4>
+                      <p><a href="support.html" target="_blank">Read our Support FAQs</a></p>
+                      <p>Tweet <a href="https://twitter.com/ZURBfoundation">@ZURBfoundation</a><br> Or email us at <a href="mailto:support@foundation.com">support@foundation.com</a></p>
+                    </div>
+                  </div>
+                  <div class="small-12 large-4 medium-4 grid-content">
+                    <div class="connect-links">
+                      <h4>Stay Updated</h4>
+                      <p>Keep up with the latest <br class="hide-for-small"> <a href="http://zurb.com/blog/topic/foundation" target="_blank">Foundation news</a></p>
+                      <a href="http://zurb.com/news" class="small secondary button">What’s New</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Global Row -->
+            <div class="grid-block global">
+              <div class="small-12 large-3 medium-3 small-6 grid-content">
+                <a href="http://zurb.com/studios" class="footer-link-block services">
+                  <span class="title">Studios</span>
+                  <span>Helping more than 250 startups succeed since 1998.</span>
+                </a>
+              </div>
+              <div class="small-12 large-3 medium-3 small-6 grid-content">
+                <a href="http://foundation.zurb.com/" class="footer-link-block foundation">
+                  <span class="title">Foundation</span>
+                  <span>The most advanced front-end framework in the world.</span>
+                </a>
+              </div>
+              <div class="small-12 large-3 medium-3 small-6 grid-content">
+                <a href="http://zurb.com/apps" class="footer-link-block apps">
+                  <span class="title">Notable</span>
+                  <span>Prototype, iterate and collect feedback on your products.</span>
+                </a>
+              </div>
+              <div class="small-12 large-3 medium-3 small-6 grid-content">
+                <a href="http://zurb.com/university" class="footer-link-block expo">
+                  <span class="title">University</span>
+                  <span>Ideas, thoughts and design resources shared with you.</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="zurb-footer-bottom">
+            <div class="row">
+              <div class="large-4 medium-4 medium-push-8 grid-content">
+                <ul class="home-social">
+                  <li><a href="http://www.twitter.com/ZURBfoundation" class="twitter"></a></li>
+                  <li><a href="http://www.facebook.com/ZURB" class="facebook"></a></li>
+                  <li><a href="http://zurb.com/contact" class="mail"></a></li>
+                </ul>
+              </div>
+              <div class="large-8  medium-8 grid-content">
+                <a href="http://www.zurb.com" class="zurb-logo regular"></a>
+                <ul class="zurb-links">
+                  <li><a href="http://zurb.com/about">About</a></li>
+                  <li><a href="http://zurb.com/blog">Blog</a></li>
+                  <li><a href="http://zurb.com/news">News<span class="show-for-medium-up"> &amp; Events</span></a></li>
+                  <li><a href="http://zurb.com/contact">Contact</a></li>
+                  <li><a href="http://zurb.com/sitemap">Sitemap</a></li>
+                </ul>
+                <p class="copyright">&copy; 1998&ndash;2014 ZURB, Inc. All rights reserved.</p>
+              </div>
+            </div>
+          </div>
+
+
+
+
+        </div>
+        <!-- /Main content -->
+      </div>
+
+
+    </div>
+    <!-- /App frame -->
+
+        <div zf-modal size="small" id="mainModal" overlay="false" overlay-close="true">
+          <div class="grid-block vertical">
+            <div class="primary title-bar">
+              <div class="center title">Title Bar</div>
+              <span zf-close class="left"><a href="#">Close</a></span>
+              <span zf-close class="right"><a href="#">Done</a></span>
+            </div>
+            <div class="grid-content padding" style="padding-top: 1rem;">
+             <p>
+              <img src="assets/img/mountain.jpg">
+              </p>
+             <a class="button" zf-close>OK</a>
+             <a class="button" zf-close>Cancel</a>
+            </div>
+          </div>
+        </div>
+
+        <zf-modal id="basicModal" overlay="false">
+          <a href="#" zf-close class="close-button">&times;</a>
+          <section class="grid-content">
+            <br>
+            <p>Back in my days...</p>
+            <p>There were 3 Star Wars movies and Disney only made cartoons.</p>
+          </section>
+        </zf-modal>
+  </body>
+</html>

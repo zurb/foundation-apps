@@ -1,0 +1,93 @@
+@font-face {
+  font-family:"zurb-logo";
+  font-weight: normal;
+  font-style: normal;
+  src: url("../fonts/zurb-webfont.eot");
+  src: url("../fonts/zurb-webfont.eot?#iefix") format('embedded-opentype'),
+       url("../fonts/zurb-webfont.woff") format('woff'),
+       url("../fonts/zurb-webfont.ttf") format('truetype'),
+       url("../fonts/zurb-webfont.svg") format('svg');
+}
+.global-nav {
+  overflow: hidden;
+  margin-bottom: 0px;
+  height: 45px;
+  background: #333;
+  ul.title-area { 
+    margin-bottom: 0px;
+    position: relative;
+    float: left;
+    width:auto;
+    list-style: none;
+    li.name {
+      img.zurb-logo {
+        width:72px !important;
+        height:16px !important;
+        margin-right: 5px;
+        margin-bottom: -3px;
+      }
+      a { 
+        display: inline-block;
+        color: #fff;
+        padding: 10px;
+        @media only screen and (max-width: 769px) {
+          &.sidebar-button {
+            display: inline-block !important; 
+            z-index: 99;
+          }
+        }
+      }
+      h1 {
+        display:inline-block; 
+        padding: 0; 
+        line-height: 18px;
+        margin-top: 0;
+        // margin-left: 20px;
+        @media only screen and (max-width: 769px) {
+          margin-left: -10px; 
+        } 
+        a { 
+          opacity: 1;
+          opacity: .75;
+          -webkit-transition: all .25s ease-in-out;
+          -moz-transition: all .25s ease-in-out;
+          -o-transition: all .25s ease-in-out;
+          transition: all .25s ease-in-out;
+          font-family: "zurb-logo";
+          font-weight: normal;
+          font-size: 36px;
+          padding: 12px 15px 12px 0;
+          text-rendering: auto; 
+          &:hover { opacity: 0.75; opacity: 1; }
+          span { display: none; }
+          strong { font-family: helvetica; font-size: 17px; margin-left: -7px; }
+        }
+      }
+    }
+  }
+  ul.right {
+    margin-bottom: 0px;
+    float:right;
+    margin-right: none;
+    li {
+      display: block;
+      float: left;
+      a {
+        color: #fff;
+        font-size: 13px;
+        font-weight: bold;
+        line-height: 45px;
+        display: block;
+        padding: 0 15px;
+        border-left: 1px solid #4d4d4d;
+        background: #333;
+        &.avatar { line-height: 0; 
+          img { height: 47px; display: block; padding: 5px 0 7px; } 
+        }
+        &.current { background: #484848; &:hover { background: #484848; } }
+        &:hover { color: #FFF; background: #3d3d3d; }
+      }
+      a:not(.button) { padding: 0 15px; }
+    }
+  }
+}

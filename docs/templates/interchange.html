@@ -1,0 +1,68 @@
+---
+name: interchange
+url: /interchange
+title: Interchange
+---
+
+<h2>Interchange</h2>
+<h3 class="subheader">A simple JavaScript solution for responsive images. But not just images, it can even load in HTML partials. Interchange uses media queries to dynamically load responsive content that is appropriate for different users' browsers.</h3>
+
+<hr>
+
+<zf-interchange>
+  <img media="small" src="assets/img/small.jpg">
+  <img media="medium" src="assets/img/medium.jpg">
+  <img media="large"src="assets/img/large.jpg">
+</zf-interchange>
+
+<hr>
+
+<h3>Basic setup</h3>
+<p>Interchange allows you to specify what specific content to view based on a media query. The last query to match will be shown.</p>
+
+<p>Because of some cool Angular features, you're welcome to either specify the content right away (without including <code>src</code>) or, you can specify a partial to be loaded. Loading is done lazily, meaning that even with 20 different <code>zf-source</code> declarations, only the correct one will load for the current media query. So if you're on mobile, only the mobile partial will load up.</p>
+
+<p class="card callout">Note that partials do not get RE-LOADED, meaning that as long as the user is on the page, the various partials will be cached.</p>
+
+<p>You can use Interchange with this simple markup:</p>
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+<hljs>
+<zf-interchange>
+  <img media="small" src="assets/img/small.jpg" />
+  <img media="medium" src="assets/img/medium.jpg" />
+  <img media="large"src="assets/img/large.jpg" />
+</zf-interchange>
+</hljs>
+  </div>
+  <div class="small-12 medium-6 grid-content">
+    Resize the page to see the content change.
+    <zf-interchange>
+      <img media="small" src="assets/img/small.jpg" />
+      <img media="medium" src="assets/img/medium.jpg" />
+      <img media="large"src="assets/img/large.jpg" />
+    </zf-interchange>
+  </div>
+</div>
+
+<h3>Advanced HTML</h3>
+<p>You can use Interchange to display HTML partials depending on screen size like so:</p>
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+<hljs>
+<zf-interchange>
+  <div media="small" src="templates/interchange/partial_1.html"></div>
+  <div media="medium" src="templates/interchange/partial_2.html"></div>
+  <div media="large">THIS IS THE STUFF IN THE TAG</div>
+</zf-interchange>
+</hljs>
+  </div>
+  <div class="small-12 medium-6 grid-content">
+    Add custom media query rules of your own
+    <zf-interchange id="testid">
+      <div media="small" src="templates/interchange/partial_1.html"></div>
+      <div media="medium" src="templates/interchange/partial_2.html"></div>
+      <div media="large">THIS IS THE STUFF IN THE TAG</div>
+    </zf-interchange>
+  </div>
+</div>

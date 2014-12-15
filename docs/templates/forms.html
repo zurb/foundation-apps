@@ -1,0 +1,393 @@
+---
+name: forms
+url: /forms
+title: Forms
+---
+
+<h2>Forms</h2>
+<h3 class="subheader">Easily create powerful and versatile form layouts with our built in form styles and the Foundation grid. We also included some handy form controls to make your app more complete.</h3>
+
+<hr>
+
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+    <h4>Form Elements</h4>
+    <label>
+      Input Label
+      <input type="text" placeholder="Text field">
+    </label>
+    <div class="grid-block">
+      <div class="small-12 medium-6 grid-content">
+        <label>
+          Input Label
+          <input type="text" placeholder="Text field">
+        </label>
+      </div>
+      <div class="small-12 medium-6 grid-content">
+        <label>Separate Label</label>
+        <select name="" id="">
+          <option value="">Breakfast</option>
+          <option value="">Bacon Pancakes</option>
+          <option value="">Mountain Dew</option>
+        </select>
+      </div>
+      <div class="small-12 grid-content">
+        <label>
+          Prefix/postfix
+          <span class="inline-label">
+            <span class="form-label">www.</span>
+            <input type="text">
+            <span class="form-label">.com</span>
+          </span>
+        </label>
+        <label>
+          Search
+          <span class="inline-label">
+            <input type="search" placeholder="Search a thing">
+            <a href="#" class="button">Search</a>
+          </span>
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="small-12 medium-6 grid-content">
+    <h4>Range Slider</h4>
+    <input type="range">
+    <br>
+    <h4>Switch</h4>
+    <div class="switch">
+      <input type="checkbox" id="switch-1">
+      <label for="switch-1"></label>
+    </div>
+    <br>
+    <h4>Meter &amp; Progress</h4>
+    <label>
+      <progress value="50" max="100"></progress><br>
+      <progress class="low" value="50" max="100"></progress><br>
+      <meter min="0" max="100" low="25" high="75" optimum="100" value="10"></meter><br>
+    </label>
+  </div>
+</div>
+
+<hr>
+
+<h3>Building Forms With HTML</h3>
+<p>Creating a form in Foundation is designed to be easy but extremely flexible. Forms are built with a combination of standard form elements, as well as the Grid (grid-block and grid-content).</p>
+<p>You can size inputs using column sizes, like <code>.large-6</code>, <code>.small-6.</code> You can create grid-block elements inside your form and use grid-content for the form, including inputs, labels and more. Grid-block's inside a form inherit some special padding to even up input spacing. This is an example form we've created that is laid out using the grid:</p>
+
+<h4>Basic Forms</h4>
+<p>You can create a Form with this basic HTML:</p>
+<div class="grid-block">
+  <div class="small-12 grid-content">
+<hljs>
+<form>
+  <label>
+    Input Label
+    <input type="text" placeholder="Text field">
+  </label>
+  <div class="grid-block">
+    <div class="small-12 medium-6 grid-content">
+      <label>
+        Input Label
+        <input type="text" placeholder="Text field">
+      </label>
+    </div>
+    <div class="small-12 medium-6 grid-content">
+      <label>Separate Label</label>
+      <select name="" id="">
+        <option value="">Breakfast</option>
+        <option value="">Bacon Pancakes</option>
+        <option value="">Mountain Dew</option>
+      </select>
+    </div>
+    <div class="small-12 medium-6 grid-content">
+      <label>
+        Prefix/postfix
+        <span class="inline-label">
+          <span class="form-label">www.</span>
+          <input type="text">
+          <span class="form-label">.com</span>
+        </span>
+      </label>
+    </div>
+    <div class="small-12 medium-6 grid-content">
+      <input type="range">
+    </div>
+    <div class="small-12 medium-6 grid-content">
+      <label>
+        Search
+        <span class="inline-label">
+          <input type="search" placeholder="Search a thing">
+          <a href="#" class="button">Search</a>
+        </span>
+      </label>
+    </div>
+  </div>
+</form>
+</hljs>
+
+    <form>
+      <label>
+        Input Label
+        <input type="text" placeholder="Text field">
+      </label>
+      <div class="grid-block">
+        <div class="small-12 medium-6 grid-content">
+          <label>
+            Input Label
+            <input type="text" placeholder="Text field">
+          </label>
+        </div>
+        <div class="small-12 medium-6 grid-content">
+          <label>Select Label</label>
+          <select name="" id="">
+            <option value="">Breakfast</option>
+            <option value="">Bacon Pancakes</option>
+            <option value="">Mountain Dew</option>
+          </select>
+        </div>
+        <div class="small-12 medium-6 grid-content">
+          <label>
+            Prefix/postfix
+            <span class="inline-label">
+              <span class="form-label">www.</span>
+              <input type="text">
+              <span class="form-label">.com</span>
+            </span>
+          </label>
+        </div>
+        <div class="small-12 medium-6 grid-content">
+          <label>
+            Search
+            <span class="inline-label">
+              <input type="search" placeholder="Search a thing">
+              <a href="#" class="button">Search</a>
+            </span>
+          </label>
+        </div>
+        <div class="small-12 medium-6 grid-content">
+          <label>Choose Your Favorite</label>
+          <input type="radio" name="pokemon" value="Red" id="pokemonRed"><label for="pokemonRed">Red</label>
+          <input type="radio" name="pokemon" value="Blue" id="pokemonBlue"><label for="pokemonBlue">Blue</label>
+        </div>
+        <div class="small-12 medium-6 grid-content">
+          <label>Check these out</label>
+          <input id="checkbox1" type="checkbox"><label for="checkbox1">Checkbox 1</label>
+          <input id="checkbox2" type="checkbox"><label for="checkbox2">Checkbox 2</label>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<br>
+
+<h4>Pre/Postfix Labels &amp; Buttons</h4>
+<p>You can attach labels before or after the form input. Wrap the input with a class of <code>inline-label</code> then use the <code>form-label</code> class on the label. Buttons just need the <code>inline-label</code> class. Example HTML:</p>
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+<hljs>
+<!-- Pre/Postfix Labels -->
+<label>
+  Prefix/postfix
+  <span class="inline-label">
+    <span class="form-label">www.</span>
+    <input type="text">
+    <span class="form-label">.com</span>
+  </span>
+</label>
+
+<!-- Postfix Button -->
+<label>
+  Search
+  <span class="inline-label">
+    <input type="search" placeholder="Search a thing">
+    <a href="#" class="button">Search</a>
+  </span>
+</label>
+</hljs>
+  </div>
+  <div class="small-12 medium-6 grid-content">
+    <label>
+      Prefix/postfix
+      <span class="inline-label">
+        <span class="form-label">www.</span>
+        <input type="text">
+        <span class="form-label">.com</span>
+      </span>
+    </label>
+    <label>
+      Search
+      <span class="inline-label">
+        <input type="search" placeholder="Search a thing">
+        <a href="#" class="button">Search</a>
+      </span>
+    </label>
+  </div>
+</div>
+
+<hr>
+
+<h3>Switch</h3>
+<p>Switches are toggle element that switch between an Off and On state on tap or click. They make use of checkbox inputs (or radio buttons) and require no JavaScript.</p>
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+<hljs>
+<div class="switch">
+  <input type="checkbox" id="switch-example">
+  <label for="switch-example"></label>
+</div>
+</hljs>
+  </div>
+  <div class="small-12 medium-6 grid-content">
+    <div class="switch">
+      <input type="checkbox" id="switch-example">
+      <label for="switch-example"></label>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<h3>Range Slider</h3>
+<p>You can make a fancy Range slider with this simple markup:</p>
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+<hljs>
+<input type="range">
+</hljs>
+  </div>
+  <div class="small-12 medium-6 grid-content">
+    <input type="range">
+  </div>
+</div>
+
+<hr>
+
+<h3>Number Input</h3>
+<p>The Number input is used for input fields that should contain a numeric value:</p>
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+<hljs>
+<input type="number" name="quantity" min="1" max="5">
+</hljs>
+  </div>
+  <div class="small-12 medium-6 grid-content">
+    <input type="number" name="quantity" min="1" max="5">
+  </div>
+</div>
+
+<hr>
+
+<h3>Meter &amp; Progress Elements</h3>
+
+<h4>Progress</h4>
+<p>The Progress element is used to display the progress of a task.</p>
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+<hljs>
+<progress value="50" max="100"></progress>
+<progress max="100"></progress>
+<progress class="high" value="25" max="100"></progress>
+<progress class="medium" value="75" max="100"></progress>
+<progress class="low" value="60" max="100"></progress>
+</hljs>
+  </div>
+  <div class="small-12 medium-6 grid-content">
+    <progress value="50" max="100"></progress><br>
+    <progress max="100"></progress><br>
+    <progress class="high" value="25" max="100"></progress><br>
+    <progress class="medium" value="75" max="100"></progress><br>
+    <progress class="low" value="60" max="100"></progress><br>
+  </div>
+</div>
+
+<h4>Meter</h4>
+<p>The Meter element is used to display a measurement on a known scale. For example, like a volume or capacity of a venue or hard-drive. The maximum and minimum are known in advance. <strong>Not supported in Internet Explorer.</strong></p>
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+<hljs>
+<meter min="0" max="100" low="25" high="75" optimum="100" value="10"></meter>
+<meter min="0" max="100" low="25" high="75" optimum="100" value="50"></meter>
+<meter min="0" max="100" low="25" high="75" optimum="100" value="80"></meter>
+</hljs>
+  </div>
+  <div class="small-12 medium-6 grid-content">
+    <meter min="0" max="100" low="25" high="75" optimum="100" value="10"></meter><br>
+    <meter min="0" max="100" low="25" high="75" optimum="100" value="50"></meter><br>
+    <meter min="0" max="100" low="25" high="75" optimum="100" value="80"></meter>
+  </div>
+</div>
+
+<hr>
+
+<h3>Sass Variables</h3>
+<p>You can customize Form elements including Switch, Range Slider, and Progress/Meter with these variables:</p>
+<hljs>
+// Basic form variables
+$form-fontsize: 1rem;
+$form-padding: 0.5rem;
+
+// Text fields
+$input-color: #000;
+$input-color-hover: $input-color;
+$input-color-focus: $input-color;
+$input-background: #fff;
+$input-background-hover: $input-background;
+$input-background-focus: $input-background;
+$input-border: 1px solid #ccc;
+$input-border-hover: 1px solid #bbb;
+$input-border-focus: 1px solid #999;
+
+// Select menus
+$select-color: #000;
+$select-background: #fafafa;
+$select-background-hover: smartscale($select-background, 4%);
+$select-arrow: true;
+$select-arrow-color: $select-color;
+
+// Labels
+$label-fontsize: 0.9rem;
+$label-margin: 0.5rem;
+$label-color: #333;
+
+// Inline labels
+$inlinelabel-color: #333;
+$inlinelabel-background: #eee;
+$inlinelabel-border: $input-border;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// Range slider
+$slider-background: #ddd;
+$slider-height: 1rem;
+$slider-radius: 0px;
+$slider-thumb-height: 1.5rem;
+$slider-thumb-color: $primary-color;
+$slider-thumb-radius: 0px;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// Progress and Meter
+$meter-height: 1.5rem;
+$meter-background: #ccc;
+$meter-fill: $primary-color;
+$meter-fill-high: $success-color;
+$meter-fill-medium: #e7cf00;
+$meter-fill-low: $alert-color;
+$meter-radius: 0;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// Switch
+$switch-width: rem-calc(50);
+$switch-height: rem-calc(32);
+$switch-background: #ccc;
+$switch-background-active: $primary-color;
+$switch-border: 0;
+$switch-radius: 9999px;
+$switch-animation-speed: 0.15s;
+
+$switch-paddle-color: white;
+$switch-paddle-offset: 4px;
+</hljs>
