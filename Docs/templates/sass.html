@@ -1,0 +1,63 @@
+---
+name: sass
+url: /sass
+title: Sass
+---
+
+<h2>Customize With Sass</h2>
+<h3 class="subheader">Customizing your project with Foundation is easy, we recommend making different changes in different files which we will go over here.</h3>
+
+<hr>
+
+<h3>_settings.scss</h3>
+<h3 class="subheader">You will want to make changes to the settings file which includes tons of variables here that can be customized for each component.</h3>
+<p>Making changes is simple, in _settings.scss find the element you want to style (command/ctrl+f). Find the variable, uncomment the style, and change its value. Be sure to compile your sass to see the changes take affect</p>
+
+<hr>
+
+<h3>Mixins</h3>
+<h3 class="subheader">We use mixins to allow you to create your own components based on underlying Foundation styles.</h3>
+<p>A mixin lets you make groups of CSS declarations that you want to reuse throughout your site. You can even pass in values to make your mixin more flexible. You can create custom mixins to speed up development, another example regarding buttons:</p>
+
+<hljs>
+// Example mixin for custom button 
+
+.custom-button-class { 
+  @include button($padding, $bg, $radius, $full-width, $disabled, $is-input); 
+}
+</hljs>
+
+<p>Here is an example of some variables you can customize:</p>
+
+<hljs>
+// $padding - Used to build padding for buttons 
+Default: $button-med or rem-calc(12) $padding: 12px; 
+// Primary color set in settings file. 
+Default: $primary-color. $bg: orange; 
+// If true, set to button radius which is $global-radius or explicitly set radius amount in px (ex. $radius:10px). 
+Default:false. $radius: true; 
+// We can set $full-width:true to remove side padding extend width. 
+Default: false $full-width: false; 
+// We can set $disabled:true to create a disabled transparent button. 
+Default: false $disabled: false; 
+// $is-input - <input>'s and <button>'s take on strange padding. We added this to help fix that.
+Default: false $is-input: false;
+</hljs>
+
+<p>Then you can use your new custom button by simply include the following html:</p>
+
+<hljs>
+<a href="#" class="custom-button-class">...</a>
+</hljs>
+
+<hr>
+
+<h3>app.scss</h3>
+<h3 class="subheader">All of your project styles should go in this file.</h3>
+<p>By default the _settings.scss is imported here - @import "settings" as well as all of Foundation SCSS - @import "foundation". If you don't want all of Foundation you can comment it out and then activate the individual imports you want below including the @import on line 5.
+
+<p>Note: Some Foundation components depend on other styles.</p>
+
+
+
+

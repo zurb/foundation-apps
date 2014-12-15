@@ -1,0 +1,203 @@
+---
+name: panel
+url: /panel
+title: Panel
+---
+
+<!-- Basic example -->
+<div zf-panel class="docs-example-panel" id="example-panel-1">
+  <a href="#" zf-close class="close-button">&times;</a>
+  <p>This is a basic panel.</p>
+</div>
+
+<!-- Positioned examples -->
+<div zf-panel class="docs-example-panel" id="example-panel-left">
+  <a zf-close class="close-button">&times;</a>
+  <p>This is a left panel.</p>
+</div>
+
+<div zf-panel class="docs-example-panel" id="example-panel-right" position="right">
+  <a zf-close class="close-button">&times;</a>
+  <p>This is a right panel.</p>
+</div>
+
+<div zf-panel class="docs-example-panel" id="example-panel-top" position="top">
+  <a zf-close class="close-button">&times;</a>
+  <p>This is a top panel.</p>
+</div>
+<div zf-panel class="docs-example-panel" id="example-panel-bottom" position="bottom">
+  <a zf-close class="close-button">&times;</a>
+  <p>This is a bottom panel.</p>
+</div>
+
+<!-- Fixed example -->
+<div zf-panel class="docs-example-panel panel-fixed" id="example-panel-fixed">
+  <a href="#" zf-close class="close-button">&times;</a>
+  <p>This is a fixed panel.</p>
+</div>
+
+<h2>Panels</h2>
+
+<h3 class="subheader">Panels are frames that slide in from the top, left, bottom, or right of the screen and appear over the interface. Grid blocks can also transform into panels, allowing you to hide content off-canvas on smaller screens.</h3>
+
+<hr>
+
+<button class="button" zf-hard-toggle="example-panel-top">Top Panel</button>
+<button class="button" zf-hard-toggle="example-panel-right">Right Panel</button>
+<button class="button" zf-hard-toggle="example-panel-bottom">Bottom Panel</button>
+<button class="button" zf-hard-toggle="example-panel-left">Left Panel</button>
+
+<hr>
+
+<h3>Basic HTML</h3>
+<p>Create a panel using the <code>zf-panel</code> directive. Each panel should have a unique ID you can use to target it.</p>
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+<hljs language="html">
+<div zf-panel id="panel">
+  <a zf-close class="close-button">&times;</a>
+  <p>This is a basic panel.</p>
+</div>
+</hljs>
+  </div>
+
+  <div class="small-12 medium-6 grid-content">
+    <a class="button" zf-toggle="example-panel-1">Basic Panel</a>
+  </div>
+</div>
+
+<h4>Creating Panel Triggers</h4>
+
+<p>Panels use the same trigger directives used to open and close other components. Add the directive <code>zf-open</code>, <code>zf-toggle</code>, or <code>zf-close</code> to an element to create a trigger. The value of the directive should be the ID of the panel you want to target.</p>
+
+<hljs language="html">
+<!-- These are the three ways to manipulate panels -->
+<a href="#" zf-open="panelName" class="button">Open Panel</a>
+<a href="#" zf-close="panelName" class="button">Close Panel</a>
+<a href="#" zf-toggle="panelName" class="button">Toggle Panel</a>
+
+<!-- You can also call zf-close from within a panel -->
+<div zf-panel id="panelName">
+  <a zf-close class="button">Close Panel</a>
+</div>
+</hljs>
+
+<p><code>zf-close</code> is a special case; if the element is inside the panel, you don't need to manually set the ID of the panel.</p>
+
+<hr>
+
+<h3>Panel Position</h3>
+
+<p>By default, panels anchor to the left by default, but they can also anchor to the top, right, or bottom as well. Add the <code>position</code> attribute to your panel to define a direction.</p>
+
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+<hljs language="html">
+<div zf-panel position="top">
+  <a zf-close class="close-button">&times;</a>
+  <p>This is a top panel.</p>
+</div>
+</hljs>
+  </div>
+  <div class="small-12 medium-6 grid-content">
+    <a zf-toggle="example-panel-top" class="button">Top</a>
+    <a zf-toggle="example-panel-right" class="button">Right</a>
+    <a zf-toggle="example-panel-bottom" class="button">Bottom</a>
+    <a zf-toggle="example-panel-left" class="button">Left</a>
+  </div>
+</div>
+
+<hr>
+
+<h3>Fixed Position</h3>
+
+<p>Panels are <code>position: absolute</code>, which means they anchor to the closest parent element that has a non-static position. Add the class <code>panel-fixed</code> to the panel to instead anchor it to the entire window.</p>
+
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+<hljs language="html">
+<div class="grid-block">
+  <zf-panel class="panel-fixed" id="fixed-panel">
+    <a href="#" zf-close>&times;</a>
+    <p>This is a fixed panel.</p>
+  </zf-panel>
+</div>
+</hljs>
+  </div>
+
+  <div class="small-12 medium-6 grid-content">
+    <a class="button" zf-toggle="example-panel-fixed">Fixed Panel</a>
+  </div>
+</div>
+
+<p>If you'd rather not have the extra class, you can also just add <code>position: fixed</code> to an existing panel; that's all the class does!</p>
+
+<hr>
+
+<h3>Transforming Panel</h3>
+
+<p>A panel can transform into a standard grid-block on larger screens. This allows you to have sections of your app that hide off-canvas only on smaller devices, using the same HTML. To transition a panel to a block, use the standard <code>grid-block</code> and <code>grid-content</code> classes, but add in a breakpoint keyword.</p>
+
+<p>To see this concept in action, resize your browser window to a smaller size. The sidebar to the left will collapse into a panel and hide off-screen. It can be opened and closed with a button at the top of every page.</p>
+
+<hljs language="html">
+<!-- This is your panel/block hybrid -->
+<zf-panel id="sidebar" position="left" class="medium-grid-block medium-4">
+  <a href="#" zf-close class="close-button">&times;</a>
+  <ul class="menu-bar">
+    <li><a href="#">Item</a></li>
+    <!-- ... -->
+  </ul>
+</zf-panel>
+
+<!-- This toggles the panel -->
+<a class="button" zf-toggle="sidebar" class="hide-for-medium">Toggle Sidebar</a>
+</hljs>
+
+<p>Note in the above example that we're hiding the "Toggle Sidebar" button on medium screens and larger. This is because at those sizes the sidebar is always visible, making the toggle button unnecessary.</p>
+
+<hr>
+
+<h3>Sass Mixins</h3>
+
+<p>Use these mixins to write a panel with a custom class.</p>
+
+<hljs no-escape language="scss">
+.custom-panel {
+  // Extend the panel selector to get basic structural styles
+  @extend %panel-base;
+
+  // Use the layout mixin to set the position and sizing
+  @include panel-layout(
+    $position: left, // Can be top, right, bottom, or left
+    $size: default, // Can be any unit, or "default" to use the settings variables
+    $shadow: 0 4px 10px black // The shadow will be auto-adjusted based on the position of the panel
+  );
+
+  // Use the style mixin to define visual styles
+  @include panel-style(
+    $padding: 1rem,
+    $background: #fff
+  );
+
+  &.fixed {
+    // Add position: fixed to anchor the panel to the window instead of the panel's parent
+    position: fixed;
+  }
+}
+</hljs>
+
+<hr>
+
+<h3>Sass Variables</h3>
+
+<p>You can customize Panels with these variables in the <code>_settings.scss</code> file:</p>
+
+<hljs language="scss">
+$panel-size-horizontal: 300px;
+$panel-size-vertical: 300px;
+$panel-padding: $global-padding;
+$panel-background: #fff;
+$panel-shadow: 3px 0 10px rgba(black, 0.25);
+$panel-animation-speed: 0.25s;
+</hljs>

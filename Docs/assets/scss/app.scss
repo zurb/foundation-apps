@@ -1,0 +1,59 @@
+// CUSTOMIZE FOUNDATION
+// Customize all settings and stuff here. Yay!
+@import "settings";
+
+// FOUNDATION
+// The core of the framework. Woo!
+@import "foundation";
+
+// DOCS
+// What's up?
+@import
+	"docs/code",
+	"docs/topbar",
+	"docs/docs";
+
+.band {
+	background: #EEE;
+}
+
+nav {
+	background: #708090;
+	color: $secondary-color;
+	h1 {
+		font-size: 1rem;
+	}
+}
+
+.img-bucket {
+	background: $secondary-color;
+}
+
+
+.slide-panel {
+  position: absolute;
+  display: flex;
+  bottom:0;
+  width:  100%;
+  height: 200px;
+  z-index: 100;
+}
+
+// Comment or uncomment out this line for debugging.
+// @include debug;
+
+.button [class*="fi-"] {
+	position: relative;
+	top:2px;
+}
+#img-1, #img-2 {
+	// position: absolute;
+}
+#img-1 { z-index:1;}
+
+.position-absolute .ui-animation {
+  position: absolute;
+  [zf-offcanvas], [zf-panel] {
+    display: none !important;
+  }
+}
