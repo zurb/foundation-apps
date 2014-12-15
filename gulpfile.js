@@ -246,7 +246,7 @@ gulp.task('deploy', ['build'], function() {
 });
 
 // Deploy to CDN
-gulp.task('deploy:cdn', function() {
+gulp.task('deploy:cdn', ['build'], function() {
   var js = gulp.src(foundationJS)
     .pipe(uglify())
     .pipe(concat('foundation.js'));
