@@ -55,7 +55,7 @@ var docsJS = [
   'bower_components/angular-highlightjs/angular-highlightjs.js',
   'bower_components/highlightjs/highlight.pack.js',
   'bower_components/allmighty-autocomplete/script/autocomplete.js',
-  'docs/assets/js/app.js'
+  'Docs/assets/js/app.js'
 ];
 
 // 3. CLEANIN' FILES
