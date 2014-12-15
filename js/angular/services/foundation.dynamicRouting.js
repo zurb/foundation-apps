@@ -1,10 +1,16 @@
 (function() {
   'use strict';
 
-  angular.module('foundation.dynamicRouting', ['foundation.services', 'ui.router']);
-
   angular.module('foundation.dynamicRouting', ['ui.router'])
-    .provider('$FoundationState', ['$stateProvider', function($stateProvider) {
+    .provider('$FoundationState', FoundationState)
+    .controller('DefaultController', DefaultController)
+    .config(DynamicRoutingConfig)
+    .run(DynamicRoutingRun)
+  ;
+
+  FoundationState.$inject = ['$stateProvider'];
+
+  function FoundationState($stateProvider) {
     var complexViews = {};
 
     this.registerDynamicRoutes = function(routes) {
@@ -81,34 +87,38 @@
 
       return ctrl;
     }
-  }]);
+  }
 
-  angular.module('foundation.dynamicRouting')
-    .controller('DefaultController', ['$scope', '$stateParams', '$state', function($scope, $stateParams, $state) {
-      var params = [];
-      angular.forEach($stateParams, function(value, key) {
-        params[key] = value;
-      });
+  DefaultController.$inject = ['$scope', '$stateParams', '$state'];
 
-      $scope.params = params;
-      $scope.current = $state.current.name;
+  function DefaultController($scope, $stateParams, $state) {
+    var params = [];
+    angular.forEach($stateParams, function(value, key) {
+      params[key] = value;
+    });
 
-      if($state.current.views) {
-        $scope.vars = $state.current.data.vars;
-        $scope.composed = $state.current.data.vars.children;
-      } else {
-        $scope.vars = $state.current.data.vars;
-      }
+    $scope.params = params;
+    $scope.current = $state.current.name;
+
+    if($state.current.views) {
+      $scope.vars = $state.current.data.vars;
+      $scope.composed = $state.current.data.vars.children;
+    } else {
+      $scope.vars = $state.current.data.vars;
     }
-  ]);
+  }
 
-  angular.module('foundation.dynamicRouting')
-    .config(['$FoundationStateProvider', function(FoundationStateProvider) {
-      FoundationStateProvider.registerDynamicRoutes(foundationRoutes);
-  }])
-    .run(['$rootScope', '$state', '$stateParams', function($rootScope, $state, $stateParams) {
-      $rootScope.$state = $state;
-      $rootScope.$stateParams = $stateParams;
-  }]);
+  DynamicRoutingConfig.$inject = ['$FoundationStateProvider'];
+
+  function DynamicRoutingConfig(FoundationStateProvider) {
+    FoundationStateProvider.registerDynamicRoutes(foundationRoutes);
+  }
+
+  DynamicRoutingRun.$inject = ['$rootScope', '$state', '$stateParams'];
+
+  function DynamicRoutingRun($rootScope, $state, $stateParams) {
+    $rootScope.$state = $state;
+    $rootScope.$stateParams = $stateParams;
+  }
 
 })();
