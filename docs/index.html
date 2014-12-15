@@ -7,8 +7,8 @@
     <link rel="shortcut icon" href="assets/img/favicon.ico">
     <link href="assets/css/app.css" rel="stylesheet" type="text/css">
     <script src="assets/js/routes.js"></script>
+    <script src="assets/js/foundation.js"></script>
     <script src="assets/js/app.js"></script>
-    <script src="assets/js/angular-app.js"></script>
   </head>
   <body zf-esc-close>
 
@@ -160,7 +160,7 @@
         <!-- /Sidebar nav -->
 
         <!-- Main content -->
-        <div class="medium-9 large-10 grid-content">
+        <div class="medium-9 large-10 grid-content" ng-show="$state.current.name.length">
           <div class="grid-container main-docs-section">
             <a class="small secondary expand button hide-for-medium" zf-toggle="sidebar">Show Components</a>
             <div ng-class="['ui-animation']" ui-view></div>
@@ -269,16 +269,16 @@
     </div>
     <!-- /App frame -->
 
-        <div zf-modal size="small" id="mainModal" overlay="true" overlay-close="true">
+        <div zf-modal size="small" id="mainModal" overlay="false" overlay-close="true">
           <div class="grid-block vertical">
             <div class="primary title-bar">
               <div class="center title">Title Bar</div>
               <span zf-close class="left"><a href="#">Close</a></span>
               <span zf-close class="right"><a href="#">Done</a></span>
             </div>
-            <div class="grid-content padding">
+            <div class="grid-content padding" style="padding-top: 1rem;">
              <p>
-              <img src="http://fc07.deviantart.net/fs70/i/2012/014/b/e/snowy_peak_by_cassiopeiaart-d4mb6aq.jpg">
+              <img src="assets/img/mountain.jpg">
               </p>
              <a class="button" zf-close>OK</a>
              <a class="button" zf-close>Cancel</a>
@@ -286,26 +286,13 @@
           </div>
         </div>
 
-        <zf-modal id="basicModal" overlay="true">
+        <zf-modal id="basicModal" overlay="false">
           <a href="#" zf-close class="close-button">&times;</a>
           <section class="grid-content">
             <br>
             <p>Back in my days...</p>
             <p>There were 3 Star Wars movies and Disney only made cartoons.</p>
           </section>
-        </zf-modal>
-
-        <zf-modal class="small" id="advancedModal" overlay="false">
-          <a href="#" zf-close class="close-button">&times;</a>
-          <div class="grid-block vertical">
-            <div class="shrink grid-content">
-              <img src="http://fc07.deviantart.net/fs70/i/2012/014/b/e/snowy_peak_by_cassiopeiaart-d4mb6aq.jpg">
-            </div>
-            <div class="grid-content button-group">
-              <a class="button" zf-close>OK</a>
-              <a class="button" zf-close>Cancel</a>
-            </div>
-          </div>
         </zf-modal>
   </body>
 </html>

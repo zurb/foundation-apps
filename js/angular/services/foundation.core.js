@@ -29,7 +29,6 @@
             mediaQueries: mediaQueries
           });
 
-
           window.addEventListener('resize', u.throttle(function() {
             foundationApi.publish('resize', 'window resized');
           }, 50));
@@ -60,9 +59,9 @@
         },
         // https://github.com/sindresorhus/query-string
         parseStyleToObject: function(str) {
-          if (typeof str !== 'string') { return {}; }
+          if (typeof str !== 'string') return {};
           str = str.trim().slice(1, -1); // browsers re-quote string style values
-          if (!str) { return {}; }
+          if (!str) return {};
 
           return str.split('&').reduce(function(ret, param) {
             var parts = param.replace(/\+/g, ' ').split('=');
@@ -157,6 +156,7 @@
           var activeGenericClass = 'is-active';
           var events = ['webkitAnimationEnd', 'mozAnimationEnd', 'MSAnimationEnd', 'oanimationend', 'animationend',
                     'webkitTransitionEnd', 'otransitionend', 'transitionend'];
+          var timedOut = true;
 
           var reflow = function() {
             return element[0].offsetWidth;
@@ -170,6 +170,13 @@
           var animate = function(animationClass, activation) {
             var initClass = activation ? initClasses[0] : initClasses[1];
             var activeClass = activation ? activeClasses[0] : activeClasses[1];
+
+            var finishAnimation = function() {
+              reset(); //reset all classes
+              element.removeClass(!activation ? activeGenericClass : ''); //if not active, remove active class
+              reflow();
+              timedOut = false;
+            };
 
             //stop animation
             reset();
@@ -185,10 +192,14 @@
             element.addClass(activeClass);
 
             element.one(events.join(' '), function() {
-              reset(); //reset all classes
-              element.removeClass(!activation ? activeGenericClass : ''); //if not active, remove active class
-              reflow();
+              finishAnimation();
             });
+
+            setTimeout(function() {
+              if(timedOut) {
+                finishAnimation();
+              }
+            }, 3000);
           };
 
           animate(futureState ? animationIn : animationOut, futureState);

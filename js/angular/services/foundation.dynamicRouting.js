@@ -5,62 +5,82 @@
 
   angular.module('foundation.dynamicRouting', ['ui.router'])
     .provider('$FoundationState', ['$stateProvider', function($stateProvider) {
-      var complexViews = {};
+    var complexViews = {};
 
-      this.registerDynamicRoutes = function(routes) {
-        var dynamicRoutes = routes || foundationRoutes;
-        angular.forEach(dynamicRoutes, function(page) {
-          if (page.hasComposed === true) {
-            if (!angular.isDefined(complexViews[page.parent])) {
-              complexViews[page.parent] = { children: {} };
-            }
+    this.registerDynamicRoutes = function(routes) {
+      var dynamicRoutes = routes || foundationRoutes;
 
-            complexViews[page.parent].children[page.name] = page;
-          } else if (page.composed === true) {
-            if(!angular.isDefined(complexViews[page.name])) {
-              complexViews[page.name] = { children: {} };
-            }
-
-            angular.extend(complexViews[page.name], page);
-          } else {
-            var state = {
-              url: page.url,
-              templateUrl: page.path,
-              parent: page.parent || '',
-              controller: page.controller || 'DefaultController',
-              data: { vars: page },
-            };
-
-            $stateProvider.state(page.name, state);
+      angular.forEach(dynamicRoutes, function(page) {
+        if (page.hasComposed) {
+          if (!angular.isDefined(complexViews[page.parent])) {
+            complexViews[page.parent] = { children: {} };
           }
-        });
 
-        angular.forEach(complexViews, function(page) {
-            var state = {
-              url: page.url,
-              parent: page.parent || '',
-              data: { vars: page },
-              views: { '': {
-                  templateUrl: page.path,
-                  controller: page.controller || 'DefaultController',
-                }
-              }
-            };
+          if (page.controller) {
+            page.controller = getController(page);
+          }
 
-            angular.forEach(page.children, function(sub) {
-              state.views[sub.name + '@' + page.name] = {
-                templateUrl: sub.path,
-                controller: page.controller || 'DefaultController',
-                };
-            });
+          complexViews[page.parent].children[page.name] = page;
 
-            $stateProvider.state(page.name, state);
-        });
+        } else if (page.composed) {
+          if(!angular.isDefined(complexViews[page.name])) {
+            complexViews[page.name] = { children: {} };
+          }
+
+          if (page.controller) {
+            page.controller = getController(page);
+          }
+
+          angular.extend(complexViews[page.name], page);
+        } else {
+          var state = {
+            url: page.url,
+            templateUrl: page.path,
+            parent: page.parent || '',
+            controller: getController(page),
+            data: { vars: page },
+          };
+
+          $stateProvider.state(page.name, state);
+        }
+      });
+
+      angular.forEach(complexViews, function(page) {
+          var state = {
+            url: page.url,
+            parent: page.parent || '',
+            data: { vars: page },
+            views: {
+              '': buildState(page.path, page)
+            }
+          };
+
+          angular.forEach(page.children, function(sub) {
+            state.views[sub.name + '@' + page.name] = buildState(sub.path, page);
+          });
+
+          $stateProvider.state(page.name, state);
+      });
+    };
+
+    this.$get = angular.noop;
+
+    function buildState(path, state) {
+      return {
+        templateUrl: path,
+        controller: getController(state),
       };
+    }
 
-      this.$get = function() {
-        return {};
-      };
+    function getController(state) {
+      var ctrl = state.controller || 'DefaultController';
+
+      if (!/\w\s+as\s+\w/.test(ctrl)) {
+        ctrl += ' as PageCtrl';
+      }
+
+      return ctrl;
+    }
   }]);
 
   angular.module('foundation.dynamicRouting')

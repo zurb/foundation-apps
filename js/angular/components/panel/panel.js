@@ -36,10 +36,9 @@
       }
 
       function postLink(scope, element, attrs) {
+        scope.active = false;
         var animationIn, animationOut;
         var globalQueries = foundationApi.getSettings().mediaQueries;
-
-        scope.active = false;
 
         //urgh, there must be a better way
         if(scope.position === 'left') {
@@ -56,13 +55,14 @@
           animationOut = attrs.animationOut || 'slideOutBottom';
         }
 
+
         //setup
         foundationApi.subscribe(attrs.id, function(msg) {
-          if(msg === 'show' || msg === 'open') {
+          if(msg == 'show' || msg == 'open') {
             scope.show();
-          } else if (msg === 'close' || msg === 'hide') {
+          } else if (msg == 'close' || msg == 'hide') {
             scope.hide();
-          } else if (msg === 'toggle') {
+          } else if (msg == 'toggle') {
             scope.toggle();
           }
 
@@ -90,7 +90,9 @@
 
         element.on('click', function(e) {
           //check sizing
-          if(!matchMedia(globalQueries.medium).matches) {
+          var srcEl = e.srcElement;
+
+          if(!matchMedia(globalQueries.medium).matches && srcEl.href && srcEl.href.length > 0) {
             //hide element if it can't match at least medium
             scope.hide();
             foundationApi.animate(element, scope.active, animationIn, animationOut);
