@@ -1,28 +1,23 @@
-angular.module('application', [
+(function() {
+  'use strict';
+
+  angular.module('application', [
     'ui.router',
     'ngAnimate',
-    'markdown',
-    'foundation.init',
-    'foundation.init.state',
-    'foundation.common.services',
-    'foundation.common.directives',
-    'foundation.common.animations',
-    'foundation.accordion',
-    'foundation.actionsheet',
-    'foundation.interchange',
-    'foundation.modal',
-    'foundation.notification',
-    'foundation.offcanvas',
-    'foundation.panel',
-    'foundation.popup',
-    'foundation.tabs',
-    'foundation.iconic'
+
+    //foundation
+    'foundation',
+    'foundation.dynamicRouting',
+    'foundation.dynamicRouting.animations'
   ])
-    .config(['$FoundationStateProvider', '$urlRouterProvider', '$locationProvider', function(FoundationStateProvider, $urlProvider, $locationProvider) {
+    .config(config)
+    .run(run)
+  ;
 
+  config.$inject = ['$urlRouterProvider', '$locationProvider'];
+
+  function config($urlProvider, $locationProvider) {
     $urlProvider.otherwise('/');
-
-    FoundationStateProvider.registerDynamicRoutes();
 
     $locationProvider.html5Mode({
       enabled:false,
@@ -30,12 +25,10 @@ angular.module('application', [
     });
 
     $locationProvider.hashPrefix('!');
-}])
-  .run(['FoundationInit', '$rootScope', '$state', '$stateParams', function(foundationInit, $rootScope, $state, $stateParams) {
-    foundationInit.init();
-    $rootScope.$state = $state;
-    $rootScope.$stateParams = $stateParams;
-}])
-.run(function() {
+  }
+
+  function run() {
     FastClick.attach(document.body);
-});
+  }
+
+})();

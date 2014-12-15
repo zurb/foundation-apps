@@ -1,5 +1,5 @@
 describe('Common Foundation Services', function() {
-  beforeEach(module('foundation.common.services'));
+  beforeEach(module('foundation.core'));
 
   it('should exist', inject(function(FoundationApi) {
     expect(FoundationApi).not.toEqual(null);
@@ -80,20 +80,21 @@ describe('Common Foundation Services', function() {
   }));
 
   it('should modify and get settings', inject(function(FoundationApi) {
-    var settings = {};
-    var newSettings = {
-      'test': 1
-    };
+    var settings     = {};
+    var testSettings = { testSettings: 1 };
+    var newSettings  = { testSettings: 2 };
+
+    FoundationApi.modifySettings(testSettings);
 
     settings = FoundationApi.getSettings();
 
     //make sure settings are empty
-    expect(settings).toEqual({});
+    expect(settings.testSettings).toEqual(1);
 
     //extend settings
     settings = FoundationApi.modifySettings(newSettings);
 
-    expect(settings).toEqual(newSettings);
+    expect(settings.testSettings).toEqual(2);
   }));
 
   it('should generate unique IDs', inject(function(FoundationApi) {

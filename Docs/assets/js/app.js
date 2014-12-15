@@ -1,159 +1,155 @@
-angular.module('application', [
+(function() {
+  'use strict';
+
+  angular.module('application', [
     'ui.router',
     'ngAnimate',
     'markdown',
     'autocomplete',
     'hljs',
-    'foundation.init',
-    'foundation.init.state',
-    'foundation.common.services',
-    'foundation.common.directives',
-    'foundation.common.animations',
-    'foundation.accordion',
-    'foundation.actionsheet',
-    'foundation.interchange',
-    'foundation.modal',
-    'foundation.notification',
-    'foundation.offcanvas',
-    'foundation.panel',
-    'foundation.popup',
-    'foundation.tabs',
-    'foundation.iconic'
+
+    //foundation
+    'foundation',
+    'foundation.dynamicRouting',
+    'foundation.dynamicRouting.animations'
   ])
-    .config(['$FoundationStateProvider', '$urlRouterProvider', '$locationProvider', 'hljsServiceProvider', function(FoundationStateProvider, $urlProvider, $locationProvider, hljsServiceProvider) {
+    .config(config)
+    .run(run)
+    .run(track)
+    .controller('MotionUIController', MotionUIController)
+    .controller('NavController', NavController)
+  ;
 
-    $urlProvider.otherwise('/');
+  config.$inject = ['$urlRouterProvider', '$locationProvider']
 
-    FoundationStateProvider.registerDynamicRoutes();
+  function config($urlProvider, $locationProvider) {
 
-    $locationProvider.html5Mode({
-      enabled:false,
-      requireBase: false
-    });
+      $urlProvider.otherwise('/');
 
-    $locationProvider.hashPrefix('!');
+      $locationProvider.html5Mode({
+        enabled:false,
+        requireBase: false
+      });
 
-    hljsServiceProvider.setOptions({
-      languages: ['bash', 'html', 'js', 'sass', 'scss']
-    });
-}])
-  .run(['FoundationInit', '$rootScope', '$state', '$stateParams', function(foundationInit, $rootScope, $state, $stateParams) {
-    foundationInit.init();
+      $locationProvider.hashPrefix('!');
+  }
 
-    $rootScope.$state = $state;
-    $rootScope.$stateParams = $stateParams;
-}])
-  .run(function() {
-    FastClick.attach(document.body);
-})
-  .run(['$rootScope','$window', '$location', function($rootScope, $window, $location) {
+  function run() {
+      FastClick.attach(document.body);
+  }
+
+  track.$inject = ['$rootScope','$window', '$location']
+
+  function track($rootScope, $window, $location) {
     var track = function() {
       $window.ga('send', 'pageview', { page: $location.path() });
     };
     $rootScope.$on('$locationChangeSuccess', track);
-  }]);
+  };
 
-angular.module('application')
-  .controller('MotionUIController', ['$scope', '$state', 'FoundationApi', '$animate', '$window', function($scope, $state, FoundationApi, $animate, $window) {
+  MotionUIController.$inject = ['$scope', '$state', '$animate', '$window', 'FoundationApi'];
+
+  function MotionUIController($scope, $state, $animate, $window, FoundationApi) {
     $scope.current = $state.current.name;
     $scope.element = {};
     $scope.speeds = [
-      "linear",
-      "ease",
-      "easeIn",
-      "easeOut",
-      "easeInOut",
-      "bounceIn",
-      "bounceOut",
-      "bounceInOut"
+      'linear',
+      'ease',
+      'easeIn',
+      'easeOut',
+      'easeInOut',
+      'bounceIn',
+      'bounceOut',
+      'bounceInOut'
     ];
+
     $scope.transitions = [
       {
-        direction: "enter",
-        type: "Slide",
+        direction: 'enter',
+        type: 'Slide',
         classes: [
-          "slideInDown",
-          "slideInUp",
-          "slideInLeft",
-          "slideInRight"
+          'slideInDown',
+          'slideInUp',
+          'slideInLeft',
+          'slideInRight'
         ]
       },
       {
-        direction: "leave",
-        type: "Slide",
+        direction: 'leave',
+        type: 'Slide',
         classes: [
-          "slideOutBottom",
-          "slideOutUp",
-          "slideOutLeft",
-          "slideOutRight"
+          'slideOutBottom',
+          'slideOutUp',
+          'slideOutLeft',
+          'slideOutRight'
         ]
       },
       {
-        direction: "enter",
-        type: "Fade", 
+        direction: 'enter',
+        type: 'Fade',
         classes: [
-          "fadeIn"
+          'fadeIn'
         ]
       },
       {
-        direction: "leave",
-        type: "Fade", 
+        direction: 'leave',
+        type: 'Fade',
         classes: [
-          "fadeOut"
+          'fadeOut'
         ]
       },
       {
-        direction: "enter",
-        type: "Hinge", 
+        direction: 'enter',
+        type: 'Hinge',
         classes: [
-          "hingeInFromTop",
-          "hingeInFromBottom",
-          "hingeInFromRight",
-          "hingeInFromLeft",
-          "hingeInFromMiddleX",
-          "hingeInFromMiddleY"
+          'hingeInFromTop',
+          'hingeInFromBottom',
+          'hingeInFromRight',
+          'hingeInFromLeft',
+          'hingeInFromMiddleX',
+          'hingeInFromMiddleY'
         ]
       },
       {
-        direction: "leave",
-        type: "Hinge", 
+        direction: 'leave',
+        type: 'Hinge',
         classes: [
-          "hingeOutFromTop",
-          "hingeOutFromBottom",
-          "hingeOutFromRight",
-          "hingeOutFromLeft",
-          "hingeOutFromMiddleX",
-          "hingeOutFromMiddleY"
+          'hingeOutFromTop',
+          'hingeOutFromBottom',
+          'hingeOutFromRight',
+          'hingeOutFromLeft',
+          'hingeOutFromMiddleX',
+          'hingeOutFromMiddleY'
         ]
       },
       {
-        direction: "enter",
-        type: "Scale", 
+        direction: 'enter',
+        type: 'Scale',
         classes: [
-          "zoomIn"
+          'zoomIn'
         ]
       },
       {
-        direction: "leave",
-        type: "Scale", 
+        direction: 'leave',
+        type: 'Scale',
         classes: [
-          "zoomOut"
+          'zoomOut'
         ]
       },
       {
-        direction: "enter",
-        type: "Spin", 
+        direction: 'enter',
+        type: 'Spin',
         classes: [
-          "spinIn",
-          "spinInCCW"
+          'spinIn',
+          'spinInCCW'
         ]
       },
       {
-        direction: "leave",
-        type: "Spin", 
+        direction: 'leave',
+        type: 'Spin',
         classes: [
-          "spinOut",
-          "spinOutCCW"
+          'spinOut',
+          'spinOutCCW'
         ]
       }
     ];
@@ -161,14 +157,17 @@ angular.module('application')
     $scope.update = function(element) {
       var kitty = angular.element('<img id="kitty" src="http://placekitten.com/g/600/300" />');
       var presentKitty = $window.document.getElementById('kitty');
-      var demoElementParent = $window.document.getElementById('demo-card-parent');;
+      var demoElementParent = $window.document.getElementById('demo-card-parent');
       var animationClasses = '';
-      for (prop in $scope.element) {
+
+      for (var prop in $scope.element) {
         if ($scope.element[prop] !== 'default' && $scope.element[prop] !== 'undefined') {
           animationClasses += $scope.element[prop] + ' ';
         }
       }
+
       kitty.addClass(animationClasses);
+
       if ($scope.animationFilter === 'enter') {
         if (presentKitty) {
           presentKitty.remove();
@@ -176,8 +175,7 @@ angular.module('application')
         $animate.enter(kitty, demoElementParent).then(function() {
           kitty.removeClass(animationClasses);
         });
-      }
-      else {
+      } else {
         $animate.enter(kitty, demoElementParent);
         $animate.leave(kitty);
         if (presentKitty) {
@@ -186,10 +184,10 @@ angular.module('application')
       }
     };
   }
-]);
 
-angular.module('application')
-  .controller('NavController', ['$scope', '$state', function($scope, $state) {
+  NavController.$inject = ['$scope', '$state'];
+
+  function NavController($scope, $state) {
     $scope.current = $state.current.name;
 
     var routes = angular.copy(foundationRoutes);
@@ -219,7 +217,7 @@ angular.module('application')
           return;
         }
       });
-
     };
   }
-]);
+
+})();

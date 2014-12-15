@@ -107,8 +107,8 @@ gulp.task('copy:templates', ['copy'], function() {
 
 // Copy Foundation directive partials
 gulp.task('copy:partials', ['clean:partials'], function() {
-  return gulp.src(['js/angular/partials/**.*'])
-    .pipe(gulp.dest('./build/partials/'));
+  return gulp.src(['js/angular/components/**/*.html'])
+    .pipe(gulp.dest('./build/components/'));
 });
 
 // 5. STYLESHEETS
@@ -273,6 +273,7 @@ gulp.task('build', function(cb) {
 
 // Build the documentation, start a test server, and re-compile when files change
 gulp.task('default', ['build', 'server:start'], function() {
+
   // Watch static files
   gulp.watch(['./docs/**/*.*', '!./docs/templates/**/*.*', '!./docs/assets/{scss,js}/**/*.*'], ['copy']);
 
@@ -280,7 +281,7 @@ gulp.task('default', ['build', 'server:start'], function() {
   gulp.watch(['docs/templates/**/*.html'], ['copy:templates']);
 
   // Watch Angular partials
-  gulp.watch(['js/angular/partials/**.*'], ['copy:partials']);
+  gulp.watch(['js/angular/components/**/**.html'], ['copy:partials']);
 
   // Watch Sass
   gulp.watch(['./docs/assets/scss/**/*', './scss/**/*'], ['css']);
