@@ -255,7 +255,7 @@
   }
 
   function prepareRoute() {
-    return prepare(input);
+    return prepare;
 
     function prepare(input) {
       return 'route-' + input.replace(/\./, '-').toLowerCase();
