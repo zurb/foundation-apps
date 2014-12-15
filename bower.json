@@ -15,7 +15,8 @@
     "angular-mocks": "~1.3.4",
     "marked": "~0.3.2",
     "jsdiff": "~1.0.8",
-    "allmighty-autocomplete": "*"
+    "allmighty-autocomplete": "*",
+    "angular-touch": "~1.3.7"
   },
   "homepage": "https://github.com/zurb/foundation-apps",
   "description": "A responsive, Angular-powered web apps framework from ZURB.",
