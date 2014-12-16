@@ -7,7 +7,6 @@
     'markdown',
     'autocomplete',
     'hljs',
-    'ngTouch',
 
     //foundation
     'foundation',

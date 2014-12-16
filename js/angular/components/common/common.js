@@ -6,6 +6,7 @@
     .directive('zfOpen', zfOpen)
     .directive('zfToggle', zfToggle)
     .directive('zfEscClose', zfEscClose)
+    .directive('zfSwipeClose', zfSwipeClose)
     .directive('zfHardToggle', zfHardToggle)
   ;
 
@@ -94,6 +95,34 @@
           foundationApi.closeActiveElements();
         }
         e.preventDefault();
+      });
+    }
+  }
+
+  zfSwipeClose.$inject = ['FoundationApi'];
+
+  function zfSwipeClose(foundationApi) {
+    var directive = {
+      restrict: 'A',
+      link: link
+    };
+    return directive;
+
+    function link($scope, element, attrs) {
+      var swipeDirection;
+      var hammerElem;
+      if (Hammer) {
+        hammerElem = new Hammer(element[0]);
+      }
+      // detect what direction the directive is pointing
+      if (attrs.zfSwipeClose === 'right') {
+        swipeDirection = 'panright'
+      }
+      else {
+        swipeDirection = 'panleft'
+      }
+      hammerElem.on(swipeDirection, function() {
+        foundationApi.closeActiveElements();
       });
     }
   }
