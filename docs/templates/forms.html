@@ -169,17 +169,29 @@ title: Forms
 <p>Switches are toggle element that switch between an Off and On state on tap or click. They make use of checkbox inputs (or radio buttons) and require no JavaScript.</p>
 <div class="grid-block">
   <div class="small-12 medium-6 grid-content">
-<hljs>
+<hljs language="html">
 <div class="switch">
   <input type="checkbox" id="switch-example">
   <label for="switch-example"></label>
 </div>
+
+<!-- Switches also have sizing classes -->
+<div class="small switch"></div>
+<div class="large switch"></div>
 </hljs>
   </div>
   <div class="small-12 medium-6 grid-content">
-    <div class="switch">
+    <div class="small switch">
       <input type="checkbox" id="switch-example">
       <label for="switch-example"></label>
+    </div>
+    <div class="switch">
+      <input type="checkbox" id="switch-example-2">
+      <label for="switch-example-2"></label>
+    </div>
+    <div class="large switch">
+      <input type="checkbox" id="switch-example-3">
+      <label for="switch-example-3"></label>
     </div>
   </div>
 </div>
@@ -190,27 +202,12 @@ title: Forms
 <p>You can make a fancy Range slider with this simple markup:</p>
 <div class="grid-block">
   <div class="small-12 medium-6 grid-content">
-<hljs>
+<hljs language="html">
 <input type="range">
 </hljs>
   </div>
   <div class="small-12 medium-6 grid-content">
     <input type="range">
-  </div>
-</div>
-
-<hr>
-
-<h3>Number Input</h3>
-<p>The Number input is used for input fields that should contain a numeric value:</p>
-<div class="grid-block">
-  <div class="small-12 medium-6 grid-content">
-<hljs>
-<input type="number" name="quantity" min="1" max="5">
-</hljs>
-  </div>
-  <div class="small-12 medium-6 grid-content">
-    <input type="number" name="quantity" min="1" max="5">
   </div>
 </div>
 
@@ -222,7 +219,7 @@ title: Forms
 <p>The Progress element is used to display the progress of a task.</p>
 <div class="grid-block">
   <div class="small-12 medium-6 grid-content">
-<hljs>
+<hljs language="html">
 <progress value="50" max="100"></progress>
 <progress max="100"></progress>
 <progress class="high" value="25" max="100"></progress>
@@ -243,7 +240,7 @@ title: Forms
 <p>The Meter element is used to display a measurement on a known scale. For example, like a volume or capacity of a venue or hard-drive. The maximum and minimum are known in advance. <strong>Not supported in Internet Explorer.</strong></p>
 <div class="grid-block">
   <div class="small-12 medium-6 grid-content">
-<hljs>
+<hljs language="html">
 <meter min="0" max="100" low="25" high="75" optimum="100" value="10"></meter>
 <meter min="0" max="100" low="25" high="75" optimum="100" value="50"></meter>
 <meter min="0" max="100" low="25" high="75" optimum="100" value="80"></meter>
