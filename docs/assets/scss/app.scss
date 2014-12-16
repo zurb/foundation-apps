@@ -57,3 +57,26 @@ nav {
     display: none !important;
   }
 }
+
+.ui-animation {
+  background: #fff;
+}
+
+.fadeIn {
+  &.ng-enter {
+    transition: opacity 2s linear;
+    opacity: 0;
+  }
+  &.ng-enter.ng-enter-active {
+    opacity: 1;
+  }
+
+  &-add {
+    transition-duration: 0s;
+    opacity: 0;
+  }
+  &-add-active {
+    transition: opacity 2s linear;
+    opacity: 1;
+  }
+}

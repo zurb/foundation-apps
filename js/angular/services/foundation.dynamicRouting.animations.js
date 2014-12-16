@@ -5,116 +5,59 @@
     .animation('.ui-animation', uiAnimation)
   ;
 
-  uiAnimation.$inject = ['$rootScope', '$state'];
+  uiAnimation.$inject = ['$animate'];
 
-  function uiAnimation($rootScope, $state) {
-    var events = ['webkitAnimationEnd', 'mozAnimationEnd', 'MSAnimationEnd', 'oanimationend', 'animationend',
-                  'webkitTransitionEnd', 'otransitionend', 'transitionend'];
-
+  function uiAnimation($animate) {
     var parentStyle = 'position-absolute';
 
-    var animation = {};
-
-    animation.enter = enterAnimation;
-    animation.leave = leaveAnimation;
-
-    return animation;
+    return {
+      enter : enterAnimation,
+      leave : leaveAnimation
+    };
 
     function enterAnimation(element, done) {
-      var scope = element.scope();
+      var scope      = element.scope();
+      var enterClass = scope.$eval('vars.animationIn');
 
-      if(scope.vars && scope.vars.animationIn) {
-        var animationIn  = scope.vars.animationIn;
-        var animationOut = scope.vars.animationOut || '';
-        var initial  = 'ng-enter';
-        var activate = 'ng-enter-active';
-        var timedOut = true;
-
-        //reset possible failed animations and bugs
-        element.parent().addClass(parentStyle);
-        element.removeClass(activate + ' ' + initial + ' ' + animationIn + ' ' + animationOut);
-        element[0].style.transitionDuration = 0;
-
-        //start animation
-        element.addClass(animationIn);
-        element.addClass(initial);
-
-        $rootScope.$digest();
-
-        element[0].style.transitionDuration = '';
-        element.addClass(activate);
-
-        var finishAnimation = function() {
-          element.parent().removeClass(parentStyle);
-          element.removeClass(activate + ' ' + initial + ' ' + animationIn + ' ' + animationOut);
-          timedOut = false;
-          done();
-        }
-
-        element.one(events.join(' '), function() {
-          finishAnimation();
-        });
-
-        setTimeout(function() {
-          if (timedOut) {
-            finishAnimation();
-          }
-        }, 3000);
-
-      } else {
+      if (! enterClass || element.hasClass(enterClass)) {
         done();
+        return angular.noop;
       }
 
-      return function(isCancelled) {
+      element.parent().addClass(parentStyle);
 
+      var animation = $animate.addClass(element, enterClass);
+
+      animation
+        .then(function() {
+          element.parent().removeClass(parentStyle);
+          done();
+        });
+
+      return function () {
+        $animate.cancel(animation);
       };
     }
 
     function leaveAnimation(element, done) {
-      var scope = element.scope();
+      var scope      = element.scope();
+      var leaveClass = scope.$eval('vars.animationOut');
 
-      if(scope.vars && scope.vars.animationOut) {
-        var animationIn  = scope.vars.animationIn || '';
-        var animationOut = scope.vars.animationOut;
-        var initial  = 'ng-leave';
-        var activate = 'ng-leave-active';
-        var timedOut = true;
-
-        element.removeClass(activate + ' ' + initial + ' ' + animationIn + ' ' + animationOut);
-        element[0].style.transitionDuration = 0;
-
-        //start animation
-        element.addClass(animationOut);
-        element.addClass(initial);
-
-        $rootScope.$digest();
-
-        element[0].style.transitionDuration = '';
-        element.addClass(activate);
-
-        var finishAnimation = function() {
-          element.parent().removeClass(parentStyle);
-          element.removeClass(activate + ' ' + initial + ' ' + animationIn + ' ' + animationOut);
-          timedOut = false;
-          done();
-        }
-
-        element.one(events.join(' '), function() {
-          finishAnimation();
-        });
-
-        setTimeout(function() {
-          if (timedOut) {
-            finishAnimation();
-          }
-        }, 3000);
-
-      } else {
+      if (! leaveClass || element.hasClass(leaveClass)) {
         done();
+        return angular.noop;
       }
 
-      return function(isCancelled) {
+      element.parent().addClass(parentStyle);
 
+      var animation = $animate.addClass(element, leaveClass)
+        .then(function() {
+          element.parent().removeClass(parentStyle);
+          done();
+        });
+
+      return function () {
+        $animate.cancel(animation);
       };
     }
   }
