@@ -188,12 +188,15 @@
       }
     }
 
-    function closeActiveElements() {
+    function closeActiveElements(options) {
       var self = this;
+      options = options || {};
       var activeElements = document.querySelectorAll('.is-active[zf-closable]');
       if (activeElements.length) {
         angular.forEach(activeElements, function(el) {
-          self.publish(el.id, 'close');
+          if (options.exclude !== el.id) {
+            self.publish(el.id, 'close');
+          }
         });
       }
     }
