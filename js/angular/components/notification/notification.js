@@ -31,7 +31,9 @@
     };
 
     controller.clearAll = function() {
-      $scope.notifications = [];
+      while($scope.notifications.length > 0) {
+        $scope.notifications.pop();
+      }
     };
   }
 
