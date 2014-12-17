@@ -277,3 +277,36 @@ $menubar-icon-spacing: $menubar-item-padding !default;
     font-weight: bold;
   }
 }
+
+// Toolbar wrapper
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  overflow-x: auto;
+
+  // Left and right sections shrink
+  > .top-bar-left, > .top-bar-right {
+    flex: 0 0 auto;
+  }
+
+  // Menu bar is condensed
+  .menu-bar {
+    @include menu-bar-layout(horizontal, false);
+    margin: 0;
+  }
+
+  // Coloring class cascades down to the menu bar
+  &.primary {
+    background-color: $primary-color;
+    .menu-bar {
+      @include menu-bar-style($primary-color, $autocolor: true);
+    }
+  }
+  &.dark {
+    background-color: $dark-color;
+    .menu-bar {
+      @include menu-bar-style($dark-color, $autocolor: true);
+    }
+  }
+}
