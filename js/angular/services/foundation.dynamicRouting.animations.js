@@ -67,6 +67,6 @@
     };
   }
 
-  uiView.$inject = ['$$rootScope', '$state'];
+  uiView.$inject = ['$rootScope', '$state'];
 
 })();
