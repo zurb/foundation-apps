@@ -20,7 +20,7 @@
     .controller('NavController', NavController)
   ;
 
-  config.$inject = ['$urlRouterProvider', '$locationProvider']
+  config.$inject = ['$urlRouterProvider', '$locationProvider'];
 
   function config($urlProvider, $locationProvider) {
 
@@ -38,14 +38,14 @@
       FastClick.attach(document.body);
   }
 
-  track.$inject = ['$rootScope','$window', '$location']
+  track.$inject = ['$rootScope','$window', '$location'];
 
   function track($rootScope, $window, $location) {
     var track = function() {
       $window.ga('send', 'pageview', { page: $location.path() });
     };
     $rootScope.$on('$locationChangeSuccess', track);
-  };
+  }
 
   MotionUIController.$inject = ['$scope', '$state', '$animate', '$window', 'FoundationApi'];
 

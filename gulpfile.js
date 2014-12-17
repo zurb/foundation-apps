@@ -47,8 +47,10 @@ var foundationJS = [
   'bower_components/angular/angular.js',
   'bower_components/angular-animate/angular-animate.js',
   'bower_components/ui-router/release/angular-ui-router.js',
+  'bower_components/hammerjs/hammer.js',
   'js/vendor/**/*.js',
-  'js/angular/**/*.js'
+  'js/angular/**/*.js',
+  '!js/angular/app.js'
 ];
 var docsJS = [
   'bower_components/marked/lib/marked.js',
