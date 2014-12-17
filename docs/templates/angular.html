@@ -295,7 +295,7 @@ url: inbox/:id
 <p>Sometimes, it's necessary to trigger a modal after some piece logic was satisfied. Whether the user scrolled past a certain point or some other action happened. Here's how to open our modal remotely:</p>
 
 <hljs>
-foundationApi.publish('my-modal', 'open');
+FoundationApi.publish('my-modal', 'open');
 </hljs>
 
 <p>Make sure to include FoundationApi as a dependency in the controller or wherever else you want to use it. The best bet to hooking into various directives is to check the code and see what each directive subscribes to.</p>

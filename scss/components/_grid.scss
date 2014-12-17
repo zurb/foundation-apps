@@ -35,7 +35,10 @@ $block-grid-max-size: 6 !default;
 */
 @mixin grid-size($size: expand) {
 	@if (type-of($size) == 'number') {
-		flex: 0 0 percentage($size / $total-columns);
+    $pct: percentage($size / $total-columns);
+		flex: 0 0 $pct;
+    // max-width prevents columns from wrapping early in IE10/11
+    max-width: $pct;
 	}
 	@else if ($size == shrink) {
 		flex: 0 0 auto;

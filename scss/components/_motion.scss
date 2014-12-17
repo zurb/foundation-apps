@@ -197,7 +197,7 @@ $motion-delay-long: 700ms !default;
   // Rotation origin
   $rotation: '';
   @if $turn-origin == from-front {
-    $rotation: map-get($rotationsFront, $from);
+    $rotation: map-get($rotationsFrom, $from);
   }
   @else if $turn-origin == from-back {
     $rotation: map-get($rotationsBack, $from);

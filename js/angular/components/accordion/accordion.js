@@ -26,10 +26,11 @@
           }
         } else {
           //non  multi open will close all tabs and open one
-          section.scope.active = false;
           if(section.scope === selectSection) {
             //if collapsible is allowed, a tab will toggle
-            section.scope.active = collapsible === true ? !section.scope.active : true;
+            section.scope.active = collapsible ? !section.scope.active : true;
+          } else {
+            section.scope.active = false;
           }
         }
 
