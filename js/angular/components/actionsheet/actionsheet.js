@@ -13,20 +13,32 @@
   function zfActionSheetController($scope, foundationApi) {
     var controller = this;
     var content = controller.content = $scope.content;
+    var container = controller.container = $scope.container;
 
     controller.registerContent = function(scope) {
       content = scope;
       content.active = false;
     };
 
+    controller.registerContainer = function(scope) {
+      container = scope;
+      container.active = false;
+    };
+
     controller.toggle = function() {
       content.toggle();
+      container.toggle();
+
       content.$apply();
+      container.$apply();
     };
 
     controller.hide = function() {
       content.hide();
+      container.hide();
+
       content.$apply();
+      container.$apply();
     };
   }
 
@@ -56,7 +68,12 @@
       }
 
       function postLink(scope, element, attrs, controller) {
-        foundationApi.subscribe(attrs.id, function(msg) {
+        var id = attrs.id || foundationApi.generateUuid();
+        attrs.$set('id', id);
+
+        scope.active = false;
+
+        foundationApi.subscribe(id, function(msg) {
           if (msg === 'toggle') {
             controller.toggle();
           }
@@ -66,6 +83,18 @@
           }
 
         });
+
+        controller.registerContainer(scope);
+
+        scope.toggle = function() {
+          scope.active = !scope.active;
+          return;
+        };
+
+        scope.hide = function() {
+          scope.active = false;
+          return;
+        };
       }
     }
   }
