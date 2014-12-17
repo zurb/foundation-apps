@@ -242,7 +242,7 @@ $modules: () !default;
 /**
  *   Get Shadow Value
  *   Given shadow value $val, find a specific element of the shadow, which is $elem.
- *   Possible values for $elem are x, y, size, spread, color, and offset.
+ *   Possible values for $elem are x, y, size, spread, color, and inset.
  *
  *   @param {list} $val - Shadow value to find a value in.
  *   @param {keyword} $elem - Shadow component to extract.
@@ -265,7 +265,7 @@ $modules: () !default;
       @return nth($val, -1);
     }
     @else {
-      @return false;
+      @return black;
     }
   }
 
@@ -281,7 +281,7 @@ $modules: () !default;
       @return nth($values, 1);
     }
     @else {
-      @return false;
+      @return 0;
     }
   }
   @else if $elem == y {
@@ -289,7 +289,7 @@ $modules: () !default;
       @return nth($values, 2);
     }
     @else {
-      @return false;
+      @return 0;
     }
   }
   @else if $elem == size {
@@ -297,7 +297,7 @@ $modules: () !default;
       @return nth($values, 3);
     }
     @else {
-      @return false;
+      @return 0;
     }
   }
   @else if $elem == spread {
@@ -305,7 +305,7 @@ $modules: () !default;
       @return nth($values, 4);
     }
     @else {
-      @return false;
+      @return 0;
     }
   }
   @else {

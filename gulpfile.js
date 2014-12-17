@@ -229,7 +229,16 @@ gulp.task('karma:test', ['build', 'node-sass'], function() {
 
 });
 
-gulp.task('test', ['karma:test'], function() {
+gulp.task('sass:test', function() {
+  sass('./tests/unit/scss/tests.scss', {
+    loadPath: ['scss', 'docs/assets/scss', 'bower_components/bootcamp/dist'],
+    style: 'nested',
+    bundleExec: true
+   })
+    .pipe(gulp.dest('tests/unit/scss'));
+});
+
+gulp.task('test', ['karma:test', 'sass:test'], function() {
   console.log('Tests finished.');
 });
 
