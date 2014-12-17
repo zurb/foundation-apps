@@ -2,62 +2,71 @@
   'use strict';
 
   angular.module('foundation.dynamicRouting.animations', ['ngAnimate', 'foundation.dynamicRouting'])
-    .animation('.ui-animation', uiAnimation)
+    .directive('uiView', uiView)
   ;
 
-  uiAnimation.$inject = ['$animate'];
-
-  function uiAnimation($animate) {
-    var parentStyle = 'position-absolute';
-
+  function uiView($rootScope, $state) {
     return {
-      enter : enterAnimation,
-      leave : leaveAnimation
+      restrict : 'ECA',
+      priority : -400,
+      link     : function (scope, element) {
+        var animation = {};
+
+        var cleanup = [
+          $rootScope.$on('$stateChangeStart', onStateChangeStart),
+          $rootScope.$on('$stateChangeError', onStateChangeError),
+          scope.$on('$stateChangeSuccess', onStateChangeSuccess),
+          scope.$on('$viewContentAnimationEnded', onViewContentAnimationEnded)
+        ];
+
+        var destroyed = scope.$on('$destroy', function () {
+          angular.forEach(cleanup, function (cb) {
+            if (angular.isFunction(cb)) {
+              cb();
+            }
+          });
+
+          destroyed();
+        });
+
+        function onStateChangeStart() {
+          if ($state.includes(getState()) && animation.leave) {
+            element.addClass(animation.leave);
+          }
+        }
+
+        function onStateChangeError() {
+          if (animation.leave ) {
+            element.removeClass(animation.leave);
+          }
+        }
+
+        function onStateChangeSuccess() {
+          if ($state.includes(getState()) && animation.enter) {
+            element.addClass( animation.enter );
+          }
+        }
+
+        function onViewContentAnimationEnded( ev ) {
+          if (ev.targetScope.$id === scope.$id && animation.enter) {
+            element.removeClass(animation.enter);
+          }
+        }
+
+        function getState() {
+          var view  = element.data('$uiView');
+          var state = view && view.state && view.state.self;
+
+          if (state) {
+            angular.extend(animation, state.animation);
+          }
+
+          return state;
+        }
+      }
     };
-
-    function enterAnimation(element, done) {
-      var scope      = element.scope();
-      var enterClass = scope.$eval('vars.animationIn');
-
-      if (! enterClass || element.hasClass(enterClass)) {
-        done();
-        return angular.noop;
-      }
-
-      element.parent().addClass(parentStyle);
-
-      var animation = $animate.addClass(element, enterClass)
-        .then(function() {
-          element.parent().removeClass(parentStyle);
-          done();
-        });
-
-      return function () {
-        $animate.cancel(animation);
-      };
-    }
-
-    function leaveAnimation(element, done) {
-      var scope      = element.scope();
-      var leaveClass = scope.$eval('vars.animationOut');
-
-      if (! leaveClass || element.hasClass(leaveClass)) {
-        done();
-        return angular.noop;
-      }
-
-      element.parent().addClass(parentStyle);
-
-      var animation = $animate.addClass(element, leaveClass)
-        .then(function() {
-          element.parent().removeClass(parentStyle);
-          done();
-        });
-
-      return function () {
-        $animate.cancel(animation);
-      };
-    }
   }
+
+  uiView.$inject = ['$$rootScope', '$state'];
 
 })();
