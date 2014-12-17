@@ -12,10 +12,6 @@
     "angular": "~1.3.4",
     "ui-router": "~0.2.12",
     "angular-animate": "~1.3.4",
-    "angular-mocks": "~1.3.4",
-    "marked": "~0.3.2",
-    "jsdiff": "~1.0.8",
-    "allmighty-autocomplete": "*",
     "angular-touch": "~1.3.7",
     "hammerjs": "~2.0.4"
   },
@@ -32,13 +28,11 @@
     "node_modules",
     "bower_components",
     "docs",
-    "Docs",
     "build",
     "gulpfile.js",
     "karma.conf.js",
     "package.json",
-    "tests",
-    "variables.md"
+    "tests"
   ],
   "devDependencies": {
     "angular-mocks": "~1.3.4",
