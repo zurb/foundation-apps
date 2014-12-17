@@ -19,15 +19,12 @@ $include-css: () !default;
   }
 }
 
-/**
- *   Exports
- *   Outputs the chunk of content passed if component $name hasn't yet been output.
- *   This prevents code duplication by keeping track of which components have already been output.
- *
- *   @param {string} $name - Name of component to output
- *
- *   @output The content passed, if the component has not yet been referenced.
- */
+/// Exports
+/// Outputs the chunk of content passed if component $name hasn't yet been output. This prevents code duplication by keeping track of which components have already been output.
+///
+/// @param {keyword} $name - Name of component to output.
+///
+/// @output The content passed, if the component has not yet been referenced.
 $modules: () !default;
 @mixin exports($name) {
   // Import from global scope
@@ -48,15 +45,12 @@ $modules: () !default;
   }
 }
 
-/**
- *
- *   Map Serialize
- *   Convert a map to JSON. Don't you even try to get fancy with this just yet.
- *
- *   @param {map} $map - Map to convert.
- *
- *   @return A string with a map converted to JSON.
- */
+/// Map Serialize
+/// Converts a Sass map to a URL-encoded string, like this: `key1=value1&key2=value2`. We use this function to encode the media queries in the `$breakpoints` variable, so it can be transferred to our JavaScript for use there.
+///
+/// @param {map} $map - Map to convert.
+///
+/// @return A string with a map converted to a string.
 @function map-serialize($map) {
   $str: '';
   @each $key, $value in $map {
@@ -67,16 +61,13 @@ $modules: () !default;
   @return $str;
 }
 
-/**
- *   Map Next
- *   Find the next key in a map.
- *
- *   @param {map} $map - Map to traverse.
- *   @param {mixed} $key - Key to use as a starting point.
- *
- *   @return The value for the key after $key if $key was found. If $key was not found, or $key was
- *     the last value in the map, returns null.
- */
+/// Map Next
+/// Find the next key in a map.
+///
+/// @param {map} $map - Map to traverse.
+/// @param {mixed} $key - Key to use as a starting point.
+///
+/// @return The value for the key after `$key` if `$key` was found. If `$key` was not found, or `$key` was the last value in the map, returns null.
 @function map-next($map, $key) {
   // Store the values of the map as a list, so we can access them with nth
   $values: map-values($map);
@@ -103,19 +94,15 @@ $modules: () !default;
   }
 }
 
-/**
- *   Is It Light?
- *   Checks the lightness of $color, and if it passes the $threshold of lightness, it returns the $yes color.
- *   Otherwise, it returns the $no color. Use this function to dynamically output a foreground color based on
- *   a given background color.
- *
- *   @param {color} $color - Color to check the lightness of.
- *   @param {color} $yes - Color to return if $color is light.
- *   @param {color} $no - Color to return if $color is dark.
- *   @param {percentage} $threshold - Threshold of lightness to check against.
- *
- *   @return The $yes color or $no color.
- */
+/// Is It Light?
+/// Checks the lightness of $color, and if it passes the $threshold of lightness, it returns the `$yes` color. Otherwise, it returns the `$no` color. Use this function to dynamically output a foreground color based on a given background color.
+///
+/// @param {color} $color - Color to check the lightness of.
+/// @param {color} $yes - Color to return if $color is light.
+/// @param {color} $no - Color to return if $color is dark.
+/// @param {percentage} $threshold - Threshold of lightness to check against.
+///
+/// @return The $yes color or $no color.
 @function isitlight($color, $yes: #000, $no: #fff, $threshold: 60%) {
   @if (lightness($color) > $threshold) {
     @return $yes;
@@ -125,17 +112,14 @@ $modules: () !default;
   }
 }
 
-/**
- *   Smart Scale
- *   Scales a color to be lighter if it's light, or darker if it's dark.
- *   Use this function to "fade" a color appropriate to its lightness.
- *
- *   @param {color} $color - Color to scale.
- *   @param {percentage} $scale - Amount to scale up or down.
- *   @param {percentage} $threshold - Threshold of lightness to check against.
- *
- *   @return A scaled color.
- */
+/// Smart Scale
+/// Scales a color to be lighter if it's light, or darker if it's dark. Use this function to "fade" a color appropriate to its lightness.
+///
+/// @param {color} $color - Color to scale.
+/// @param {percentage} $scale - Amount to scale up or down.
+/// @param {percentage} $threshold - Threshold of lightness to check against.
+///
+/// @return A scaled color.
 @function smartscale($color, $scale: 5%, $threshold: 60%) {
   @if lightness($color) > $threshold {
     $scale: -$scale;
@@ -143,15 +127,12 @@ $modules: () !default;
   @return scale-color($color, $lightness: $scale);
 }
 
-/**
- *   Has Value
- *   Returns true if a value is not 0, null, or none.
- *   Use this function to check for values like border: 0 or box-shadow: none.
- *
- *   @param $val - Value to check.
- *
- *   @return True if $val is not 0, null, or none.
- */
+/// Has Value
+/// Returns true if a value is not 0, null, or none. Use this function to check for values like `border: 0` or `box-shadow: none`.
+///
+/// @param $val - Value to check.
+///
+/// @return True if `$val` is not 0, null, or none.
 @function hasvalue($val) {
   @if $val == null or $val == none {
     @return false;
@@ -162,16 +143,13 @@ $modules: () !default;
   @return true;
 }
 
-/**
- *   Get Side
- *   Determine a top/right/bottom/right value on a padding, margin, etc. property, no matter how many values were passed in.
- *   Use this function if you need to know the specific side of a value, but don't know if the value is using shorthand.
- *
- *   @param {list|number} $val - Value to analyze. Should be a shorthand sizing property, e.g. "1em 2em 1em"
- *   @param {keyword} $side - Side to return. Should be top, right, bottom, or left.
- *
- *   @return A single value based on $val and $side.
- */
+/// Get Side
+/// Determine a top/right/bottom/right value on a padding, margin, etc. property, no matter how many values were passed in. Use this function if you need to know the specific side of a value, but don't know if the value is using shorthand.
+///
+/// @param {list|number} $val - Value to analyze. Should be a shorthand sizing property, e.g. "1em 2em 1em"
+/// @param {keyword} $side - Side to return. Should be top, right, bottom, or left.
+///
+/// @return A single value based on `$val` and `$side`.
 @function get-side($val, $side) {
   $length: length($val);
 
@@ -204,17 +182,13 @@ $modules: () !default;
   }
 }
 
-/**
- *   Get Border Value
- *   Given border $val, find a specific element of the border, which is $elem.
- *   Possible values for $elem are width, style, and color.
- *
- *   @param {list} $val - Border value to find a value in.
- *   @param {keyword} $elem - Border component to extract.
- *
- *   @param If the value exists, returns the value. If the value is not in the border definition,
- *     the function will return a 0px width, solid style, or black border.
- */
+/// Get Border Value
+/// Given border $val, find a specific element of the border, which is $elem. The possible values for $elem are width, style, and color.
+///
+/// @param {list} $val - Border value to find a value in.
+/// @param {keyword} $elem - Border component to extract.
+///
+/// @param If the value exists, returns the value. If the value is not in the border definition, the function will return a 0px width, solid style, or black border.
  @function get-border-value($val, $elem) {
    // Find the width, style, or color and return it
    @each $v in $val {
@@ -239,17 +213,13 @@ $modules: () !default;
    @return map-get($defaults, $elem);
  }
 
-/**
- *   Get Shadow Value
- *   Given shadow value $val, find a specific element of the shadow, which is $elem.
- *   Possible values for $elem are x, y, size, spread, color, and inset.
- *
- *   @param {list} $val - Shadow value to find a value in.
- *   @param {keyword} $elem - Shadow component to extract.
- *
- *   @return If the value exists, returns the value. If the value is not set, returns false.
- *     If $elem is "inset", returns true, otherwise false.
-**/
+/// Get Shadow Value
+/// Given shadow value $val, find a specific element of the shadow, which is $elem. The possible values for $elem are x, y, size, spread, color, and inset.
+///
+/// @param {list} $val - Shadow value to find a value in.
+/// @param {keyword} $elem - Shadow component to extract.
+///
+/// @return If the value exists, returns the value. If the value is not set, returns false. If `$elem` is "inset", returns true, otherwise false.
 @function get-shadow-value($val, $elem) {
   // Return "none" if there's no shadow
   @if $val == none {
@@ -313,49 +283,44 @@ $modules: () !default;
   }
 }
 
-/**
- *   Strip Unit
- *   Removes the unit (e.g. px, em, rem) from a value, returning the number only.
- *
- *   @param {number} $num - Number to strip unit from.
- *
- *   @return The same number, sans unit.
- */
+/// Strip Unit
+/// Removes the unit (e.g. px, em, rem) from a value, returning the number only.
+///
+/// @param {number} $num - Number to strip unit from.
+///
+/// @return The same number, sans unit.
 @function strip-unit($num) {
   @return $num / ($num * 0 + 1);
 }
 
-// CONVERT TURN TO DEG
+/// Turn to Degrees
+/// Converts a turn unit to the equivalent unit in degrees. 1turn is equal to 360 degrees. Not all browsers support turn, so this function allows us to use turns while outputting a value that all browsers understand.
+///
+/// @param {number} $value - Turn value to convert.
+///
+/// @return The same value, but in degrees.
 @function turn-to-deg($value) {
   @return strip-unit($value) * 360deg;
 }
 
-// CONVERT TO REM
+/// Convert to Rem
+/// Converts a pixel value to matching rem value. *Any* value passed, regardless of unit, is assumed to be a pixel value. By default, the base pixel value used to calculate the rem value is taken from the `$rem-base` variable.
+///
+/// @param {number} $value - Pixel value to convert.
+///
+/// @return A number in rems, calculated based on the given value and the base pixel value.
 @function convert-to-rem($value, $base-value: $rem-base)  {
   $value: strip-unit($value) / strip-unit($base-value) * 1rem;
   @if ($value == 0rem) { $value: 0; } // Turn 0rem into 0
   @return $value;
 }
 
-// REM CALC
-
-// New Syntax, allows to optionally calculate on a different base value to counter compounding effect of rem's.
-// Call with 1, 2, 3 or 4 parameters, 'px' is not required but supported:
-//
-//   rem-calc(10 20 30px 40);
-//
-// Space delimited, if you want to delimit using comma's, wrap it in another pair of brackets
-//
-//   rem-calc((10, 20, 30, 40px));
-//
-// Optionally call with a different base (eg: 8px) to calculate rem.
-//
-//   rem-calc(16px 32px 48px, 8px);
-//
-// If you require to comma separate your list
-//
-//   rem-calc((16px, 32px, 48), 8px);
-
+/// Rem Calculator
+/// Converts one or more pixel values into matching rem values. This function works a lot like `convert-to-rem`, except it can convert more than one value at once, which is useful when setting multiple values on a `margin` or `padding` property.
+///
+/// @param {number|list} $values - One or more values to convert. Be sure to separate them with spaces and not commas. If you need to convert a comma-separated list, wrap the list in parentheses.
+///
+/// @return A list of converted values.
 @function rem-calc($values, $base-value: null) {
   @if $base-value == null {
     $base-value: $rem-base;
