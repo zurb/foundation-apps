@@ -4,6 +4,7 @@
 // Licensed under MIT Open Source
 
 $include-css: () !default;
+$rem-base: 16px !default;
 
 // [PH] Using
 @function using($name) {

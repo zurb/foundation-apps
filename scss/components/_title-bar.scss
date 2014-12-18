@@ -10,6 +10,8 @@
    - Right
 */
 
+/// @Foundation.settings
+// Title Bar
 $titlebar-center-width: 50% !default;
 $titlebar-side-width: (100% - $titlebar-center-width) / 2 !default;
 $titlebar-background: #eee !default;
@@ -22,6 +24,7 @@ $titlebar-item-classes: (
   right: 'right',
   title: 'title',
 ) !default;
+///
 
 %title-bar {
   $center: map-get($titlebar-item-classes, center);

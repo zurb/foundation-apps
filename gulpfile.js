@@ -273,38 +273,7 @@ gulp.task('deploy:cdn', ['build'], function() {
 
 // Generate settings file (test)
 gulp.task('gen', function() {
-
-  var parseSettings = function(options) {
-    var map = require('vinyl-map')
-      , through = require('through2')
-      , extend = require('util')._extend
-      , i = 1;
-
-    options = extend({
-      start: "\/\/\/ @Foundation.settings",
-      end:   "\/\/\/"
-    }, options);
-
-    return map(function(contents, filename) {
-      // Convert the file to a string
-      contents = contents.toString();
-
-      // Find the variable text
-      var re = new RegExp("(?:"+options.start+"\n)((.|\n)*)(?:\n"+options.end+")", "mg");
-      var match = re.exec(contents);
-      if (match === null) return '';
-
-      var componentName     = match[1].split('\n')[0].slice(3);
-      var componentContents = match[1].split('\n').slice(1).map(function(val) {
-        return "// "+val;
-      }).join('\n')
-
-      var output = "// "+(i++)+". "+componentName+"\n// - - - - - - - - - - - - - - - - - - - -\n\n"+componentContents+"\n\n";
-
-      return output;
-    });
-  };
-
+  var parseSettings = require('./parseSettings');
   gulp.src('scss/components/**/*.scss')
     .pipe(parseSettings())
     .pipe(concat('_settings.scss'))

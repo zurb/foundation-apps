@@ -5,6 +5,8 @@
   A dropdown menu that sticks to the bottom of the screen on small devices, and becomes a dropdown menu on larger devices.
 */
 
+/// @Foundation.settings
+// Action Sheet
 $actionsheet-background: white !default;
 $actionsheet-border-color: #ccc !default;
 $actionsheet-animate: transform opacity !default;
@@ -19,6 +21,7 @@ $actionsheet-popup-shadow: 0 0 10px rgba(black, 0.25) !default;
 
 $actionsheet-link-color: #000 !default;
 $actionsheet-link-background-hover: smartscale($actionsheet-background) !default;
+///
 
 /*
   Styles for the list inside an action sheet.
