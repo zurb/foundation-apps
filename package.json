@@ -27,6 +27,8 @@
   "devDependencies": {
     "connect-modrewrite": "^0.7.9",
     "front-matter": "^0.2.0",
+    "grunt": "^0.4.5",
+    "grunt-contrib-sass": "^0.8.1",
     "gulp": "^3.8.8",
     "gulp-autoprefixer": "^1.0.1",
     "gulp-concat": "^2.4.1",

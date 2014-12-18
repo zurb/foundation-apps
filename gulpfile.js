@@ -47,6 +47,7 @@ var foundationJS = [
   'bower_components/angular/angular.js',
   'bower_components/angular-animate/angular-animate.js',
   'bower_components/ui-router/release/angular-ui-router.js',
+  'bower_components/hammerjs/hammer.js',
   'js/vendor/**/*.js',
   'js/angular/**/*.js',
   '!js/angular/app.js'
@@ -228,7 +229,16 @@ gulp.task('karma:test', ['build', 'node-sass'], function() {
 
 });
 
-gulp.task('test', ['karma:test'], function() {
+gulp.task('sass:test', function() {
+  sass('./tests/unit/scss/tests.scss', {
+    loadPath: ['scss', 'docs/assets/scss', 'bower_components/bootcamp/dist'],
+    style: 'nested',
+    bundleExec: true
+   })
+    .pipe(gulp.dest('tests/unit/scss'));
+});
+
+gulp.task('test', ['karma:test', 'sass:test'], function() {
   console.log('Tests finished.');
 });
 
