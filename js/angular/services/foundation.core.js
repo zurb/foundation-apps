@@ -117,7 +117,9 @@
   }
 
 
-  function FoundationApi() {
+  FoundationApi.$inject = ['Utils'];
+
+  function FoundationApi(u) {
     var listeners = [];
     var settings  = {};
     var uniqueIds = [];
@@ -131,6 +133,8 @@
     service.toggleAnimation     = toggleAnimation;
     service.closeActiveElements = closeActiveElements;
     service.animate             = animate;
+    service.animationInProgress = animationInProgress;
+    service.queueAnimation      = queueAnimation;
 
     return service;
 
@@ -201,6 +205,7 @@
       }
     }
 
+
     function animate(element, futureState, animationIn, animationOut) {
       var initClasses        = ['ng-enter', 'ng-leave'];
       var activeClasses      = ['ng-enter-active', 'ng-leave-active'];
@@ -208,6 +213,7 @@
       var events = ['webkitAnimationEnd', 'mozAnimationEnd', 'MSAnimationEnd', 'oanimationend', 'animationend',
                 'webkitTransitionEnd', 'otransitionend', 'transitionend'];
       var timedOut = true;
+      var animationProgress = 'animation-progress';
 
       var reflow = function() {
         return element[0].offsetWidth;
@@ -225,11 +231,14 @@
         var finishAnimation = function() {
           reset(); //reset all classes
           element.removeClass(!activation ? activeGenericClass : ''); //if not active, remove active class
+          element.removeClass(animationProgress);
           reflow();
           timedOut = false;
         };
 
         //stop animation
+        element.addClass(animationProgress);
+
         reset();
         element.addClass(animationClass);
         element.addClass(initClass);
@@ -254,6 +263,30 @@
       };
 
       animate(futureState ? animationIn : animationOut, futureState);
+    }
+
+    function animationInProgress(element) {
+      var progress = false;
+      var animationProgress = 'animation-progress';
+      var el = angular.element(element);
+
+      return el.hasClass(animationProgress);
+    }
+
+    function queueAnimation(el, animation) {
+
+      var checkQueue = function() {
+        setTimeout(function() {
+          if(animationInProgress(el)) {
+            checkQueue();
+            return;
+          } else {
+            animation();
+          }
+        }, 50);
+      }
+
+      checkQueue();
     }
   }
 
