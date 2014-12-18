@@ -284,11 +284,18 @@ $menubar-icon-spacing: $menubar-item-padding !default;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    overflow-x: auto;
+    flex-wrap: wrap;
 
-    // Left and right sections shrink
+    @include breakpoint(medium) {
+      flex-wrap: nowrap;
+    }
+
     > .menu-group-left, > .menu-group-right {
-      flex: 0 0 auto;
+      flex: 1 1 100%;
+
+      @include breakpoint(medium) {
+        flex: 0 0 auto;
+      }
     }
 
     // Menu bar is condensed
