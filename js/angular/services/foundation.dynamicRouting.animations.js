@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  angular.module('foundation.dynamicRouting.animations', ['ngAnimate', 'foundation.dynamicRouting'])
+  angular.module('foundation.dynamicRouting.animations', ['foundation.dynamicRouting'])
     .directive('uiView', uiView)
   ;
 
