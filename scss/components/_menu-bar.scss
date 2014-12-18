@@ -214,66 +214,108 @@ $menubar-icon-spacing: $menubar-item-padding !default;
 /*
   CSS output
 */
-.menu-bar {
-  @extend %menu-bar;
-  @include menu-bar-style;
+@include exports(menu-bar) {
+  .menu-bar {
+    @extend %menu-bar;
+    @include menu-bar-style;
 
-  // Positioning
-  &, &.horizontal  { @include menu-bar-layout(horizontal); }
-  &.vertical       { @include menu-bar-layout(vertical); }
+    // Positioning
+    &, &.horizontal  { @include menu-bar-layout(horizontal); }
+    &.vertical       { @include menu-bar-layout(vertical); }
 
-  // Condensed bar
-  &.condense {
-    li { flex: 0 0 auto; }
-  }
-  @each $size in $breakpoint-classes {
-    @include breakpoint($size) {
-      &.#{$size}-condense { li { flex: 0 0 auto; } }
-      &.#{$size}-expand   { li { flex: 1 0 auto; } }
+    // Condensed bar
+    &.condense {
+      li { flex: 0 0 auto; }
     }
-  }
-
-  // Responsive positioning
-  @each $size in $breakpoint-classes {
-    @include breakpoint($size) {
-      &.#{$size}-horizontal {
-        @include menu-bar-layout(horizontal);
-      }
-      &.#{$size}-vertical {
-        @include menu-bar-layout(vertical);
-      }
-    }
-  }
-
-  // Icon positioning
-  &, &.icon-top { @include menu-bar-icons(top); }
-  &.icon-right  { @include menu-bar-icons(right); }
-  &.icon-bottom { @include menu-bar-icons(bottom); }
-  &.icon-left   { @include menu-bar-icons(left); }
-  @each $size in $breakpoint-classes {
-    @each $pos in (top, right, bottom, left) {
+    @each $size in $breakpoint-classes {
       @include breakpoint($size) {
-        &.#{$size}-icon-#{$pos} { @include menu-bar-icons($pos); }
+        &.#{$size}-condense { li { flex: 0 0 auto; } }
+        &.#{$size}-expand   { li { flex: 1 0 auto; } }
       }
+    }
+
+    // Responsive positioning
+    @each $size in $breakpoint-classes {
+      @include breakpoint($size) {
+        &.#{$size}-horizontal {
+          @include menu-bar-layout(horizontal);
+        }
+        &.#{$size}-vertical {
+          @include menu-bar-layout(vertical);
+        }
+      }
+    }
+
+    // Icon positioning
+    &, &.icon-top { @include menu-bar-icons(top); }
+    &.icon-right  { @include menu-bar-icons(right); }
+    &.icon-bottom { @include menu-bar-icons(bottom); }
+    &.icon-left   { @include menu-bar-icons(left); }
+    @each $size in $breakpoint-classes {
+      @each $pos in (top, right, bottom, left) {
+        @include breakpoint($size) {
+          &.#{$size}-icon-#{$pos} { @include menu-bar-icons($pos); }
+        }
+      }
+    }
+
+    // Labels
+    &.label-side   { @include menu-bar-labels(right, center); }
+    &.label-corner { @include menu-bar-labels(right, top); }
+
+    // Coloring
+    &.primary {
+      @include menu-bar-style($primary-color, $autocolor: true);
+    }
+    &.dark {
+      @include menu-bar-style($dark-color, $autocolor: true);
+    }
+
+    // Title
+    > li.title {
+      padding: $menubar-item-padding;
+      cursor: default;
+      font-weight: bold;
     }
   }
 
-  // Labels
-  &.label-side   { @include menu-bar-labels(right, center); }
-  &.label-corner { @include menu-bar-labels(right, top); }
+  // Menu groups
+  .menu-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
 
-  // Coloring
-  &.primary {
-    @include menu-bar-style($primary-color, $autocolor: true);
-  }
-  &.dark {
-    @include menu-bar-style($dark-color, $autocolor: true);
-  }
+    @include breakpoint(medium) {
+      flex-wrap: nowrap;
+    }
 
-  // Title
-  > li.title {
-    padding: $menubar-item-padding;
-    cursor: default;
-    font-weight: bold;
+    > .menu-group-left, > .menu-group-right {
+      flex: 1 1 100%;
+
+      @include breakpoint(medium) {
+        flex: 0 0 auto;
+      }
+    }
+
+    // Menu bar is condensed
+    .menu-bar {
+      @include menu-bar-layout(horizontal, false);
+      margin: 0;
+    }
+
+    // Coloring class cascades down to the menu bar
+    &.primary {
+      background-color: $primary-color;
+      .menu-bar {
+        @include menu-bar-style($primary-color, $autocolor: true);
+      }
+    }
+    &.dark {
+      background-color: $dark-color;
+      .menu-bar {
+        @include menu-bar-style($dark-color, $autocolor: true);
+      }
+    }
   }
 }
