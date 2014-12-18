@@ -118,10 +118,11 @@
 
 
   function FoundationApi() {
-    var listeners = [];
-    var settings  = {};
-    var uniqueIds = [];
-    var service = {};
+    var listeners  = [];
+    var settings   = {};
+    var uniqueIds  = [];
+    var animations = [];
+    var service    = {};
 
     service.subscribe           = subscribe;
     service.publish             = publish;
@@ -208,6 +209,44 @@
       var events = ['webkitAnimationEnd', 'mozAnimationEnd', 'MSAnimationEnd', 'oanimationend', 'animationend',
                 'webkitTransitionEnd', 'otransitionend', 'transitionend'];
       var timedOut = true;
+      var self = this;
+
+      self.cancelAnimation = function() {
+        deregisterElement(element);
+        element.off(events.join(' ')); //kill all animation event handlers
+      }
+
+      var registerElement = function(el) {
+        var elObj = {
+          el: el,
+          animation: self
+        };
+
+        //kill in progress animations
+        var inProgress = animations.filter(function(obj) {
+          return obj.el === el;
+        });
+
+        if(inProgress.length > 0) {
+          inProgress[0].animation.cancelAnimation();
+        }
+
+        animations.push(elObj);
+      };
+
+      var deregisterElement = function(el) {
+        var index;
+        var currentAnimation = animations.filter(function(obj, ind) {
+          if(obj.el === el) {
+            index = ind;
+          }
+        });
+
+        if(index >= 0) {
+          animations.splice(index, 1);
+        }
+
+      };
 
       var reflow = function() {
         return element[0].offsetWidth;
@@ -223,6 +262,7 @@
         var activeClass = activation ? activeClasses[0] : activeClasses[1];
 
         var finishAnimation = function() {
+          deregisterElement(element);
           reset(); //reset all classes
           element.removeClass(!activation ? activeGenericClass : ''); //if not active, remove active class
           reflow();
@@ -230,6 +270,7 @@
         };
 
         //stop animation
+        registerElement(element);
         reset();
         element.addClass(animationClass);
         element.addClass(initClass);
