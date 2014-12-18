@@ -9,7 +9,7 @@
     return {
       restrict : 'ECA',
       priority : -400,
-      link     : function (scope, element) {
+      link     : function link(scope, element) {
         var animation = {};
 
         var cleanup = [
@@ -19,7 +19,7 @@
           scope.$on('$viewContentAnimationEnded', onViewContentAnimationEnded)
         ];
 
-        var destroyed = scope.$on('$destroy', function () {
+        var destroyed = scope.$on('$destroy', function onDestroy() {
           angular.forEach(cleanup, function (cb) {
             if (angular.isFunction(cb)) {
               cb();
@@ -36,19 +36,19 @@
         }
 
         function onStateChangeError() {
-          if (animation.leave ) {
+          if (animation.leave) {
             element.removeClass(animation.leave);
           }
         }
 
         function onStateChangeSuccess() {
           if ($state.includes(getState()) && animation.enter) {
-            element.addClass( animation.enter );
+            element.addClass(animation.enter);
           }
         }
 
-        function onViewContentAnimationEnded( ev ) {
-          if (ev.targetScope.$id === scope.$id && animation.enter) {
+        function onViewContentAnimationEnded(ev) {
+          if (ev.targetScope === scope && animation.enter) {
             element.removeClass(animation.enter);
           }
         }
