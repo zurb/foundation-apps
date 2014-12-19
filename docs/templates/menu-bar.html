@@ -263,16 +263,5 @@ title: Menu Bar
 
 <p>Use these variables to change the core styles of the menu bar.</p>
 
-<hljs>
-$menubar-fontsize: 1rem !default;
-$menubar-background: #fff !default;
-$menubar-background-hover: smartscale($menubar-background, 7%) !default;
-$menubar-background-active: $menubar-background-hover;
-$menubar-color: isitlight($menubar-background) !default;
-$menubar-color-hover: $menubar-color !default;
-$menubar-color-active: $menubar-color-hover;
-
-$menubar-item-padding: $global-padding !default;
-$menubar-icon-size: 25px !default;
-$menubar-icon-spacing: $menubar-item-padding !default;
+<hljs include="'partials/scss/menu-bar.html'" language="scss">
 </hljs>

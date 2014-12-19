@@ -134,16 +134,6 @@ title: Accordion
 <hr>
 
 <h3>Sass Variables</h3>
-<p>You can customize with accordions with these variables in _settings.scss</p>
-<hljs>
-$accordion-border: 1px solid $gray-dark;
-
-$accordion-title-background: $gray-light;
-$accordion-title-background-hover: smartscale($accordion-title-background, 5%);
-$accordion-title-background-active: smartscale($accordion-title-background, 3%);
-$accordion-title-color: isitlight($accordion-title-background);
-$accordion-title-color-active: isitlight($accordion-title-background);
-
-$accordion-title-padding: $global-padding;
-$accordion-content-padding: $global-padding;
+<p>You can customize the accordion with these variables in <code>_settings.scss</code></p>
+<hljs include="'partials/scss/accordion.html'" language="scss">
 </hljs>
