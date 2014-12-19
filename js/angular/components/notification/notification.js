@@ -56,7 +56,7 @@
           controller.clearAll();
         } else {
           controller.addNotification(msg);
-          scope.$apply();
+          scope.$applyAsync();
         }
       });
     }
