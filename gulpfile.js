@@ -117,7 +117,7 @@ gulp.task('copy:partials', ['clean:partials'], function() {
 // - - - - - - - - - - - - - - -
 
 // Inject styles for docs-specific libraries
-gulp.task('css', ['sass'], function() {
+gulp.task('css', ['sass', 'settings'], function() {
   var dirs = [
     'bower_components/allmighty-autocomplete/style/autocomplete.css',
     'build/assets/css/app.css'
@@ -157,6 +157,11 @@ gulp.task('node-sass', function() {
     }))
     .pipe(concat('app_node.css'))
     .pipe(gulp.dest('./build/assets/css/'));
+});
+
+// Generate Sass settings file
+gulp.task('settings', function() {
+  return require('./parseSettings')();
 });
 
 // 6. JAVASCRIPT
@@ -269,11 +274,6 @@ gulp.task('deploy:cdn', ['build'], function() {
       hostname: 'deployer@72.32.134.77',
       destination: '/home/deployer/sites/foundation-apps/current/cdn'
     }));
-});
-
-// Generate settings file (test)
-gulp.task('gen', function() {
-  require('./parseSettings')();
 });
 
 // 10. NOW BRING IT TOGETHER
