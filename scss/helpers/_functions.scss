@@ -4,9 +4,10 @@
 // Licensed under MIT Open Source
 
 $include-css: () !default;
+$modules: () !default;
 $rem-base: 16px !default;
 
-// [PH] Using
+/// Checks if a module is in use.
 @function using($name) {
   // Import from global scope
   $include-css: $include-css !global;
@@ -20,26 +21,30 @@ $rem-base: 16px !default;
   }
 }
 
-/// Exports
-/// Outputs the chunk of content passed if component $name hasn't yet been output. This prevents code duplication by keeping track of which components have already been output.
-///
-/// @param {keyword} $name - Name of component to output.
-///
-/// @output The content passed, if the component has not yet been referenced.
-$modules: () !default;
-@mixin exports($name) {
+/// Checks if a module's CSS has already been exported.
+@function imported($name) {
   // Import from global scope
-  $include-css: $include-css !global;
+  $modules: $modules !global;
+  // Check if the module is already on the imported list
+  @if type-of(index($modules, $name)) == 'number' {
+    @return true;
+  }
+  @else {
+    @return false;
+  }
+}
+
+/// Outputs the chunk of content passed if component $name hasn't yet been output.
+/// This prevents code duplication by keeping track of which components have already been output.
+///
+/// @param {string} $name - Name of component to output
+///
+/// @output The content passed, if the component has not yet been exported.
+@mixin exports($name) {
   // Check if the module has already been imported
-  $module-index: index($modules, $name);
-  @if (($module-index == null) or ($module-index == false)) {
-    // Check if it's on the Foundation export list
-    $module-key: map-get($include-css, $name);
-    // If $module-key is true, then the value is on the list and set to be exported
-    // if $module-key is false, then the value is on the list and set to NOT be exported
-    // If $module-key is null, then the value is not on the list, which means someone
-    // is using it with a custom component, so just export it anyway
-    @if $module-key == true or $module-key == null {
+  @if not imported($name) {
+    // Check if the module should be used
+    @if using($name) {
       $modules: append($modules, $name) !global;
       @content;
     }

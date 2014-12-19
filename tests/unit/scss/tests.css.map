@@ -1,7 +1,0 @@
-{
-"version": 3,
-"mappings": ";;;;;;;;;AAMI,0DAA8B;ECqB5B,CAAU,EACR,4BACgC;EDVhC,IAAI,EAAE,MAAM;;AETlB,YAAa;EACX,OAAO,EDHG,KAAuB;ECIjC,KAAK,EAAI,gCAAgB;EACzB,KAAK,EAAI,EAAgB;EACzB,OAAO,EAAE,EAAgB;EACzB,MAAM,EAAG,EAAgB;EACzB,MAAM,EAAG,CAAgB;EACzB,OAAO,EAAE,CAAgB",
-"sources": ["../../../../../../../Users/geoff/Sites/fa/bower_components/bootcamp/dist/core/mixins/_it.scss","../../../../../../../Users/geoff/Sites/fa/bower_components/bootcamp/dist/core/mixins/_should.scss","../../../../../../../Users/geoff/Sites/fa/bower_components/bootcamp/dist/core/mixins/_runner.scss"],
-"names": [],
-"file": "tests.css"
-}

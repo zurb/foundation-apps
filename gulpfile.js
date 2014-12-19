@@ -136,8 +136,8 @@ gulp.task('sass', ['settings'], function() {
       style: 'nested',
       bundleExec: true
     })
-    .on('error', function(e) {
-      console.log(e);
+    .on('error', function(err) {
+      console.log(err.message);
     })
     .pipe(autoprefixer({
       browsers: ['last 2 versions', 'ie 10']
@@ -247,8 +247,10 @@ gulp.task('sass:test', function() {
     loadPath: ['scss', 'docs/assets/scss', 'bower_components/bootcamp/dist'],
     style: 'nested',
     bundleExec: true
-   })
-    .pipe(gulp.dest('tests/unit/scss'));
+  })
+    .on('data', function(data) {
+      console.log(data.contents.toString());
+    });
 });
 
 gulp.task('test', ['karma:test', 'sass:test'], function() {
