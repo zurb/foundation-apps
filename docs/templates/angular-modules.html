@@ -97,3 +97,105 @@ name: angular-modules
 <p>This module is an optional add-on which allows the dynamically routed views to animate as long as there is an <code>animationIn</code> and an <code>animationOut</code> in the front-matter of the template</p>
 
 <h3>Accordion</h3>
+
+<p>The accordion has no external dependencies and can function on its own (as long as the CSS is there). It has several options:</p>
+
+<ul>
+  <li>Multi open - allows multiple accordion items to be open at the same time.</li>
+  <li>Collapsible - when clicking an accordion item, it becomes toggle-able</li>
+  <li>Auto Open - automatically opens the first accordion item on render</li>
+</ul>
+
+<p>Note: This element cannot be opened, closed or toggled by any of the Foundation helpers.</p>
+
+<h3>Action Sheet</h3>
+<p><strong>Dependencies:</strong></p>
+<ul>
+  <li>foundation.core - FoundationApi</li>
+</ul>
+
+<p>The actionsheet uses the FoundationApi for various tasks. Most notably, it can be toggled or closed by a Foundation Helper. It also uses FoundationApi to create a unique ID if one is not assigned.</p>
+
+<h3>Common</h3>
+<p><strong>Dependencies:</strong></p>
+<ul>
+  <li>foundation.core - FoundationApi</li>
+  <li>HammerJS - required only for zf-swipe-close</li>
+</ul>
+
+<p>The common module houses several helper directives:</p>
+
+<ul>
+  <li>zf-close - a directive that closes a target (if the target is enabled to do so)</li>
+  <li>zf-open - a directive that opens a target</li>
+  <li>zf-toggle - a directive that toggles a target</li>
+  <li>zf-esc-close - on escape, closes all open directives</li>
+  <li>zf-swipe-close</li>
+  <li>zf-hard-toggle - toggles an element and closes all other open elements</li>
+</ul>
+
+<h3>Iconic</h3>
+<p><strong>Dependencies:</strong></p>
+<ul>
+  <li>IconicJs</li>
+  <li>Iconic icon svg</li>
+</ul>
+
+<p>The Iconic module includes both a directive to create an icon but also a service that works as a wrapper for the IconicJS object</p>
+
+<h3>Interchange</h3>
+<p><strong>Dependencies:</strong></p>
+<ul>
+  <li>foundation.core</li>
+</ul>
+
+<p>Interchange uses media queries to break at different points. Those are extracted from the CSS and implemented as part of the core module. Interchange also features some of its own media queries. Note that Interchange won't work without the breakpoints in the CSS.</p>
+
+<h3>Modal</h3>
+<p><strong>Dependencies:</strong></p>
+<ul>
+  <li>foundation.core - FoundationApi</li>
+</ul>
+
+<p>The modal depends on FoundationApi in order to be toggled open or closed.</p>
+
+<h3>Notification</h3>
+<p><strong>Dependencies:</strong></p>
+<ul>
+  <li>foundation.core</li>
+</ul>
+
+<p>The notification module actually houses two separate sets of notification directives: one of them for static notifications, one for dynamic. Both require FoundationApi</p>
+
+<h3>Offcanvas</h3>
+<p><strong>Dependencies:</strong></p>
+<ul>
+  <li>foundation.core</li>
+</ul>
+
+<p>Offcanvas uses FoundationApi to open and close.</p>
+
+<h3>Panel</h3>
+<p><strong>Dependencies:</strong></p>
+<ul>
+  <li>foundation.core</li>
+</ul>
+
+<p>Panel uses FoundationApi to open and close. It also uses it for more complex animations and uses Media Queries (provided by Foundation CSS) in order to close whenever a link is clicked and the size of the window is smaller than medium.</p>
+
+<h3>Popup</h3>
+<p><strong>Dependencies:</strong></p>
+<ul>
+  <li>foundation.core</li>
+  <li>TetherJS</li>
+</ul>
+
+<p>Popup uses FoundationApi to open and close. It also uses TetherJS to attach an element to the target.</p>
+
+<h3>Tabs</h3>
+<p><strong>Dependencies:</strong></p>
+<ul>
+  <li>foundation.core</li>
+</ul>
+
+<p>Tabs, like Notifications, has two different groups of directives. One set is meant for regular tabs, the other is meant for custom-built tabs and tab-like functionality.</p>
