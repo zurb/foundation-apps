@@ -4,9 +4,8 @@
 // Licensed under MIT Open Source
 
 $include-css: () !default;
+$modules: () !default;
 $rem-base: 16px !default;
-
-$include-css: () !default;
 
 /// Checks if a module is in use.
 @function using($name) {
@@ -41,7 +40,6 @@ $include-css: () !default;
 /// @param {string} $name - Name of component to output
 ///
 /// @output The content passed, if the component has not yet been exported.
-$modules: () !default;
 @mixin exports($name) {
   // Check if the module has already been imported
   @if not imported($name) {

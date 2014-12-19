@@ -136,8 +136,8 @@ gulp.task('sass', ['settings'], function() {
       style: 'nested',
       bundleExec: true
     })
-    .on('error', function(e) {
-      console.log(e);
+    .on('error', function(err) {
+      console.log(err.message);
     })
     .pipe(autoprefixer({
       browsers: ['last 2 versions', 'ie 10']
