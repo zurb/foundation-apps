@@ -2,11 +2,20 @@
   Label
 */
 
+/// @Foundation.settings
+// Label
 $label-fontsize: 0.8rem !default;
 $label-padding: ($global-padding / 3) ($global-padding / 2) !default;
 $label-radius: 0 !default;
 $label-background: $primary-color !default;
 $label-color: isitlight($primary-color) !default;
+
+$badge-fontsize: 1em !default;
+$badge-padding: .1em .61em !default;
+$badge-radius: $global-rounded !default;
+$badge-background: $primary-color !default;
+$badge-font-color: #fff !default;
+///
 
 %label {
   line-height: 1;
@@ -67,12 +76,6 @@ $label-color: isitlight($primary-color) !default;
 /*
   Badge
 */
-
-$badge-fontsize: 1em !default;
-$badge-padding: .1em .61em !default;
-$badge-radius: $global-rounded !default;
-$badge-background: $primary-color !default;
-$badge-font-color: #fff !default;
 
 %badge {
   align-items: center;

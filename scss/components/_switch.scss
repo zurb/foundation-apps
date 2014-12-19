@@ -3,6 +3,8 @@
   ------
 */
 
+/// @Foundation.settings
+// Switch
 $switch-width: rem-calc(50) !default;
 $switch-height: rem-calc(32) !default;
 $switch-background: #ccc !default;
@@ -13,6 +15,7 @@ $switch-animation-speed: 0.15s !default;
 
 $switch-paddle-color: white !default;
 $switch-paddle-offset: 4px !default;
+///
 
 %switch {
   position: relative;

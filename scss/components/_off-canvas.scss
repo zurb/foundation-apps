@@ -5,6 +5,8 @@
   A generic container that stays fixed to the left, top, right, or bottom of the screen, and is summoned when needed. When an off-canvas panel is open, the app frame shifts over to reveal the menu.
 */
 
+/// @Foundation.settings
+// Off-canvas
 $offcanvas-size-horizontal: 250px !default;
 $offcanvas-size-vertical: 250px !default;
 
@@ -15,6 +17,7 @@ $offcanvas-shadow: 3px 0 10px rgba(black, 0.25) !default;
 $offcanvas-animation-speed: 0.25s !default;
 
 $offcanvas-frame-selector: '.grid-frame' !default;
+///
 
 %off-canvas {
   position: fixed;

@@ -2,6 +2,8 @@
   Odds and ends.
 */
 
+/// @Foundation.settings
+// Extras
 $closebutton-position: (top right) !default;
 $closebutton-size: 2em !default;
 $closebutton-lineheight: 0.5 !default;
@@ -10,6 +12,7 @@ $closebutton-color-hover: #333 !default;
 
 $thumbnail-padding: 0.5rem !default;
 $thumbnail-shadow: 0 3px 15px rgba(black, 0.25) !default;
+///
 
 // A basic close button. They pin to the corner of the thing they're inside.
 %close-button {

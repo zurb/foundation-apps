@@ -17,6 +17,10 @@
   width first. So 0 is always your first value.
 */
 
+/// @Foundation.settings
+// Breakpoints
+// These are our named breakpoints. You can use them in our breakpoint function like this:
+// @include breakpoint(medium) { // Medium and larger styles }
 $breakpoints: (
   small: rem-calc(0),
   medium: rem-calc(640),
@@ -25,7 +29,9 @@ $breakpoints: (
   xxlarge: rem-calc(1920),
 ) !default;
 
+// All of the names in this list will be output as classes in your CSS, like small-12, medium-6, and so on.
 $breakpoint-classes: (small medium large) !default;
+///
 
 /*
   Breakpoint

@@ -7,6 +7,8 @@
   Optionally, the notifications directive can also tap into the browser's native notification support, if it exists.
 */
 
+/// @Foundation.settings
+// Notification
 $notification-default-position: right top !default;
 $notification-width: rem-calc(400) !default;
 $notification-offset: $global-padding !default;
@@ -19,6 +21,7 @@ $notification-radius: 4px !default;
 $notification-icon-size: 60px !default;
 $notification-icon-margin: $global-padding !default;
 $notification-icon-align: top !default;
+///
 
 %notification {
   position: fixed;

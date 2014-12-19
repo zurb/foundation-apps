@@ -9,6 +9,9 @@
    -
 */
 
+/// @Foundation.settings
+// Global Styles
+// This sets 1rem to be 16px
 $rem-base: 16px;
 
 // The default font-size is set to 100% of the browser style sheet (usually 16px)
@@ -49,6 +52,15 @@ $gray: #dfdfdf !default;
 $gray-dark: darken($gray, 8) !default;
 $gray-light: lighten($gray, 8) !default;
 
+// We use these to make sure border radius matches unless we want it different.
+$global-radius: 4px !default;
+$global-rounded: 1000px !default;
+
+// We use this for default spacing
+$global-padding: 1rem !default;
+$global-spacing: rem-calc(15) !default;
+///
+
 // For internal use: a color map
 $foundation-colors: (
   primary: $primary-color,
@@ -58,75 +70,58 @@ $foundation-colors: (
   dark: $dark-color,
 );
 
-// We use these to make sure border radius matches unless we want it different.
-$global-radius: 4px !default;
-$global-rounded: 1000px !default;
-
-// We use this for default spacing
-$global-padding: 1rem !default;
-$global-spacing: rem-calc(15) !default;
-
-// We use this to control whether or not global CSS styles are output.
-$include-html-classes: true !default;
-$include-print-styles: true !default;
-$include-html-global-classes: $include-html-classes !default;
-
 @include exports("global") {
+  // Make extra sure we're using the whole window
+  html, body {
+    height: 100%;
+    font-size: $base-font-size;
+  }
 
-  @if $include-html-global-classes {
+  // Set box-sizing globally to handle padding and border widths
+  html {
+    box-sizing: border-box;
+  }
+  *, *:before, *:after {
+    box-sizing: inherit;
+  }
 
-    // Make extra sure we're using the whole window
-    html, body {
-      height: 100%;
-      font-size: $base-font-size;
+  // Default body styles
+  body {
+    background: $body-background;
+    color: $body-font-color;
+    padding: 0;
+    margin: 0;
+    font-family: $body-font-family;
+    font-weight: $body-font-weight;
+    font-style: $body-font-style;
+    line-height: 1;
+    position: relative;
+
+    @if $body-antialiased {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
+  }
 
-    // Set box-sizing globally to handle padding and border widths
-    html {
-      box-sizing: border-box;
-    }
-    *, *:before, *:after {
-      box-sizing: inherit;
-    }
+  img {
+    // Grid Defaults to get images and embeds to work properly
+    max-width: 100%;
+    height: auto;
+    -ms-interpolation-mode: bicubic;
 
-    // Default body styles
-    body {
-      background: $body-background;
-      color: $body-font-color;
-      padding: 0;
-      margin: 0;
-      font-family: $body-font-family;
-      font-weight: $body-font-weight;
-      font-style: $body-font-style;
-      line-height: 1;
-      position: relative;
+    // Get rid of gap under images by making them display: inline-block; by default
+    display: inline-block;
+    vertical-align: middle;
+  }
 
-      @if $body-antialiased {
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-      }
-    }
+  #map_canvas,
+  .map_canvas {
+    img,
+    embed,
+    object { max-width: none !important; }
+  }
 
-    img {
-      // Grid Defaults to get images and embeds to work properly
-      max-width: 100%;
-      height: auto;
-      -ms-interpolation-mode: bicubic;
-
-      // Get rid of gap under images by making them display: inline-block; by default
-      display: inline-block;
-      vertical-align: middle;
-    }
-
-    #map_canvas,
-    .map_canvas {
-      img,
-      embed,
-      object { max-width: none !important; }
-    }
-
-    .padding {
-      padding: $global-padding;
-    }
+  .padding {
+    padding: $global-padding;
   }
 }

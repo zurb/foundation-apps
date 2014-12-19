@@ -35,7 +35,8 @@ var gulp           = require('gulp'),
     dynamicRouting = require('./bin/gulp-dynamic-routing'),
     karma          = require('gulp-karma'),
     rsync          = require('gulp-rsync'),
-    merge          = require('merge-stream');
+    merge          = require('merge-stream'),
+    settingsParser = require('settings-parser');
 
 // 2. VARIABLES
 // - - - - - - - - - - - - - - -
@@ -129,7 +130,7 @@ gulp.task('css', ['sass'], function() {
 });
 
 // Compile stylesheets with Ruby Sass
-gulp.task('sass', function() {
+gulp.task('sass', ['settings'], function() {
   return sass('docs/assets/scss/', {
       loadPath: ['scss'],
       style: 'nested',
@@ -157,6 +158,18 @@ gulp.task('node-sass', function() {
     }))
     .pipe(concat('app_node.css'))
     .pipe(gulp.dest('./build/assets/css/'));
+});
+
+// Generate Sass settings file
+gulp.task('settings', function() {
+  return settingsParser([
+    'scss/_includes.scss',
+    'scss/_global.scss',
+    'scss/helpers/_breakpoints.scss',
+    'scss/components/_typography.scss',
+    'scss/components/_grid.scss',
+    'scss/components/*.scss'
+  ]);
 });
 
 // 6. JAVASCRIPT

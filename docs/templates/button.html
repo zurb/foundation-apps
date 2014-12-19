@@ -215,24 +215,5 @@ title: Button
 
 <p>Buttons can be easily customized using our Sass variables.</p>
 
-<hljs>
-$button-padding: 0.85em 1em;
-$button-margin: 0 $global-padding $global-padding 0;
-$button-style: solid;
-$button-background: $primary-color;
-$button-color: auto;
-$button-radius: 0;
-$button-sizes: (
-  tiny: 0.7,
-  small: 0.8,
-  medium: 1,
-  large: 1.3,
-);
-$button-font-size: 0.9rem;
-$button-opacity-disabled: 0.8;
-$button-tag-selector: true;
-
-$btngroup-background: $primary-color;
-$btngroup-color: #fff;
-$btngroup-radius: $button-radius;
+<hljs include="'partials/scss/button.html'" language="scss">
 </hljs>

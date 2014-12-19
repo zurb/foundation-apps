@@ -1,3 +1,5 @@
+/// @Foundation.settings
+// Button
 $button-padding: 0.85em 1em !default;
 $button-margin: 0 $global-padding $global-padding 0 !default;
 $button-style: solid !default;
@@ -13,6 +15,7 @@ $button-sizes: (
 $button-font-size: 0.9rem !default;
 $button-opacity-disabled: 0.5 !default;
 $button-tag-selector: true !default;
+///
 
 %button {
   display: inline-block;

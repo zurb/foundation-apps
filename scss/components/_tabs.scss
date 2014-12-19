@@ -3,6 +3,8 @@
   ----
 */
 
+/// @Foundation.settings
+// Tabs
 $tabstrip-background: transparent !default;
 
 $tab-title-background: $gray-light !default;
@@ -13,6 +15,7 @@ $tab-title-color-active: $tab-title-color !default;
 
 $tab-title-padding: $global-padding !default;
 $tab-content-padding: $global-padding !default;
+///
 
 @mixin tabstrip(
 	$orientation: horizontal,

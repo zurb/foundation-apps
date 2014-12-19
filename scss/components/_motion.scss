@@ -17,6 +17,8 @@
 // 0. Variables
 // - - - - - - - - - - - - - - - - - - - - - - - - -
 
+/// @Foundation.settings
+// Motion UI
 // Classes to use when triggering in/out animations
 $motion-class: (
   in: "ng-enter",
@@ -59,6 +61,7 @@ $motion-delay-default: 0 !default;
 // Short and long delay modifiers
 $motion-delay-short: 300ms !default;
 $motion-delay-long: 700ms !default;
+///
 
 // Looks for a timing function in the list of presets
 // If none are found, returns the value as-is.

@@ -9,10 +9,13 @@
 //  - Coloring mixin
 //  - Angular support
 
+/// @Foundation.settings
+// Iconic
 $iconic-primary-fill: $primary-color !default;
 $iconic-primary-stroke: $primary-color !default;
 $iconic-accent-fill: $iconic-primary-fill !default;
 $iconic-accent-stroke: $iconic-accent-fill !default;
+///
 
 // Colors the fill, and optionally stroke, accent fill, and accent stroke of an Iconic icon.
 @mixin color-icon(
