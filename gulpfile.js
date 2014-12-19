@@ -273,11 +273,7 @@ gulp.task('deploy:cdn', ['build'], function() {
 
 // Generate settings file (test)
 gulp.task('gen', function() {
-  var parseSettings = require('./parseSettings');
-  gulp.src('scss/components/**/*.scss')
-    .pipe(parseSettings())
-    .pipe(concat('_settings.scss'))
-    .pipe(gulp.dest('.'));
+  require('./parseSettings')();
 });
 
 // 10. NOW BRING IT TOGETHER
