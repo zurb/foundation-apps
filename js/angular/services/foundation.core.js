@@ -210,13 +210,17 @@
                 'webkitTransitionEnd', 'otransitionend', 'transitionend'];
       var timedOut = true;
       var self = this;
+      self.cancelAnimation = cancelAnimation;
 
-      self.cancelAnimation = function() {
+      animateElement(futureState ? animationIn : animationOut, futureState);
+
+      function cancelAnimation() {
         deregisterElement(element);
         element.off(events.join(' ')); //kill all animation event handlers
-      }
+        timedOut = false;
+      };
 
-      var registerElement = function(el) {
+      function registerElement(el) {
         var elObj = {
           el: el,
           animation: self
@@ -232,9 +236,9 @@
         }
 
         animations.push(elObj);
-      };
+      }
 
-      var deregisterElement = function(el) {
+      function deregisterElement(el) {
         var index;
         var currentAnimation = animations.filter(function(obj, ind) {
           if(obj.el === el) {
@@ -246,18 +250,18 @@
           animations.splice(index, 1);
         }
 
-      };
+      }
 
-      var reflow = function() {
+      function reflow() {
         return element[0].offsetWidth;
-      };
+      }
 
-      var reset = function() {
+      function reset() {
         element[0].style.transitionDuration = 0;
         element.removeClass(initClasses.join(' ') + ' ' + activeClasses.join(' ') + ' ' + animationIn + ' ' + animationOut);
-      };
+      }
 
-      var animate = function(animationClass, activation) {
+      function animateElement(animationClass, activation) {
         var initClass = activation ? initClasses[0] : initClasses[1];
         var activeClass = activation ? activeClasses[0] : activeClasses[1];
 
@@ -292,9 +296,8 @@
             finishAnimation();
           }
         }, 3000);
-      };
+      }
 
-      animate(futureState ? animationIn : animationOut, futureState);
     }
   }
 
