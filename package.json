@@ -48,7 +48,7 @@
     "rimraf": "^2.2.8",
     "run-sequence": "^1.0.1",
     "through2": "^0.6.2",
-    "settings-parser": "file:./lib/settings-parser"
+    "settings-parser": "zurb/foundation-settings-parser"
   },
   "private": true
 }

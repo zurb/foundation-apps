@@ -35,7 +35,8 @@ var gulp           = require('gulp'),
     dynamicRouting = require('./bin/gulp-dynamic-routing'),
     karma          = require('gulp-karma'),
     rsync          = require('gulp-rsync'),
-    merge          = require('merge-stream');
+    merge          = require('merge-stream'),
+    settingsParser = require('settings-parser');
 
 // 2. VARIABLES
 // - - - - - - - - - - - - - - -
@@ -161,7 +162,14 @@ gulp.task('node-sass', function() {
 
 // Generate Sass settings file
 gulp.task('settings', function() {
-  return require('settings-parser')();
+  return settingsParser([
+    'scss/_includes.scss',
+    'scss/_global.scss',
+    'scss/helpers/_breakpoints.scss',
+    'scss/components/_typography.scss',
+    'scss/components/_grid.scss',
+    'scss/components/*.scss'
+  ]);
 });
 
 // 6. JAVASCRIPT
