@@ -1,0 +1,22 @@
+{
+  "name": "settings-parser",
+  "version": "0.0.1",
+  "description": "Parses Sass files to generate a settings file with a table of contents.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "gulp": "^3.8.8",
+    "gulp-concat": "^2.4.1",
+    "gulp-ignore": "^1.2.1",
+    "gulp-inject-string": "0.0.2",
+    "gulp-order": "^1.1.1",
+    "gulp-rename": "^1.2.0",
+    "multiline": "^1.0.1",
+    "through2": "^0.6.2",
+    "vinyl-map": "^1.0.1"
+  },
+  "author": "ZURB",
+  "license": "MIT"
+}

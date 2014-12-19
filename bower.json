@@ -29,10 +29,12 @@
     "bower_components",
     "docs",
     "build",
+    "lib",
     "gulpfile.js",
     "karma.conf.js",
     "package.json",
-    "tests"
+    "tests",
+    "scss/_includes.scss"
   ],
   "devDependencies": {
     "angular-mocks": "~1.3.4",

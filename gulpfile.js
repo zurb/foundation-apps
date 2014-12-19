@@ -117,7 +117,7 @@ gulp.task('copy:partials', ['clean:partials'], function() {
 // - - - - - - - - - - - - - - -
 
 // Inject styles for docs-specific libraries
-gulp.task('css', ['sass', 'settings'], function() {
+gulp.task('css', ['sass'], function() {
   var dirs = [
     'bower_components/allmighty-autocomplete/style/autocomplete.css',
     'build/assets/css/app.css'
@@ -129,7 +129,7 @@ gulp.task('css', ['sass', 'settings'], function() {
 });
 
 // Compile stylesheets with Ruby Sass
-gulp.task('sass', function() {
+gulp.task('sass', ['settings'], function() {
   return sass('docs/assets/scss/', {
       loadPath: ['scss'],
       style: 'nested',
@@ -161,7 +161,7 @@ gulp.task('node-sass', function() {
 
 // Generate Sass settings file
 gulp.task('settings', function() {
-  return require('./parseSettings')();
+  return require('settings-parser')();
 });
 
 // 6. JAVASCRIPT
