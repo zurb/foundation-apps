@@ -247,8 +247,10 @@ gulp.task('sass:test', function() {
     loadPath: ['scss', 'docs/assets/scss', 'bower_components/bootcamp/dist'],
     style: 'nested',
     bundleExec: true
-   })
-    .pipe(gulp.dest('tests/unit/scss'));
+  })
+    .on('data', function(data) {
+      console.log(data.contents.toString());
+    });
 });
 
 gulp.task('test', ['karma:test', 'sass:test'], function() {

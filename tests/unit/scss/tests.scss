@@ -20,10 +20,9 @@
   @include it("should check if a module has already been imported") {
     $modules: () !global;
 
+    @include should(expect(imported(test)), to(be(false)));
     @include exports(test) {}
-
     @include should(expect(imported(test)), to(be(true)));
-    @include should(expect(imported(testTwo)), to(be(false)));
   }
 }
 
