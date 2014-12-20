@@ -26,6 +26,9 @@
   function zfIconic(iconic) {
     var directive = {
       restrict: 'A',
+      scope: {
+        dynSrc: '=?'
+      },
       link: link
     };
 
@@ -33,7 +36,12 @@
 
     function link(scope, element, attrs, controller) {
       var ico = iconic.getAccess();
-      attrs.$set('data-src', attrs.src);
+      if(scope.dynSrc) {
+         attrs.$set('data-src', scope.dynSrc);
+      } else {
+        // To support expressions on data-src
+        attrs.$set('data-src', attrs.src);
+      }
       ico.inject(element[0]);
     }
   }
