@@ -30,7 +30,7 @@
       };
 
       function preLink(scope, iElement, iAttrs) {
-        iAttrs.$set('zf-closeable', 'popup');
+        iAttrs.$set('zf-closable', 'popup');
       }
 
       function postLink(scope, element, attrs) {
