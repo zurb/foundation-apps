@@ -172,7 +172,11 @@ gulp.task('settings', function() {
     'scss/components/_typography.scss',
     'scss/components/_grid.scss',
     'scss/components/*.scss'
-  ]);
+  ], {
+    title: 'Foundation for Apps Settings'.toUpperCase(),
+    partialsPath: 'build/partials/scss',
+    settingsPath: 'scss'
+  });
 });
 
 // 6. JAVASCRIPT
