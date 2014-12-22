@@ -192,7 +192,7 @@ If none of this makes sense, stick with `ui-sref-active-eq`
 Foundation has some great helpers that foster better interaction between elements.
 
 **zf-close**
-zf-close looks for a parent element that has the `zf-closeable` tag on it. This tag is added automatically for all directives that can be closed with `zf-close`. When clicked, the directive will send a message via the FoundationApi to close its parent `zf-closeable` element.
+zf-close looks for a parent element that has the `zf-closable` tag on it. This tag is added automatically for all directives that can be closed with `zf-close`. When clicked, the directive will send a message via the FoundationApi to close its parent `zf-closable` element.
 
 ````html
 <zf-modal id="pageModal">
@@ -200,7 +200,7 @@ zf-close looks for a parent element that has the `zf-closeable` tag on it. This 
 </zf-modal>
 ````
 
-Note that you can specify the ID of a specific closeable directive in order to close it remotely (whether it's a parent, child, or has any other relationship to the closeable directive).
+Note that you can specify the ID of a specific closable directive in order to close it remotely (whether it's a parent, child, or has any other relationship to the closable directive).
 
 ````html
 <a href="#" zf-close="pageModal">&times;</a>
