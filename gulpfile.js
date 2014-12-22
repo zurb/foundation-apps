@@ -29,6 +29,7 @@ var gulp           = require('gulp'),
     sass           = require('gulp-ruby-sass'),
     nodeSass       = require('gulp-sass'),
     uglify         = require('gulp-uglify'),
+    minify         = require('gulp-minify-css'),
     concat         = require('gulp-concat'),
     connect        = require('gulp-connect'),
     modRewrite     = require('connect-modrewrite'),
@@ -37,6 +38,8 @@ var gulp           = require('gulp'),
     rsync          = require('gulp-rsync'),
     merge          = require('merge-stream'),
     settingsParser = require('settings-parser');
+
+var p = require('./package.json');
 
 // 2. VARIABLES
 // - - - - - - - - - - - - - - -
@@ -216,6 +219,14 @@ gulp.task('server:start', function() {
   });
 });
 
+
+// gulp.task('minify-css', function() {
+//   gulp.src('./build/assets/css/app.css')
+//     .pipe(minify({keepBreaks:true}))
+//     .pipe(concat('app.min.css'))
+//     .pipe(gulp.dest('./build/assets/css/'))
+// });
+
 // 8. TESTING
 // - - - - - - - - - - - - - - -
 
@@ -273,16 +284,28 @@ gulp.task('deploy', ['build'], function() {
 // Deploy to CDN
 gulp.task('deploy:cdn', ['build'], function() {
   var js = gulp.src(foundationJS)
-    .pipe(uglify())
-    .pipe(concat('foundation.js'));
-  var css = sass('scss/', {
-    sourcemap: false, style: 'compressed'
-  });
+    .pipe(concat('foundation-apps-' + p.version +'.js'))
+    .pipe(gulp.dest('./build/assets/js/'));
+  var jsMin = gulp.src(['build/assets/js/**'])
+    .pipe(uglify({
+      beautify: true,
+      mangle: false
+    }))
+    .pipe(concat('foundation-apps-' + p.version +'.min.js'))
+    .pipe(gulp.dest('./build/assets/js/'));
+  var css = gulp.src(['build/assets/css/**'])
+    .pipe(concat('foundation-apps-' + p.version +'.css'))
+    .pipe(gulp.dest('./build/assets/css/'));
+  var cssMin = gulp.src('./build/assets/css/app.css')
+    .pipe(minify())
+    .pipe(concat('foundation-apps-' + p.version +'.min.css'))
+    .pipe(gulp.dest('./build/assets/css/'));
 
-  merge(js, css)
+  merge(js, jsMin, css, cssMin)
     .pipe(rsync({
       hostname: 'deployer@72.32.134.77',
-      destination: '/home/deployer/sites/foundation-apps/current/cdn'
+      destination: '/home/deployer/sites/foundation-apps-cdn/current',
+      relative: false
     }));
 });
 
