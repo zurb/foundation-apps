@@ -133,7 +133,7 @@ gulp.task('css', ['sass'], function() {
 });
 
 // Compile stylesheets with Ruby Sass
-gulp.task('sass', ['settings'], function() {
+gulp.task('sass', function() {
   return sass('docs/assets/scss/', {
       loadPath: ['scss'],
       style: 'nested',
