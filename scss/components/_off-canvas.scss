@@ -41,9 +41,14 @@ $offcanvas-frame-selector: '.grid-frame' !default;
 @mixin off-canvas-detached {
   z-index: 0;
   box-shadow: none;
+  display: none;
 
   &, &.is-active {
     transform: none;
+  }
+  // Since detached menus don't animate, we just show and hide the menu
+  &.is-active {
+    display: block;
   }
 
   & ~ #{$offcanvas-frame-selector} {
