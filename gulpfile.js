@@ -32,6 +32,7 @@ var gulp           = require('gulp'),
     minify         = require('gulp-minify-css'),
     concat         = require('gulp-concat'),
     connect        = require('gulp-connect'),
+    ngHtml2Js      = require('gulp-ng-html2js'),
     modRewrite     = require('connect-modrewrite'),
     dynamicRouting = require('./bin/gulp-dynamic-routing'),
     karma          = require('gulp-karma'),
@@ -63,6 +64,17 @@ var docsJS = [
   'bower_components/allmighty-autocomplete/script/autocomplete.js',
   'docs/assets/js/app.js'
 ];
+var directivesJS = [
+  'bower_components/fastclick/lib/fastclick.js',
+  'bower_components/viewport-units-buggyfill/viewport-units-buggyfill.js',
+  'bower_components/tether/tether.js',
+  'bower_components/hammerjs/hammer.js',
+  'js/vendor/**/*.js',
+  'js/angular/vendor/*.js',
+  'js/angular/services/**',
+  'js/angular/components/**/*.js',
+  'js/angular/foundation.js'
+];
 
 // 3. CLEANIN' FILES
 // - - - - - - - - - - - - - - -
@@ -75,6 +87,16 @@ gulp.task('clean', function(cb) {
 // Clean the partials directory
 gulp.task('clean:partials', function(cb) {
   rimraf('./build/partials', cb);
+});
+
+// Clean the compile directory
+gulp.task('clean:compile', function(cb) {
+  rimraf('./compile', cb);
+});
+
+// Clean the leftover files from the compile task
+gulp.task('clean:compiled', function(cb) {
+  rimraf('./compile/.tmp/', cb);
 });
 
 // 4. COPYING FILES
@@ -115,6 +137,18 @@ gulp.task('copy:templates', ['copy'], function() {
 gulp.task('copy:partials', ['clean:partials'], function() {
   return gulp.src(['js/angular/components/**/*.html'])
     .pipe(gulp.dest('./build/components/'));
+});
+
+// Copy Foundation directives and turn to JavaScript
+gulp.task('copy:compile', ['clean:compile'], function() {
+  return gulp.src(['js/angular/components/**/*.html'])
+    .pipe(ngHtml2Js({
+      prefix: 'components/',
+      moduleName: 'foundation',
+      declareModule: false
+    }))
+    .pipe(concat('templates.js'))
+    .pipe(gulp.dest('./compile/.tmp/'));
 });
 
 // 5. STYLESHEETS
@@ -192,8 +226,7 @@ gulp.task('javascript', function() {
       console.log(e);
     }))
     .pipe(concat('foundation.js'))
-    .pipe(gulp.dest('./build/assets/js/'))
-  ;
+    .pipe(gulp.dest('./build/assets/js/'));
 });
 
 // Compile documentation-specific JavaScript
@@ -204,9 +237,42 @@ gulp.task('javascript:docs', function() {
       mangle: false
     }))
     .pipe(concat('app.js'))
-    .pipe(gulp.dest('./build/assets/js/'))
-  ;
+    .pipe(gulp.dest('./build/assets/js/'));
+});
 
+// Compile directive-specific JavaScript
+gulp.task('javascript:directives', function() {
+  return gulp.src(directivesJS)
+    .pipe(concat('directives.js'))
+    .pipe(gulp.dest('./compile/.tmp/'));
+});
+
+// Compile templates and directives JavaScript
+gulp.task('javascript:compile', function() {
+  var compileFiles = [
+    './compile/.tmp/directives.js',
+    './compile/.tmp/templates.js'
+  ];
+
+  return gulp.src(compileFiles)
+    .pipe(concat('foundation-tpls.js'))
+    .pipe(gulp.dest('./compile/'));
+});
+
+// Compile templates and directives plus minify JavaScript
+gulp.task('javascript:compileMinify', function() {
+  var compileFiles = [
+    './compile/.tmp/directives.js',
+    './compile/.tmp/templates.js'
+  ];
+
+  return gulp.src(compileFiles)
+    .pipe(concat('foundation-tpls-min.js'))
+    .pipe(uglify({
+      beautify: true,
+      mangle: false
+    }))
+    .pipe(gulp.dest('./compile/'));
 });
 
 // 7. SERVER
@@ -341,4 +407,9 @@ gulp.task('default', ['build', 'server:start'], function() {
 
   // Watch JavaScript
   gulp.watch(['./docs/assets/js/**/*', './js/**/*'], ['javascript']);
+});
+
+// Compile all directives into a single file with templates
+gulp.task('compile', function(cb) {
+  runSequence('clean:compile', ['copy:compile', 'javascript:directives'], ['javascript:compile', 'javascript:compileMinify'], 'clean:compiled');
 });
