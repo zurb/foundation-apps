@@ -462,6 +462,10 @@ $include-css: (
 //   in: "ng-enter-active",
 //   out: "ng-leave-active",
 // );
+// $motion-class-stagger: (
+//   in: "ng-enter-stagger",
+//   out: "ng-leave-stagger",
+// );
 
 // Set if movement-based transitions should also fade the element in and out
 // $motion-slide-and-fade: false;
@@ -474,6 +478,9 @@ $include-css: (
 // Slow and fast modifiders
 // $motion-duration-slow: 1.4s;
 // $motion-duration-fast: 300ms;
+// $motion-stagger-duration-default: 150ms;
+// $motion-stagger-duration-short: 50ms;
+// $motion-stagger-duration-long: 300ms;
 
 // Default timing function for transitions and animations
 // $motion-timing-default: ease;
