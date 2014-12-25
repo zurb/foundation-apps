@@ -454,11 +454,6 @@ $motion-delay-long: 700ms !default;
   // Duration
   .slow { transition-duration: $motion-duration-slow !important; }
   .fast { transition-duration: $motion-duration-fast !important; }
-  // .slow-stagger { 
-  //   -webkit-transition-delay: $motion-stagger-duration-slow !important; 
-  //   transition-duration: $motion-stagger-duration-slow !important; 
-  // }
-  // .fast-stagger { transition-duration: $motion-stagger-duration-fast !important; }
 
   // Easing
   @each $easing in map-keys($motion-timings) {
