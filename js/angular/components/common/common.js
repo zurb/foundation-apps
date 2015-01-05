@@ -155,18 +155,9 @@
 
     function link(scope, element, attrs) {
       element.on('click', function(e) {
-        var animatedElements = document.querySelectorAll('.ng-enter-active');
-        // if there are any currently animated elements on the page
-        // SIDENOTE: there is probably a more elegant way of doing this
-        if (animatedElements.length !== 0) {
-          e.preventDefault(); // do nothing
-        }
-        // else do the toggle thang
-        else {
-          foundationApi.closeActiveElements({exclude: attrs.zfHardToggle});
-          foundationApi.publish(attrs.zfHardToggle, 'toggle');
-          e.preventDefault();
-        }
+        foundationApi.closeActiveElements({exclude: attrs.zfHardToggle});
+        foundationApi.publish(attrs.zfHardToggle, 'toggle');
+        e.preventDefault();
       });
     }
   }
