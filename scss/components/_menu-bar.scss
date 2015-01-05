@@ -35,13 +35,13 @@ $menubar-icon-spacing: $menubar-item-padding !default;
   margin-bottom: 1rem;
 
   // Menu item
-  li {
+  > li {
     // This flex setting makes each item an equal width
     flex: 1 0 auto;
     align-items: center;
 
     // Link inside menu item
-    a {
+    > a {
       display: flex;
       flex-flow: column nowrap;
       align-items: center;
@@ -62,13 +62,13 @@ $menubar-icon-spacing: $menubar-item-padding !default;
   @if $orientation == horizontal {
     overflow-x: hidden;
     flex-flow: row nowrap;
-    a {
+    > a {
       flex-flow: column nowrap;
     }
   }
   @else {
     flex-flow: column nowrap;
-    a {
+    > a {
       flex-flow: row nowrap;
     }
   }
@@ -76,7 +76,7 @@ $menubar-icon-spacing: $menubar-item-padding !default;
   /*
     Stretch
   */
-  li {
+  > li {
     @if $stretch == false {
       flex: 0 0 auto;
     }
@@ -106,7 +106,7 @@ $menubar-icon-spacing: $menubar-item-padding !default;
   background: $background;
 
   // Items
-  a {
+  > a {
     color: $color;
 
     &:hover {
@@ -129,9 +129,9 @@ $menubar-icon-spacing: $menubar-item-padding !default;
   $position: left,
   $size: $menubar-icon-size
 ) {
-  li {
+  > li {
     // Sizing
-    img, .iconic {
+    > img, > .iconic {
       margin: 0;
       @if $menubar-icon-size != false {
         width: $menubar-icon-size;
@@ -141,28 +141,28 @@ $menubar-icon-spacing: $menubar-item-padding !default;
 
     // Position
     @if $position == left {
-      a {
+      > a {
         flex-flow: row nowrap;
         align-items: center;
-        img, .iconic { margin: 0 $menubar-icon-spacing 0 0; }
+        > img, > .iconic { margin: 0 $menubar-icon-spacing 0 0; }
       }
     }
     @if $position == top {
-      a {
+      > a {
         flex-flow: column nowrap;
-        img, .iconic { margin: 0 0 $menubar-icon-spacing 0; }
+        > img, > .iconic { margin: 0 0 $menubar-icon-spacing 0; }
       }
     }
     @if $position == right {
-      a {
+      > a {
         flex-flow: row-reverse nowrap;
-        img, .iconic { margin: 0 0 0 $menubar-icon-spacing; }
+        > img, > .iconic { margin: 0 0 0 $menubar-icon-spacing; }
       }
     }
     @if $position == bottom {
-      a {
+      > a {
         flex-flow: column-reverse nowrap;
-        img, .iconic { margin: $menubar-icon-spacing 0 0 0; }
+        > img, > .iconic { margin: $menubar-icon-spacing 0 0 0; }
       }
     }
   }
@@ -177,11 +177,11 @@ $menubar-icon-spacing: $menubar-item-padding !default;
   $color: auto,
   $selector: '.menu-bar-label'
 ) {
-  li {
+  > li {
     position: relative;
   }
 
-  a {
+  > a {
     @if $x == left or $x == right {
       padding-#{$x}: $size + $offset * 2;
     }
@@ -228,7 +228,7 @@ $menubar-icon-spacing: $menubar-item-padding !default;
 
     // Condensed bar
     &.condense {
-      li { flex: 0 0 auto; }
+      > li { flex: 0 0 auto; }
     }
     @each $size in $breakpoint-classes {
       @include breakpoint($size) {
