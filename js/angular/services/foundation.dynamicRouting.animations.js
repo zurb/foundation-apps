@@ -33,24 +33,31 @@
           if ($state.includes(getState()) && animation.leave) {
             element.addClass(animation.leave);
           }
+
+          element.parent().addClass('position-absolute');
         }
 
         function onStateChangeError() {
           if (animation.leave) {
             element.removeClass(animation.leave);
           }
+
+          element.parent().removeClass('position-absolute');
         }
 
         function onStateChangeSuccess() {
           if ($state.includes(getState()) && animation.enter) {
             element.addClass(animation.enter);
           }
+
         }
 
         function onViewContentAnimationEnded(ev) {
           if (ev.targetScope === scope && animation.enter) {
             element.removeClass(animation.enter);
           }
+
+          element.parent().removeClass('position-absolute');
         }
 
         function getState() {
