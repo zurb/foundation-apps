@@ -73,6 +73,8 @@
         scope.show = function() {
           scope.active = true;
           animate();
+          dialog.tabIndex = -1;
+          dialog[0].focus();
           return;
         };
 
