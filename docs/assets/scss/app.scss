@@ -19,3 +19,15 @@
 @import "components/search";
 @import "components/sidebar";
 @import "components/topbar";
+
+.position-absolute {
+  overflow: hidden;
+}
+
+.position-absolute .ui-animation {
+  position: absolute;
+  overflow: hidden;
+  [zf-offcanvas], [zf-panel] {
+    display: none !important;
+  }
+}
