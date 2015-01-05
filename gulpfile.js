@@ -274,7 +274,7 @@ gulp.task('test', ['karma:test', 'sass:test'], function() {
 // - - - - - - - - - - - - - - -
 
 // Deploy documentation
-gulp.task('deploy', ['build'], function() {
+gulp.task('deploy', ['build', 'settings'], function() {
   return gulp.src('build/**')
     .pipe(rsync({
       root: 'build',
