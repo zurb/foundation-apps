@@ -21,23 +21,29 @@
     return directive;
 
     function link(scope, element, attrs) {
-      var parentElement= false;
-      var tempElement = element.parent();
-      //find parent modal
-      while(parentElement === false) {
-        if(tempElement[0].nodeName == 'BODY') {
-          parentElement = '';
-        }
+      var targetId = '';
+      if (attrs.zfClose) {
+        targetId = attrs.zfClose;
+      } else {
+        var parentElement= false;
+        var tempElement = element.parent();
+        //find parent modal
+        while(parentElement === false) {
+          if(tempElement[0].nodeName == 'BODY') {
+            parentElement = '';
+          }
 
-        if(typeof tempElement.attr('zf-closable') !== 'undefined' && tempElement.attr('zf-closable') !== false) {
-          parentElement = tempElement;
-        }
+          if(typeof tempElement.attr('zf-closable') !== 'undefined' && tempElement.attr('zf-closable') !== false) {
+            parentElement = tempElement;
+          }
 
-        tempElement = tempElement.parent();
+          tempElement = tempElement.parent();
+        }
+        targetId = parentElement.attr('id');
       }
 
       element.on('click', function(e) {
-        foundationApi.publish(parentElement.attr('id'), 'close');
+        foundationApi.publish(targetId, 'close');
         e.preventDefault();
       });
     }
