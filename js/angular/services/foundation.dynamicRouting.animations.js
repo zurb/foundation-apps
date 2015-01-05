@@ -34,6 +34,12 @@
             element.addClass(animation.leave);
           }
 
+          var parentHeight = parseInt(element.parent()[0].style.height);
+          var elHeight = parseInt(window.getComputedStyle(element[0], null).getPropertyValue('height'));
+
+          var tempHeight = parentHeight > 0 ? parentHeight : elHeight > 0 ? elHeight : '';
+          element.parent()[0].style.height = tempHeight + 'px';
+
           element.parent().addClass('position-absolute');
         }
 
@@ -43,6 +49,7 @@
           }
 
           element.parent().removeClass('position-absolute');
+          element.parent()[0].style.height = '';
         }
 
         function onStateChangeSuccess() {
@@ -58,6 +65,7 @@
           }
 
           element.parent().removeClass('position-absolute');
+          element.parent()[0].height = '';
         }
 
         function getState() {

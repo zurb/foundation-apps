@@ -47,8 +47,13 @@ nav {
 }
 #img-1 { z-index:1;}
 
+.position-absolute {
+  overflow: hidden;
+}
+
 .position-absolute .ui-animation {
   position: absolute;
+  overflow: hidden;
   [zf-offcanvas], [zf-panel] {
     display: none !important;
   }
