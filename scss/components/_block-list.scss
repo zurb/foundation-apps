@@ -13,6 +13,8 @@
    - Checkbox/radio inputs
 */
 
+/// @Foundation.settings
+// Block List
 $blocklist-background: #fff !default;
 $blocklist-fullbleed: true !default;
 $blocklist-fontsize: 1rem !default;
@@ -31,6 +33,7 @@ $blocklist-header-color: smartscale($blocklist-item-color, 40%) !default;
 $blocklist-header-uppercase: true;
 
 $blocklist-check-icons: true !default;
+///
 
 /*
   Adds styles for a block list container.

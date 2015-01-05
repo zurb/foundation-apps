@@ -223,6 +223,46 @@ title: Menu Bar
 
 <hr>
 
+<h3>Menu Group</h3>
+
+<p>Use the <code>menu-group</code> component to wrap two menu bars in a container, which will pin one to the left and one to the right.</p>
+
+<hljs>
+<div class="menu-group primary">
+  <div class="menu-group-left">
+    <ul class="menu-bar primary">
+      <li><a href="#">Item One</a></li>
+      <li><a href="#">Item Too</a></li>
+      <li><a href="#">Item Three</a></li>
+    </ul>
+  </div>
+  <div class="menu-group-right">
+    <ul class="menu-bar primary">
+      <li><a href="#">Item One</a></li>
+      <li><a href="#">Item Too</a></li>
+    </ul>
+  </div>
+</div>
+</hljs>
+
+<div class="menu-group primary">
+  <div class="menu-group-left">
+    <ul class="menu-bar">
+      <li><a href="#">Item One</a></li>
+      <li><a href="#">Item Too</a></li>
+      <li><a href="#">Item Three</a></li>
+    </ul>
+  </div>
+  <div class="menu-group-right">
+    <ul class="menu-bar">
+      <li><a href="#">Item One</a></li>
+      <li><a href="#">Item Too</a></li>
+    </ul>
+  </div>
+</div>
+
+<hr>
+
 <h3>Sass Mixins</h3>
 
 <p>Use the menu bar mixins to create this component with custom classes and settings.</p>
@@ -263,16 +303,5 @@ title: Menu Bar
 
 <p>Use these variables to change the core styles of the menu bar.</p>
 
-<hljs>
-$menubar-fontsize: 1rem !default;
-$menubar-background: #fff !default;
-$menubar-background-hover: smartscale($menubar-background, 7%) !default;
-$menubar-background-active: $menubar-background-hover;
-$menubar-color: isitlight($menubar-background) !default;
-$menubar-color-hover: $menubar-color !default;
-$menubar-color-active: $menubar-color-hover;
-
-$menubar-item-padding: $global-padding !default;
-$menubar-icon-size: 25px !default;
-$menubar-icon-spacing: $menubar-item-padding !default;
+<hljs include="'partials/scss/menu-bar.html'" language="scss">
 </hljs>

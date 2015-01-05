@@ -1,6 +1,6 @@
 {
   "name": "foundation-apps",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": [
     "scss/foundation.scss",
     "js/angular/app.js"
@@ -10,13 +10,13 @@
     "tether": "~0.6.5",
     "fastclick": "~1.0.3",
     "angular": "~1.3.4",
-    "ui-router": "~0.2.12",
+    "angular-ui-router": "~0.2.12",
     "angular-animate": "~1.3.4",
     "angular-touch": "~1.3.7",
     "hammerjs": "~2.0.4"
   },
   "homepage": "https://github.com/zurb/foundation-apps",
-  "description": "A responsive, Angular-powered web apps framework from ZURB.",
+  "description": "A responsive, Angular-powered framework for web apps from ZURB.",
   "keywords": [
     "web apps",
     "responsive design",
@@ -25,14 +25,18 @@
   "license": "MIT",
   "ignore": [
     "**/.*",
-    "node_modules",
     "bower_components",
-    "docs",
     "build",
+    "docs",
+    "node_modules",
+    "tests",
+    "CONTRIBUTING.md",
+    "Gemfile",
+    "Gemfile.lock",
     "gulpfile.js",
     "karma.conf.js",
     "package.json",
-    "tests"
+    "scss/_includes.scss"
   ],
   "devDependencies": {
     "angular-mocks": "~1.3.4",

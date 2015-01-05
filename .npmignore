@@ -1,11 +1,12 @@
 .*
 bower_components
+build
 docs
 node_modules
-bower.json
+tests
+CONTRIBUTING.md
 Gemfile
 Gemfile.lock
 gulpfile.js
 karma.conf.js
-LICENSE
-package.json
+scss/_includes.scss

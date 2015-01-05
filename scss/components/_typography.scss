@@ -14,8 +14,8 @@
    - Acronyms
 */
 
-$include-html-type-classes: $include-html-classes !default;
-
+/// @Foundation.settings
+// Typography
 // We use these to control header font styles
 $header-font-family: $body-font-family !default;
 $header-font-weight: $font-weight-normal !default;
@@ -110,12 +110,8 @@ $blockquote-cite-link-color: $blockquote-cite-font-color !default;
 
 // Acronym styles
 $acronym-underline: 1px dotted #ddd !default;
+///
 
-//
-// Typography Placeholders
-//
-
-// These will throw a deprecation warning if used within a media query.
 @mixin lead {
   font-size: $paragraph-font-size + rem-calc(3.5);
   line-height: 1.6;
@@ -243,6 +239,7 @@ $acronym-underline: 1px dotted #ddd !default;
 
   small {
     font-size: $small-font-size;
+    color: $small-font-color;
     line-height: inherit;
   }
 

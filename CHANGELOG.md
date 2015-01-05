@@ -1,3 +1,51 @@
+# Version 1.0.2
+
+*December 23, 2014*
+
+**Foundation for Apps is now on npm!** `npm install foundation-apps`
+
+**Upgrading from an older version?** We changed how our Angular plugins are structured, which means an existing app's build process will need to be changed slightly.
+
+- **If you're using our template stack as-is:**
+  - Replace your existing `Gulpfile.js` with the [new Gulpfile](https://github.com/zurb/foundation-apps-template/blob/master/gulpfile.js).
+  - Copy the [new app.js](https://github.com/zurb/foundation-apps-template/blob/master/client/assets/js/app.js) file into the folder `client/assets/js/`.
+- If you need to upgrade a project with a custom build process:
+  - To capture every plugin's JavaScript files in a single blob, use `bower_components/foundation-apps/js/angular/**/*.js`.
+  - The Bower package no longer includes an `app.js` file. You can use our template stack's file as a baseline to write your own.
+  - To capture every plugin's HTML template, use `bower_components/foundation-apps/js/angular/components/**/*.html`.
+
+**Codebase changes:**
+
+- #282: The Angular code has been refactored to be more streamlined and more modular. Each UI component now has its own folder, which includes the component's JavaScript and HTML template. The template stack has been updated to properly compile the new asset structure. **If you're upgrading an existing project, follow the above instructions to get everything set.**
+  - The Bower package no longer includes an `app.js` file. Instead, a sample file has been included in the `client` folder of the template stack.
+- #108: Every Sass function now has a unit test. Run `gulp sass:test` to run the test suite.
+- #338: The Sass settings file is now automatically generated based on the variables inside each component's Sass file, with the command `gulp settings`. The [settings parser plguin](https://github.com/zurb/foundation-settings-parser) will be maintained as a separate codebase. The plugin pulls the variables out of each Sass file, after which:
+  - Every component's variables are combined into one settings file, organized by component.
+  - Each individual component's variables are output as an HTML partial, to be displayed on that component's documentation.
+
+**New features:**
+
+- **Touch support!** We added the [Hammer.js Angular library](http://ryanmullins.github.io/angular-hammer/) to our codebase, which allows you to trigger functions with touch gestures, using directives like `hm-swipeup` and `hm-pinchin`.
+  - We added one custom directive, `zf-touch-close`, which allows you to trigger the `close` event on an element by swiping. We'll add more features in future versions.
+- #301: Menu bars can now switch between the expanded and condensed styles at different screen sizes, using these classes: `condense`, `medium-condense`, `large-condense`, `medium-expand`, `large-expand`.
+- #335: Menu bars can now be wrapped in a `menu-bar-group` container, which allows two menu bars to sit on the same row, aligned to the left and the right. Learn more [here](http://foundation.zurb.com/apps/docs/#!/menu-bar).
+- #342: The `src` attribute of an Iconic icon can now be dynamically inserted. Instead of `data-src`, define the icon's source with the `dyn-src` attribute on a `zf-iconic` element.
+
+**Bug fixes:**
+
+- Added proper styles for checkboxes, radio buttons, and their text labels.
+- Fixed a bug with IE10 and 11 where the last item in a wrapping grid would wrap to the next line.
+- Fixed an issue with panels not properly functioning as grid containers.
+- #320: Fixed the `clearall` event for notifications not removing elements from the view.
+- #321: Fixed `zf-hard-toggle` not closing open action sheets.
+- #328: Fixed an issue with collapible items in accordions.
+- #331: Allow action sheets to be closed with `zf-hard-toggle`.
+- #337: Improved the behavior of components animating in and out when toggled on and off rapidly.
+- #343: The settings file now imports the functions file, to make `rem-calc()` and other functions accessible when modifying settings.
+- #351: Fixed a bug where images were not added to notifications created with the publish API.
+- #326: Fixed detached off-canvas menus overlapping with regular ones.
+- #356: Fixed `$small-font-color` not being properly applied to `<small>` elements.
+
 # Version 1.0.1
 
 *December 12, 2014*
@@ -17,6 +65,7 @@ Lots of fixes for the Sass, JavaScript, and documentation. Thanks so much to eve
 - #247: Set the `$accordion-title-background-active` variable to be relative to `$accordion-title-background`.
   - #261: `$tab-title-background-active` got the same treatment.
 - #295: Fixed a error that came up when creating a media query with `@include breakpoint(xxlarge only)`.
+- #326: Fixed detached off-canvas menus overlapping with regular ones.
 
 ## JavaScript
 

@@ -236,7 +236,7 @@ url: inbox/:id
 <p>Foundation has some great helpers that foster better interaction between elements.</p>
 
 <strong>zf-close</strong>
-<p><code>zf-close</code> looks for a parent element that has the <code>zf-closeable</code> tag on it. This tag is added automatically for all directives that can be closed with <code>zf-close</code>. When clicked, the directive will send a message via the FoundationApi to close its parent <code>zf-closeable</code> element.</p>
+<p><code>zf-close</code> looks for a parent element that has the <code>zf-closable</code> tag on it. This tag is added automatically for all directives that can be closed with <code>zf-close</code>. When clicked, the directive will send a message via the FoundationApi to close its parent <code>zf-closable</code> element.</p>
 
 <hljs>
 <zf-modal id="pageModal">
@@ -244,7 +244,7 @@ url: inbox/:id
 </zf-modal>
 </hljs>
 
-<p class="lead">Note that you can specify the ID of a specific closeable directive in order to close it remotely (whether it's a parent, child, or has any other relationship to the closeable directive).</p>
+<p class="lead">Note that you can specify the ID of a specific closable directive in order to close it remotely (whether it's a parent, child, or has any other relationship to the closable directive).</p>
 
 <hljs>
 <a href="#" zf-close="pageModal">&times;</a>
@@ -300,7 +300,7 @@ FoundationApi.publish('my-modal', 'open');
 
 <p>Make sure to include FoundationApi as a dependency in the controller or wherever else you want to use it. The best bet to hooking into various directives is to check the code and see what each directive subscribes to.</p>
 
-<p>In fact, the directives <code/>zf-close<code>, <code>zf-open</code>, and <code>zf-toggle</code> are wrappers for FoundationApi events.</p>
+<p>In fact, the directives <code>zf-close</code>, <code>zf-open</code>, and <code>zf-toggle</code> are wrappers for FoundationApi events.</p>
 
 <h3>Building your own app</h3>
 

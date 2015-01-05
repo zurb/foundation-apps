@@ -1,3 +1,5 @@
+/// @Foundation.settings
+// Button
 $button-padding: 0.85em 1em !default;
 $button-margin: 0 $global-padding $global-padding 0 !default;
 $button-style: solid !default;
@@ -13,6 +15,7 @@ $button-sizes: (
 $button-font-size: 0.9rem !default;
 $button-opacity-disabled: 0.5 !default;
 $button-tag-selector: true !default;
+///
 
 %button {
   display: inline-block;
@@ -166,6 +169,8 @@ $button-tag-selector: true !default;
     &.success   { @include button-style($success-color) }
     &.warning   { @include button-style($warning-color) }
     &.alert     { @include button-style($alert-color) }
+    &.info      { @include button-style($info-color) }
+    &.dark      { @include button-style($dark-color) }
 
     @if $button-style != hollow {
       &.hollow { @include button-style($style: hollow);
@@ -173,6 +178,8 @@ $button-tag-selector: true !default;
         &.success   { @include button-style($success-color, $style: hollow); }
         &.warning   { @include button-style($warning-color, $style: hollow); }
         &.alert     { @include button-style($alert-color, $style: hollow); }
+        &.info      { @include button-style($info-color, $style: hollow); }
+        &.dark      { @include button-style($dark-color, $style: hollow); }
       }
     }
 
@@ -181,6 +188,8 @@ $button-tag-selector: true !default;
       &.success   { @include button-disabled; }
       &.warning   { @include button-disabled; }
       &.alert     { @include button-disabled; }
+      &.info      { @include button-disabled; }
+      &.dark      { @include button-disabled; }
     }
   }
 

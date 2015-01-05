@@ -21,23 +21,29 @@
     return directive;
 
     function link(scope, element, attrs) {
-      var parentElement= false;
-      var tempElement = element.parent();
-      //find parent modal
-      while(parentElement === false) {
-        if(tempElement[0].nodeName == 'BODY') {
-          parentElement = '';
-        }
+      var targetId = '';
+      if (attrs.zfClose) {
+        targetId = attrs.zfClose;
+      } else {
+        var parentElement= false;
+        var tempElement = element.parent();
+        //find parent modal
+        while(parentElement === false) {
+          if(tempElement[0].nodeName == 'BODY') {
+            parentElement = '';
+          }
 
-        if(typeof tempElement.attr('zf-closable') !== 'undefined' && tempElement.attr('zf-closable') !== false) {
-          parentElement = tempElement;
-        }
+          if(typeof tempElement.attr('zf-closable') !== 'undefined' && tempElement.attr('zf-closable') !== false) {
+            parentElement = tempElement;
+          }
 
-        tempElement = tempElement.parent();
+          tempElement = tempElement.parent();
+        }
+        targetId = parentElement.attr('id');
       }
 
       element.on('click', function(e) {
-        foundationApi.publish(parentElement.attr('id'), 'close');
+        foundationApi.publish(targetId, 'close');
         e.preventDefault();
       });
     }
@@ -155,18 +161,9 @@
 
     function link(scope, element, attrs) {
       element.on('click', function(e) {
-        var animatedElements = document.querySelectorAll('.ng-enter-active');
-        // if there are any currently animated elements on the page
-        // SIDENOTE: there is probably a more elegant way of doing this
-        if (animatedElements.length !== 0) {
-          e.preventDefault(); // do nothing
-        }
-        // else do the toggle thang
-        else {
-          foundationApi.closeActiveElements({exclude: attrs.zfHardToggle});
-          foundationApi.publish(attrs.zfHardToggle, 'toggle');
-          e.preventDefault();
-        }
+        foundationApi.closeActiveElements({exclude: attrs.zfHardToggle});
+        foundationApi.publish(attrs.zfHardToggle, 'toggle');
+        e.preventDefault();
       });
     }
   }

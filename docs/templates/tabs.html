@@ -133,17 +133,5 @@ title: Tabs
 
 <p>You can customize tabs with these variables in the `_settings.scss` file:</p>
 
-<hljs>
-$tabstrip-background: transparent;
-
-$tab-title-background: #f4f4f4;
-$tab-title-background-hover: smartscale($tab-title-background, 5%);
-$tab-title-background-active: smartscale($tab-title-background, 3%);
-$tab-title-color: isitlight($tab-title-background);
-$tab-title-color-active: $tab-title-color;
-
-$tab-title-padding: $global-padding;
-$tab-content-padding: $global-padding;
+<hljs include="'partials/scss/tabs.html'" language="scss">
 </hljs>
-
-

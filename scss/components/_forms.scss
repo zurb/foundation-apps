@@ -13,6 +13,8 @@
    - Progress bars and meters
 */
 
+/// @Foundation.settings
+// Forms
 // Basic form variables
 $form-fontsize: 1rem !default;
 $form-padding: 0.5rem !default;
@@ -61,6 +63,7 @@ $meter-fill-high: $success-color !default;
 $meter-fill-medium: #e7cf00 !default;
 $meter-fill-low: $alert-color !default;
 $meter-radius: 0 !default;
+///
 
 // Disable OS-level styles
 @mixin no-appearance {

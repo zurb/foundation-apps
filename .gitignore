@@ -3,9 +3,9 @@
 *.coffee
 /css/*
 bower_components/*
-/node_modules/*
+node_modules/
 npm-debug.log
 /dist/*
-/.sass-cache/*
+.sass-cache/
 /build/*
-/tests/unit/scss/*.css*
+/tests/unit/scss/*.css

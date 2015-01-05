@@ -199,14 +199,5 @@ Add an image and <code>card-divider</code> class and you have one fancy looking 
 
 <p>You can customize cards with these variables in _settings.scss:</p>
 
-<hljs>
-$card-background: #fff;
-$card-color: isitlight($card-background);
-$card-border: 1px solid smartscale($card-background, 7%);
-$card-radius: $global-radius;
-$card-shadow: 0 1px 2px rgba(#000, 0.2);
-$card-padding: $global-padding;
-$card-margin: 0.5rem;
-
-$card-divider-background: smartscale($card-background, 7%);
+<hljs include="'partials/scss/card.html'" language="scss">
 </hljs>

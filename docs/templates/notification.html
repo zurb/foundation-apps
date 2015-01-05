@@ -144,17 +144,5 @@ foundationApi.publish('main-notifications', { title: 'Test', content: 'Test2' })
 
 <p>You can customize notifications with these Sass variables:</p>
 
-<hljs>
-$notification-default-position: right top;
-$notification-width: rem-calc(400);
-$notification-offset: $global-padding;
-
-$notification-background: $primary-color;
-$notification-color: white;
-$notification-padding: $global-padding;
-$notification-radius: 4px;
-
-$notification-icon-size: 60px;
-$notification-icon-margin: $global-padding;
-$notification-icon-align: top;
+<hljs include="'partials/scss/notification.html'" language="scss">
 </hljs>

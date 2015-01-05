@@ -17,11 +17,63 @@ title: Changelog
 
 <hr>
 
+<h3>Version 1.0.2</h3>
+
+<p><em>December 23, 2014</em></p>
+
+<p><strong>Foundation for Apps is now on npm!</strong> <code>npm install foundation-apps</code></p>
+
+<p><strong>Upgrading from an older version?</strong> We changed how our Angular plugins are structured, which means an existing app's build process will need to be changed slightly.</p>
+
+<ul>
+<li><strong>If you're using our template stack as-is:</strong>
+<ul>
+<li>Replace your existing <code>Gulpfile.js</code> with the <a href="https://github.com/zurb/foundation-apps-template/blob/master/gulpfile.js">new Gulpfile</a>.</li>
+<li>Copy the <a href="https://github.com/zurb/foundation-apps-template/blob/master/client/assets/js/app.js">new app.js</a> file into the folder <code>client/assets/js/</code>.</li>
+</ul></li>
+<li>If you need to upgrade a project with a custom build process:
+<ul>
+<li>To capture every plugin's JavaScript files in a single blob, use <code>bower_components/foundation-apps/js/angular/**/*.js</code>.</li>
+<li>The Bower package no longer includes an <code>app.js</code> file. You can use our template stack's file as a baseline to write your own.</li>
+<li>To capture every plugin's HTML template, use <code>bower_components/foundation-apps/js/angular/components/**/*.html</code>.</li>
+</ul></li>
+</ul>
+
+<p><strong>Codebase changes:</strong></p>
+
+<ul>
+<li>#282: The Angular code has been refactored to be more streamlined and more modular. Each UI component now has its own folder, which includes the component's JavaScript and HTML template. The template stack has been updated to properly compile the new asset structure. <strong>If you're upgrading an existing project, follow the above instructions to get everything set.</strong>
+<ul>
+<li>The Bower package no longer includes an <code>app.js</code> file. Instead, a sample file has been included in the <code>client</code> folder of the template stack.</li>
+</ul></li>
+<li>#108: Every Sass function now has a unit test. Run <code>gulp sass:test</code> to run the test suite.</li>
+<li>#338: The Sass settings file is now automatically generated based on the variables inside each component's Sass file, with the command <code>gulp settings</code>. The <a href="https://github.com/zurb/foundation-settings-parser">settings parser plguin</a> will be maintained as a separate codebase. The plugin pulls the variables out of each Sass file, after which:
+<ul>
+<li>Every component's variables are combined into one settings file, organized by component.</li>
+<li>Each individual component's variables are output as an HTML partial, to be displayed on that component's documentation.</li>
+</ul></li>
+</ul>
+
+<p><strong>New features:</strong></p>
+
+<ul>
+<li><strong>Touch support!</strong> We added the <a href="http://ryanmullins.github.io/angular-hammer/">Hammer.js Angular library</a> to our codebase, which allows you to trigger functions with touch gestures, using directives like <code>hm-swipeup</code> and <code>hm-pinchin</code>.
+<ul>
+<li>We added one custom directive, <code>zf-touch-close</code>, which allows you to trigger the <code>close</code> event on an element by swiping. We'll add more features in future versions.</li>
+</ul></li>
+<li>#301: Menu bars can now switch between the expanded and condensed styles at different screen sizes, using these classes: <code>condense</code>, <code>medium-condense</code>, <code>large-condense</code>, <code>medium-expand</code>, <code>large-expand</code>.</li>
+<li>#335: Menu bars can now be wrapped in a <code>menu-bar-group</code> container, which allows two menu bars to sit on the same row, aligned to the left and the right. Learn more <a href="http://foundation.zurb.com/apps/docs/#!/menu-bar">here</a>.</li>
+<li>#342: The <code>src</code> attribute of an Iconic icon can now be dynamically inserted. Instead of <code>data-src</code>, define the icon's source with the <code>dyn-src</code> attribute on a <code>zf-iconic</code> element.</li>
+</ul>
+
+
+<hr>
+
 <h3>Version 1.0.1</h3>
 
 <p><em>December 12, 2014</em></p>
 
-Lots of fixes for the Sass, JavaScript, and documentation. Thanks so much to everyone who's been giving feedback, reporting bugs, and most importantly, *fixing our typos* this past week.
+<p>Lots of fixes for the Sass, JavaScript, and documentation. Thanks so much to everyone who's been giving feedback, reporting bugs, and most importantly, <em>fixing our typos</em> this past week.</p>
 
 <h4>CSS</h4>
 

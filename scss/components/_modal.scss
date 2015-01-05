@@ -7,6 +7,8 @@
   Note that the modal overlay is hardcoded into the CSS, because whether or not you build your modal semantically, the overlay is always required and will always look the same.
 */
 
+/// @Foundation.settings
+// Modal
 $modal-background: #fff !default;
 $modal-border: 0 !default;
 $modal-radius: 0px !default;
@@ -21,6 +23,7 @@ $modal-sizes: (
 
 $modal-overlay-class: 'modal-overlay' !default;
 $modal-overlay-background: rgba(#333, 0.7) !default;
+///
 
 %modal {
   position: relative;

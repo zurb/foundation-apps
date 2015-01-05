@@ -1,0 +1,201 @@
+---
+title: Angular Modules
+url: /angular-modules
+name: angular-modules
+---
+
+<h2>AngularJS Modules</h2>
+<h3 class="subheader">Foundation components are broken down to various Angular modules meant to empower developers in need of a custom solution. Learn about the modules here.</h3>
+<hr>
+
+<h3>Overall module structure</h3>
+<p>The AngularJS portion of Foundation for Apps has been refactored to fit the most popular styleguides but also to fit most AngularJS paradigms. In short, FA is properly modularized, has the proper DI, and has as little dependencies as possible.</p>
+
+<p>Currently, most of the modules are dependent on a module called <code>foundation.core</code> which contains the <code>FoundationApi</code>.</p>
+
+<p>The file structure is pretty simple to follow. All of the angular stuff is under <code>js/angular</code> in the main repo:</p>
+
+<pre>
+- components
+  - accordion
+  - actionsheet
+  - common
+  - iconic
+  - interchange
+  - modal
+  - notification
+  - offcanvas
+  - panel
+  - popup
+  - tabs
+- vendor
+  - .. external dependencies
+- services
+  - foundation core
+  - foundation dynamic routing
+  - dynamic routing animations
+</pre>
+
+
+<p>Every module folder is pre-packaged with the correct javascript file which contains all of the pertinent directives, controllers, configurations, etc. The necessary template files are included in the folder as well. The directives have a hard-coded path to those via <code>/components/[component name]/[component template</code> so if you use these, make sure to copy the templates in the correct place.</p>
+
+<h3>Foundation Core</h3>
+
+<p>The first important module to discuss is the Core. The core contains a media query initiator, FoundationApi, and several utilities.</p>
+
+<h4>Media Query initiator</h4>
+
+<p>The Media Query initiator uses built-in foundation styles to create a <code>mediaQueries</code> setting under the FoundationApi. This is used for Interchange but it can be used for whatever you need. This module depends on Foundation for Apps css to be present but it will fail silently if you don't want to use this feature.</p>
+
+<p>The Initiator also publishes an event to the <code>FoundationApi</code> called "resize" whenever the window is resized (throttled to happen 50ms at a time).</p>
+
+<h4>FoundationApi</h4>
+
+<p>FoundationApi is what runs all of Foundation's modules. It's the master puppeteer. It currently has a total of 8 methods but will probably expand to have more.</p>
+
+<p><code>FoundationApi.subscribe('identifier', callback)</code>. FoundationApi has its own pub/sub system that is meant to work as a message system of sorts, or an event system. Basically, using a unique identifier, a directive (or other modules) can subscribe to any messages posted to that identifier. Each idenitifier can have its own list of subscribers (rather than a single subscriber). Make sure the callback accepts messages in a format your publishers are aware of. For example, most directive can be opened or closed by publishing <code>open</code>, <code>close</code>, or <code>toggle</code> to their identifier.</p>
+
+<p><code>FoundationApi.publish('identifier', 'message')</code>. The publishing part of the Api is as simple as the subscriber part. Note that you can publish to a non-existing identifier without getting any sort of error. This is a safeguard for directives or services that publish upon invokation but do not necessarily have any subscribers. One of them is the <code>resize</code> publisher in the Media Query initiator.</p>
+
+<p><code>FoundationApi.getSettings()</code>. FoundationApi has a <code>settings</code> object that can be shared between different modules which may want access to it. Because FoundationApi is an Angular service, it operates as a singleton so every module that has access is accessing the same exact instance of it. The only default setting so far is the <code>mediaQueries</code> object.</p>
+
+<p><code>FoundationApi.modifySettings(tree)</code>. Using Angulars <code>.extend()</code> function, FoundationApi can extend the settings object with custom settings. You may use these for yourself and your own setup.</p>
+
+<p><code>FoundationApi.generateUuid()</code>. FoundationApi keeps an internal store of unique IDs it generates. <code>generateUuid()</code> creates such IDs and saves them. This is to prevent any possible ID clashes. These IDs are used for several directives but you can use them for your own purposes.</p>
+
+<p><code>FoundationApi.toggleAnimation(element, futureState)</code>. A simple helper which either adds or removes an <code>activeClass</code> (<code>is-active</code>) from an element</p>
+
+<p><code>FoundationApi.animate(element, futureState, animationIn, animationOut)</code>. Another helper that works by replicating Angular's built-in <code>ngAnimate</code> functionality with several custom additions to work with Foundation's internal MotionUI. These are mostly for internal use; however, you can easily animate in and animate out any element the same way <code>$animate</code> works.</p>
+
+<p><code>FoundationApi.closeActiveElements(options)</code>. This utility is used to close all foundation closable elements. It selects any element that has an <code>is-active</code> class and an <code>zf-closable</code> attribute. You're welcome to make your own directives and plugins work with it. It publishes a <code>close</code> message to the ID of the selected element.</p>
+
+<h4>Utils</h4>
+
+<p>Utils is a small module which has a couple of simple methods. One of them is <code>throttle(func, delay)</code> which allows for simple throttling (and is used in the Media Query initiator) and the other is <code>prepareRoute(input)</code> which is also available as a filter.</p>
+
+<h3>Dynamic Routing</h3>
+
+<p><strong>Dependencies:</strong></p>
+<ul>
+  <li><code>ui.router</code></li>
+</ul>
+
+<p>The Angular page describes how to take advantage of the Dynamic Routing; however, it does not discuss the code and the many different options that come with dynamic routing.</p>
+
+<p>The dynamic router runs its own <code>.config</code> function when it's injected which digests out <code>foundationRoutes</code> object created by our gulp plugin.</p>
+
+<p>The module also includes a <code>DefaultController</code> which exposes the variables declared in the front-matter.</p>
+
+<h3>Dynamic Routing Animations</h3>
+
+<p><strong>Dependencies:</strong></p>
+<ul>
+  <li><code>ngAnimate</code></li>
+  <li><code>foundation.dynamicRouting</code></li>
+</ul>
+
+<p>This module is an optional add-on which allows the dynamically routed views to animate as long as there is an <code>animationIn</code> and an <code>animationOut</code> in the front-matter of the template</p>
+
+<h3>Accordion</h3>
+
+<p>The accordion has no external dependencies and can function on its own (as long as the CSS is there). It has several options:</p>
+
+<ul>
+  <li>Multi open - allows multiple accordion items to be open at the same time.</li>
+  <li>Collapsible - when clicking an accordion item, it becomes toggle-able</li>
+  <li>Auto Open - automatically opens the first accordion item on render</li>
+</ul>
+
+<p>Note: This element cannot be opened, closed or toggled by any of the Foundation helpers.</p>
+
+<h3>Action Sheet</h3>
+<p><strong>Dependencies:</strong></p>
+<ul>
+  <li>foundation.core - FoundationApi</li>
+</ul>
+
+<p>The actionsheet uses the FoundationApi for various tasks. Most notably, it can be toggled or closed by a Foundation Helper. It also uses FoundationApi to create a unique ID if one is not assigned.</p>
+
+<h3>Common</h3>
+<p><strong>Dependencies:</strong></p>
+<ul>
+  <li>foundation.core - FoundationApi</li>
+  <li>HammerJS - required only for zf-swipe-close</li>
+</ul>
+
+<p>The common module houses several helper directives:</p>
+
+<ul>
+  <li>zf-close - a directive that closes a target (if the target is enabled to do so)</li>
+  <li>zf-open - a directive that opens a target</li>
+  <li>zf-toggle - a directive that toggles a target</li>
+  <li>zf-esc-close - on escape, closes all open directives</li>
+  <li>zf-swipe-close</li>
+  <li>zf-hard-toggle - toggles an element and closes all other open elements</li>
+</ul>
+
+<h3>Iconic</h3>
+<p><strong>Dependencies:</strong></p>
+<ul>
+  <li>IconicJs</li>
+  <li>Iconic icon svg</li>
+</ul>
+
+<p>The Iconic module includes both a directive to create an icon but also a service that works as a wrapper for the IconicJS object</p>
+
+<h3>Interchange</h3>
+<p><strong>Dependencies:</strong></p>
+<ul>
+  <li>foundation.core</li>
+</ul>
+
+<p>Interchange uses media queries to break at different points. Those are extracted from the CSS and implemented as part of the core module. Interchange also features some of its own media queries. Note that Interchange won't work without the breakpoints in the CSS.</p>
+
+<h3>Modal</h3>
+<p><strong>Dependencies:</strong></p>
+<ul>
+  <li>foundation.core - FoundationApi</li>
+</ul>
+
+<p>The modal depends on FoundationApi in order to be toggled open or closed.</p>
+
+<h3>Notification</h3>
+<p><strong>Dependencies:</strong></p>
+<ul>
+  <li>foundation.core</li>
+</ul>
+
+<p>The notification module actually houses two separate sets of notification directives: one of them for static notifications, one for dynamic. Both require FoundationApi</p>
+
+<h3>Offcanvas</h3>
+<p><strong>Dependencies:</strong></p>
+<ul>
+  <li>foundation.core</li>
+</ul>
+
+<p>Offcanvas uses FoundationApi to open and close.</p>
+
+<h3>Panel</h3>
+<p><strong>Dependencies:</strong></p>
+<ul>
+  <li>foundation.core</li>
+</ul>
+
+<p>Panel uses FoundationApi to open and close. It also uses it for more complex animations and uses Media Queries (provided by Foundation CSS) in order to close whenever a link is clicked and the size of the window is smaller than medium.</p>
+
+<h3>Popup</h3>
+<p><strong>Dependencies:</strong></p>
+<ul>
+  <li>foundation.core</li>
+  <li>TetherJS</li>
+</ul>
+
+<p>Popup uses FoundationApi to open and close. It also uses TetherJS to attach an element to the target.</p>
+
+<h3>Tabs</h3>
+<p><strong>Dependencies:</strong></p>
+<ul>
+  <li>foundation.core</li>
+</ul>
+
+<p>Tabs, like Notifications, has two different groups of directives. One set is meant for regular tabs, the other is meant for custom-built tabs and tab-like functionality.</p>

@@ -56,7 +56,9 @@
           controller.clearAll();
         } else {
           controller.addNotification(msg);
-          scope.$apply();
+          if(!scope.$$phase) {
+            $scope.$apply();
+          }
         }
       });
     }
@@ -101,7 +103,6 @@
         scope.position = scope.position ? scope.position.split(' ').join('-') : 'top-right';
         var animationIn = attrs.animationIn || 'fadeIn';
         var animationOut = attrs.animationOut || 'fadeOut';
-
         //due to dynamic insertion of DOM, we need to wait for it to show up and get working!
         setTimeout(function() {
           scope.active = true;
@@ -155,6 +156,7 @@
         scope.position = scope.position ? scope.position.split(' ').join('-') : 'top-right';
         var animationIn = attrs.animationIn || 'fadeIn';
         var animationOut = attrs.animationOut || 'fadeOut';
+
 
         foundationApi.subscribe(attrs.id, function(msg) {
           if(msg === 'show' || msg === 'open') {
