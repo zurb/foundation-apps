@@ -10,7 +10,7 @@
     "tether": "~0.6.5",
     "fastclick": "~1.0.3",
     "angular": "~1.3.4",
-    "ui-router": "~0.2.12",
+    "angular-ui-router": "~0.2.12",
     "angular-animate": "~1.3.4",
     "angular-touch": "~1.3.7",
     "hammerjs": "~2.0.4"
