@@ -44,20 +44,22 @@
       restrict: 'EA',
       templateUrl: 'components/notification/notification-set.html',
       controller: 'ZfNotificationController',
-      scope: true,
+      scope: {},
       link: link
     };
 
     return directive;
 
     function link(scope, element, attrs, controller) {
+      scope.position = attrs.position ? attrs.position.split(' ').join('-') : 'top-right';
+
       foundationApi.subscribe(attrs.id, function(msg) {
         if(msg === 'clearall') {
           controller.clearAll();
         } else {
           controller.addNotification(msg);
           if(!scope.$$phase) {
-            $scope.$apply();
+            scope.$apply();
           }
         }
       });
@@ -79,7 +81,6 @@
         content: '=?',
         image: '=?',
         notifId: '=',
-        position: '=?',
         color: '=?'
       },
       compile: compile
@@ -100,22 +101,41 @@
 
       function postLink(scope, element, attrs, controller) {
         scope.active = false;
-        scope.position = scope.position ? scope.position.split(' ').join('-') : 'top-right';
-        var animationIn = attrs.animationIn || 'fadeIn';
+
+        var animationIn  = attrs.animationIn || 'fadeIn';
         var animationOut = attrs.animationOut || 'fadeOut';
+        var hammerElem;
+
+
+
         //due to dynamic insertion of DOM, we need to wait for it to show up and get working!
         setTimeout(function() {
           scope.active = true;
           foundationApi.animate(element, scope.active, animationIn, animationOut);
         }, 50);
 
-        scope.remove = function() {
+        scope.hide = function() {
           scope.active = false;
           foundationApi.animate(element, scope.active, animationIn, animationOut);
           setTimeout(function() {
             controller.removeNotification(scope.notifId);
           }, 50);
         };
+
+        // close on swipe
+        if (Hammer) {
+          hammerElem = new Hammer(element[0]);
+          // set the options for swipe (to make them a bit more forgiving in detection)
+          hammerElem.get('swipe').set({
+            direction: Hammer.DIRECTION_ALL,
+            threshold: 5, // this is how far the swipe has to travel
+            velocity: 0.5 // and this is how fast the swipe must travel
+          });
+        }
+
+        hammerElem.on('swipe', function() {
+          scope.hide();
+        });
       }
     }
   }
@@ -125,14 +145,13 @@
   function zfNotificationStatic(foundationApi) {
     var directive = {
       restrict: 'EA',
-      templateUrl: 'components/notification/notification.html',
+      templateUrl: 'components/notification/notification-static.html',
       replace: true,
       transclude: true,
       scope: {
         title: '@?',
         content: '@?',
         image: '@?',
-        position: '@?',
         color: '@?'
       },
       compile: compile
@@ -153,19 +172,22 @@
       }
 
       function postLink(scope, element, attrs, controller) {
-        scope.position = scope.position ? scope.position.split(' ').join('-') : 'top-right';
+        scope.position = attrs.position ? attrs.position.split(' ').join('-') : 'top-right';
+
         var animationIn = attrs.animationIn || 'fadeIn';
         var animationOut = attrs.animationOut || 'fadeOut';
 
-
+        //setup
         foundationApi.subscribe(attrs.id, function(msg) {
-          if(msg === 'show' || msg === 'open') {
+          if(msg == 'show' || msg == 'open') {
             scope.show();
-          } else if (msg === 'close' || msg === 'hide') {
+          } else if (msg == 'close' || msg == 'hide') {
             scope.hide();
-          } else if (msg === 'toggle') {
+          } else if (msg == 'toggle') {
             scope.toggle();
           }
+
+          foundationApi.animate(element, scope.active, animationIn, animationOut);
 
           scope.$apply();
 
@@ -176,11 +198,6 @@
           scope.active = false;
           foundationApi.animate(element, scope.active, animationIn, animationOut);
           return;
-        };
-
-        scope.remove = function() {
-          scope.hide();
-          foundationApi.animate(element, scope.active, animationIn, animationOut);
         };
 
         scope.show = function() {
@@ -194,6 +211,7 @@
           foundationApi.animate(element, scope.active, animationIn, animationOut);
           return;
         };
+
       }
     }
   }
