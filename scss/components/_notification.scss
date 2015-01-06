@@ -39,7 +39,7 @@ $notification-icon-align: top !default;
   }
 
   // Placeholder animation
-  transition: opacity 1s ease-out;
+  // transition: opacity 1s ease-out;
 
   &.is-active {
     opacity: 1;

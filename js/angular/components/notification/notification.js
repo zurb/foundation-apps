@@ -21,11 +21,6 @@
       $scope.notifications.push(info);
     };
 
-    controller.addStaticNotification = function(info) {
-      $scope.notifications.push(info);
-      console.log($scope.notifications);
-    };
-
     controller.removeNotification = function(id) {
       $scope.notifications.forEach(function(notification) {
         if(notification.id === id) {
@@ -111,6 +106,10 @@
         scope.position = scope.position ? scope.position.split(' ').join('-') : 'top-right';
         var animationIn = attrs.animationIn || 'fadeIn';
         var animationOut = attrs.animationOut || 'fadeOut';
+        var hammerElem;
+
+
+
         //due to dynamic insertion of DOM, we need to wait for it to show up and get working!
         setTimeout(function() {
           scope.active = true;
@@ -124,6 +123,21 @@
             controller.removeNotification(scope.notifId);
           }, 50);
         };
+
+        // close on swipe
+        if (Hammer) {
+          hammerElem = new Hammer(element[0]);
+          // set the options for swipe (to make them a bit more forgiving in detection)
+          hammerElem.get('swipe').set({
+            direction: Hammer.DIRECTION_ALL,
+            threshold: 5, // this is how far the swipe has to travel
+            velocity: 0.5 // and this is how fast the swipe must travel
+          });
+        }
+
+        hammerElem.on('swipe', function() {
+          scope.hide();
+        });
       }
     }
   }
