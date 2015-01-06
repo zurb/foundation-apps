@@ -22,11 +22,11 @@
 
 .position-absolute {
   overflow: hidden;
+  position: relative;
 }
 
 .position-absolute .ui-animation {
   position: absolute;
-  overflow: hidden;
   [zf-offcanvas], [zf-panel] {
     display: none !important;
   }
