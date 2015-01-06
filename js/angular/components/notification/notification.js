@@ -44,16 +44,14 @@
       restrict: 'EA',
       templateUrl: 'components/notification/notification-set.html',
       controller: 'ZfNotificationController',
-      scope: {
-        position: '@?'
-      },
+      scope: {},
       link: link
     };
 
     return directive;
 
     function link(scope, element, attrs, controller) {
-      scope.position = scope.position ? scope.position.split(' ').join('-') : 'top-right';
+      scope.position = attrs.position ? attrs.position.split(' ').join('-') : 'top-right';
 
       foundationApi.subscribe(attrs.id, function(msg) {
         if(msg === 'clearall') {
@@ -103,7 +101,6 @@
 
       function postLink(scope, element, attrs, controller) {
         scope.active = false;
-        scope.position = scope.position ? scope.position.split(' ').join('-') : 'top-right';
 
         var animationIn  = attrs.animationIn || 'fadeIn';
         var animationOut = attrs.animationOut || 'fadeOut';
@@ -155,7 +152,6 @@
         title: '@?',
         content: '@?',
         image: '@?',
-        position: '@?',
         color: '@?'
       },
       compile: compile
@@ -173,10 +169,10 @@
 
       function preLink(scope, iElement, iAttrs, controller) {
         iAttrs.$set('zf-closable', type);
-
       }
 
       function postLink(scope, element, attrs, controller) {
+        scope.position = attrs.position ? attrs.position.split(' ').join('-') : 'top-right';
 
         var animationIn = attrs.animationIn || 'fadeIn';
         var animationOut = attrs.animationOut || 'fadeOut';
