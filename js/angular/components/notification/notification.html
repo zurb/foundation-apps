@@ -1,7 +1,7 @@
 <div zf-swipe-close="swipe" class="notification {{ color }}">
   <a href="#"
     class="close-button"
-    ng-click="remove(); $event.preventDefault(); $event.stopPropagation()">&times;</a>
+    ng-click="hide(); $event.preventDefault(); $event.stopPropagation()">&times;</a>
   <div class="notification-icon" ng-if="image">
     <img ng-src="{{ image }}"/>
   </div>

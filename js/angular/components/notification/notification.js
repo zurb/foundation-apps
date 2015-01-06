@@ -4,7 +4,6 @@
   angular.module('foundation.notification', ['foundation.core'])
     .controller('ZfNotificationController', ZfNotificationController)
     .directive('zfNotificationSet', zfNotificationSet)
-    .directive('zfTestNotificationSet', zfTestNotificationSet)
     .directive('zfNotification', zfNotification)
     .directive('zfNotificationStatic', zfNotificationStatic)
     .directive('zfNotify', zfNotify)
@@ -20,6 +19,11 @@
       var id  = foundationApi.generateUuid();
       info.id = id;
       $scope.notifications.push(info);
+    };
+
+    controller.addStaticNotification = function(info) {
+      $scope.notifications.push(info);
+      console.log($scope.notifications);
     };
 
     controller.removeNotification = function(id) {
@@ -46,36 +50,6 @@
       templateUrl: 'components/notification/notification-set.html',
       controller: 'ZfNotificationController',
       scope: {
-        position: '=?'
-      },
-      link: link
-    };
-
-    return directive;
-
-    function link(scope, element, attrs, controller) {
-      foundationApi.subscribe(attrs.id, function(msg) {
-        if(msg === 'clearall') {
-          controller.clearAll();
-        } else {
-          controller.addNotification(msg);
-          if(!scope.$$phase) {
-            $scope.$apply();
-          }
-        }
-      });
-    }
-  }
-
-
-  zfTestNotificationSet.$inject = ['FoundationApi'];
-
-  function zfTestNotificationSet(foundationApi) {
-    var directive = {
-      restrict: 'EA',
-      templateUrl: 'components/notification/test-notification-test.html',
-      controller: 'ZfNotificationController',
-      scope: {
         position: '@?'
       },
       link: link
@@ -92,7 +66,7 @@
         } else {
           controller.addNotification(msg);
           if(!scope.$$phase) {
-            $scope.$apply();
+            scope.$apply();
           }
         }
       });
@@ -107,7 +81,7 @@
       templateUrl: 'components/notification/notification.html',
       replace: true,
       transclude: true,
-      require: '^zfTestNotificationSet',
+      require: '^zfNotificationSet',
       controller: function() { },
       scope: {
         title: '=?',
@@ -143,7 +117,7 @@
           foundationApi.animate(element, scope.active, animationIn, animationOut);
         }, 50);
 
-        scope.remove = function() {
+        scope.hide = function() {
           scope.active = false;
           foundationApi.animate(element, scope.active, animationIn, animationOut);
           setTimeout(function() {
@@ -184,22 +158,26 @@
 
       function preLink(scope, iElement, iAttrs, controller) {
         iAttrs.$set('zf-closable', type);
+
       }
 
       function postLink(scope, element, attrs, controller) {
-        scope.position = scope.position ? scope.position.split(' ').join('-') : 'top-right';
+        scope.active = false;
+
         var animationIn = attrs.animationIn || 'fadeIn';
         var animationOut = attrs.animationOut || 'fadeOut';
 
-
+        //setup
         foundationApi.subscribe(attrs.id, function(msg) {
-          if(msg === 'show' || msg === 'open') {
+          if(msg == 'show' || msg == 'open') {
             scope.show();
-          } else if (msg === 'close' || msg === 'hide') {
+          } else if (msg == 'close' || msg == 'hide') {
             scope.hide();
-          } else if (msg === 'toggle') {
+          } else if (msg == 'toggle') {
             scope.toggle();
           }
+
+          foundationApi.animate(element, scope.active, animationIn, animationOut);
 
           scope.$apply();
 
@@ -210,11 +188,6 @@
           scope.active = false;
           foundationApi.animate(element, scope.active, animationIn, animationOut);
           return;
-        };
-
-        scope.remove = function() {
-          scope.hide();
-          foundationApi.animate(element, scope.active, animationIn, animationOut);
         };
 
         scope.show = function() {
@@ -228,6 +201,7 @@
           foundationApi.animate(element, scope.active, animationIn, animationOut);
           return;
         };
+
       }
     }
   }
