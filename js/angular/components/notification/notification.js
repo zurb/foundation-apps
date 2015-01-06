@@ -104,7 +104,8 @@
       function postLink(scope, element, attrs, controller) {
         scope.active = false;
         scope.position = scope.position ? scope.position.split(' ').join('-') : 'top-right';
-        var animationIn = attrs.animationIn || 'fadeIn';
+
+        var animationIn  = attrs.animationIn || 'fadeIn';
         var animationOut = attrs.animationOut || 'fadeOut';
         var hammerElem;
 
@@ -147,7 +148,7 @@
   function zfNotificationStatic(foundationApi) {
     var directive = {
       restrict: 'EA',
-      templateUrl: 'components/notification/notification.html',
+      templateUrl: 'components/notification/notification-static.html',
       replace: true,
       transclude: true,
       scope: {
