@@ -46,16 +46,15 @@
         function onStateChangeError() {
           if (animation.leave) {
             element.removeClass(animation.leave);
-            element.parent().removeClass('position-absolute');
-            element.parent()[0].style.height = '';
           }
+
+          element.parent().removeClass('position-absolute');
+          element.parent()[0].style.height = null;
         }
 
         function onStateChangeSuccess() {
           if ($state.includes(getState()) && animation.enter) {
             element.addClass(animation.enter);
-            element.parent().removeClass('position-absolute');
-            element.parent()[0].height = '';
           }
 
         }
@@ -64,8 +63,9 @@
           if (ev.targetScope === scope && animation.enter) {
             element.removeClass(animation.enter);
             element.parent().removeClass('position-absolute');
-            element.parent()[0].height = '';
+            element.parent()[0].style.height = null;
           }
+
         }
 
         function getState() {

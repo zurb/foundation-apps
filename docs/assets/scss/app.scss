@@ -54,7 +54,12 @@ nav {
 
 .position-absolute .ui-animation {
   position: absolute;
+
   [zf-offcanvas], [zf-panel] {
     display: none !important;
   }
+}
+
+.ui-animation {
+  backface-visibility: hidden;
 }
