@@ -47,6 +47,10 @@ $notification-icon-align: top !default;
   }
 }
 
+%notification > div {
+  position: relative;
+}
+
 @mixin notification-layout(
   $x: nth($notification-default-position, 1),
   $y: nth($notification-default-position, 2),
