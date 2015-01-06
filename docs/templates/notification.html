@@ -15,11 +15,10 @@ title: Notification
 	  title="My notification"
 	  content="Notification example"
 	  color="success"
-	  position="top left"
-	  zf-notify="docs-notifications">Dynamic Notification</a>
+	  zf-notify="test-docs-notifications">Dynamic Notification</a>
 	<a class="button" href="#" zf-open="static-example">Static Notification</a>
-  <div zf-notification-set id="docs-notifications"></div>
-	<zf-notification-static id="static-example" title="My static notification" image="http://www.clipartbest.com/cliparts/acq/X8R/acqX8RdcM.jpeg">
+  <zf-test-notification-set position="top-left" id="test-docs-notifications"></zf-test-notification-set>
+	<zf-notification-static class="static-notification" id="static-example" title="My static notification" image="http://www.clipartbest.com/cliparts/acq/X8R/acqX8RdcM.jpeg">
 	  This notification is static, it works similarly to a programmatic with some subtle differences
 	</zf-notification-static>
   </div>

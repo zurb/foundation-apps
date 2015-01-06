@@ -24,9 +24,9 @@ $notification-icon-align: top !default;
 ///
 
 %notification {
-  position: fixed;
   z-index: 1000;
   display: flex;
+  position: relative;
 
   h1 {
     font-size: 1.25em;
@@ -37,18 +37,22 @@ $notification-icon-align: top !default;
   }
 
   // Placeholder animation
-  transition: transform 0.25s ease-out;
-  &.is-active {
-    transform: translateX(0%) translateY(0%) !important;
-  }
+  // transition: transform 0.25s ease-out;
+  // &.is-active {
+  //   transform: translateX(0%) translateY(0%) !important;
+  // }
 
   .close-button {
     color: white;
   }
 }
 
-%notification > div {
-  position: relative;
+%test-notification-container {
+  z-index: 3000;
+  position: fixed;
+
+  display: flex;
+  flex-direction: column;
 }
 
 @mixin notification-layout(
@@ -61,22 +65,13 @@ $notification-icon-align: top !default;
 
   @if $x == right {
     right: $offset;
-    transform: translateX(110%);
   }
   @else if $x == left {
     left: $offset;
-    transform: translateX(-110%);
   }
   @else if $x == middle {
     left: 50%;
     margin-left: -($size / 2);
-
-    @if $y == top {
-      transform: translateY(-110%);
-    }
-    @else if $y == bottom {
-      transform: translateY(110%);
-    }
   }
 
   @if $y == top {
@@ -111,18 +106,23 @@ $notification-icon-align: top !default;
 }
 
 @mixin notification(
-  $x: nth($notification-default-position, 1),
-  $y: nth($notification-default-position, 2),
-  $size: $notification-width,
-  $offset: $notification-offset,
   $background: $notification-background,
   $color: $notification-color,
   $padding: $notification-padding,
   $radius: $notification-radius
 ) {
   @extend %notification;
-  @include notification-layout($x, $y, $size, $offset);
   @include notification-style($background, $color, $padding, $radius);
+}
+
+@mixin test-notification-container(
+  $x: nth($notification-default-position, 1),
+  $y: nth($notification-default-position, 2),
+  $size: $notification-width,
+  $offset: $notification-offset
+) {
+  @extend %test-notification-container;
+  @include notification-layout($x, $y, $size, $offset);
 }
 
 @mixin notification-icon(
@@ -153,6 +153,15 @@ $notification-icon-align: top !default;
   .notification {
     @include notification;
 
+    &.success   { @include notification-style($success-color) }
+    &.warning   { @include notification-style($warning-color) }
+    &.alert     { @include notification-style($alert-color) }
+    &.dark      { @include notification-style($dark-color, #fff) }
+  }
+
+  .test-notification-container {
+    @include test-notification-container;
+
     &.top-right     { @include notification-layout(right, top); }
     &.top-left      { @include notification-layout(left, top); }
     &.top-middle    { @include notification-layout(middle, top); }
@@ -160,11 +169,6 @@ $notification-icon-align: top !default;
     &.bottom-right  { @include notification-layout(right, bottom); }
     &.bottom-left   { @include notification-layout(left, bottom); }
     &.bottom-middle { @include notification-layout(middle, bottom); }
-
-    &.success   { @include notification-style($success-color) }
-    &.warning   { @include notification-style($warning-color) }
-    &.alert     { @include notification-style($alert-color) }
-    &.dark      { @include notification-style($dark-color, #fff) }
   }
 
   .notification-icon {
@@ -173,4 +177,5 @@ $notification-icon-align: top !default;
   .notification-content {
     flex: 1;
   }
+
 }

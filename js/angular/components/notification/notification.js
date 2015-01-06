@@ -4,6 +4,7 @@
   angular.module('foundation.notification', ['foundation.core'])
     .controller('ZfNotificationController', ZfNotificationController)
     .directive('zfNotificationSet', zfNotificationSet)
+    .directive('zfTestNotificationSet', zfTestNotificationSet)
     .directive('zfNotification', zfNotification)
     .directive('zfNotificationStatic', zfNotificationStatic)
     .directive('zfNotify', zfNotify)
@@ -44,13 +45,47 @@
       restrict: 'EA',
       templateUrl: 'components/notification/notification-set.html',
       controller: 'ZfNotificationController',
-      scope: true,
+      scope: {
+        position: '=?'
+      },
       link: link
     };
 
     return directive;
 
     function link(scope, element, attrs, controller) {
+      foundationApi.subscribe(attrs.id, function(msg) {
+        if(msg === 'clearall') {
+          controller.clearAll();
+        } else {
+          controller.addNotification(msg);
+          if(!scope.$$phase) {
+            $scope.$apply();
+          }
+        }
+      });
+    }
+  }
+
+
+  zfTestNotificationSet.$inject = ['FoundationApi'];
+
+  function zfTestNotificationSet(foundationApi) {
+    var directive = {
+      restrict: 'EA',
+      templateUrl: 'components/notification/test-notification-test.html',
+      controller: 'ZfNotificationController',
+      scope: {
+        position: '@?'
+      },
+      link: link
+    };
+
+    return directive;
+
+    function link(scope, element, attrs, controller) {
+      scope.position = scope.position ? scope.position.split(' ').join('-') : 'top-right';
+
       foundationApi.subscribe(attrs.id, function(msg) {
         if(msg === 'clearall') {
           controller.clearAll();
@@ -72,14 +107,13 @@
       templateUrl: 'components/notification/notification.html',
       replace: true,
       transclude: true,
-      require: '^zfNotificationSet',
+      require: '^zfTestNotificationSet',
       controller: function() { },
       scope: {
         title: '=?',
         content: '=?',
         image: '=?',
         notifId: '=',
-        position: '=?',
         color: '=?'
       },
       compile: compile
