@@ -21,6 +21,7 @@ $notification-radius: 4px !default;
 $notification-icon-size: 60px !default;
 $notification-icon-margin: $global-padding !default;
 $notification-icon-align: top !default;
+
 ///
 
 %notification {
@@ -28,7 +29,6 @@ $notification-icon-align: top !default;
   display: flex;
   position: relative;
   opacity: 0;
-
 
   h1 {
     font-size: 1.25em;
@@ -39,7 +39,8 @@ $notification-icon-align: top !default;
   }
 
   // Placeholder animation
-  transition: transform 0.25s ease-out;
+  transition: opacity 1s ease-out;
+
   &.is-active {
     opacity: 1;
   }

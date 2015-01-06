@@ -162,7 +162,6 @@
       }
 
       function postLink(scope, element, attrs, controller) {
-        scope.active = false;
 
         var animationIn = attrs.animationIn || 'fadeIn';
         var animationOut = attrs.animationOut || 'fadeOut';

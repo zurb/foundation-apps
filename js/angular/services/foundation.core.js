@@ -278,6 +278,7 @@
         reset();
         element.addClass(animationClass);
         element.addClass(initClass);
+
         element.addClass(activeGenericClass);
 
         //force a "tick"
