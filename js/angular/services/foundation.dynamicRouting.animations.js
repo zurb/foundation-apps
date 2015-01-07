@@ -18,6 +18,7 @@
 
     function link(scope, element) {
       var animation = {};
+      var presetHeight;
 
       var cleanup = [
         $rootScope.$on('$stateChangeStart', onStateChangeStart),
@@ -77,15 +78,20 @@
         return state;
       }
 
+
       function resetParent() {
         element.parent().removeClass('position-absolute');
-        element.parent()[0].style.height = null;
+        if(presetHeight > 0 == false) {
+          element.parent()[0].style.height = null;
+        }
       }
 
       function prepareParent() {
         var parentHeight = parseInt(element.parent()[0].style.height);
         var elHeight = parseInt(window.getComputedStyle(element[0], null).getPropertyValue('height'));
         var tempHeight = parentHeight > 0 ? parentHeight : elHeight > 0 ? elHeight : '';
+
+        presetHeight = parentHeight;
 
         element.parent()[0].style.height = tempHeight + 'px';
         element.parent().addClass('position-absolute');
