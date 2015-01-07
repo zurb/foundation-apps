@@ -18,8 +18,8 @@
 
     function link(scope, element) {
       var animation = {};
-      var presetHeight;
       var initiator = false;
+      var presetHeight;
 
       var cleanup = [
         $rootScope.$on('$stateChangeStart', onStateChangeStart),
@@ -41,24 +41,23 @@
       function onStateChangeStart() {
         if ($state.includes(getState()) && animation.leave) {
           element.addClass(animation.leave);
-          prepareParent();
         }
+
+        prepareParent();
       }
 
       function onStateChangeError() {
-        if (animation.leave) {
+        if(animation.leave) {
           element.removeClass(animation.leave);
         }
 
-        resetParent();
+        resetParent(); //reset parent if state change fails
       }
 
       function onStateChangeSuccess() {
         if ($state.includes(getState()) && animation.enter) {
           element.addClass(animation.enter);
         }
-
-        resetParent();
       }
 
       function onViewContentAnimationEnded(ev) {
@@ -66,7 +65,8 @@
           element.removeClass(animation.enter);
         }
 
-        resetParent();
+        resetParent(); //reset parent if state change when animation is done
+
       }
 
       function getState() {
@@ -82,13 +82,9 @@
 
 
       function resetParent() {
-        if(initiator === true) {
-          element.parent().removeClass('position-absolute');
-          if(presetHeight !== true) {
-            element.parent()[0].style.height = null;
-          }
-
-          initiator = false;
+        element.parent().removeClass('position-absolute');
+        if(presetHeight !== true) {
+          element.parent()[0].style.height = null;
         }
       }
 
@@ -103,10 +99,8 @@
 
         element.parent()[0].style.height = tempHeight + 'px';
         element.parent().addClass('position-absolute');
-        initiator = true;
       }
     }
   }
-
 
 })();
