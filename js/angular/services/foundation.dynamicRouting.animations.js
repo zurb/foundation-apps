@@ -87,25 +87,23 @@
           if(presetHeight !== true) {
             element.parent()[0].style.height = null;
           }
+
+          initiator = false;
         }
-
-
       }
 
       function prepareParent() {
-        if(!element.parent().hasClass('position-absolute')) {
-          var parentHeight = parseInt(element.parent()[0].style.height);
-          var elHeight = parseInt(window.getComputedStyle(element[0], null).getPropertyValue('height'));
-          var tempHeight = parentHeight > 0 ? parentHeight : elHeight > 0 ? elHeight : '';
+        var parentHeight = parseInt(element.parent()[0].style.height);
+        var elHeight = parseInt(window.getComputedStyle(element[0], null).getPropertyValue('height'));
+        var tempHeight = parentHeight > 0 ? parentHeight : elHeight > 0 ? elHeight : '';
 
-          if(parentHeight > 0) {
-            presetHeight = true;
-          }
-
-          element.parent()[0].style.height = tempHeight + 'px';
-          element.parent().addClass('position-absolute');
-          initiator = true;
+        if(parentHeight > 0) {
+          presetHeight = true;
         }
+
+        element.parent()[0].style.height = tempHeight + 'px';
+        element.parent().addClass('position-absolute');
+        initiator = true;
       }
     }
   }
