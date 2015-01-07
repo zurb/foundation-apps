@@ -19,6 +19,7 @@
     function link(scope, element) {
       var animation = {};
       var presetHeight;
+      var initiator = false;
 
       var cleanup = [
         $rootScope.$on('$stateChangeStart', onStateChangeStart),
@@ -57,14 +58,15 @@
           element.addClass(animation.enter);
         }
 
+        resetParent();
       }
 
       function onViewContentAnimationEnded(ev) {
         if (ev.targetScope === scope && animation.enter) {
           element.removeClass(animation.enter);
-          resetParent();
         }
 
+        resetParent();
       }
 
       function getState() {
@@ -80,21 +82,30 @@
 
 
       function resetParent() {
-        element.parent().removeClass('position-absolute');
-        if(presetHeight > 0 == false) {
-          element.parent()[0].style.height = null;
+        if(initiator === true) {
+          element.parent().removeClass('position-absolute');
+          if(presetHeight !== true) {
+            element.parent()[0].style.height = null;
+          }
         }
+
+
       }
 
       function prepareParent() {
-        var parentHeight = parseInt(element.parent()[0].style.height);
-        var elHeight = parseInt(window.getComputedStyle(element[0], null).getPropertyValue('height'));
-        var tempHeight = parentHeight > 0 ? parentHeight : elHeight > 0 ? elHeight : '';
+        if(!element.parent().hasClass('position-absolute')) {
+          var parentHeight = parseInt(element.parent()[0].style.height);
+          var elHeight = parseInt(window.getComputedStyle(element[0], null).getPropertyValue('height'));
+          var tempHeight = parentHeight > 0 ? parentHeight : elHeight > 0 ? elHeight : '';
 
-        presetHeight = parentHeight;
+          if(parentHeight > 0) {
+            presetHeight = true;
+          }
 
-        element.parent()[0].style.height = tempHeight + 'px';
-        element.parent().addClass('position-absolute');
+          element.parent()[0].style.height = tempHeight + 'px';
+          element.parent().addClass('position-absolute');
+          initiator = true;
+        }
       }
     }
   }
