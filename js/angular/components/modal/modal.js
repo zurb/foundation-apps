@@ -100,19 +100,86 @@
     }
   }
 
-  ModalFactory.$inject = ['FoundationApi'];
+  ModalFactory.$inject = ['$http', '$templateCache', '$rootScope', '$compile',  'FoundationApi'];
 
-  function ModalFactory(foundationApi) {
-    return function modalFactory(config) {
+  function ModalFactory($http, $templateCache, $rootScope, $compile, foundationApi) {
+    return modalFactory;
+
+    function modalFactory(config) {
       var self = this, //for prototype functions
           container = angular.element(config.container || document.body),
-          id = foundationApi.generateUuid()
+          id = config.id || foundationApi.generateUuid(),
+          attached = false,
+          overlay = config.overlay || false,
+          overlayClose = config.overlayClose || false,
+          animationIn = config.animationIn || 'fadeIn',
+          animationOut = config.animationOut || 'fadeOut',
+          html,
+          element,
+          scope
       ;
 
       self.activate = activate;
       self.deactivate = deactivate;
       self.toggle = toggle;
 
+      if(config.templateUrl) {
+        //get template
+        html = $http.get(config.templateUrl, {
+          cache: $templateCache
+        }).then(function (response) {
+          return response.data;
+        });
+
+      } else if(config.template) {
+        //use provided template
+        html = config.template;
+      }
+
+      function activate() {
+        attach();
+
+        foundationApi.publish(id, 'show');
+      }
+
+      function deactivate() {
+        foundationApi.publish(id, 'hide');
+      }
+
+      function toggle() {
+        attach();
+
+        foundationApi.publish(id, 'toggle');
+      }
+
+      function attach() {
+        if(!attached) {
+          compileDirective();
+          container.append(element);
+        }
+      }
+
+      function compileDirective() {
+        var openHtml = [
+          '<zf-modal',
+            'id="' + id + '"',
+            'overlay="' + overlay + '"',
+            'overlay-close="' + overlayClose + '"',
+            'animation-in="' + animationIn + '"',
+            'animation-out="' + animationOut + '"',
+          '>'
+        ];
+
+        var closeHtml = [ '</zf-modal>' ];
+
+        html = openHtml.join(' ') + html + closeHtml.join(' ');
+
+        element = angular.element(html);
+
+        scope = $rootScope.$new();
+
+        $compile(element)(scope);
+      }
 
     }
 
