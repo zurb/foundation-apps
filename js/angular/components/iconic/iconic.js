@@ -21,13 +21,14 @@
     }
   }
 
-  zfIconic.$inject = ['Iconic']
+  zfIconic.$inject = ['Iconic', 'FoundationApi']
 
-  function zfIconic(iconic) {
+  function zfIconic(iconic, foundationApi) {
     var directive = {
       restrict: 'A',
       scope: {
-        dynSrc: '=?'
+        dynSrc: '=?',
+        responsive: '=?'
       },
       link: link
     };
@@ -43,6 +44,13 @@
         attrs.$set('data-src', attrs.src);
       }
       ico.inject(element[0]);
+
+      if (scope.responsive) {
+
+        foundationApi.subscribe('resize', function() {
+          ico.update();
+        });
+      }
     }
   }
 
