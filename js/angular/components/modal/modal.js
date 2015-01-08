@@ -119,10 +119,6 @@
           scope
       ;
 
-      self.activate = activate;
-      self.deactivate = deactivate;
-      self.toggle = toggle;
-
       if(config.templateUrl) {
         //get template
         html = $http.get(config.templateUrl, {
@@ -135,6 +131,16 @@
         //use provided template
         html = config.template;
       }
+
+      self.activate = activate;
+      self.deactivate = deactivate;
+      self.toggle = toggle;
+
+      return {
+        activate: activate,
+        deactivate: deactivate,
+        toggle: toggle
+      };
 
       function activate() {
         attach();
