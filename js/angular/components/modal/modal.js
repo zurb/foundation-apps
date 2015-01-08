@@ -160,12 +160,14 @@
 
       function attach() {
         if(!attached) {
-          compileDirective();
+          assembleDirective();
           container.append(element);
+          $compile(element)(scope);
+          attached = true;
         }
       }
 
-      function compileDirective() {
+      function assembleDirective() {
         var openHtml = [
           '<zf-modal',
             'id="' + id + '"',
@@ -183,8 +185,6 @@
         element = angular.element(html);
 
         scope = $rootScope.$new();
-
-        $compile(element)(scope);
       }
 
     }
