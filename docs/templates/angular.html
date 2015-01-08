@@ -113,6 +113,21 @@ url: /mail/inbox/:id
 
 <p>It will match any URL that follows that pattern (so <code>/mail/inbox/383828</code> would match as well as <code>/mail/inbox/my-email</code> but not <code>/mail/inbox/3838/something</code>).</p>
 
+<p>Note that override a controller disables front-matter settings (except Dynamic Routing). If you want to use your own controller AND keep this feature, you can extend the <code>DefaultController</code>:</p>
+<hljs>
+angular.module('application')
+    .controller('MyController', MyController)
+;
+
+MyController.$inject = ['$scope', '$stateParams', '$state', '$controller'];
+
+function MyController($scope, $stateParams, $state, $controller) {
+
+    angular.extend(this, $controller('DefaultController', {$scope: $scope, $stateParams: $stateParams, $state: $state}));
+    // your code...
+}
+</hljs>
+
 <hr>
 
 <h3>Animations</h3>
