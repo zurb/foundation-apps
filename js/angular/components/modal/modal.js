@@ -2,7 +2,10 @@
   'use strict';
 
   angular.module('foundation.modal', ['foundation.core'])
-    .directive('zfModal', modalDirective);
+    .directive('zfModal', modalDirective)
+    .service('ModalFactory', ModalFactory)
+  ;
+
 
   modalDirective.$inject = ['FoundationApi'];
 
@@ -95,6 +98,24 @@
         }
       }
     }
+  }
+
+  ModalFactory.$inject = ['FoundationApi'];
+
+  function ModalFactory(foundationApi) {
+    return function modalFactory(config) {
+      var self = this, //for prototype functions
+          container = angular.element(config.container || document.body),
+          id = foundationApi.generateUuid()
+      ;
+
+      self.activate = activate;
+      self.deactivate = deactivate;
+      self.toggle = toggle;
+
+
+    }
+
   }
 
 })();
