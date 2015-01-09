@@ -52,13 +52,13 @@
 
     function link(scope, element, attrs, controller) {
       scope.position = attrs.position ? attrs.position.split(' ').join('-') : 'top-right';
-
       foundationApi.subscribe(attrs.id, function(msg) {
         if(msg === 'clearall') {
           controller.clearAll();
-        } else {
+        }
+        else {
           controller.addNotification(msg);
-          if(!scope.$$phase) {
+          if (!scope.$root.$$phase) {
             scope.$apply();
           }
         }
@@ -105,8 +105,6 @@
         var animationIn  = attrs.animationIn || 'fadeIn';
         var animationOut = attrs.animationOut || 'fadeOut';
         var hammerElem;
-
-
 
         //due to dynamic insertion of DOM, we need to wait for it to show up and get working!
         setTimeout(function() {
@@ -188,7 +186,6 @@
           }
 
           foundationApi.animate(element, scope.active, animationIn, animationOut);
-
           scope.$apply();
 
           return;
