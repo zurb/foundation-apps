@@ -118,9 +118,7 @@ $motion-delay-long: 700ms !default;
 }
 
 @mixin stagger-delay($delay-amount) {
-  -webkit-transition-delay: $delay-amount;
   transition-delay: $delay-amount;
-  -webkit-transition-duration:0;
   // this is to avoid accidental CSS inheritance
   transition-duration:0;
 }
