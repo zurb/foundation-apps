@@ -143,19 +143,16 @@
       return {
         activate: activate,
         deactivate: deactivate,
-        toggle: toggle,
-        init: init
+        toggle: toggle
       };
 
       function activate() {
-        init();
         scope.$$postDigest(function() {
           foundationApi.publish(id, 'show');
         });
       }
 
       function deactivate() {
-        init();
         scope.$$postDigest(function() {
           foundationApi.publish(id, 'hide');
         });
@@ -169,11 +166,10 @@
       }
 
       function init() {
-        if(!attached) {
+        if(!attached && html.length > 0) {
           assembleDirective();
-          container.append(
-            $compile(html)(scope)
-          );
+          var directive = $compile(html);
+          container.append(directive(scope));
           attached = true;
         }
       }
