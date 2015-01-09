@@ -119,50 +119,61 @@
           scope
       ;
 
+
       if(config.templateUrl) {
         //get template
-        html = $http.get(config.templateUrl, {
+        $http.get(config.templateUrl, {
           cache: $templateCache
         }).then(function (response) {
-          return response.data;
+          html = response.data;
+          init();
         });
 
       } else if(config.template) {
         //use provided template
         html = config.template;
+        init();
       }
 
       self.activate = activate;
       self.deactivate = deactivate;
       self.toggle = toggle;
 
+
       return {
         activate: activate,
         deactivate: deactivate,
-        toggle: toggle
+        toggle: toggle,
+        init: init
       };
 
       function activate() {
-        attach();
-
-        foundationApi.publish(id, 'show');
+        init();
+        scope.$$postDigest(function() {
+          foundationApi.publish(id, 'show');
+        });
       }
 
       function deactivate() {
-        foundationApi.publish(id, 'hide');
+        init();
+        scope.$$postDigest(function() {
+          foundationApi.publish(id, 'hide');
+        });
       }
 
       function toggle() {
-        attach();
-
-        foundationApi.publish(id, 'toggle');
+        init();
+        scope.$$postDigest(function() {
+          foundationApi.publish(id, 'toggle');
+        });
       }
 
-      function attach() {
+      function init() {
         if(!attached) {
           assembleDirective();
-          container.append(element);
-          $compile(element)(scope);
+          container.append(
+            $compile(html)(scope)
+          );
           attached = true;
         }
       }
@@ -174,15 +185,12 @@
             'overlay="' + overlay + '"',
             'overlay-close="' + overlayClose + '"',
             'animation-in="' + animationIn + '"',
-            'animation-out="' + animationOut + '"',
-          '>'
+            'animation-out="' + animationOut + '">'
         ];
 
         var closeHtml = [ '</zf-modal>' ];
 
         html = openHtml.join(' ') + html + closeHtml.join(' ');
-
-        element = angular.element(html);
 
         scope = $rootScope.$new();
       }
