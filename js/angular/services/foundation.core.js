@@ -268,6 +268,7 @@
         var finishAnimation = function() {
           deregisterElement(element);
           reset(); //reset all classes
+          element[0].style.transitionDuration = '';
           element.removeClass(!activation ? activeGenericClass : ''); //if not active, remove active class
           reflow();
           timedOut = false;
