@@ -28,7 +28,7 @@
       return {
         pre: preLink,
         post: postLink
-      }
+      };
 
       function preLink(scope, iElement, iAttrs, controller) {
           iAttrs.$set('zf-closable', type);
@@ -37,7 +37,7 @@
       function postLink(scope, element, attrs) {
         var dialog = angular.element(element.children()[0]);
 
-        scope.active = false;
+        scope.active = scope.active || false;
         scope.overlay = attrs.overlay === 'true' || attrs.overlayClose === 'true' ? true : false;
         scope.overlayClose = attrs.overlayClose === 'true' ? true : false;
 
@@ -45,21 +45,6 @@
         var animationOut = attrs.animationOut || 'fadeOut';
         var overlayIn = 'fadeIn';
         var overlayOut = 'fadeOut';
-
-        //setup
-        foundationApi.subscribe(attrs.id, function(msg) {
-          if(msg === 'show' || msg === 'open') {
-            scope.show();
-          } else if (msg === 'close' || msg === 'hide') {
-            scope.hide();
-          } else if (msg === 'toggle') {
-            scope.toggle();
-          }
-
-          scope.$apply();
-
-          return;
-        });
 
         scope.hideOverlay = function() {
           if(scope.overlayClose) {
@@ -86,6 +71,26 @@
           animate();
           return;
         };
+
+        //initial state
+        if(scope.active) {
+          scope.show();
+        }
+
+        //setup
+        foundationApi.subscribe(attrs.id, function(msg) {
+          if(msg === 'show' || msg === 'open') {
+            scope.show();
+          } else if (msg === 'close' || msg === 'hide') {
+            scope.hide();
+          } else if (msg === 'toggle') {
+            scope.toggle();
+          }
+
+          scope.$apply();
+
+          return;
+        });
 
         function animate() {
           //animate both overlay and dialog
@@ -126,13 +131,13 @@
           cache: $templateCache
         }).then(function (response) {
           html = response.data;
-          init();
+          assembleDirective();
         });
 
       } else if(config.template) {
         //use provided template
         html = config.template;
-        init();
+        assembleDirective();
       }
 
       self.activate = activate;
@@ -148,28 +153,31 @@
 
       function activate() {
         scope.$$postDigest(function() {
+          init(true);
           foundationApi.publish(id, 'show');
         });
       }
 
       function deactivate() {
         scope.$$postDigest(function() {
+          init(false);
           foundationApi.publish(id, 'hide');
         });
       }
 
       function toggle() {
-        init();
         scope.$$postDigest(function() {
+          init(true);
           foundationApi.publish(id, 'toggle');
         });
       }
 
-      function init() {
+      function init(state) {
         if(!attached && html.length > 0) {
-          assembleDirective();
-          var directive = $compile(html);
-          container.append(directive(scope));
+          var directive = angular.element(html);
+          var modalEl = container.append(directive);
+          scope.active = state;
+          $compile(directive)(scope);
           attached = true;
         }
       }
