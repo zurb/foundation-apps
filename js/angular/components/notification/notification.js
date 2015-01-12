@@ -7,7 +7,7 @@
     .directive('zfNotification', zfNotification)
     .directive('zfNotificationStatic', zfNotificationStatic)
     .directive('zfNotify', zfNotify)
-    .factory('NotificationSetFactory', NotificationSetFactory)
+    .factory('NotificationFactory', NotificationFactory)
   ;
 
   ZfNotificationController.$inject = ['$scope', 'FoundationApi'];
@@ -245,12 +245,12 @@
     }
   }
 
-  NotificationSetFactory.$inject = ['$http', '$templateCache', '$rootScope', '$compile', '$timeout', 'FoundationApi'];
+  NotificationFactory.$inject = ['$http', '$templateCache', '$rootScope', '$compile', '$timeout', 'FoundationApi'];
 
-  function NotificationSetFactory($http, $templateCache, $rootScope, $compile, $timeout, foundationApi) {
-    return notificationSetFactory;
+  function NotificationFactory($http, $templateCache, $rootScope, $compile, $timeout, foundationApi) {
+    return notificationFactory;
 
-    function notificationSetFactory(config) {
+    function notificationFactory(config) {
       var self = this, //for prototype functions
           container = angular.element(config.container || document.body),
           id = config.id || foundationApi.generateUuid(),
