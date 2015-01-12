@@ -108,9 +108,9 @@
     }
   }
 
-  ModalFactory.$inject = ['$http', '$templateCache', '$rootScope', '$compile',  'FoundationApi'];
+  ModalFactory.$inject = ['$http', '$templateCache', '$rootScope', '$compile', '$timeout', 'FoundationApi'];
 
-  function ModalFactory($http, $templateCache, $rootScope, $compile, foundationApi) {
+  function ModalFactory($http, $templateCache, $rootScope, $compile, $timeout, foundationApi) {
     return modalFactory;
 
     function modalFactory(config) {
@@ -148,39 +148,42 @@
       self.activate = activate;
       self.deactivate = deactivate;
       self.toggle = toggle;
+      self.destroy = destroy;
 
 
       return {
         activate: activate,
         deactivate: deactivate,
-        toggle: toggle
+        toggle: toggle,
+        destroy: destroy
       };
 
       function activate() {
-        scope.$$postDigest(function() {
+        $timeout(function() {
           init(true);
           foundationApi.publish(id, 'show');
-        });
+        }, 0, false);
       }
 
       function deactivate() {
-        scope.$$postDigest(function() {
+        $timeout(function() {
           init(false);
           foundationApi.publish(id, 'hide');
-        });
+        }, 0, false);
       }
 
       function toggle() {
-        scope.$$postDigest(function() {
+        $timeout(function() {
           init(true);
           foundationApi.publish(id, 'toggle');
-        });
+        }, 0, false);
       }
 
       function init(state) {
         if(!attached && html.length > 0) {
           var directive = angular.element(html);
           var modalEl = container.append(directive);
+
           scope.active = state;
           $compile(directive)(scope);
           attached = true;
@@ -195,6 +198,14 @@
         for(var prop in props) {
           scope[prop] = config[prop];
         }
+      }
+
+      function destroy() {
+        self.deactivate();
+        setTimeout(function() {
+          scope.$destroy();
+          element = null;
+        }, 3000);
       }
 
     }
