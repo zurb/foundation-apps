@@ -193,7 +193,6 @@
 
       function init(state) {
         if(!attached && html.length > 0) {
-          element = angular.element(html);
           var modalEl = container.append(element);
 
           scope.active = state;
@@ -205,10 +204,14 @@
       function assembleDirective() {
         html = '<zf-modal id="' + id + '">' + html + '</zf-modal>';
 
+        element = angular.element(html);
+
         scope = $rootScope.$new();
 
         for(var prop in props) {
-          scope[prop] = config[prop];
+          if(config[prop]) {
+            element.attr(prop, config[prop]);
+          }
         }
       }
 
