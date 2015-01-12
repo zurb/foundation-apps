@@ -7,6 +7,7 @@
     .directive('zfNotification', zfNotification)
     .directive('zfNotificationStatic', zfNotificationStatic)
     .directive('zfNotify', zfNotify)
+    .service('NotificationSetFactory', NotificationSetFactory)
   ;
 
   ZfNotificationController.$inject = ['$scope', 'FoundationApi'];
@@ -244,4 +245,107 @@
     }
   }
 
+  NotificationSetFactory.$inject = ['$http', '$templateCache', '$rootScope', '$compile', '$timeout', 'FoundationApi'];
+
+  function NotificationSetFactory($http, $templateCache, $rootScope, $compile, $timeout, foundationApi) {
+    return notificationSetFactory;
+
+    function notificationSetFactory(config) {
+      var self = this, //for prototype functions
+          container = angular.element(config.container || document.body),
+          id = config.id || foundationApi.generateUuid(),
+          attached = false,
+          destroyed = false,
+          html,
+          element,
+          scope
+      ;
+
+      var props = [
+        'position'
+      ];
+
+      if(config.templateUrl) {
+        //get template
+        $http.get(config.templateUrl, {
+          cache: $templateCache
+        }).then(function (response) {
+          html = response.data;
+          assembleDirective();
+        });
+
+      } else if(config.template) {
+        //use provided template
+        html = config.template;
+        assembleDirective();
+      }
+
+      self.addNotification = addNotification;
+      self.clearAll = clearAll;
+      self.destroy = destroy;
+
+      return {
+        addNotification: addNotification,
+        clearAll: clearAll,
+        destroy: destroy
+      };
+
+      function checkStatus() {
+        if(destroyed) {
+          throw "Error: Modal was destroyed. Delete the object and create a new ModalFactory instance."
+        }
+      }
+
+      function addNotification(notification) {
+        checkStatus();
+        $timeout(function() {
+          init(true);
+          foundationApi.publish(id, notification);
+        }, 0, false);
+      }
+
+      function clearAll() {
+        checkStatus();
+        $timeout(function() {
+          init(true);
+          foundationApi.publish(id, );
+        }, 0, false);
+      }
+
+      function init(state) {
+        if(!attached && html.length > 0) {
+          var modalEl = container.append(element);
+
+          scope.active = state;
+          $compile(element)(scope);
+          attached = true;
+        }
+      }
+
+      function assembleDirective() {
+        html = '<zf-notification-set id="' + id + '">' + html + '</zf-notification-set>';
+
+        element = angular.element(html);
+
+        scope = $rootScope.$new();
+
+        for(var prop in props) {
+          if(config[prop]) {
+            element.attr(prop, config[prop]);
+          }
+        }
+      }
+
+      function destroy() {
+        self.clearAll();
+        setTimeout(function() {
+          scope.$destroy();
+          element.remove();
+          destroyed = true;
+        }, 3000);
+      }
+
+    }
+
+  }
 })();
