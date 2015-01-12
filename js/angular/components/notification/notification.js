@@ -7,7 +7,7 @@
     .directive('zfNotification', zfNotification)
     .directive('zfNotificationStatic', zfNotificationStatic)
     .directive('zfNotify', zfNotify)
-    .service('NotificationSetFactory', NotificationSetFactory)
+    .factory('NotificationSetFactory', NotificationSetFactory)
   ;
 
   ZfNotificationController.$inject = ['$scope', 'FoundationApi'];
@@ -308,7 +308,7 @@
         checkStatus();
         $timeout(function() {
           init(true);
-          foundationApi.publish(id, );
+          foundationApi.publish(id, 'clearall');
         }, 0, false);
       }
 
