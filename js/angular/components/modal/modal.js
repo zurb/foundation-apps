@@ -84,7 +84,9 @@
             scope.toggle();
           }
 
-          scope.$apply();
+          if (!scope.$root.$$phase) {
+            scope.$apply();
+          }
 
           return;
         });
@@ -118,6 +120,7 @@
           container = angular.element(config.container || document.body),
           id = config.id || foundationApi.generateUuid(),
           attached = false,
+          destroyed = false,
           html,
           element,
           scope
@@ -158,7 +161,14 @@
         destroy: destroy
       };
 
+      function checkStatus() {
+        if(destroyed) {
+          throw "Error: Modal was destroyed. Delete the object and create a new ModalFactory instance."
+        }
+      }
+
       function activate() {
+        checkStatus();
         $timeout(function() {
           init(true);
           foundationApi.publish(id, 'show');
@@ -166,6 +176,7 @@
       }
 
       function deactivate() {
+        checkStatus();
         $timeout(function() {
           init(false);
           foundationApi.publish(id, 'hide');
@@ -173,6 +184,7 @@
       }
 
       function toggle() {
+        checkStatus();
         $timeout(function() {
           init(true);
           foundationApi.publish(id, 'toggle');
@@ -181,11 +193,11 @@
 
       function init(state) {
         if(!attached && html.length > 0) {
-          var directive = angular.element(html);
-          var modalEl = container.append(directive);
+          element = angular.element(html);
+          var modalEl = container.append(element);
 
           scope.active = state;
-          $compile(directive)(scope);
+          $compile(element)(scope);
           attached = true;
         }
       }
@@ -204,7 +216,8 @@
         self.deactivate();
         setTimeout(function() {
           scope.$destroy();
-          element = null;
+          element.remove();
+          destroyed = true;
         }, 3000);
       }
 
