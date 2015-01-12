@@ -72,10 +72,7 @@
           return;
         };
 
-        //initial state
-        if(scope.active) {
-          scope.show();
-        }
+        init();
 
         //setup
         foundationApi.subscribe(attrs.id, function(msg) {
@@ -100,6 +97,12 @@
 
           foundationApi.animate(element, scope.active, overlayIn, overlayOut);
           foundationApi.animate(dialog, scope.active, animationIn, animationOut);
+        }
+
+        function init() {
+          if(scope.active) {
+            scope.show();
+          }
         }
       }
     }
