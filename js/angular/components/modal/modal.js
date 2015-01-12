@@ -115,15 +115,17 @@
           container = angular.element(config.container || document.body),
           id = config.id || foundationApi.generateUuid(),
           attached = false,
-          overlay = config.overlay || false,
-          overlayClose = config.overlayClose || false,
-          animationIn = config.animationIn || 'fadeIn',
-          animationOut = config.animationOut || 'fadeOut',
           html,
           element,
           scope
       ;
 
+      var props = [
+        'animationIn',
+        'animationOut',
+        'overlay',
+        'overlayClose'
+      ];
 
       if(config.templateUrl) {
         //get template
@@ -183,20 +185,13 @@
       }
 
       function assembleDirective() {
-        var openHtml = [
-          '<zf-modal',
-            'id="' + id + '"',
-            'overlay="' + overlay + '"',
-            'overlay-close="' + overlayClose + '"',
-            'animation-in="' + animationIn + '"',
-            'animation-out="' + animationOut + '">'
-        ];
-
-        var closeHtml = [ '</zf-modal>' ];
-
-        html = openHtml.join(' ') + html + closeHtml.join(' ');
+        html = '<zf-modal id="' + id + '">' + html + '</zf-modal>';
 
         scope = $rootScope.$new();
+
+        for(var prop in props) {
+          scope[prop] = config[prop];
+        }
       }
 
     }
