@@ -14,7 +14,7 @@
 
   function ZfNotificationController($scope, foundationApi) {
     var controller    = this;
-    controller.notifications = $scope.notifications = [];
+    controller.notifications = $scope.notifications = $scope.notifications || [];
 
     controller.addNotification = function(info) {
       var id  = foundationApi.generateUuid();
@@ -45,7 +45,7 @@
       restrict: 'EA',
       templateUrl: 'components/notification/notification-set.html',
       controller: 'ZfNotificationController',
-      scope: {},
+      replace: true,
       link: link
     };
 
@@ -302,6 +302,7 @@
         if(!attached && html.length > 0) {
           var modalEl = container.append(element);
 
+          scope.notifications = [ notification ];
           $compile(element)(scope);
           attached = true;
         }
