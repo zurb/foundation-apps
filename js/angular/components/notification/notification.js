@@ -265,20 +265,7 @@
         'position'
       ];
 
-      if(config.templateUrl) {
-        //get template
-        $http.get(config.templateUrl, {
-          cache: $templateCache
-        }).then(function (response) {
-          html = response.data;
-          assembleDirective();
-        });
-
-      } else if(config.template) {
-        //use provided template
-        html = config.template;
-        assembleDirective();
-      }
+      assembleDirective();
 
       self.addNotification = addNotification;
       self.clearAll = clearAll;
@@ -292,14 +279,14 @@
 
       function checkStatus() {
         if(destroyed) {
-          throw "Error: Modal was destroyed. Delete the object and create a new ModalFactory instance."
+          throw "Error: Notification Set was destroyed. Delete the object and create a new NotificationFactory instance."
         }
       }
 
       function addNotification(notification) {
         checkStatus();
         $timeout(function() {
-          init(true);
+          init(true, notification);
           foundationApi.publish(id, notification);
         }, 0, false);
       }
@@ -307,23 +294,21 @@
       function clearAll() {
         checkStatus();
         $timeout(function() {
-          init(true);
           foundationApi.publish(id, 'clearall');
         }, 0, false);
       }
 
-      function init(state) {
+      function init(state, notification) {
         if(!attached && html.length > 0) {
           var modalEl = container.append(element);
 
-          scope.active = state;
           $compile(element)(scope);
           attached = true;
         }
       }
 
       function assembleDirective() {
-        html = '<zf-notification-set id="' + id + '">' + html + '</zf-notification-set>';
+        html = '<zf-notification-set id="' + id + '"></zf-notification-set>';
 
         element = angular.element(html);
 
