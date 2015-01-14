@@ -3,7 +3,7 @@
 
   angular.module('foundation.modal', ['foundation.core'])
     .directive('zfModal', modalDirective)
-    .service('ModalFactory', ModalFactory)
+    .factory('ModalFactory', ModalFactory)
   ;
 
 
