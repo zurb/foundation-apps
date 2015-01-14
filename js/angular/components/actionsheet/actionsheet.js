@@ -14,7 +14,7 @@
     var controller = this;
     var content = controller.content = $scope.content;
     var container = controller.container = $scope.container;
-    var body = angular.element(document);
+    var body = angular.element(document.body);
 
     controller.registerContent = function(scope) {
       content = scope;
@@ -30,11 +30,28 @@
     controller.hide = hide;
 
     controller.registerListener = function() {
-      document.body.addEventListener('click', hide);
+      document.body.addEventListener('click', listenerLogic);
     };
 
     controller.deregisterListener = function() {
-      document.body.removeEventListener('click', hide);
+      document.body.removeEventListener('click', listenerLogic);
+    }
+
+    function listenerLogic(e) {
+      var el = e.target;
+      var insideActionSheet = false;
+
+      do {
+        if(el.classList && el.classList.contains('action-sheet-container')) {
+          insideActionSheet = true;
+          break;
+        }
+
+      } while ((el = el.parentNode));
+
+      if(!insideActionSheet) {
+        hide();
+      }
     }
 
     function hide() {
