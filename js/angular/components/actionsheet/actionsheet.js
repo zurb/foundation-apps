@@ -14,6 +14,7 @@
     var controller = this;
     var content = controller.content = $scope.content;
     var container = controller.container = $scope.container;
+    var body = angular.element(document);
 
     controller.registerContent = function(scope) {
       content = scope;
@@ -25,21 +26,32 @@
       container.active = false;
     };
 
-    controller.toggle = function() {
-      content.toggle();
-      container.toggle();
+    controller.toggle = toggle;
+    controller.hide = hide;
 
-      content.$apply();
-      container.$apply();
+    controller.registerListener = function() {
+      document.body.addEventListener('click', hide);
     };
 
-    controller.hide = function() {
+    controller.deregisterListener = function() {
+      document.body.removeEventListener('click', hide);
+    }
+
+    function hide() {
       content.hide();
       container.hide();
 
       content.$apply();
       container.$apply();
-    };
+    }
+
+    function toggle() {
+      content.toggle();
+      container.toggle();
+
+      content.$apply();
+      container.$apply();
+    }
   }
 
   zfActionSheet.$inject = ['FoundationApi'];
@@ -123,11 +135,19 @@
 
       scope.toggle = function() {
         scope.active = !scope.active;
+
+        if(scope.active) {
+          controller.registerListener();
+        } else {
+          controller.deregisterListener();
+        }
+
         return;
       };
 
       scope.hide = function() {
         scope.active = false;
+        controller.deregisterListener();
         return;
       };
     }
