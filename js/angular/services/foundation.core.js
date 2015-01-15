@@ -3,7 +3,6 @@
 
   angular.module('foundation.core', ['foundation.core.animation'])
     .service('FoundationApi', FoundationApi)
-    .filter('prepareRoute', prepareRoute)
     .factory('Utils', Utils)
   ;
 
@@ -97,7 +96,6 @@
   function Utils() {
     var utils = {};
 
-    utils.prepareRoute = prepareRouteUtil;
     utils.throttle = throttleUtil;
 
     return utils;
