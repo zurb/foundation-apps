@@ -131,6 +131,8 @@
   function FoundationMQ(foundationApi) {
     var service = [];
 
+    var subscribers = [];
+
     service.getMediaQueries = getMediaQueries;
     service.matched = matched;
 
@@ -163,6 +165,31 @@
       }
 
       return matches;
+    }
+
+    function registerMediaCallback(media) {
+      window.matchMedia(media, mqListener);
+    }
+
+    function mqListener(media) {
+      if(media.matches && subscribers[media.matches]) {
+        subscribers.forEach(function(subscriber) {
+          subscriber();
+        });
+      }
+
+    }
+
+    function subscribeMedia(media, cb) {
+      if(!subscribers[media]){
+        subscribers[media] = [];
+
+      }
+
+      subscribers[media].push(cb);
+
+      registerMediaCallback(media, cb);
+
     }
   }
 })();
