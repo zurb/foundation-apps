@@ -26,26 +26,56 @@
   function zfIconic(iconic, foundationApi) {
     var directive = {
       restrict: 'A',
+      template: '<img ng-transclude>',
+      transclude: true,
+      replace: true,
       scope: {
         dynSrc: '=?',
-        responsive: '=?'
+        size: '@?',
+        icon: '@'
       },
-      link: link
+      compile: compile
     };
 
     return directive;
 
-    function link(scope, element, attrs, controller) {
-      var ico = iconic.getAccess();
-      if(scope.dynSrc) {
-         attrs.$set('data-src', scope.dynSrc);
-      } else {
-        // To support expressions on data-src
-        attrs.$set('data-src', attrs.src);
-      }
-      ico.inject(element[0]);
+    function compile() {
+      return {
+        pre: preLink,
+        post: postLink
+      };
 
-      if (scope.responsive) {
+      function preLink(scope, iElement, iAttrs, ctrl, transclude) {
+        var assetPath = 'assets/img/iconic/';
+
+        if(scope.dynSrc) {
+          iAttrs.$set('data-src', scope.dynSrc);
+        } else {
+          // To support expressions on data-src
+          iAttrs.$set('data-src', assetPath + scope.icon + '.svg');
+        };
+
+        var iconicClass;
+        switch (scope.size) {
+          case 'small':
+            iconicClass = 'iconic-sm'
+            break;
+          case 'medium':
+            iconicClass = 'iconic-md'
+            break;
+          case 'large':
+            iconicClass = 'iconic-lg'
+            break;
+          default:
+            iconicClass = 'iconic-fluid'
+        }
+        angular.element(iElement).addClass(iconicClass);
+      }
+
+      function postLink(scope, element, attrs) {
+        var ico = iconic.getAccess();
+
+        ico.inject(element[0]);
 
         foundationApi.subscribe('resize', function() {
           ico.update();
