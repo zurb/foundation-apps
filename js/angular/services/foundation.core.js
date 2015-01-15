@@ -1,17 +1,18 @@
 (function() {
   'use strict';
 
-  angular.module('foundation.core', [])
+  angular.module('foundation.core', ['foundation.core.animation'])
     .service('FoundationApi', FoundationApi)
     .filter('prepareRoute', prepareRoute)
     .factory('Utils', Utils)
   ;
 
-  function FoundationApi() {
+  FoundationApi.$inject = ['FoundationAnimation'];
+
+  function FoundationApi(FoundationAnimation) {
     var listeners  = [];
     var settings   = {};
     var uniqueIds  = [];
-    var animations = [];
     var service    = {};
 
     service.subscribe           = subscribe;
@@ -19,7 +20,7 @@
     service.getSettings         = getSettings;
     service.modifySettings      = modifySettings;
     service.generateUuid        = generateUuid;
-    service.toggleAnimation     = toggleAnimation;
+    service.toggleAnimate     = toggleAnimate;
     service.closeActiveElements = closeActiveElements;
     service.animate             = animate;
 
@@ -70,13 +71,8 @@
       return uuid;
     }
 
-    function toggleAnimation(element, futureState) {
-      var activeClass = 'is-active';
-      if(futureState) {
-        element.addClass(activeClass);
-      } else {
-        element.removeClass(activeClass);
-      }
+    function toggleAnimate(element, futureState) {
+      FoundationAnimation.toggleAnimate(element, futureState);
     }
 
     function closeActiveElements(options) {
@@ -93,104 +89,9 @@
     }
 
     function animate(element, futureState, animationIn, animationOut) {
-      var initClasses        = ['ng-enter', 'ng-leave'];
-      var activeClasses      = ['ng-enter-active', 'ng-leave-active'];
-      var activeGenericClass = 'is-active';
-      var events = ['webkitAnimationEnd', 'mozAnimationEnd', 'MSAnimationEnd', 'oanimationend', 'animationend',
-                'webkitTransitionEnd', 'otransitionend', 'transitionend'];
-      var timedOut = true;
-      var self = this;
-      self.cancelAnimation = cancelAnimation;
-
-      animateElement(futureState ? animationIn : animationOut, futureState);
-
-      function cancelAnimation() {
-        deregisterElement(element);
-        element.off(events.join(' ')); //kill all animation event handlers
-        timedOut = false;
-      };
-
-      function registerElement(el) {
-        var elObj = {
-          el: el,
-          animation: self
-        };
-
-        //kill in progress animations
-        var inProgress = animations.filter(function(obj) {
-          return obj.el === el;
-        });
-
-        if(inProgress.length > 0) {
-          inProgress[0].animation.cancelAnimation();
-        }
-
-        animations.push(elObj);
-      }
-
-      function deregisterElement(el) {
-        var index;
-        var currentAnimation = animations.filter(function(obj, ind) {
-          if(obj.el === el) {
-            index = ind;
-          }
-        });
-
-        if(index >= 0) {
-          animations.splice(index, 1);
-        }
-
-      }
-
-      function reflow() {
-        return element[0].offsetWidth;
-      }
-
-      function reset() {
-        element[0].style.transitionDuration = 0;
-        element.removeClass(initClasses.join(' ') + ' ' + activeClasses.join(' ') + ' ' + animationIn + ' ' + animationOut);
-      }
-
-      function animateElement(animationClass, activation) {
-        var initClass = activation ? initClasses[0] : initClasses[1];
-        var activeClass = activation ? activeClasses[0] : activeClasses[1];
-
-        var finishAnimation = function() {
-          deregisterElement(element);
-          reset(); //reset all classes
-          element[0].style.transitionDuration = '';
-          element.removeClass(!activation ? activeGenericClass : ''); //if not active, remove active class
-          reflow();
-          timedOut = false;
-        };
-
-        //stop animation
-        registerElement(element);
-        reset();
-        element.addClass(animationClass);
-        element.addClass(initClass);
-
-        element.addClass(activeGenericClass);
-
-        //force a "tick"
-        reflow();
-
-        //activate
-        element[0].style.transitionDuration = '';
-        element.addClass(activeClass);
-
-        element.one(events.join(' '), function() {
-          finishAnimation();
-        });
-
-        setTimeout(function() {
-          if(timedOut) {
-            finishAnimation();
-          }
-        }, 3000);
-      }
-
+      FoundationAnimation.animate(element, futureState, animationIn, animationOut);
     }
+
   }
 
   function prepareRoute() {
