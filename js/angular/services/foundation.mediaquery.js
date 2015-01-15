@@ -5,6 +5,7 @@
     .run(mqInitRun)
     .factory('FoundationMQInit', FoundationMQInit)
     .factory('mqHelpers', mqHelpers)
+    .service('FoundationMQ', FoundationMQ)
   ;
 
   mqInitRun.$inject = ['FoundationMQInit'];
@@ -17,6 +18,17 @@
 
   function FoundationMQInit(helpers, foundationApi, u){
     var factory = {};
+    var namedQueries = {
+      'default' : 'only screen',
+      landscape : 'only screen and (orientation: landscape)',
+      portrait : 'only screen and (orientation: portrait)',
+      retina : 'only screen and (-webkit-min-device-pixel-ratio: 2),' +
+        'only screen and (min--moz-device-pixel-ratio: 2),' +
+        'only screen and (-o-min-device-pixel-ratio: 2/1),' +
+        'only screen and (min-device-pixel-ratio: 2),' +
+        'only screen and (min-resolution: 192dpi),' +
+        'only screen and (min-resolution: 2dppx)'
+    };
 
     factory.init = init;
 
@@ -36,8 +48,9 @@
         mediaQueries[key] = 'only screen and (min-width: ' + mediaQueries[key].replace('rem', 'em') + ')';
       }
 
+
       foundationApi.modifySettings({
-        mediaQueries: mediaQueries
+        mediaQueries: angular.extend(mediaQueries, namedQueries)
       });
 
       window.addEventListener('resize', u.throttle(function() {
@@ -110,6 +123,46 @@
       }, {});
 
       return styleObject;
+    }
+  }
+
+  FoundationMQ.$inject = ['FoundationApi'];
+
+  function FoundationMQ(foundationApi) {
+    var service = [];
+
+    service.getMediaQueries = getMediaQueries;
+    service.matched = matched;
+
+    return service;
+
+    function getMediaQueries() {
+      return foundationApi.getSettings().mediaQueries;
+    }
+
+    function match(scenarios) {
+      var count   = scenarios.length;
+      var queries = service.getMediaQueries();
+      var matches = [];
+
+      if (count > 0) {
+        while (count--) {
+          var mq;
+          var rule = scenarios[count].media;
+
+          if (queries[rule]) {
+            mq = matchMedia(queries[rule]);
+          } else {
+            mq = matchMedia(rule);
+          }
+
+          if (mq.matches) {
+            matches.push({ ind: count});
+          }
+        }
+      }
+
+      return matches;
     }
   }
 })();

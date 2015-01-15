@@ -1,7 +1,9 @@
 (function() {
   'use strict';
 
-  angular.module('foundation.core', ['foundation.core.animation'])
+  angular.module('foundation.core', [
+      'foundation.core.animation'
+    ])
     .service('FoundationApi', FoundationApi)
     .factory('Utils', Utils)
   ;
