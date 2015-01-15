@@ -94,14 +94,6 @@
 
   }
 
-  function prepareRoute() {
-    return prepare;
-
-    function prepare(input) {
-      return 'route-' + input.replace(/\./, '-').toLowerCase();
-    }
-  }
-
   function Utils() {
     var utils = {};
 
@@ -109,10 +101,6 @@
     utils.throttle = throttleUtil;
 
     return utils;
-
-    function prepareRouteUtil(input) {
-      return 'route-' + input.replace(/\./, '-').toLowerCase();
-    }
 
     function throttleUtil(func, delay) {
       var timer = null;
