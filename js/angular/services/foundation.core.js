@@ -6,7 +6,7 @@
     .factory('FoundationMQInit', FoundationMQInit)
     .factory('mqHelpers', mqHelpers)
     .service('FoundationApi', FoundationApi)
-    .filter('prepareRoute', prepareRoute)
+    .service('FoundationAdapter', FoundationAdapter)
     .factory('Utils', Utils)
   ;
 
@@ -303,25 +303,33 @@
     }
   }
 
-  function prepareRoute() {
-    return prepare;
+  FoundationAdapter.$inject = ['FoundationApi'];
 
-    function prepare(input) {
-      return 'route-' + input.replace(/\./, '-').toLowerCase();
+  function FoundationAdapter(foundationApi) {
+
+    var service    = {};
+
+    service.activate = activate;
+    service.deactivate = deactivate;
+
+    return service;
+
+    function activate(target) {
+      foundationApi.publish(target, 'show');
     }
+
+    function deactivate(target) {
+      foundationApi.publish(target, 'hide');
+    }
+
   }
 
   function Utils() {
     var utils = {};
 
-    utils.prepareRoute = prepareRouteUtil;
     utils.throttle = throttleUtil;
 
     return utils;
-
-    function prepareRouteUtil(input) {
-      return 'route-' + input.replace(/\./, '-').toLowerCase();
-    }
 
     function throttleUtil(func, delay) {
       var timer = null;
@@ -335,7 +343,7 @@
             timer = null;
           }, delay);
         }
-      }
+      };
     }
   }
 
