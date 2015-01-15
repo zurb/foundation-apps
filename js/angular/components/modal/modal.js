@@ -6,6 +6,32 @@
     .factory('ModalFactory', ModalFactory)
   ;
 
+  FoundationModal.$inject = ['FoundationApi', 'ModalFactory'];
+
+  function FoundationModal(foundationApi, ModalFactory) {
+    var service    = {};
+
+    service.activate = activate;
+    service.deactivate = deactivate;
+    service.newModal = newModal;
+
+    return service;
+
+    //target should be element ID
+    function activate(target) {
+      foundationApi.publish(target, 'show');
+    }
+
+    //target should be element ID
+    function deactivate(target) {
+      foundationApi.publish(target, 'hide');
+    }
+
+    //new modal has to be controlled via the new instance
+    function newModal(config) {
+      return new ModalFactory(config);
+    }
+  }
 
   modalDirective.$inject = ['FoundationApi'];
 
