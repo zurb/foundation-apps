@@ -4,7 +4,33 @@
   angular.module('foundation.popup', ['foundation.core'])
     .directive('zfPopup', zfPopup)
     .directive('zfPopupToggle', zfPopupToggle)
+    .service('FoundationPopup', FoundationPopup)
   ;
+
+  FoundationPopup.$inject = ['FoundationApi'];
+
+  function FoundationPopup(foundationApi) {
+    var service    = {};
+
+    service.activate = activate;
+    service.deactivate = deactivate;
+
+    return service;
+
+    //target should be element ID
+    function activate(target) {
+      foundationApi.publish(target, 'show');
+    }
+
+    //target should be element ID
+    function deactivate(target) {
+      foundationApi.publish(target, 'hide');
+    }
+
+    function toggle(target, popupTarget) {
+      foundationApi.publish(target, ['toggle', popupTarget]);
+    }
+  }
 
   zfPopup.$inject = ['FoundationApi'];
 

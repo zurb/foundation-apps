@@ -7,7 +7,6 @@
     .directive('zfAccordionItem', zfAccordionItem)
   ;
 
-
   zfAccordionController.$inject = ['$scope'];
 
   function zfAccordionController($scope) {
