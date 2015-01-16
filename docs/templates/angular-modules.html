@@ -43,11 +43,19 @@ name: angular-modules
 
 <p>The first important module to discuss is the Core. The core contains a media query initiator, FoundationApi, and several utilities.</p>
 
-<h4>Media Query initiator</h4>
+<h4>Foundation Media Query (FoundationMQ)</h4>
+<p><strong>Dependencies:</strong></p>
+<ul>
+  <li>foundation.core</li>
+</ul>
+
+<p>FoundationMQ used to be a part of the Foundation Core but now is available as a supplement to the codebase. It has numerous functions including the Media Query Initiator</p>
 
 <p>The Media Query initiator uses built-in foundation styles to create a <code>mediaQueries</code> setting under the FoundationApi. This is used for Interchange but it can be used for whatever you need. This module depends on Foundation for Apps css to be present but it will fail silently if you don't want to use this feature.</p>
 
 <p>The Initiator also publishes an event to the <code>FoundationApi</code> called "resize" whenever the window is resized (throttled to happen 50ms at a time).</p>
+
+<p>The FoundationMQ service is used to get the media query settings by shorthand instead of using FoundationAPI. There are several helper functions that allow Interchange to exist but can be used outside of Interchange as well to sort through various MediaQuery scenarios to get a list of media queries that match the current browser configuration and also to gather these scenarios from a parent element that holds Interchange-style elements</p>
 
 <h4>FoundationApi</h4>
 
@@ -147,6 +155,7 @@ name: angular-modules
 <p><strong>Dependencies:</strong></p>
 <ul>
   <li>foundation.core</li>
+  <li>foundation.mediaquery</li>
 </ul>
 
 <p>Interchange uses media queries to break at different points. Those are extracted from the CSS and implemented as part of the core module. Interchange also features some of its own media queries. Note that Interchange won't work without the breakpoints in the CSS.</p>
