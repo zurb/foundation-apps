@@ -1,13 +1,13 @@
 (function() {
   'use strict';
 
-  angular.module('foundation.interchange', ['foundation.core'])
+  angular.module('foundation.interchange', ['foundation.core', 'foundation.mediaquery'])
     .directive('zfInterchange', zfInterchange)
   ;
 
-  zfInterchange.$inject = ['FoundationApi', '$compile', '$http', '$templateCache', '$animate'];
+  zfInterchange.$inject = [ '$compile', '$http', '$templateCache', 'FoundationApi', 'FoundationMQ'];
 
-  function zfInterchange(foundationApi, $compile, $http, $templateCache) {
+  function zfInterchange($compile, $http, $templateCache, foundationApi, foundationMQ) {
 
     var directive = {
       restrict: 'EA',
@@ -25,20 +25,7 @@
     function link(scope, element, attrs, ctrl, transclude) {
       var childScope, current, scenarios, innerTemplates;
 
-      var namedQueries = {
-        'default' : 'only screen',
-        landscape : 'only screen and (orientation: landscape)',
-        portrait : 'only screen and (orientation: portrait)',
-        retina : 'only screen and (-webkit-min-device-pixel-ratio: 2),' +
-          'only screen and (min--moz-device-pixel-ratio: 2),' +
-          'only screen and (-o-min-device-pixel-ratio: 2/1),' +
-          'only screen and (min-device-pixel-ratio: 2),' +
-          'only screen and (min-resolution: 192dpi),' +
-          'only screen and (min-resolution: 2dppx)'
-      };
-
-      var globalQueries = foundationApi.getSettings().mediaQueries;
-      namedQueries = angular.extend(namedQueries, globalQueries);
+      var globalQueries = foundationMQ.getMediaQueries();
 
       //setup
       foundationApi.subscribe('resize', function(msg) {
@@ -47,7 +34,7 @@
             collectInformation(clone);
           }
 
-          var ruleMatches = matched();
+          var ruleMatches = foundationMQ.match(scenarios);
           var scenario = ruleMatches.length === 0 ? null : scenarios[ruleMatches[0].ind];
 
           //this could use some love
@@ -91,51 +78,11 @@
         return $http.get(templateUrl, {cache: $templateCache});
       }
 
-      function matched() {
-        var count   = scenarios.length;
-        var matches = [];
+      function collectInformation(el) {
+        var data = foundationMQ.collectScenariosFromElement(el);
 
-        if (count > 0) {
-          while (count--) {
-            var mq;
-            var rule = scenarios[count].media;
-
-            if (namedQueries[rule]) {
-              mq = matchMedia(namedQueries[rule]);
-            } else {
-              mq = matchMedia(rule);
-            }
-
-            if (mq.matches) {
-              matches.push({ ind: count});
-            }
-          }
-        }
-
-        return matches;
-      }
-
-      function collectInformation(parentElement) {
-        scenarios      = [];
-        innerTemplates = [];
-
-        var elements = parentElement.children();
-        var i        = 0;
-
-        angular.forEach(elements, function(el) {
-          var elem = angular.element(el);
-
-
-          //if no source or no html, capture element itself
-          if (!elem.attr('src') || !elem.attr('src').match(/.html$/)) {
-            innerTemplates[i] = elem;
-            scenarios[i] = { media: elem.attr('media'), templ: i };
-          } else {
-            scenarios[i] = { media: elem.attr('media'), src: elem.attr('src') };
-          }
-
-          i++;
-        });
+        scenarios = data.scenarios;
+        innerTemplates = data.templates;
       }
 
       function checkScenario(scenario) {
