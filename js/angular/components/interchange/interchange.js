@@ -1,11 +1,11 @@
 (function() {
   'use strict';
 
-  angular.module('foundation.interchange', ['foundation.core', 'foundation.mediaqueries'])
+  angular.module('foundation.interchange', ['foundation.core', 'foundation.mediaquery'])
     .directive('zfInterchange', zfInterchange)
   ;
 
-  zfInterchange.$inject = [ '$compile', '$http', '$templateCache', '$animate', 'FoundationApi', 'FoundationMQ'];
+  zfInterchange.$inject = [ '$compile', '$http', '$templateCache', 'FoundationApi', 'FoundationMQ'];
 
   function zfInterchange($compile, $http, $templateCache, foundationApi, foundationMQ) {
 
@@ -78,27 +78,11 @@
         return $http.get(templateUrl, {cache: $templateCache});
       }
 
-      function collectInformation(parentElement) {
-        scenarios      = [];
-        innerTemplates = [];
+      function collectInformation(el) {
+        var data = foundationMQ.collectScenariosFromElement(el);
 
-        var elements = parentElement.children();
-        var i        = 0;
-
-        angular.forEach(elements, function(el) {
-          var elem = angular.element(el);
-
-
-          //if no source or no html, capture element itself
-          if (!elem.attr('src') || !elem.attr('src').match(/.html$/)) {
-            innerTemplates[i] = elem;
-            scenarios[i] = { media: elem.attr('media'), templ: i };
-          } else {
-            scenarios[i] = { media: elem.attr('media'), src: elem.attr('src') };
-          }
-
-          i++;
-        });
+        scenarios = data.scenarios;
+        innerTemplates = data.templates;
       }
 
       function checkScenario(scenario) {

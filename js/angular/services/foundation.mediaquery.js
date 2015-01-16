@@ -131,10 +131,9 @@
   function FoundationMQ(foundationApi) {
     var service = [];
 
-    var subscribers = [];
-
     service.getMediaQueries = getMediaQueries;
-    service.matched = matched;
+    service.match = match;
+    service.collectScenariosFromElement = collectScenariosFromElement;
 
     return service;
 
@@ -167,29 +166,33 @@
       return matches;
     }
 
-    function registerMediaCallback(media) {
-      window.matchMedia(media, mqListener);
-    }
+    // Collects a scenario object and templates from element
+    function collectScenariosFromElement(parentElement) {
+      var scenarios = [];
+      var templates = [];
 
-    function mqListener(media) {
-      if(media.matches && subscribers[media.matches]) {
-        subscribers.forEach(function(subscriber) {
-          subscriber();
-        });
-      }
+      var elements = parentElement.children();
+      var i        = 0;
 
-    }
+      angular.forEach(elements, function(el) {
+        var elem = angular.element(el);
 
-    function subscribeMedia(media, cb) {
-      if(!subscribers[media]){
-        subscribers[media] = [];
 
-      }
+        //if no source or no html, capture element itself
+        if (!elem.attr('src') || !elem.attr('src').match(/.html$/)) {
+          templates[i] = elem;
+          scenarios[i] = { media: elem.attr('media'), templ: i };
+        } else {
+          scenarios[i] = { media: elem.attr('media'), src: elem.attr('src') };
+        }
 
-      subscribers[media].push(cb);
+        i++;
+      });
 
-      registerMediaCallback(media, cb);
-
+      return {
+        scenarios: scenarios,
+        templates: templates
+      };
     }
   }
 })();
