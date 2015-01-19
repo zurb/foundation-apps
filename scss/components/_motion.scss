@@ -28,6 +28,10 @@ $motion-class-active: (
   in: "ng-enter-active",
   out: "ng-leave-active",
 ) !default;
+$motion-class-stagger: (
+  in: "ng-enter-stagger",
+  out: "ng-leave-stagger",
+) !default;
 
 // Set if movement-based transitions should also fade the element in and out
 $motion-slide-and-fade: false !default;
@@ -40,6 +44,9 @@ $motion-duration-default: 700ms !default;
 // Slow and fast modifiders
 $motion-duration-slow: 1.4s !default;
 $motion-duration-fast: 300ms !default;
+$motion-stagger-duration-default: 150ms !default;
+$motion-stagger-duration-short: 50ms !default;
+$motion-stagger-duration-long: 300ms !default;
 
 // Default timing function for transitions and animations
 $motion-timing-default: ease !default;
@@ -93,6 +100,7 @@ $motion-delay-long: 700ms !default;
     @content;
   }
 }
+
 // Wraps content in an enter/leave active class, chained to the matching
 // enter/leave class, chained to the parent selector
 // Define the end state of a transition here
@@ -103,6 +111,35 @@ $motion-delay-long: 700ms !default;
     @content;
   }
 }
+
+
+@mixin stagger-wrap($dir, $class) {
+  $sel: map-get($motion-class-stagger, $dir);
+  &.#{$sel}.#{$class} {
+    @content;
+  }
+}
+
+@mixin stagger-delay($delay-amount) {
+  -webkit-transition-delay: $delay-amount;
+  transition-delay: $delay-amount;
+  -webkit-transition-duration:0;
+  // this is to avoid accidental CSS inheritance
+  transition-duration:0;
+}
+
+@mixin stagger($dir) {
+  @include stagger-wrap($dir, 'stagger') {
+    @include stagger-delay($motion-stagger-duration-default);
+  }
+  @include stagger-wrap($dir, 'short-stagger') {
+    @include stagger-delay($motion-stagger-duration-short);
+  }
+  @include stagger-wrap($dir, 'long-stagger') {
+    @include stagger-delay($motion-stagger-duration-long);
+  }
+}
+
 
 // 1. Base Transitions
 // - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -148,6 +185,7 @@ $motion-delay-long: 700ms !default;
 
     @if $fade { opacity: if($dir == in, 1, 0); }
   }
+  @include stagger($dir);
 }
 
 // FADE
@@ -167,6 +205,7 @@ $motion-delay-long: 700ms !default;
   @include transition-end($dir) {
     opacity: $to;
   }
+  @include stagger($dir);
 }
 
 // HINGE
@@ -241,6 +280,7 @@ $motion-delay-long: 700ms !default;
     transform: $end;
     @if $fade { opacity: if($dir == in, 1, 0); }
   }
+  @include stagger($dir);
 }
 
 // SCALE
@@ -263,6 +303,7 @@ $motion-delay-long: 700ms !default;
     transform: scale($to);
     @if $fade { opacity: if($dir == in, 1, 0) }
   }
+  @include stagger($dir);
 }
 
 // SPIN
@@ -416,6 +457,11 @@ $motion-delay-long: 700ms !default;
   // Duration
   .slow { transition-duration: $motion-duration-slow !important; }
   .fast { transition-duration: $motion-duration-fast !important; }
+  // .slow-stagger { 
+  //   -webkit-transition-delay: $motion-stagger-duration-slow !important; 
+  //   transition-duration: $motion-stagger-duration-slow !important; 
+  // }
+  // .fast-stagger { transition-duration: $motion-stagger-duration-fast !important; }
 
   // Easing
   @each $easing in map-keys($motion-timings) {
