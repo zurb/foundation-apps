@@ -109,30 +109,10 @@ $motion-delay-long: 700ms !default;
   }
 }
 
-
-@mixin stagger-wrap($dir, $class) {
-  $sel: map-get($motion-class-stagger, $dir);
-  &.#{$sel}.#{$class} {
-    @content;
-  }
-}
-
-@mixin stagger-delay($delay-amount) {
+@mixin stagger($delay-amount) {
   transition-delay: $delay-amount;
   // this is to avoid accidental CSS inheritance
   transition-duration:0;
-}
-
-@mixin stagger($dir) {
-  @include stagger-wrap($dir, 'stagger') {
-    @include stagger-delay($motion-stagger-duration-default);
-  }
-  @include stagger-wrap($dir, 'short-stagger') {
-    @include stagger-delay($motion-stagger-duration-short);
-  }
-  @include stagger-wrap($dir, 'long-stagger') {
-    @include stagger-delay($motion-stagger-duration-long);
-  }
 }
 
 
@@ -180,7 +160,6 @@ $motion-delay-long: 700ms !default;
 
     @if $fade { opacity: if($dir == in, 1, 0); }
   }
-  @include stagger($dir);
 }
 
 // FADE
@@ -200,7 +179,6 @@ $motion-delay-long: 700ms !default;
   @include transition-end($dir) {
     opacity: $to;
   }
-  @include stagger($dir);
 }
 
 // HINGE
@@ -275,7 +253,6 @@ $motion-delay-long: 700ms !default;
     transform: $end;
     @if $fade { opacity: if($dir == in, 1, 0); }
   }
-  @include stagger($dir);
 }
 
 // SCALE
@@ -298,7 +275,6 @@ $motion-delay-long: 700ms !default;
     transform: scale($to);
     @if $fade { opacity: if($dir == in, 1, 0) }
   }
-  @include stagger($dir);
 }
 
 // SPIN
@@ -499,4 +475,7 @@ $motion-delay-long: 700ms !default;
     &.delay       { animation-delay: $motion-delay-short !important; }
     &.long-delay  { animation-delay: $motion-delay-long !important; }
   }
+  .stagger { @include stagger($motion-stagger-duration-default); }
+  .stort-stagger { @include stagger($motion-stagger-duration-default); }
+  .long-stagger { @include stagger($motion-stagger-duration-default); }
 }
