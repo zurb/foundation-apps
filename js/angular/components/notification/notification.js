@@ -7,13 +7,14 @@
     .directive('zfNotification', zfNotification)
     .directive('zfNotificationStatic', zfNotificationStatic)
     .directive('zfNotify', zfNotify)
+    .factory('NotificationFactory', NotificationFactory)
   ;
 
   ZfNotificationController.$inject = ['$scope', 'FoundationApi'];
 
   function ZfNotificationController($scope, foundationApi) {
     var controller    = this;
-    controller.notifications = $scope.notifications = [];
+    controller.notifications = $scope.notifications = $scope.notifications || [];
 
     controller.addNotification = function(info) {
       var id  = foundationApi.generateUuid();
@@ -44,7 +45,7 @@
       restrict: 'EA',
       templateUrl: 'components/notification/notification-set.html',
       controller: 'ZfNotificationController',
-      scope: {},
+      replace: true,
       link: link
     };
 
@@ -52,13 +53,13 @@
 
     function link(scope, element, attrs, controller) {
       scope.position = attrs.position ? attrs.position.split(' ').join('-') : 'top-right';
-
       foundationApi.subscribe(attrs.id, function(msg) {
         if(msg === 'clearall') {
           controller.clearAll();
-        } else {
+        }
+        else {
           controller.addNotification(msg);
-          if(!scope.$$phase) {
+          if (!scope.$root.$$phase) {
             scope.$apply();
           }
         }
@@ -105,8 +106,6 @@
         var animationIn  = attrs.animationIn || 'fadeIn';
         var animationOut = attrs.animationOut || 'fadeOut';
         var hammerElem;
-
-
 
         //due to dynamic insertion of DOM, we need to wait for it to show up and get working!
         setTimeout(function() {
@@ -188,7 +187,6 @@
           }
 
           foundationApi.animate(element, scope.active, animationIn, animationOut);
-
           scope.$apply();
 
           return;
@@ -247,4 +245,93 @@
     }
   }
 
+  NotificationFactory.$inject = ['$http', '$templateCache', '$rootScope', '$compile', '$timeout', 'FoundationApi'];
+
+  function NotificationFactory($http, $templateCache, $rootScope, $compile, $timeout, foundationApi) {
+    return notificationFactory;
+
+    function notificationFactory(config) {
+      var self = this, //for prototype functions
+          container = angular.element(config.container || document.body),
+          id = config.id || foundationApi.generateUuid(),
+          attached = false,
+          destroyed = false,
+          html,
+          element,
+          scope
+      ;
+
+      var props = [
+        'position'
+      ];
+
+      assembleDirective();
+
+      self.addNotification = addNotification;
+      self.clearAll = clearAll;
+      self.destroy = destroy;
+
+      return {
+        addNotification: addNotification,
+        clearAll: clearAll,
+        destroy: destroy
+      };
+
+      function checkStatus() {
+        if(destroyed) {
+          throw "Error: Notification Set was destroyed. Delete the object and create a new NotificationFactory instance."
+        }
+      }
+
+      function addNotification(notification) {
+        checkStatus();
+        $timeout(function() {
+          init(true, notification);
+          foundationApi.publish(id, notification);
+        }, 0, false);
+      }
+
+      function clearAll() {
+        checkStatus();
+        $timeout(function() {
+          foundationApi.publish(id, 'clearall');
+        }, 0, false);
+      }
+
+      function init(state, notification) {
+        if(!attached && html.length > 0) {
+          var modalEl = container.append(element);
+
+          scope.notifications = [ notification ];
+          $compile(element)(scope);
+          attached = true;
+        }
+      }
+
+      function assembleDirective() {
+        html = '<zf-notification-set id="' + id + '"></zf-notification-set>';
+
+        element = angular.element(html);
+
+        scope = $rootScope.$new();
+
+        for(var prop in props) {
+          if(config[prop]) {
+            element.attr(prop, config[prop]);
+          }
+        }
+      }
+
+      function destroy() {
+        self.clearAll();
+        setTimeout(function() {
+          scope.$destroy();
+          element.remove();
+          destroyed = true;
+        }, 3000);
+      }
+
+    }
+
+  }
 })();

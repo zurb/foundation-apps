@@ -28,6 +28,10 @@ $motion-class-active: (
   in: "ng-enter-active",
   out: "ng-leave-active",
 ) !default;
+$motion-class-stagger: (
+  in: "ng-enter-stagger",
+  out: "ng-leave-stagger",
+) !default;
 
 // Set if movement-based transitions should also fade the element in and out
 $motion-slide-and-fade: false !default;
@@ -40,6 +44,9 @@ $motion-duration-default: 700ms !default;
 // Slow and fast modifiders
 $motion-duration-slow: 1.4s !default;
 $motion-duration-fast: 300ms !default;
+$motion-stagger-duration-default: 150ms !default;
+$motion-stagger-duration-short: 50ms !default;
+$motion-stagger-duration-long: 300ms !default;
 
 // Default timing function for transitions and animations
 $motion-timing-default: ease !default;
@@ -93,6 +100,7 @@ $motion-delay-long: 700ms !default;
     @content;
   }
 }
+
 // Wraps content in an enter/leave active class, chained to the matching
 // enter/leave class, chained to the parent selector
 // Define the end state of a transition here
@@ -103,6 +111,13 @@ $motion-delay-long: 700ms !default;
     @content;
   }
 }
+
+@mixin stagger($delay-amount) {
+  transition-delay: $delay-amount;
+  // this is to avoid accidental CSS inheritance
+  transition-duration:0;
+}
+
 
 // 1. Base Transitions
 // - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -463,4 +478,7 @@ $motion-delay-long: 700ms !default;
     &.delay       { animation-delay: $motion-delay-short !important; }
     &.long-delay  { animation-delay: $motion-delay-long !important; }
   }
+  .stagger { @include stagger($motion-stagger-duration-default); }
+  .stort-stagger { @include stagger($motion-stagger-duration-default); }
+  .long-stagger { @include stagger($motion-stagger-duration-default); }
 }

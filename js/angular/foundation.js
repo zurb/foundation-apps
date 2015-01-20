@@ -5,6 +5,7 @@
 
   angular.module('foundation', [
     'foundation.core',
+    'foundation.mediaquery',
     'foundation.accordion',
     'foundation.actionsheet',
     'foundation.common',
