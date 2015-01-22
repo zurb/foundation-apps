@@ -62,13 +62,13 @@ $menubar-icon-spacing: $menubar-item-padding !default;
   @if $orientation == horizontal {
     overflow-x: hidden;
     flex-flow: row nowrap;
-    > a {
+    > li > a {
       flex-flow: column nowrap;
     }
   }
   @else {
     flex-flow: column nowrap;
-    > a {
+    > li > a {
       flex-flow: row nowrap;
     }
   }
@@ -106,7 +106,7 @@ $menubar-icon-spacing: $menubar-item-padding !default;
   background: $background;
 
   // Items
-  > a {
+  > li > a {
     color: $color;
 
     &:hover {
@@ -179,11 +179,11 @@ $menubar-icon-spacing: $menubar-item-padding !default;
 ) {
   > li {
     position: relative;
-  }
 
-  > a {
-    @if $x == left or $x == right {
-      padding-#{$x}: $size + $offset * 2;
+    > a {
+      @if $x == left or $x == right {
+        padding-#{$x}: $size + $offset * 2;
+      }
     }
   }
 
