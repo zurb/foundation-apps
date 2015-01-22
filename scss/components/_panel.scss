@@ -117,7 +117,7 @@ $panel-animation-speed: 0.25s !default;
   background: $background;
 }
 
-@include exports(panels) {
+@include exports(panel) {
   .panel {
     @extend %panel-base;
     @include panel-style;
