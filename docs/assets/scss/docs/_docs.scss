@@ -763,8 +763,8 @@ hr {
     margin: 0 auto -1rem auto;
   }
 
-  .small-offset-3 {
-    margin-left: 25%;
+  .small-offset-2 {
+    margin-left: percentage(2 / 12) !important;
   }
 
   .text {
