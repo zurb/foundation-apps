@@ -46,7 +46,9 @@
             controller: getController(page),
             data: { vars: page },
           };
-
+          
+          angular.extend(state.data, page.data);
+          
           $stateProvider.state(page.name, state);
         }
       });
@@ -60,7 +62,9 @@
               '': buildState(page.path, page)
             }
           };
-
+          
+          angular.extend(state.data, page.data);
+          
           angular.forEach(page.children, function(sub) {
             state.views[sub.name + '@' + page.name] = buildState(sub.path, page);
           });
