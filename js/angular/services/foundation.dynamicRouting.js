@@ -44,10 +44,8 @@
             templateUrl: page.path,
             parent: page.parent || '',
             controller: getController(page),
-            data: { vars: page },
+            data: getData(page),
           };
-          
-          angular.extend(state.data, page.data);
           
           $stateProvider.state(page.name, state);
         }
@@ -57,13 +55,11 @@
           var state = {
             url: page.url,
             parent: page.parent || '',
-            data: { vars: page },
+            data: getData(page),
             views: {
               '': buildState(page.path, page)
             }
           };
-          
-          angular.extend(state.data, page.data);
           
           angular.forEach(page.children, function(sub) {
             state.views[sub.name + '@' + page.name] = buildState(sub.path, page);
@@ -74,7 +70,21 @@
     };
 
     this.$get = angular.noop;
-
+    
+    function getData(page) {
+      var data = { vars: {} };
+      if (page.data) {
+        if (typeof page.data.vars === "object") {
+          data.vars = page.data.vars;
+        }
+        delete page.data.vars;
+        angular.extend(data, page.data);
+      }
+      delete page.data;
+      angular.extend(data.vars, page);
+      return data;
+    }
+    
     function buildState(path, state) {
       return {
         templateUrl: path,
