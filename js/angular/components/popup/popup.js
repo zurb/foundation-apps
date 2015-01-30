@@ -38,6 +38,7 @@
         scope.target = scope.target || false;
 
         var attachment = scope.pinTo || 'top center';
+        var targetAttachment = scope.pinAt || 'bottom center';
         var tetherInit = false;
         var tether     = {};
 
@@ -96,6 +97,7 @@
             element: element[0],
             target: scope.target,
             attachment: attachment,
+            targetAttachment: targetAttachment,
             enable: false
           });
 
