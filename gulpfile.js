@@ -37,7 +37,8 @@ var gulp           = require('gulp'),
     karma          = require('gulp-karma'),
     rsync          = require('gulp-rsync'),
     merge          = require('merge-stream'),
-    settingsParser = require('settings-parser');
+    settingsParser = require('settings-parser'),
+    gulpFilter     = require('gulp-filter');
 
 var p = require('./package.json');
 
@@ -132,6 +133,8 @@ gulp.task('css', ['sass'], function() {
 
 // Compile stylesheets with Ruby Sass
 gulp.task('sass', function() {
+  var filter = gulpFilter(['*.map']);
+
   return sass('docs/assets/scss/', {
       loadPath: ['scss'],
       style: 'nested',
@@ -140,9 +143,11 @@ gulp.task('sass', function() {
     .on('error', function(err) {
       console.log(err.message);
     })
-    .pipe(autoprefixer({
-      browsers: ['last 2 versions', 'ie 10']
-    }))
+    .pipe(filter)
+      .pipe(autoprefixer({
+        browsers: ['last 2 versions', 'ie 10']
+      }))
+    .pipe(filter.restore())
     .pipe(gulp.dest('./build/assets/css/'));
 });
 
