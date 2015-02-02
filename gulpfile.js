@@ -21,26 +21,14 @@
 // - - - - - - - - - - - - - - -
 
 var gulp           = require('gulp'),
+    $              = require('gulp-load-plugins')(),
     rimraf         = require('rimraf'),
     runSequence    = require('run-sequence'),
-    markdown       = require('gulp-markdown'),
-    highlight      = require('gulp-highlight'),
-    autoprefixer   = require('gulp-autoprefixer'),
-    sass           = require('gulp-ruby-sass'),
-    nodeSass       = require('gulp-sass'),
-    uglify         = require('gulp-uglify'),
-    minify         = require('gulp-minify-css'),
-    concat         = require('gulp-concat'),
-    connect        = require('gulp-connect'),
     modRewrite     = require('connect-modrewrite'),
-    dynamicRouting = require('./bin/gulp-dynamic-routing'),
-    karma          = require('gulp-karma'),
-    rsync          = require('gulp-rsync'),
+    routes         = require('./bin/gulp-dynamic-routing'),
     merge          = require('merge-stream'),
-    settingsParser = require('settings-parser'),
-    gulpFilter     = require('gulp-filter');
-
-var p = require('./package.json');
+    settingsParser = require('settings-parser')
+;
 
 // 2. VARIABLES
 // - - - - - - - - - - - - - - -
@@ -102,7 +90,7 @@ gulp.task('copy:templates', ['copy'], function() {
   var config = [];
 
   return gulp.src('./docs/templates/**/*.html')
-    .pipe(dynamicRouting({
+    .pipe(routes({
       path: 'build/assets/js/routes.js',
       root: 'docs'
     }))
@@ -126,16 +114,16 @@ gulp.task('css', ['sass'], function() {
     'build/assets/css/app.css'
   ];
   return gulp.src(dirs)
-    .pipe(concat('app.css'))
+    .pipe($.concat('app.css'))
     .pipe(gulp.dest('build/assets/css'))
   ;
 });
 
 // Compile stylesheets with Ruby Sass
 gulp.task('sass', function() {
-  var filter = gulpFilter(['*.map']);
+  var filter = $.filter(['*.map']);
 
-  return sass('docs/assets/scss/', {
+  return $.rubySass('docs/assets/scss/', {
       loadPath: ['scss'],
       style: 'nested',
       bundleExec: true
@@ -144,7 +132,7 @@ gulp.task('sass', function() {
       console.log(err.message);
     })
     .pipe(filter)
-      .pipe(autoprefixer({
+      .pipe($.autoprefixer({
         browsers: ['last 2 versions', 'ie 10']
       }))
     .pipe(filter.restore())
@@ -154,7 +142,7 @@ gulp.task('sass', function() {
 // Compile stylesheets with node-sass
 gulp.task('node-sass', function() {
   return gulp.src('docs/assets/scss/app.scss')
-    .pipe(nodeSass({
+    .pipe($.sass({
       includePaths: ['scss'],
       outputStyle: 'nested',
       errLogToConsole: true
@@ -188,13 +176,13 @@ gulp.task('settings', function() {
 // Compile Foundation JavaScript
 gulp.task('javascript', function() {
   return gulp.src(foundationJS)
-    .pipe(uglify({
+    .pipe($.uglify({
       beautify: true,
       mangle: false
     }).on('error', function(e) {
       console.log(e);
     }))
-    .pipe(concat('foundation.js'))
+    .pipe($.concat('foundation.js'))
     .pipe(gulp.dest('./build/assets/js/'))
   ;
 });
@@ -202,11 +190,11 @@ gulp.task('javascript', function() {
 // Compile documentation-specific JavaScript
 gulp.task('javascript:docs', function() {
   return gulp.src(docsJS)
-    .pipe(uglify({
+    .pipe($.uglify({
       beautify: true,
       mangle: false
     }))
-    .pipe(concat('app.js'))
+    .pipe($.concat('app.js'))
     .pipe(gulp.dest('./build/assets/js/'))
   ;
 
@@ -216,7 +204,7 @@ gulp.task('javascript:docs', function() {
 // - - - - - - - - - - - - - - -
 
 gulp.task('server:start', function() {
-  connect.server({
+  $.connect.server({
     root: './build',
     middleware: function() {
       return [
@@ -249,7 +237,7 @@ gulp.task('karma:test', ['build', 'node-sass'], function() {
   ];
 
   return gulp.src(testFiles)
-    .pipe(karma({
+    .pipe($.karma({
       configFile: 'karma.conf.js',
       action: 'run'
     }))
@@ -261,7 +249,7 @@ gulp.task('karma:test', ['build', 'node-sass'], function() {
 });
 
 gulp.task('sass:test', function() {
-  sass('./tests/unit/scss/tests.scss', {
+  $.rubySass('./tests/unit/scss/tests.scss', {
     loadPath: ['scss', 'docs/assets/scss', 'bower_components/bootcamp/dist'],
     style: 'nested',
     bundleExec: true
@@ -281,7 +269,7 @@ gulp.task('test', ['karma:test', 'sass:test'], function() {
 // Deploy documentation
 gulp.task('deploy', ['build', 'settings'], function() {
   return gulp.src('build/**')
-    .pipe(rsync({
+    .pipe($.rsync({
       root: 'build',
       hostname: 'deployer@72.32.134.77',
       destination: '/home/deployer/sites/foundation-apps/current'
@@ -290,6 +278,8 @@ gulp.task('deploy', ['build', 'settings'], function() {
 
 // Deploy to CDN
 gulp.task('deploy:cdn', ['build'], function() {
+  var p = require('./package.json');
+
   var js = gulp.src(foundationJS)
     .pipe(concat('foundation-apps-' + p.version +'.js'))
     .pipe(gulp.dest('./build/assets/js/'));
