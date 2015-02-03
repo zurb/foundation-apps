@@ -45,6 +45,7 @@
             parent: page.parent || '',
             controller: getController(page),
             data: { vars: page },
+            animation: buildAnimations(page),
           };
 
           $stateProvider.state(page.name, state);
@@ -56,6 +57,7 @@
             url: page.url,
             parent: page.parent || '',
             data: { vars: page },
+            animation: buildAnimations(page),
             views: {
               '': buildState(page.path, page)
             }
@@ -86,6 +88,20 @@
       }
 
       return ctrl;
+    }
+
+    function buildAnimations(state) {
+      var animations = {};
+
+      if (state.animationIn) {
+        animations.enter = state.animationIn;
+      }
+
+      if (state.animationOut) {
+        animations.leave = state.animationOut;
+      }
+
+      return animations;
     }
   }
 
