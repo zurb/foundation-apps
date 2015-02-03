@@ -376,5 +376,5 @@ gulp.task('default', ['build', 'server:start'], function() {
   gulp.watch(['./docs/assets/scss/**/*', './scss/**/*'], ['css']);
 
   // Watch JavaScript
-  gulp.watch(['./docs/assets/js/**/*', './js/**/*'], ['javascript', 'javascript:deps']);
+  gulp.watch(['./docs/assets/js/**/*', './js/**/*'], ['javascript']);
 });
