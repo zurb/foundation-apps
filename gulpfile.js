@@ -266,8 +266,39 @@ gulp.task('test', ['karma:test', 'sass:test'], function() {
 // 9. DEPLOYMENT
 // - - - - - - - - - - - - - - -
 
+// Deploy distribution files
+gulp.task('deploy:dist', function() {
+  var pkg = require('./package.json');
+  var filter = $.filter(['*.map']);
+
+  var css = $.rubySass('docs/assets/scss/', {
+      loadPath: ['scss'],
+      style: 'nested',
+      bundleExec: true
+    })
+    .pipe(filter)
+      .pipe($.autoprefixer({
+        browsers: ['last 2 versions', 'ie 10']
+      }))
+    .pipe(filter.restore())
+    .pipe($.rename('foundation-apps.css'))
+    .pipe(gulp.dest('./dist/css'))
+    .pipe($.minifyCss())
+    .pipe($.rename('foundation-apps.min.css'))
+    .pipe(gulp.dest('./dist/css'));
+
+  var js = gulp.src(foundationJS)
+    .pipe($.concat('foundation-apps.js'))
+    .pipe(gulp.dest('./dist/js'))
+    .pipe($.uglify())
+    .pipe($.rename('foundation-apps.min.js'))
+    .pipe(gulp.dest('./dist/js'));
+
+  return;
+});
+
 // Deploy documentation
-gulp.task('deploy', ['build', 'settings'], function() {
+gulp.task('deploy:docs', ['build', 'settings'], function() {
   return gulp.src('build/**')
     .pipe($.rsync({
       root: 'build',
@@ -277,29 +308,24 @@ gulp.task('deploy', ['build', 'settings'], function() {
 });
 
 // Deploy to CDN
-gulp.task('deploy:cdn', ['build'], function() {
-  var p = require('./package.json');
+gulp.task('deploy:cdn', ['deploy:dist'], function() {
+  var pkg = require('./package.json');
 
-  var js = gulp.src(foundationJS)
-    .pipe(concat('foundation-apps-' + p.version +'.js'))
-    .pipe(gulp.dest('./build/assets/js/'));
-  var jsMin = gulp.src(['build/assets/js/**'])
-    .pipe(uglify({
-      beautify: true,
-      mangle: false
+  return gulp.src('./dist/**/*', {base:'./dist/'})
+    .pipe($.filter(['**/*.css', '**/*.js']))
+    .pipe($.rename(function(path) {
+      // Inject the version number into the filename
+      var base = path.basename.split('.');
+      if (base.length === 1) {
+        base = base + '-' + pkg.version;
+      }
+      else {
+        base = base.slice(0, -1).join('') + '-' + pkg.version + '.' + base[base.length - 1];
+      }
+      path.basename = base;
+      path.dirname = '';
     }))
-    .pipe(concat('foundation-apps-' + p.version +'.min.js'))
-    .pipe(gulp.dest('./build/assets/js/'));
-  var css = gulp.src(['build/assets/css/**'])
-    .pipe(concat('foundation-apps-' + p.version +'.css'))
-    .pipe(gulp.dest('./build/assets/css/'));
-  var cssMin = gulp.src('./build/assets/css/app.css')
-    .pipe(minify())
-    .pipe(concat('foundation-apps-' + p.version +'.min.css'))
-    .pipe(gulp.dest('./build/assets/css/'));
-
-  merge(js, jsMin, css, cssMin)
-    .pipe(rsync({
+    .pipe($.rsync({
       hostname: 'deployer@72.32.134.77',
       destination: '/home/deployer/sites/foundation-apps-cdn/current',
       relative: false
