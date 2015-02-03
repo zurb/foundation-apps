@@ -34,6 +34,11 @@ $menubar-icon-spacing: $menubar-item-padding !default;
   list-style-type: none;
   margin-bottom: 1rem;
 
+  &.align-right   { @include grid-align(right); }
+  &.align-center  { @include grid-align(center); }
+  &.align-justify { @include grid-align(justify); }
+  &.align-spaced  { @include grid-align(spaced); }
+
   // Menu item
   > li {
     // This flex setting makes each item an equal width
