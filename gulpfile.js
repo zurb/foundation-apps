@@ -34,16 +34,18 @@ var gulp           = require('gulp'),
 // - - - - - - - - - - - - - - -
 
 var foundationJS = [
+  'js/vendor/**/*.js',
+  'js/angular/**/*.js',
+  '!js/angular/app.js'
+];
+var dependenciesJS = [
   'bower_components/fastclick/lib/fastclick.js',
   'bower_components/viewport-units-buggyfill/viewport-units-buggyfill.js',
   'bower_components/tether/tether.js',
   'bower_components/angular/angular.js',
   'bower_components/angular-animate/angular-animate.js',
   'bower_components/angular-ui-router/release/angular-ui-router.js',
-  'bower_components/hammerjs/hammer.js',
-  'js/vendor/**/*.js',
-  'js/angular/**/*.js',
-  '!js/angular/app.js'
+  'bower_components/hammerjs/hammer.js'
 ];
 var docsJS = [
   'bower_components/marked/lib/marked.js',
@@ -187,6 +189,20 @@ gulp.task('javascript', function() {
   ;
 });
 
+// Compile JavaScript dependencies
+gulp.task('javascript:deps', function() {
+  return gulp.src(dependenciesJS)
+    .pipe($.uglify({
+      beautify: true,
+      mangle: false
+    }).on('error', function(e) {
+      console.log(e);
+    }))
+    .pipe($.concat('dependencies.js'))
+    .pipe(gulp.dest('./build/assets/js/'))
+  ;
+});
+
 // Compile documentation-specific JavaScript
 gulp.task('javascript:docs', function() {
   return gulp.src(docsJS)
@@ -228,6 +244,7 @@ gulp.task('server:start', function() {
 gulp.task('karma:test', ['build', 'node-sass'], function() {
   var testFiles = [
     'build/assets/js/foundation.js',
+    'build/assets/js/dependencies.js',
     'build/assets/js/app.js',
     'bower_components/angular-mocks/angular-mocks.js',
     'bower_components/jsdiff/diff.js',
@@ -337,7 +354,7 @@ gulp.task('deploy:cdn', ['deploy:dist'], function() {
 
 // Build the documentation once
 gulp.task('build', function(cb) {
-  runSequence('clean', ['copy', 'copy:partials', 'css', 'javascript', 'javascript:docs'], 'copy:templates', function() {
+  runSequence('clean', ['copy', 'copy:partials', 'css', 'javascript', 'javascript:deps', 'javascript:docs'], 'copy:templates', function() {
     console.log('Successfully built.');
     cb();
   });
@@ -359,5 +376,5 @@ gulp.task('default', ['build', 'server:start'], function() {
   gulp.watch(['./docs/assets/scss/**/*', './scss/**/*'], ['css']);
 
   // Watch JavaScript
-  gulp.watch(['./docs/assets/js/**/*', './js/**/*'], ['javascript']);
+  gulp.watch(['./docs/assets/js/**/*', './js/**/*'], ['javascript', 'javascript:deps']);
 });
