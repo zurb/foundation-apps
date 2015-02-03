@@ -2,25 +2,8 @@
   "name": "foundation-apps",
   "version": "1.0.2",
   "main": [
-    "scss/foundation.scss",
-    "js/angular/app.js",
-    "js/vendor/iconic.min.js",
-    "js/angular/components/accordion/accordion.js",
-    "js/angular/components/actionsheet/actionsheet.js",
-    "js/angular/components/common/common.js",
-    "js/angular/components/iconic/iconic.js",
-    "js/angular/components/interchange/interchange.js",
-    "js/angular/components/modal/modal.js",
-    "js/angular/components/notification/notification.js",
-    "js/angular/components/offcanvas/offcanvas.js",
-    "js/angular/components/panel/panel.js",
-    "js/angular/components/popup/popup.js",
-    "js/angular/components/tabs/tabs.js",
-    "js/angular/services/foundation.core.animation.js",
-    "js/angular/services/foundation.core.js",
-    "js/angular/services/foundation.dynamicRouting.animations.js",
-    "js/angular/services/foundation.dynamicRouting.js",
-    "js/angular/services/foundation.mediaquery.js"
+    "dist/css/foundation-apps.css",
+    "dist/js/foundation-apps.js"
   ],
   "dependencies": {
     "viewport-units-buggyfill": "~0.4.1",
