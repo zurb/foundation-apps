@@ -263,17 +263,12 @@ $menubar-icon-spacing: $menubar-item-padding !default;
     &.align-justify { @include menu-bar-align(justify); }
     &.align-spaced  { @include menu-bar-align(spaced); }
 
-    // Responsive alignment
-    @each $size in $breakpoint-classes {
-      @include breakpoint($size) {
-        &.#{$size}-align-spaced  { @include menu-bar-align(spaced); }
-      }
-    }
-
     @each $size in $breakpoint-classes {
       @include breakpoint($size) {
         &.#{$size}-condense { li { flex: 0 0 auto; } }
         &.#{$size}-expand   { li { flex: 1 0 auto; } }
+
+        // Responsive Alignment
         &.#{$size}-align-left   { @include menu-bar-align(left); }
         &.#{$size}-align-right   { @include menu-bar-align(right); }
         &.#{$size}-align-center  { @include menu-bar-align(center); }
