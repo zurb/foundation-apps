@@ -34,11 +34,6 @@ $menubar-icon-spacing: $menubar-item-padding !default;
   list-style-type: none;
   margin-bottom: 1rem;
 
-  &.align-right   { @include grid-align(right); }
-  &.align-center  { @include grid-align(center); }
-  &.align-justify { @include grid-align(justify); }
-  &.align-spaced  { @include grid-align(spaced); }
-
   // Menu item
   > li {
     // This flex setting makes each item an equal width
@@ -220,6 +215,32 @@ $menubar-icon-spacing: $menubar-item-padding !default;
 }
 
 /*
+  Set the alignment of menu items (li) within a menu-bar
+
+  left: Items align to the left.
+  right: Items align to the right.
+  center: Items align to the center.
+  justify: Items are spaced equally apart so they occupy the space of the entire grid.
+  spaced: Items are given equal space to their left and right.
+
+  @group menu-bar
+
+  @param {string} $align - Alignment to use.
+
+  @output An appropriate justify-content value.
+*/
+@mixin menu-bar-align($align: left) {
+  $options: (
+    left: flex-start,
+    right: flex-end,
+    center: center,
+    justify: space-between,
+    spaced: space-around,
+  );
+  justify-content: map-get($options, $align);
+}
+
+/*
   CSS output
 */
 @include exports(menu-bar) {
@@ -235,10 +256,29 @@ $menubar-icon-spacing: $menubar-item-padding !default;
     &.condense {
       > li { flex: 0 0 auto; }
     }
+
+    // Align Menu Items
+    &.align-right   { @include menu-bar-align(right); }
+    &.align-center  { @include menu-bar-align(center); }
+    &.align-justify { @include menu-bar-align(justify); }
+    &.align-spaced  { @include menu-bar-align(spaced); }
+
+    // Responsive alignment
+    @each $size in $breakpoint-classes {
+      @include breakpoint($size) {
+        &.#{$size}-align-spaced  { @include menu-bar-align(spaced); }
+      }
+    }
+
     @each $size in $breakpoint-classes {
       @include breakpoint($size) {
         &.#{$size}-condense { li { flex: 0 0 auto; } }
         &.#{$size}-expand   { li { flex: 1 0 auto; } }
+        &.#{$size}-align-left   { @include menu-bar-align(left); }
+        &.#{$size}-align-right   { @include menu-bar-align(right); }
+        &.#{$size}-align-center  { @include menu-bar-align(center); }
+        &.#{$size}-align-justify { @include menu-bar-align(justify); }
+        &.#{$size}-align-spaced  { @include menu-bar-align(spaced); }
       }
     }
 
