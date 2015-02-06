@@ -3,7 +3,29 @@
 
   angular.module('foundation.panel', ['foundation.core'])
     .directive('zfPanel', zfPanel)
+    .service('FoundationPanel', FoundationPanel)
   ;
+
+  FoundationPanel.$inject = ['FoundationApi'];
+
+  function FoundationPanel(foundationApi) {
+    var service    = {};
+
+    service.activate = activate;
+    service.deactivate = deactivate;
+
+    return service;
+
+    //target should be element ID
+    function activate(target) {
+      foundationApi.publish(target, 'show');
+    }
+
+    //target should be element ID
+    function deactivate(target) {
+      foundationApi.publish(target, 'hide');
+    }
+  }
 
   zfPanel.$inject = ['FoundationApi'];
 

@@ -10,7 +10,24 @@
     .directive('zfTabHref', zfTabHref)
     .directive('zfTabCustom', zfTabCustom)
     .directive('zfTabContentCustom', zfTabContentCustom)
+    .service('FoundationTabs', FoundationTabs)
   ;
+
+  FoundationTabs.$inject = ['FoundationApi'];
+
+  function FoundationTabs(foundationApi) {
+    var service    = {};
+
+    service.activate = activate;
+
+    return service;
+
+    //target should be element ID
+    function activate(target) {
+      foundationApi.publish(target, 'show');
+    }
+
+  }
 
   ZfTabsController.$inject = ['$scope', 'FoundationApi'];
 

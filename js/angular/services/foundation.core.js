@@ -5,6 +5,7 @@
       'foundation.core.animation'
     ])
     .service('FoundationApi', FoundationApi)
+    .service('FoundationAdapter', FoundationAdapter)
     .factory('Utils', Utils)
   ;
 
@@ -92,8 +93,28 @@
     function animate(element, futureState, animationIn, animationOut) {
       FoundationAnimation.animate(element, futureState, animationIn, animationOut);
     }
-
   }
+
+  FoundationAdapter.$inject = ['FoundationApi'];
+
+  function FoundationAdapter(foundationApi) {
+
+    var service    = {};
+
+    service.activate = activate;
+    service.deactivate = deactivate;
+
+    return service;
+
+    function activate(target) {
+      foundationApi.publish(target, 'show');
+    }
+
+    function deactivate(target) {
+      foundationApi.publish(target, 'hide');
+    }
+  }
+
 
   function Utils() {
     var utils = {};
@@ -114,7 +135,7 @@
             timer = null;
           }, delay);
         }
-      }
+      };
     }
   }
 
