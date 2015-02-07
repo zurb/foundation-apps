@@ -42,7 +42,7 @@ $rem-base: 16px !default;
 /// @output The content passed, if the component has not yet been exported.
 @mixin exports($name) {
   // Check if the module has already been imported
-  @if not imported($name) {
+  @if not(imported($name)) {
     // Check if the module should be used
     @if using($name) {
       $modules: append($modules, $name) !global;

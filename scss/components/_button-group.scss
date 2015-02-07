@@ -84,7 +84,7 @@ $btngroup-radius: $button-radius !default;
   $color: #fff
 ) {
 
-  @if not $segmented {
+  @if not($segmented) {
     > li {
       > a, > label {
         @include button-style($background, $color);

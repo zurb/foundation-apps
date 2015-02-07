@@ -121,7 +121,7 @@ gulp.task('css', ['sass'], function() {
 
 // Compile stylesheets with Ruby Sass
 gulp.task('sass', function() {
-  var filter = $.filter(['*.map']);
+  var filter = $.filter(['*.css']);
 
   return $.rubySass('docs/assets/scss/', {
       loadPath: ['scss'],
@@ -140,17 +140,17 @@ gulp.task('sass', function() {
 });
 
 // Compile stylesheets with node-sass
-gulp.task('node-sass', function() {
+gulp.task('sass:node', function() {
   return gulp.src('docs/assets/scss/app.scss')
     .pipe($.sass({
       includePaths: ['scss'],
       outputStyle: 'nested',
       errLogToConsole: true
     }))
-    .pipe(autoprefixer({
+    .pipe($.autoprefixer({
       browsers: ['last 2 versions', 'ie 10']
     }))
-    .pipe(concat('app_node.css'))
+    .pipe($.concat('app_node.css'))
     .pipe(gulp.dest('./build/assets/css/'));
 });
 
@@ -225,7 +225,7 @@ gulp.task('server:start', function() {
 // 8. TESTING
 // - - - - - - - - - - - - - - -
 
-gulp.task('karma:test', ['build', 'node-sass'], function() {
+gulp.task('karma:test', ['build', 'sass:node'], function() {
   var testFiles = [
     'build/assets/js/foundation.js',
     'build/assets/js/app.js',
