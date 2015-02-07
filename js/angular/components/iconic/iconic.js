@@ -21,9 +21,9 @@
     }
   }
 
-  zfIconic.$inject = ['Iconic', 'FoundationApi']
+  zfIconic.$inject = ['Iconic', 'FoundationApi', '$location']
 
-  function zfIconic(iconic, foundationApi) {
+  function zfIconic(iconic, foundationApi, $location) {
     var directive = {
       restrict: 'A',
       template: '<img ng-transclude>',
@@ -52,7 +52,11 @@
           iAttrs.$set('data-src', scope.dynSrc);
         } else {
           // To support expressions on data-src
-          iAttrs.$set('data-src', assetPath + scope.icon + '.svg');
+          if (scope.icon) {
+            iAttrs.$set('data-src', assetPath + scope.icon + '.svg');
+          } else {
+            iAttrs.$set('data-src', iAttrs.src);
+          }
         };
 
         var iconicClass;
@@ -75,7 +79,13 @@
       function postLink(scope, element, attrs) {
         var ico = iconic.getAccess();
 
-        ico.inject(element[0]);
+        ico.inject(element[0], {
+          each: function(injectedElem) {
+            if ($location.$$html5) {
+              scope.$emit('$zfIconicInjected', injectedElem);
+            }
+          }
+        });
 
         foundationApi.subscribe('resize', function() {
           ico.update();
