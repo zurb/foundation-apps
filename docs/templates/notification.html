@@ -5,7 +5,7 @@ title: Notification
 ---
 
 <h2>Notification</h2>
-<h3 class="subheader">An alert that pins to the corner of the screen when triggered by JavaScript. A custom action can be assigned to a notification as well. By default, all notifications can be swiped to close them.</h3>
+<h3 class="subheader">An alert that pins to the corner of the screen when triggered by JavaScript. A custom action can be assigned to a notification as well. By default, all notifications can be swiped to close them. You can also set an `autoclose` attribute equal to a number (measured in milliseconds) to have the notification disappear after the specified amount of time. Please note that due to dynamic DOM insertion and animations, any value less than 800ms will not work as expected.</h3>
 
 <h3 class="subheader">Optionally, the notifications directive can also tap into the browser's native notification support, if it exists.</h3>
 
@@ -13,13 +13,14 @@ title: Notification
   <div class="small-12 grid-content">
   	<a class="button" href="#"
   	  title="My notification"
-  	  content="Notification example"
+  	  content="Notification example that closes in 3 seconds!"
   	  color="success"
+      autoclose="3000"
   	  zf-notify="test-docs-notifications">Dynamic Notification</a>
   	<a class="button" href="#" zf-open="static-example">Static Notification</a>
     <zf-notification-set position="bottom-left" id="test-docs-notifications"></zf-notification-set>
     <zf-notification-static id="static-example" title="My static notification" image="http://www.clipartbest.com/cliparts/acq/X8R/acqX8RdcM.jpeg" position="top left">
-  	  This notification is static, it works similarly to a programmatic with some subtle differences
+  	  This notification is static, it works similarly to a programmatic with some subtle differences. I'll stay here until you close me!
   	</zf-notification-static>
   </div>
 </div>
@@ -62,6 +63,7 @@ title: Notification
     	title="My notification"
     	content="Notification example"
     	color="success"
+      autoclose="3000"
     	zf-notify="main-notifications">Dynamic Notification</a>
     <zf-notification-set id="main-notifications" position="top-left"></zf-notification-set>
     </hljs>
@@ -71,6 +73,7 @@ title: Notification
 		title="My notification"
 		content="Notification example"
 		color="success"
+    autoclose="3000"
 		zf-notify="main-notifications">Dynamic Notification</a>
     <zf-notification-set id="main-notifications" position="top-left"></zf-notification-set>
   </div>

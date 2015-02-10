@@ -117,7 +117,8 @@
         content: '=?',
         image: '=?',
         notifId: '=',
-        color: '=?'
+        color: '=?',
+        autoclose: '=?'
       },
       compile: compile
     };
@@ -137,7 +138,6 @@
 
       function postLink(scope, element, attrs, controller) {
         scope.active = false;
-
         var animationIn  = attrs.animationIn || 'fadeIn';
         var animationOut = attrs.animationOut || 'fadeOut';
         var hammerElem;
@@ -154,6 +154,13 @@
           setTimeout(function() {
             controller.removeNotification(scope.notifId);
           }, 50);
+        };
+
+        // close if autoclose
+        if (scope.autoclose) {
+          setTimeout(function() {
+            scope.hide();
+          }, parseInt(scope.autoclose));
         };
 
         // close on swipe
@@ -186,7 +193,8 @@
         title: '@?',
         content: '@?',
         image: '@?',
-        color: '@?'
+        color: '@?',
+        autoclose: '@?'
       },
       compile: compile
     };
@@ -215,10 +223,22 @@
         foundationApi.subscribe(attrs.id, function(msg) {
           if(msg == 'show' || msg == 'open') {
             scope.show();
+            // close if autoclose
+            if (scope.autoclose) {
+              setTimeout(function() {
+                scope.hide();
+              }, parseInt(scope.autoclose));
+            };
           } else if (msg == 'close' || msg == 'hide') {
             scope.hide();
           } else if (msg == 'toggle') {
             scope.toggle();
+            // close if autoclose
+            if (scope.autoclose) {
+              setTimeout(function() {
+                scope.toggle();
+              }, parseInt(scope.autoclose));
+            };
           }
 
           foundationApi.animate(element, scope.active, animationIn, animationOut);
@@ -258,7 +278,8 @@
         title: '@?',
         content: '@?',
         color: '@?',
-        image: '@?'
+        image: '@?',
+        autoclose: '@?'
       },
       link: link
     };
@@ -271,7 +292,8 @@
           title: scope.title,
           content: scope.content,
           color: scope.color,
-          image: scope.image
+          image: scope.image,
+          autoclose: scope.autoclose
         });
         e.preventDefault();
       });
