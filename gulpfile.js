@@ -30,30 +30,73 @@ var gulp           = require('gulp'),
     settingsParser = require('settings-parser')
 ;
 
+var versions = function() {
+  return $.rename(function(path) {
+    // Inject the version number into the filename
+    var base = path.basename.split('.');
+    if (base.length === 1) {
+      base = base + '-' + pkg.version;
+    }
+    else {
+      base = base.slice(0, -1).join('') + '-' + pkg.version + '.' + base[base.length - 1];
+    }
+    path.basename = base;
+    path.dirname = '';
+  })
+}
+
 // 2. VARIABLES
 // - - - - - - - - - - - - - - -
 
-var foundationJS = [
-  'js/vendor/**/*.js',
-  'js/angular/**/*.js',
-  '!js/angular/app.js'
-];
-var dependenciesJS = [
-  'bower_components/fastclick/lib/fastclick.js',
-  'bower_components/viewport-units-buggyfill/viewport-units-buggyfill.js',
-  'bower_components/tether/tether.js',
-  'bower_components/angular/angular.js',
-  'bower_components/angular-animate/angular-animate.js',
-  'bower_components/angular-ui-router/release/angular-ui-router.js',
-  'bower_components/hammerjs/hammer.js'
-];
-var docsJS = [
-  'bower_components/marked/lib/marked.js',
-  'bower_components/angular-highlightjs/angular-highlightjs.js',
-  'bower_components/highlightjs/highlight.pack.js',
-  'bower_components/allmighty-autocomplete/script/autocomplete.js',
-  'docs/assets/js/app.js'
-];
+var paths = {
+  html: {
+    base: [
+      './docs/**/*.*',
+      '!./docs/templates/**/*.*',
+      '!./docs/assets/{scss,js}/**/*.*'
+    ],
+    templates: [
+      './docs/templates/**/*.html'
+    ],
+    partials: [
+      'js/angular/components/**/*.html'
+    ]
+  },
+  sass: {
+    loadPaths: [
+      'scss',
+      'docs/assets/scss'
+    ],
+    testPaths: [
+      'scss',
+      'docs/assets/scss',
+      'bower_components/bootcamp/dist'
+    ]
+  },
+  javascript: {
+    foundation: [
+      'js/vendor/**/*.js',
+      'js/angular/**/*.js',
+      '!js/angular/app.js'
+    ],
+    libs: [
+      'bower_components/fastclick/lib/fastclick.js',
+      'bower_components/viewport-units-buggyfill/viewport-units-buggyfill.js',
+      'bower_components/tether/tether.js',
+      'bower_components/angular/angular.js',
+      'bower_components/angular-animate/angular-animate.js',
+      'bower_components/angular-ui-router/release/angular-ui-router.js',
+      'bower_components/hammerjs/hammer.js'
+    ],
+    docs: [
+      'bower_components/marked/lib/marked.js',
+      'bower_components/angular-highlightjs/angular-highlightjs.js',
+      'bower_components/highlightjs/highlight.pack.js',
+      'bower_components/allmighty-autocomplete/script/autocomplete.js',
+      'docs/assets/js/app.js'
+    ]
+  }
+}
 
 // 3. CLEANIN' FILES
 // - - - - - - - - - - - - - - -
@@ -73,12 +116,7 @@ gulp.task('clean:partials', function(cb) {
 
 // Copy static files (but not the Angular templates, Sass, or JS)
 gulp.task('copy', function() {
-  var dirs = [
-    './docs/**/*.*',
-    '!./docs/templates/**/*.*',
-    '!./docs/assets/{scss,js}/**/*.*'
-  ];
-  gulp.src(dirs, {
+  gulp.src(paths.html.base, {
     base: './docs/'
   })
     .pipe(gulp.dest('build'));
@@ -88,10 +126,10 @@ gulp.task('copy', function() {
 });
 
 // Copy page templates and generate routes
-gulp.task('copy:templates', ['copy'], function() {
+gulp.task('copy:templates', function() {
   var config = [];
 
-  return gulp.src('./docs/templates/**/*.html')
+  return gulp.src(paths.html.templates)
     .pipe(routes({
       path: 'build/assets/js/routes.js',
       root: 'docs'
@@ -102,7 +140,7 @@ gulp.task('copy:templates', ['copy'], function() {
 
 // Copy Foundation directive partials
 gulp.task('copy:partials', ['clean:partials'], function() {
-  return gulp.src(['js/angular/components/**/*.html'])
+  return gulp.src(paths.html.partials)
     .pipe(gulp.dest('./build/components/'));
 });
 
@@ -126,7 +164,7 @@ gulp.task('sass', function() {
   var filter = $.filter(['*.css']);
 
   return $.rubySass('docs/assets/scss/', {
-      loadPath: ['scss'],
+      loadPath: paths.sass.loadPaths,
       style: 'nested',
       bundleExec: true
     })
@@ -145,7 +183,7 @@ gulp.task('sass', function() {
 gulp.task('sass:node', function() {
   return gulp.src('docs/assets/scss/app.scss')
     .pipe($.sass({
-      includePaths: ['scss'],
+      includePaths: paths.sass.loadPaths,
       outputStyle: 'nested',
       errLogToConsole: true
     }))
@@ -177,7 +215,7 @@ gulp.task('settings', function() {
 
 // Compile Foundation JavaScript
 gulp.task('javascript', function() {
-  return gulp.src(foundationJS)
+  return gulp.src(paths.javascript.foundation)
     .pipe($.uglify({
       beautify: true,
       mangle: false
@@ -191,7 +229,7 @@ gulp.task('javascript', function() {
 
 // Compile JavaScript dependencies
 gulp.task('javascript:deps', function() {
-  return gulp.src(dependenciesJS)
+  return gulp.src(paths.javascript.libs)
     .pipe($.uglify({
       beautify: true,
       mangle: false
@@ -205,7 +243,7 @@ gulp.task('javascript:deps', function() {
 
 // Compile documentation-specific JavaScript
 gulp.task('javascript:docs', function() {
-  return gulp.src(docsJS)
+  return gulp.src(paths.javascript.docs)
     .pipe($.uglify({
       beautify: true,
       mangle: false
@@ -213,7 +251,6 @@ gulp.task('javascript:docs', function() {
     .pipe($.concat('app.js'))
     .pipe(gulp.dest('./build/assets/js/'))
   ;
-
 });
 
 // 7. SERVER
@@ -229,14 +266,6 @@ gulp.task('server:start', function() {
     },
   });
 });
-
-
-// gulp.task('minify-css', function() {
-//   gulp.src('./build/assets/css/app.css')
-//     .pipe(minify({keepBreaks:true}))
-//     .pipe(concat('app.min.css'))
-//     .pipe(gulp.dest('./build/assets/css/'))
-// });
 
 // 8. TESTING
 // - - - - - - - - - - - - - - -
@@ -267,7 +296,7 @@ gulp.task('karma:test', ['build', 'sass:node'], function() {
 
 gulp.task('sass:test', function() {
   $.rubySass('./tests/unit/scss/tests.scss', {
-    loadPath: ['scss', 'docs/assets/scss', 'bower_components/bootcamp/dist'],
+    loadPath: paths.sass.testPaths,
     style: 'nested',
     bundleExec: true
   })
@@ -286,7 +315,7 @@ gulp.task('test', ['karma:test', 'sass:test'], function() {
 // Deploy distribution files
 gulp.task('deploy:dist', function() {
   var pkg = require('./package.json');
-  var filter = $.filter(['*.map']);
+  var filter = $.filter(['*.css']);
 
   var css = $.rubySass('docs/assets/scss/', {
       loadPath: ['scss'],
@@ -304,7 +333,7 @@ gulp.task('deploy:dist', function() {
     .pipe($.rename('foundation-apps.min.css'))
     .pipe(gulp.dest('./dist/css'));
 
-  var js = gulp.src(foundationJS)
+  var js = gulp.src(paths.javascript.foundation)
     .pipe($.concat('foundation-apps.js'))
     .pipe(gulp.dest('./dist/js'))
     .pipe($.uglify())
@@ -330,18 +359,7 @@ gulp.task('deploy:cdn', ['deploy:dist'], function() {
 
   return gulp.src('./dist/**/*', {base:'./dist/'})
     .pipe($.filter(['**/*.css', '**/*.js']))
-    .pipe($.rename(function(path) {
-      // Inject the version number into the filename
-      var base = path.basename.split('.');
-      if (base.length === 1) {
-        base = base + '-' + pkg.version;
-      }
-      else {
-        base = base.slice(0, -1).join('') + '-' + pkg.version + '.' + base[base.length - 1];
-      }
-      path.basename = base;
-      path.dirname = '';
-    }))
+    .pipe(addVersions())
     .pipe($.rsync({
       hostname: 'deployer@72.32.134.77',
       destination: '/home/deployer/sites/foundation-apps-cdn/current',
@@ -364,17 +382,17 @@ gulp.task('build', function(cb) {
 gulp.task('default', ['build', 'server:start'], function() {
 
   // Watch static files
-  gulp.watch(['./docs/**/*.*', '!./docs/templates/**/*.*', '!./docs/assets/{scss,js}/**/*.*'], ['copy']);
+  gulp.watch(paths.html.base, ['copy']);
 
   // Watch Angular templates
-  gulp.watch(['docs/templates/**/*.html'], ['copy:templates']);
+  gulp.watch(paths.html.templates, ['copy:templates']);
 
   // Watch Angular partials
-  gulp.watch(['js/angular/components/**/**.html'], ['copy:partials']);
+  gulp.watch(paths.html.partials, ['copy:partials']);
 
   // Watch Sass
   gulp.watch(['./docs/assets/scss/**/*', './scss/**/*'], ['css']);
 
   // Watch JavaScript
-  gulp.watch(['./docs/assets/js/**/*', './js/**/*'], ['javascript']);
+  gulp.watch(paths.javascript.foundation.concat(paths.javascript.docs), ['javascript']);
 });
