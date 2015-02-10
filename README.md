@@ -40,7 +40,7 @@ While working on your project, run:
 npm start
 ```
 
-This will aseemble the templates, static assets, Sass, and JavaScript. You can view the test server at this URL:
+This will assemble the templates, static assets, Sass, and JavaScript. You can view the test server at this URL:
 ```
 http://localhost:8080
 ```
