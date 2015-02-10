@@ -77,13 +77,17 @@
       templateUrl: 'components/notification/notification-set.html',
       controller: 'ZfNotificationController',
       replace: true,
+      scope: {
+        position: '@'
+      },
       link: link
     };
 
     return directive;
 
     function link(scope, element, attrs, controller) {
-      scope.position = attrs.position ? attrs.position.split(' ').join('-') : 'top-right';
+      scope.position = scope.position ? scope.position.split(' ').join('-') : 'top-right';
+
       foundationApi.subscribe(attrs.id, function(msg) {
         if(msg === 'clearall') {
           controller.clearAll();
@@ -253,7 +257,6 @@
       scope: {
         title: '@?',
         content: '@?',
-        position: '@?',
         color: '@?',
         image: '@?'
       },
@@ -267,7 +270,6 @@
         foundationApi.publish(attrs.zfNotify, {
           title: scope.title,
           content: scope.content,
-          position: scope.position,
           color: scope.color,
           image: scope.image
         });
