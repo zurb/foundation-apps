@@ -150,5 +150,9 @@ meta.foundation-version {
   font-family: "#{$foundation-version}";
 }
 meta.foundation-mq {
-  font-family: "#{map-serialize($breakpoints)}";
+  // Uses two sets of quotations in order to keep the double quotes for
+  // that would otherwise get stripped out by css-condense.
+  // Without double quotes, the foundation.mediaqueries.js functionality
+  // would break.
+  font-family: '"#{map-serialize($breakpoints)}"';
 }

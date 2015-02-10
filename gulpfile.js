@@ -330,6 +330,7 @@ gulp.task('deploy:dist', function() {
     .pipe($.rename('foundation-apps.css'))
     .pipe(gulp.dest('./dist/css'))
     .pipe($.minifyCss())
+    .pipe($.cssCondense())
     .pipe($.rename('foundation-apps.min.css'))
     .pipe(gulp.dest('./dist/css'));
 
