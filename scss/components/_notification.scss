@@ -28,6 +28,8 @@ $notification-icon-align: top !default;
   z-index: 1000;
   display: flex;
   position: relative;
+  margin-top: .5rem;
+  margin-bottom: .5rem;
   display: none;
 
   h1 {
