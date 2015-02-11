@@ -1,0 +1,94 @@
+// We use these to control header font styles
+$header-font-family: $body-font-family;
+$header-font-weight: $font-weight-normal;
+$header-font-style: $font-weight-normal;
+$header-font-color: #222;
+$header-line-height: 1.4;
+$header-top-margin: .2rem;
+$header-bottom-margin: .5rem;
+$header-text-rendering: optimizeLegibility;
+
+// We use these to control header font sizes
+$h1-font-size: rem-calc(44);
+$h2-font-size: rem-calc(37);
+$h3-font-size: rem-calc(27);
+$h4-font-size: rem-calc(23);
+$h5-font-size: rem-calc(18);
+$h6-font-size: 1rem;
+
+// We use these to control header size reduction on small screens
+$h1-font-reduction: rem-calc(10);
+$h2-font-reduction: rem-calc(10);
+$h3-font-reduction: rem-calc(5);
+$h4-font-reduction: rem-calc(5);
+$h5-font-reduction: 0;
+$h6-font-reduction: 0;
+
+// These control how subheaders are styled.
+$subheader-line-height: 1.4;
+$subheader-font-color: scale-color($header-font-color, $lightness: 35%);
+$subheader-font-weight: $font-weight-normal;
+$subheader-top-margin: .2rem;
+$subheader-bottom-margin: .5rem;
+
+// A general <small> styling
+$small-font-size: 60%;
+$small-font-color: scale-color($header-font-color, $lightness: 35%);
+
+// We use these to style paragraphs
+$paragraph-font-family: inherit;
+$paragraph-font-weight: $font-weight-normal;
+$paragraph-font-size: 1rem;
+$paragraph-line-height: 1.6;
+$paragraph-margin-bottom: rem-calc(20);
+$paragraph-aside-font-size: rem-calc(14);
+$paragraph-aside-line-height: 1.35;
+$paragraph-aside-font-style: italic;
+$paragraph-text-rendering: optimizeLegibility;
+
+// We use these to style <code> tags
+$code-color: grayscale($primary-color);
+$code-font-family: Consolas, 'Liberation Mono', Courier, monospace;
+$code-font-weight: $font-weight-normal;
+$code-background-color: scale-color($secondary-color, $lightness: 70%);
+$code-border-size: 1px;
+$code-border-style: solid;
+$code-border-color: scale-color($code-background-color, $lightness: -10%);
+$code-padding: rem-calc(2) rem-calc(5) rem-calc(1);
+
+// We use these to style anchors
+$anchor-text-decoration: none;
+$anchor-text-decoration-hover: none;
+$anchor-font-color: $primary-color;
+$anchor-font-color-hover: scale-color($anchor-font-color, $lightness: -14%);
+
+// We use these to style the <hr> element
+$hr-border-width: 1px;
+$hr-border-style: solid;
+$hr-border-color: #ddd;
+$hr-margin: rem-calc(20);
+
+// We use these to style lists
+$list-font-family: $paragraph-font-family;
+$list-font-size: $paragraph-font-size;
+$list-line-height: $paragraph-line-height;
+$list-margin-bottom: $paragraph-margin-bottom;
+$list-style-position: outside;
+$list-side-margin: 1.1rem;
+$list-ordered-side-margin: 1.4rem;
+$list-side-margin-no-bullet: 0;
+$list-nested-margin: rem-calc(20);
+$definition-list-header-weight: $font-weight-bold;
+$definition-list-header-margin-bottom: .3rem;
+$definition-list-margin-bottom: rem-calc(12);
+
+// We use these to style blockquotes
+$blockquote-font-color: scale-color($header-font-color, $lightness: 35%);
+$blockquote-padding: rem-calc(9 20 0 19);
+$blockquote-border: 1px solid #ddd;
+$blockquote-cite-font-size: rem-calc(13);
+$blockquote-cite-font-color: scale-color($header-font-color, $lightness: 23%);
+$blockquote-cite-link-color: $blockquote-cite-font-color;
+
+// Acronym styles
+$acronym-underline: 1px dotted #ddd; 

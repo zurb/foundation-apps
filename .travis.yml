@@ -15,4 +15,4 @@ before_install:
   - npm install -g gulp bower
   - bower install
 before_script:
-  - gulp node-sass
+  - gulp sass:node
