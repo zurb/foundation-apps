@@ -41,7 +41,6 @@
       var activation = futureState;
       var initClass = activation ? initClasses[0] : initClasses[1];
       var activeClass = activation ? activeClasses[0] : activeClasses[1];
-
       //stop animation
       registerElement(element);
       reset();
@@ -79,7 +78,7 @@
 
       function cancelAnimation(element) {
         deregisterElement(element);
-        element.off(events.join(' ')); //kill all animation event handlers
+        angular.element(element).off(events.join(' ')); //kill all animation event handlers
         timedOut = false;
       }
 
@@ -93,9 +92,10 @@
         var inProgress = animations.filter(function(obj) {
           return obj.el === el;
         });
-
         if(inProgress.length > 0) {
-          inProgress[0].animation.cancelAnimation();
+          var target = inProgress[0].el[0];
+
+          inProgress[0].animation.cancelAnimation(target);
         }
 
         animations.push(elObj);
