@@ -11,6 +11,7 @@
 // Overrides for component examples
 @import "examples";
 
+<<<<<<< HEAD
 // Docs-specific components
 @import "components/code";
 @import "components/compatability";
@@ -36,3 +37,13 @@
 .ui-animation {
   backface-visibility: hidden;
 }
+=======
+.button [class*="fi-"] {
+	position: relative;
+	top:2px;
+}
+#img-1, #img-2 {
+	// position: absolute;
+}
+#img-1 { z-index:1;}
+>>>>>>> Change transitioning views to pin to the edge of their parents

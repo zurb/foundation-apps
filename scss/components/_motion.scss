@@ -482,3 +482,21 @@ $motion-delay-long: 700ms !default;
   .stort-stagger { @include stagger($motion-stagger-duration-default); }
   .long-stagger { @include stagger($motion-stagger-duration-default); }
 }
+
+.position-absolute {
+  overflow: hidden;
+  position: relative;
+
+  .ui-animation {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    backface-visibility: hidden;
+
+    [zf-offcanvas], [zf-panel] {
+      display: none !important;
+    }
+  }
+}
