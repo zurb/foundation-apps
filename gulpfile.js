@@ -30,7 +30,8 @@ var gulp           = require('gulp'),
     settingsParser = require('settings-parser')
 ;
 
-var versions = function() {
+var addVersions = function() {
+  var pkg = require('./package.json');
   return $.rename(function(path) {
     // Inject the version number into the filename
     var base = path.basename.split('.');
@@ -140,8 +141,11 @@ gulp.task('copy:templates', function() {
 
 // Copy Foundation directive partials
 gulp.task('copy:partials', ['clean:partials'], function() {
-  return gulp.src(paths.html.partials)
+  gulp.src(paths.html.partials)
     .pipe(gulp.dest('./build/components/'));
+
+  return gulp.src('./docs/partials/**/*.html')
+    .pipe(gulp.dest('./build/partials/'));
 });
 
 // 5. STYLESHEETS
@@ -196,7 +200,7 @@ gulp.task('sass:node', function() {
 
 // Generate Sass settings file
 gulp.task('settings', function() {
-  return settingsParser([
+  settingsParser([
     'scss/_includes.scss',
     'scss/_global.scss',
     'scss/helpers/_breakpoints.scss',
@@ -205,7 +209,7 @@ gulp.task('settings', function() {
     'scss/components/*.scss'
   ], {
     title: 'Foundation for Apps Settings'.toUpperCase(),
-    partialsPath: 'build/partials/scss',
+    partialsPath: 'docs/partials/scss',
     settingsPath: 'scss'
   });
 });
@@ -215,38 +219,16 @@ gulp.task('settings', function() {
 
 // Compile Foundation JavaScript
 gulp.task('javascript', function() {
-  return gulp.src(paths.javascript.foundation)
+  var dirs = paths.javascript.libs.concat(
+    paths.javascript.foundation,
+    paths.javascript.docs
+  );
+  return gulp.src(dirs)
     .pipe($.uglify({
       beautify: true,
       mangle: false
     }).on('error', function(e) {
       console.log(e);
-    }))
-    .pipe($.concat('foundation.js'))
-    .pipe(gulp.dest('./build/assets/js/'))
-  ;
-});
-
-// Compile JavaScript dependencies
-gulp.task('javascript:deps', function() {
-  return gulp.src(paths.javascript.libs)
-    .pipe($.uglify({
-      beautify: true,
-      mangle: false
-    }).on('error', function(e) {
-      console.log(e);
-    }))
-    .pipe($.concat('dependencies.js'))
-    .pipe(gulp.dest('./build/assets/js/'))
-  ;
-});
-
-// Compile documentation-specific JavaScript
-gulp.task('javascript:docs', function() {
-  return gulp.src(paths.javascript.docs)
-    .pipe($.uglify({
-      beautify: true,
-      mangle: false
     }))
     .pipe($.concat('app.js'))
     .pipe(gulp.dest('./build/assets/js/'))
@@ -270,7 +252,7 @@ gulp.task('server:start', function() {
 // 8. TESTING
 // - - - - - - - - - - - - - - -
 
-gulp.task('karma:test', ['build', 'sass:node'], function() {
+gulp.task('test:karma', ['build', 'sass:node'], function() {
   var testFiles = [
     'build/assets/js/foundation.js',
     'build/assets/js/dependencies.js',
@@ -294,8 +276,8 @@ gulp.task('karma:test', ['build', 'sass:node'], function() {
 
 });
 
-gulp.task('sass:test', function() {
-  $.rubySass('./tests/unit/scss/tests.scss', {
+gulp.task('test:sass', function() {
+  return $.rubySass('./tests/unit/scss/tests.scss', {
     loadPath: paths.sass.testPaths,
     style: 'nested',
     bundleExec: true
@@ -305,7 +287,7 @@ gulp.task('sass:test', function() {
     });
 });
 
-gulp.task('test', ['karma:test', 'sass:test'], function() {
+gulp.task('test', ['test:karma', 'test:sass'], function() {
   console.log('Tests finished.');
 });
 
@@ -313,11 +295,10 @@ gulp.task('test', ['karma:test', 'sass:test'], function() {
 // - - - - - - - - - - - - - - -
 
 // Deploy distribution files
-gulp.task('deploy:dist', function() {
-  var pkg = require('./package.json');
+gulp.task('deploy:dist', function(cb) {
   var filter = $.filter(['*.css']);
 
-  var css = $.rubySass('docs/assets/scss/', {
+  var css = $.rubySass('scss/', {
       loadPath: ['scss'],
       style: 'nested',
       bundleExec: true
@@ -340,12 +321,13 @@ gulp.task('deploy:dist', function() {
     .pipe($.rename('foundation-apps.min.js'))
     .pipe(gulp.dest('./dist/js'));
 
-  return;
+  cb();
 });
 
 // Deploy documentation
-gulp.task('deploy:docs', ['build', 'settings'], function() {
+gulp.task('deploy:docs', ['build'], function() {
   return gulp.src('build/**')
+    .pipe($.prompt.confirm("Make sure everything looks good before you deploy."))
     .pipe($.rsync({
       root: 'build',
       hostname: 'deployer@72.32.134.77',
@@ -360,11 +342,12 @@ gulp.task('deploy:cdn', ['deploy:dist'], function() {
   return gulp.src('./dist/**/*', {base:'./dist/'})
     .pipe($.filter(['**/*.css', '**/*.js']))
     .pipe(addVersions())
-    .pipe($.rsync({
-      hostname: 'deployer@72.32.134.77',
-      destination: '/home/deployer/sites/foundation-apps-cdn/current',
-      relative: false
-    }));
+    // .pipe($.rsync({
+    //   hostname: 'deployer@72.32.134.77',
+    //   destination: '/home/deployer/sites/foundation-apps-cdn/current',
+    //   relative: false
+    // }));
+    .pipe(gulp.dest('./cdn'));
 });
 
 // 10. NOW BRING IT TOGETHER
@@ -372,8 +355,7 @@ gulp.task('deploy:cdn', ['deploy:dist'], function() {
 
 // Build the documentation once
 gulp.task('build', function(cb) {
-  runSequence('clean', ['copy', 'copy:partials', 'css', 'javascript', 'javascript:deps', 'javascript:docs'], 'copy:templates', function() {
-    console.log('Successfully built.');
+  runSequence('clean', ['copy', 'copy:partials', 'css', 'javascript', 'copy:templates'], function() {
     cb();
   });
 });

@@ -113,6 +113,10 @@ $foundation-colors: (
     vertical-align: middle;
   }
 
+  a, [ui-sref] {
+    cursor: pointer;
+  }
+
   #map_canvas,
   .map_canvas {
     img,
