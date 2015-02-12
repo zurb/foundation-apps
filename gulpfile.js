@@ -252,7 +252,7 @@ gulp.task('server:start', function() {
 // 8. TESTING
 // - - - - - - - - - - - - - - -
 
-gulp.task('karma:test', ['build', 'sass:node'], function() {
+gulp.task('test:karma', ['build', 'sass:node'], function() {
   var testFiles = [
     'build/assets/js/foundation.js',
     'build/assets/js/dependencies.js',
@@ -276,8 +276,8 @@ gulp.task('karma:test', ['build', 'sass:node'], function() {
 
 });
 
-gulp.task('sass:test', function() {
-  $.rubySass('./tests/unit/scss/tests.scss', {
+gulp.task('test:sass', function() {
+  return $.rubySass('./tests/unit/scss/tests.scss', {
     loadPath: paths.sass.testPaths,
     style: 'nested',
     bundleExec: true
@@ -287,7 +287,7 @@ gulp.task('sass:test', function() {
     });
 });
 
-gulp.task('test', ['karma:test', 'sass:test'], function() {
+gulp.task('test', ['test:karma', 'test:sass'], function() {
   console.log('Tests finished.');
 });
 
