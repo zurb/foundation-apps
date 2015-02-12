@@ -86,7 +86,7 @@
 
         scope.hide = function() {
           scope.active = false;
-          tetherElement(newTarget);
+          tetherElement();
           tether.disable();
           return;
         };
