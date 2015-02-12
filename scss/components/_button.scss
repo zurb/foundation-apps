@@ -183,19 +183,12 @@ $button-tag-selector: true !default;
       }
     }
 
-    &.disabled { @include button-disabled;
-      &.secondary { @include button-disabled; }
-      &.success   { @include button-disabled; }
-      &.warning   { @include button-disabled; }
-      &.alert     { @include button-disabled; }
-      &.info      { @include button-disabled; }
-      &.dark      { @include button-disabled; }
-    }
+    &.disabled { @include button-disabled; }
   }
 
-  // @if $button-tag-selector {
-  //   button {
-  //     @extend .button;
-  //   }
-  // }
+  @if $button-tag-selector {
+    button {
+      @extend .button;
+    }
+  }
 }

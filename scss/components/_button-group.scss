@@ -12,6 +12,7 @@ $btngroup-radius: $button-radius !default;
   display: inline-flex;
   border-radius: $btngroup-radius;
   overflow: hidden;
+  font-size: $button-font-size;
 
   > li {
     flex: 0 0 auto;
@@ -21,8 +22,12 @@ $btngroup-radius: $button-radius !default;
     > label {
       @extend %button;
       border-radius: 0;
+      font-size: inherit;
       display: block;
       margin: 0;
+    }
+    > input + label {
+      margin-left: 0;
     }
     // Add borders between items
     &:not(:last-child) > a,
@@ -178,5 +183,11 @@ $btngroup-radius: $button-radius !default;
     &.small     { @include button-group-size(small); }
     &.large     { @include button-group-size(large); }
     &.expand    { @include button-group-expand; }
+
+    // Disabled
+    li.disabled > a {
+      pointer-events: none;
+      opacity: $button-opacity-disabled;
+    }
   }
 }
