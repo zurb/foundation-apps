@@ -91,7 +91,34 @@ title: Modal
 
 <h3>Changing the Overlay</h3>
 
-<p>You can override the styling of the modal overlay by styling <code>.modal-overlay</code> in your Sass. The class name of the modal overlay can be changed by changing the <code>$modal-overlay-class</code> variable in your Sass settings file.</p>
+<p>You can override the styling of the default modal overlay by styling <code>.modal-overlay</code> in your Sass. The class name of the modal overlay can be changed by changing the <code>$modal-overlay-class</code> variable in your Sass settings file.</p>
+
+<hr>
+
+<h3>Styling the Modal</h3>
+
+<p>Any CSS classes on a <code>zf-modal</code> element will be applied to the modal overlay, <em>not</em> the modal itself. This allows you to style both elements with one class.</p>
+
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+<hljs language="html">
+<div zf-modal class="killer-modal">
+  <!-- ... -->
+</div>
+</hljs>
+  </div>
+  <div class="small-12 medium-6 grid-content">
+<hljs language="scss">
+// This is the modal overlay
+.killer-modal {
+  // This is the modal itself
+  .modal {
+
+  }
+}
+</hljs>
+  </div>
+</div>
 
 <hr>
 
