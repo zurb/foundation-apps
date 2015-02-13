@@ -127,7 +127,7 @@ gulp.task('copy', function() {
 });
 
 // Copy page templates and generate routes
-gulp.task('copy:templates', function() {
+gulp.task('copy:templates', ['javascript'], function() {
   var config = [];
 
   return gulp.src(paths.html.templates)
