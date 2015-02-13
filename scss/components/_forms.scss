@@ -171,8 +171,12 @@ input[type="checkbox"], input[type="radio"] {
     &:first-child { border-right: 0; }
     &:last-child  { border-left: 0; }
   }
-  // Assumed to be a button
-  > a {
+  // Buttons also shrink
+  > a,
+  > button,
+  > input[type="button"],
+  > input[type="submit"] {
+    flex: 0 0 auto;
     display: flex;
     align-items: center;
     padding-top: 0;

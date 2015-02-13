@@ -280,6 +280,7 @@ $blocklist-check-icons: true !default;
     left: -9999px;
 
     & + label {
+      display: block;
       font-size: $blocklist-fontsize;
       margin: 0;
     }
