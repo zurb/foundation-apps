@@ -8,7 +8,7 @@ title: Modal
 <h3 class="subheader">Modal dialogs, or pop-up windows, are handy for prototyping and production. It focuses the user on the modal content. You can add images, links, and even a grid inside.</h3>
 
 <hr>
-<a class="button" href="#" zf-open="mainModal">Open modal</a>
+<a class="button" href="#" zf-open="basicModal">Open modal</a>
 
 <hr>
 
@@ -20,12 +20,10 @@ title: Modal
 <hljs language="html">
 <a zf-open="basicModal" class="button">Open modal</a>
 
-<zf-modal id="basicModal" overlay="true">
-  <a class="close-button" zf-close>&times;</a>
-  <section class="grid-content">
-    <p>Back in my days...</p>
-    <p>There were 3 Star Wars movies and Disney only made cartoons.</p>
-  </section>
+<zf-modal id="basicModal">
+  <a zf-close class="close-button">&times;</a>
+  <h3>Back in my days...</h3>
+  <p>There were 3 Star Wars movies and Disney only made cartoons.</p>
 </zf-modal>
 </hljs>
   </div>
@@ -37,55 +35,97 @@ title: Modal
 <hr>
 
 <h3>Using the Grid</h3>
-<p>You can embed a grid inside of a modal, complete with scrolling panels, fixed areas, and responsive adjustments.</p>
+<p>You can embed a grid inside of a modal, complete with scrolling panels, fixed areas, and responsive adjustments. Start by nesting a grid block directly inside the modal container, and go from there. Note that you also need to add a <code>padding</code> class to the <code>zf-modal</code> element if you want the grid elements to be flush with the edge of the modal.</p>
+
 <div class="grid-block">
   <div class="small-12 medium-6 grid-content">
-
 <hljs language="html">
 <a class="button" href="#" zf-open="advancedModal">Open modal</a>
-<zf-modal class="small" id="advancedModal" overlay="false">
-  <a href="#" zf-close>&times;</a>
+
+<div zf-modal id="advancedModal" size="small" class="collapse">
   <div class="grid-block vertical">
-    <div class="shrink grid-content">
-      <img src="assets/img/mountain.jpg">
+    <div class="primary title-bar">
+      <div class="center title">Title Bar</div>
+      <span zf-close class="left"><a>Close</a></span>
+      <span zf-close class="right"><a>Done</a></span>
     </div>
-    <div class="grid-content button-group">
-      <a class="button" zf-close>Ok</a>
-      <a class="button" zf-close>Cancel</a>
+    <div class="grid-content padding" style="padding-top: 1rem;">
+     <p>
+      <img src="assets/img/mountain.jpg">
+      </p>
+     <a zf-close class="button">OK</a>
+     <a zf-close class="button">Cancel</a>
     </div>
   </div>
-</zf-modal>
+</div>
 </hljs>
-
   </div>
   <div class="small-12 medium-6 grid-content">
-    <a class="button" href="#" zf-open="secondaryModal">Open modal</a>
-      <zf-modal class="small" id="secondaryModal" overlay="false">
-        <a href="#" zf-close>&times;</a>
-        <div class="grid-block vertical">
-          <div class="shrink grid-content">
-            <img src="assets/img/mountain.jpg">
-          </div>
-          <div class="grid-content button-group">
-            <a class="button" zf-close>Ok</a>
-            <a class="button" zf-close>Cancel</a>
-          </div>
-        </div>
-      </zf-modal>
+    <a class="button" href="#" zf-open="advancedModal">Open modal</a>
   </div>
 </div>
 
 <hr>
 
 <h3>Sizing Classes</h3>
-<p>You can add the classes <code>tiny</code>, <code>small</code>, or <code>large</code> to change the maximum width of the modal. The default modal sizes are:</p>
+<p>You can add the classes <code>tiny</code>, <code>small</code>, or <code>large</code> to change the maximum width of the modal. The widths of each size are:</p>
 <ul>
   <li><strong>Tiny:</strong> 300px</li>
   <li><strong>Small:</strong> 500px</li>
   <li><strong>Default:</strong> 600px</li>
   <li><strong>Large</strong> 800px</li>
 </ul>
-<p>You can change the names and sizes of the sizing classes by modifying the <code>$modal-sizes</code> Sass variable in your settings file.</p>
+<p>You can change the names and widths of the sizing classes by modifying the <code>$modal-sizes</code> Sass variable in your settings file.</p>
+
+<hr>
+
+<h3>Adding Animation</h3>
+
+<p>Modals can have unique in and out animations, using our motion classes. Refer to the <a ui-sref="motion">Motion UI</a> documentation for a full list of animations.</p>
+
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+<hljs>
+<a zf-open="animatedModal" class="button">Fancy-esque Modal</a>
+
+<div zf-modal id="animatedModal" animation-in="slideInDown" animation-out="hingeOutFromMiddleY">
+  <div class="grid-content">
+    <br>
+    <p><em>Slide to the left</em></p>
+    <p class="text-right"><em>Slide to the right</em></p>
+    <p class="text-center"><em>Hinge from the center</em></p>
+  </div>
+</div>
+</hljs>
+  </div>
+  <div class="small-12 medium-6 grid-content">
+    <a zf-open="animatedModal" class="button">Fancy-esque Modal</a>
+  </div>
+</div>
+
+<hr>
+
+<h3>Dialog-style Modals</h3>
+
+<p>On small screens, the modal becomes full-width and full-height, to make scrolling its contents easier. This behavior can be overridden by adding the class <code>dialog</code> to a <code>zf-modal</code> element.</p>
+
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+<hljs>
+<a zf-open="animatedModal" class="button">Fancy-esque Modal</a>
+
+<div zf-modal id="dialogModal" overlay="false" overlay-close="false" size="small" class="dialog docs-example-dialog">
+  <h3>Yo, do you <em>really</em> want to do this?</h3>
+  <br>
+  <a zf-close class="alert button">Yeah</a>
+  <a zf-close class="secondary button">Nah</a>
+</div>
+</hljs>
+  </div>
+  <div class="small-12 medium-6 grid-content">
+    <a zf-open="dialogModal" class="button">Fancy-esque Modal</a>
+  </div>
+</div>
 
 <hr>
 

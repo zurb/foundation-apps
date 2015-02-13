@@ -90,32 +90,48 @@
     </div>
     <!-- /App frame -->
 
-    <!-- Example modal 1 -->
-    <div zf-modal size="small" id="mainModal" overlay="false" overlay-close="true">
+    <!-- Basic modal example -->
+    <zf-modal id="basicModal">
+      <a zf-close class="close-button">&times;</a>
+      <h3>Back in my days...</h3>
+      <p>There were 3 Star Wars movies and Disney only made cartoons.</p>
+    </zf-modal>
+
+    <!-- Advanced modal example -->
+    <div zf-modal id="advancedModal" size="small" class="collapse">
       <div class="grid-block vertical">
         <div class="primary title-bar">
           <div class="center title">Title Bar</div>
-          <span zf-close class="left"><a href="#">Close</a></span>
-          <span zf-close class="right"><a href="#">Done</a></span>
+          <span zf-close class="left"><a>Close</a></span>
+          <span zf-close class="right"><a>Done</a></span>
         </div>
         <div class="grid-content padding" style="padding-top: 1rem;">
          <p>
           <img src="assets/img/mountain.jpg">
           </p>
-         <a class="button" zf-close>OK</a>
-         <a class="button" zf-close>Cancel</a>
+         <a zf-close class="button">OK</a>
+         <a zf-close class="button">Cancel</a>
         </div>
       </div>
     </div>
 
-    <!-- Example modal 2 -->
-    <zf-modal id="basicModal" overlay="false">
-      <a href="#" zf-close class="close-button">&times;</a>
-      <section class="grid-content">
+    <!-- Animated modal example -->
+    <div zf-modal id="animatedModal" animation-in="slideInDown" animation-out="hingeOutFromMiddleY">
+      <div class="grid-content">
         <br>
-        <p>Back in my days...</p>
-        <p>There were 3 Star Wars movies and Disney only made cartoons.</p>
-      </section>
-    </zf-modal>
+        <p><em>Slide to the left</em></p>
+        <p class="text-right"><em>Slide to the right</em></p>
+        <p class="text-center"><em>Hinge from the center</em></p>
+      </div>
+    </div>
+
+    <!-- Dialog modal example -->
+    <div zf-modal id="dialogModal" overlay="false" overlay-close="false" size="small" class="dialog docs-example-dialog">
+      <h3>Yo, do you <em>really</em> want to do this?</h3>
+      <br>
+      <a zf-close class="alert button">Yeah</a>
+      <a zf-close class="secondary button">Nah</a>
+    </div>
+
   </body>
 </html>

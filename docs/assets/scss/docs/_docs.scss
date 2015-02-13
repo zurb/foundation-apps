@@ -772,6 +772,12 @@ hr {
     }
   }
 
+.docs-example-dialog .modal {
+  text-align: center;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 10px rgba(#000, 0.25);
+}
+
 .inline-list {
   display: inline-block;
 }
