@@ -4,6 +4,7 @@
   angular.module('application', [
     'ui.router',
     'ngAnimate',
+    'ngSVGAttributes',
 
     //foundation
     'foundation',
@@ -20,15 +21,22 @@
     $urlProvider.otherwise('/');
 
     $locationProvider.html5Mode({
-      enabled:false,
+      enabled:true,
       requireBase: false
     });
-
-    $locationProvider.hashPrefix('!');
   }
+  
+  run.$inject = ['$rootScope', '$location', '$compile'];
 
-  function run() {
+  function run($rootScope, $location, $compile) {
     FastClick.attach(document.body);
+    
+    if ($location.$$html5) {
+      $rootScope.$on('$zfIconicInjected', function(event, injectedElem) {
+        var angElem = angular.element(injectedElem);
+        $compile(angElem.contents())(angElem.scope());
+      });
+    }
   }
 
 })();
