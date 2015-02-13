@@ -106,7 +106,7 @@
   DefaultController.$inject = ['$scope', '$stateParams', '$state'];
 
   function DefaultController($scope, $stateParams, $state) {
-    var params = [];
+    var params = {};
     angular.forEach($stateParams, function(value, key) {
       params[key] = value;
     });
