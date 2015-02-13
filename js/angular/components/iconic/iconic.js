@@ -33,7 +33,8 @@
         dynSrc: '=?',
         dynIcon: '=?',
         size: '@?',
-        icon: '@'
+        icon: '@',
+        iconDir: '@?'
       },
       compile: compile
     };
@@ -41,45 +42,61 @@
     return directive;
 
     function compile() {
-      var contents, assetPath = 'assets/img/iconic/';
+      var contents, assetPath;
       
       return {
         pre: preLink,
         post: postLink
       };
 
-      function preLink(scope, iElement, iAttrs, ctrl, transclude) {
+      function preLink(scope, element, attrs, ctrl, transclude) {
+        if (scope.iconDir) {
+          // make sure ends with /
+          assetPath = scope.iconDir;
+          if (assetPath.charAt(assetPath.length - 1) !== '/') {
+            assetPath += '/';
+          }
+        } else {
+          // default path
+          assetPath = 'assets/img/iconic/';
+        }
+        
         if(scope.dynSrc) {
-          iAttrs.$set('data-src', scope.dynSrc);
+          attrs.$set('data-src', scope.dynSrc);
         } else if(scope.dynIcon) {
-          iAttrs.$set('data-src', assetPath + scope.dynIcon + '.svg');
+          attrs.$set('data-src', assetPath + scope.dynIcon + '.svg');
         } else {
           if (scope.icon) {
-            iAttrs.$set('data-src', assetPath + scope.icon + '.svg');
+            attrs.$set('data-src', assetPath + scope.icon + '.svg');
           } else {
             // To support expressions on data-src
-            iAttrs.$set('data-src', iAttrs.src);
+            attrs.$set('data-src', attrs.src);
           }
         }
 
-        var iconicClass;
-        switch (scope.size) {
-          case 'small':
-            iconicClass = 'iconic-sm'
-            break;
-          case 'medium':
-            iconicClass = 'iconic-md'
-            break;
-          case 'large':
-            iconicClass = 'iconic-lg'
-            break;
-          default:
-            iconicClass = 'iconic-fluid'
+        // check if size already added as class
+        if (!element.hasClass('iconic-sm') && 
+            !element.hasClass('iconic-md') &&
+            !element.hasClass('iconic-lg')) {
+          var iconicClass;
+          switch (scope.size) {
+            case 'small':
+              iconicClass = 'iconic-sm'
+              break;
+            case 'medium':
+              iconicClass = 'iconic-md'
+              break;
+            case 'large':
+              iconicClass = 'iconic-lg'
+              break;
+            default:
+              iconicClass = 'iconic-fluid'
+          }
+          element.addClass(iconicClass);
         }
-        angular.element(iElement).addClass(iconicClass);
         
         // save contents of un-inject html, to use for dynamic re-injection
-        contents = iElement[0].outerHTML;
+        contents = element[0].outerHTML;
       }
 
       function postLink(scope, element, attrs) {
@@ -91,8 +108,8 @@
           // only run update on current element
           ico.update(element[0]);
         });
-        
-        // handle dynamic updating of icon
+
+        // handle dynamic updating of src
         if(scope.dynSrc) {
           scope.$watch('dynSrc', function(newVal, oldVal) {
             if (newVal && newVal != oldVal) {
@@ -100,6 +117,7 @@
             }
           });
         }
+        // handle dynamic updating of icon
         if (scope.dynIcon) {
           scope.$watch('dynIcon', function(newVal, oldVal) {
             if (newVal && newVal != oldVal) {
@@ -125,6 +143,7 @@
         function injectSvg(element) {
           ico.inject(element, {
             each: function(injectedElem) {
+              // compile injected svg
               var angElem = angular.element(injectedElem);
               svgElement = $compile(angElem)(angElem.scope());
             }
