@@ -93,14 +93,14 @@ $modal-overlay-background: rgba(#333, 0.7) !default;
     @each $size in map-keys($modal-sizes) {
       $width: map-get($modal-sizes, $size);
       @if $size != medium {
-        &.#{$size} { @include modal-layout($width); }
+        .#{$size} > & { @include modal-layout($width); }
       }
     }
 
-    .dialog & {
+    .dialog > & {
       @include modal-dialog;
     }
-    .collapse & {
+    .collapse > & {
       padding: 0;
     }
   }

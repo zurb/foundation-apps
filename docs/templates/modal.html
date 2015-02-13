@@ -20,11 +20,11 @@ title: Modal
 <hljs language="html">
 <a zf-open="basicModal" class="button">Open modal</a>
 
-<zf-modal id="basicModal">
+<div zf-modal id="basicModal">
   <a zf-close class="close-button">&times;</a>
   <h3>Back in my days...</h3>
   <p>There were 3 Star Wars movies and Disney only made cartoons.</p>
-</zf-modal>
+</div>
 </hljs>
   </div>
   <div class="small-12 medium-6 grid-content">
@@ -42,7 +42,7 @@ title: Modal
 <hljs language="html">
 <a class="button" href="#" zf-open="advancedModal">Open modal</a>
 
-<div zf-modal id="advancedModal" size="small" class="collapse">
+<div zf-modal id="advancedModal" class="collapse">
   <div class="grid-block vertical">
     <div class="primary title-bar">
       <div class="center title">Title Bar</div>
@@ -89,12 +89,10 @@ title: Modal
 <a zf-open="animatedModal" class="button">Fancy-esque Modal</a>
 
 <div zf-modal id="animatedModal" animation-in="slideInDown" animation-out="hingeOutFromMiddleY">
-  <div class="grid-content">
-    <br>
-    <p><em>Slide to the left</em></p>
-    <p class="text-right"><em>Slide to the right</em></p>
-    <p class="text-center"><em>Hinge from the center</em></p>
-  </div>
+  <a zf-close class="close-button">&times;</a>
+  <p><em>Slide to the left</em></p>
+  <p class="text-right"><em>Slide to the right</em></p>
+  <p class="text-center"><em>Hinge from the center</em></p>
 </div>
 </hljs>
   </div>
@@ -107,16 +105,15 @@ title: Modal
 
 <h3>Dialog-style Modals</h3>
 
-<p>On small screens, the modal becomes full-width and full-height, to make scrolling its contents easier. This behavior can be overridden by adding the class <code>dialog</code> to a <code>zf-modal</code> element.</p>
+<p>On small screens, the modal becomes full-width and full-height, to make scrolling its contents easier. This behavior can be disabled by adding the class <code>dialog</code> to a <code>zf-modal</code> element.</p>
 
 <div class="grid-block">
   <div class="small-12 medium-6 grid-content">
 <hljs>
 <a zf-open="animatedModal" class="button">Fancy-esque Modal</a>
 
-<div zf-modal id="dialogModal" overlay="false" overlay-close="false" size="small" class="dialog docs-example-dialog">
-  <h3>Yo, do you <em>really</em> want to do this?</h3>
-  <br>
+<div zf-modal id="dialogModal" overlay="false" overlay-close="false" class="tiny dialog">
+  <h4>Yo, do you <em>really</em> want to do this?</h4>
   <a zf-close class="alert button">Yeah</a>
   <a zf-close class="secondary button">Nah</a>
 </div>

@@ -91,14 +91,14 @@
     <!-- /App frame -->
 
     <!-- Basic modal example -->
-    <zf-modal id="basicModal">
+    <div zf-modal id="basicModal">
       <a zf-close class="close-button">&times;</a>
       <h3>Back in my days...</h3>
       <p>There were 3 Star Wars movies and Disney only made cartoons.</p>
-    </zf-modal>
+    </div>
 
     <!-- Advanced modal example -->
-    <div zf-modal id="advancedModal" size="small" class="collapse">
+    <div zf-modal id="advancedModal" class="collapse">
       <div class="grid-block vertical">
         <div class="primary title-bar">
           <div class="center title">Title Bar</div>
@@ -117,17 +117,15 @@
 
     <!-- Animated modal example -->
     <div zf-modal id="animatedModal" animation-in="slideInDown" animation-out="hingeOutFromMiddleY">
-      <div class="grid-content">
-        <br>
-        <p><em>Slide to the left</em></p>
-        <p class="text-right"><em>Slide to the right</em></p>
-        <p class="text-center"><em>Hinge from the center</em></p>
-      </div>
+      <a zf-close class="close-button">&times;</a>
+      <p><em>Slide to the left</em></p>
+      <p class="text-right"><em>Slide to the right</em></p>
+      <p class="text-center"><em>Hinge from the center</em></p>
     </div>
 
     <!-- Dialog modal example -->
-    <div zf-modal id="dialogModal" overlay="false" overlay-close="false" size="small" class="dialog docs-example-dialog">
-      <h3>Yo, do you <em>really</em> want to do this?</h3>
+    <div zf-modal id="dialogModal" overlay="false" overlay-close="false" class="tiny dialog docs-example-dialog">
+      <h4>Yo, do you <em>really</em> want to do this?</h4>
       <br>
       <a zf-close class="alert button">Yeah</a>
       <a zf-close class="secondary button">Nah</a>
