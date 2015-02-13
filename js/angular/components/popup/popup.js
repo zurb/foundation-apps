@@ -43,6 +43,7 @@
       scope: {
         pinTo: '@?',
         pinAt: '@?',
+        target: '@?'
       },
       compile: compile
     };
