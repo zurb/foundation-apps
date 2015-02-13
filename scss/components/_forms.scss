@@ -176,6 +176,7 @@ input[type="checkbox"], input[type="radio"] {
   > button,
   > input[type="button"],
   > input[type="submit"] {
+    flex: 0 0 auto;
     display: flex;
     align-items: center;
     padding-top: 0;
