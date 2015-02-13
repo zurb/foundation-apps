@@ -207,6 +207,7 @@ select {
   font-size: $form-fontsize;
   color: $select-color;
   border-radius: 0;
+  border: $input-border;
 
   @if $select-arrow {
     background: $select-background url(image-triangle($select-arrow-color)) right 10px center no-repeat;
