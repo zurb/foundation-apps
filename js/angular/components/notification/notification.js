@@ -157,7 +157,7 @@
         };
 
         // close if autoclose
-        if (scope.autoclose) {
+        if (scope.autoclose && scope.active) {
           setTimeout(function() {
             scope.hide();
           }, parseInt(scope.autoclose));
@@ -175,7 +175,9 @@
         }
 
         hammerElem.on('swipe', function() {
-          scope.hide();
+          if (scope.active) {
+            scope.hide();
+          }
         });
       }
     }
