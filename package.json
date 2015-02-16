@@ -1,6 +1,6 @@
 {
   "name": "foundation-apps",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A responsive, Angular-powered framework for web apps from ZURB.",
   "scripts": {
     "test": "gulp test",

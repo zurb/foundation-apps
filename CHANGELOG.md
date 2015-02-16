@@ -1,3 +1,59 @@
+# Version 1.0.3
+
+*February 16, 2015*
+
+### General
+
+- The Bower and npm packages now include a `dist` folder, which contains compiled CSS and JavaScript files, in minified and unminified flavors.
+- The Sass is now fully compatible with libsass. It's been tested in node-sass 1.2.3. Eventually our documentation and template stack will be compiled with node-sass instead of Ruby Sass, but we'll continue to test both.
+
+### Breaking Changes
+
+These Sass variables changed. If you're updating an existing project, you'll need to update your `_settings.scss` file manually.
+
+- **Added:** `$badge-diameter: 1.5rem`
+- **Renamed:** `$badge-font-color` is now `$badge-color`
+- **Removed:** `$badge-padding`
+- **Removed:** `$badge-radius`
+
+The old variables are still in the codebase but aren't being used. They'll be permanently removed in version 1.1.
+
+### Template Changes
+
+The Gulpfile used in the [template stack](https://github.com/zurb/foundation-apps-template) now uses the `gulp-load-plugins` library to streamline use of plugins. **If you have an existing project, you don't need to change anything to upgrade.**
+
+### New Features
+
+- **Stacking notifications.** (#388) Dynamically-called notifications will now stack when you call more than one.
+- **Responsive Iconic icons.** (#408) Iconic icons are now fluid by default, which means they will adjust their geometry based on the width of the parent container.
+- **Staggered animations.** (#394) When using our motion classes in conjunction with the `ng-repeat`, you can now add a stagger class to make items animate in sequence. Add the class `.stagger`, `.short-stagger`, or `.long-stagger` to an element to enable the stagger effect.
+- #376: Added `.info` and `.dark` coloring classes to buttons.
+- #436: The items in a menu bar can be aligned with `.align-right`, `.align-center`, `.align-justify`, or `.align-spaced`. These classes mimic the behavior of the grid alignment classes.
+- Notifications can now be assigned a timeout by adding the `autoclose` attribute. The value of `autoclose` is the number of milliseconds to wait before closing.
+- The speed of all animations has been increased slightly. The default felt just a *little* too slow.
+
+### Bug Fixes
+
+**CSS:**
+
+- #194: Fixed modals not scrolling when they overflow their parent.
+- #412: `<button>` and `<input>` elements can be used as prefix/postfix elements in forms now, in addition to `<a>`.
+- #417: Added padding to `<select>` elements to prevent the text from overlapping with the arrow.
+- #435: Fixed a misnamed parameter in the `grid-block()` mixin.
+- #438: Fixed display issues with `<select>` elements in Firefox.
+- #453: Fixed block list checkboxes being misaligned.
+- Fixed the `.dialog` class and sizing classes of modals not working.
+- The CSS for badges was refactored so they're sized with width and height instead of padding.
+- The pointer cursor is now used when hovering over any anchor (`<a>`) or any element with the `ui-sref` attribute.
+
+**JavaScript:**
+
+- #363: Fixed `zf-close` not working when placed outside of a component.
+- #420: Fixed panel/block animations triggering even though the element is in block mode.
+- #427: Fixed the `pin-at` directive not passing its value to Tether.
+- #448: Fixed invalid `$scope.params` property on the DefaultController controller.
+- If a component is closed or opened while a transition is in progress, the transition will reverse.
+
 # Version 1.0.2
 
 *December 23, 2014*
