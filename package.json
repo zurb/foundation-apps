@@ -36,6 +36,7 @@
     "gulp-load-plugins": "^0.8.0",
     "gulp-markdown": "^1.0.0",
     "gulp-minify-css": "^0.3.11",
+    "gulp-ng-html2js": "^0.1.8",
     "gulp-prompt": "^0.1.2",
     "gulp-rename": "^1.2.0",
     "gulp-rsync": "^0.0.4",
