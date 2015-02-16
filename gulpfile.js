@@ -337,17 +337,14 @@ gulp.task('deploy:docs', ['build'], function() {
 
 // Deploy to CDN
 gulp.task('deploy:cdn', ['deploy:dist'], function() {
-  var pkg = require('./package.json');
-
   return gulp.src('./dist/**/*', {base:'./dist/'})
     .pipe($.filter(['**/*.css', '**/*.js']))
     .pipe(addVersions())
-    // .pipe($.rsync({
-    //   hostname: 'deployer@72.32.134.77',
-    //   destination: '/home/deployer/sites/foundation-apps-cdn/current',
-    //   relative: false
-    // }));
-    .pipe(gulp.dest('./cdn'));
+    .pipe($.rsync({
+      hostname: 'deployer@72.32.134.77',
+      destination: '/home/deployer/sites/foundation-apps-cdn/current',
+      relative: false
+    }));
 });
 
 // 10. NOW BRING IT TOGETHER
