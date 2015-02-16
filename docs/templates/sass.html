@@ -1,19 +1,24 @@
 ---
 name: sass
 url: /sass
-title: Sass
+title: Using Sass
 ---
 
-<h2>Customize With Sass</h2>
-<h3 class="subheader">Customizing your project with Foundation is easy, we recommend making different changes in different files which we will go over here.</h3>
+<h2>Using Sass</h2>
+<h3 class="subheader">All of the Foundation frameworks are written in Sass, which allows us to make the codebase customizable and flexible.</h3>
 
 <hr>
 
-<h3>_settings.scss</h3>
-<h3 class="subheader">You will want to make changes to the settings file which includes tons of variables here that can be customized for each component.</h3>
-<p>Making changes is simple, in _settings.scss find the element you want to style (command/ctrl+f). Find the variable, uncomment the style, and change its value. Be sure to compile your sass to see the changes take affect</p>
+<section>
+  <h3>The Settings File</h3>
 
-<p>Here's an example set of settings variables. These change the default styling of buttons:</p>
+  <p>All Foundatiion projects include a <em>settings file</em>, named <code>_settings.scss</code>. If you're using the CLI to create a Foundation for Apps project, you can find the settings file under <code>client/assets/scss/</code>. If you're installing the framework standalone using Bower or npm, there's a settings file included in those packages, which you can move into your own Sass files to work with.</p>
+
+  <p>Every component includes a set of variables that modify core structural or visual styles. If there's something you can't customize with a variable, you'll need to write your own CSS to add it.</p>
+
+  <p>To change a default value, find the variable you're looking for, uncomment it by removing the slashes (<code>//</code>) at the start of the line, and change the value. Uncommenting signifies that you want the value to change, and also functions as a handy visual aid to see which defaults you're overriding.</p>
+
+  <p>Here's an example set of settings variables. These change the default styling of buttons:</p>
 
 <hljs language="scss">
 $button-padding: 0.85em 1em !default;
@@ -32,23 +37,27 @@ $button-font-size: 0.9rem !default;
 $button-opacity-disabled: 0.5 !default;
 $button-tag-selector: true !default;
 </hljs>
+</section>
 
 <hr>
 
-<h3>Mixins</h3>
-<h3 class="subheader">We use mixins to allow you to create your own components based on underlying Foundation styles.</h3>
+<section>
+  <h3>Component Mixins</h3>
 
-<p>A mixin lets you make groups of CSS declarations that you want to reuse throughout your site. You can even pass in values to make your mixin more flexible. You can create custom mixins to speed up development, another example regarding buttons:</p>
+  <p>Every Foundation component is written with multiple Sass mixins. We use these mixins to generate the final CSS output. But you don't need to use our built-in classes! Using the mixins, you can build your own class structure.</p>
+
+  <p>Here's a basic example, using the <code>button()</code> mixin.</p>
 
 <hljs>
 // Example mixin for custom button 
-.custom-button-class { 
-  @include button($padding, $bg, $radius, $full-width, $disabled, $is-input); 
+.cta-button { 
+  @include button(large, $background: pink, $color: white); 
 }
 </hljs>
 
-<p>Then you can use your new custom button by simply include the following html:</p>
+  <p>Then you can use your custom button with this HTML:</p>
 
 <hljs>
-<a href="#" class="custom-button-class">...</a>
+<a href="#" class="cta-button">Buy Now</a>
 </hljs>
+</section>
