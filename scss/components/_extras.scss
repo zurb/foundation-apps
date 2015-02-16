@@ -45,7 +45,10 @@ $thumbnail-shadow: 0 3px 15px rgba(black, 0.25) !default;
   .thumbnail {
     @extend %thumbnail;
   }
-  ul.thumbnails > li img {
-    @extend %thumbnail;
+  ul.thumbnails > li {
+    margin-bottom: 1rem;
+    
+    a { display: block; }
+    img { @extend %thumbnail; }
   }
 }

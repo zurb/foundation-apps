@@ -40,10 +40,10 @@ $motion-scale-and-fade: true !default;
 $motion-spin-and-fade: true !default;
 
 // Default speed for transitions and animations
-$motion-duration-default: 700ms !default;
+$motion-duration-default: 500ms !default;
 // Slow and fast modifiders
-$motion-duration-slow: 1.4s !default;
-$motion-duration-fast: 300ms !default;
+$motion-duration-slow: 750ms !default;
+$motion-duration-fast: 250ms !default;
 $motion-stagger-duration-default: 150ms !default;
 $motion-stagger-duration-short: 50ms !default;
 $motion-stagger-duration-long: 300ms !default;

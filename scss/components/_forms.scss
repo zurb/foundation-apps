@@ -171,8 +171,12 @@ input[type="checkbox"], input[type="radio"] {
     &:first-child { border-right: 0; }
     &:last-child  { border-left: 0; }
   }
-  // Assumed to be a button
-  > a {
+  // Buttons also shrink
+  > a,
+  > button,
+  > input[type="button"],
+  > input[type="submit"] {
+    flex: 0 0 auto;
     display: flex;
     align-items: center;
     padding-top: 0;
@@ -203,6 +207,7 @@ select {
   font-size: $form-fontsize;
   color: $select-color;
   border-radius: 0;
+  border: $input-border;
 
   @if $select-arrow {
     background: $select-background url(image-triangle($select-arrow-color)) right 10px center no-repeat;

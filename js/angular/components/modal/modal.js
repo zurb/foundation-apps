@@ -64,8 +64,8 @@
         var dialog = angular.element(element.children()[0]);
 
         scope.active = scope.active || false;
-        scope.overlay = attrs.overlay === 'true' || attrs.overlayClose === 'true' ? true : false;
-        scope.overlayClose = attrs.overlayClose === 'true' ? true : false;
+        scope.overlay = attrs.overlay === 'false' ? false : true;
+        scope.overlayClose = attrs.overlayClose === 'false' ? false : true;
 
         var animationIn = attrs.animationIn || 'fadeIn';
         var animationOut = attrs.animationOut || 'fadeOut';

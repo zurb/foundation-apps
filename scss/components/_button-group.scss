@@ -5,6 +5,8 @@ $btngroup-color: #fff !default;
 $btngroup-radius: $button-radius !default;
 ///
 
+$child-selectors: '> a, > label, > button';
+
 %button-group {
   margin: 0;
   margin-bottom: 1rem;
@@ -12,22 +14,27 @@ $btngroup-radius: $button-radius !default;
   display: inline-flex;
   border-radius: $btngroup-radius;
   overflow: hidden;
+  font-size: $button-font-size;
 
   > li {
     flex: 0 0 auto;
 
     // Links become buttons
-    > a,
-    > label {
+    #{$child-selectors} {
       @extend %button;
       border-radius: 0;
+      font-size: inherit;
       display: block;
       margin: 0;
     }
+    > input + label {
+      margin-left: 0;
+    }
     // Add borders between items
-    &:not(:last-child) > a,
-    &:not(:last-child) > label {
-      border-right: 1px solid scale-color($btngroup-background, $lightness: -25%);
+    &:not(:last-child) {
+      #{$child-selectors} {
+        border-right: 1px solid scale-color($btngroup-background, $lightness: -25%);
+      }
     }
   }
 
@@ -46,16 +53,17 @@ $btngroup-radius: $button-radius !default;
   border: 1px solid $primary-color;
   transition-property: background color;
 
-  // Hide the radio button
-  > li > input[type="radio"] {
-    position: absolute;
-    left: -9999px;
-  }
-  // This is the button
-  > li > a,
-  > li > label {
-    margin-right: 0;
-    background: transparent;
+  > li {
+    // Hide the radio button
+    > input[type="radio"] {
+      position: absolute;
+      left: -9999px;
+    }
+    // This is the button
+    #{$child-selectors} {
+      margin-right: 0;
+      background: transparent;
+    }
   }
 }
 
@@ -73,7 +81,7 @@ $btngroup-radius: $button-radius !default;
   > li {
     flex: if($stretch, 1, 0 0 auto);
 
-    > a, > label {
+    #{$child-selectors} {
       @if $stretch { @include button-expand; }
     }
   }
@@ -86,12 +94,12 @@ $btngroup-radius: $button-radius !default;
 
   @if not($segmented) {
     > li {
-      > a, > label {
+      #{$child-selectors} {
         @include button-style($background, $color);
         border-color: scale-color($background, $lightness: -15%);
       }
       &.is-active {
-        > a, > label {
+        #{$child-selectors} {
           background: scale-color($background, $lightness: -15%);
         }
       }
@@ -104,7 +112,7 @@ $btngroup-radius: $button-radius !default;
 
     > li {
       // This is the button
-      > a, > label {
+      #{$child-selectors} {
         border-color: $background;
         color: $background;
 
@@ -159,10 +167,10 @@ $btngroup-radius: $button-radius !default;
 
     // Individual colors
     > li {
-      &.secondary { > a { @include button-style($secondary-color, $btngroup: true); } }
-      &.success   { > a { @include button-style($success-color, $btngroup: true); } }
-      &.warning   { > a { @include button-style($warning-color, $btngroup: true); } }
-      &.alert     { > a { @include button-style($alert-color, $btngroup: true); } }
+      &.secondary { #{$child-selectors} { @include button-style($secondary-color, $btngroup: true); } }
+      &.success   { #{$child-selectors} { @include button-style($success-color, $btngroup: true); } }
+      &.warning   { #{$child-selectors} { @include button-style($warning-color, $btngroup: true); } }
+      &.alert     { #{$child-selectors} { @include button-style($alert-color, $btngroup: true); } }
     }
 
     // Segmented
@@ -178,5 +186,12 @@ $btngroup-radius: $button-radius !default;
     &.small     { @include button-group-size(small); }
     &.large     { @include button-group-size(large); }
     &.expand    { @include button-group-expand; }
+
+    // Disabled
+    li.disabled {
+      #{$child-selectors} {
+        @include button-disabled;
+      }
+    }
   }
 }

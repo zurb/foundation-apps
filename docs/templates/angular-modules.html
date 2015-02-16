@@ -15,27 +15,30 @@ name: angular-modules
 
 <p>The file structure is pretty simple to follow. All of the angular stuff is under <code>js/angular</code> in the main repo:</p>
 
-<pre>
-- components
-  - accordion
-  - actionsheet
-  - common
-  - iconic
-  - interchange
-  - modal
-  - notification
-  - offcanvas
-  - panel
-  - popup
-  - tabs
-- vendor
-  - .. external dependencies
-- services
-  - foundation core
-  - foundation dynamic routing
-  - dynamic routing animations
-</pre>
-
+<p>Components</p>
+<ul>
+  <li>accordion</li>
+  <li>actionsheet</li>
+  <li>common</li>
+  <li>iconic</li>
+  <li>interchange</li>
+  <li>modal</li>
+  <li>notification</li>
+  <li>offcanvas</li>
+  <li>panel</li>
+  <li>popup</li>
+  <li>tabs</li>
+</ul>
+<p>Vendor</p>
+<ul>
+  <li> .. external dependencies</li>
+</ul>
+<p>Services</p>
+<ul>
+  <li>foundation core</li>
+  <li>foundation dynamic routing</li>
+  <li>dynamic routing animations</li>
+</ul>
 
 <p>Every module folder is pre-packaged with the correct javascript file which contains all of the pertinent directives, controllers, configurations, etc. The necessary template files are included in the folder as well. The directives have a hard-coded path to those via <code>/components/[component name]/[component template</code> so if you use these, make sure to copy the templates in the correct place.</p>
 

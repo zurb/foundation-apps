@@ -10,10 +10,14 @@ $label-radius: 0 !default;
 $label-background: $primary-color !default;
 $label-color: isitlight($primary-color) !default;
 
-$badge-fontsize: 1em !default;
+$badge-fontsize: 0.8em !default;
+$badge-diameter: 1.5rem !default;
+$badge-background: $primary-color !default;
+$badge-color: #fff !default;
+
+// DEPRECATED: these variables will be removed in v1.1.
 $badge-padding: .1em .61em !default;
 $badge-radius: $global-rounded !default;
-$badge-background: $primary-color !default;
 $badge-font-color: #fff !default;
 ///
 
@@ -79,26 +83,25 @@ $badge-font-color: #fff !default;
 
 %badge {
   align-items: center;
-  position: absolute;
+  justify-content: center;
   display: inline-flex;
-  min-width: 1.75em;
+  border-radius: 1000px;
 }
 
 @mixin badge-layout(
   $fontsize: $badge-fontsize,
-  $padding: $badge-padding
+  $diameter: $badge-diameter
 ) {
   font-size: $fontsize;
-  padding: $padding;
+  width: $diameter;
+  height: $diameter;
 }
 
 @mixin badge-style(
   $background: $badge-background,
-  $color: $badge-font-color,
-  $radius: $badge-radius
+  $color: $badge-font-color
 ) {
   background: $background;
-  border-radius: $badge-radius;
 
   @if $color == auto {
     color: isitlight($background);
@@ -110,20 +113,22 @@ $badge-font-color: #fff !default;
 
 @mixin badge(
   $background: $badge-background,
-  $color: $badge-font-color,
-  $radius: $badge-radius,
-  $fontsize: $badge-fontsize,
-  $padding: $badge-padding
+  $color: $badge-color,
+  $diameter: $badge-diameter,
+  $fontsize: $badge-fontsize
 ) {
   @extend %badge;
-  @include badge-layout($fontsize, $padding);
-  @include badge-style($background, $color, $radius);
+  @include badge-layout($fontsize, $diameter);
+  @include badge-style($background, $color);
 }
 
 @include exports(badge) {
   .badge {
     @include badge;
 
+    &.secondary {
+      @include badge-style($secondary-color, auto);
+    }
     @each $color in map-keys($foundation-colors) {
       &.#{$color} {
         $color-value: map-get($foundation-colors, $color);

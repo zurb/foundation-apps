@@ -12,7 +12,6 @@
     "angular": "~1.3.4",
     "angular-ui-router": "~0.2.12",
     "angular-animate": "~1.3.4",
-    "angular-touch": "~1.3.7",
     "hammerjs": "~2.0.4"
   },
   "homepage": "https://github.com/zurb/foundation-apps",

@@ -43,6 +43,7 @@
       scope: {
         pinTo: '@?',
         pinAt: '@?',
+        target: '@?'
       },
       compile: compile
     };
@@ -86,7 +87,7 @@
 
         scope.hide = function() {
           scope.active = false;
-          tetherElement(newTarget);
+          tetherElement();
           tether.disable();
           return;
         };

@@ -24,7 +24,7 @@ title: Button
 <hr />
 
 <h3>Basic HTML</h3>
-<p>You can create buttons with this basic HTML</p>
+<p>A button is just an anchor tag with the <code>button</code> class applied. A plain <code>&lt;button&gt;</code> tag will also be styled as a button by default; you can turn this off by setting the <code>$button-tag-selector</code> variable to <code>false</code> in your Sass settings file.</p>
 <div class="grid-block">
   <div class="small-12 medium-6 grid-content">
 
@@ -39,12 +39,11 @@ title: Button
 </div>
 
 <h3>Colors</h3>
-<p>You can create buttons of various colors with these classes:</p>
+<p>Give buttons more semantic meaning with our built-in coloring classes.</p>
 <div class="grid-block">
   <div class="small-12 medium-6 grid-content">
 
 <hljs>
-<span class="comment">&lt;!-- Color Classes --&gt;</span>
 <a class="button" href="#">Primary Color</a>
 <a class="secondary button" href="#">Secondary Color</a>
 <a class="success button" href="#">Success Color</a>
@@ -66,11 +65,10 @@ title: Button
 </div>
 
 <h3>Sizes</h3>
-<p>You can customize button sizing with these classes:</p>
+<p>Use these classes to change the size of a button.</p>
 <div class="grid-block">
   <div class="small-12 medium-6 grid-content">
 <hljs>
-<span class="comment">&lt;!-- Size Classes --&gt;</span>
 <a class="tiny button" href="#">Tiny Button</a>
 <a class="small button" href="#">Small Button</a>
 <a class="button" href="#">Default Button</a>
@@ -92,7 +90,7 @@ title: Button
 </div>
 
 <h3>Disabled Button</h3>
-<p>Adding a class of <code>.disabled</code> will disable the pointer &amp; hover state, while also changing the color.</p>
+<p>Adding a class of <code>disabled</code> will disable the hover state, and add a faded appearance.</p>
 <div class="grid-block">
   <div class="small-12 medium-6 grid-content">
 <hljs>
@@ -122,65 +120,126 @@ title: Button
   </div>
 </div>
 
+<hr>
+
 <h3>Button Groups</h3>
-<p>Buttons can be turned into button groups which strings buttons together.</p>
+<p>A button group is a series of buttons.</p>
 <div class="grid-block">
   <div class="small-12 medium-6 grid-content">
 <hljs>
 <ul class="button-group">
-  <li><a href="#">Button a</a></li>
-  <li><a href="#">Button b</a></li>
-  <li><a href="#">Button c</a></li>
+  <li><a href="#">Button A</a></li>
+  <li><a href="#">Button B</a></li>
+  <li><a href="#">Button C</a></li>
 </ul>
 </hljs>
   </div>
   <div class="small-12 medium-6 grid-content">
     <ul class="button-group">
-      <li><a href="#">Button a</a></li>
-      <li><a href="#">Button b</a></li>
-      <li><a href="#">Button c</a></li>
+      <li><a href="#">Button A</a></li>
+      <li><a href="#">Button B</a></li>
+      <li><a href="#">Button C</a></li>
     </ul>
   </div>
 </div>
 
-<h3>Button Group Sizing &amp; colors</h3>
-<p>Button groups can have sizing modifiers applied straight to the ul.</p>
+<h4>Button Group Sizing &amp; Coloring</h4>
+<p>The same coloring and sizing classes for buttons can be used with button groups as well.</p>
 <div class="grid-block">
   <div class="small-12 medium-6 grid-content">
 <hljs>
-<ul class="button-group [tiny small large secondary success warning alert]">
-  <li><a href="#">Button a</a></li>
-  <li><a href="#">Button b</a></li>
-  <li><a href="#">Button c</a></li>
+<ul class="button-group small success">
+  <li><a href="#">Button X</a></li>
+  <li><a href="#">Button Y</a></li>
+  <li><a href="#">Button Z</a></li>
 </ul>
 </hljs>
   </div>
   <div class="small-12 medium-6 grid-content">
     <ul class="button-group small success">
-      <li><a href="#">Button a</a></li>
-      <li><a href="#">Button b</a></li>
-      <li><a href="#">Button c</a></li>
+      <li><a href="#">Button X</a></li>
+      <li><a href="#">Button Y</a></li>
+      <li><a href="#">Button Z</a></li>
     </ul>
   </div>
 </div>
 
-<h3>Button Group Segmented</h3>
-<p>Button groups can have a segmented look with an active class applied.</p>
+<p>Individual buttons in the group can be styled with coloring classes, or the <code>disabled</code> class.</p>
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+<hljs>
+<ul class="button-group">
+  <li class="success"><a href="#">Good Choice</a></li>
+  <li class="warning"><a href="#">Bad Choice</a></li>
+  <li class="disabled alert"><a href="#">Disabled Choice</a></li>
+</ul>
+</hljs>
+  </div>
+  <div class="small-12 medium-6 grid-content">
+    <ul class="button-group">
+      <li class="success"><a href="#">Good Choice</a></li>
+      <li class="warning"><a href="#">Bad Choice</a></li>
+      <li class="disabled alert"><a href="#">Disabled Choice</a></li>
+    </ul>
+  </div>
+</div>
+
+<h4>Segmented Button Group</h4>
+<p>The <code>segmented</code> class will give buttons a hollow look. Add an <code>is-active</code> class to an <code>&lt;li&gt;</code> in the button group to fill it in.</p>
 <div class="grid-block">
   <div class="small-12 medium-6 grid-content">
 <hljs>
 <ul class="button-group segmented">
-  <li class="is-active"><a href="#">Button a</a></li>
-  <li><a href="#">Button b</a></li>
-  <li><a href="#">Button c</a></li>
+  <li class="is-active"><a href="#">Fork</a></li>
+  <li><a href="#">Spork</a></li>
+  <li><a href="#">Spoon</a></li>
 </ul>
 </hljs>
   </div>
   <div class="small-12 medium-6 grid-content">
     <ul class="button-group segmented">
-      <li class="is-active"><a>Button a</a></li>
-      <li><a>Button b</a></li>
-      <li><a>Button c</a></li>
+      <li class="is-active"><a>Fork</a></li>
+      <li><a>Spork</a></li>
+      <li><a>Spoon</a></li>
+    </ul>
+  </div>
+</div>
+
+<h4>Input Groups</h4>
+<p>A series of radio inputs can be transformed into a segmented button group.</p>
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+<hljs>
+<ul class="button-group segmented">
+  <li>
+    <input type="radio" name="utensil" value="fork" id="utensilFork" checked>
+    <label for="utensilFork">Fork</label>
+  </li>
+  <li>
+    <input type="radio" name="utensil" value="spork" id="utensilSpork">
+    <label for="utensilSpork">Spork</label>
+  </li>
+  <li>
+    <input type="radio" name="utensil" value="spoon" id="utensilSpoon">
+    <label for="utensilSpoon">Spoon</label>
+  </li>
+</ul>
+</hljs>
+  </div>
+  <div class="small-12 medium-6 grid-content">
+    <ul class="button-group segmented">
+      <li>
+        <input type="radio" name="utensil" value="fork" id="utensilFork" checked>
+        <label for="utensilFork">Fork</label>
+      </li>
+      <li>
+        <input type="radio" name="utensil" value="spork" id="utensilSpork">
+        <label for="utensilSpork">Spork</label>
+      </li>
+      <li>
+        <input type="radio" name="utensil" value="spoon" id="utensilSpoon">
+        <label for="utensilSpoon">Spoon</label>
+      </li>
     </ul>
   </div>
 </div>
