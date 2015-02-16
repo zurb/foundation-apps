@@ -183,19 +183,28 @@ $rad: 5px;
   overflow: visible;
 
   .autocomplete input {
-    font-size: 1rem;
-    padding: 0.5rem;
+    font-size: 0.8rem;
+    padding: 0.5em;
   }
 
   .autocomplete > ul {
     margin-left: 0;
     border: 1px solid #ccc;
     border-top: 0;
-    box-shadow: 0 4px 5px rgba(#000, 0.25);
+    box-shadow: 0 4px 5px rgba(#000, 0.1);
+
+    li {
+      font-size: 0.8rem;
+    }
 
     li.active {
       background: $primary-color;
       color: white;
+    }
+
+    .highlight {
+      background-color: transparent;
+      font-weight: bold;
     }
   }
 }
