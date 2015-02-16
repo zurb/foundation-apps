@@ -159,6 +159,10 @@ gulp.task('css', ['sass'], function() {
   ];
   return gulp.src(dirs)
     .pipe($.concat('app.css'))
+    .pipe($.cssCondense({
+      compress: false,
+      lineBreaks: true
+    }))
     .pipe(gulp.dest('build/assets/css'))
   ;
 });
