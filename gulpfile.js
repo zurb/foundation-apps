@@ -199,7 +199,7 @@ gulp.task('sass:node', function() {
 });
 
 // Generate Sass settings file
-gulp.task('settings', function() {
+gulp.task('sass:settings', function() {
   settingsParser([
     'scss/_includes.scss',
     'scss/_global.scss',

@@ -14,7 +14,7 @@ $button-sizes: (
 ) !default;
 $button-font-size: 0.9rem !default;
 $button-opacity-disabled: 0.5 !default;
-$button-tag-selector: true !default;
+$button-tag-selector: false !default;
 ///
 
 %button {
