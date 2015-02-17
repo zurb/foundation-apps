@@ -89,7 +89,7 @@ $child-selectors: '> a, > label, > button';
 @mixin button-group-style(
   $segmented: false,
   $background: $primary-color,
-  $color: #fff
+  $color: auto
 ) {
 
   @if not($segmented) {

@@ -24,14 +24,14 @@ title: Button
 <hr />
 
 <h3>Basic HTML</h3>
-<p>A button is just an anchor tag with the <code>button</code> class applied. A plain <code>&lt;button&gt;</code> tag will also be styled as a button by default; you can turn this off by setting the <code>$button-tag-selector</code> variable to <code>false</code> in your Sass settings file.</p>
+
+<p>A button is just an anchor tag with the <code>button</code> class. By setting the <code>$button-tag-selector</code> variable to <code>true</code>, plain <code>&lt;button&gt;</code> tags can be styled as buttons as well.</p>
+
 <div class="grid-block">
   <div class="small-12 medium-6 grid-content">
-
 <hljs>
 <a class="button" href="#">Default Button</a>
 </hljs>
-
   </div>
   <div class="small-12 medium-6 grid-content">
     <a class="button" href="#">Default Button</a>
@@ -39,10 +39,11 @@ title: Button
 </div>
 
 <h3>Colors</h3>
+
 <p>Give buttons more semantic meaning with our built-in coloring classes.</p>
+
 <div class="grid-block">
   <div class="small-12 medium-6 grid-content">
-
 <hljs>
 <a class="button" href="#">Primary Color</a>
 <a class="secondary button" href="#">Secondary Color</a>
@@ -65,7 +66,9 @@ title: Button
 </div>
 
 <h3>Sizes</h3>
+
 <p>Use these classes to change the size of a button.</p>
+
 <div class="grid-block">
   <div class="small-12 medium-6 grid-content">
 <hljs>
@@ -90,7 +93,9 @@ title: Button
 </div>
 
 <h3>Disabled Button</h3>
+
 <p>Adding a class of <code>disabled</code> will disable the hover state, and add a faded appearance.</p>
+
 <div class="grid-block">
   <div class="small-12 medium-6 grid-content">
 <hljs>
@@ -103,6 +108,7 @@ title: Button
 </div>
 
 <h3>Hollow Buttons</h3>
+
 <p>Buttons can be converted to a hollow style with the <code>hollow</code> class. All of the same coloring and sizing classes will work with it.</p>
 
 <div class="grid-block">
@@ -123,7 +129,9 @@ title: Button
 <hr>
 
 <h3>Button Groups</h3>
+
 <p>A button group is a series of buttons.</p>
+
 <div class="grid-block">
   <div class="small-12 medium-6 grid-content">
 <hljs>
@@ -144,7 +152,9 @@ title: Button
 </div>
 
 <h4>Button Group Sizing &amp; Coloring</h4>
+
 <p>The same coloring and sizing classes for buttons can be used with button groups as well.</p>
+
 <div class="grid-block">
   <div class="small-12 medium-6 grid-content">
 <hljs>
@@ -170,22 +180,23 @@ title: Button
   <div class="small-12 medium-6 grid-content">
 <hljs>
 <ul class="button-group expand">
-  <li><a href="#">Button A</a></li>
-  <li><a href="#">Button B</a></li>
-  <li><a href="#">Button C</a></li>
+  <li><a href="#">Button I</a></li>
+  <li><a href="#">Button II</a></li>
+  <li><a href="#">Button III</a></li>
 </ul>
 </hljs>
   </div>
   <div class="small-12 medium-6 grid-content">
     <ul class="button-group expand">
-      <li><a href="#">Button A</a></li>
-      <li><a href="#">Button B</a></li>
-      <li><a href="#">Button C</a></li>
+      <li><a href="#">Button I</a></li>
+      <li><a href="#">Button II</a></li>
+      <li><a href="#">Button III</a></li>
     </ul>
   </div>
 </div>
 
 <p>Individual buttons in the group can be styled with coloring classes, or the <code>disabled</code> class.</p>
+
 <div class="grid-block">
   <div class="small-12 medium-6 grid-content">
 <hljs>
@@ -206,7 +217,9 @@ title: Button
 </div>
 
 <h4>Segmented Button Group</h4>
+
 <p>The <code>segmented</code> class will give buttons a hollow look. Add an <code>is-active</code> class to an <code>&lt;li&gt;</code> in the button group to fill it in.</p>
+
 <div class="grid-block">
   <div class="small-12 medium-6 grid-content">
 <hljs>
@@ -227,7 +240,9 @@ title: Button
 </div>
 
 <h4>Input Groups</h4>
+
 <p>A series of radio inputs can be transformed into a segmented button group.</p>
+
 <div class="grid-block">
   <div class="small-12 medium-6 grid-content">
 <hljs>

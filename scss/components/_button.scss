@@ -96,9 +96,6 @@ $button-tag-selector: false !default;
       background: transparent;
       color: scale-color($background, $lightness: 25%);
     }
-    &[data-popup-toggle]::after {
-      border-top-color: $background;
-    }
   }
   // Solid is the default
   @else {
@@ -112,9 +109,6 @@ $button-tag-selector: false !default;
     &:hover, &:focus {
       background: scale-color($background, $lightness: -15%);
       color: $color;
-    }
-    &[data-popup-toggle]::after {
-      border-top-color: $color;
     }
   }
 
