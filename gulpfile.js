@@ -270,6 +270,21 @@ gulp.task('test', ['karma:test', 'sass:test'], function() {
   console.log('Tests finished.');
 });
 
+gulp.task('compile-motion', ['clean', 'sass', 'javascript'], function() {
+  gulp.src('./tests/motion/index.html')
+    .pipe(gulp.dest('./build'));
+  gulp.src('./tests/motion/templates/**/*.html')
+    .pipe(dynamicRouting({
+      path: 'build/assets/js/routes.js',
+      root: 'tests/motion'
+    }))
+    .pipe(gulp.dest('./build/templates'));
+});
+
+gulp.task('test:motion', ['server:start', 'compile-motion'], function() {
+  gulp.watch(['js/**/*', 'tests/motion/**/*'], ['compile-motion']);
+});
+
 // 9. DEPLOYMENT
 // - - - - - - - - - - - - - - -
 
