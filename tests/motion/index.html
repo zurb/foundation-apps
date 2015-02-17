@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en" ng-app="application">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title ng-bind="$state.current.data.vars.title"></title>
+    <link rel="shortcut icon" href="assets/img/favicon.ico">
+    <link href="assets/css/app.css" rel="stylesheet" type="text/css">
+    <script src="assets/js/routes.js"></script>
+    <script src="assets/js/foundation.js"></script>
+    <script>
+      (function() {
+        'use strict';
+
+        angular.module('application', [
+          'ui.router',
+          'ngAnimate',
+
+          //foundation
+          'foundation',
+          'foundation.dynamicRouting',
+          'foundation.dynamicRouting.animations'
+        ])
+          .config(config)
+          .run(run)
+        ;
+
+        config.$inject = ['$urlRouterProvider', '$locationProvider'];
+
+        function config($urlProvider, $locationProvider) {
+          $urlProvider.otherwise('/');
+
+          $locationProvider.html5Mode({
+            enabled:false,
+            requireBase: false
+          });
+
+          $locationProvider.hashPrefix('!');
+        }
+
+        function run() {
+          FastClick.attach(document.body);
+        }
+
+      })();
+    </script>
+    <style>
+      .ui-animation.grid-content {
+        display: flex;
+        align-items: stretch;
+      }
+      .ui-animation.grid-content > div {
+        border: 1rem solid rgba(255,255,255,0.25);
+      }
+    </style>
+  </head>
+  <body zf-esc-close>
+
+    <div class="grid-frame vertical">
+      <div class="grid-content shrink collapse">
+        <ul class="menu-bar primary condense" style="margin: 0;">
+          <li><a ui-sref="in-and-out">In and Out</a></li>
+          <li><a ui-sref="in-only">In Only</a></li>
+          <li><a ui-sref="out-only">Out Only</a></li>
+          <li><a ui-sref="neither">Neither</a></li>
+        </ul>
+      </div>
+      <div class="grid-block">
+        <div class="ui-animation grid-content collapse" ui-view></div>
+      </div>
+    </div>
+
+  </body>
+</html>
