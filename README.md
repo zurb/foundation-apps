@@ -17,9 +17,10 @@ You'll need the following software installed to get started.
 
 ## Get Started
 
-The Sass and JavaScript components are available on Bower.
+The Sass and JavaScript components are available on Bower and npm.
 ```
 bower install foundation-apps --save
+npm install foundation-apps --save
 ```
 
 You can also use our command-line interface to quickly setup a basic Foundation for Apps project. It includes a pre-built Gulpfile that compiles an Angular-powered web app for you.
@@ -68,6 +69,7 @@ The documentation can be viewed at the same URL as above.
 * `scss`: The Sass components.
 * `js`: The Angular modules and directives, and other external libraries.
 * `iconic`: A set of 24 icons from the folks at [Iconic](https://useiconic.com/).
+* `dist`: Compiled CSS and JavaScript files, in minified and unmified flavors.
 * `tests`: Unit tests for the Angular modules.
 
 ## Versioning
