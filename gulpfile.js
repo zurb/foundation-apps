@@ -206,6 +206,7 @@ gulp.task('sass:settings', function() {
     'scss/helpers/_breakpoints.scss',
     'scss/components/_typography.scss',
     'scss/components/_grid.scss',
+    'scss/components/_button.scss',
     'scss/components/*.scss'
   ], {
     title: 'Foundation for Apps Settings'.toUpperCase(),

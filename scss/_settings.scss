@@ -8,11 +8,11 @@
 //  3.  Breakpoints
 //  4.  Typography
 //  5.  Grid
-//  6.  Accordion
-//  7.  Action Sheet
-//  8.  Block List
-//  9.  Button Group
-//  10. Button
+//  6.  Button
+//  7.  Accordion
+//  8.  Action Sheet
+//  9.  Block List
+//  10. Button Group
 //  11. Card
 //  12. Extras
 //  13. Forms
@@ -238,7 +238,26 @@
 // $total-columns: 12;
 // $block-grid-max-size: 6; 
 
-// 6. Accordion
+// 6. Button
+// - - - - - - - - - - - - - - -
+
+// $button-padding: 0.85em 1em;
+// $button-margin: 0 $global-padding $global-padding 0;
+// $button-style: solid;
+// $button-background: $primary-color;
+// $button-color: auto;
+// $button-radius: 0;
+// $button-sizes: (
+//   tiny: 0.7,
+//   small: 0.8,
+//   medium: 1,
+//   large: 1.3,
+// );
+// $button-font-size: 0.9rem;
+// $button-opacity-disabled: 0.5;
+// $button-tag-selector: false; 
+
+// 7. Accordion
 // - - - - - - - - - - - - - - -
 
 // $accordion-border: 1px solid $gray-dark;
@@ -252,7 +271,7 @@
 // $accordion-title-padding: $global-padding;
 // $accordion-content-padding: $global-padding; 
 
-// 7. Action Sheet
+// 8. Action Sheet
 // - - - - - - - - - - - - - - -
 
 // $actionsheet-background: white;
@@ -270,7 +289,7 @@
 // $actionsheet-link-color: #000;
 // $actionsheet-link-background-hover: smartscale($actionsheet-background); 
 
-// 8. Block List
+// 9. Block List
 // - - - - - - - - - - - - - - -
 
 // $blocklist-background: #fff;
@@ -292,31 +311,12 @@
 
 // $blocklist-check-icons: true; 
 
-// 9. Button Group
+// 10. Button Group
 // - - - - - - - - - - - - - - -
 
 // $btngroup-background: $primary-color;
 // $btngroup-color: #fff;
 // $btngroup-radius: $button-radius; 
-
-// 10. Button
-// - - - - - - - - - - - - - - -
-
-// $button-padding: 0.85em 1em;
-// $button-margin: 0 $global-padding $global-padding 0;
-// $button-style: solid;
-// $button-background: $primary-color;
-// $button-color: auto;
-// $button-radius: 0;
-// $button-sizes: (
-//   tiny: 0.7,
-//   small: 0.8,
-//   medium: 1,
-//   large: 1.3,
-// );
-// $button-font-size: 0.9rem;
-// $button-opacity-disabled: 0.5;
-// $button-tag-selector: false; 
 
 // 11. Card
 // - - - - - - - - - - - - - - -
