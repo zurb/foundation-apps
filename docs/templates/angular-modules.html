@@ -5,42 +5,65 @@ name: angular-modules
 ---
 
 <h2>AngularJS Modules</h2>
-<h3 class="subheader">Foundation components are broken down to various Angular modules meant to empower developers in need of a custom solution. Learn about the modules here.</h3>
+
+<h3 class="subheader">Each of our UI components are packaged as an Angular module. You can import them all at once or pick and choose.</h3>
+
 <hr>
 
-<h3>Overall module structure</h3>
-<p>The AngularJS portion of Foundation for Apps has been refactored to fit the most popular styleguides but also to fit most AngularJS paradigms. In short, FA is properly modularized, has the proper DI, and has as little dependencies as possible.</p>
+<section>
+  <h3>Bootstrapping</h3>
 
-<p>Currently, most of the modules are dependent on a module called <code>foundation.core</code> which contains the <code>FoundationApi</code>.</p>
+  <p>Our Bower/npm package, as well as the template stack, includes a sample <code>app.js</code> file which bootstraps an Angular application with UI Router, ng-animate, and every Foundation for Apps module.</p>
 
-<p>The file structure is pretty simple to follow. All of the angular stuff is under <code>js/angular</code> in the main repo:</p>
+  <p>In the below example, a module called <code>foundation</code> imported. This is a shorthand to import every UI component at once. However, it's also possible to import inidividual components, such as <code>foundation.modal</code> or <code>foundation.tabs</code>.</p>
 
-<p>Components</p>
-<ul>
-  <li>accordion</li>
-  <li>actionsheet</li>
-  <li>common</li>
-  <li>iconic</li>
-  <li>interchange</li>
-  <li>modal</li>
-  <li>notification</li>
-  <li>offcanvas</li>
-  <li>panel</li>
-  <li>popup</li>
-  <li>tabs</li>
-</ul>
-<p>Vendor</p>
-<ul>
-  <li> .. external dependencies</li>
-</ul>
-<p>Services</p>
-<ul>
-  <li>foundation core</li>
-  <li>foundation dynamic routing</li>
-  <li>dynamic routing animations</li>
-</ul>
+<hljs language="javascritpt">
+(function() {
+  'use strict';
 
-<p>Every module folder is pre-packaged with the correct javascript file which contains all of the pertinent directives, controllers, configurations, etc. The necessary template files are included in the folder as well. The directives have a hard-coded path to those via <code>/components/[component name]/[component template</code> so if you use these, make sure to copy the templates in the correct place.</p>
+  angular.module('application', [
+    // Angular libraries
+    'ui.router',
+    'ngAnimate',
+
+    // Foundation UI components
+    'foundation',
+
+    // Routing with front matter
+    'foundation.dynamicRouting',
+
+    // Transitioning between views
+    'foundation.dynamicRouting.animations'
+  ])
+    .config(config)
+    .run(run)
+  ;
+
+  config.$inject = ['$urlRouterProvider', '$locationProvider'];
+
+  function config($urlProvider, $locationProvider) {
+    // Default to the index view if the URL loaded is not found
+    $urlProvider.otherwise('/');
+
+    // Use this to enable HTML5 mode
+    $locationProvider.html5Mode({
+      enabled: false,
+      requireBase: false
+    });
+
+    // Use this to set the prefix for hash-bangs
+    // Example: example.com/#!/page
+    $locationProvider.hashPrefix('!');
+  }
+
+  function run() {
+    // Enable FastClick to remove the 300ms click delay on touch devices
+    FastClick.attach(document.body);
+  }
+
+})();
+</hljs>
+</section>
 
 <hr>
 
