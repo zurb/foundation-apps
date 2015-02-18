@@ -16,6 +16,7 @@
   > .grid-container {
     margin-top: 1rem;
   }
+  
   .grid-block {
     margin-left: -1rem;
     margin-right: -1rem;
@@ -24,6 +25,23 @@
 
 h3.subheader {
   font-size: 1.25rem;
+}
+
+.docs-module-name {
+  color: #999;
+
+  > pre {
+    display: inline-block;
+    vertical-align: middle;
+    color: #000;
+  }
+}
+
+.docs-module-deps {
+  .pre {
+    font-family: monospace;
+    font-size: 1.25rem;
+  }
 }
 
 hr {
