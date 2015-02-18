@@ -1,0 +1,56 @@
+// Global Styles
+// -------------
+// Odds and ends in the documentation styling. You might call it a shame file.
+
+.main-docs-section {
+  margin-top: 1rem;
+}
+
+h3.subheader {
+  font-size: 1.25rem;
+}
+
+hr {
+  margin: 2.75rem 0 2.5rem 0;
+}
+
+.card.callout {
+  padding: 1rem;
+  background: #f7f7f7;
+}
+
+.inline-list {
+  display: inline-block;
+}
+
+.icon-label {
+  margin-left: 1rem;
+}
+
+.icon li {
+  margin-bottom: 1rem;
+}
+
+.button [class*="fi-"] {
+  position: relative;
+  top:2px;
+}
+
+.centered-icon {
+  display: block;
+  margin: 0 auto 1rem auto;
+  width: 87px;
+}
+
+.install-requirements {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.position-absolute .ui-animation {
+  position: absolute;
+  
+  [zf-offcanvas], [zf-panel] {
+    display: none !important;
+  }
+}

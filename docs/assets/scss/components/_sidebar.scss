@@ -1,0 +1,24 @@
+.sidebar {
+  padding: 0 !important;
+  background: #f9f9f9 !important;
+  border-right: 1px solid #e7e7e7;
+
+  .menu-bar {
+    background: #f9f9f9 !important;
+
+    a {
+      font-size: .8rem;
+      color: $primary-color;
+      align-items: flex-start;
+    }
+
+    .title {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      color: #666;
+      font-weight: bold;
+      padding-top: 1.5rem;
+      padding-bottom: 0;
+    }
+  }
+}

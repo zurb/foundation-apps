@@ -1,8 +1,8 @@
-/*
+// Code Examples
+// -------------
+// Syntax highlighting for code and command line examples.
 
-github.com style (c) Vasily Polovnyov <vast@whiteants.net>
-
-*/
+// github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
 .hljs {
   display: block;
@@ -126,4 +126,37 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
 .hljs-chunk {
   color: #aaa;
+}
+
+// Command line-specific examples
+// Set language="bash" on <hljs> to use this
+
+.hljs.bash {
+  border: 0;
+  background: #333;
+  color: white;
+  border-radius: 8px;
+  position: relative;
+  padding-top: 2rem;
+
+  .hljs-built_in {
+    color: white;
+  }
+
+  &::before {
+    content: '$ ';
+    color: #ccc;
+  }
+
+  &::after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 1.25rem;
+    background: #777;
+    border-radius: 8px 8px 0 0;
+  }
 }

@@ -1,0 +1,36 @@
+.docs-search {
+  @include hide-for-only(small);
+  padding: 1rem;
+  border-bottom: 1px solid #e7e7e7;
+  overflow: visible;
+}
+
+.autocomplete {
+  input {
+    padding: 0.5em;
+    margin: 0;
+    font-size: 0.8rem;
+  }
+
+  > ul {
+    margin-left: 0;
+    border: 1px solid #ccc;
+    border-top: 0;
+    box-shadow: 0 4px 5px rgba(#000, 0.1);
+
+    li {
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+
+    .active {
+      background: $primary-color;
+      color: white;
+    }
+
+    .highlight {
+      background-color: transparent;
+      font-weight: bold;
+    }
+  }
+}

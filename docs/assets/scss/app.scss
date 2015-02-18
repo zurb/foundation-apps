@@ -1,52 +1,21 @@
-// FOUNDATION
-// The core of the framework. Woo!
+// Foundaiton Documentation Styles
+// -------------------------------
+// Includes the entire framework along with styles specific to the docs.
+
+// Foundation for Apps
 @import "foundation";
 
-// DOCS
-// What's up?
-@import
-	"docs/code",
-	"docs/topbar",
-	"docs/docs";
+// Global styles
+@import "global";
 
-.band {
-	background: #EEE;
-}
+// Overrides for component examples
+@import "examples";
 
-nav {
-	background: #708090;
-	color: $secondary-color;
-	h1 {
-		font-size: 1rem;
-	}
-}
-
-.img-bucket {
-	background: $secondary-color;
-}
-
-
-.slide-panel {
-  position: absolute;
-  display: flex;
-  bottom:0;
-  width:  100%;
-  height: 200px;
-  z-index: 100;
-}
-
-.button [class*="fi-"] {
-	position: relative;
-	top:2px;
-}
-#img-1, #img-2 {
-	// position: absolute;
-}
-#img-1 { z-index:1;}
-
-.position-absolute .ui-animation {
-  position: absolute;
-  [zf-offcanvas], [zf-panel] {
-    display: none !important;
-  }
-}
+// Docs-specific components
+@import "components/code";
+@import "components/compatability";
+@import "components/folder-list";
+@import "components/footer";
+@import "components/search";
+@import "components/sidebar";
+@import "components/topbar";
