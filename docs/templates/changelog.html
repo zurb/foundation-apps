@@ -10,10 +10,28 @@ title: Changelog
 <hr>
 
 <h3>How to update</h3>
-<ol>
-  <li>Specify the version you want to update to in your bower.json file.</li>
-  <li>To update, <code>cd</code> into the project folder, then run <code>bower update</code>.</li>
-</ol>
+
+<p>If you're updating a project built with our template stack, the CLI will help you update:</p>
+
+<hljs language="bash">
+foundation-apps update
+</hljs>
+
+<p>It's also possible to update by hand. Open the <code>bower.json</code> and change your <code>foundation-apps</code> dependency to the version you want:</p>
+
+<hljs language="json">
+{
+  "dependencies": {
+    "foundation-apps": "1.0.3"
+  }
+}
+</hljs>
+
+<p>Save the file and then update with Bower:</p>
+
+<hljs language="bash">
+bower update
+</hljs>
 
 <hr>
 
