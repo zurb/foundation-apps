@@ -21,6 +21,8 @@
       font-size: .8rem;
       color: $primary-color;
       align-items: flex-start;
+      padding-top: 0.75rem;
+      padding-bottom: 0.75rem;
     }
 
     .title {
@@ -28,8 +30,8 @@
       text-transform: uppercase;
       color: #666;
       font-weight: bold;
-      padding-top: 1.5rem;
-      padding-bottom: 0;
+      padding-top: 1rem;
+      padding-bottom: 0.25rem;
     }
   }
 }
