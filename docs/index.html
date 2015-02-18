@@ -67,7 +67,7 @@
       <div class="grid-block" ng-controller="NavController">
 
         <!-- Sidebar nav -->
-        <div zf-panel id="sidebar" class="bounceInOut medium-3 large-2 medium-grid-block sidebar vertical">
+        <div zf-panel id="sidebar" class="docs-sidebar">
           <!-- Search bar -->
           <div class="grid-content shrink docs-search">
             <autocomplete data="routing" on-select="selectRoute" attr-placeholder="Search docs: e.g. forms" ng-model="typedText" />
@@ -84,8 +84,8 @@
         <div ng-include="'partials/examples-panel.html'"></div>
 
         <!-- Main content -->
-        <div class="medium-9 large-10 grid-content" ng-show="$state.current.name.length">
-          <div class="grid-container main-docs-section">
+        <div class="docs-main" ng-show="$state.current.name.length">
+          <div class="grid-container">
             <a class="small secondary expand button hide-for-medium" zf-toggle="sidebar">Show Components</a>
             <div ng-class="['ui-animation']" ui-view autoscroll></div>
           </div>

@@ -10,7 +10,7 @@ $rad: 5px;
   font-size: ($sizeValue / 10) + rem;
 }
 
-@mixin breakpoint($point) {
+@mixin -breakpoint($point) {
   @if $point == smallmobile {
     @media (max-width: 525px) { @content; }
   }
@@ -36,7 +36,7 @@ $rad: 5px;
     @include font-size(16);
     td { padding-bottom: 10px; }
     td { border: none !important; }
-    @include breakpoint(mobile) {
+    @include -breakpoint(mobile) {
       @include font-size(14);
       font-weight: normal;
     }
@@ -87,7 +87,7 @@ $rad: 5px;
   tr:nth-child(even) {
     background: $secondary;
   }
-  @include breakpoint(smallmobile) {
+  @include -breakpoint(smallmobile) {
     td, tr td, tr td.marker, tr td:first-child, tr td:first-child + td {
       position: relative;
       display: block;

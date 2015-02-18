@@ -1,7 +1,18 @@
-.sidebar {
+.docs-sidebar {
   padding: 0 !important;
   background: #f9f9f9 !important;
   border-right: 1px solid #e7e7e7;
+  transition-timing-function: get-timing(bounceInOut) !important;
+
+  @include breakpoint(medium) {
+    @include grid-panel-reset;
+    @include grid-block(3);
+    @include grid-orient(vertical);
+  }
+
+  @include breakpoint(large) {
+    @include grid-size(2);
+  }
 
   .menu-bar {
     background: #f9f9f9 !important;

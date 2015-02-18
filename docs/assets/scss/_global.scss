@@ -2,8 +2,20 @@
 // -------------
 // Odds and ends in the documentation styling. You might call it a shame file.
 
-.main-docs-section {
-  margin-top: 1rem;
+.docs-main {
+  @include grid-content;
+
+  @include breakpoint(medium) {
+    @include grid-size(9);
+  }
+
+  @include breakpoint(large) {
+    @include grid-size(10);
+  }
+
+  > .grid-container {
+    margin-top: 1rem;
+  }
 }
 
 h3.subheader {
