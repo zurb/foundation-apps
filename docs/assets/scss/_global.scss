@@ -26,9 +26,20 @@ hr {
   margin: 2.75rem 0 2.5rem 0;
 }
 
-.card.callout {
+.docs-callout {
   padding: 1rem;
   background: #f7f7f7;
+}
+
+.docs-install-req {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.docs-center-icon {
+  display: block;
+  margin: 0 auto 1rem auto;
+  width: 87px;
 }
 
 .icon-label {
@@ -41,18 +52,7 @@ hr {
 
 .button [class*="fi-"] {
   position: relative;
-  top:2px;
-}
-
-.centered-icon {
-  display: block;
-  margin: 0 auto 1rem auto;
-  width: 87px;
-}
-
-.install-requirements {
-  margin-top: 2rem;
-  margin-bottom: 1rem;
+  top: 2px;
 }
 
 .position-absolute .ui-animation {
