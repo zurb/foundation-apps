@@ -9,6 +9,95 @@ title: Using Sass
 
 <hr>
 
+<div class="card docs-callout">
+  <p>Not familiar with Sass? The <a href="http://sass-lang.com/guide">official tutorial</a> on sass-lang.com is a great place to start.</p>
+</div>
+
+<hr>
+
+<section>
+  <h3>Compatability</h3>
+
+  <img src="assets/img/logos/sass.svg" alt="Sass logo" class="float-right show-for-medium" style="width: 150px; height: 150px; margin-left: 1rem;">
+
+  <p><strong>Foundation for Apps can be compiled with Ruby Sass and libsass.</strong> We tend to stick to the latest versions of both compilers when possible. We compile our documentation and template stack with node-sass, a JavaScript port of libsass. The codebase works with these versions of each compiler:</p>
+
+  <ul>
+    <li>Ruby Sass <strong>3.4+</strong></li>
+    <li>node-sass <strong>1.2.3+</strong> (libsass <strong>3.1</strong>)</li>
+  </ul>
+
+  <section>
+    <h4>Autoprefixer required</h4>
+
+    <p>We don't include vendor prefixes in our Sass files&mdash;instead, we use <a href="https://github.com/postcss/autoprefixer">Autoprefixer</a> to handle it for us. Our build process uses <a href="https://github.com/sindresorhus/gulp-autoprefixer">gulp-autoprefixer</a>, but there are <a href="https://github.com/postcss/autoprefixer#usage">other versions</a> that work with Grunt, Rails, Brunch, and more.</p>
+
+    <p>To get the proper browser support, use these Autoprefixer settings:</p>
+
+<hljs language="javascript">
+autoprefixer({
+  browsers: ['last 2 versions', 'ie 10']
+})
+</hljs>
+  </section>
+</section>
+
+<hr>
+
+<section>
+  <h3>Using the Framework</h3>
+
+  <p>If you're using the CLI to create a project, the Sass compilation process is already set up for you. If not, you can compile our Sass files yourself, or drop in a pre-built CSS file.</p>
+
+  <p>To get started, first install the framework files using Bower or npm.</p>
+
+<hljs language="bash">
+bower install foundation-apps --save
+</hljs>
+
+  <section>
+    <h4>Compiling Manually</h4>
+
+    <p>Next, add the framework files as an import path. How you do this depends on your build process, but the path is the same regardless: <code>bower_components/foundation-apps/scss</code></p>
+
+    <p>Here's an example using grunt-contrib-sass:</p>
+
+<hljs language="javascript">
+grunt.initConfig({
+  sass: {
+    dist: {
+      options: {
+        loadPath: ['bower_components/foundation-apps/scss']
+      }
+    }
+  }
+});
+</hljs>
+
+    <p>If you're using Compass, open your project's `config.rb` and add the import path there:</p>
+
+<hljs language="ruby">
+add_import_path "bower_components/foundation-apps/scss"
+</hljs>
+  </section>
+
+  <section>
+    <h4>Using the CSS File</h4>
+
+    <p>The Foundation for Apps Bower and npm packages include pre-compiled CSS files, in minified (compressed) and unminified flavors. If you're interested in editing the framework CSS directly, use the unminified file. For production, use the minified version.</p>
+
+<hljs language="html">
+<!-- Uncompressed version -->
+<link rel="stylesheet" href="bower_components/foundation-apps/dist/css/foundation-apps.css">
+
+<!-- Compressed version -->
+<link rel="stylesheet" href="bower_components/foundation-apps/dist/css/foundation-apps.min.css">
+</hljs>
+  </section>
+</section>
+
+<hr>
+
 <section>
   <h3>The Settings File</h3>
 
@@ -18,7 +107,7 @@ title: Using Sass
 
   <p>To change a default value, find the variable you're looking for, uncomment it by removing the slashes (<code>//</code>) at the start of the line, and change the value. Uncommenting signifies that you want the value to change, and also functions as a handy visual aid to see which defaults you're overriding.</p>
 
-  <p>Here's an example set of settings variables. These change the default styling of buttons:</p>
+  <p>Here's an example set of settings variables. These change the default styling of <a ui-sref="button">buttons</a>:</p>
 
 <hljs language="scss">
 $button-padding: 0.85em 1em !default;
@@ -51,7 +140,7 @@ $button-tag-selector: true !default;
 <hljs>
 // Example mixin for custom button 
 .cta-button { 
-  @include button(large, $background: pink, $color: white); 
+  @include button($size: large, $background: pink, $color: white); 
 }
 </hljs>
 
