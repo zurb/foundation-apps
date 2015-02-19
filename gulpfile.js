@@ -112,6 +112,11 @@ gulp.task('clean:partials', function(cb) {
   rimraf('./build/partials', cb);
 });
 
+// Clean the dist directory
+gulp.task('clean:dist', function(cb) {
+  rimraf('./dist', cb);
+});
+
 // 4. COPYING FILES
 // - - - - - - - - - - - - - - -
 
@@ -296,7 +301,7 @@ gulp.task('test', ['test:karma', 'test:sass'], function() {
 // - - - - - - - - - - - - - - -
 
 // Deploy distribution files
-gulp.task('deploy:dist', function(cb) {
+gulp.task('deploy:dist', ['clean:dist'], function(cb) {
   var filter = $.filter(['*.css']);
 
   var css = $.rubySass('scss/', {
@@ -321,6 +326,18 @@ gulp.task('deploy:dist', function(cb) {
     .pipe($.uglify())
     .pipe($.rename('foundation-apps.min.js'))
     .pipe(gulp.dest('./dist/js'));
+
+  var partials = gulp.src(paths.html.partials)
+    .pipe($.ngHtml2js({
+      prefix: 'components/',
+      moduleName: 'foundation',
+      declareModule: false
+    }))
+    .pipe($.concat('templates.js'))
+    .pipe(gulp.dest('./dist/js'))
+    .pipe($.uglify())
+    .pipe($.rename('templates-min.js'))
+    .pipe(gulp.dest('./dist/js'))
 
   cb();
 });
