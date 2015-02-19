@@ -4,7 +4,7 @@ url: /angular-modules
 name: angular-modules
 ---
 
-<h2>AngularJS Modules</h2>
+<h2>Angular Modules</h2>
 
 <h3 class="subheader">Each of our UI components are packaged as an Angular module. You can import them all at once or pick and choose.</h3>
 
@@ -16,6 +16,8 @@ name: angular-modules
   <p>Our Bower/npm package, as well as the template stack, includes a sample <code>app.js</code> file which bootstraps an Angular application with UI Router, ng-animate, and every Foundation for Apps module.</p>
 
   <p>In the below example, a module called <code>foundation</code> imported. This is a shorthand to import every UI component at once. However, it's also possible to import inidividual components, such as <code>foundation.modal</code> or <code>foundation.tabs</code>.</p>
+
+  <p>When writing your own bootstrapping code, the only essential configuration is setting up the <code>$urlProvider</code> and <code>$locationProvider</code></p>
 
 <hljs language="javascritpt">
 (function() {
@@ -179,7 +181,7 @@ FoundationApi.closeActiveElements(options)
 <hr>
 
 <section>
-  <h3>Common</h3>
+  <h3 class="docs-module-name"><pre>foundation.common</pre> (Module)</h3>
 
   <p class="docs-module-deps"><strong>Dependencies:</strong> <span class="pre">foundation.core</span></p>
 

@@ -4,13 +4,19 @@ url: /angular
 title: Angular
 ---
 
-<h2>AngularJS</h2>
-<h3 class="subheader">Foundation uses AngularJS in tons of neat ways, from dynamic routing to component directives. Learn about our AngularJS integration here.</h3>
+<h2>Angular</h2>
+
+<h3 class="subheader">Foundation uses AngularJS in tons of neat ways, from dynamic routing to component directives. Learn about our Angular integration here.</h3>
+
 <hr>
+
+<div class="card docs-callout">
+  <p>Already a seasoned Angular developer? Check out our <a ui-sref="angular-modules">modules documentation</a> to learn how add our components to your Angular app.</p>
+</div>
+
 <h3>Gulp Tasks</h3>
 
 <p>Gulp will watch for file changes in the <code>client</code> directory. Upon change, all files will be copied over to the <code>build</code> directory and the webserver will be reloaded. Note that the build directory will be deleted and recompiled upon each change. This means that any updates to files in the <code>build</code> directory will be deleted.</p>
-
 
 <hr>
 
@@ -326,17 +332,3 @@ FoundationApi.publish('my-modal', 'open');
   <li>the <code>app.js</code> file which bootstraps the application can be fully bypassed so you can build your own. Make sure to use proper dependency injection for the modules you DO want to use.</li>
   <li>if you install the repo as part of bower, make sure to reference all the right files in your build process in your Gulpfile</li>
 </ul>
-
-<h3>Using Foundation as a dependency</h3>
-<p>As of v1.1, Foundation for Apps will/does support being included via dependency injection. If you're building your own application or want to include FA in an existing application, here's what you need to know:</p>
-
-<ol>
-<li>FA depends on <code>foundation.core</code> which includes the <code>FoundationApi</code> service as well as several different factories/services that help it chug along. Most notably, it includes a configuration that imports SASS media queries. This is necessary for Interchange.</li>
-<li>the <code>foundation</code> module imports all of the directives, common directives, and <code>foundation.core</code>.</li>
-<li>
-<code>foundation.dynamicRouting</code> is a module that sets up the <code>ui.router</code> routing.</li>
-<li>
-<code>foundation.dynamicRouting.animations</code> is an additional module for <code>foundation.dynamicRouting</code> which enables view animation</li>
-</ol>
-
-<p>When creating a custom <code>app.js</code>, the only necessary configuration is setting up the <code>$urlProvider</code> and <code>$locationProvider</code>. The sample configuration is included in the <code>app.js</code> in the <code>js/angular</code> folder.</p>

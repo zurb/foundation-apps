@@ -50,7 +50,12 @@ hr {
 
 .docs-callout {
   padding: 1rem;
+  margin-bottom: 1.5rem;
   background: #f7f7f7;
+
+  > p:last-child {
+    margin: 0;
+  }
 }
 
 .docs-install-req {
