@@ -110,7 +110,7 @@
             scope.toggle();
           }
 
-          if (!scope.$root.$$phase) {
+          if (scope.$root && !scope.$root.$$phase) {
             scope.$apply();
           }
 
