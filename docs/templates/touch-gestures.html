@@ -4,73 +4,61 @@ url: /touch-gestures
 title: Touch Gestures
 ---
 
-<!-- Basic example -->
-<div zf-panel zf-swipe-close="right" class="docs-example-panel" id="example-swipe-panel-1" position="right">
-  <a href="#" zf-close class="close-button">&times;</a>
-  <p>This is a panel that closes when you swipe right.</p>
-</div>
-
-<!-- Positioned examples -->
-<div zf-panel zf-swipe-close="left" class="docs-example-panel" id="panel-left-swipe">
-  <a zf-close class="close-button">&times;</a>
-  <p>This is a left panel.</p>
-</div>
-
-<div zf-panel zf-swipe-close="right" class="docs-example-panel" id="panel-right-swipe" position="right">
-  <a zf-close class="close-button">&times;</a>
-  <p>This is a right panel. Swipe me to the right to close.</p>
-</div>
-
-<div zf-panel zf-swipe-close="up" class="docs-example-panel" id="panel-top-swipe" position="top">
-  <a zf-close class="close-button">&times;</a>
-  <p>This is a top panel. Swipe me up to close.</p>
-</div>
-<div zf-panel zf-swipe-close="down" class="docs-example-panel" id="panel-bottom-swipe" position="bottom">
-  <a zf-close class="close-button">&times;</a>
-  <p>This is a bottom panel. Swipe me down to close.</p>
-</div>
-
-<!-- Fixed example -->
-<div zf-panel class="docs-example-panel panel-fixed" id="example-panel-fixed">
-  <a href="#" zf-close class="close-button">&times;</a>
-  <p>This is a fixed panel.</p>
-</div>
-
 <h2>Touch Gestures</h2>
 
 <h3 class="subheader">Touch gestures are often used in devices like tablets and phones to make apps more accessible and intuitive to use. We have integrated Hammer.JS into our Angular core to create easy-to-use directives for gesture-based actions.</h3>
 
 <hr>
 
-<h3>Swipe-To-Close</h3>
-<button class="button" zf-hard-toggle="panel-top-swipe">Top Panel</button>
-<button class="button" zf-hard-toggle="panel-right-swipe">Right Panel</button>
-<button class="button" zf-hard-toggle="panel-bottom-swipe">Bottom Panel</button>
-<button class="button" zf-hard-toggle="panel-left-swipe">Left Panel</button>
+<section>
+  <h3>Hammer.js Required</h3>
+
+  <p>Our touch directives use the <a href="http://hammerjs.github.io/">Hammer.js</a>, library, which makes it easy to hook into common touch actions like swiping, pinching, rotating, and more. Our starter project (installed through the CLI) includes Hammer.js by default.</p>
+</section>
 
 <hr>
 
-<h4>Basic HTML</h4>
-<p>Using the various components that are "closable" e.g. panels, off-canvas menus, etc, <code>zf-swipe-close</code> can be added as an attribute to set the direction that you want to swipe in order to close the element. The directions available are <code>'up', 'left', 'down', and 'right'.</code> The swipe directive must be on the same level as the target element, and the target element should have an ID attribute.</p>
-<div class="grid-block">
-  <div class="small-12 medium-6 grid-content">
+<section>
+  <h3>Swipe to Close</h3>
+
+  <p>Add the <code>zf-swipe-close</code> directive to a closable element, such as a panel, off-canvas menu, modal, or notification, to trigger a close when the user swipes over the component. The swipe direction is set on the directive, and can be either <code>up</code>, <code>down</code>, <code>left</code>, or <code>right</code>.</p>
+
+  <section>
+    <h4>Example Panel</h4>
+
+    <p>Here's an example of the swipe-to-close directive applied to a panel.</p>
+
+    <div class="grid-block">
+      <div class="small-12 medium-6 grid-content">
 <hljs language="html">
-<div zf-panel zf-swipe-close="right" class="docs-example-panel" id="example-swipe-panel-1" position="right">
-  <a href="#" zf-close class="close-button">&times;</a>
-  <p>This is a panel that closes when you swipe right.</p>
+<div zf-panel zf-swipe-close="left" class="docs-example-panel" id="example-touch-panel">
+  <a zf-close class="close-button">&times;</a>
+  <p>Swipe to the left to close this panel.</p>
 </div>
 </hljs>
-  </div>
+      </div>
+      <div class="small-12 medium-6 grid-content">
+        <a class="button" zf-toggle="example-touch-panel">Swipe Panel</a>
+      </div>
+    </div>
+  </section>
 
-  <div class="small-12 medium-6 grid-content">
-    <a class="button" zf-toggle="example-swipe-panel-1">Basic Swipe-to-Close Panel</a>
-  </div>
+  <section>
+    <h4>Example Modal</h4>
+
+    <p>In this example, the user can swipe up to dismiss the modal. We paired this gesture with an animation that slides the modal up as it fades out, by setting <code>animation-out="slideOutUp"</code> on the element.</p>
+
+    <div class="grid-block">
+      <div class="small-12 medium-6 grid-content">
+<hljs language="html">
+<div zf-modal zf-swipe-close="up" animation-out="slideOutUp" id="example-touch-modal" class="tiny dialog">
+  <p>Swipe up on this modal to close it.</p>
 </div>
-
-<hr>
-
-<h3>Other Gestures</h3>
-
-<p><a href="http://hammerjs.github.io/">Hammer.JS</a> includes a number of gestures that are recognized in their library including pan, pinch, press, rotate, swipe, and tap. While swipe to close is our own implentation of a common gesture that webapps use, you are also welcome to create your own triggers as well.</p>
-
-<hr>
+</hljs>
+      </div>
+      <div class="small-12 medium-6 grid-content">
+        <a class="button" zf-toggle="example-touch-modal">Swipe Modal</a>
+      </div>
+    </div>
+  </section>
+</section>

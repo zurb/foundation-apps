@@ -20,6 +20,8 @@
   .grid-block {
     margin-left: -1rem;
     margin-right: -1rem;
+    flex-wrap: wrap;
+    overflow: visible;
   }
 }
 
@@ -63,7 +65,7 @@ hr {
   margin-bottom: 1rem;
 }
 
-.docs-center-icon {
+.docs-feature-icon {
   display: block;
   margin: 0 auto 1rem auto;
   width: 87px;

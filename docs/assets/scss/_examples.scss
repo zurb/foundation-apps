@@ -2,12 +2,6 @@
 // --------
 // Overrides for component examples.
 
-.docs-example-panels {
-  position: relative;
-  overflow: hidden;
-  height: 300px;
-}
-
 .docs-example-badges .badge {
   margin-right: 1rem;
 }
@@ -16,11 +10,11 @@
   text-align: center;
   color: #666;
   padding: 1rem;
-  align-items: center;
-  justify-content: center;
-}
-.docs-example-panel p {
-  font-size: 1.5rem;
+  padding-top: 2.5rem;
+
+  p {
+    font-size: 1.5rem;
+  }
 }
 
 .docs-grid-demo {
