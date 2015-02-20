@@ -29,6 +29,19 @@ h3.subheader {
   font-size: 1.25rem;
 }
 
+.docs-toc {
+  margin-top: 2rem;
+
+  h5 {
+    margin-bottom: 0.75rem;
+    font-weight: bold;
+    text-align: center;
+  }
+  p:last-child {
+    margin-top: -1rem;
+  }
+}
+
 .docs-module-name {
   color: #999;
 

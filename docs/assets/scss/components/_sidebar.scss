@@ -18,6 +18,13 @@
     @include grid-size(2);
   }
 
+  .button {
+    width: auto;
+    margin-left: $global-padding;
+    margin-right: $global-padding;
+    margin-bottom: 0;
+  }
+
   .menu-bar {
     background: #f9f9f9 !important;
 
