@@ -49,13 +49,14 @@
 
       function animationRouter(event, toState, fromState) {
         if (fromState.animation) {
+          prepareParent();
+
           if (fromState.animation.leave && !toState.animation.enter) {
             // if there is already a state existing on the page
 
             if (element.parent().children().length > 1) {
               element.removeClass(fromState.animation.leave);
             }
-            prepareParent();
           }
           else {
             prepareParent();
