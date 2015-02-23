@@ -38,12 +38,6 @@
         destroyed();
       });
 
-      function registerState(state) {
-        if ($rootScope.registeredStates.indexOf(state) === -1) {
-          $rootScope.registeredStates.push(state);
-        }
-      }
-
       function onStateChangeStart(event, toState, toParams, fromState, fromParams) {
         if ($state.includes(getState()) && animation.leave) {
           element.addClass(animation.leave);
@@ -51,23 +45,20 @@
 
         animationRouter(event, toState, fromState);
 
-        prepareParent();
       }
 
       function animationRouter(event, toState, fromState) {
         if (fromState.animation) {
-          if (fromState.animation.leave && !toState.animation) {
+          if (fromState.animation.leave && !toState.animation.enter) {
             // if there is already a state existing on the page
-            if (element.parent().children().length > 1) {
-              resetParent();
 
+            if (element.parent().children().length > 1) {
               element.removeClass(fromState.animation.leave);
             }
+            prepareParent();
           }
           else {
-
-            element.remove();
-            resetParent();
+            prepareParent();
           }
         }
       }
@@ -102,10 +93,6 @@
         }
 
         return state;
-      }
-
-      function resetElement() {
-        element.removeClass()
       }
 
       function resetParent() {
