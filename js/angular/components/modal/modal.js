@@ -136,9 +136,9 @@
     }
   }
 
-  ModalFactory.$inject = ['$http', '$templateCache', '$rootScope', '$compile', '$timeout', 'FoundationApi'];
+  ModalFactory.$inject = ['$http', '$templateCache', '$rootScope', '$compile', '$timeout', '$q', 'FoundationApi'];
 
-  function ModalFactory($http, $templateCache, $rootScope, $compile, $timeout, foundationApi) {
+  function ModalFactory($http, $templateCache, $rootScope, $compile, $timeout, $q, foundationApi) {
     return modalFactory;
 
     function modalFactory(config) {
@@ -149,6 +149,7 @@
           destroyed = false,
           html,
           element,
+          fetched,
           scope
       ;
 
@@ -161,7 +162,7 @@
 
       if(config.templateUrl) {
         //get template
-        $http.get(config.templateUrl, {
+        fetched = $http.get(config.templateUrl, {
           cache: $templateCache
         }).then(function (response) {
           html = response.data;
@@ -170,6 +171,7 @@
 
       } else if(config.template) {
         //use provided template
+        fetched = true;
         html = config.template;
         assembleDirective();
       }
@@ -218,13 +220,15 @@
       }
 
       function init(state) {
-        if(!attached && html.length > 0) {
-          var modalEl = container.append(element);
+        $q.when(fetched).then(function() {
+          if(!attached && html.length > 0) {
+            var modalEl = container.append(element);
 
-          scope.active = state;
-          $compile(element)(scope);
-          attached = true;
-        }
+            scope.active = state;
+            $compile(element)(scope);
+            attached = true;
+          }
+        });
       }
 
       function assembleDirective() {
