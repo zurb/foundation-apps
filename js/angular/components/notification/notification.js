@@ -230,7 +230,9 @@
             // close if autoclose
             if (scope.autoclose) {
               setTimeout(function() {
-                scope.hide();
+                if (scope.active) {
+                  scope.hide();
+                }
               }, parseInt(scope.autoclose));
             };
           } else if (msg == 'close' || msg == 'hide') {
@@ -240,7 +242,9 @@
             // close if autoclose
             if (scope.autoclose) {
               setTimeout(function() {
-                scope.toggle();
+                if (scope.active) {
+                  scope.toggle();
+                }
               }, parseInt(scope.autoclose));
             };
           }
