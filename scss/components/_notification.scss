@@ -178,6 +178,11 @@ $notification-icon-align: top !default;
     &.bottom-right  { @include notification-layout(right, bottom); }
     &.bottom-left   { @include notification-layout(left, bottom); }
     &.bottom-middle { @include notification-layout(middle, bottom); }
+
+    &.success   { @include notification-style($success-color) }
+    &.warning   { @include notification-style($warning-color) }
+    &.alert     { @include notification-style($alert-color) }
+    &.dark      { @include notification-style($dark-color, #fff) }
   }
 
   .notification-container {
