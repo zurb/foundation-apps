@@ -18,7 +18,6 @@
 
     function link(scope, element) {
       var animation = {};
-      var initiator = false;
       var animationEnded = false;
       var presetHeight;
 
