@@ -157,9 +157,11 @@
         };
 
         // close if autoclose
-        if (scope.autoclose && scope.active) {
+        if (scope.autoclose) {
           setTimeout(function() {
-            scope.hide();
+            if (scope.active) {
+              scope.hide();
+            }
           }, parseInt(scope.autoclose));
         };
 
