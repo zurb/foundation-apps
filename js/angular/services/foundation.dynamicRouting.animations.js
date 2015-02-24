@@ -50,11 +50,9 @@
       function animationRouter(event, toState, fromState) {
         if (!animationEnded) {
           resetParent();
-
-          element.removeClass(fromState.animation.leave);
-
           prepareParent();
 
+          element.removeClass(fromState.animation.leave);
         }
         else {
           prepareParent();
@@ -82,8 +80,9 @@
         if (event.targetScope === scope && animation.enter) {
           element.removeClass(animation.enter);
         }
-
+        
         animationEnded = true;
+
       }
 
       function getState() {
