@@ -19,13 +19,14 @@
     function link(scope, element) {
       var animation = {};
       var initiator = false;
+      var animationEnded = false;
       var presetHeight;
 
       var cleanup = [
         $rootScope.$on('$stateChangeStart', onStateChangeStart),
         $rootScope.$on('$stateChangeError', onStateChangeError),
         scope.$on('$stateChangeSuccess', onStateChangeSuccess),
-        scope.$on('$viewContentAnimationEnded', onViewContentAnimationEnded),
+        scope.$on('$viewContentAnimationEnded', onViewContentAnimationEnded)
       ];
 
       var destroyed = scope.$on('$destroy', function onDestroy() {
@@ -39,29 +40,28 @@
       });
 
       function onStateChangeStart(event, toState, toParams, fromState, fromParams) {
-        if ($state.includes(getState()) && animation.leave) {
-          element.addClass(animation.leave);
-        }
 
-        animationRouter(event, toState, fromState);
+        if (fromState.animation) {
+          animationRouter(event, toState, fromState);
+        }
 
       }
 
       function animationRouter(event, toState, fromState) {
-        if (fromState.animation) {
+        if (!animationEnded) {
+          resetParent();
+
+          element.removeClass(fromState.animation.leave);
+
           prepareParent();
 
-          if (fromState.animation.leave && !toState.animation.enter) {
-            // if there is already a state existing on the page
-
-            if (element.parent().children().length > 1) {
-              element.removeClass(fromState.animation.leave);
-            }
-          }
-          else {
-            prepareParent();
-          }
         }
+        else {
+          prepareParent();
+
+          element.addClass(fromState.animation.leave);
+        }
+
       }
 
       function onStateChangeError() {
@@ -82,7 +82,8 @@
         if (event.targetScope === scope && animation.enter) {
           element.removeClass(animation.enter);
         }
-        resetParent(); //reset parent if state change when animation is done
+
+        animationEnded = true;
       }
 
       function getState() {
