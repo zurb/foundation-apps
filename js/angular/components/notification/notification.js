@@ -145,14 +145,6 @@
         //due to dynamic insertion of DOM, we need to wait for it to show up and get working!
         setTimeout(function() {
           scope.active = true;
-          
-          // close if autoclose
-          if (scope.autoclose) {
-            setTimeout(function() {
-              scope.hide();
-            }, parseInt(scope.autoclose));
-          };
-          
           foundationApi.animate(element, scope.active, animationIn, animationOut);
         }, 50);
 
