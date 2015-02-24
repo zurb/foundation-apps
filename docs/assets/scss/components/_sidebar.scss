@@ -8,13 +8,13 @@
   border-right: 1px solid #e7e7e7;
   transition-timing-function: get-timing(bounceInOut) !important;
 
-  @include breakpoint(medium) {
+  @media screen and (min-width: map-get($breakpoints, medium)) {
     @include grid-panel-reset;
     @include grid-block(3);
     @include grid-orient(vertical);
   }
 
-  @include breakpoint(large) {
+  @media screen and (min-width: map-get($breakpoints, large)) {
     @include grid-size(2);
   }
 
