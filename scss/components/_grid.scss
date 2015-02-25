@@ -280,16 +280,12 @@ $block-grid-max-size: 6 !default;
   }
 }
 
-/*
-	CSS Output
-*/
+// CSS Output
+// - - - - - - - - - - - - - - - - - - - -
 
-/*
-  Shared styles for frames and blocks (parent elements)
-*/
+// Shared styles for frames and blocks (parent elements)
 %block-core {
   // Prevent flicker when grid items shift around
-  // transition: all 300ms ease;
   backface-visibility: hidden;
 
   // Orientation classes
@@ -311,22 +307,21 @@ $block-grid-max-size: 6 !default;
   &.wrap { @include grid-wrap(true); }
 }
 
-/*
-  Shared styles for blocks and content blocks (child elements)
-*/
+// Shared styles for blocks and content blocks (child elements)
 %child-core {
   // Shrink a flex item so it only takes up the space it needs
   &.shrink { @include grid-size(shrink); }
+
+  // Prevent an element from scrolling
+  &.noscroll { overflow: hidden; }
 }
 
 @include exports(grid) {
-  /*
-    The core grid elements:
-     - Frame
-     - Block
-     - Content block
-     - Container
-  */
+  // The core grid elements:
+  //  - Frame
+  //  - Block
+  //  - Content block
+  //  - Container
   .grid-frame {
     @extend %block-core;
     @include grid-frame;
@@ -356,9 +351,7 @@ $block-grid-max-size: 6 !default;
     &.contain-right { @include grid-container($align: right); }
   }
 
-  /*
-    Breakpoint classes for blocks
-  */
+  // Breakpoint classes for blocks
   @each $size in $breakpoint-classes {
     .#{$size}-grid-block {
       @extend %block-core;
@@ -383,10 +376,9 @@ $block-grid-max-size: 6 !default;
     }
   }
 
-  /*
-    Sizing and ordering classes
-  */
+  // Sizing and ordering classes
   @for $i from 1 through $total-columns {
+    // Source ordering
     .order-#{$i} { @include grid-order($i); }
   }
   @each $size in $breakpoint-classes {
@@ -405,7 +397,6 @@ $block-grid-max-size: 6 !default;
           @include grid-offset($i);
         }
         // Parent sizing (block grids)
-        // TODO: Make mixin
         .#{$size}-up-#{$i} {
           @include grid-layout($i);
         }
@@ -413,6 +404,7 @@ $block-grid-max-size: 6 !default;
     }
   }
 
+  // Grids inside content blocks should wrap by default, so they mimic traditional float grids
   .grid-content .grid-block {
     flex-wrap: wrap;
     overflow: visible;
