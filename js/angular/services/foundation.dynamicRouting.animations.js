@@ -71,6 +71,9 @@
 
       function onStateChangeSuccess() {
         if ($state.includes(getState()) && animation.enter) {
+          if (!element.parent().hasClass('position-absolute')) {
+            prepareParent();
+          }
           element.addClass(animation.enter);
         }
       }
@@ -78,6 +81,10 @@
       function onViewContentAnimationEnded(event) {
         if (event.targetScope === scope && animation.enter) {
           element.removeClass(animation.enter);
+          
+          if (element.parent().hasClass('position-absolute')) {
+            resetParent();
+          }
         }
         
         animationEnded = true;
