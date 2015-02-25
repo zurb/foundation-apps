@@ -20,27 +20,7 @@
 @import "components/sidebar";
 @import "components/topbar";
 
-.position-absolute {
-  overflow: hidden;
-  position: relative;
-}
-
-.position-absolute .ui-animation {
-  position: absolute;
-
-  [zf-offcanvas], [zf-panel] {
-    display: none !important;
-  }
-}
-
-.ui-animation {
-  backface-visibility: hidden;
-}
 .button [class*="fi-"] {
 	position: relative;
 	top:2px;
 }
-#img-1, #img-2 {
-	// position: absolute;
-}
-#img-1 { z-index:1;}

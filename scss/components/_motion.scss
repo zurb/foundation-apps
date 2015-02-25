@@ -484,38 +484,23 @@ $motion-delay-long: 700ms !default;
   .long-stagger { @include stagger($motion-stagger-duration-default); }
 }
 
+// View animation classes
+// - - - - - - - - - - - - - - - - - - - -
+
+// Applied to the immediate parent of the animating views
 .position-absolute {
   overflow: hidden;
   position: relative;
-
-  .ui-animation {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    backface-visibility: hidden;
-
-    [zf-offcanvas], [zf-panel] {
-      display: none !important;
-    }
-  }
 }
 
-.position-absolute {
-  overflow: hidden;
-  position: relative;
-
-  .ui-animation {
-    position: absolute;
+// Applied to the animating views
+.ui-animation {
+  &.ng-enter-active, &.ng-leave-active {
+    position: absolute !important;
+    backface-visibility: hidden;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
-    backface-visibility: hidden;
-
-    [zf-offcanvas], [zf-panel] {
-      display: none !important;
-    }
   }
 }
