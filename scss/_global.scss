@@ -118,11 +118,6 @@ $foundation-colors: (
     cursor: pointer;
   }
 
-  // The container for an include should always be full-width
-  [ng-include] {
-    width: 100%;
-  }
-
   #map_canvas,
   .map_canvas {
     img,
