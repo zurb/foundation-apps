@@ -343,18 +343,16 @@ $block-grid-max-size: 6 !default;
     &.collapse {
       padding: 0;
     }
-    .grid-content {
+
+    // Grids inside content blocks should wrap by default, so they mimic traditional float grids
+    .grid-block {
       margin-left: -($block-padding);
       margin-right: -($block-padding);
+      flex-wrap: wrap;
+      overflow: visible;
 
-      // Grids inside content blocks should wrap by default, so they mimic traditional float grids
-      .grid-block {
-        flex-wrap: wrap;
+      .grid-content {
         overflow: visible;
-
-        .grid-content {
-          overflow: visible;
-        }
       }
     }
   }
