@@ -225,6 +225,11 @@ select {
   &:focus {
     outline: 0;
   }
+
+  // Remove the dropdown arrow added in IE10/11
+  &::-ms-expand {
+    display: none;
+  }
 }
 
 // Range slider
