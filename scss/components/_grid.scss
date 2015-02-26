@@ -307,9 +307,8 @@ $block-grid-max-size: 6 !default;
   &.align-justify { @include grid-align(justify); }
   &.align-spaced  { @include grid-align(spaced); }
 
-  // Enable or disable wrapping of children
+  // Allow child elements to wrap
   &.wrap { @include grid-wrap(true); }
-  &.nowrap { @include grid-wrap(false); }
 }
 
 // Shared styles for blocks and content blocks (child elements)
@@ -350,6 +349,11 @@ $block-grid-max-size: 6 !default;
       margin-right: -($block-padding);
       flex-wrap: wrap;
       overflow: visible;
+
+      // Reverse the above wrapping behavior
+      &.nowrap {
+        @include grid-wrap(false);
+      }
 
       .grid-content {
         overflow: visible;
