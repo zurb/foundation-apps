@@ -267,6 +267,12 @@ $block-grid-max-size: 6 !default;
   @include grid-size($size);
   @if $offset != null { @include grid-offset($offset); }
   @if $order != null  { @include grid-order($order); }
+
+  // Prevent large images from widening the content block beyond it's flex-basis
+  // Fixes an issue in Firefox
+  img {
+    width: 100%;
+  }
 }
 
 @mixin grid-layout($up) {
