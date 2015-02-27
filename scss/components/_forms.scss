@@ -240,12 +240,12 @@ input[type="range"] {
   @include no-appearance;
   display: block;
   width: 100%;
-  height: $slider-height;
-  background: $slider-background;
+  height: auto;
   cursor: pointer;
-  overflow: visible;
   margin-top: $margin;
   margin-bottom: $margin;
+  border: 0;
+  line-height: 1;
 
   @if hasvalue($slider-radius) {
     border-radius: $slider-radius;
@@ -256,11 +256,16 @@ input[type="range"] {
   }
 
   // Chrome/Safari
+  &::-webkit-slider-runnable-track {
+    height: $slider-height;
+    background: $slider-background;
+  }
   &::-webkit-slider-thumb {
     -webkit-appearance: none;
     background: $slider-thumb-color;
     width: $slider-thumb-height;
     height: $slider-thumb-height;
+    margin-top: -$margin;
     @if hasvalue($slider-thumb-radius) {
       border-radius: $slider-thumb-radius;
     }
@@ -268,34 +273,40 @@ input[type="range"] {
   // Firefox
   &::-moz-range-track {
     -moz-appearance: none;
-    max-width: 300px;
-    height: 4px;
+    height: $slider-height;
     background: #ccc;
-    cursor: pointer;
   }
   &::-moz-range-thumb {
     -moz-appearance: none;
     background: $slider-thumb-color;
     width: $slider-thumb-height;
     height: $slider-thumb-height;
+    margin-top: -$margin;
     @if hasvalue($slider-thumb-radius) {
       border-radius: $slider-thumb-radius;
     }
   }
   // Internet Explorer
   &::-ms-track {
-    max-width: 300px;
-    height: 4px;
-    background: #ccc;
-    cursor: pointer;
+    height: $slider-height;
+    background: $slider-background;
+    color: transparent;
+    border: 0;
+    overflow: visible;
+    border-top: $margin solid $body-background;
+    border-bottom: $margin solid $body-background;
   }
   &::-ms-thumb {
     background: $slider-thumb-color;
     width: $slider-thumb-height;
     height: $slider-thumb-height;
+    border: 0;
     @if hasvalue($slider-thumb-radius) {
       border-radius: $slider-thumb-radius;
     }
+  }
+  &::-ms-fill-lower, &::-ms-fill-upper {
+    background: $slider-background;
   }
 }
 output {
