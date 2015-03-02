@@ -84,6 +84,7 @@ $button-tag-selector: false !default;
   $background: $button-background,
   $color: $button-color,
   $style: $button-style,
+  $radius: $button-radius,
   $btngroup: false
 ){
   @if $style == hollow {
@@ -145,7 +146,8 @@ $button-tag-selector: false !default;
   $expand: false,
   $background: $button-background,
   $color: $button-color,
-  $style: $button-style
+  $style: $button-style,
+  $radius: $button-radius
 ) {
   @extend %button;
   @include button-size($size);
