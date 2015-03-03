@@ -498,6 +498,7 @@ $motion-delay-long: 700ms !default;
   &.ng-enter-active, &.ng-leave-active {
     position: absolute !important;
     backface-visibility: hidden;
+    -webkit-transform-style: preserve-3d;
     top: 0;
     right: 0;
     bottom: 0;
