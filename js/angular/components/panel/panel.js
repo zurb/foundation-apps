@@ -87,8 +87,10 @@
           } else if (msg == 'toggle') {
             scope.toggle();
           }
-
-          scope.$apply();
+          
+          if (!scope.$root.$$phase) {
+            scope.$apply();
+          }
 
           return;
         });
