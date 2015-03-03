@@ -26,9 +26,11 @@ $input-color-focus: $input-color !default;
 $input-background: #fff !default;
 $input-background-hover: $input-background !default;
 $input-background-focus: $input-background !default;
+$input-background-disabled: smartscale($input-background) !default;
 $input-border: 1px solid #ccc !default;
 $input-border-hover: 1px solid #bbb !default;
 $input-border-focus: 1px solid #999 !default;
+$input-cursor-disabled: not-allowed !default;
 
 // Select menus
 $select-color: #000 !default;
@@ -101,6 +103,20 @@ $meter-radius: 0 !default;
 
   label > & {
     margin-top: $form-label-margin;
+  }
+}
+
+// Disabled state
+input {
+  &.disabled,
+  &[disabled],
+  &[readonly],
+  fieldset[disabled] & {
+    cursor: $input-cursor-disabled;
+
+    &, &:hover {
+      background-color: $input-background-disabled;
+    }
   }
 }
 
