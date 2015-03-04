@@ -42,6 +42,7 @@
           var state = {
             url: page.url,
             templateUrl: page.path,
+            abstract: page.abstract || false,
             parent: page.parent || '',
             controller: getController(page),
             data: getData(page),
@@ -56,6 +57,7 @@
           var state = {
             url: page.url,
             parent: page.parent || '',
+            abstract: page.abstract || false,
             data: getData(page),
             animation: buildAnimations(page),
             views: {
