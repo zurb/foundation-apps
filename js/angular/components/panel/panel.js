@@ -27,9 +27,9 @@
     }
   }
 
-  zfPanel.$inject = ['FoundationApi'];
+  zfPanel.$inject = ['FoundationApi', '$window'];
 
-  function zfPanel(foundationApi) {
+  function zfPanel(foundationApi, $window) {
     var directive = {
       restrict: 'EA',
       templateUrl: 'components/panel/panel.html',
@@ -80,6 +80,13 @@
 
         //setup
         foundationApi.subscribe(attrs.id, function(msg) {
+          var panelPosition = $window.getComputedStyle(element[0]).getPropertyValue("position");
+
+          // patch to prevent panel animation on larger screen devices
+          if (panelPosition !== 'absolute') {
+            return;
+          }
+
           if(msg == 'show' || msg == 'open') {
             scope.show();
           } else if (msg == 'close' || msg == 'hide') {
