@@ -21,7 +21,7 @@ $offcanvas-frame-selector: '.grid-frame' !default;
 
 %off-canvas {
   position: fixed;
-  overflow: scroll;
+  overflow: auto;
   -webkit-overflow-scrolling: touch;
   transition: transform $offcanvas-animation-speed ease-out;
   z-index: 2;
