@@ -85,6 +85,12 @@ FoundationApi.subscribe('identifier', callback)
     <p>FoundationApi has its own pub/sub system that is meant to work as a message system of sorts, or an event system. Basically, using a unique identifier, a directive (or other modules) can subscribe to any messages posted to that identifier. Each idenitifier can have its own list of subscribers (rather than a single subscriber). Make sure the callback accepts messages in a format your publishers are aware of. For example, most directive can be opened or closed by publishing <code>open</code>, <code>close</code>, or <code>toggle</code> to their identifier.</p>
 
 <hljs language="javascript">
+FoundationApi.unsubscribe('identifier', callback)
+</hljs>
+
+    <p>This method is used to unsubscribe any listeners from an object. Note that once a directive is unsubscribed, it will not contain any listeners until otherwise specified by re-initiating the <code>.subscribe</code> method. It takes in element's unique identifier as an argument with an optional callback to run after the element has been unsubscribed.</p>
+
+<hljs language="javascript">
 FoundationApi.publish('identifier', 'message')
 </hljs>
 

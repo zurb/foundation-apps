@@ -12,17 +12,18 @@
   FoundationApi.$inject = ['FoundationAnimation'];
 
   function FoundationApi(FoundationAnimation) {
-    var listeners  = [];
+    var listeners  = {};
     var settings   = {};
     var uniqueIds  = [];
     var service    = {};
 
     service.subscribe           = subscribe;
+    service.unsubscribe         = unsubscribe;
     service.publish             = publish;
     service.getSettings         = getSettings;
     service.modifySettings      = modifySettings;
     service.generateUuid        = generateUuid;
-    service.toggleAnimate     = toggleAnimate;
+    service.toggleAnimate       = toggleAnimate;
     service.closeActiveElements = closeActiveElements;
     service.animate             = animate;
 
@@ -35,6 +36,15 @@
 
       listeners[name].push(callback);
       return true;
+    }
+
+    function unsubscribe(name, callback) {
+      if (listeners[name] !== undefined) {
+        delete listeners[name];
+      }
+      if (typeof callback == 'function') {
+          callback.call(this);
+      }
     }
 
     function publish(name, msg) {

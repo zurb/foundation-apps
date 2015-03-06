@@ -41,6 +41,7 @@
       function onStateChangeStart(event, toState, toParams, fromState, fromParams) {
 
         if (fromState.animation) {
+          console.log(fromState.animation);
           animationRouter(event, toState, fromState);
         }
 

@@ -392,6 +392,7 @@
           element.remove();
           destroyed = true;
         }, 3000);
+        foundationApi.unsubscribe(id);
       }
 
     }
