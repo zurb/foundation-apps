@@ -41,10 +41,13 @@
       function onStateChangeStart(event, toState, toParams, fromState, fromParams) {
 
         if (fromState.animation) {
-          console.log(fromState.animation);
-          animationRouter(event, toState, fromState);
+          if (!fromState.animation.leave && !toState.animation.leave) {
+            return;
+          }
+          else {
+             animationRouter(event, toState, fromState);
+          }
         }
-
       }
 
       function animationRouter(event, toState, fromState) {
@@ -71,10 +74,8 @@
       }
 
       function onStateChangeSuccess() {
+        resetParent();
         if ($state.includes(getState()) && animation.enter) {
-          if (!element.parent().hasClass('position-absolute')) {
-            prepareParent();
-          }
           element.addClass(animation.enter);
         }
       }
@@ -82,10 +83,6 @@
       function onViewContentAnimationEnded(event) {
         if (event.targetScope === scope && animation.enter) {
           element.removeClass(animation.enter);
-          
-          if (element.parent().hasClass('position-absolute')) {
-            resetParent();
-          }
         }
         
         animationEnded = true;
