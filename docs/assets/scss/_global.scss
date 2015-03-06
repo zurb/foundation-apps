@@ -110,3 +110,10 @@ hr {
     display: none !important;
   }
 }
+
+.fancy-button {
+  background-color: $success-color;
+  padding: 1rem;
+  width: 10rem;
+  color: #fff;
+}

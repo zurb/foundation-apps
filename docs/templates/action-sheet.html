@@ -28,7 +28,7 @@ animateOut: fadeOut
 <hr />
 
 <h3>Basic HTML</h3>
-<p>You can create an actionsheet with this basic directive.</p>
+<p>You can create an actionsheet with this basic directive. The position attribute can be set as "top" or "bottom."</p>
 <div class="grid-block">
   <div class="small-12 medium-6 grid-content">
 
@@ -64,18 +64,22 @@ animateOut: fadeOut
 <hr />
 
 <h3>Additional Options</h3>
-<p>To use a custom button, ammend the `zf-as-button` declaration with your custom HTML like so:</p>
+<p>To use a custom button, place the HTML mark up in between the custom zf tags.</p>
 
 <hljs>
-<a href="#" zf-toggle="my-actionsheet">toggle</a>
 <zf-action-sheet id="my-actionsheet">
-  <zf-as-button>my button goes here</zf-as-button>
-  <zf-as-content position="bottom">
-    My content goes here
+  <zf-as-button><span class="fancy-button">I'm Fancy!</span></zf-as-button>
+  <zf-as-content position="top">
+    <p>This is my fancy content!</p>
   </zf-as-content>
 </zf-action-sheet>
 </hljs>
-
+<zf-action-sheet id="my-actionsheet">
+  <zf-as-button><span class="fancy-button">I'm Fancy!</span></zf-as-button>
+  <zf-as-content position="top">
+    <p>This is my fancy content!</p>
+  </zf-as-content>
+</zf-action-sheet>
 <hr>
 
 <h3>Sass Mixins</h3>
