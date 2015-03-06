@@ -301,7 +301,7 @@ gulp.task('compile-motion', ['clean', 'sass', 'javascript'], function() {
   gulp.src('./tests/motion/index.html')
     .pipe(gulp.dest('./build'));
   gulp.src('./tests/motion/templates/**/*.html')
-    .pipe(dynamicRouting({
+    .pipe(routes({
       path: 'build/assets/js/routes.js',
       root: 'tests/motion'
     }))
