@@ -72,6 +72,11 @@
       } while ((el = el.parentNode));
 
       if(!insideActionSheet) {
+        // if the element has a toggle attribute, do nothing
+        if (e.target.attributes['zf-toggle'] || e.target.attributes['zf-hard-toggle']) {
+          return;
+        };
+        // if the element is outside the action sheet and is NOT a toggle element, hide
         hide();
       }
     }
@@ -174,7 +179,6 @@
 
       scope.toggle = function() {
         scope.active = !scope.active;
-
         if(scope.active) {
           controller.registerListener();
         } else {
