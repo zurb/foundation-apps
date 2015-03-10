@@ -365,6 +365,31 @@ FoundationApi.closeActiveElements(options)
 
   <p>This component can be animated with Motion UI, by adding the <code>animation-in</code> and <code>animation-out</code> attributes to the element.</p>
 
+  <section>
+    <h4 class="docs-module-name"><pre>Notification Factory</pre> (Factory)</h4>
+
+    <p>Another way to programatically create notification sets. It takes an object as an optional configuration as an argument. The <code>id</code> property is an optional id that you want to assign to your element, <code>templateUrl</code> (or alternatively <code>template</code> if you want to place the markup directly) is the path to the markup that the element should use, and <code>contentScope</code> creates a direct link between two scope variables. For example, if you had a notification set nested inside an ng-repeat, you could use contentScope to directly link the controller scope to the directive scope. </p>
+<hljs language="javascript">
+$scope.foo = "Bloop!";
+$scope.bar = "Blee!";
+
+var config = {
+  id: 'your optional id here',
+  template: '{{foo}} {{bar}}',
+  contentScope: {
+    foo: $scope.foo,
+    bar: $scope.bar
+  },
+  animationIn: 'slideInFromTop'
+}
+</hljs>
+
+<hljs language="javascript">
+var modal = new ModalFactory(config);
+modal.activate();
+</hljs>
+  </section>
+
   <p>Check out the <a ui-sref="modal">documentation for modals</a> to learn how to use them.</p>
 </section>
 
@@ -408,6 +433,7 @@ FoundationApi.closeActiveElements(options)
   </section>
 
   <p>Check out the <a ui-sref="notification">documentation for notifications</a> to learn how to use them.</p>
+
 </section>
 
 <hr>

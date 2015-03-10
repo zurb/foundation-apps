@@ -69,6 +69,7 @@
 
         var animationIn = attrs.animationIn || 'fadeIn';
         var animationOut = attrs.animationOut || 'fadeOut';
+
         var overlayIn = 'fadeIn';
         var overlayOut = 'fadeOut';
 
@@ -245,12 +246,23 @@
 
         scope = $rootScope.$new();
 
-        for(var prop in props) {
+        // account for directive attributes
+        for(var i = 0; i < props.length; i++) {
+          var prop = props[i];
+
           if(config[prop]) {
-            element.attr(prop, config[prop]);
+            switch (prop) {
+              case 'animationIn':
+                element.attr('animation-in', config[prop]);
+                break;
+              case 'animationOut':
+                element.attr('animation-out', config[prop]);
+                break;
+              default:
+                element.attr(prop, config[prop]);
+            }
           }
         }
-
         // access view scope variables
         if (config.contentScope) {
           contentScope = config.contentScope;
