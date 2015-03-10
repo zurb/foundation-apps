@@ -350,9 +350,8 @@
       function addNotification(notification) {
         checkStatus();
         $timeout(function() {
-          init(true, notification);
           foundationApi.publish(id, notification);
-        }, 0, false);
+        }, 50, false);
       }
 
       function clearAll() {
@@ -362,12 +361,13 @@
         }, 0, false);
       }
 
-      function init(state, notification) {
+      function init(state) {
         if(!attached && html.length > 0) {
           var modalEl = container.append(element);
 
-          scope.notifications = [ notification ];
+          scope.active = state;
           $compile(element)(scope);
+
           attached = true;
         }
       }
@@ -382,10 +382,10 @@
         element = angular.element(html);
 
         scope = $rootScope.$new();
-
-        for(var prop in props) {
-          if(config[prop]) {
-            element.attr(prop, config[prop]);
+        
+        for(var i = 0; i < props.length; i++) {
+          if(config[props[i]]) {
+            element.attr(props[i], config[props[i]]);
           }
         }
 
@@ -398,6 +398,7 @@
             }
           }
         }
+        init(true);
       }
 
       function destroy() {
