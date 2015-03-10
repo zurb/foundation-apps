@@ -321,7 +321,8 @@
           destroyed = false,
           html,
           element,
-          scope
+          scope,
+          contentScope
       ;
 
       var props = [
@@ -372,6 +373,10 @@
       }
 
       function assembleDirective() {
+        // check for duplicate element to prevent factory from cloning notification sets
+        if (document.getElementById(id)) {
+          return;
+        }
         html = '<zf-notification-set id="' + id + '"></zf-notification-set>';
 
         element = angular.element(html);
@@ -381,6 +386,16 @@
         for(var prop in props) {
           if(config[prop]) {
             element.attr(prop, config[prop]);
+          }
+        }
+
+        // access view scope variables
+        if (config.contentScope) {
+          contentScope = config.contentScope;
+          for (var prop in contentScope) {
+            if (contentScope.hasOwnProperty(prop)) {
+              scope[prop] = contentScope[prop];
+            }
           }
         }
       }

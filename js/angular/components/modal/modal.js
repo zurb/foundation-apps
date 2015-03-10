@@ -150,7 +150,8 @@
           html,
           element,
           fetched,
-          scope
+          scope,
+          contentScope
       ;
 
       var props = [
@@ -226,12 +227,18 @@
 
             scope.active = state;
             $compile(element)(scope);
+
             attached = true;
           }
         });
       }
 
       function assembleDirective() {
+        // check for duplicate elements to prevent factory from cloning modals
+        if (document.getElementById(id)) {
+          return;
+        }
+
         html = '<zf-modal id="' + id + '">' + html + '</zf-modal>';
 
         element = angular.element(html);
@@ -241,6 +248,16 @@
         for(var prop in props) {
           if(config[prop]) {
             element.attr(prop, config[prop]);
+          }
+        }
+
+        // access view scope variables
+        if (config.contentScope) {
+          contentScope = config.contentScope;
+          for (var prop in config.contentScope) {
+            if (config.contentScope.hasOwnProperty(prop)) {
+              scope[prop] = config.contentScope[prop];
+            }
           }
         }
       }
