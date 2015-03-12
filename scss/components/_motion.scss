@@ -59,6 +59,7 @@ $motion-stagger-duration-long: 300ms !default;
 
 // Default timing function for transitions and animations
 $motion-timing-default: ease !default;
+
 // Built-in and custom easing functions
 // Every item in this map becomes a CSS class
 $motion-timings: (

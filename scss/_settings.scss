@@ -473,6 +473,14 @@
 //   in: "ng-enter-stagger",
 //   out: "ng-leave-stagger",
 // );
+// $motion-class-showhide: (
+//   in: "ng-hide-remove",
+//   out: "ng-hide-add",
+// );
+// $motion-class-showhide-active: (
+//   in: "ng-hide-remove-active",
+//   out: "ng-hide-add-active",
+// );
 
 // Set if movement-based transitions should also fade the element in and out
 // $motion-slide-and-fade: false;
@@ -492,6 +500,7 @@
 
 // Default timing function for transitions and animations
 // $motion-timing-default: ease;
+
 // Built-in and custom easing functions
 // Every item in this map becomes a CSS class
 // $motion-timings: (
