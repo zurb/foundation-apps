@@ -145,12 +145,20 @@ gulp.task('copy:templates', ['javascript'], function() {
 });
 
 // Copy Foundation directive partials
-gulp.task('copy:partials', ['clean:partials'], function() {
+gulp.task('copy:partials', ['clean:partials'], function(cb) {
   gulp.src(paths.html.partials)
-    .pipe(gulp.dest('./build/components/'));
+    .pipe($.ngHtml2js({
+      prefix: 'components/',
+      moduleName: 'foundation',
+      declareModule: false
+    }))
+    .pipe($.concat('templates.js'))
+    .pipe(gulp.dest('./build/assets/js'));
 
-  return gulp.src('./docs/partials/**/*.html')
+  gulp.src('./docs/partials/**/*.html')
     .pipe(gulp.dest('./build/partials/'));
+
+  cb();
 });
 
 // 5. STYLESHEETS
@@ -348,10 +356,10 @@ gulp.task('deploy:dist', ['clean:dist'], function(cb) {
       moduleName: 'foundation',
       declareModule: false
     }))
-    .pipe($.concat('templates.js'))
+    .pipe($.concat('foundation-apps-templates.js'))
     .pipe(gulp.dest('./dist/js'))
     .pipe($.uglify())
-    .pipe($.rename('templates-min.js'))
+    .pipe($.rename('foundation-apps-templates.min.js'))
     .pipe(gulp.dest('./dist/js'))
 
   cb();
