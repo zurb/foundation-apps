@@ -7,7 +7,7 @@ var fs           = require('fs');
 
 module.exports = function(options) {
   var configs = [];
-  var directory = process.cwd();
+  var directory = options.dir || process.cwd();
 
   function bufferContents(file, enc, cb) {
     var config;
