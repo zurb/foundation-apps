@@ -32,6 +32,14 @@ $motion-class-stagger: (
   in: "ng-enter-stagger",
   out: "ng-leave-stagger",
 ) !default;
+$motion-class-showhide: (
+  in: "ng-hide-remove",
+  out: "ng-hide-add",
+);
+$motion-class-showhide-active: (
+  in: "ng-hide-remove-active",
+  out: "ng-hide-add-active",
+);
 
 // Set if movement-based transitions should also fade the element in and out
 $motion-slide-and-fade: false !default;
@@ -96,8 +104,11 @@ $motion-delay-long: 700ms !default;
 // Wraps content in an enter/leave class, chained to the parent selector
 // Define the initial state of a transition here
 @mixin transition-start($dir) {
-  $sel: map-get($motion-class, $dir);
-  &.#{$sel} {
+  $sel1: map-get($motion-class, $dir);
+  $sel2: map-get($motion-class-showhide, $dir);
+
+  &.#{$sel1},
+  &.#{$sel2} {
     @content;
   }
 }
@@ -106,9 +117,14 @@ $motion-delay-long: 700ms !default;
 // enter/leave class, chained to the parent selector
 // Define the end state of a transition here
 @mixin transition-end($dir) {
-  $sel:  map-get($motion-class, $dir);
-  $selA: map-get($motion-class-active, $dir);
-  &.#{$sel}.#{$selA} {
+  $sel1:  map-get($motion-class, $dir);
+  $sel1A: map-get($motion-class-active, $dir);
+
+  $sel2:  map-get($motion-class-showhide, $dir);
+  $sel2A: map-get($motion-class-showhide-active, $dir);
+
+  &.#{$sel1}.#{$sel1A},
+  &.#{$sel2}.#{$sel2A} {
     @content;
   }
 }
