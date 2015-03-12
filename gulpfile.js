@@ -152,6 +152,7 @@ gulp.task('copy:partials', ['clean:partials'], function(cb) {
       moduleName: 'foundation',
       declareModule: false
     }))
+    .pipe($.uglify())
     .pipe($.concat('templates.js'))
     .pipe(gulp.dest('./build/assets/js'));
 
