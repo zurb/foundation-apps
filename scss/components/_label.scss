@@ -14,11 +14,6 @@ $badge-fontsize: 0.8em !default;
 $badge-diameter: 1.5rem !default;
 $badge-background: $primary-color !default;
 $badge-color: #fff !default;
-
-// DEPRECATED: these variables will be removed in v1.1.
-$badge-padding: .1em .61em !default;
-$badge-radius: $global-rounded !default;
-$badge-font-color: #fff !default;
 ///
 
 %label {
