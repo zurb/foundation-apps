@@ -342,7 +342,7 @@ $menubar-icon-spacing: $menubar-item-padding !default;
 
     // Menu bar is condensed
     .menu-bar {
-      @include menu-bar-layout(horizontal, false);
+      > li { flex: 0 0 auto; }
       margin: 0;
     }
 
