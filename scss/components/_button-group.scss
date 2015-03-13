@@ -95,7 +95,7 @@ $child-selectors: '> a, > label, > button';
   @if not($segmented) {
     > li {
       #{$child-selectors} {
-        @include button-style($background, $color);
+        @include button-style($background, auto, $color);
         border-color: scale-color($background, $lightness: -15%);
       }
       &.is-active {
@@ -167,10 +167,10 @@ $child-selectors: '> a, > label, > button';
 
     // Individual colors
     > li {
-      &.secondary { #{$child-selectors} { @include button-style($secondary-color, $btngroup: true); } }
-      &.success   { #{$child-selectors} { @include button-style($success-color, $btngroup: true); } }
-      &.warning   { #{$child-selectors} { @include button-style($warning-color, $btngroup: true); } }
-      &.alert     { #{$child-selectors} { @include button-style($alert-color, $btngroup: true); } }
+      &.secondary { #{$child-selectors} { @include button-style($secondary-color, auto, $btngroup: true); } }
+      &.success   { #{$child-selectors} { @include button-style($success-color, auto, $btngroup: true); } }
+      &.warning   { #{$child-selectors} { @include button-style($warning-color, auto, $btngroup: true); } }
+      &.alert     { #{$child-selectors} { @include button-style($alert-color, auto, $btngroup: true); } }
     }
 
     // Segmented
