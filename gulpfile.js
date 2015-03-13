@@ -177,28 +177,10 @@ gulp.task('css', ['sass'], function() {
   ;
 });
 
-// Compile stylesheets with Ruby Sass
+// Compile stylesheets
 gulp.task('sass', function() {
   var filter = $.filter(['*.css']);
 
-  return $.rubySass('docs/assets/scss/', {
-      loadPath: paths.sass.loadPaths,
-      style: 'nested',
-      bundleExec: true
-    })
-    .on('error', function(err) {
-      console.log(err.message);
-    })
-    .pipe(filter)
-      .pipe($.autoprefixer({
-        browsers: ['last 2 versions', 'ie 10']
-      }))
-    .pipe(filter.restore())
-    .pipe(gulp.dest('./build/assets/css/'));
-});
-
-// Compile stylesheets with node-sass
-gulp.task('sass:node', function() {
   return gulp.src('docs/assets/scss/app.scss')
     .pipe($.sass({
       includePaths: paths.sass.loadPaths,
@@ -208,7 +190,6 @@ gulp.task('sass:node', function() {
     .pipe($.autoprefixer({
       browsers: ['last 2 versions', 'ie 10']
     }))
-    .pipe($.concat('app_node.css'))
     .pipe(gulp.dest('./build/assets/css/'));
 });
 
@@ -328,30 +309,28 @@ gulp.task('test:motion', ['server:start', 'compile-motion'], function() {
 gulp.task('deploy:dist', ['clean:dist'], function(cb) {
   var filter = $.filter(['*.css']);
 
-  var css = $.rubySass('scss/', {
-      loadPath: ['scss'],
-      style: 'nested',
-      bundleExec: true
-    })
-    .pipe(filter)
-      .pipe($.autoprefixer({
-        browsers: ['last 2 versions', 'ie 10']
-      }))
-    .pipe(filter.restore())
+  gulp.src('scss/foundation.scss')
+    .pipe($.sass({
+      outputStyle: 'nested',
+      errLogToConsole: true
+    }))
+    .pipe($.autoprefixer({
+      browsers: ['last 2 versions', 'ie 10']
+    }))
     .pipe($.rename('foundation-apps.css'))
     .pipe(gulp.dest('./dist/css'))
     .pipe($.minifyCss())
     .pipe($.rename('foundation-apps.min.css'))
     .pipe(gulp.dest('./dist/css'));
 
-  var js = gulp.src(paths.javascript.foundation)
+  gulp.src(paths.javascript.foundation)
     .pipe($.concat('foundation-apps.js'))
     .pipe(gulp.dest('./dist/js'))
     .pipe($.uglify())
     .pipe($.rename('foundation-apps.min.js'))
     .pipe(gulp.dest('./dist/js'));
 
-  var partials = gulp.src(paths.html.partials)
+  gulp.src(paths.html.partials)
     .pipe($.ngHtml2js({
       prefix: 'components/',
       moduleName: 'foundation',
