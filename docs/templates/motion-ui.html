@@ -16,6 +16,8 @@ title: Motion UI
     width: 100px;
     background-color: #00558b;
     border-radius: 8px;
+    display: inline-block;
+    margin-bottom: 0.5rem;
   }
 </style>
 
@@ -64,7 +66,7 @@ title: Motion UI
         </select>
       </div>
       <div class="grid-content">
-        <button ng-click="update(element)">GO FORTH AND BUILD</button>
+        <button ng-click="update(element)" class="button">Animate It!</button>
       </div>
     </form>
   </div>
@@ -74,12 +76,12 @@ title: Motion UI
 
 <h3>Animations</h3>
 <div class="docs-example-grid">
-  <div class="grid-block">
-    <div class="grid-content">
+  <div class="grid-block text-center">
+    <div class="small-12 medium-6 grid-content">
       <div class="square linear" ng-class="animateSquare"></div>
       <p><strong>class="square linear {{animateSquare}}"</strong></p>
     </div>
-    <div class="grid-content text-center">
+    <div class="small-12 medium-6 grid-content">
       <button class="expand button" ng-click="animateSquare='wiggle'">Wiggle Wiggle Wiggle</button>
       <button class="expand button" ng-click="animateSquare='shake'">Shake It, Shake It, Girl</button>
       <button class="expand button" ng-click="animateSquare='spin-cw'">Spin Clockwise</button>

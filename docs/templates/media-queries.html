@@ -53,7 +53,7 @@ $breakpoints: (
 $breakpoint-classes: (small medium large);
 </hljs>
 
-<p>To get <code>xlarge</code> classes in your CSS, for use in the grid, menu bar, and more, just add it to the end of the list:</p>
+<p>For example, to get <code>xlarge</code> classes in your CSS, for use in the grid, menu bar, and more, just add it to the end of the list:</p>
 
 <hljs language="scss">
 $breakpoint-classes: (small medium large xlarge);
@@ -103,12 +103,16 @@ $breakpoint-classes: (small medium large xlarge);
 }
 </hljs>
 
-<p>Lastly, there are two special media queries that are not width-based: <code>portrait</code> and <code>landscape</code>. Using these keywords with the <code>breakpoint()</code> mixin will output a media query for device orientation, rather than screen width.</p>
+<p>Lastly, there are two special media queries that are not width-based: <code>portrait</code>, <code>landscape</code>, and <code>retina</code>. Using these keywords with the <code>breakpoint()</code> mixin will output a media query for device orientation or pixel density, rather than screen width.</p>
 
 <hljs language="scss">
 .element {
   @include breakpoint(landscape) {
     // CSS for landscape-oriented devices only
+  }
+
+  @include breakpoint(retina) {
+    // CSS for high-resolution displays only
   }
 }
 </hljs>
