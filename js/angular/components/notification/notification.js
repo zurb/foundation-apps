@@ -351,7 +351,7 @@
         checkStatus();
         $timeout(function() {
           foundationApi.publish(id, notification);
-        }, 50, false);
+        }, 0, false);
       }
 
       function clearAll() {
