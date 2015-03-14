@@ -14,16 +14,20 @@
 $block-selector: '[class*="grid-block"]';
 
 @mixin show-for($size, $prop: block) {
-  display: none !important;
-  @include breakpoint($size) {
-    display: $prop !important;
+  &:not(.ng-hide) {
+	  display: none !important;
+	  @include breakpoint($size) {
+	    display: $prop !important;
+	  }
   }
 }
 
 @mixin show-for-only($size, $prop: block) {
-  display: none !important;
-  @include breakpoint($size only) {
-    display: $prop !important;
+  &:not(.ng-hide) {
+	  display: none !important;
+	  @include breakpoint($size only) {
+	    display: $prop !important;
+	  }
   }
 }
 
