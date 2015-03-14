@@ -15,30 +15,34 @@ $block-selector: '[class*="grid-block"]';
 
 @mixin show-for($size, $prop: block) {
   &:not(.ng-hide) {
-	  display: none !important;
-	  @include breakpoint($size) {
-	    display: $prop !important;
-	  }
+    display: none !important;
+    @include breakpoint($size) {
+      display: $prop !important;
+    }
   }
 }
 @mixin show-for-only($size, $prop: block) {
   &:not(.ng-hide) {
-	  display: none !important;
-	  @include breakpoint($size only) {
-	    display: $prop !important;
-	  }
+    display: none !important;
+    @include breakpoint($size only) {
+      display: $prop !important;
+    }
   }
 }
 @mixin hide-for($size, $prop: block) {
-  display: $prop !important;
-  @include breakpoint($size) {
-    display: none !important;
+  &:not(.ng-hide) {
+    display: $prop !important;
+    @include breakpoint($size) {
+      display: none !important;
+    }
   }
 }
 @mixin hide-for-only($size, $prop: block) {
-  display: $prop !important;
-  @include breakpoint($size only) {
-    display: none !important;
+  &:not(.ng-hide) {
+    display: $prop !important;
+    @include breakpoint($size only) {
+      display: none !important;
+    }
   }
 }
 
