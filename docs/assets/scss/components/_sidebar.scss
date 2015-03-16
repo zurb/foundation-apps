@@ -23,6 +23,12 @@
     margin-left: $global-padding;
     margin-right: $global-padding;
     margin-bottom: 0;
+
+    @include breakpoint(small only) {
+      display: inline-block;
+      width: 50%;
+      margin-top: 1rem;
+    }
   }
 
   .menu-bar {
