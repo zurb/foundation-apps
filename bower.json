@@ -3,7 +3,8 @@
   "version": "1.1.0",
   "main": [
     "dist/css/foundation-apps.css",
-    "dist/js/foundation-apps.js"
+    "dist/js/foundation-apps.js",
+    "dist/js/foundation-apps-templates.js"
   ],
   "dependencies": {
     "viewport-units-buggyfill": "~0.4.1",
