@@ -122,41 +122,39 @@
       var mediaQueryProp = foundationApi.generateUuid().replace(/-/g,'');
       
       var directive = {
+        priority: 601, // ng-if is 600, must compile this directive before
         restrict: 'A',
         link: link
       };
 
       return directive;
 
-      // from here onward, scope[mediaQueryResult] refers to the result of running the provided media query
+      // from here onward, scope[mediaQueryProp] refers to the result of running the provided media query
       function link(scope, element, attrs) {
-        var ngIfExpr;
-        
         // initially set media query result to false
         scope[mediaQueryProp] = false;
         
-        // check if already added the media check to this element (i.e. already processed)
-        if (!attrs['ngIf'] || attrs['ngIf'].indexOf(mediaQueryProp) !== 0) {
-          // haven't processed this element
-          if (attrs['ngIf']) {
-            // add the media check to the beginning of the original expression
-            ngIfExpr = mediaQueryProp + ' && (' + attrs['ngIf'] + ')';
-          } else {
-            // just use the media check as the expression
-            ngIfExpr = mediaQueryProp;
-          }
-          
-          // add/update ng-if attribute
-          element.attr('ng-if', ngIfExpr);
-          
-          // recompile to allow changes to ng-if directive to take effect
+        // update ng-if to include media query
+        if (!attrs['ngIf']) {
+          // must add ngIf directive and recompile
+          element.attr('ng-if', mediaQueryProp);
           $compile(element)(scope);
+          return;
+        }
+
+        // update ng-if attribute
+        if (attrs['ngIf'] !== mediaQueryProp) {
+          element.attr('ng-if', mediaQueryProp + ' && (' + attrs['ngIf'] + ')');
         }
         
         // subscribe for resize changes
         foundationApi.subscribe('resize', function(msg) {
+          var orignalVisibilty = scope[mediaQueryProp];
           runQuery();
-          scope.$digest();
+          if (orignalVisibilty != scope[mediaQueryProp]) {
+            // digest if visibility changed
+            scope.$digest();
+          }
         });
 
         // run first media query check
@@ -165,7 +163,6 @@
         function runQuery() {
           var nextMediaQuery, nextMediaString, nextMediaMinWidthMatches, onlyMediaString;
           
-          // run query
           if (!mediaOnly) {
             // run named query
             scope[mediaQueryProp] = matchesMedia(mediaQuery);
