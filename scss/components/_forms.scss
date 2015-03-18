@@ -117,7 +117,7 @@ input[type="search"] {
 }
 
 // Disabled state
-input {
+input, textarea {
   &.disabled,
   &[disabled],
   &[readonly],
