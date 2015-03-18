@@ -75,7 +75,7 @@
 
         scope.hideOverlay = function() {
           if(scope.overlayClose) {
-            scope.hide();
+            foundationApi.publish(attrs.id, 'close');
           }
         };
 
