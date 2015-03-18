@@ -93,67 +93,119 @@
   
   angular.module('foundation.interchange')
   /*
+   * Final directive to perform media queries, other directives set up this one
+   * (See: http://stackoverflow.com/questions/19224028/add-directives-from-directive-in-angularjs)
+   */
+    .directive('zfIf', zfIfMediaFinal)
+  /*
    * zf-if-*
    */
-    .directive('zfIfSmall', zfIfMediaWrapper('small'))
-    .directive('zfIfMedium', zfIfMediaWrapper('medium'))
-    .directive('zfIfLarge', zfIfMediaWrapper('large'))
-    .directive('zfIfPortrait', zfIfMediaWrapper('portriate'))
-    .directive('zfIfLandscape', zfIfMediaWrapper('landscape'))
-    .directive('zfIfRetina', zfIfMediaWrapper('retina'))
+    .directive('zfIfSmall', zfIfMediaWrapper('zf-if-small', 'small'))
+    .directive('zfIfMedium', zfIfMediaWrapper('zf-if-medium', 'medium'))
+    .directive('zfIfLarge', zfIfMediaWrapper('zf-if-large', 'large'))
+    .directive('zfIfPortrait', zfIfMediaWrapper('zf-if-portriate', 'portriate'))
+    .directive('zfIfLandscape', zfIfMediaWrapper('zf-if-landscape', 'landscape'))
+    .directive('zfIfRetina', zfIfMediaWrapper('zf-if-retina', 'retina'))
   /*
    * zf-if-*-only
    */
-    .directive('zfIfSmallOnly', zfIfMediaWrapper('small', true))
-    .directive('zfIfMediumOnly', zfIfMediaWrapper('medium', true))
-    .directive('zfIfLargeOnly', zfIfMediaWrapper('large', true))
+    .directive('zfIfSmallOnly', zfIfMediaWrapper('zf-if-small-only', 'small', true))
+    .directive('zfIfMediumOnly', zfIfMediaWrapper('zf-if-medium-only', 'medium', true))
+    .directive('zfIfLargeOnly', zfIfMediaWrapper('zf-if-large-only', 'large', true))
   /*
-   * zf-if-not-* (implies only, so zf-if-not-small will work as expected)
+   * zf-if-not-* (implies only, so zf-if-not-small will on be visible on small screens, not all screens)
    */
-    .directive('zfIfNotSmall', zfIfMediaWrapper('small', true, true))
-    .directive('zfIfNotMedium', zfIfMediaWrapper('medium', true, true))
-    .directive('zfIfNotLarge', zfIfMediaWrapper('large', true, true))
+    .directive('zfIfNotSmall', zfIfMediaWrapper('zf-if-not-small', 'small', true, true))
+    .directive('zfIfNotMedium', zfIfMediaWrapper('zf-if-not-medium', 'medium', true, true))
+    .directive('zfIfNotLarge', zfIfMediaWrapper('zf-if-not-large', 'large', true, true))
   ;
   
-  function zfIfMediaWrapper(mediaQuery, mediaOnly, mediaNot) {
+  /*
+   * This directive will configure ng-if and zf-if directives and then recompile
+   */
+  function zfIfMediaWrapper(directiveName, mediaQuery, mediaOnly, mediaNot) {
     // set optional parameter
     mediaOnly = mediaOnly || false;
     mediaNot = mediaNot || false;
-    zfIfMedia.$inject = [ '$compile', 'FoundationApi', 'FoundationMQ'];
-    
+
+    zfIfMedia.$inject = [ '$compile', 'FoundationApi'];
     return zfIfMedia;
     
-    function zfIfMedia($compile, foundationApi, foundationMQ) {
+    function zfIfMedia($compile, foundationApi) {
       // create unique scope property for media query result 
       // must be unique to avoid collision with other zf-if-* scopes
-      var mediaQueryProp = foundationApi.generateUuid().replace(/-/g,'');
+      var mediaQueryProp = (directiveName + '_' + foundationApi.generateUuid()).replace(/-/g,'');
       
       var directive = {
-        priority: 601, // ng-if is 600, must compile this directive before
+        priority: 1000, // must compile directive before any others
+        terminal: true, // don't compile any other directive after this
+                        // we'll fix this with a recompile
         restrict: 'A',
-        link: link
+        compile: compile
       };
 
       return directive;
 
       // from here onward, scope[mediaQueryProp] refers to the result of running the provided media query
-      function link(scope, element, attrs) {
-        // initially set media query result to false
-        scope[mediaQueryProp] = false;
+      function compile(element, attrs) {
+        // set attributes to be read by zf-if directive
+        element.attr('zf-if-param-scope-prop', mediaQueryProp);
+        element.attr('zf-if-param-media', mediaQuery);
+        element.attr('zf-if-param-only', mediaOnly);
+        element.attr('zf-if-param-not', mediaNot);
         
-        // update ng-if to include media query
-        if (!attrs['ngIf']) {
-          // must add ngIf directive and recompile
-          element.attr('ng-if', mediaQueryProp);
-          $compile(element)(scope);
-          return;
-        }
+        // add zf-if directive
+        element.attr('zf-if', 'zf-if');
 
-        // update ng-if attribute
-        if (attrs['ngIf'] !== mediaQueryProp) {
+        // add/update ng-if attribute
+        if (!attrs['ngIf']) {
+          element.attr('ng-if', mediaQueryProp);
+        } else {
           element.attr('ng-if', mediaQueryProp + ' && (' + attrs['ngIf'] + ')');
         }
         
+        // remove current directive to avoid infinite recompile
+        element.removeAttr(directiveName);
+        element.removeAttr('data-' + directiveName); // also check if user used data-* styling
+        
+        return {
+          pre: function (scope, element, attrs) {
+          },
+          post: function (scope, element, attrs) {
+            // recompile
+            $compile(element)(scope);
+          }
+        }
+      }
+    }
+  }
+
+  zfIfMediaFinal.$inject = [ '$compile', 'FoundationApi', 'FoundationMQ'];
+  function zfIfMediaFinal($compile, foundationApi, foundationMQ) {
+    var directive = {
+      priority: 601, // must compiled before ng-if (600)
+      restrict: 'A',
+      compile: function compile(element, attrs) {
+        return compileWrapper(attrs['zfIfParamScopeProp'], attrs['zfIfParamMedia'], attrs['zfIfParamOnly'] === "true", attrs['zfIfParamNot'] === "true");
+      }
+    };
+
+    return directive;
+
+    // parameters will be populated with values provided from zf-if-param-* directive
+    function compileWrapper(mediaQueryProp, mediaQuery, mediaOnly, mediaNot) {
+      return {
+        pre: preLink,
+        post: postLink
+      }
+      
+      // from here onward, scope[mediaQueryProp] refers to the result of running the provided media query
+      function preLink(scope, element, attrs) {
+        // initially set media query result to false
+        scope[mediaQueryProp] = false;
+      }
+
+      function postLink(scope, element, attrs) {
         // subscribe for resize changes
         foundationApi.subscribe('resize', function(msg) {
           var orignalVisibilty = scope[mediaQueryProp];
