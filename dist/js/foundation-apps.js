@@ -148,17 +148,18 @@
   FoundationApi.$inject = ['FoundationAnimation'];
 
   function FoundationApi(FoundationAnimation) {
-    var listeners  = [];
+    var listeners  = {};
     var settings   = {};
     var uniqueIds  = [];
     var service    = {};
 
     service.subscribe           = subscribe;
+    service.unsubscribe         = unsubscribe;
     service.publish             = publish;
     service.getSettings         = getSettings;
     service.modifySettings      = modifySettings;
     service.generateUuid        = generateUuid;
-    service.toggleAnimate     = toggleAnimate;
+    service.toggleAnimate       = toggleAnimate;
     service.closeActiveElements = closeActiveElements;
     service.animate             = animate;
 
@@ -171,6 +172,15 @@
 
       listeners[name].push(callback);
       return true;
+    }
+
+    function unsubscribe(name, callback) {
+      if (listeners[name] !== undefined) {
+        delete listeners[name];
+      }
+      if (typeof callback == 'function') {
+          callback.call(this);
+      }
     }
 
     function publish(name, msg) {
@@ -217,12 +227,23 @@
       var self = this;
       options = options || {};
       var activeElements = document.querySelectorAll('.is-active[zf-closable]');
+      // action sheets are nested zf-closable elements, so we have to target the parent
+      var nestedActiveElements = document.querySelectorAll('[zf-closable] > .is-active')
+      
       if (activeElements.length) {
         angular.forEach(activeElements, function(el) {
           if (options.exclude !== el.id) {
             self.publish(el.id, 'close');
           }
         });
+      }
+      if (nestedActiveElements.length) {
+        angular.forEach(nestedActiveElements, function(el) {
+          var parentId = el.parentNode.id;
+          if (options.exclude !== parentId) {
+            self.publish(parentId, 'close');
+          }
+        })
       }
     }
 
@@ -280,126 +301,128 @@
 (function() {
   'use strict';
 
-  angular.module('foundation.dynamicRouting.animations', ['ngAnimate', 'foundation.dynamicRouting'])
-    .animation('.ui-animation', uiAnimation)
+  angular.module('foundation.dynamicRouting.animations', ['foundation.dynamicRouting'])
+    .directive('uiView', uiView)
   ;
 
-  uiAnimation.$inject = ['$rootScope', '$state'];
+  uiView.$inject = ['$rootScope', '$state'];
 
-  function uiAnimation($rootScope, $state) {
-    var events = ['webkitAnimationEnd', 'mozAnimationEnd', 'MSAnimationEnd', 'oanimationend', 'animationend',
-                  'webkitTransitionEnd', 'otransitionend', 'transitionend'];
+  function uiView($rootScope, $state) {
+    var directive = {
+      restrict : 'ECA',
+      priority : -400,
+      link     : link
+    };
 
-    var parentStyle = 'position-absolute';
+    return directive;
 
-    var animation = {};
+    function link(scope, element) {
+      var animation = {};
+      var animationEnded = false;
+      var presetHeight;
 
-    animation.enter = enterAnimation;
-    animation.leave = leaveAnimation;
+      var cleanup = [
+        $rootScope.$on('$stateChangeStart', onStateChangeStart),
+        $rootScope.$on('$stateChangeError', onStateChangeError),
+        scope.$on('$stateChangeSuccess', onStateChangeSuccess),
+        scope.$on('$viewContentAnimationEnded', onViewContentAnimationEnded)
+      ];
 
-    return animation;
-
-    function enterAnimation(element, done) {
-      var scope = element.scope();
-
-      if(scope.vars && scope.vars.animationIn) {
-        var animationIn  = scope.vars.animationIn;
-        var animationOut = scope.vars.animationOut || '';
-        var initial  = 'ng-enter';
-        var activate = 'ng-enter-active';
-        var timedOut = true;
-
-        //reset possible failed animations and bugs
-        element.parent().addClass(parentStyle);
-        element.removeClass(activate + ' ' + initial + ' ' + animationIn + ' ' + animationOut);
-        element[0].style.transitionDuration = 0;
-
-        //start animation
-        element.addClass(animationIn);
-        element.addClass(initial);
-
-        $rootScope.$digest();
-
-        element[0].style.transitionDuration = '';
-        element.addClass(activate);
-
-        var finishAnimation = function() {
-          element.parent().removeClass(parentStyle);
-          element.removeClass(activate + ' ' + initial + ' ' + animationIn + ' ' + animationOut);
-          timedOut = false;
-          done();
-        }
-
-        element.one(events.join(' '), function() {
-          finishAnimation();
+      var destroyed = scope.$on('$destroy', function onDestroy() {
+        angular.forEach(cleanup, function (cb) {
+          if (angular.isFunction(cb)) {
+            cb();
+          }
         });
 
-        setTimeout(function() {
-          if (timedOut) {
-            finishAnimation();
-          }
-        }, 3000);
+        destroyed();
+      });
 
-      } else {
-        done();
+      function onStateChangeStart(event, toState, toParams, fromState, fromParams) {
+
+        if (fromState.animation) {
+          if (!fromState.animation.leave && !toState.animation.leave) {
+            return;
+          }
+          else {
+             animationRouter(event, toState, fromState);
+          }
+        }
       }
 
-      return function(isCancelled) {
+      function animationRouter(event, toState, fromState) {
+        if (!animationEnded) {
+          resetParent();
+          prepareParent();
 
-      };
-    }
+          element.removeClass(fromState.animation.leave);
+        }
+        else {
+          prepareParent();
 
-    function leaveAnimation(element, done) {
-      var scope = element.scope();
-
-      if(scope.vars && scope.vars.animationOut) {
-        var animationIn  = scope.vars.animationIn || '';
-        var animationOut = scope.vars.animationOut;
-        var initial  = 'ng-leave';
-        var activate = 'ng-leave-active';
-        var timedOut = true;
-
-        element.removeClass(activate + ' ' + initial + ' ' + animationIn + ' ' + animationOut);
-        element[0].style.transitionDuration = 0;
-
-        //start animation
-        element.addClass(animationOut);
-        element.addClass(initial);
-
-        $rootScope.$digest();
-
-        element[0].style.transitionDuration = '';
-        element.addClass(activate);
-
-        var finishAnimation = function() {
-          element.parent().removeClass(parentStyle);
-          element.removeClass(activate + ' ' + initial + ' ' + animationIn + ' ' + animationOut);
-          timedOut = false;
-          done();
+          element.addClass(fromState.animation.leave);
         }
 
-        element.one(events.join(' '), function() {
-          finishAnimation();
-        });
-
-        setTimeout(function() {
-          if (timedOut) {
-            finishAnimation();
-          }
-        }, 3000);
-
-      } else {
-        done();
       }
 
-      return function(isCancelled) {
+      function onStateChangeError() {
+        if(animation.leave) {
+          element.removeClass(animation.leave);
+        }
 
-      };
+        resetParent(); //reset parent if state change fails
+      }
+
+      function onStateChangeSuccess() {
+        resetParent();
+        if ($state.includes(getState()) && animation.enter) {
+          element.addClass(animation.enter);
+        }
+      }
+
+      function onViewContentAnimationEnded(event) {
+        if (event.targetScope === scope && animation.enter) {
+          element.removeClass(animation.enter);
+        }
+        
+        animationEnded = true;
+
+      }
+
+      function getState() {
+        var view  = element.data('$uiView');
+        var state = view && view.state && view.state.self;
+
+        if (state) {
+          angular.extend(animation, state.animation);
+        }
+
+        return state;
+      }
+
+      function resetParent() {
+        element.parent().removeClass('position-absolute');
+        if(presetHeight !== true) {
+          element.parent()[0].style.height = null;
+        }
+      }
+
+      function prepareParent() {
+        var parentHeight = parseInt(element.parent()[0].style.height);
+        var elHeight = parseInt(window.getComputedStyle(element[0], null).getPropertyValue('height'));
+        var tempHeight = parentHeight > 0 ? parentHeight : elHeight > 0 ? elHeight : '';
+
+        if(parentHeight > 0) {
+          presetHeight = true;
+        }
+
+        element.parent()[0].style.height = tempHeight + 'px';
+        element.parent().addClass('position-absolute');
+      }
     }
   }
 
 })();
-
 (function() {
   'use strict';
 
@@ -444,9 +467,11 @@
           var state = {
             url: page.url,
             templateUrl: page.path,
+            abstract: page.abstract || false,
             parent: page.parent || '',
             controller: getController(page),
             data: getData(page),
+            animation: buildAnimations(page),
           };
           
           $stateProvider.state(page.name, state);
@@ -457,7 +482,9 @@
           var state = {
             url: page.url,
             parent: page.parent || '',
+            abstract: page.abstract || false,
             data: getData(page),
+            animation: buildAnimations(page),
             views: {
               '': buildState(page.path, page)
             }
@@ -502,6 +529,20 @@
       }
 
       return ctrl;
+    }
+
+    function buildAnimations(state) {
+      var animations = {};
+
+      if (state.animationIn) {
+        animations.enter = state.animationIn;
+      }
+
+      if (state.animationOut) {
+        animations.leave = state.animationOut;
+      }
+
+      return animations;
     }
   }
 
@@ -1033,6 +1074,11 @@ angular.module('markdown', [])
       } while ((el = el.parentNode));
 
       if(!insideActionSheet) {
+        // if the element has a toggle attribute, do nothing
+        if (e.target.attributes['zf-toggle'] || e.target.attributes['zf-hard-toggle']) {
+          return;
+        };
+        // if the element is outside the action sheet and is NOT a toggle element, hide
         hide();
       }
     }
@@ -1135,7 +1181,6 @@ angular.module('markdown', [])
 
       scope.toggle = function() {
         scope.active = !scope.active;
-
         if(scope.active) {
           controller.registerListener();
         } else {
@@ -1354,32 +1399,62 @@ angular.module('markdown', [])
 
 })();
 
-(function() {
+(function () {
   'use strict';
 
   angular.module('foundation.iconic', [])
-    .service('Iconic', iconic)
+    .provider('Iconic', Iconic)
     .directive('zfIconic', zfIconic)
   ;
 
-  //iconic wrapper
-  function iconic() {
-    var iconicObject = IconicJS();
+  // iconic wrapper
+  function Iconic() {
+    // default path
+    var assetPath = 'assets/img/iconic/';
 
-    var service = {};
+    /**
+     * Sets the path used to locate the iconic SVG files
+     * @param {string} path - the base path used to locate the iconic SVG files
+     */
+    this.setAssetPath = function (path) {
+      assetPath = angular.isString(path) ? path : assetPath;
+    };
 
-    service.getAccess = getAccess;
+    /**
+     * Service implementation
+     * @returns {{}}
+     */
+    this.$get = function () {
+      var iconicObject = new IconicJS();
 
-    return service;
+      var service = {
+        getAccess: getAccess,
+        getAssetPath: getAssetPath
+      };
 
-    function getAccess() {
-      return iconicObject;
-    }
+      return service;
+
+      /**
+       *
+       * @returns {Window.IconicJS}
+       */
+      function getAccess() {
+        return iconicObject;
+      }
+
+      /**
+       *
+       * @returns {string}
+       */
+      function getAssetPath() {
+        return assetPath;
+      }
+    };
   }
 
-  zfIconic.$inject = ['Iconic', 'FoundationApi', '$compile', '$location']
+  zfIconic.$inject = ['Iconic', 'FoundationApi', '$compile'];
 
-  function zfIconic(iconic, foundationApi, $compile, $location) {
+  function zfIconic(iconic, foundationApi, $compile) {
     var directive = {
       restrict: 'A',
       template: '<img ng-transclude>',
@@ -1399,27 +1474,29 @@ angular.module('markdown', [])
 
     function compile() {
       var contents, assetPath;
-      
+
       return {
         pre: preLink,
         post: postLink
       };
 
-      function preLink(scope, element, attrs, ctrl, transclude) {
+      function preLink(scope, element, attrs) {
+
         if (scope.iconDir) {
-          // make sure ends with /
+          // path set via attribute
           assetPath = scope.iconDir;
-          if (assetPath.charAt(assetPath.length - 1) !== '/') {
-            assetPath += '/';
-          }
         } else {
           // default path
-          assetPath = 'assets/img/iconic/';
+          assetPath = iconic.getAssetPath();
         }
-        
-        if(scope.dynSrc) {
+        // make sure ends with /
+        if (assetPath.charAt(assetPath.length - 1) !== '/') {
+          assetPath += '/';
+        }
+
+        if (scope.dynSrc) {
           attrs.$set('data-src', scope.dynSrc);
-        } else if(scope.dynIcon) {
+        } else if (scope.dynIcon) {
           attrs.$set('data-src', assetPath + scope.dynIcon + '.svg');
         } else {
           if (scope.icon) {
@@ -1431,26 +1508,24 @@ angular.module('markdown', [])
         }
 
         // check if size already added as class
-        if (!element.hasClass('iconic-sm') && 
-            !element.hasClass('iconic-md') &&
-            !element.hasClass('iconic-lg')) {
+        if (!element.hasClass('iconic-sm') && !element.hasClass('iconic-md') && !element.hasClass('iconic-lg')) {
           var iconicClass;
           switch (scope.size) {
             case 'small':
-              iconicClass = 'iconic-sm'
+              iconicClass = 'iconic-sm';
               break;
             case 'medium':
-              iconicClass = 'iconic-md'
+              iconicClass = 'iconic-md';
               break;
             case 'large':
-              iconicClass = 'iconic-lg'
+              iconicClass = 'iconic-lg';
               break;
             default:
-              iconicClass = 'iconic-fluid'
+              iconicClass = 'iconic-fluid';
           }
           element.addClass(iconicClass);
         }
-        
+
         // save contents of un-inject html, to use for dynamic re-injection
         contents = element[0].outerHTML;
       }
@@ -1460,37 +1535,37 @@ angular.module('markdown', [])
 
         injectSvg(element[0]);
 
-        foundationApi.subscribe('resize', function() {
+        foundationApi.subscribe('resize', function () {
           // only run update on current element
           ico.update(element[0]);
         });
 
         // handle dynamic updating of src
-        if(scope.dynSrc) {
-          scope.$watch('dynSrc', function(newVal, oldVal) {
-            if (newVal && newVal != oldVal) {
+        if (scope.dynSrc) {
+          scope.$watch('dynSrc', function (newVal, oldVal) {
+            if (newVal && newVal !== oldVal) {
               reinjectSvg(scope.dynSrc);
             }
           });
         }
         // handle dynamic updating of icon
         if (scope.dynIcon) {
-          scope.$watch('dynIcon', function(newVal, oldVal) {
-            if (newVal && newVal != oldVal) {
+          scope.$watch('dynIcon', function (newVal, oldVal) {
+            if (newVal && newVal !== oldVal) {
               reinjectSvg(assetPath + scope.dynIcon + '.svg');
             }
           });
         }
-        
+
         function reinjectSvg(newSrc) {
           if (svgElement) {
             // set html
             svgElement.empty();
             svgElement.append(angular.element(contents));
-            
+
             // set new source
             svgElement.attr('data-src', newSrc);
-            
+
             // reinject
             injectSvg(svgElement[0]);
           }
@@ -1498,7 +1573,7 @@ angular.module('markdown', [])
 
         function injectSvg(element) {
           ico.inject(element, {
-            each: function(injectedElem) {
+            each: function (injectedElem) {
               // compile injected svg
               var angElem = angular.element(injectedElem);
               svgElement = $compile(angElem)(angElem.scope());
@@ -1510,6 +1585,7 @@ angular.module('markdown', [])
   }
 
 })();
+
 (function() {
   'use strict';
 
@@ -1676,6 +1752,7 @@ angular.module('markdown', [])
 
         var animationIn = attrs.animationIn || 'fadeIn';
         var animationOut = attrs.animationOut || 'fadeOut';
+
         var overlayIn = 'fadeIn';
         var overlayOut = 'fadeOut';
 
@@ -1717,7 +1794,7 @@ angular.module('markdown', [])
             scope.toggle();
           }
 
-          if (!scope.$root.$$phase) {
+          if (scope.$root && !scope.$root.$$phase) {
             scope.$apply();
           }
 
@@ -1743,9 +1820,9 @@ angular.module('markdown', [])
     }
   }
 
-  ModalFactory.$inject = ['$http', '$templateCache', '$rootScope', '$compile', '$timeout', 'FoundationApi'];
+  ModalFactory.$inject = ['$http', '$templateCache', '$rootScope', '$compile', '$timeout', '$q', 'FoundationApi'];
 
-  function ModalFactory($http, $templateCache, $rootScope, $compile, $timeout, foundationApi) {
+  function ModalFactory($http, $templateCache, $rootScope, $compile, $timeout, $q, foundationApi) {
     return modalFactory;
 
     function modalFactory(config) {
@@ -1756,7 +1833,9 @@ angular.module('markdown', [])
           destroyed = false,
           html,
           element,
-          scope
+          fetched,
+          scope,
+          contentScope
       ;
 
       var props = [
@@ -1768,7 +1847,7 @@ angular.module('markdown', [])
 
       if(config.templateUrl) {
         //get template
-        $http.get(config.templateUrl, {
+        fetched = $http.get(config.templateUrl, {
           cache: $templateCache
         }).then(function (response) {
           html = response.data;
@@ -1777,6 +1856,7 @@ angular.module('markdown', [])
 
       } else if(config.template) {
         //use provided template
+        fetched = true;
         html = config.template;
         assembleDirective();
       }
@@ -1825,25 +1905,54 @@ angular.module('markdown', [])
       }
 
       function init(state) {
-        if(!attached && html.length > 0) {
-          var modalEl = container.append(element);
+        $q.when(fetched).then(function() {
+          if(!attached && html.length > 0) {
+            var modalEl = container.append(element);
 
-          scope.active = state;
-          $compile(element)(scope);
-          attached = true;
-        }
+            scope.active = state;
+            $compile(element)(scope);
+
+            attached = true;
+          }
+        });
       }
 
       function assembleDirective() {
+        // check for duplicate elements to prevent factory from cloning modals
+        if (document.getElementById(id)) {
+          return;
+        }
+
         html = '<zf-modal id="' + id + '">' + html + '</zf-modal>';
 
         element = angular.element(html);
 
         scope = $rootScope.$new();
 
-        for(var prop in props) {
+        // account for directive attributes
+        for(var i = 0; i < props.length; i++) {
+          var prop = props[i];
+
           if(config[prop]) {
-            element.attr(prop, config[prop]);
+            switch (prop) {
+              case 'animationIn':
+                element.attr('animation-in', config[prop]);
+                break;
+              case 'animationOut':
+                element.attr('animation-out', config[prop]);
+                break;
+              default:
+                element.attr(prop, config[prop]);
+            }
+          }
+        }
+        // access view scope variables
+        if (config.contentScope) {
+          contentScope = config.contentScope;
+          for (var prop in config.contentScope) {
+            if (config.contentScope.hasOwnProperty(prop)) {
+              scope[prop] = config.contentScope[prop];
+            }
           }
         }
       }
@@ -1855,6 +1964,7 @@ angular.module('markdown', [])
           element.remove();
           destroyed = true;
         }, 3000);
+        foundationApi.unsubscribe(id);
       }
 
     }
@@ -2022,9 +2132,11 @@ angular.module('markdown', [])
         };
 
         // close if autoclose
-        if (scope.autoclose && scope.active) {
+        if (scope.autoclose) {
           setTimeout(function() {
-            scope.hide();
+            if (scope.active) {
+              scope.hide();
+            }
           }, parseInt(scope.autoclose));
         };
 
@@ -2093,7 +2205,9 @@ angular.module('markdown', [])
             // close if autoclose
             if (scope.autoclose) {
               setTimeout(function() {
-                scope.hide();
+                if (scope.active) {
+                  scope.hide();
+                }
               }, parseInt(scope.autoclose));
             };
           } else if (msg == 'close' || msg == 'hide') {
@@ -2103,7 +2217,9 @@ angular.module('markdown', [])
             // close if autoclose
             if (scope.autoclose) {
               setTimeout(function() {
-                scope.toggle();
+                if (scope.active) {
+                  scope.toggle();
+                }
               }, parseInt(scope.autoclose));
             };
           }
@@ -2180,7 +2296,8 @@ angular.module('markdown', [])
           destroyed = false,
           html,
           element,
-          scope
+          scope,
+          contentScope
       ;
 
       var props = [
@@ -2208,7 +2325,6 @@ angular.module('markdown', [])
       function addNotification(notification) {
         checkStatus();
         $timeout(function() {
-          init(true, notification);
           foundationApi.publish(id, notification);
         }, 0, false);
       }
@@ -2220,28 +2336,44 @@ angular.module('markdown', [])
         }, 0, false);
       }
 
-      function init(state, notification) {
+      function init(state) {
         if(!attached && html.length > 0) {
           var modalEl = container.append(element);
 
-          scope.notifications = [ notification ];
+          scope.active = state;
           $compile(element)(scope);
+
           attached = true;
         }
       }
 
       function assembleDirective() {
+        // check for duplicate element to prevent factory from cloning notification sets
+        if (document.getElementById(id)) {
+          return;
+        }
         html = '<zf-notification-set id="' + id + '"></zf-notification-set>';
 
         element = angular.element(html);
 
         scope = $rootScope.$new();
-
-        for(var prop in props) {
-          if(config[prop]) {
-            element.attr(prop, config[prop]);
+        
+        for(var i = 0; i < props.length; i++) {
+          if(config[props[i]]) {
+            element.attr(props[i], config[props[i]]);
           }
         }
+
+        // access view scope variables
+        if (config.contentScope) {
+          contentScope = config.contentScope;
+          for (var prop in contentScope) {
+            if (contentScope.hasOwnProperty(prop)) {
+              scope[prop] = contentScope[prop];
+            }
+          }
+        }
+        init(true);
       }
 
       function destroy() {
@@ -2251,6 +2383,7 @@ angular.module('markdown', [])
           element.remove();
           destroyed = true;
         }, 3000);
+        foundationApi.unsubscribe(id);
       }
 
     }
@@ -2334,8 +2467,10 @@ angular.module('markdown', [])
             scope.toggle();
           }
 
-          scope.$apply();
-
+          if (!scope.$root.$$phase) {
+            scope.$apply();
+          }
+          
           return;
         });
 
@@ -2388,9 +2523,9 @@ angular.module('markdown', [])
     }
   }
 
-  zfPanel.$inject = ['FoundationApi'];
+  zfPanel.$inject = ['FoundationApi', '$window'];
 
-  function zfPanel(foundationApi) {
+  function zfPanel(foundationApi, $window) {
     var directive = {
       restrict: 'EA',
       templateUrl: 'components/panel/panel.html',
@@ -2441,6 +2576,13 @@ angular.module('markdown', [])
 
         //setup
         foundationApi.subscribe(attrs.id, function(msg) {
+          var panelPosition = $window.getComputedStyle(element[0]).getPropertyValue("position");
+
+          // patch to prevent panel animation on larger screen devices
+          if (panelPosition !== 'absolute') {
+            return;
+          }
+
           if(msg == 'show' || msg == 'open') {
             scope.show();
           } else if (msg == 'close' || msg == 'hide') {
@@ -2448,8 +2590,10 @@ angular.module('markdown', [])
           } else if (msg == 'toggle') {
             scope.toggle();
           }
-
-          scope.$apply();
+          
+          if (!scope.$root.$$phase) {
+            scope.$apply();
+          }
 
           return;
         });

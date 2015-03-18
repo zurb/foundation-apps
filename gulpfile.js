@@ -248,7 +248,7 @@ gulp.task('server:start', function() {
 // 8. TESTING
 // - - - - - - - - - - - - - - -
 
-gulp.task('test:karma', ['build', 'sass:node'], function() {
+gulp.task('test:karma', ['build', 'sass'], function() {
   var testFiles = [
     'build/assets/js/foundation.js',
     'build/assets/js/dependencies.js',
@@ -287,7 +287,9 @@ gulp.task('test', ['test:karma', 'test:sass'], function() {
   console.log('Tests finished.');
 });
 
-gulp.task('compile-motion', ['clean', 'sass', 'javascript'], function() {
+// Motion testing
+
+gulp.task('test:motion:compile', ['clean', 'sass', 'javascript'], function() {
   gulp.src('./tests/motion/index.html')
     .pipe(gulp.dest('./build'));
   gulp.src('./tests/motion/templates/**/*.html')
@@ -298,8 +300,8 @@ gulp.task('compile-motion', ['clean', 'sass', 'javascript'], function() {
     .pipe(gulp.dest('./build/templates'));
 });
 
-gulp.task('test:motion', ['server:start', 'compile-motion'], function() {
-  gulp.watch(['js/**/*', 'tests/motion/**/*'], ['compile-motion']);
+gulp.task('test:motion', ['server:start', 'test:motion:compile'], function() {
+  gulp.watch(['js/**/*', 'tests/motion/**/*'], ['test:motion:compile']);
 });
 
 // 9. DEPLOYMENT

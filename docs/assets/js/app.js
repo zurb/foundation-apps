@@ -18,6 +18,7 @@
     .run(track)
     .controller('MotionUIController', MotionUIController)
     .controller('NavController', NavController)
+    .controller('AngularModsController', AngularModsController)
   ;
 
   config.$inject = ['$urlRouterProvider', '$locationProvider'];
@@ -46,6 +47,38 @@
     };
     $rootScope.$on('$locationChangeSuccess', track);
   }
+  AngularModsController.$inject = ['$scope', '$state', '$window', 'FoundationApi', 'ModalFactory', 'NotificationFactory'];
+
+  function AngularModsController($scope, $state, $window, FoundationApi, ModalFactory, NotificationFactory) {
+    $scope.foo = "Bloop!";
+    $scope.bar = "Blee!";
+
+    var modalConfig = {
+      id: 'your optional id here',
+      template: '{{foo}} {{bar}}',
+      contentScope: {
+        foo: $scope.foo,
+        bar: $scope.bar
+      },
+      animationIn: 'slideInFromTop'
+    }
+
+    $scope.modal = new ModalFactory(modalConfig);
+
+    // instantiate the notification set
+    var notifSet = new NotificationFactory({
+      position: 'top-right'
+    });
+
+    // on some event, call the following
+    $scope.addNotification = function() {
+      notifSet.addNotification({
+        title: "Great success!",
+        content: "Congratulations",
+        color: 'success'
+      });
+    }
+  };
 
   MotionUIController.$inject = ['$scope', '$state', '$animate', '$window', 'FoundationApi'];
 

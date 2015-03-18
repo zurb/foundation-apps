@@ -91,12 +91,23 @@
       var self = this;
       options = options || {};
       var activeElements = document.querySelectorAll('.is-active[zf-closable]');
+      // action sheets are nested zf-closable elements, so we have to target the parent
+      var nestedActiveElements = document.querySelectorAll('[zf-closable] > .is-active')
+      
       if (activeElements.length) {
         angular.forEach(activeElements, function(el) {
           if (options.exclude !== el.id) {
             self.publish(el.id, 'close');
           }
         });
+      }
+      if (nestedActiveElements.length) {
+        angular.forEach(nestedActiveElements, function(el) {
+          var parentId = el.parentNode.id;
+          if (options.exclude !== parentId) {
+            self.publish(parentId, 'close');
+          }
+        })
       }
     }
 

@@ -2,14 +2,12 @@
 name: action-sheet
 url: /action-sheet
 title: Action Sheet
-animateIn:  fadeIn
-animateOut: fadeOut
 ---
 
 <h2>Action Sheet</h2>
 <h3 class="subheader">Action sheets can be triggered in your app view to providing contextual actions on a component. They act as slide up menus on small devices and drop downs on larger screens.</h3>
 
-<hr />
+<hr>
 
 <div class="text-center">
   <div zf-action-sheet>
@@ -25,7 +23,7 @@ animateOut: fadeOut
   </div>
 </div>
 
-<hr />
+<hr>
 
 <h3>Basic HTML</h3>
 <p>You can create an action sheet with this basic directive. The position attribute can be set as "top" or "bottom."</p>
@@ -47,7 +45,7 @@ animateOut: fadeOut
 </hljs>
   </div>
   <div class="small-12 medium-6 grid-content">
-    <div zf-action-sheet id="second-sheet">
+    <div zf-action-sheet>
       <div zf-as-button title="I'm an Action Sheet"></div>
       <div zf-as-content position="bottom">
         <p>Tap to share</p>
@@ -61,7 +59,7 @@ animateOut: fadeOut
   </div>
 </div>
 
-<hr />
+<hr>
 
 <h3>Additional Options</h3>
 <p>To use custom content in the button, place the HTML mark up in between the custom zf tags.</p>
@@ -76,39 +74,33 @@ animateOut: fadeOut
 </hljs>
 
 <zf-action-sheet id="my-actionsheet">
-  <zf-as-button><span class="fancy-button">I'm Fancy!</span></zf-as-button>
+  <zf-as-button><button class="button fancy-button">I'm Fancy!</button></zf-as-button>
   <zf-as-content position="top">
     <p>This is my fancy content!</p>
   </zf-as-content>
 </zf-action-sheet>
 <hr>
 
-<h3>Custom Anchor</h3>
-<p>To use an entirely different element entirely to control the action sheet, use the following mark up. Make sure that the ID for the action sheet and the toggle match up. The zf-as-button element is optional here, since you're using another element to trigger the action sheet.</p>
+<h3>External Triggers</h3>
+<p>To use an entirely different element entirely to control the action sheet, use the following markup. Make sure that the ID for the action sheet and the toggle match up. The zf-as-button element is optional here, since you're using another element to trigger the action sheet.</p>
 
 <hljs>
-<a href="#" zf-hard-toggle="separate-actionsheet">TOGGLE</a>
-<a href="#" zf-hide="separate-actionsheet">HIDE</a>
+<a href="#" zf-hard-toggle="separate-actionsheet">Toggle</a>
+<a href="#" zf-hide="separate-actionsheet">Hide</a>
 <zf-action-sheet id="separate-actionsheet">
   <zf-as-content position="top">
     <p>Message for you, sir!</p>
   </zf-as-content>
 </zf-action-sheet>
 </hljs>
-<div class="grid-block">
-  <div class="grid-content text-center" style="overflow: visible;">
-    <div class="as-demo" zf-hard-toggle="separate-actionsheet">TOGGLE</div>
-    <div class="as-demo" zf-hide="separate-actionsheet">HIDE</div>
-  </div>
-  <div class="grid-content text-center" style="overflow: visible;">
-    <zf-action-sheet id="separate-actionsheet">
-      <zf-as-button title="+"></zf-as-button>
-      <zf-as-content position="bottom">
-        <p>Message for you, sir!</p>
-      </zf-as-content>
-    </zf-action-sheet>
-  </div>
-</div>
+<button class="button secondary as-demo" zf-hard-toggle="separate-actionsheet">Toggle</button>
+<button class="button secondary as-demo" zf-hide="separate-actionsheet">Hide</button>
+<zf-action-sheet id="separate-actionsheet">
+  <zf-as-button title="Action Sheet"></zf-as-button>
+  <zf-as-content position="bottom">
+    Message for you, sir!
+  </zf-as-content>
+</zf-action-sheet>
 
 <hr>
 <h3>Sass Mixins</h3>

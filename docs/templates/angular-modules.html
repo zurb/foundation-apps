@@ -2,6 +2,7 @@
 title: Angular Modules
 url: /angular-modules
 name: angular-modules
+controller: AngularModsController
 ---
 
 <h2>Angular Modules</h2>
@@ -382,12 +383,14 @@ var config = {
   },
   animationIn: 'slideInFromTop'
 }
+
+$scope.modal = new ModalFactory(config);
 </hljs>
 
-<hljs language="javascript">
-var modal = new ModalFactory(config);
-modal.activate();
+<hljs language="html">
+<div class="button" ng-click="modal.activate()">Activate Modal, Captain!</div>
 </hljs>
+  <div class="button" ng-click="modal.activate()">Activate Modal, Captain!</div>
   </section>
 
   <p>Check out the <a ui-sref="modal">documentation for modals</a> to learn how to use them.</p>
@@ -448,9 +451,9 @@ notifSet.addNotification({
       color: 'success'
     });
 </hljs>
-
+<div class="button" ng-click="addNotification()">Add a notification</div>
   </section>
-
+  
   <p>Check out the <a ui-sref="notification">documentation for notifications</a> to learn how to use them.</p>
 
 </section>
