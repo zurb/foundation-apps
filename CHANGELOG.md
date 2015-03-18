@@ -1,3 +1,90 @@
+# Version 1.1 — Weisshorn
+
+*March 17, 2015*
+
+### General
+
+- **The CLI has been updated to version 1.1.** It includes a streamlined install process, better error-handling, better cross-platform support, and *no Ruby dependency*. Run `npm update -g foundation-cli` to get it.
+- **The documentation is way better.** We did a sweep of every docs page to fix typos, improve examples, and generally make things more clear. Enjoy!
+- **Foundation for Apps is now libsass-first.** We're still testing the codebase in both Ruby Sass 3.4+ and libsass 3.1+, but our documentation and template stack now compile with libsass by default. **This means Ruby is no longer a hard dependency of the framework.**
+- **Directive templates are now compiled to one file.** We're using [ng-html2js](https://github.com/yaru22/ng-html2js) to package up all of our directive templates into a single JavaScript file. This means you no longer need to include the `components` folder in a public directory! This method still works, but you can also just include the `templates.js` file and you're good to go.
+  - The templates file is included in the Bower and npm packages, under `dist/js/foundation-apps-templates.js`.
+  - A third CDN URL has been created for the template files.
+  - Thanks to @MikaAK for submitting the pull request that implemented this!
+
+### Sass Variable Changes
+
+These Sass variables changed. If you're upgrading an existing project, you'll need to update your `_settings.scss` file manually.
+
+**Added:** `$button-background-hover: scale-color($button-background, $lightness: -15%)`
+**Added:** `$motion-class-showhide: (in: "ng-hide-remove", out: "ng-hide-add");`
+**Added:** `$motion-class-showhide-active: (in: "ng-hide-remove-active", out: "ng-hide-add-active");`
+**Added:** `$input-background-disabled: smartscale($input-background)`
+**Added:** `$input-cursor-disabled: not-allowed`
+**Changed:** `$button-tag-selector` is now `false` (previously `true`)
+**Removed:** `$panel-animation-speed`
+
+**You don't need to add the new variables to your settings file,** unless you want to change their default values.
+
+**The old variables are still in the codebase, but aren't being used.** They'll be permanently removed in version 1.2.
+
+### Template Changes
+
+- Sass is now compiled using libsass.
+- Directive templates are compiled into a `templates.js` file, instead of being referenced using hardcoded paths to HTML files.
+- **If you have an existing project, you don't need to change anything to upgrade to v1.1.**
+
+### New Features
+
+- **Improved view animation!** In and out animations on views will now play simultaneously. Thanks to @AntJanus, @stryju, and @jeanieshark for all their hard work in solving this difficult problem!
+- `ui-view` elements no longer need the attribute `ng-class="['ui-animation']"` to animate properly; just having `ui-view` is enough.
+- Prior to v1.1, view animations only worked if the states were created using our front matter routing plugin. Now you can enable view animation in manually-defined states by adding an `animation` property to the state object.
+
+```js
+$stateProvider
+  .state('home', {
+    url: '/',
+    templateUrl: 'templates/home.html',
+    animation: {
+      enter: 'slideInDown',
+      leave: 'fadeOut'
+    }
+  });
+```
+
+- #461: Added a `$background-hover` parameter to the `button-style()` mixin. You can pass in a color, or the `auto` keyword to automatically set a color based on the `$background` parameter.
+- #462: Added styles for disabled form elements. They're automatically applied to any `<input>` element with the `disabled` or `readonly` attributes, or a `<fieldset>` with `disabled`. The styles can also be added manually by adding the `.disabled` class.
+- #475: The path the `zf-iconic` directive uses to search for icon files can now be changed width the `IconicProvider` provider. Use `IconicProvider.setAssetPath(path)` to set the path. Thanks to @gjungb for implementing this!
+- #495: The front matter routing plugin now supports ui-router's abstract states. Just add `abstract: true` to a view template to make it go.
+- Added support for ngAnimate's "show" and "hide" events. This means you can now use Motion UI classes with `ng-show` and `ng-hide`.
+- Added a `.noscroll` class for grid blocks and content blocks. I bet you can guess what it does!
+- You can now pass a scope to a modal created with `ModalFactory`, by passing it through the `contentScope` property on the modal's configuration object.
+
+### Bug Fixes
+
+- #191: `<input type="range">` elements are properly styled in Internet Explorer 10+.
+- #396: Prevent a `$digest already in progress` error from occuring with panels and off-canvas.
+- #397: The `FoundationApi` service now has an `unsubscribe` method, which allows us to remove event listeners from elements that have been removed from the DOM.
+- #467: The settings variables for buttons were placed above button group, which prevents an issue with undefined variables.
+- #472: Fixed the `color` attribute of static notifications not applying.
+- #478: Fixed an issue with modals where `scope.$root` could be `null` after a state change.
+- #483: Fixed notifications with `autoclose` not automatically closing under some circumstances.
+- #486: The `ModalFactory` factory will fetch the modal template before initialization.
+- #489: Deprecated `$panel-animation-speed`, an unused Sass variable for panels. It will be removed in a future version of the framework.
+- #511: Panels that have converted into a block won't play their in/out animations if triggered by an open or close event.
+- #530: Visibility classes will not conflict with Angular's `.ng-hide` class.
+- The `<button>` tag is no longer styled as a `.button` element by default.
+- Any element with `zf-open`, `zf-close`, or `zf-toggle` applied gets the `cursor: pointer` property.
+- Removed the dropdown arrow that Internet Explorer 10+ adds to `<select>` elements.
+- Prevented ghosting issues in WebKit with views that are mid-transition, by adding `-webkit-transform-style: preserve3d`.
+- Fixed landscape/portrait visibility classes not hiding properly.
+- Images inside cards will stretch to the width of the container.
+- Added a missing secondary coloring class to Iconic (`.iconic-color-secondary`).
+
+*The British physicist John Tyndall was the first person to ascend Weisshorn. When the climb was at its most bleak, Tyndall strengthened his resolve with patriotic thoughts:*
+
+> I thought of Englishmen in battle, of the qualities which had made them famous: it was mainly the quality of not knowing when to yield - of fighting for duty even after they had ceased to be animated by hope. Such thoughts helped to lift me over the rocks.
+
 # Version 1.0.3
 
 *February 16, 2015*

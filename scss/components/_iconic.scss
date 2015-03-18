@@ -89,4 +89,7 @@ $iconic-accent-stroke: $iconic-accent-fill !default;
       @include color-icon(map-get($foundation-colors, $color));
     }
   }
+  .iconic-color-secondary {
+    @include color-icon($secondary-color);
+  }
 }

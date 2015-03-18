@@ -32,26 +32,22 @@ $rad: 5px;
 .comparison-table {
   display: block;
   width: 100%;
-  padding: 10px;
   border-collapse: separate;
   thead tr {
     color: $primary;
     font-weight: bold;
-    @include font-size(16);
+    text-transform: uppercase;
+    td { color: #666 !important; }
     td { padding-bottom: 10px; }
     td { border: none !important; }
-    @include -breakpoint(mobile) {
-      @include font-size(14);
-      font-weight: normal;
-    }
   }
   tr {
     width: 100%;
     td {
-      border-right: 2px solid #ddd;
+      border-right: 1px solid #ddd;
     }
     &:first-child {
-      td { border-top: 2px solid #ddd; }
+      td { border-top: 1px solid #ddd; }
       td:first-child {
 
       }
@@ -60,7 +56,7 @@ $rad: 5px;
       }
     }
     &:last-child {
-      td { border-bottom: 2px solid #ddd; }
+      td { border-bottom: 1px solid #ddd; }
       td:first-child {
 
       }
@@ -73,19 +69,22 @@ $rad: 5px;
       padding: 10px;
       color: $primary;
       font-weight: bold;
-      border-left: 2px solid #ddd;
+      border-left: 1px solid #ddd;
     }
     td.marker.yes {
       width: 10%;
       text-align: center;
       vertical-align: middle;
       color: $success;
+      font-weight: bold;
     }
     td.marker.no {
       width: 10%;
       text-align: center;
       vertical-align: middle;
       color: $alert-color;
+      font-size: 1.3rem;
+      font-weight: bold;
     }
   }
   tr:nth-child(even) {
@@ -98,7 +97,7 @@ $rad: 5px;
       width: 100%;
       border-top: none;
       border-bottom: none;
-      border-left: 2px solid #ddd;
+      border-left: 1px solid #ddd;
     }
     tr:first-child td:first-child {
 
@@ -110,10 +109,10 @@ $rad: 5px;
       border-bottom-left-radius: 0;
     }
     tr:last-child td:last-child {
-      border-bottom: 2px solid #ddd;
+      border-bottom: 1px solid #ddd;
     }
     tr td:first-child {
-      border-top: 2px solid #ddd;
+      border-top: 1px solid #ddd;
       & + td {
         padding: 0 10px 10px;
       }
