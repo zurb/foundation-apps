@@ -92,15 +92,26 @@
   }
   
   angular.module('foundation.interchange')
+  /*
+   * zf-if-*
+   */
     .directive('zfIfSmall', zfIfMediaWrapper('small'))
     .directive('zfIfMedium', zfIfMediaWrapper('medium'))
     .directive('zfIfLarge', zfIfMediaWrapper('large'))
     .directive('zfIfPortrait', zfIfMediaWrapper('portriate'))
     .directive('zfIfLandscape', zfIfMediaWrapper('landscape'))
     .directive('zfIfRetina', zfIfMediaWrapper('retina'))
+  /*
+   * zf-if-*-only
+   */
+    .directive('zfIfSmallOnly', zfIfMediaWrapper('small', true))
+    .directive('zfIfMediumOnly', zfIfMediaWrapper('medium', true))
+    .directive('zfIfLargeOnly', zfIfMediaWrapper('large', true))
   ;
   
-  function zfIfMediaWrapper(mediaQuery, mediaExcludeQuery) {
+  function zfIfMediaWrapper(mediaQuery, mediaOnly) {
+    // set optional parameter
+    mediaOnly = mediaOnly || false;
     zfIfMedia.$inject = [ '$compile', 'FoundationApi', 'FoundationMQ'];
     
     return zfIfMedia;
@@ -140,27 +151,50 @@
           
           // recompile to allow changes to ng-if directive to take effect
           $compile(element)(scope);
-        } else {
-          // subscribe for resize changes
-          foundationApi.subscribe('resize', function(msg) {
-            update();
-          });
         }
+        
+        // subscribe for resize changes
+        foundationApi.subscribe('resize', function(msg) {
+          runQuery();
+          scope.$digest();
+        });
 
         // run first media query check
         runQuery();
         
         function runQuery() {
-          scope[mediaQueryProp] = foundationMQ.match([{media: mediaQuery}]).length > 0;
+          var nextMediaQuery, nextMediaString, nextMediaMinWidthMatches, onlyMediaString;
+          
+          // run query
+          if (!mediaOnly) {
+            // run named query
+            scope[mediaQueryProp] = matchesMedia(mediaQuery);
+          } else {
+            // run query with min-max range, by first getting media query string for next size up
+            switch (mediaQuery) {
+            case "small":
+              nextMediaQuery = "medium"; break;
+            case "medium":
+              nextMediaQuery = "large"; break;
+            case "large":
+              nextMediaQuery = "xlarge"; break;
+            }
+            
+            // extract min-width from next size up 
+            nextMediaString = foundationMQ.getMediaQueries()[nextMediaQuery];
+            nextMediaMinWidthMatches = nextMediaString.match(/min-width: ([0-9]+)em/);
+            
+            // subtract 1/16 from next size up min-width and add as max-width for current query
+            onlyMediaString = foundationMQ.getMediaQueries()[mediaQuery];
+            onlyMediaString += " and (max-width: " + (nextMediaMinWidthMatches[1] - (1/16)) + "em)";
+            
+            // run query with min-width and max-width
+            scope[mediaQueryProp] = matchesMedia(onlyMediaString);
+          }
         }
         
-        function update() {
-          var oldVisiblity = scope[mediaQueryProp];
-          runQuery();
-          if (scope[mediaQueryProp] != oldVisiblity) {
-            // recompile
-            scope.$apply($compile(element)(scope));
-          }
+        function matchesMedia(query) {
+          return foundationMQ.match([{media: query}]).length > 0;
         }
       }
     }
