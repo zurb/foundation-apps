@@ -90,5 +90,79 @@
       }
     }
   }
+  
+  angular.module('foundation.interchange')
+    .directive('zfIfSmall', zfIfMediaWrapper('small'))
+    .directive('zfIfMedium', zfIfMediaWrapper('medium'))
+    .directive('zfIfLarge', zfIfMediaWrapper('large'))
+    .directive('zfIfPortrait', zfIfMediaWrapper('portriate'))
+    .directive('zfIfLandscape', zfIfMediaWrapper('landscape'))
+    .directive('zfIfRetina', zfIfMediaWrapper('retina'))
+  ;
+  
+  function zfIfMediaWrapper(mediaQuery, mediaExcludeQuery) {
+    zfIfMedia.$inject = [ '$compile', 'FoundationApi', 'FoundationMQ'];
+    
+    return zfIfMedia;
+    
+    function zfIfMedia($compile, foundationApi, foundationMQ) {
+      // create unique scope property for media query result 
+      // must be unique to avoid collision with other zf-if-* scopes
+      var mediaQueryProp = foundationApi.generateUuid().replace(/-/g,'');
+      
+      var directive = {
+        restrict: 'A',
+        link: link
+      };
 
+      return directive;
+
+      // from here onward, scope[mediaQueryResult] refers to the result of running the provided media query
+      function link(scope, element, attrs) {
+        var ngIfExpr;
+        
+        // initially set media query result to false
+        scope[mediaQueryProp] = false;
+        
+        // check if already added the media check to this element (i.e. already processed)
+        if (!attrs['ngIf'] || attrs['ngIf'].indexOf(mediaQueryProp) !== 0) {
+          // haven't processed this element
+          if (attrs['ngIf']) {
+            // add the media check to the beginning of the original expression
+            ngIfExpr = mediaQueryProp + ' && (' + attrs['ngIf'] + ')';
+          } else {
+            // just use the media check as the expression
+            ngIfExpr = mediaQueryProp;
+          }
+          
+          // add/update ng-if attribute
+          element.attr('ng-if', ngIfExpr);
+          
+          // recompile to allow changes to ng-if directive to take effect
+          $compile(element)(scope);
+        } else {
+          // subscribe for resize changes
+          foundationApi.subscribe('resize', function(msg) {
+            update();
+          });
+        }
+
+        // run first media query check
+        runQuery();
+        
+        function runQuery() {
+          scope[mediaQueryProp] = foundationMQ.match([{media: mediaQuery}]).length > 0;
+        }
+        
+        function update() {
+          var oldVisiblity = scope[mediaQueryProp];
+          runQuery();
+          if (scope[mediaQueryProp] != oldVisiblity) {
+            // recompile
+            scope.$apply($compile(element)(scope));
+          }
+        }
+      }
+    }
+  }
 })();
