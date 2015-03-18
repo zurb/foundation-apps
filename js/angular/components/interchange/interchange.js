@@ -107,11 +107,18 @@
     .directive('zfIfSmallOnly', zfIfMediaWrapper('small', true))
     .directive('zfIfMediumOnly', zfIfMediaWrapper('medium', true))
     .directive('zfIfLargeOnly', zfIfMediaWrapper('large', true))
+  /*
+   * zf-if-not-* (implies only, so zf-if-not-small will work as expected)
+   */
+    .directive('zfIfNotSmall', zfIfMediaWrapper('small', true, true))
+    .directive('zfIfNotMedium', zfIfMediaWrapper('medium', true, true))
+    .directive('zfIfNotLarge', zfIfMediaWrapper('large', true, true))
   ;
   
-  function zfIfMediaWrapper(mediaQuery, mediaOnly) {
+  function zfIfMediaWrapper(mediaQuery, mediaOnly, mediaNot) {
     // set optional parameter
     mediaOnly = mediaOnly || false;
+    mediaNot = mediaNot || false;
     zfIfMedia.$inject = [ '$compile', 'FoundationApi', 'FoundationMQ'];
     
     return zfIfMedia;
@@ -161,7 +168,7 @@
         runQuery();
         
         function runQuery() {
-          var nextMediaQuery, nextMediaString, nextMediaMinWidthMatches, onlyMediaString;
+          var mediaUpQuery, mediaUpMinWidth, onlyMediaQuery;
           
           if (!mediaOnly) {
             // run named query
@@ -170,28 +177,53 @@
             // run query with min-max range, by first getting media query string for next size up
             switch (mediaQuery) {
             case "small":
-              nextMediaQuery = "medium"; break;
+              mediaUpQuery = "medium"; break;
             case "medium":
-              nextMediaQuery = "large"; break;
+              mediaUpQuery = "large"; break;
             case "large":
-              nextMediaQuery = "xlarge"; break;
+              mediaUpQuery = null;  break;
             }
             
-            // extract min-width from next size up 
-            nextMediaString = foundationMQ.getMediaQueries()[nextMediaQuery];
-            nextMediaMinWidthMatches = nextMediaString.match(/min-width: ([0-9]+)em/);
-            
-            // subtract 1/16 from next size up min-width and add as max-width for current query
-            onlyMediaString = foundationMQ.getMediaQueries()[mediaQuery];
-            onlyMediaString += " and (max-width: " + (nextMediaMinWidthMatches[1] - (1/16)) + "em)";
-            
-            // run query with min-width and max-width
-            scope[mediaQueryProp] = matchesMedia(onlyMediaString);
+            if (!mediaNot) {
+              if (!mediaUpQuery) {
+                // reached max media size, run query for current media
+                scope[mediaQueryProp] = matchesMedia(mediaQuery);
+              } else {
+                // extract min-width from next size up
+                mediaUpMinWidth = getMinWidthFromQuery(mediaUpQuery);
+                
+                // subtract 1/16 from the min width and use as max-width for current query
+                onlyMediaQuery = addMaxWidthToQuery(mediaQuery, mediaUpMinWidth - (1/16))
+                
+                // run query with min-width and max-width
+                scope[mediaQueryProp] = matchesMedia(onlyMediaQuery);
+              }
+            } else {
+              // require that the media doesn't match the current query
+              if (matchesMedia(mediaQuery)) {
+                // if it does match, make sure it also matches the next up media
+                scope[mediaQueryProp] = matchesMedia(mediaUpQuery)
+              } else {
+                // media doesn't match
+                scope[mediaQueryProp] = true;
+              }
+            }
           }
         }
         
         function matchesMedia(query) {
           return foundationMQ.match([{media: query}]).length > 0;
+        }
+        
+        function getMinWidthFromQuery(query) {
+          var mediaString = foundationMQ.getMediaQueries()[query];
+          var matches = mediaString.match(/min-width: ([0-9]+)em/);
+          return matches[1];
+        }
+        
+        function addMaxWidthToQuery(query, maxWidth) {
+          var mediaString = foundationMQ.getMediaQueries()[query];
+          return mediaString + " and (max-width: " + maxWidth + "em)";
         }
       }
     }
