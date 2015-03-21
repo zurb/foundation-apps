@@ -8,6 +8,7 @@ var fs           = require('fs');
 module.exports = function(options) {
   var configs = [];
   var directory = options.dir || process.cwd();
+  options.append = options.append || false;
 
   function bufferContents(file, enc, cb) {
     var config;
@@ -39,17 +40,40 @@ module.exports = function(options) {
   function endStream(cb) {
     var self = this;
     var appPath = options.path;
+    var appendingToFile = false;
 
     configs.sort(function(a, b) {
       return a.url < b.url;
     });
 
-
-    fs.writeFile(appPath, 'var foundationRoutes = ' + JSON.stringify(configs) + '; \n', function(err) {
-      if(err) throw err;
-      cb();
-    });
-
+    if (options.append) {
+      // check if file exists before writing data
+      fs.stat(appPath, function(err, stats) {
+        if (err === null) {
+          // file exists, we can append
+          appendingToFile = true;
+        }
+        
+        writeData();
+      });
+    } else {
+      writeData();
+    }
+    
+    function writeData() {
+      var data;
+      if (appendingToFile) {
+        // concat previously computed routes
+        data = 'foundationRoutes = foundationRoutes.concat(' + JSON.stringify(configs) + '); \n'
+      } else {
+        // create var with computed routes
+        data = 'var foundationRoutes = ' + JSON.stringify(configs) + '; \n';
+      }
+      fs.appendFile(appPath, data, function(err) {
+        if(err) throw err;
+        cb();
+      });
+    }
   }
 
   return through.obj(bufferContents, endStream);
