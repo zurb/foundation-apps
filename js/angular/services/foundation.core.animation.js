@@ -59,7 +59,7 @@
       element.on(events.join(' '), eventHandler);
 
       function eventHandler(e) {
-        if (element[0] === e.path[0]) {
+        if (element[0] === e.target) {
           clearTimeout(animationTimeout);
           finishAnimation();
         }
