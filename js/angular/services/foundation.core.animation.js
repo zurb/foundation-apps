@@ -58,18 +58,18 @@
 
       element.on(events.join(' '), eventHandler);
 
-      function eventHandler(e) {
-        if (element[0] === e.target) {
-          clearTimeout(animationTimeout);
-          finishAnimation();
-        }
-      }
-
       var animationTimeout = setTimeout(function() {
         if(timedOut) {
           finishAnimation();
         }
       }, 3000);
+
+      function eventHandler(e) {
+        if (element[0].id === e.target.id) {
+          clearTimeout(animationTimeout);
+          finishAnimation();
+        }
+      }
 
       function finishAnimation() {
         deregisterElement(element);
