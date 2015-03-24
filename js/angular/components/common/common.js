@@ -7,6 +7,10 @@
     .directive('zfToggle', zfToggle)
     .directive('zfEscClose', zfEscClose)
     .directive('zfSwipeClose', zfSwipeClose)
+    .directive('zfSwipeLeft', zfSwipeDirection('left'))
+    .directive('zfSwipeRight', zfSwipeDirection('right'))
+    .directive('zfSwipeUp', zfSwipeDirection('up'))
+    .directive('zfSwipeDown', zfSwipeDirection('down'))
     .directive('zfHardToggle', zfHardToggle)
   ;
 
@@ -147,6 +151,67 @@
         foundationApi.publish(attrs.id, 'close');
       });
     }
+  }
+
+  function zfSwipeDirection(direction) {
+    return ['$parse', 'FoundationApi', function zfSwipeImpl($parse, foundationApi) {
+      var directive = {
+        restrict: 'A',
+        compile: compile
+      };
+      return directive;
+
+      function compile($element, attrs) {
+        var swipeDirection;
+        var swipeDirective;
+        var fn;
+
+        switch (direction) {
+          case 'right':
+            swipeDirection = 'swiperight';
+            swipeDirective = 'zfSwipeRight';
+            break;
+          case 'left':
+            swipeDirection = 'swipeleft';
+            swipeDirective = 'zfSwipeLeft';
+            break;
+          case 'up':
+            swipeDirection = 'swipeup';
+            swipeDirective = 'zfSwipeUp';
+            break;
+          case 'down':
+            swipeDirection = 'swipedown';
+            swipeDirective = 'zfSwipeDown';
+            break;
+          default:
+            swipeDirection = 'swipe';
+            swipeDirective = 'zfSwipe';
+        }
+
+        fn = $parse(attrs[swipeDirective], /* interceptorFn */ null, /* expensiveChecks */ true);
+
+        return function zfSwipeDirective(scope, element) {
+          var hammerElem;
+          if (Hammer) {
+            hammerElem = new Hammer(element[0]);
+            // set the options for swipe (to make them a bit more forgiving in detection)
+            hammerElem.get('swipe').set({
+              direction: Hammer.DIRECTION_ALL,
+              threshold: 5, // this is how far the swipe has to travel
+              velocity: 0.5 // and this is how fast the swipe must travel
+            });
+
+            hammerElem.on(swipeDirection, function(event) {
+              // evalute expression provided for attribute
+              var callback = function() {
+                fn(scope, {$event:event});
+              };
+              scope.$apply(callback);
+            });
+          }
+        };
+      }
+    }];
   }
 
   zfHardToggle.$inject = ['FoundationApi'];

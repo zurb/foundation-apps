@@ -62,3 +62,42 @@ title: Touch Gestures
     </div>
   </section>
 </section>
+
+<section>
+  <h3>Swipe to Evaluate Expression</h3>
+
+  <p>Similar to how ng-click allows you to specify custom behavior when an element is clicked, <code>zf-swipe-left</code>, <code>zf-swipe-right</code>, <code>zf-swipe-up</code>, <code>zf-swipe-down</code> allow you to specify custom behavior when an element is swiped.</p>
+
+  <section>
+    <h4>Example</h4>
+
+    <p>Here's an example of the zf-swipe directives in action.  Swipe within the box to see the values update.</p>
+
+    <div class="grid-block wrap">
+      <div class="small-12 grid-content">
+<hljs language="html">
+<div zf-swipe-left="swipeLeftCount = swipeLeftCount + 1"
+     zf-swipe-right="swipeRightCount = swipeRightCount + 1"
+     zf-swipe-down="swipeDownCount = swipeDownCount + 1"
+     zf-swipe-up="swipeUpCount = swipeUpCount + 1">
+  <p>You've swiped me left {{ swipeLeftCount }} times.</p>
+  <p>You've swiped me right {{ swipeRightCount }} times.</p>
+  <p>You've swiped me down {{ swipeDownCount }} times.</p>
+  <p>You've swiped me up {{ swipeUpCount }} times.</p>
+</div>
+</hljs>
+      </div>
+      <div class="small-12 grid-content" ng-init="swipeLeftCount = 0; swipeRightCount = 0; swipeDownCount = 0; swipeUpCount = 0;" style="border: 1px solid #000">
+        <div zf-swipe-left="swipeLeftCount = swipeLeftCount + 1"
+             zf-swipe-right="swipeRightCount = swipeRightCount + 1"
+             zf-swipe-down="swipeDownCount = swipeDownCount + 1"
+             zf-swipe-up="swipeUpCount = swipeUpCount + 1">
+          <p>You've swiped me left {{ swipeLeftCount }} times.</p>
+          <p>You've swiped me right {{ swipeRightCount }} times.</p>
+          <p>You've swiped me down {{ swipeDownCount }} times.</p>
+          <p>You've swiped me up {{ swipeUpCount }} times.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</section>
