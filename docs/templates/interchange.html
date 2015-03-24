@@ -67,3 +67,201 @@ title: Interchange
     </zf-interchange>
   </div>
 </div>
+
+<hr>
+
+<h3>Interchange Directives</h3>
+<p>Interchange can also be achieved with our zf-if, zf-show, and zf-hide directives. These directives internally use ng-if, ng-show, and ng-hide, respectively, to achieve their interchange ability.</p>
+
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+<hljs>
+<p zf-if-small="">You are on a small or larger device.</p>
+<p zf-if-medium="">You are on a medium or larger device.</p>
+<p zf-if-large="">You are on a large or larger device.</p>
+<p zf-if-small-only="">You are on a small device.</p>
+<p zf-if-medium-only="">You are on a medium device.</p>
+<p zf-if-large-only="">You are on a large device.</p>
+<p zf-if-not-small="">You are not on a small device.</p>
+<p zf-if-not-medium-only="">You are not on a medium device.</p>
+<p zf-if-not-large-only="">You are not on a large device.</p>
+<p zf-if-landscape="">You are in a landscape orientation.</p>
+<p zf-if-portrait="">You are in a portrait orientation.</p>
+<p zf-if-retina="">You are on a retina device.</p>
+</hljs>
+  </div>
+  <div class="small-12 medium-6 grid-content">
+    <p zf-if-small="">You are on a <strong>small or larger</strong> device.</p>
+    <p zf-if-medium="">You are on a <strong>medium or larger</strong> device.</p>
+    <p zf-if-large="">You are on a <strong>large or larger</strong> device.</p>
+    <p zf-if-small-only="">You are on a <strong>small</strong> device.</p>
+    <p zf-if-medium-only="">You are on a <strong>medium</strong> device.</p>
+    <p zf-if-large-only="">You are on a <strong>large</strong> device.</p>
+    <p zf-if-not-small="">You are not on a <strong>small</strong> device.</p>
+    <p zf-if-not-medium="">You are not on a <strong>medium</strong> device.</p>
+    <p zf-if-not-large="">You are not on a <strong>large</strong> device.</p>
+    <p zf-if-landscape="">You are on a <strong>landscape device</strong>.</p>
+    <p zf-if-portrait="">You are on a <strong>portrait device</strong>.</p>
+    <p zf-if-retina="">You are on a <strong>retina device</strong>.</p>
+  </div>
+</div>
+
+<hr>
+
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+<hljs>
+<p zf-show-small="">You are on a small or larger device.</p>
+<p zf-show-medium="">You are on a medium or larger device.</p>
+<p zf-show-large="">You are on a large or larger device.</p>
+<p zf-show-small-only="">You are on a small device.</p>
+<p zf-show-medium-only="">You are on a medium device.</p>
+<p zf-show-large-only="">You are on a large device.</p>
+<p zf-show-not-small="">You are not on a small device.</p>
+<p zf-show-not-medium="">You are not on a medium device.</p>
+<p zf-show-not-large="">You are not on a large device.</p>
+<p zf-show-landscape="">You are in a landscape orientation.</p>
+<p zf-show-portrait="">You are in a portrait orientation.</p>
+<p zf-show-retina="">You are on a retina device.</p>
+</hljs>
+  </div>
+  <div class="small-12 medium-6 grid-content">
+    <p zf-show-small="">You are on a <strong>small or larger</strong> device.</p>
+    <p zf-show-medium="">You are on a <strong>medium or larger</strong> device.</p>
+    <p zf-show-large="">You are on a <strong>large or larger</strong> device.</p>
+    <p zf-show-small-only="">You are on a <strong>small</strong> device.</p>
+    <p zf-show-medium-only="">You are on a <strong>medium</strong> device.</p>
+    <p zf-show-large-only="">You are on a <strong>large</strong> device.</p>
+    <p zf-show-not-small="">You are not on a <strong>small</strong> device.</p>
+    <p zf-show-not-medium="">You are not on a <strong>medium</strong> device.</p>
+    <p zf-show-not-large="">You are not on a <strong>large</strong> device.</p>
+    <p zf-show-landscape="">You are on a <strong>landscape device</strong>.</p>
+    <p zf-show-portrait="">You are on a <strong>portrait device</strong>.</p>
+    <p zf-show-retina="">You are on a <strong>retina device</strong>.</p>
+  </div>
+</div>
+
+<hr>
+
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+<hljs>
+<p zf-hide-small="">You are not on a small or larger device.</p>
+<p zf-hide-medium="">You are not on a medium or larger device.</p>
+<p zf-hide-large="">You are not on a large or larger device.</p>
+<p zf-hide-small-only="">You are not on a small device.</p>
+<p zf-hide-medium-only="">You are not on a medium device.</p>
+<p zf-hide-large-only="">You are not on a large device.</p>
+<p zf-hide-not-small="">You are on a small device.</p>
+<p zf-hide-not-medium="">You are on a medium device.</p>
+<p zf-hide-not-large="">You are on a large device.</p>
+<p zf-hide-landscape="">You are not in a landscape orientation.</p>
+<p zf-hide-portrait="">You are not in a portrait orientation.</p>
+<p zf-hide-retina="">You are not on a retina device.</p>
+</hljs>
+  </div>
+  <div class="small-12 medium-6 grid-content">
+    <p zf-hide-small="">You are not on a <strong>small or larger</strong> device.</p>
+    <p zf-hide-medium="">You are not on a <strong>medium or larger</strong> device.</p>
+    <p zf-hide-large="">You are not on a <strong>large or larger</strong> device.</p>
+    <p zf-hide-small-only="">You are not on a <strong>small</strong> device.</p>
+    <p zf-hide-medium-only="">You are not on a <strong>medium</strong> device.</p>
+    <p zf-hide-large-only="">You are not on a <strong>large</strong> device.</p>
+    <p zf-hide-not-small="">You are on a <strong>small</strong> device.</p>
+    <p zf-hide-not-medium="">You are on a <strong>medium</strong> device.</p>
+    <p zf-hide-not-large="">You are on a <strong>large</strong> device.</p>
+    <p zf-hide-landscape="">You are not on a <strong>landscape device</strong>.</p>
+    <p zf-hide-portrait="">You are not on a <strong>portrait device</strong>.</p>
+    <p zf-hide-retina="">You are not on a <strong>retina device</strong>.</p>
+  </div>
+</div>
+
+<hr>
+
+<h3>Element Queries</h3>
+<p>All interchange seen to this point has been based on media queries, meaning the responsiveness of the element is based on the size of the device.  Element queries allow you to size elements based on the size of their parent.  All sizing interchange directives (small/medium/large) also support running as element queries instead of media queries.</p>
+
+<div class="grid-block wrap">
+  <div class="small-12 grid-content">
+<hljs>
+<p zf-if-small="" zf-query-type="element">This is in a small or larger element.</p>
+<p zf-if-medium="" zf-query-type="element">This is in a medium or larger element.</p>
+<p zf-if-large="" zf-query-type="element">This is in a large or larger element.</p>
+<p zf-if-small-only="" zf-query-type="element">This is in a small element.</p>
+<p zf-if-medium-only="" zf-query-type="element">This is in a medium element.</p>
+<p zf-if-large-only="" zf-query-type="element">This is in a large element.</p>
+<p zf-if-not-small="" zf-query-type="element">This is not in a small element.</p>
+<p zf-if-not-medium-only="" zf-query-type="element">This is not in a medium element.</p>
+<p zf-if-not-large-only="" zf-query-type="element">This is not in a large element.</p>
+</hljs>
+  </div>
+  <div class="small-12 grid-content">
+    <p zf-if-small="" zf-query-type="element">This is in a <strong>small or larger</strong> element.</p>
+    <p zf-if-medium="" zf-query-type="element">This is in a <strong>medium or larger</strong> element.</p>
+    <p zf-if-large="" zf-query-type="element">This is in a <strong>large or larger</strong> element.</p>
+    <p zf-if-small-only="" zf-query-type="element">This is in a <strong>small</strong> element.</p>
+    <p zf-if-medium-only="" zf-query-type="element">This is in a <strong>medium</strong> element.</p>
+    <p zf-if-large-only="" zf-query-type="element">This is in a <strong>large</strong> element.</p>
+    <p zf-if-not-small="" zf-query-type="element">This is not in a <strong>small</strong> element.</p>
+    <p zf-if-not-medium="" zf-query-type="element">This is not in a <strong>medium</strong> element.</p>
+    <p zf-if-not-large="" zf-query-type="element">This is not in a <strong>large</strong> element.</p>
+  </div>
+</div>
+
+<hr>
+
+<div class="grid-block wrap">
+  <div class="small-12 grid-content">
+<hljs>
+<p zf-show-small="" zf-query-type="element">This is in a small or larger element.</p>
+<p zf-show-medium="" zf-query-type="element">This is in a medium or larger element.</p>
+<p zf-show-large="" zf-query-type="element">This is in a large or larger element.</p>
+<p zf-show-small-only="" zf-query-type="element">This is in a small element.</p>
+<p zf-show-medium-only="" zf-query-type="element">This is in a medium element.</p>
+<p zf-show-large-only="" zf-query-type="element">This is in a large element.</p>
+<p zf-show-not-small="" zf-query-type="element">This is not in a small element.</p>
+<p zf-show-not-medium="" zf-query-type="element">This is not in a medium element.</p>
+<p zf-show-not-large="" zf-query-type="element">This is not in a large element.</p>
+</hljs>
+  </div>
+  <div class="small-12 grid-content">
+    <p zf-show-small="" zf-query-type="element">This is in a <strong>small or larger</strong> element.</p>
+    <p zf-show-medium="" zf-query-type="element">This is in a <strong>medium or larger</strong> element.</p>
+    <p zf-show-large="" zf-query-type="element">This is in a <strong>large or larger</strong> element.</p>
+    <p zf-show-small-only="" zf-query-type="element">This is in a <strong>small</strong> element.</p>
+    <p zf-show-medium-only="" zf-query-type="element">This is in a <strong>medium</strong> element.</p>
+    <p zf-show-large-only="" zf-query-type="element">This is in a <strong>large</strong> element.</p>
+    <p zf-show-not-small="" zf-query-type="element">This is not in a <strong>small</strong> element.</p>
+    <p zf-show-not-medium="" zf-query-type="element">This is not in a <strong>medium</strong> element.</p>
+    <p zf-show-not-large="" zf-query-type="element">This is not in a <strong>large</strong> element.</p>
+  </div>
+</div>
+
+<hr>
+
+<div class="grid-block wrap">
+  <div class="small-12 grid-content">
+<hljs>
+<p zf-hide-small="" zf-query-type="element">This is not in a small or larger element.</p>
+<p zf-hide-medium="" zf-query-type="element">This is not in a medium or larger element.</p>
+<p zf-hide-large="" zf-query-type="element">This is not in a large or larger element.</p>
+<p zf-hide-small-only="" zf-query-type="element">This is not in a small element.</p>
+<p zf-hide-medium-only="" zf-query-type="element">This is not in a medium element.</p>
+<p zf-hide-large-only="" zf-query-type="element">This is not in a large element.</p>
+<p zf-hide-not-small="" zf-query-type="element">This is in a small element.</p>
+<p zf-hide-not-medium="" zf-query-type="element">This is in a medium element.</p>
+<p zf-hide-not-large="" zf-query-type="element">This is in a large element.</p>
+</hljs>
+  </div>
+  <div class="small-12 grid-content">
+    <p zf-hide-small="" zf-query-type="element">This is not in a <strong>small or larger</strong> element.</p>
+    <p zf-hide-medium="" zf-query-type="element">This is not in a <strong>medium or larger</strong> element.</p>
+    <p zf-hide-large="" zf-query-type="element">This is not in a <strong>large or larger</strong> element.</p>
+    <p zf-hide-small-only="" zf-query-type="element">This is not in a <strong>small</strong> element.</p>
+    <p zf-hide-medium-only="" zf-query-type="element">This is not in a <strong>medium</strong> element.</p>
+    <p zf-hide-large-only="" zf-query-type="element">This is not in a <strong>large</strong> element.</p>
+    <p zf-hide-not-small="" zf-query-type="element">This is in a <strong>small</strong> element.</p>
+    <p zf-hide-not-medium="" zf-query-type="element">This is in a <strong>medium</strong> element.</p>
+    <p zf-hide-not-large="" zf-query-type="element">This is in a <strong>large</strong> element.</p>
+  </div>
+</div>
