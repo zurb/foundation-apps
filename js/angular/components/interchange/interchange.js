@@ -142,6 +142,10 @@
     .directive('zfHideNotSmall', zfHide('small', true, true))
     .directive('zfHideNotMedium', zfHide('medium', true, true))
     .directive('zfHideNotLarge', zfHide('large', true, true))
+  /*
+   * Directive which enables responsive elements
+   */
+    .directive('zfResponsiveElement', zfResponsiveElement)
   ;
 
   function zfIf(namedQuery, queryOnly, queryNot) {
@@ -214,7 +218,7 @@
           element.attr(angularDirective, ngValue + ' && (' + element.attr(angularDirective) + ')');
         }
 
-        // remove current directive to avoid infinite recompile
+        // remove directive from currnet element to avoid infinite recompile
         element.removeAttr(directiveName);
         element.removeAttr('data-' + directiveName);
 
@@ -230,8 +234,8 @@
     }
   }
 
-  zfQuery.$inject = [ '$compile', 'FoundationApi', 'FoundationMQ'];
-  function zfQuery($compile, foundationApi, foundationMQ) {
+  zfQuery.$inject = ['FoundationApi', 'FoundationMQ'];
+  function zfQuery(foundationApi, foundationMQ) {
     var directive = {
       priority: 601, // must compile before ng-if (600)
       restrict: 'A',
@@ -242,7 +246,7 @@
 
     return directive;
 
-    // parameters will be populated with values provided from zf-if-* attributes
+    // parameters will be populated with values provided from zf-query-* attributes
     function compileWrapper(queryResult, namedQuery, queryType, queryOnly, queryNot) {
       var isQuerySize = namedQuery == "small" || namedQuery == "medium" || namedQuery == "large";
       var mediaUpMap = {
@@ -274,8 +278,8 @@
       }
 
       function postLink(scope, element, attrs) {
-        // subscribe for media cache cleared
-        foundationApi.subscribe('resize', function(time) {
+        // subscribe for resize events
+        foundationApi.subscribe('resize', function() {
           var orignalVisibilty = scope[queryResult];
           runQuery();
           if (orignalVisibilty != scope[queryResult]) {
@@ -341,6 +345,67 @@
           // use width of the element's parent for element query
           // similar to how the root element is used for media queries
           return foundationMQ.matchesElement(element.parent(), query);
+        }
+      }
+    }
+  }
+
+  zfResponsiveElement.$inject = ['$timeout', 'FoundationApi', 'FoundationMQ'];
+  function zfResponsiveElement($timeout, foundationApi, foundationMQ) {
+    var directive = {
+      restrict: 'A',
+      compile: compile
+    };
+
+    return directive;
+
+    function compile(element, attrs) {
+      var currClass;
+
+      // add directive to all children
+      element.children().attr('zf-responsive-element', 'zf-responsive-element');
+
+      // have the root zf-responsive-block trigger a resize after the DOM has been updated
+      if (angular.isUndefined(element.parent().attr('zf-responsive-element'))) {
+        $timeout(function() {
+          foundationApi.publish('resize');
+        }, 0);
+      }
+
+      return {
+        pre: function (scope, element, attrs) {
+        },
+        post: function (scope, element, attrs) {
+          // subscribe for resize events
+          foundationApi.subscribe('resize', function() {
+            if (update()) {
+              // digest if visibility changed
+              scope.$digest();
+            }
+          });
+
+          scope.$on("$destroy", function() {
+            foundationApi.unsubscribe('resize');
+          });
+        }
+      };
+
+      function update() {
+        var newClass = currClass;
+        if (foundationMQ.matchesElement(element, 'large')) {
+          newClass = 'is-large';
+        } else if (foundationMQ.matchesElement(element, 'medium')) {
+          newClass = 'is-medium';
+        } else if (foundationMQ.matchesElement(element, 'small')) {
+          newClass = 'is-small';
+        }
+        if (newClass != currClass) {
+          element.removeClass(currClass);
+          element.addClass(newClass);
+          currClass = newClass;
+          return true;
+        } else {
+          return false;
         }
       }
     }
