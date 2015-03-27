@@ -39,7 +39,7 @@
 
     var directive = {
       restrict: 'EA',
-      templateUrl: 'components/modal/modal.html',
+      templateUrl: '/components/modal/modal.html',
       transclude: true,
       scope: true,
       replace: true,
