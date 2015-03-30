@@ -78,9 +78,11 @@ title: Utilities
     <p class="text-left">Basic <strong>left-hand</strong> text</p>
     <p class="text-right">Saucy <strong>right-hand</strong> text</p>
     <p class="text-center">Sassy <strong>centered</strong> text</p>
-    <p class="text-justify">Rachet <strong>justified</strong> text</p>
+    <p class="text-justify">Rachet <strong>justified</strong> text. Why's that text so justified, anyways? Why does it just stretch to the sides of the container?</p>
   </div>
 </div>
+
+<br>
 
 <p>These classes also come in responsive flavors, meaning you can shift text alignment on different screen sizes.</p>
 
@@ -93,6 +95,52 @@ title: Utilities
   <div class="small-12 medium-6 grid-content">
     <p class="text-left medium-text-center"><strong>This text is left-aligned on small screens, and center-aligned on medium screens and larger.</strong> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda, doloribus, sapiente. Quas aliquam, ea eaque. Earum nostrum laboriosam, quidem iusto sint! Quisquam voluptatem atque, corporis sapiente doloremque laborum fugiat dolores.</p>
   </div>
+</div>
+
+<hr>
+
+<h3>Vertical Alignment</h3>
+
+<p>Using the magic of flexbox, we can vertically align a series of items in a row. We took these vertical alignment features and wrote a series of CSS classes to leverage them.</p>
+
+<p>To start, create a container that will hold each item.</p>
+
+<hljs language="html">
+<div class="v-align">
+  <!-- ... -->
+</div>
+</hljs>
+
+<p>By default, each item will align to the top of the container. Add the classes <code>align-top</code>, <code>align-center</code>, or <code>align-bottom</code> to individual elements in the container to change their alignment.</p>
+
+<hljs language="html">
+<div class="v-align">
+  <div class="align-bottom"></div>
+  <div class="align-center"></div>
+  <div class="align-top"></div>
+</div>
+</hljs>
+
+<div class="v-align docs-example-valign">
+  <div class="align-bottom">This is bottom-aligned!</div>
+  <div class="align-center">This is middle-aligned!</div>
+  <div class="align-top">This is top-aligned!</div>
+</div>
+
+<br><br>
+
+<p>These classes also come in responsive flavors, allowing you to change the alignment on different screen sizes. In the below example, the left box is top-aligned by default, and switches to center-aligned on medium-sized screens and larger.</p>
+
+<hljs language="html">
+<div class="v-align">
+  <div class="medium-align-center"></div>
+  <div class="medium-top"></div>
+</div>
+</hljs>
+
+<div class="v-align docs-example-valign-2">
+  <div class="medium-align-center"></div>
+  <div class="align-top"></div>
 </div>
 
 <hr>
@@ -114,7 +162,7 @@ title: Utilities
   </div>
 </div>
 
-<p>If you have a container with only floated elements, add the clearfix class to make sure the container has a proper height.</p>
+<p>If you have a container with only floated elements, add the clearfix class to ensure it has a proper height.</p>
 
 <div class="grid-block">
   <div class="small-12 medium-6 grid-content">
