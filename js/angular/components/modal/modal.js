@@ -258,6 +258,9 @@
               case 'animationOut':
                 element.attr('animation-out', config[prop]);
                 break;
+              case 'overlayClose':
+                element.attr('overlay-close', config[prop]);
+                break;
               default:
                 element.attr(prop, config[prop]);
             }
