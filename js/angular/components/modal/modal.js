@@ -159,7 +159,8 @@
         'animationIn',
         'animationOut',
         'overlay',
-        'overlayClose'
+        'overlayClose',
+        'class'
       ];
 
       if(config.templateUrl) {
