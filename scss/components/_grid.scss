@@ -278,6 +278,7 @@ $block-grid-max-size: 6 !default;
   > li, > div, > section {
     padding: 0 1rem 1rem;
     flex: 0 0 percentage(1 / $up);
+    max-width: percentage(1 / $up);
   }
 }
 
