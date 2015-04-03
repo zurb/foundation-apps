@@ -245,10 +245,10 @@
             }
           });
         }
+      }
 
-        function addDataDash(attr) {
-          return attr.indexOf('data-') !== 0 ? 'data-' + attr : attr;
-        }
+      function addDataDash(attr) {
+        return attr.indexOf('data-') !== 0 ? 'data-' + attr : attr;
       }
     }
   }
