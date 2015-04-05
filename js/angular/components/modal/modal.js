@@ -159,7 +159,8 @@
         'animationIn',
         'animationOut',
         'overlay',
-        'overlayClose'
+        'overlayClose',
+        'dialog'
       ];
 
       if(config.templateUrl) {
@@ -246,7 +247,7 @@
 
         scope = $rootScope.$new();
 
-        // account for directive attributes
+        // account for directive attributes and modal classes
         for(var i = 0; i < props.length; i++) {
           var prop = props[i];
 
@@ -257,6 +258,9 @@
                 break;
               case 'animationOut':
                 element.attr('animation-out', config[prop]);
+                break;
+              case 'dialog':
+                element.addClass('dialog');
                 break;
               default:
                 element.attr(prop, config[prop]);
