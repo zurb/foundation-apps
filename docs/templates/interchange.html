@@ -269,95 +269,60 @@ title: Interchange
 <hr>
 
 <h3>Responsive Blocks</h3>
+<p>The responsive classes (small-*/medium-*/large-*) work with media queries to size grid elements.  Responsive classes can be made to work with element queries by adding the zf-responsive-element attribute.</p>
 
-<h4>Using Media Queries</h4>
+<h4>Examples</h4>
+<p>Add elements below to see how their sizing differ when running media queries and element queries</p>
 
+<div class="grid-block" ng-init="addedContent = []; queryType = 'element'; numbers = [1,2,3,4,5,6,7,8,9,10,11,12]; smallSize = 12; mediumSize = 6; largeSize = 12;">
+  <form class="small-12">
+    <div class="grid-block small-12">
+      <div class="grid-content small-6 medium-3">
+        <label>Query Type</label>
+        <input type="radio" ng-model="queryType" value="element">Element</input><br/>
+        <input type="radio" ng-model="queryType" value="media">Media</input>
+      </div>
+      <div class="small-6 medium-3 grid-content">
+        <label>
+          Small Size
+          <select ng-model="smallSize" ng-options="number for number in numbers"></select>
+        </label>
+      </div>
+      <div class="small-6 medium-3 grid-content">
+        <label>
+          Medium Size
+          <select ng-model="mediumSize" ng-options="number for number in numbers"></select>
+        </label>
+      </div>
+      <div class="small-6 medium-3 grid-content">
+        <label>
+          Large Size
+          <select ng-model="largeSize" ng-options="number for number in numbers"></select>
+        </label>
+      </div>
+    </div>
+    <div class="grid-content small-12 text-center">
+      <a class="button" ng-click="addedContent.push({ type: queryType, smallSize: smallSize, mediumSize: mediumSize, largeSize: largeSize })">Add Element</a>
+    </div>
+  </form>
+</div>
 <div class="grid-block vertical">
-  <div class="grid-content">
-<hljs>
-<div class="grid-block">
-  <div class="grid-block small-horizontal medium-vertical large-horizontal large-wrap">
-    <div class="grid-content card small-4 medium-6 large-6">
-      <div class="card-section">
-        <p>I'm sized using a media query</p>
-      </div>
-    </div>
-    <div class="grid-content card small-4 medium-6 large-6">
-      <div class="card-section">
-        <p>I'm sized using a media query</p>
-      </div>
-    </div>
-    <div class="grid-content card small-4 medium-6 large-6">
-      <div class="card-section">
-        <p>I'm sized using a media query</p>
-      </div>
-    </div>
-  </div>
-</div>
-</hljs>
-  </div>
-  <div class="grid-block ">
-    <div class="grid-block small-horizontal medium-vertical large-horizontal large-wrap">
-      <div class="grid-content card small-4 medium-6 large-6">
-        <div class="card-section">
-          <p>I'm sized using a media query</p>
-        </div>
-      </div>
-      <div class="grid-content card small-4 medium-6 large-6">
-        <div class="card-section">
-          <p>I'm sized using a media query</p>
-        </div>
-      </div>
-      <div class="grid-content card small-4 medium-6 large-6">
-        <div class="card-section">
-          <p>I'm sized using a media query</p>
+  <div class="grid-block shrink" ng-repeat="content in addedContent" style="margin: 0 1rem;">
+    <div class="grid-block" ng-if="content.type == 'media'">
+      <div class="grid-content small-{{content.smallSize}} medium-{{content.mediumSize}} large-{{content.largeSize}}">
+        <div class="card">
+          <div class="card-section">
+            <p>{{ content.type }} query<br/>small:{{ content.smallSize }}<br/>medium:{{ content.mediumSize }}<br/>large:{{ content.largeSize }}</p>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
-
-<h4>Using Element Queries</h4>
-
-<div class="grid-block vertical">
-  <div class="grid-content">
-<hljs>
-<div class="grid-block" zf-responsive-element="">
-  <div class="grid-block small-horizontal medium-vertical large-horizontal large-wrap">
-    <div class="grid-content card small-4 medium-6 large-6">
-      <div class="card-section">
-        <p>I'm sized using an element query</p>
-      </div>
-    </div>
-    <div class="grid-content card small-4 medium-6 large-6">
-      <div class="card-section">
-        <p>I'm sized using an element query</p>
-      </div>
-    </div>
-    <div class="grid-content card small-4 medium-6 large-6">
-      <div class="card-section">
-        <p>I'm sized using an element query</p>
-      </div>
-    </div>
-  </div>
-</div>
-</hljs>
-  </div>
-  <div class="grid-block" zf-responsive-element="">
-    <div class="grid-block small-horizontal medium-vertical large-horizontal large-wrap">
-      <div class="grid-content card small-4 medium-6 large-6">
-        <div class="card-section">
-          <p>I'm sized using an element query</p>
-        </div>
-      </div>
-      <div class="grid-content card small-4 medium-6 large-6">
-        <div class="card-section">
-          <p>I'm sized using an element query</p>
-        </div>
-      </div>
-      <div class="grid-content card small-4 medium-6 large-6">
-        <div class="card-section">
-          <p>I'm sized using an element query</p>
+    <div class="grid-block" ng-if="content.type == 'element'" zf-responsive-element="">
+      <div class="grid-content small-{{content.smallSize}} medium-{{content.mediumSize}} large-{{content.largeSize}}">
+        <div class="card">
+          <div class="card-section">
+            <p>{{ content.type }} query<br/>small:{{ content.smallSize }}<br/>medium:{{ content.mediumSize }}<br/>large:{{ content.largeSize }}</p>
+          </div>
         </div>
       </div>
     </div>

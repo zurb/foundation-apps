@@ -131,7 +131,8 @@
   function FoundationMQ(foundationApi) {
     var service = [],
         mediaQueryResultCache = {},
-        elementQueryResultCache = {};
+        elementQueryResultCache = {},
+        queryMinWidthCache = {};
 
     foundationApi.subscribe('resize', function() {
       // any new resize event causes a clearing of the media cache
@@ -212,7 +213,6 @@
       angular.forEach(elements, function(el) {
         var elem = angular.element(el);
 
-
         //if no source or no html, capture element itself
         if (!elem.attr('src') || !elem.attr('src').match(/.html$/)) {
           templates[i] = elem;
@@ -233,12 +233,12 @@
     /** Source adapted from here: https://github.com/marcj/css-element-queries/blob/master/src/ElementQueries.js
      * @copyright https://github.com/Mr0grog/element-query/blob/master/LICENSE
      */
-   function getEmSize(element) {
+    function getEmSize(element) {
        var fontSize = element.prop('fontSize');
        return parseFloat(fontSize) || 16;
-   }
+    }
 
-   function convertToPx(element, value) {
+    function convertToPx(element, value) {
        var units = value.replace(/[0-9]*/, '');
        value = parseFloat(value);
        switch (units) {
@@ -268,20 +268,26 @@
            // for now, not supporting physical units (since they are just a set number of px)
            // or ex/ch (getting accurate measurements is hard)
        }
-   }
-   /**
-    * end @copyright https://github.com/Mr0grog/element-query/blob/master/LICENSE
-    */
+    }
+    /**
+     * end @copyright https://github.com/Mr0grog/element-query/blob/master/LICENSE
+     */
 
-   function getMinWidthInPxFromQuery(query) {
-     var mediaString = getMediaQueries()[query];
-     var matches = mediaString.match(/min-width: ([0-9]+)(em|px|rem|vw|vh|vmin|vmax|)/);
-     if (matches && matches.length == 3) {
-       // use document element since query is media query against document width
-       return convertToPx(angular.element(document.documentElement), matches[1] + matches[2]);
-     } else {
-       return 0;
-     }
-   }
+    function getMinWidthInPxFromQuery(query) {
+      var mediaString, matches;
+
+      if (angular.isUndefined(queryMinWidthCache[query])) {
+        // cache miss, get min width for query
+        mediaString = getMediaQueries()[query];
+        matches = mediaString.match(/min-width: ([0-9]+)(em|px|rem|vw|vh|vmin|vmax|)/);
+        if (matches && matches.length == 3) {
+          // use document element since query is media query against document width
+          queryMinWidthCache[query] = convertToPx(angular.element(document.documentElement), matches[1] + matches[2]);
+        } else {
+          queryMinWidthCache[query] = 0;
+        }
+      }
+      return queryMinWidthCache[query];
+    }
   }
 })();

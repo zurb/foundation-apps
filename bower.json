@@ -13,7 +13,8 @@
     "angular": "~1.3.4",
     "angular-ui-router": "~0.2.12",
     "angular-animate": "~1.3.4",
-    "hammerjs": "~2.0.4"
+    "hammerjs": "~2.0.4",
+    "detect-element-resize": "~0.5.3"
   },
   "homepage": "https://github.com/zurb/foundation-apps",
   "description": "A responsive, Angular-powered framework for web apps from ZURB.",

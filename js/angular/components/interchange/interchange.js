@@ -360,54 +360,54 @@
     return directive;
 
     function compile(element, attrs) {
-      var currClass;
+      var currClass,
+          isRoot = angular.isUndefined(element.parent().attr('zf-responsive-element'));
 
-      // add directive to all children
-      element.children().attr('zf-responsive-element', 'zf-responsive-element');
-
-      // have the root zf-responsive-block trigger a resize after the DOM has been updated
-      if (angular.isUndefined(element.parent().attr('zf-responsive-element'))) {
-        $timeout(function() {
-          foundationApi.publish('resize');
-        }, 0);
+      if (isRoot) {
+        // add directive to all child grid elements
+        angular.element(element[0].querySelectorAll('.grid-block')).attr('zf-responsive-element', 'zf-responsive-element');
+        angular.element(element[0].querySelectorAll('.grid-content')).attr('zf-responsive-element', 'zf-responsive-element');
       }
 
       return {
         pre: function (scope, element, attrs) {
         },
         post: function (scope, element, attrs) {
-          // subscribe for resize events
-          foundationApi.subscribe('resize', function() {
+          addResizeListener(element[0], handleResize);
+
+          scope.$on("$destroy", function() {
+            removeResizeListener(element[0], handleResize);
+          });
+
+          update();
+
+          function handleResize() {
             if (update()) {
               // digest if visibility changed
               scope.$digest();
             }
-          });
+          }
 
-          scope.$on("$destroy", function() {
-            foundationApi.unsubscribe('resize');
-          });
+          function update() {
+            var newClass = currClass;
+            if (foundationMQ.matchesElement(element, 'large')) {
+              newClass = 'is-large';
+            } else if (foundationMQ.matchesElement(element, 'medium')) {
+              newClass = 'is-medium';
+            } else if (foundationMQ.matchesElement(element, 'small')) {
+              newClass = 'is-small';
+            }
+            if (newClass != currClass) {
+              element.removeClass(currClass);
+              element.addClass(newClass);
+              currClass = newClass;
+              return true;
+            } else {
+              return false;
+            }
+          }
         }
       };
-
-      function update() {
-        var newClass = currClass;
-        if (foundationMQ.matchesElement(element, 'large')) {
-          newClass = 'is-large';
-        } else if (foundationMQ.matchesElement(element, 'medium')) {
-          newClass = 'is-medium';
-        } else if (foundationMQ.matchesElement(element, 'small')) {
-          newClass = 'is-small';
-        }
-        if (newClass != currClass) {
-          element.removeClass(currClass);
-          element.addClass(newClass);
-          currClass = newClass;
-          return true;
-        } else {
-          return false;
-        }
-      }
     }
   }
 })();
