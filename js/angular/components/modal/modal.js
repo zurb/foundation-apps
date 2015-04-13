@@ -199,7 +199,7 @@
       }
 
       function isActive() {
-        return !destroyed && scope.active === true;
+        return !destroyed && scope && scope.active === true;
       }
 
       function activate() {
