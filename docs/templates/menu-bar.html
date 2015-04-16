@@ -156,6 +156,7 @@ title: Menu Bar
       <li><a href="#">Menu</a></li>
       <li><a href="#">Bar</a></li>
     </ul>
+    <br>
     <ul class="primary menu-bar">
       <li><a href="#">Primary</a></li>
       <li><a href="#">Menu</a></li>
@@ -166,7 +167,7 @@ title: Menu Bar
 
 <h4>Icons</h4>
 
-<p>The menu bar supports icons, which can be positioned above, below, to the left, or to the right of the text. Icons can also be used standalone.</p>
+<p>The menu bar supports icons, which can be positioned above, below, to the left, or to the right of the text. Icons can also be used standalone&mdash;just drop the image into the <code>&lt;a&gt;</code> by itself.</p>
 
 <ul class="primary menu-bar">
   <li><a href="https://twitter.com/ZURBfoundation"><span class="fi-social-twitter" style="font-size: 2rem;"></span>Twitter</a></li>
@@ -174,10 +175,10 @@ title: Menu Bar
   <li><a href="https://github.com/zurb/foundation-apps"><span class="fi-social-github" style="font-size: 2rem;"></span>GitHub</a></li>
 </ul>
 
+<br>
+
 <p>By default, the icon is positioned above the text. However, this can be changed by adding the classes <code>icon-left</code>, <code>icon-right</code>, or <code>icon-bottom</code> to the menu bar container.</p>
 
-<div class="grid-block">
-  <div class="small-12 medium-6 grid-content">
 <hljs>
 <ul class="icon-left primary menu-bar">
   <li><a href="#"><img zf-iconic icon="thumb" size="small" class="iconic-color-primary">Thumbs Up</a></li>
@@ -185,25 +186,23 @@ title: Menu Bar
   <li><a href="#"><img zf-iconic icon="thumb" size="small" class="iconic-color-primary">Bro!</a></li>
 </ul>
 </hljs>
-  </div>
-  <div class="small-12 medium-6 grid-content">
-    <ul class="icon-left primary menu-bar">
-      <li><a href="#"><img zf-iconic icon="thumb" size="small" class="iconic-color-primary">Thumbs Up</a></li>
-      <li><a href="#"><img zf-iconic icon="thumb" size="small" class="iconic-color-primary">Like</a></li>
-      <li><a href="#"><img zf-iconic icon="thumb" size="small" class="iconic-color-primary">Bro!</a></li>
-    </ul>
-    <ul class="icon-right dark menu-bar">
-      <li><a href="#"><img zf-iconic icon="thumb" size="small" class="iconic-color-primary">Thumbs Up</a></li>
-      <li><a href="#"><img zf-iconic icon="thumb" size="small" class="iconic-color-primary">Like</a></li>
-      <li><a href="#"><img zf-iconic icon="thumb" size="small" class="iconic-color-primary">Bro!</a></li>
-    </ul>
-  </div>
-</div>
+
+<ul class="icon-left primary menu-bar">
+  <li><a href="#"><img zf-iconic icon="thumb" size="small" class="iconic-color-primary">Thumbs Up</a></li>
+  <li><a href="#"><img zf-iconic icon="thumb" size="small" class="iconic-color-primary">Like</a></li>
+  <li><a href="#"><img zf-iconic icon="thumb" size="small" class="iconic-color-primary">Bro!</a></li>
+</ul>
+<br>
+<ul class="icon-right dark menu-bar">
+  <li><a href="#"><img zf-iconic icon="thumb" size="small" class="iconic-color-primary">Thumbs Up</a></li>
+  <li><a href="#"><img zf-iconic icon="thumb" size="small" class="iconic-color-primary">Like</a></li>
+  <li><a href="#"><img zf-iconic icon="thumb" size="small" class="iconic-color-primary">Bro!</a></li>
+</ul>
+
+<br>
 
 <p>These classes can also be used responsively! In the below code example, the menu bar's icons are top-aligned on small screens, and left-aligned on large screens.</p>
 
-<div class="grid-block">
-  <div class="small-12 medium-6 grid-content">
 <hljs>
 <ul class="icon-top large-icon-left menu-bar">
   <li><a href="#"><img zf-iconic icon="thumb" size="small" class="iconic-color-primary">Thumbs Up</a></li>
@@ -211,15 +210,12 @@ title: Menu Bar
   <li><a href="#"><img zf-iconic icon="thumb" size="small" class="iconic-color-primary">Bro!</a></li>
 </ul>
 </hljs>
-  </div>
-  <div class="small-12 medium-6 grid-content">
-    <ul class="icon-top large-icon-left menu-bar">
-      <li><a href="#"><img zf-iconic icon="thumb" size="small" class="iconic-color-primary">Thumbs Up</a></li>
-      <li><a href="#"><img zf-iconic icon="thumb" size="small" class="iconic-color-primary">Like</a></li>
-      <li><a href="#"><img zf-iconic icon="thumb" size="small" class="iconic-color-primary">Bro!</a></li>
-    </ul>
-  </div>
-</div>
+
+<ul class="icon-top large-icon-left menu-bar">
+  <li><a href="#"><img zf-iconic icon="thumb" size="small" class="iconic-color-primary">Thumbs Up</a></li>
+  <li><a href="#"><img zf-iconic icon="thumb" size="small" class="iconic-color-primary">Like</a></li>
+  <li><a href="#"><img zf-iconic icon="thumb" size="small" class="iconic-color-primary">Bro!</a></li>
+</ul>
 
 <hr>
 
