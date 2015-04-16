@@ -65,6 +65,12 @@
     }
   }
 
+  &.vertical.medium-horizontal {
+    .grid-block:first-child {
+      margin-bottom: 1rem;
+    }
+  }
+
   .grid-container {
     max-width: 400px;
     height: 100px;
