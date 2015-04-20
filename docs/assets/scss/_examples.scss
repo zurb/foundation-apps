@@ -41,6 +41,7 @@
       margin: 0;
       background: transparent;
       position: relative;
+
       &::after {
         position: absolute;
         display: block;
@@ -52,15 +53,15 @@
   }
 
   &.vertical {
+    flex-wrap: nowrap;
+
     .grid-block {
-      height: 50px;
+      flex-basis: 50px;
+      flex-basis: auto;
+      flex-wrap: wrap;
 
       &:first-child {
         margin-bottom: 0.5rem;
-      }
-
-      @include breakpoint(medium) {
-        height: auto;
       }
     }
   }
@@ -68,6 +69,18 @@
   &.vertical.medium-horizontal {
     .grid-block:first-child {
       margin-bottom: 1rem;
+    }
+
+    @include breakpoint(small only) {
+      flex-wrap: nowrap;
+
+      .grid-block {
+        flex-basis: 50px;
+
+        &:first-child {
+          margin-bottom: 0.5rem;
+        }
+      }
     }
   }
 
