@@ -4,6 +4,7 @@
   angular.module('foundation.modal', ['foundation.core'])
     .directive('zfModal', modalDirective)
     .factory('ModalFactory', ModalFactory)
+    .service('FoundationModal', FoundationModal)
   ;
 
   FoundationModal.$inject = ['FoundationApi', 'ModalFactory'];
