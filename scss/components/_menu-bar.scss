@@ -32,6 +32,7 @@ $menubar-icon-spacing: $menubar-item-padding !default;
   align-items: stretch;
   margin: 0;
   list-style-type: none;
+  overflow-y: visible;
 
   // Menu item
   > li {
