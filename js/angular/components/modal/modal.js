@@ -186,6 +186,7 @@
 
 
       return {
+        isActive: isActive,
         activate: activate,
         deactivate: deactivate,
         toggle: toggle,
@@ -196,6 +197,10 @@
         if(destroyed) {
           throw "Error: Modal was destroyed. Delete the object and create a new ModalFactory instance."
         }
+      }
+
+      function isActive() {
+        return !destroyed && scope && scope.active === true;
       }
 
       function activate() {
