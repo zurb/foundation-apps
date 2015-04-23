@@ -16,6 +16,7 @@
     'foundation.offcanvas',
     'foundation.panel',
     'foundation.popup',
+    'foundation.swipe',
     'foundation.tabs'
   ]);
 
