@@ -37,26 +37,43 @@
     function init() {
       var mediaQueries;
       var extractedMedia;
-      var mediaObject;
+      var mediaQuerySizes;
+      var mediaUpMap;
+      var key;
 
       helpers.headerHelper(['foundation-mq']);
       extractedMedia = helpers.getStyle('.foundation-mq', 'font-family');
 
       mediaQueries = helpers.parseStyleToObject((extractedMedia));
+      mediaQuerySizes = [];
 
-      for(var key in mediaQueries) {
+      for(key in mediaQueries) {
+        mediaQuerySizes.push({ query: key, size: parseInt(mediaQueries[key].replace('rem', '')) });
         mediaQueries[key] = 'only screen and (min-width: ' + mediaQueries[key].replace('rem', 'em') + ')';
       }
 
+      // sort by increasing size
+      mediaQuerySizes.sort(function(a,b) {
+        return a.size > b.size ? 1 : (a.size < b.size ? -1 : 0);
+      });
+
+      mediaUpMap = {};
+      for (key = 0; key < mediaQuerySizes.length; key++) {
+        if (key+1 < mediaQuerySizes.length) {
+          mediaUpMap[mediaQuerySizes[key].query] = mediaQuerySizes[key+1].query;
+        } else {
+          mediaUpMap[mediaQuerySizes[key].query] = null;
+        }
+      }
 
       foundationApi.modifySettings({
-        mediaQueries: angular.extend(mediaQueries, namedQueries)
+        mediaQueries: angular.extend(mediaQueries, namedQueries),
+        mediaUpMap: mediaUpMap
       });
 
       window.addEventListener('resize', u.throttle(function() {
         foundationApi.publish('resize', 'window resized');
       }, 50));
-
     }
   }
 
@@ -131,7 +148,6 @@
   function FoundationMQ(foundationApi) {
     var service = [],
         mediaQueryResultCache = {},
-        elementQueryResultCache = {},
         queryMinWidthCache = {};
 
     foundationApi.subscribe('resize', function() {
@@ -142,13 +158,17 @@
     service.getMediaQueries = getMediaQueries;
     service.match = match;
     service.matchesMedia = matchesMedia;
-    service.matchesElement = matchesElement;
+    service.getNextMediaUp = getNextMediaUp;
     service.collectScenariosFromElement = collectScenariosFromElement;
 
     return service;
 
     function getMediaQueries() {
       return foundationApi.getSettings().mediaQueries;
+    }
+
+    function getNextMediaUp(media) {
+      return foundationApi.getSettings().mediaUpMap[media];
     }
 
     function match(scenarios) {
@@ -184,24 +204,6 @@
       return mediaQueryResultCache[query];
     }
 
-    function matchesElement(element, query) {
-      // get width of element
-      var elemWidth = element.prop('offsetWidth');
-
-      // check if we've run queries against this width before
-      if (angular.isUndefined(elementQueryResultCache[elemWidth])) {
-        // cache miss, setup cache for width
-        elementQueryResultCache[elemWidth] = {};
-      }
-
-      if (angular.isUndefined(elementQueryResultCache[elemWidth][query])) {
-        // cache miss, extract min-width from query and compare to element width
-        elementQueryResultCache[elemWidth][query] = elemWidth >= getMinWidthInPxFromQuery(query);
-      }
-
-      return elementQueryResultCache[elemWidth][query];
-    }
-
     // Collects a scenario object and templates from element
     function collectScenariosFromElement(parentElement) {
       var scenarios = [];
@@ -228,66 +230,6 @@
         scenarios: scenarios,
         templates: templates
       };
-    }
-
-    /** Source adapted from here: https://github.com/marcj/css-element-queries/blob/master/src/ElementQueries.js
-     * @copyright https://github.com/Mr0grog/element-query/blob/master/LICENSE
-     */
-    function getEmSize(element) {
-       var fontSize = element.prop('fontSize');
-       return parseFloat(fontSize) || 16;
-    }
-
-    function convertToPx(element, value) {
-       var units = value.replace(/[0-9]*/, '');
-       value = parseFloat(value);
-       switch (units) {
-           case "px":
-               return value;
-           case "em":
-               // use directive element
-               return value * getEmSize(element);
-           case "rem":
-               // use document element
-               return value * getEmSize(angular.element(document.documentElement));
-           // Viewport units!
-           // According to http://quirksmode.org/mobile/tableViewport.html
-           // documentElement.clientWidth/Height gets us the most reliable info
-           case "vw":
-               return value * document.documentElement.clientWidth / 100;
-           case "vh":
-               return value * document.documentElement.clientHeight / 100;
-           case "vmin":
-           case "vmax":
-               var vw = document.documentElement.clientWidth / 100;
-               var vh = document.documentElement.clientHeight / 100;
-               var chooser = Math[units === "vmin" ? "min" : "max"];
-               return value * chooser(vw, vh);
-           default:
-               return value;
-           // for now, not supporting physical units (since they are just a set number of px)
-           // or ex/ch (getting accurate measurements is hard)
-       }
-    }
-    /**
-     * end @copyright https://github.com/Mr0grog/element-query/blob/master/LICENSE
-     */
-
-    function getMinWidthInPxFromQuery(query) {
-      var mediaString, matches;
-
-      if (angular.isUndefined(queryMinWidthCache[query])) {
-        // cache miss, get min width for query
-        mediaString = getMediaQueries()[query];
-        matches = mediaString.match(/min-width: ([0-9]+)(em|px|rem|vw|vh|vmin|vmax|)/);
-        if (matches && matches.length == 3) {
-          // use document element since query is media query against document width
-          queryMinWidthCache[query] = convertToPx(angular.element(document.documentElement), matches[1] + matches[2]);
-        } else {
-          queryMinWidthCache[query] = 0;
-        }
-      }
-      return queryMinWidthCache[query];
     }
   }
 })();

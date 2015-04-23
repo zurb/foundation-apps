@@ -93,88 +93,23 @@
 
   angular.module('foundation.interchange')
   /*
-   * Final directive to perform media/element queries, other directives set up this one
+   * Final directive to perform media queries, other directives set up this one
    * (See: http://stackoverflow.com/questions/19224028/add-directives-from-directive-in-angularjs)
    */
     .directive('zfQuery', zfQuery)
   /*
-   * zf-if-*
+   * zf-if / zf-show / zf-hide
    */
-    .directive('zfIfSmall', zfIf('small'))
-    .directive('zfIfMedium', zfIf('medium'))
-    .directive('zfIfLarge', zfIf('large'))
-    .directive('zfIfPortrait', zfIf('portrait'))
-    .directive('zfIfLandscape', zfIf('landscape'))
-    .directive('zfIfRetina', zfIf('retina'))
-    .directive('zfIfSmallOnly', zfIf('small', true))
-    .directive('zfIfMediumOnly', zfIf('medium', true))
-    .directive('zfIfLargeOnly', zfIf('large', true))
-    .directive('zfIfNotSmall', zfIf('small', true, true))
-    .directive('zfIfNotMedium', zfIf('medium', true, true))
-    .directive('zfIfNotLarge', zfIf('large', true, true))
-  /*
-   * zf-show-*
-   */
-    .directive('zfShowSmall', zfShow('small'))
-    .directive('zfShowMedium', zfShow('medium'))
-    .directive('zfShowLarge', zfShow('large'))
-    .directive('zfShowPortrait', zfShow('portrait'))
-    .directive('zfShowLandscape', zfShow('landscape'))
-    .directive('zfShowRetina', zfShow('retina'))
-    .directive('zfShowSmallOnly', zfShow('small', true))
-    .directive('zfShowMediumOnly', zfShow('medium', true))
-    .directive('zfShowLargeOnly', zfShow('large', true))
-    .directive('zfShowNotSmall', zfShow('small', true, true))
-    .directive('zfShowNotMedium', zfShow('medium', true, true))
-    .directive('zfShowNotLarge', zfShow('large', true, true))
-  /*
-   * zf-hide-*
-   */
-    .directive('zfHideSmall', zfHide('small'))
-    .directive('zfHideMedium', zfHide('medium'))
-    .directive('zfHideLarge', zfHide('large'))
-    .directive('zfHidePortrait', zfHide('portrait'))
-    .directive('zfHideLandscape', zfHide('landscape'))
-    .directive('zfHideRetina', zfHide('retina'))
-    .directive('zfHideSmallOnly', zfHide('small', true))
-    .directive('zfHideMediumOnly', zfHide('medium', true))
-    .directive('zfHideLargeOnly', zfHide('large', true))
-    .directive('zfHideNotSmall', zfHide('small', true, true))
-    .directive('zfHideNotMedium', zfHide('medium', true, true))
-    .directive('zfHideNotLarge', zfHide('large', true, true))
-  /*
-   * Directive which enables responsive elements
-   */
-    .directive('zfResponsiveElement', zfResponsiveElement)
+    .directive('zfIf', zfQueryWrapper('ng-if', 'zf-if'))
+    .directive('zfShow', zfQueryWrapper('ng-show', 'zf-show'))
+    .directive('zfHide', zfQueryWrapper('ng-hide', 'zf-hide'))
   ;
-
-  function zfIf(namedQuery, queryOnly, queryNot) {
-    return zfQueryWrapper('ng-if', 'zf-if', namedQuery, queryOnly, queryNot);
-  }
-  function zfShow(namedQuery, queryOnly, queryNot) {
-    return zfQueryWrapper('ng-show', 'zf-show', namedQuery, queryOnly, queryNot);
-  }
-  function zfHide(namedQuery, queryOnly, queryNot) {
-    return zfQueryWrapper('ng-hide', 'zf-hide', namedQuery, queryOnly, queryNot);
-  }
 
   /*
    * This directive will configure ng-if/ng-show/ng-hide and zf-query directives and then recompile the element
    */
-  function zfQueryWrapper(angularDirective, directiveName, namedQuery, queryOnly, queryNot) {
-    // set optional parameter
-    queryOnly = queryOnly || false;
-    queryNot = queryNot || false;
-
-    // generate directive name
-    if (queryNot) directiveName += '-not';
-    directiveName += '-' + namedQuery;
-    if (queryOnly && !queryNot) directiveName += '-only';
-
-    zfQueryDirective.$inject = [ '$compile', 'FoundationApi'];
-    return zfQueryDirective;
-
-    function zfQueryDirective($compile, foundationApi) {
+  function zfQueryWrapper(angularDirective, directiveName) {
+    return ['$compile', 'FoundationApi', function zfQueryDirective($compile, foundationApi) {
       // create unique scope property for media query result, must be unique to avoid collision with other properties of zf-query scope
       // property set upon element compilation or else all similar directives (i.e. zf-if-*/zf-show-*/zf-hide-*) will get the same value
       var queryResult;
@@ -192,30 +127,38 @@
       // From here onward, scope[queryResult] refers to the result of running the provided query
       // against either the media or element as specified by the zf-query-type attribute.
       function compile(element, attrs) {
-        var zfValue, ngValue;
-
         // set unique property
         queryResult = (directiveName + foundationApi.generateUuid()).replace(/-/g,'');
 
-        // add zf-query directive and configuration attributes
-        element.attr('zf-query', namedQuery);
-        element.attr('zf-query-not', queryNot);
-        element.attr('zf-query-only', queryOnly);
+        // set default configuration
+        element.attr('zf-query-not', false);
+        element.attr('zf-query-only', false);
         element.attr('zf-query-scope-prop', queryResult);
 
-        // check if value was given to directive attribute, if so pass to angular directive
-        zfValue = element.attr(directiveName) ||  element.attr('data-' + directiveName);
-        if (zfValue) {
-          ngValue = "(" + zfValue + " && " + queryResult + ")";
-        } else {
-          ngValue = queryResult;
-        }
+        // parse directive attribute for query parameters
+        element.attr(directiveName).split(' ').forEach(function(param) {
+          if (param) {
+            // add zf-query directive and configuration attributes
+            switch (param) {
+              case "not":
+                element.attr('zf-query-not', true);
+                element.attr('zf-query-only', true);
+                break;
+              case "only":
+                element.attr('zf-query-only', true);
+                break;
+              default:
+                element.attr('zf-query', param);
+                break;
+            }
+          }
+        });
 
         // add/update angular directive
         if (!element.attr(angularDirective)) {
-          element.attr(angularDirective, ngValue);
+          element.attr(angularDirective, queryResult);
         } else {
-          element.attr(angularDirective, ngValue + ' && (' + element.attr(angularDirective) + ')');
+          element.attr(angularDirective, queryResult + ' && (' + element.attr(angularDirective) + ')');
         }
 
         // remove directive from currnet element to avoid infinite recompile
@@ -231,7 +174,7 @@
           }
         }
       }
-    }
+    }];
   }
 
   zfQuery.$inject = ['FoundationApi', 'FoundationMQ'];
@@ -240,30 +183,17 @@
       priority: 601, // must compile before ng-if (600)
       restrict: 'A',
       compile: function compile(element, attrs) {
-        return compileWrapper(attrs['zfQueryScopeProp'], attrs['zfQuery'], attrs['zfQueryType'], attrs['zfQueryOnly'] === "true", attrs['zfQueryNot'] === "true");
+        return compileWrapper(attrs['zfQueryScopeProp'], attrs['zfQuery'], attrs['zfQueryOnly'] === "true", attrs['zfQueryNot'] === "true");
       }
     };
 
     return directive;
 
     // parameters will be populated with values provided from zf-query-* attributes
-    function compileWrapper(queryResult, namedQuery, queryType, queryOnly, queryNot) {
-      var isQuerySize = namedQuery == "small" || namedQuery == "medium" || namedQuery == "large";
-      var mediaUpMap = {
-        "small": "medium",
-        "medium": "large",
-        "large": null
-      };
-
+    function compileWrapper(queryResult, namedQuery, queryOnly, queryNot) {
       // set defaults
-      queryType = queryType == "element" ? "element" : "media";
       queryOnly = queryOnly || false;
       queryNot = queryNot || false;
-
-      // validations
-      if (!isQuerySize && queryType == "element") {
-        throw "Named query '" + namedQuery + "' is supported with element queries. Only size queries (small/medium/large) are supported.";
-      }
 
       return {
         pre: preLink,
@@ -296,14 +226,13 @@
         runQuery();
 
         function runQuery() {
-          var mediaUpNamedQuery,
-              matchesQuery = queryType === 'element' ? matchesElement : matchesMedia;
+          var mediaUpNamedQuery;
 
           if (!queryOnly) {
             // run named query
-            scope[queryResult] = matchesQuery(namedQuery);
+            scope[queryResult] = foundationMQ.matchesMedia(namedQuery);
           } else {
-            mediaUpNamedQuery = mediaUpMap[namedQuery];
+            mediaUpNamedQuery = foundationMQ.getNextMediaUp(namedQuery);
 
             if (!queryNot) {
               /*
@@ -311,17 +240,17 @@
                */
               if (!mediaUpNamedQuery) {
                 // reached max media size, run query for current media
-                scope[queryResult] = matchesQuery(namedQuery);
+                scope[queryResult] = foundationMQ.matchesMedia(namedQuery);
               } else {
                 // must match this media size, but not the size up
-                scope[queryResult] = matchesQuery(namedQuery) && !matchesQuery(mediaUpNamedQuery);
+                scope[queryResult] = foundationMQ.matchesMedia(namedQuery) && !foundationMQ.matchesMedia(mediaUpNamedQuery);
               }
             } else {
               /*
                * Check that media does NOT match named query
                */
               // require that the media doesn't match the current query
-              if (!matchesQuery(namedQuery)) {
+              if (!foundationMQ.matchesMedia(namedQuery)) {
                 // media doesn't match
                 scope[queryResult] = true;
               } else {
@@ -330,7 +259,7 @@
                   // no next size up, means media still matches
                   scope[queryResult] = false;
                 } else {
-                  scope[queryResult] = matchesQuery(mediaUpNamedQuery);
+                  scope[queryResult] = foundationMQ.matchesMedia(mediaUpNamedQuery);
                 }
               }
             }
@@ -340,74 +269,7 @@
         function matchesMedia(query) {
           return foundationMQ.matchesMedia(query);
         }
-
-        function matchesElement(query) {
-          // use width of the element's parent for element query
-          // similar to how the root element is used for media queries
-          return foundationMQ.matchesElement(element.parent(), query);
-        }
       }
-    }
-  }
-
-  zfResponsiveElement.$inject = ['$timeout', 'FoundationApi', 'FoundationMQ'];
-  function zfResponsiveElement($timeout, foundationApi, foundationMQ) {
-    var directive = {
-      restrict: 'A',
-      compile: compile
-    };
-
-    return directive;
-
-    function compile(element, attrs) {
-      var currClass,
-          isRoot = angular.isUndefined(element.parent().attr('zf-responsive-element'));
-
-      if (isRoot) {
-        // add directive to all child grid elements
-        angular.element(element[0].querySelectorAll('.grid-block')).attr('zf-responsive-element', 'zf-responsive-element');
-        angular.element(element[0].querySelectorAll('.grid-content')).attr('zf-responsive-element', 'zf-responsive-element');
-      }
-
-      return {
-        pre: function (scope, element, attrs) {
-        },
-        post: function (scope, element, attrs) {
-          addResizeListener(element[0], handleResize);
-
-          scope.$on("$destroy", function() {
-            removeResizeListener(element[0], handleResize);
-          });
-
-          update();
-
-          function handleResize() {
-            if (update()) {
-              // digest if visibility changed
-              scope.$digest();
-            }
-          }
-
-          function update() {
-            var newClass = currClass;
-            if (foundationMQ.matchesElement(element, 'large')) {
-              newClass = 'is-large';
-            } else if (foundationMQ.matchesElement(element, 'medium')) {
-              newClass = 'is-medium';
-            } else if (foundationMQ.matchesElement(element, 'small')) {
-              newClass = 'is-small';
-            }
-            if (newClass != currClass) {
-              element.removeClass(currClass);
-              element.addClass(newClass);
-              currClass = newClass;
-              return true;
-            } else {
-              return false;
-            }
-          }
-        }
-      };
     }
   }
 })();

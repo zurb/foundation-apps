@@ -87,8 +87,7 @@ var paths = {
       'bower_components/angular/angular.js',
       'bower_components/angular-animate/angular-animate.js',
       'bower_components/angular-ui-router/release/angular-ui-router.js',
-      'bower_components/hammerjs/hammer.js',
-      'bower_components/detect-element-resize/detect-element-resize.js'
+      'bower_components/hammerjs/hammer.js'
     ],
     docs: [
       'bower_components/marked/lib/marked.js',

@@ -50,8 +50,6 @@ $breakpoint-classes: (small medium large) !default;
   $str: 'only screen';
   // Is it a named media query?
   $named: false;
-  // If named, what was it?
-  $namedQuery: '';
 
   // Orientation media queries have a unique syntax
   @if $bp == 'landscape' or $bp == 'portrait' {
@@ -71,7 +69,6 @@ $breakpoint-classes: (small medium large) !default;
             $bpMax: $next-bp - (1/16);
           }
         }
-        $namedQuery: $bp;
         $bp: map-get($breakpoints, $bp);
         $named: true;
       }
@@ -116,22 +113,8 @@ $breakpoint-classes: (small medium large) !default;
     @content;
   }
   @else {
-    @if $named and ($namedQuery == 'small' or $namedQuery == 'medium' or $namedQuery == 'large') {
-      // if media query is being run on element
-      &:not([zf-responsive-element]) > {
-        @media #{$str} {
-          @content;
-        }
-      }
-      // if element query is being run on element and element matches query
-      &[zf-responsive-element].#{'is-' + $namedQuery} > {
-        @content;
-      }
-    }
-    @else {
-      @media #{$str} {
-        @content;
-      }
+    @media #{$str} {
+      @content;
     }
   }
 }
