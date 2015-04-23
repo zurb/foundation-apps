@@ -66,7 +66,7 @@
         size: '@?',
         icon: '@',
         iconDir: '@?',
-        iconAttrs: '@?'
+        iconAttrs: '=?'
       },
       compile: compile
     };

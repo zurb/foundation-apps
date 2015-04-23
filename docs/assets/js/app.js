@@ -19,6 +19,7 @@
     .controller('MotionUIController', MotionUIController)
     .controller('NavController', NavController)
     .controller('AngularModsController', AngularModsController)
+    .controller('IconicController', IconicController)
   ;
 
   config.$inject = ['$urlRouterProvider', '$locationProvider'];
@@ -249,6 +250,48 @@
           $state.go(r.name);
           return;
         }
+      });
+    };
+  }
+
+  IconicController.$inject = ['$scope', '$timeout'];
+
+  function IconicController($scope, $timeout) {
+    var iconNum = 0,
+        icons = [{
+          icon: 'account',
+          iconAttrs: { state: 'login' }
+        },{
+          icon: 'account',
+          iconAttrs: { state: 'logout' }
+        },{
+          icon: 'chevron',
+          iconAttrs: { direction: 'right' }
+        },{
+          icon: 'chevron',
+          iconAttrs: { direction: 'left' }
+        }];
+
+    $scope.rotatingIcon = icons[0];
+    $scope.staticIcon = icons[0];
+    $scope.delayLoadedIcon = null;
+
+    rotateIcon();
+    loadIcon();
+
+    function rotateIcon() {
+      $timeout(function() {
+        if (++iconNum == icons.length) {
+          iconNum = 0;
+        }
+        $scope.rotatingIcon = icons[iconNum];
+        rotateIcon();
+      }, 3000);
+    };
+
+    function loadIcon() {
+      $timeout(function() {
+        $scope.delayLoadedIcon = icons[0];
       });
     };
   }
