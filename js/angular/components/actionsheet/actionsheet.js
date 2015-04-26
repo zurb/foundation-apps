@@ -85,16 +85,20 @@
       content.hide();
       container.hide();
 
-      content.$apply();
-      container.$apply();
+      if (!$scope.$$phase) {
+        content.$apply();
+        container.$apply();
+      }
     }
 
     function toggle() {
       content.toggle();
       container.toggle();
-
-      content.$apply();
-      container.$apply();
+      
+      if (!$scope.$$phase) {
+        content.$apply();
+        container.$apply();
+      }
     }
   }
 

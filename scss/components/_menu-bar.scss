@@ -32,12 +32,17 @@ $menubar-icon-spacing: $menubar-item-padding !default;
   align-items: stretch;
   margin: 0;
   list-style-type: none;
+  overflow-y: visible;
 
   // Menu item
   > li {
     // This flex setting makes each item an equal width
-    flex: 1 0 auto;
+    flex: 1 0 0;
     align-items: center;
+
+    // The list item itself is also a flex container, to center links in case they have different height
+    display: flex;
+    align-items: stretch;
 
     // Link inside menu item
     > a {
@@ -61,12 +66,20 @@ $menubar-icon-spacing: $menubar-item-padding !default;
   @if $orientation == horizontal {
     overflow-x: hidden;
     flex-flow: row nowrap;
+
+    > li > a {
+      flex: 1 0 0;
+    }
     > li > a {
       flex-flow: column nowrap;
     }
   }
   @else {
     flex-flow: column nowrap;
+
+    > li {
+      flex: 1 0 auto;
+    }
     > li > a {
       flex-flow: row nowrap;
     }
@@ -132,9 +145,15 @@ $menubar-icon-spacing: $menubar-item-padding !default;
     // Sizing
     > img, > .iconic {
       margin: 0;
+
       @if $menubar-icon-size != false {
         width: $menubar-icon-size;
         height: $menubar-icon-size;
+      }
+
+      // Remove any margins from standalone icons
+      &:first-child:last-child {
+        margin: 0;
       }
     }
 

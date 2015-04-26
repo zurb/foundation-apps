@@ -52,6 +52,32 @@ title: Panel
 
 <p><code>zf-close</code> is a special case; if the element is inside the panel, you don't need to manually set the ID of the panel.</p>
 
+<h4>Where Does it Go?</h4>
+
+<p>Panels should always anchor to blocks (<code>.grid-block</code>), not content blocks (<code>.grid-content</code>). To create a panel that sits on top of a scrolling chunk of content, position the panel <em>adjacent</em> the block, not <em>inside</em>.</p>
+
+<hljs language="html">
+<!-- Wrong: panel is inside a content block -->
+<div class="grid-content">
+  <div zf-panel>
+    <p>Panel</p>
+  </div>
+  <h1>Main Content</h1>
+  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+</div>
+
+<!-- Right: panel and content block share a wrapper -->
+<div class="grid-block">
+  <div zf-panel>
+    <p>Panel</p>
+  </div>
+  <div class="grid-content">
+    <h1>Main Content</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+  </div>
+</div>
+</hljs>
+
 <hr>
 
 <h3>Panel Position</h3>

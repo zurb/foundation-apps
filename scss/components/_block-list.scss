@@ -262,12 +262,22 @@ $blocklist-check-icons: true !default;
 ) {
   // Text fields
   #{$text-input-selectors} {
+    $top-padding: get-side($padding, top) - ($blocklist-fontsize * 0.2);
+    $bottom-padding: get-side($padding, bottom) - ($blocklist-fontsize * 0.2);
+    $left-padding: get-side($padding, left);
+    $right-padding: get-side($padding, right);
+    $height: ($blocklist-fontsize * 1.4 + $top-padding + $bottom-padding);
+
+    overflow: visible;
+    box-sizing: border-box;
     margin: 0;
     border: 0;
-    line-height: 1;
-    height: auto;
-    padding: $padding;
+    height: $height;
+    padding: $top-padding $right-padding $bottom-padding $left-padding;
     color: inherit;
+    font-size: $blocklist-fontsize;
+    -webkit-font-smoothing: antialiased;
+    vertical-align: middle;
 
     &:hover, &:focus {
       border: 0;
