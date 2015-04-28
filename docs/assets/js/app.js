@@ -19,6 +19,7 @@
     .controller('MotionUIController', MotionUIController)
     .controller('NavController', NavController)
     .controller('AngularModsController', AngularModsController)
+    .controller('ModalController', ModalController)
   ;
 
   config.$inject = ['$urlRouterProvider', '$locationProvider'];
@@ -250,6 +251,28 @@
           return;
         }
       });
+    };
+  }
+
+  ModalController.$inject = ['$scope', '$timeout', 'ModalFactory'];
+
+  function ModalController($scope, $timeout, ModalFactory) {
+    $scope.createModal = function() {
+      var modal = new ModalFactory({
+        class: 'tiny dialog',
+        overlay: true,
+        overlayClose: false,
+        templateUrl: 'partials/examples-dynamic-modal.html',
+        contentScope: {
+          close: function() {
+            modal.deactivate();
+            $timeout(function() {
+              modal.destroy();
+            }, 1000);
+          }
+        }
+      });
+      modal.activate();
     };
   }
 

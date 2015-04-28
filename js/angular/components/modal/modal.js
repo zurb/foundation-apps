@@ -160,7 +160,7 @@
         'animationOut',
         'overlay',
         'overlayClose',
-        'dialog'
+        'class'
       ];
 
       if(config.templateUrl) {
@@ -259,8 +259,16 @@
               case 'animationOut':
                 element.attr('animation-out', config[prop]);
                 break;
-              case 'dialog':
-                element.addClass('dialog');
+              case 'class':
+                if (angular.isString(config[prop])) {
+                  config[prop].split(' ').forEach(function(klass) {
+                    element.addClass(klass);
+                  });
+                } else if (angular.isArray(config[prop])) {
+                  config[prop].forEach(function(klass) {
+                    element.addClass(klass);
+                  });
+                }
                 break;
               default:
                 element.attr(prop, config[prop]);
