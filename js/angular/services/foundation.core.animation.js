@@ -65,7 +65,7 @@
       }, 3000);
 
       function eventHandler(e) {
-        if (element[0].id === e.target.id) {
+        if (element[0] === e.target) {
           clearTimeout(animationTimeout);
           finishAnimation();
         }
