@@ -259,132 +259,119 @@ controller: IconicController
 <hr>
 <h3>Responsive Icons</h3>
 <p>By default, all icons are responsive! Not only do they size, but the IconicJS library swaps in appropriate icons for the current window size. You can use the <code>size</code> attribute within the directive to override the responsiveness. Otherwise, your icon will automatically size itself and render more/less detail depending on the size of the container you place it in. You can resize the window to see the icons below change in size and detail.</p>
-  <hljs>
-  <div class="grid-block large-up-4 small-up-4 medium-up-4">
-    <div class="grid-content">
-      <img zf-iconic icon="dashboard" class="iconic-color-primary">
-    </div>
-    <div class="grid-content">
-      <img zf-iconic icon="dashboard" class="iconic-color-primary">
-      </div>
-    <div class="grid-content">
-        <img zf-iconic icon="dashboard" class="iconic-color-primary">
-    </div>
-    <div class="grid-content">
-        <img zf-iconic icon="dashboard" class="iconic-color-primary">
-    </div>
+<hljs>
+<div class="grid-block large-up-4 small-up-4 medium-up-4">
+  <div class="grid-content">
+    <img zf-iconic icon="dashboard" class="iconic-color-primary">
   </div>
-  </hljs>
-  <div class="grid-block large-up-4 small-up-4 medium-up-4">
-    <div class="grid-content">
-      <img zf-iconic icon="dashboard" class="iconic-color-primary">
+  <div class="grid-content">
+    <img zf-iconic icon="dashboard" class="iconic-color-primary">
     </div>
-    <div class="grid-content">
+  <div class="grid-content">
       <img zf-iconic icon="dashboard" class="iconic-color-primary">
-      </div>
-    <div class="grid-content">
-        <img zf-iconic icon="dashboard" class="iconic-color-primary">
-    </div>
-    <div class="grid-content">
-      <img zf-iconic icon="dashboard" class="iconic-color-primary">
-    </div>
   </div>
+  <div class="grid-content">
+      <img zf-iconic icon="dashboard" class="iconic-color-primary">
+  </div>
+</div>
+</hljs>
+<div class="grid-block large-up-4 small-up-4 medium-up-4">
+  <div class="grid-content">
+    <img zf-iconic icon="dashboard" class="iconic-color-primary">
+  </div>
+  <div class="grid-content">
+    <img zf-iconic icon="dashboard" class="iconic-color-primary">
+    </div>
+  <div class="grid-content">
+      <img zf-iconic icon="dashboard" class="iconic-color-primary">
+  </div>
+  <div class="grid-content">
+    <img zf-iconic icon="dashboard" class="iconic-color-primary">
+  </div>
+</div>
 
 <hr>
+
 <h3>Dynamic Icons</h3>
 <p>All icons seen to this point have been static.  The icon to display and the data attributes to use were hard-coded into the HTML.  Sometimes the icon to display needs to be determined programatically.  Examples of how to use dynamic icons are shown below.  At the end you'll find the controller used for the examples.</p>
 
 <h4>Rotating Icon</h4>
 <p>This example renders a rotating icon.  The icon rotates through 4 different icons, changing every 3 seconds.</p>
-<div class="grid-block">
-  <div class="grid-content small-12 medium-6">
+
 <hljs>
-  <img zf-iconic="" dyn-icon="rotatingIcon.icon" dyn-icon-attrs="rotatingIcon.iconAttrs" size="large"></img>
+<img zf-iconic="" dyn-icon="rotatingIcon.icon" dyn-icon-attrs="rotatingIcon.iconAttrs" size="medium"></img>
 </hljs>
-  </div>
-  <div class="grid-content small-12 medium-6 text-center">
-    <img zf-iconic="" dyn-icon="rotatingIcon.icon" dyn-icon-attrs="rotatingIcon.iconAttrs" size="large"></img>
-  </div>
-</div>
+<img zf-iconic="" dyn-icon="rotatingIcon.icon" dyn-icon-attrs="rotatingIcon.iconAttrs" size="medium"></img>
+
+<hr>
 
 <h4>Pre Loaded Icon</h4>
-<p>This example sets the icon programatically <strong>BEFORE</strong> the iconic directive is compiled by angular.</p>
-<div class="grid-block">
-  <div class="grid-content small-12 medium-6">
+<p>This example sets the icon programatically <em>before</em> the iconic directive is compiled by angular.</p>
 <hljs>
-  <img zf-iconic="" dyn-icon="staticIcon.icon" dyn-icon-attrs="staticIcon.iconAttrs" size="large"></img>
+<img zf-iconic="" dyn-icon="staticIcon.icon" dyn-icon-attrs="staticIcon.iconAttrs" size="medium"></img>
 </hljs>
-  </div>
-  <div class="grid-content small-12 medium-6 text-center">
-    <img zf-iconic="" dyn-icon="staticIcon.icon" dyn-icon-attrs="staticIcon.iconAttrs" size="large"></img>
-  </div>
-</div>
+<img zf-iconic="" dyn-icon="staticIcon.icon" dyn-icon-attrs="staticIcon.iconAttrs" size="medium"></img>
+
+<hr>
 
 <h4>Delay Loaded Icon</h4>
-<p>This example sets the icon programically <strong>AFTER</strong> the iconic directive is compiled by angular.  The same method for displaying the icon will not work as with the preloaded icon.</p>
-<div class="grid-block">
-  <div class="grid-content small-12 medium-6">
+<p>This example sets the icon programically <em>after</em> the iconic directive is compiled by angular.  The same method for displaying the icon will not work as with the preloaded icon.</p>
+
 <hljs>
-  <img zf-iconic="" dyn-icon="delayLoadedIcon.icon" dyn-icon-attrs="delayLoadedIcon.iconAttrs" size="large"></img>
+<img zf-iconic="" dyn-icon="delayLoadedIcon.icon" dyn-icon-attrs="delayLoadedIcon.iconAttrs" size="medium"></img>
 </hljs>
-  </div>
-  <div class="grid-content small-12 medium-6 text-center">
-    <img zf-iconic="" dyn-icon="delayLoadedIcon.icon" dyn-icon-attrs="delayLoadedIcon.iconAttrs" size="large"></img>
-  </div>
-</div>
+<img zf-iconic="" dyn-icon="delayLoadedIcon.icon" dyn-icon-attrs="delayLoadedIcon.iconAttrs" size="medium"></img>
+
 <p>One way to fix this is to set a default icon and change the value later.  This is similar to how the rotating icon works.  Another solution is to use <strong>ng-if</strong> to not have angular render the icon until it is available.</p>
-<div class="grid-block">
-  <div class="grid-content small-12 medium-6">
+
 <hljs>
-  <img ng-if="delayLoadedIcon" zf-iconic="" dyn-icon="delayLoadedIcon.icon" dyn-icon-attrs="delayLoadedIcon.iconAttrs" size="large"></img>
+<img ng-if="delayLoadedIcon" zf-iconic="" dyn-icon="delayLoadedIcon.icon" dyn-icon-attrs="delayLoadedIcon.iconAttrs" size="medium"></img>
 </hljs>
-  </div>
-  <div class="grid-content small-12 medium-6 text-center">
-    <img ng-if="delayLoadedIcon" zf-iconic="" dyn-icon="delayLoadedIcon.icon" dyn-icon-attrs="delayLoadedIcon.iconAttrs" size="large"></img>
-  </div>
-</div>
+<img ng-if="delayLoadedIcon" zf-iconic="" dyn-icon="delayLoadedIcon.icon" dyn-icon-attrs="delayLoadedIcon.iconAttrs" size="medium"></img>
 
-<h4>Example Angular Controller</h4>
+<hr>
+
+<h4>Example Ionic Controller</h4>
 <hljs>
-  function IconicController($scope, $timeout) {
-    var iconNum = 0,
-        icons = [{
-          icon: 'account',
-          iconAttrs: { state: 'login' }
-        },{
-          icon: 'account',
-          iconAttrs: { state: 'logout' }
-        },{
-          icon: 'chevron',
-          iconAttrs: { direction: 'right' }
-        },{
-          icon: 'chevron',
-          iconAttrs: { direction: 'left' }
-        }];
+function IconicController($scope, $timeout) {
+  var iconNum = 0,
+      icons = [{
+        icon: 'account',
+        iconAttrs: { state: 'login' }
+      },{
+        icon: 'account',
+        iconAttrs: { state: 'logout' }
+      },{
+        icon: 'chevron',
+        iconAttrs: { direction: 'right' }
+      },{
+        icon: 'chevron',
+        iconAttrs: { direction: 'left' }
+      }];
 
-    $scope.rotatingIcon = icons[0];
-    $scope.staticIcon = icons[0];
-    $scope.delayLoadedIcon = null;
+  $scope.rotatingIcon = icons[0];
+  $scope.staticIcon = icons[0];
+  $scope.delayLoadedIcon = null;
 
-    rotateIcon();
-    loadIcon();
+  rotateIcon();
+  loadIcon();
 
-    function rotateIcon() {
-      $timeout(function() {
-        if (++iconNum == icons.length) {
-          iconNum = 0;
-        }
-        $scope.rotatingIcon = icons[iconNum];
-        rotateIcon();
-      }, 3000);
-    };
+  function rotateIcon() {
+    $timeout(function() {
+      if (++iconNum == icons.length) {
+        iconNum = 0;
+      }
+      $scope.rotatingIcon = icons[iconNum];
+      rotateIcon();
+    }, 3000);
+  };
 
-    function loadIcon() {
-      $timeout(function() {
-        $scope.delayLoadedIcon = icons[0];
-      }, 3000);
-    };
-  }
+  function loadIcon() {
+    $timeout(function() {
+      $scope.delayLoadedIcon = icons[0];
+    }, 3000);
+  };
+}
 </hljs>
 
 <hr>
