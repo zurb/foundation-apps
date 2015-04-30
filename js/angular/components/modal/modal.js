@@ -76,7 +76,7 @@
 
         scope.hideOverlay = function() {
           if(scope.overlayClose) {
-            scope.hide();
+            foundationApi.publish(attrs.id, 'close');
           }
         };
 
@@ -160,7 +160,8 @@
         'animationIn',
         'animationOut',
         'overlay',
-        'overlayClose'
+        'overlayClose',
+        'class'
       ];
 
       if(config.templateUrl) {
@@ -232,11 +233,12 @@
           if(!attached && html.length > 0) {
             var modalEl = container.append(element);
 
-            scope.active = state;
             $compile(element)(scope);
 
             attached = true;
           }
+          
+          scope.active = state;
         });
       }
 
@@ -263,6 +265,9 @@
                 break;
               case 'animationOut':
                 element.attr('animation-out', config[prop]);
+                break;
+              case 'overlayClose':
+                element.attr('overlay-close', config[prop] ? 'true' : 'false'); // must be string, see postLink() above
                 break;
               default:
                 element.attr(prop, config[prop]);

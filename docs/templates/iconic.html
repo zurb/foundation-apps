@@ -1,6 +1,7 @@
 ---
 name: iconic
 url: /iconic
+controller: IconicController
 ---
 
 <h2>Iconic</h2>
@@ -150,6 +151,42 @@ url: /iconic
 
 <hr>
 
+<h3>Icon Attributes</h3>
+<p>Iconic provides the ability to futher customize some of their icons by using data attributes.  For example, one can create a chevron icon in any direction using <a href="https://useiconic.com/icons/chevron">data-direction</a>.  Icon attributes can also be passed as an object to the iconic directive using the <strong>icon-attrs</strong> attribute.</p>
+
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content text-center">
+    <img zf-iconic icon="chevron" data-direction="top" size="medium"></img>
+<hljs>
+  <img zf-iconic icon="chevron" data-direction="top" size="medium"></img>
+  <img zf-iconic icon="chevron" icon-attrs="{ direction: 'top' }" size="medium"></img>
+</hljs>
+  </div>
+  <div class="small-12 medium-6 grid-content text-center">
+    <img zf-iconic icon="chevron" data-direction="right" size="medium"></img>
+<hljs>
+  <img zf-iconic icon="chevron" data-direction="right" size="medium"></img>
+  <img zf-iconic icon="chevron" icon-attrs="{ direction: right' }" size="medium"></img>
+</hljs>
+  </div>
+  <div class="small-12 medium-6 grid-content text-center">
+    <img zf-iconic icon="chevron" data-direction="bottom" size="medium"></img>
+<hljs>
+  <img zf-iconic icon="chevron" data-direction="bottom" size="medium"></img>
+  <img zf-iconic icon="chevron" icon-attrs="{ direction: 'bottom' }" size="medium"></img>
+</hljs>
+  </div>
+  <div class="small-12 medium-6 grid-content text-center">
+    <img zf-iconic icon="chevron" data-direction="left" size="medium"></img>
+<hljs>
+  <img zf-iconic icon="chevron" data-direction="left" size="medium"></img>
+  <img zf-iconic icon="chevron" icon-attrs="{ direction: 'left' }" size="medium"></img>
+</hljs>
+  </div>
+</div>
+
+<hr>
+
 <h3>Icon Names</h3>
 <p>You can add in these sweet icons with this simple markup:</p>
 <div class="grid-block">
@@ -194,41 +231,7 @@ url: /iconic
   </div>
 </div>
 
-
 <hr>
-<h3>Responsive Icons</h3>
-<p>By default, all icons are responsive! Not only do they size, but the IconicJS library swaps in appropriate icons for the current window size. You can use the <code>size</code> attribute within the directive to override the responsiveness. Otherwise, your icon will automatically size itself and render more/less detail depending on the size of the container you place it in. You can resize the window to see the icons below change in size and detail.</p>
-  <hljs>
-  <div class="grid-block large-up-4 small-up-4 medium-up-4">
-    <div class="grid-content">
-      <img zf-iconic icon="dashboard" class="iconic-color-primary">
-    </div>
-    <div class="grid-content">
-      <img zf-iconic icon="dashboard" class="iconic-color-primary">
-      </div>
-    <div class="grid-content">
-        <img zf-iconic icon="dashboard" class="iconic-color-primary">
-    </div>
-    <div class="grid-content">
-        <img zf-iconic icon="dashboard" class="iconic-color-primary">
-    </div>
-  </div>
-  </hljs>
-  <div class="grid-block large-up-4 small-up-4 medium-up-4">
-    <div class="grid-content">
-      <img zf-iconic icon="dashboard" class="iconic-color-primary">
-    </div>
-    <div class="grid-content">
-      <img zf-iconic icon="dashboard" class="iconic-color-primary">
-      </div>
-    <div class="grid-content">
-        <img zf-iconic icon="dashboard" class="iconic-color-primary">
-    </div>
-    <div class="grid-content">
-      <img zf-iconic icon="dashboard" class="iconic-color-primary">
-    </div>
-  </div>
-
 
 <h3>Icon Sizing</h3>
 <p>You can affect the size of the icons with our color classes like so:</p>
@@ -247,13 +250,122 @@ url: /iconic
     <div class="grid-content">
       <img zf-iconic icon="thumb" size="medium" class="iconic-color-success"><span class="icon-label">Medium</span> &nbsp;&nbsp;&nbsp;&nbsp;
     </div>
-    <div class="grid-content">  
-      <img zf-iconic icon="thumb" size="large" class="iconic-color-secondary"><span class="icon-label">Large</span> 
+    <div class="grid-content">
+      <img zf-iconic icon="thumb" size="large" class="iconic-color-secondary"><span class="icon-label">Large</span>
     </div>
   </div>
 </div>
 
+<hr>
+<h3>Responsive Icons</h3>
+<p>By default, all icons are responsive! Not only do they size, but the IconicJS library swaps in appropriate icons for the current window size. You can use the <code>size</code> attribute within the directive to override the responsiveness. Otherwise, your icon will automatically size itself and render more/less detail depending on the size of the container you place it in. You can resize the window to see the icons below change in size and detail.</p>
+<hljs>
+<div class="grid-block large-up-4 small-up-4 medium-up-4">
+  <div class="grid-content">
+    <img zf-iconic icon="dashboard" class="iconic-color-primary">
+  </div>
+  <div class="grid-content">
+    <img zf-iconic icon="dashboard" class="iconic-color-primary">
+    </div>
+  <div class="grid-content">
+      <img zf-iconic icon="dashboard" class="iconic-color-primary">
+  </div>
+  <div class="grid-content">
+      <img zf-iconic icon="dashboard" class="iconic-color-primary">
+  </div>
+</div>
+</hljs>
+<div class="grid-block large-up-4 small-up-4 medium-up-4">
+  <div class="grid-content">
+    <img zf-iconic icon="dashboard" class="iconic-color-primary">
+  </div>
+  <div class="grid-content">
+    <img zf-iconic icon="dashboard" class="iconic-color-primary">
+    </div>
+  <div class="grid-content">
+      <img zf-iconic icon="dashboard" class="iconic-color-primary">
+  </div>
+  <div class="grid-content">
+    <img zf-iconic icon="dashboard" class="iconic-color-primary">
+  </div>
+</div>
 
+<hr>
+
+<h3>Dynamic Icons</h3>
+<p>All icons seen to this point have been static.  The icon to display and the data attributes to use were hard-coded into the HTML.  Sometimes the icon to display needs to be determined programatically.  Examples of how to use dynamic icons are shown below.  At the end you'll find the controller used for the examples.</p>
+
+<h4>Rotating Icon</h4>
+<p>This example renders a rotating icon.  The icon rotates through 4 different icons, changing every 3 seconds.</p>
+
+<hljs>
+<img zf-iconic="" dyn-icon="rotatingIcon.icon" dyn-icon-attrs="rotatingIcon.iconAttrs" size="medium"></img>
+</hljs>
+<img zf-iconic="" dyn-icon="rotatingIcon.icon" dyn-icon-attrs="rotatingIcon.iconAttrs" size="medium"></img>
+
+<hr>
+
+<h4>Pre Loaded Icon</h4>
+<p>This example sets the icon programatically <em>before</em> the iconic directive is compiled by angular.</p>
+<hljs>
+<img zf-iconic="" dyn-icon="staticIcon.icon" dyn-icon-attrs="staticIcon.iconAttrs" size="medium"></img>
+</hljs>
+<img zf-iconic="" dyn-icon="staticIcon.icon" dyn-icon-attrs="staticIcon.iconAttrs" size="medium"></img>
+
+<hr>
+
+<h4>Delay Loaded Icon</h4>
+<p>This example sets the icon programically <em>after</em> the iconic directive is compiled by angular.</p>
+
+<hljs>
+<img ng-if="delayLoadedIcon" zf-iconic="" dyn-icon="delayLoadedIcon.icon" dyn-icon-attrs="delayLoadedIcon.iconAttrs" size="medium"></img>
+</hljs>
+<img ng-if="delayLoadedIcon" zf-iconic="" dyn-icon="delayLoadedIcon.icon" dyn-icon-attrs="delayLoadedIcon.iconAttrs" size="medium"></img>
+
+<hr>
+
+<h4>Example Ionic Controller</h4>
+<hljs>
+function IconicController($scope, $timeout) {
+  var iconNum = 0,
+      icons = [{
+        icon: 'account',
+        iconAttrs: { state: 'login' }
+      },{
+        icon: 'account',
+        iconAttrs: { state: 'logout' }
+      },{
+        icon: 'chevron',
+        iconAttrs: { direction: 'right' }
+      },{
+        icon: 'chevron',
+        iconAttrs: { direction: 'left' }
+      }];
+
+  $scope.rotatingIcon = icons[0];
+  $scope.staticIcon = icons[0];
+  $scope.delayLoadedIcon = null;
+
+  rotateIcon();
+  loadIcon();
+
+  function rotateIcon() {
+    $timeout(function() {
+      if (++iconNum == icons.length) {
+        iconNum = 0;
+      }
+      $scope.rotatingIcon = icons[iconNum];
+      rotateIcon();
+    }, 3000);
+  };
+
+  function loadIcon() {
+    $timeout(function() {
+      $scope.delayLoadedIcon = icons[0];
+    }, 3000);
+  };
+}
+</hljs>
 
 <hr>
 <h3>Customize with Sass</h3>

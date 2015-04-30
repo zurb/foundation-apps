@@ -128,11 +128,11 @@
         };
 
         element.on('click', function(e) {
-          //check sizing
-          var srcEl = e.srcElement;
+          // Check sizing
+          var srcEl = e.target;
 
-          if(!matchMedia(globalQueries.medium).matches && srcEl.href && srcEl.href.length > 0) {
-            //hide element if it can't match at least medium
+          if (!matchMedia(globalQueries.medium).matches && srcEl.href && srcEl.href.length > 0) {
+            // Hide element if it can't match at least medium
             scope.hide();
             foundationApi.animate(element, scope.active, animationIn, animationOut);
           }
