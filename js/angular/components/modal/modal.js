@@ -268,6 +268,7 @@
                 break;
               case 'overlayClose':
                 element.attr('overlay-close', config[prop] ? 'true' : 'false'); // must be string, see postLink() above
+                break;
               case 'class':
                 if (angular.isString(config[prop])) {
                   config[prop].split(' ').forEach(function(klass) {
@@ -281,6 +282,7 @@
                 break;
               default:
                 element.attr(prop, config[prop]);
+                break;
             }
           }
         }
