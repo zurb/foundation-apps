@@ -237,7 +237,7 @@
 
             attached = true;
           }
-          
+
           scope.active = state;
         });
       }
@@ -254,7 +254,7 @@
 
         scope = $rootScope.$new();
 
-        // account for directive attributes
+        // account for directive attributes and modal classes
         for(var i = 0; i < props.length; i++) {
           var prop = props[i];
 
@@ -268,6 +268,16 @@
                 break;
               case 'overlayClose':
                 element.attr('overlay-close', config[prop] ? 'true' : 'false'); // must be string, see postLink() above
+              case 'class':
+                if (angular.isString(config[prop])) {
+                  config[prop].split(' ').forEach(function(klass) {
+                    element.addClass(klass);
+                  });
+                } else if (angular.isArray(config[prop])) {
+                  config[prop].forEach(function(klass) {
+                    element.addClass(klass);
+                  });
+                }
                 break;
               default:
                 element.attr(prop, config[prop]);

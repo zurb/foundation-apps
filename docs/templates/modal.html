@@ -2,6 +2,7 @@
 name: modal
 url: /modal
 title: Modal
+controller: ModalController
 ---
 
 <h2>Modal</h2>
@@ -123,6 +124,37 @@ title: Modal
     <a zf-open="dialogModal" class="button">Itty-Bitty Modal</a>
   </div>
 </div>
+
+<hr>
+
+<h3>Programmatic Modals</h3>
+
+<p>Modals can be created on the fly using our <code>ModalFactory</code>.  Clicking the button will execute the code shown below.</p>
+
+<div class="grid-content text-center">
+  <a class="button" ng-click="createModal()">Open modal</a>
+</div>
+<div class="grid-content">
+<hljs language="javascript">
+  var modal = new ModalFactory({
+    class: 'tiny dialog',
+    overlay: true,
+    overlayClose: false,
+    templateUrl: 'partials/examples-dynamic-modal.html',
+    contentScope: {
+      close: function() {
+        modal.deactivate();
+        $timeout(function() {
+          modal.destroy();
+        }, 1000);
+      }
+    }
+  });
+  modal.activate();
+</hljs>
+</div>
+
+<p>As you can see, the modal was specified to be a tiny dialog by setting the required classes for the <code>class</code> property of the config object passed to the <code>ModalFactory</code>.  The class property also supports arrays, if you wish to use <code>class: ['tiny', 'dialog']</code> instead.</p>
 
 <hr>
 
