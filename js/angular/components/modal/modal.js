@@ -160,7 +160,8 @@
         'animationIn',
         'animationOut',
         'overlay',
-        'overlayClose'
+        'overlayClose',
+        'class'
       ];
 
       if(config.templateUrl) {
@@ -264,6 +265,9 @@
                 break;
               case 'animationOut':
                 element.attr('animation-out', config[prop]);
+                break;
+              case 'overlayClose':
+                element.attr('overlay-close', config[prop] ? 'true' : 'false'); // must be string, see postLink() above
                 break;
               default:
                 element.attr(prop, config[prop]);
