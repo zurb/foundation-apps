@@ -232,11 +232,12 @@
           if(!attached && html.length > 0) {
             var modalEl = container.append(element);
 
-            scope.active = state;
             $compile(element)(scope);
 
             attached = true;
           }
+          
+          scope.active = state;
         });
       }
 
