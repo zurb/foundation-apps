@@ -296,7 +296,7 @@
       });
     }
   }
-  
+
   ModalController.$inject = ['$scope', '$timeout', 'ModalFactory'];
 
   function ModalController($scope, $timeout, ModalFactory) {
