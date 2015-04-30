@@ -315,14 +315,7 @@ controller: IconicController
 <hr>
 
 <h4>Delay Loaded Icon</h4>
-<p>This example sets the icon programically <em>after</em> the iconic directive is compiled by angular.  The same method for displaying the icon will not work as with the preloaded icon.</p>
-
-<hljs>
-<img zf-iconic="" dyn-icon="delayLoadedIcon.icon" dyn-icon-attrs="delayLoadedIcon.iconAttrs" size="medium"></img>
-</hljs>
-<img zf-iconic="" dyn-icon="delayLoadedIcon.icon" dyn-icon-attrs="delayLoadedIcon.iconAttrs" size="medium"></img>
-
-<p>One way to fix this is to set a default icon and change the value later.  This is similar to how the rotating icon works.  Another solution is to use <strong>ng-if</strong> to not have angular render the icon until it is available.</p>
+<p>This example sets the icon programically <em>after</em> the iconic directive is compiled by angular.</p>
 
 <hljs>
 <img ng-if="delayLoadedIcon" zf-iconic="" dyn-icon="delayLoadedIcon.icon" dyn-icon-attrs="delayLoadedIcon.iconAttrs" size="medium"></img>
