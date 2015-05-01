@@ -313,7 +313,7 @@ $block-grid-max-size: 6 !default;
   &.shrink { @include grid-size(shrink); }
 
   // Prevent an element from scrolling
-  &.noscroll { overflow: hidden; }
+  &.noscroll { overflow: visible; }
 }
 
 @include exports(grid) {
