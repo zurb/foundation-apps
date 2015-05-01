@@ -119,6 +119,9 @@ $modal-overlay-background: rgba(#333, 0.7) !default;
     align-items: center;
     justify-content: center;
 
+    // Prevent z-index issue in Mobile Safari
+    -webkit-transform: translate3d(0,0,0);
+
     &.is-active {
       display: flex;
     }
