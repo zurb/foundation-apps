@@ -74,11 +74,11 @@ title: Interchange
 <p>Interchange can also be achieved with our zf-if, zf-show, and zf-hide directives. These directives internally use <a href="https://docs.angularjs.org/api/ng/directive/ngIf">ng-if</a>, <a href="https://docs.angularjs.org/api/ng/directive/ngShow">ng-show</a>, and <a href="https://docs.angularjs.org/api/ng/directive/ngHide">ng-hide</a>, respectively, to achieve their interchange ability.  Simply pass the desired query into the directive and let it do its magic!</p>
 
 <h4>Named Queries</h4>
-<p>Any named breakpoint can be used as a query, the defaults being: <strong>small</strong>, <strong>medium</strong>, <strong>large</strong>, <strong>xlarge</strong>, and <strong>xxlarge</strong>.  Other supported queries include: <strong>landscape</strong>, <strong>portrait</strong>, and <strong>retina</strong>.</p>
+<p>Any named breakpoint can be used as a query, the defaults being: <code>small</code>, <code>medium</code>, <code>large</code>, <code>xlarge</code>, and <code>xxlarge</code>.  Other supported queries include: <code>landscape</code>, <code>portrait</code>, and <code>retina</code>.</p>
 
 <div class="grid-block">
   <div class="small-12 medium-6 grid-content">
-<hljs>
+<hljs language="html">
 <p zf-if="small">You are on a small or larger device.</p>
 <p zf-if="medium">You are on a medium or larger device.</p>
 <p zf-if="large">You are on a large or larger device.</p>
@@ -104,11 +104,11 @@ title: Interchange
 <hr>
 
 <h4>Only Operator</h4>
-<p>Named breakpoint queries support usage of the <strong>only</strong> operator.  When using the only operator, the result of the query will be true if the current media <i>EXACTLY</i> matches the query.</p>
+<p>Named breakpoint queries support usage of the <code>only</code> operator.  When using the only operator, the result of the query will be true if the current media <strong>EXACTLY</strong> matches the query.</p>
 
 <div class="grid-block">
   <div class="small-12 medium-6 grid-content">
-<hljs>
+<hljs language="html">
 <p zf-if="small only">You are only on a small device.</p>
 <p zf-if="medium only">You are only on a medium device.</p>
 <p zf-if="large only">You are only on a large device.</p>
@@ -128,11 +128,11 @@ title: Interchange
 <hr>
 
 <h4>Not Operator</h4>
-<p>Named breakpoint queries support usage of the <strong>not</strong> operator.  Usage of the <strong>not</strong> operator implies usage of the <strong>only</strong> operator.  When using the not operator, the result of the query will be true if the current media does <i>NOT EXACTLY</i> match the query.</p>
+<p>Named breakpoint queries support usage of the <code>not</code> operator.  Usage of the <code>not</code> operator implies usage of the <code>only</code> operator.  When using the not operator, the result of the query will be true if the current media does <strong>NOT EXACTLY</strong> match the query.</p>
 
 <div class="grid-block">
   <div class="small-12 medium-6 grid-content">
-<hljs>
+<hljs language="html">
 <p zf-if="not small">You are not on a small device.</p>
 <p zf-if="not medium">You are not on a medium device.</p>
 <p zf-if="not large">You are not on a large device.</p>

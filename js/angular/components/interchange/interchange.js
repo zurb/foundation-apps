@@ -100,21 +100,21 @@
   /*
    * zf-if / zf-show / zf-hide
    */
-    .directive('zfIf', zfQueryWrapper('ng-if', 'zf-if'))
-    .directive('zfShow', zfQueryWrapper('ng-show', 'zf-show'))
-    .directive('zfHide', zfQueryWrapper('ng-hide', 'zf-hide'))
+    .directive('zfIf', zfQueryDirective('ng-if', 'zf-if'))
+    .directive('zfShow', zfQueryDirective('ng-show', 'zf-show'))
+    .directive('zfHide', zfQueryDirective('ng-hide', 'zf-hide'))
   ;
 
   /*
    * This directive will configure ng-if/ng-show/ng-hide and zf-query directives and then recompile the element
    */
-  function zfQueryWrapper(angularDirective, directiveName) {
-    return ['$compile', 'FoundationApi', function zfQueryDirective($compile, foundationApi) {
-      // create unique scope property for media query result, must be unique to avoid collision with other properties of zf-query scope
+  function zfQueryDirective(angularDirective, directiveName) {
+    return ['$compile', 'FoundationApi', function ($compile, foundationApi) {
+      // create unique scope property for media query result, must be unique to avoid collision with other zf-query directives
       // property set upon element compilation or else all similar directives (i.e. zf-if-*/zf-show-*/zf-hide-*) will get the same value
       var queryResult;
 
-      var directive = {
+      return {
         priority: 1000, // must compile directive before any others
         terminal: true, // don't compile any other directive after this
                         // we'll fix this with a recompile
@@ -122,10 +122,7 @@
         compile: compile
       };
 
-      return directive;
-
       // From here onward, scope[queryResult] refers to the result of running the provided query
-      // against either the media or element as specified by the zf-query-type attribute.
       function compile(element, attrs) {
         // set unique property
         queryResult = (directiveName + foundationApi.generateUuid()).replace(/-/g,'');
@@ -161,7 +158,7 @@
           element.attr(angularDirective, queryResult + ' && (' + element.attr(angularDirective) + ')');
         }
 
-        // remove directive from currnet element to avoid infinite recompile
+        // remove directive from current element to avoid infinite recompile
         element.removeAttr(directiveName);
         element.removeAttr('data-' + directiveName);
 
@@ -172,22 +169,23 @@
             // recompile
             $compile(element)(scope);
           }
-        }
+        };
       }
     }];
   }
 
   zfQuery.$inject = ['FoundationApi', 'FoundationMQ'];
   function zfQuery(foundationApi, foundationMQ) {
-    var directive = {
+    return {
       priority: 601, // must compile before ng-if (600)
       restrict: 'A',
       compile: function compile(element, attrs) {
-        return compileWrapper(attrs['zfQueryScopeProp'], attrs['zfQuery'], attrs['zfQueryOnly'] === "true", attrs['zfQueryNot'] === "true");
+        return compileWrapper(attrs['zfQueryScopeProp'],
+                              attrs['zfQuery'],
+                              attrs['zfQueryOnly'] === "true",
+                              attrs['zfQueryNot'] === "true");
       }
     };
-
-    return directive;
 
     // parameters will be populated with values provided from zf-query-* attributes
     function compileWrapper(queryResult, namedQuery, queryOnly, queryNot) {
@@ -198,10 +196,9 @@
       return {
         pre: preLink,
         post: postLink
-      }
+      };
 
-      // From here onward, scope[queryResult] refers to the result of running the provided media query
-      // against either the media or element as specified by the zf-if-type attribute.
+      // From here onward, scope[queryResult] refers to the result of running the provided query
       function preLink(scope, element, attrs) {
         // initially set media query result to false
         scope[queryResult] = false;
@@ -235,9 +232,8 @@
             mediaUpNamedQuery = foundationMQ.getNextMediaUp(namedQuery);
 
             if (!queryNot) {
-              /*
-               * Check that media ONLY matches named query and nothing else
-               */
+              // Check that media ONLY matches named query and nothing else
+
               if (!mediaUpNamedQuery) {
                 // reached max media size, run query for current media
                 scope[queryResult] = foundationMQ.matchesMedia(namedQuery);
@@ -246,15 +242,13 @@
                 scope[queryResult] = foundationMQ.matchesMedia(namedQuery) && !foundationMQ.matchesMedia(mediaUpNamedQuery);
               }
             } else {
-              /*
-               * Check that media does NOT match named query
-               */
-              // require that the media doesn't match the current query
+              // Check that media does NOT match named query
+
               if (!foundationMQ.matchesMedia(namedQuery)) {
-                // media doesn't match
+                // media doesn't match the current query
                 scope[queryResult] = true;
               } else {
-                // if it does match, make sure it also matches the next up media
+                // media matched query, make sure it also matches the next up media
                 if (!mediaUpNamedQuery) {
                   // no next size up, means media still matches
                   scope[queryResult] = false;
@@ -264,10 +258,6 @@
               }
             }
           }
-        }
-
-        function matchesMedia(query) {
-          return foundationMQ.matchesMedia(query);
         }
       }
     }
