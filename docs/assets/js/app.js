@@ -39,6 +39,12 @@
 
   function run() {
       FastClick.attach(document.body);
+
+      var ua = navigator.userAgent;
+
+      if (ua.match(/iP(hone|ad|od)/) && !ua.match(/CriOS/)) {
+        document.body.classList.add('is-mobilesafari');
+      }
   }
 
   track.$inject = ['$rootScope','$window', '$location'];
