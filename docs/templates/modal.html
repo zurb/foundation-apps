@@ -36,7 +36,7 @@ controller: ModalController
 <hr>
 
 <h3>Using the Grid</h3>
-<p>You can embed a grid inside of a modal, complete with scrolling panels, fixed areas, and responsive adjustments. Start by nesting a grid block directly inside the modal container, and go from there. Note that you also need to add a <code>padding</code> class to the <code>zf-modal</code> element if you want the grid elements to be flush with the edge of the modal.</p>
+<p>You can embed a grid inside of a modal, complete with scrolling panels, fixed areas, and responsive adjustments. Start by nesting a grid block directly inside the modal container, and go from there. Note that you also need to add a <code>collapse</code> class to the <code>zf-modal</code> element if you want the grid elements to be flush with the edge of the modal.</p>
 
 <div class="grid-block">
   <div class="small-12 medium-6 grid-content">
@@ -89,7 +89,7 @@ controller: ModalController
 <hljs>
 <a zf-open="animatedModal" class="button">Fancy-esque Modal</a>
 
-<div zf-modal id="animatedModal" animation-in="slideInDown" animation-out="hingeOutFromMiddleY">
+<div zf-modal id="animatedModal" animation-in="slideInUp" animation-out="hingeOutFromMiddleY">
   <a zf-close class="close-button">&times;</a>
   <p><em>Slide to the left</em></p>
   <p class="text-right"><em>Slide to the right</em></p>
