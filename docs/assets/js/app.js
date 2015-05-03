@@ -42,7 +42,11 @@
 
       var ua = navigator.userAgent;
 
-      if (ua.match(/iP(hone|ad|od)/) && !ua.match(/CriOS/)) {
+      // Add special classes for Mobile Safari to correct its miscalculation of 100vh
+      // The first check is to see if it's an Apple device
+      // The second check is to make sure it's not a UIWebView
+      // The third check is to make sure it's not Chrome for iOS
+      if (ua.match(/iP(hone|ad|od)/) && ua.match(/Safari/) && !ua.match(/CriOS/)) {
         if (ua.match(/i(Phone|od)/)) {
           document.body.classList.add('is-iphone');
         }
