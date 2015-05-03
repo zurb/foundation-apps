@@ -43,7 +43,12 @@
       var ua = navigator.userAgent;
 
       if (ua.match(/iP(hone|ad|od)/) && !ua.match(/CriOS/)) {
-        document.body.classList.add('is-mobilesafari');
+        if (ua.match(/i(Phone|od)/)) {
+          document.body.classList.add('is-iphone');
+        }
+        else {
+          document.body.classList.add('is-ipad');
+        }
       }
   }
 

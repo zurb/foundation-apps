@@ -225,8 +225,13 @@ $block-grid-max-size: 6 !default;
   backface-visibility: hidden;
 
   // Correct vh in Mobile Safari
-  .is-mobilesafari & {
+  // Srs, this is the worst
+  .is-iphone & {
     height: calc(100vh - 69px);
+  }
+
+  .is-ipad & {
+    height: calc(100vh - 24px);
   }
 
   @include grid-size($size);
