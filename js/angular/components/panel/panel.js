@@ -83,7 +83,8 @@
           var panelPosition = $window.getComputedStyle(element[0]).getPropertyValue("position");
 
           // patch to prevent panel animation on larger screen devices
-          if (panelPosition !== 'absolute') {
+          // don't run animation on grid elements, only panel
+          if (panelPosition == 'static' || panelPosition == 'relative') {
             return;
           }
 
