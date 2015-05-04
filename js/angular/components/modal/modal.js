@@ -125,7 +125,16 @@
             element.css('background', 'transparent');
           }
 
-          foundationApi.animate(element, scope.active, overlayIn, overlayOut);
+          // work around for modal animations
+          // due to a bug where the overlay fadeIn is essentially covering up
+          // the dialog's animation
+          if (!scope.active) {
+            foundationApi.animate(element, scope.active, overlayIn, overlayOut);
+          }
+          else {
+            element.addClass('is-active');
+          }
+
           foundationApi.animate(dialog, scope.active, animationIn, animationOut);
         }
 
