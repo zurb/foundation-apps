@@ -74,7 +74,7 @@
           animationOut = attrs.animationOut || 'slideOutUp';
         } else if (scope.position === 'bottom') {
           animationIn  = attrs.animationIn || 'slideInUp';
-          animationOut = attrs.animationOut || 'slideOutBottom';
+          animationOut = attrs.animationOut || 'slideOutDown';
         }
 
 
