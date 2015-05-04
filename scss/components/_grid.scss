@@ -224,6 +224,16 @@ $block-grid-max-size: 6 !default;
   overflow: hidden;
   backface-visibility: hidden;
 
+  // Correct vh in Mobile Safari
+  // Srs, this is the worst
+  .is-iphone & {
+    height: calc(100vh - 69px);
+  }
+
+  .is-ipad & {
+    height: calc(100vh - 24px);
+  }
+
   @include grid-size($size);
   @include grid-orient($orientation);
   @include grid-wrap($wrap);

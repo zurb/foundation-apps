@@ -74,8 +74,10 @@ $foundation-colors: (
   // Make extra sure we're using the whole window
   html, body {
     height: 100%;
+    overflow: hidden;
     font-size: $base-font-size;
   }
+  
   // Set box-sizing globally to handle padding and border widths
   html {
     box-sizing: border-box;
@@ -114,7 +116,11 @@ $foundation-colors: (
   }
 
   // Give all anchors and interactive directives the hover cusor
-  a, [ui-sref], [zf-open], [zf-close], [zf-toggle] {
+  a,
+  [ui-sref],
+  [zf-open],
+  [zf-close],
+  [zf-toggle] {
     cursor: pointer;
   }
 
