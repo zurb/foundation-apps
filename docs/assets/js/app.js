@@ -37,9 +37,7 @@
       $locationProvider.hashPrefix('!');
   }
 
-  function run() {
-      FastClick.attach(document.body);
-  }
+  function run() {}
 
   track.$inject = ['$rootScope','$window', '$location'];
 

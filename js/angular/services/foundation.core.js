@@ -7,6 +7,7 @@
     .service('FoundationApi', FoundationApi)
     .service('FoundationAdapter', FoundationAdapter)
     .factory('Utils', Utils)
+    .run(Setup);
   ;
 
   FoundationApi.$inject = ['FoundationAnimation'];
@@ -157,6 +158,18 @@
           }, delay);
         }
       };
+    }
+  }
+
+  function Setup() {
+    // Attach FastClick
+    if (FastClick) {
+      FastClick.attach(document.body);
+    }
+
+    // Attach viewport units buggyfill
+    if (viewportUnitsBuggyfill) {
+      viewportUnitsBuggyfill.init();
     }
   }
 
