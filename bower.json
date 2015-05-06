@@ -2,7 +2,7 @@
   "name": "foundation-apps",
   "version": "1.1.0",
   "main": [
-    "dist/css/foundation-apps.css",
+    "scss/foundation.scss",
     "dist/js/foundation-apps.js",
     "dist/js/foundation-apps-templates.js"
   ],
