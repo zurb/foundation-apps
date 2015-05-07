@@ -46,6 +46,10 @@ $switch-paddle-offset: 4px !default;
       left: 0;
     }
   }
+
+  input + label {
+    margin-left: 0;
+  }
 }
 
 /*
