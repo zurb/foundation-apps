@@ -29,7 +29,7 @@ title: Touch Gestures
 
   <h4>Velocity</h4>
   <p>The minimum swipe speed in px/ms.  Named velocities can be created to assist with the swipe configuration.  The following named velocities exist by default: <code>slow</code>, <code>normal</code>, <code>fast</code></p>
-  <p>The default named velocities can be cleared by calling <code>SwipeSettingsProvider.clearVelocitys()</code></p>
+  <p>The default named velocities can be cleared by calling <code>SwipeSettingsProvider.clearVelocities()</code></p>
   <p>A named velocity can be added by calling <code>SwipeSettingsProvider.addVelocity(name, value)</code></p>
 </section>
 
@@ -115,7 +115,7 @@ title: Touch Gestures
 </hljs>
       </div>
       <div class="grid-content small-12 medium-6 text-center" zf-swipe="swipeCount2 = swipeCount2 + 1" direction="left" style="border: 1px solid #000; padding: 2rem">
-        <p>Element has been swiped {{ swipeCount2 }} times.</p>
+        <p>Element has been swiped LEFT {{ swipeCount2 }} times.</p>
       </div>
     </div>
 
@@ -126,12 +126,12 @@ title: Touch Gestures
       <div class="grid-content small-12 medium-6">
 <hljs>
   <div zf-swipe="swipeCount = swipeCount + 1" distance="far">
-    <p>Element has been swiped {{ swipeCount }} times.</p>
+    <p>Element has been swiped FAR {{ swipeCount }} times.</p>
   </div>
 </hljs>
       </div>
       <div class="grid-content small-12 medium-6 text-center" zf-swipe="swipeCount3 = swipeCount3 + 1" distance="far" style="border: 1px solid #000; padding: 2rem">
-        <p>Element has been swiped {{ swipeCount3 }} times.</p>
+        <p>Element has been swiped FAR {{ swipeCount3 }} times.</p>
       </div>
     </div>
 
@@ -142,12 +142,12 @@ title: Touch Gestures
       <div class="grid-content small-12 medium-6">
 <hljs>
   <div zf-swipe="swipeCount = swipeCount + 1" velocity="fast">
-    <p>Element has been swiped {{ swipeCount }} times.</p>
+    <p>Element has been swiped FAST {{ swipeCount }} times.</p>
   </div>
 </hljs>
       </div>
       <div class="grid-content small-12 medium-6 text-center" zf-swipe="swipeCount4 = swipeCount4 + 1" velocity="fast" style="border: 1px solid #000; padding: 2rem">
-        <p>Element has been swiped {{ swipeCount4 }} times.</p>
+        <p>Element has been swiped FAST {{ swipeCount4 }} times.</p>
       </div>
     </div>
   </section>

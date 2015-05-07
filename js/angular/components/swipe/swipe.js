@@ -81,7 +81,7 @@
     }
   }
 
-  zfSwipeClose.$inject = ['$parse', 'SwipeSettings'];
+  zfSwipe.$inject = ['$parse', 'SwipeSettings'];
 
   function zfSwipe($parse, SwipeSettings) {
     var directive = {
@@ -91,31 +91,48 @@
     return directive;
 
     function compile(element, attrs) {
-      var swipeDirection = attrs['direction'] || attrs['dataDirection'];
-      var swipeDistance = attrs['distance'] || attrs['dataDistance'];
-      var swipeVelocity = attrs['velocity'] || attrs['dataVelocity'];
-      var fn = $parse(attrs['zfSwipe'], /* interceptorFn */ null, /* expensiveChecks */ true);
+      var fn, swipeDirection, swipeDistance, swipeVelocity;
 
+      // configure function to evalute expression upon swipe (see ng-click source)
+      fn = $parse(attrs.zfSwipe, /* interceptorFn */ null, /* expensiveChecks */ true);
+
+      // pull values from attributes
+      swipeDirection = attrs.direction || attrs.dataDirection;
+      swipeDistance = attrs.distance || attrs.dataDistance;
+      swipeVelocity = attrs.velocity || attrs.dataVelocity;
+
+      // update values to those required by hammer config
       swipeDirection = getHammerSwipeDirection(swipeDirection);
-      if (swipeDistance) {
+      if (angular.isString(swipeDistance)) {
+        // get value for named distance
         swipeDistance = SwipeSettings.getDistance(swipeDistance);
+      } else if (!angular.isNumber(swipeDistance)) {
+        // clear value if not number
+        swipeDistance = undefined;
       }
-      if (swipeVelocity) {
+      if (angular.isString(swipeVelocity)) {
+        // get value for named velocity
         swipeVelocity = SwipeSettings.getVelocity(swipeVelocity);
+      } else if (!angular.isNumber(swipeVelocity)) {
+        // clear value if not number
+        swipeVelocity = undefined;
       }
 
       return function zfSwipeDirective(scope, element) {
         var hammerElem, hammerConfig;
         if (Hammer) {
-          hammerElem = new Hammer(element[0]);
-          hammerConfig = {};
+          // configure hammer
+          hammerConfig = {
+            direction: Hammer.DIRECTION_ALL
+          };
           if (swipeDistance) {
             hammerConfig.threshold = swipeDistance;
           }
           if (swipeVelocity) {
             hammerConfig.velocity = swipeVelocity;
           }
-          hammerConfig.direction = Hammer.DIRECTION_ALL;
+
+          hammerElem = new Hammer(element[0]);
           hammerElem.get('swipe').set(hammerConfig);
 
           hammerElem.on(swipeDirection, function(event) {
