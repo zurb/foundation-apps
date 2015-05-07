@@ -512,7 +512,7 @@ $motion-delay-long: 700ms !default;
 }
 
 // Applied to the animating views
-.ui-animation {
+[ui-view] {
   &.ng-enter-active, &.ng-leave-active {
     position: absolute !important;
     backface-visibility: hidden;
