@@ -1,6 +1,5 @@
 {
   "name": "foundation-apps",
-  "version": "1.1.0",
   "main": [
     "scss/foundation.scss",
     "dist/js/foundation-apps.js",
