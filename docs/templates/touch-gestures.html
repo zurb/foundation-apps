@@ -19,6 +19,23 @@ title: Touch Gestures
 <hr>
 
 <section>
+  <h3>Swipe Settings</h3>
+  <p>A <code>SwipeSettings</code> provider exists to allow fine tuning of the swipe detection used for a touch directive.</p>
+
+  <h4>Distance</h4>
+  <p>The minimum swipe distance in px.  Named distances can be created to assist with the swipe configuration.  The following named distances exist by default: <code>short</code>, <code>normal</code>, <code>far</code></p>
+  <p>The default named distances can be cleared by calling <code>SwipeSettingsProvider.clearDistances()</code></p>
+  <p>A named distance can be added by calling <code>SwipeSettingsProvider.addDistance(name, value)</code></p>
+
+  <h4>Velocity</h4>
+  <p>The minimum swipe speed in px/ms.  Named velocities can be created to assist with the swipe configuration.  The following named velocities exist by default: <code>slow</code>, <code>normal</code>, <code>fast</code></p>
+  <p>The default named velocities can be cleared by calling <code>SwipeSettingsProvider.clearVelocities()</code></p>
+  <p>A named velocity can be added by calling <code>SwipeSettingsProvider.addVelocity(name, value)</code></p>
+</section>
+
+<hr>
+
+<section>
   <h3>Swipe to Close</h3>
 
   <p>Add the <code>zf-swipe-close</code> directive to a closable element, such as a panel, off-canvas menu, modal, or notification, to trigger a close when the user swipes over the component. The swipe direction is set on the directive, and can be either <code>up</code>, <code>down</code>, <code>left</code>, or <code>right</code>.</p>
@@ -58,6 +75,79 @@ title: Touch Gestures
       </div>
       <div class="small-12 medium-6 grid-content">
         <a class="button" zf-toggle="example-touch-modal">Swipe Modal</a>
+      </div>
+    </div>
+  </section>
+</section>
+
+<hr>
+
+<section>
+  <h3>Evaluate on Swipe</h3>
+  <p>Similar to how <a href="https://docs.angularjs.org/api/ng/directive/ngClick">ng-click</a> allows you to specify custom behavior when an element is clicked, <code>zf-swipe</code> allows you to specify custom behavior when an element is swiped.</p>
+
+  <section>
+    <h4>Expression</h4>
+    <p>The expression to evaluate when the swipe is triggered.  The expression is provided as the value for the zf-swipe attribute.</p>
+
+    <div class="grid-block" ng-init="swipeCount1 = 0">
+      <div class="grid-content small-12 medium-6">
+<hljs>
+  <div zf-swipe="swipeCount = swipeCount + 1">
+    <p>Element has been swiped {{ swipeCount }} times.</p>
+  </div>
+</hljs>
+      </div>
+      <div class="grid-content small-12 medium-6 text-center" zf-swipe="swipeCount1 = swipeCount1 + 1" style="border: 1px solid #000; padding: 2rem">
+        <p>Element has been swiped {{ swipeCount1 }} times.</p>
+      </div>
+    </div>
+
+    <h4>Direction</h4>
+    <p>The direction the element must be swiped.  When not specified, the element can be swiped in any direction.</p>
+
+    <div class="grid-block" ng-init="swipeCount2 = 0">
+      <div class="grid-content small-12 medium-6">
+<hljs>
+  <div zf-swipe="swipeCount = swipeCount + 1" direction="left">
+    <p>Element has been swiped LEFT {{ swipeCount }} times.</p>
+  </div>
+</hljs>
+      </div>
+      <div class="grid-content small-12 medium-6 text-center" zf-swipe="swipeCount2 = swipeCount2 + 1" direction="left" style="border: 1px solid #000; padding: 2rem">
+        <p>Element has been swiped LEFT {{ swipeCount2 }} times.</p>
+      </div>
+    </div>
+
+    <h4>Distance</h4>
+    <p>A named distance to use for the swipe detection.  When not specified, the default Hammer value is used.</p>
+
+    <div class="grid-block" ng-init="swipeCount3 = 0">
+      <div class="grid-content small-12 medium-6">
+<hljs>
+  <div zf-swipe="swipeCount = swipeCount + 1" distance="far">
+    <p>Element has been swiped FAR {{ swipeCount }} times.</p>
+  </div>
+</hljs>
+      </div>
+      <div class="grid-content small-12 medium-6 text-center" zf-swipe="swipeCount3 = swipeCount3 + 1" distance="far" style="border: 1px solid #000; padding: 2rem">
+        <p>Element has been swiped FAR {{ swipeCount3 }} times.</p>
+      </div>
+    </div>
+
+    <h4>Velocity</h4>
+    <p>A named velocity to use for the swipe detection.  When not specified, the default Hammer value is used.</p>
+
+    <div class="grid-block" ng-init="swipeCount4 = 0">
+      <div class="grid-content small-12 medium-6">
+<hljs>
+  <div zf-swipe="swipeCount = swipeCount + 1" velocity="fast">
+    <p>Element has been swiped FAST {{ swipeCount }} times.</p>
+  </div>
+</hljs>
+      </div>
+      <div class="grid-content small-12 medium-6 text-center" zf-swipe="swipeCount4 = swipeCount4 + 1" velocity="fast" style="border: 1px solid #000; padding: 2rem">
+        <p>Element has been swiped FAST {{ swipeCount4 }} times.</p>
       </div>
     </div>
   </section>
