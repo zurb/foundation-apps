@@ -37,7 +37,9 @@
     function init() {
       var mediaQueries;
       var extractedMedia;
-      var mediaObject;
+      var mediaQuerySizes;
+      var mediaUpMap;
+      var key;
 
       helpers.headerHelper(['foundation-mq']);
       extractedMedia = helpers.getStyle('.foundation-mq', 'font-family');
@@ -47,20 +49,35 @@
       }
 
       mediaQueries = helpers.parseStyleToObject((extractedMedia));
+      mediaQuerySizes = [];
 
-      for(var key in mediaQueries) {
+      for(key in mediaQueries) {
+        mediaQuerySizes.push({ query: key, size: parseInt(mediaQueries[key].replace('rem', '')) });
         mediaQueries[key] = 'only screen and (min-width: ' + mediaQueries[key].replace('rem', 'em') + ')';
       }
 
+      // sort by increasing size
+      mediaQuerySizes.sort(function(a,b) {
+        return a.size > b.size ? 1 : (a.size < b.size ? -1 : 0);
+      });
+
+      mediaUpMap = {};
+      for (key = 0; key < mediaQuerySizes.length; key++) {
+        if (key+1 < mediaQuerySizes.length) {
+          mediaUpMap[mediaQuerySizes[key].query] = mediaQuerySizes[key+1].query;
+        } else {
+          mediaUpMap[mediaQuerySizes[key].query] = null;
+        }
+      }
 
       foundationApi.modifySettings({
-        mediaQueries: angular.extend(mediaQueries, namedQueries)
+        mediaQueries: angular.extend(mediaQueries, namedQueries),
+        mediaUpMap: mediaUpMap
       });
 
       window.addEventListener('resize', u.throttle(function() {
         foundationApi.publish('resize', 'window resized');
       }, 50));
-
     }
   }
 
@@ -133,16 +150,29 @@
   FoundationMQ.$inject = ['FoundationApi'];
 
   function FoundationMQ(foundationApi) {
-    var service = [];
+    var service = [],
+        mediaQueryResultCache = {},
+        queryMinWidthCache = {};
+
+    foundationApi.subscribe('resize', function() {
+      // any new resize event causes a clearing of the media cache
+      mediaQueryResultCache = {};
+    });
 
     service.getMediaQueries = getMediaQueries;
     service.match = match;
+    service.matchesMedia = matchesMedia;
+    service.getNextMediaUp = getNextMediaUp;
     service.collectScenariosFromElement = collectScenariosFromElement;
 
     return service;
 
     function getMediaQueries() {
       return foundationApi.getSettings().mediaQueries;
+    }
+
+    function getNextMediaUp(media) {
+      return foundationApi.getSettings().mediaUpMap[media];
     }
 
     function match(scenarios) {
@@ -170,6 +200,14 @@
       return matches;
     }
 
+    function matchesMedia(query) {
+      if (angular.isUndefined(mediaQueryResultCache[query])) {
+        // cache miss, run media query
+        mediaQueryResultCache[query] = match([{media: query}]).length > 0;
+      }
+      return mediaQueryResultCache[query];
+    }
+
     // Collects a scenario object and templates from element
     function collectScenariosFromElement(parentElement) {
       var scenarios = [];
@@ -180,7 +218,6 @@
 
       angular.forEach(elements, function(el) {
         var elem = angular.element(el);
-
 
         //if no source or no html, capture element itself
         if (!elem.attr('src') || !elem.attr('src').match(/.html$/)) {
