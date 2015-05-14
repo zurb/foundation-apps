@@ -38,7 +38,7 @@
       var mediaQueries;
       var extractedMedia;
       var mediaQuerySizes;
-      var mediaUpMap;
+      var mediaMap;
       var key;
 
       helpers.headerHelper(['foundation-mq']);
@@ -57,18 +57,25 @@
         return a.size > b.size ? 1 : (a.size < b.size ? -1 : 0);
       });
 
-      mediaUpMap = {};
+      mediaMap = {};
       for (key = 0; key < mediaQuerySizes.length; key++) {
+        mediaMap[mediaQuerySizes[key].query] = {
+          up: null,
+          down: null
+        };
+
         if (key+1 < mediaQuerySizes.length) {
-          mediaUpMap[mediaQuerySizes[key].query] = mediaQuerySizes[key+1].query;
-        } else {
-          mediaUpMap[mediaQuerySizes[key].query] = null;
+          mediaMap[mediaQuerySizes[key].query].up = mediaQuerySizes[key+1].query;
+        }
+
+        if (key !== 0) {
+          mediaMap[mediaQuerySizes[key].query].down = mediaQuerySizes[key-1].query;
         }
       }
 
       foundationApi.modifySettings({
         mediaQueries: angular.extend(mediaQueries, namedQueries),
-        mediaUpMap: mediaUpMap
+        mediaMap: mediaMap
       });
 
       window.addEventListener('resize', u.throttle(function() {
@@ -158,7 +165,8 @@
     service.getMediaQueries = getMediaQueries;
     service.match = match;
     service.matchesMedia = matchesMedia;
-    service.getNextMediaUp = getNextMediaUp;
+    service.matchesMediaOrSmaller = matchesMediaOrSmaller;
+    service.matchesMediaOnly = matchesMediaOnly;
     service.collectScenariosFromElement = collectScenariosFromElement;
 
     return service;
@@ -167,8 +175,22 @@
       return foundationApi.getSettings().mediaQueries;
     }
 
-    function getNextMediaUp(media) {
-      return foundationApi.getSettings().mediaUpMap[media];
+    function getNextLargestMediaQuery(media) {
+      var mediaMapEntry = foundationApi.getSettings().mediaMap[media];
+      if (mediaMapEntry) {
+        return mediaMapEntry.up;
+      } else {
+        return null;
+      }
+    }
+
+    function getNextSmallestMediaQuery(media) {
+      var mediaMapEntry = foundationApi.getSettings().mediaMap[media];
+      if (mediaMapEntry) {
+        return mediaMapEntry.down;
+      } else {
+        return null;
+      }
     }
 
     function match(scenarios) {
@@ -202,6 +224,49 @@
         mediaQueryResultCache[query] = match([{media: query}]).length > 0;
       }
       return mediaQueryResultCache[query];
+    }
+
+    function matchesMediaOrSmaller(query) {
+      // In order to match the named breakpoint or smaller,
+      // the next largest named breakpoint cannot be matched
+      var nextLargestMedia = getNextLargestMediaQuery(query);
+      if (nextLargestMedia && matchesMedia(nextLargestMedia)) {
+        return false;
+      }
+
+      // Check to see if any smaller named breakpoint is matched
+      return matchesSmallerRecursive(query);
+
+      function matchesSmallerRecursive(query) {
+        var nextSmallestMedia;
+
+        if (matchesMedia(query)) {
+          // matches breakpoint
+          return true;
+        } else {
+          // check if matches smaller media
+          nextSmallestMedia = getNextSmallestMediaQuery(query);
+          if (!nextSmallestMedia) {
+            // no more smaller breakpoints
+            return false;
+          } else {
+            return matchesSmallerRecursive(nextSmallestMedia);
+          }
+        }
+      }
+    }
+
+    function matchesMediaOnly(query) {
+      // Check that media ONLY matches named breakpoint and nothing else
+      var nextLargestMedia = getNextLargestMediaQuery(query);
+
+      if (!nextLargestMedia) {
+        // reached max media size, run query for current media
+        return matchesMedia(query);
+      } else {
+        // must match named breakpoint, but not next largest
+        return matchesMedia(query) && !matchesMedia(nextLargestMedia);
+      }
     }
 
     // Collects a scenario object and templates from element
