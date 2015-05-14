@@ -124,12 +124,15 @@
 
       // From here onward, scope[queryResult] refers to the result of running the provided query
       function compile(element, attrs) {
+        var previousParam;
+
         // set unique property
         queryResult = (directiveName + foundationApi.generateUuid()).replace(/-/g,'');
 
         // set default configuration
         element.attr('zf-query-not', false);
         element.attr('zf-query-only', false);
+        element.attr('zf-query-or-smaller', false);
         element.attr('zf-query-scope-prop', queryResult);
 
         // parse directive attribute for query parameters
@@ -144,10 +147,20 @@
               case "only":
                 element.attr('zf-query-only', true);
                 break;
+              case "or":
+                break;
+              case "smaller":
+                // allow usage of smaller keyword if preceeded by 'or' keyword
+                if (previousParam === "or") {
+                  element.attr('zf-query-or-smaller', true);
+                }
+                break;
               default:
                 element.attr('zf-query', param);
                 break;
             }
+
+            previousParam = param;
           }
         });
 
@@ -183,12 +196,13 @@
         return compileWrapper(attrs['zfQueryScopeProp'],
                               attrs['zfQuery'],
                               attrs['zfQueryOnly'] === "true",
-                              attrs['zfQueryNot'] === "true");
+                              attrs['zfQueryNot'] === "true",
+                              attrs['zfQueryOrSmaller'] === "true");
       }
     };
 
     // parameters will be populated with values provided from zf-query-* attributes
-    function compileWrapper(queryResult, namedQuery, queryOnly, queryNot) {
+    function compileWrapper(queryResult, namedQuery, queryOnly, queryNot, queryOrSmaller) {
       // set defaults
       queryOnly = queryOnly || false;
       queryNot = queryNot || false;
@@ -223,39 +237,21 @@
         runQuery();
 
         function runQuery() {
-          var mediaUpNamedQuery;
-
           if (!queryOnly) {
-            // run named query
-            scope[queryResult] = foundationMQ.matchesMedia(namedQuery);
+            if (!queryOrSmaller) {
+              // Check if matches media or LARGER
+              scope[queryResult] = foundationMQ.matchesMedia(namedQuery);
+            } else {
+              // Check if matches media or SMALLER
+              scope[queryResult] = foundationMQ.matchesMediaOrSmaller(namedQuery);
+            }
           } else {
-            mediaUpNamedQuery = foundationMQ.getNextMediaUp(namedQuery);
-
             if (!queryNot) {
               // Check that media ONLY matches named query and nothing else
-
-              if (!mediaUpNamedQuery) {
-                // reached max media size, run query for current media
-                scope[queryResult] = foundationMQ.matchesMedia(namedQuery);
-              } else {
-                // must match this media size, but not the size up
-                scope[queryResult] = foundationMQ.matchesMedia(namedQuery) && !foundationMQ.matchesMedia(mediaUpNamedQuery);
-              }
+              scope[queryResult] = foundationMQ.matchesMediaOnly(namedQuery);
             } else {
               // Check that media does NOT match named query
-
-              if (!foundationMQ.matchesMedia(namedQuery)) {
-                // media doesn't match the current query
-                scope[queryResult] = true;
-              } else {
-                // media matched query, make sure it also matches the next up media
-                if (!mediaUpNamedQuery) {
-                  // no next size up, means media still matches
-                  scope[queryResult] = false;
-                } else {
-                  scope[queryResult] = foundationMQ.matchesMedia(mediaUpNamedQuery);
-                }
-              }
+              scope[queryResult] = !foundationMQ.matchesMediaOnly(namedQuery);
             }
           }
         }
