@@ -9,13 +9,6 @@ ZURB loves its community! We always want to hear from our users, whether they're
  - **Be descriptive.** If you can, upload a screenshot of problem you're having, or copy and paste any JavaScript or command line errors you encounter. Being detailed will help us hone in on the problem faster.
  - **Post your code.** It's very helpful to see any HTML, Sass, or JavaScript you've written that you think may be causing the problem. In some cases, we might be able to fix your problem just by fixing your code.
  - **Help us recreate it.** If your problem is complex, tell us the steps needed to recreate the issue. Sometimes we need to see the problem for ourselves, in our own web browsers, so we can more easily debug it.
- - **Tag your issue.** Tagging your issue helps us categorize it.
-   - `bug`: Use for problems with the framework.
-   - `question`: Use if you need clarification about how a component works.
-   - `feature`: Use if you have an idea for a new feature, or a way to improve an existing one.
-   - `codebase`: Use if you think the framework's Sass or JavaScript needs to be adjusted in some way.
-     - And of course, if you're feeling *especially* daring, you can submit a pull request and make changes yourself :)
-   - You can also add the `sass`, `javascript`, `docs`, `cli`, or `iconic` tags to specify what component of the framework your issue is about.
 
 ## Submitting Pull Requests
 
@@ -29,6 +22,6 @@ If you think you can solve a problem yourself, or want to implement a new featur
    - Mobile Safari 7+
    - Android Browser 4+
  - **When changing or adding Sass code, follow these steps:**
-   - If you modify a variable's default value, make the change on the component itself, the settings file, and the component's page on the documentation.
+   - If you change anything about the settings variables for a component, run `gulp sass:settings` to generate a new settings file.
    - If you add a new variable, follow our [rules for variable names](https://github.com/zurb/foundation-apps/wiki/Variable-Naming).
    - If you change a mixin's parameters, find the component's mixin documentation and change the parameters there as well.
