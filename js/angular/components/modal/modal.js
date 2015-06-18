@@ -300,10 +300,14 @@
       function destroy() {
         self.deactivate();
         setTimeout(function() {
-          scope.$destroy();
-          element.remove();
+          if (scope) {
+            scope.$destroy();
+          }
+          if (element) {
+            element.remove();
+          }
           destroyed = true;
-        }, 3000);
+        });
         foundationApi.unsubscribe(id);
       }
 
