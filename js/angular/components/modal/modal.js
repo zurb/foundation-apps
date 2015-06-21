@@ -299,7 +299,7 @@
 
       function destroy() {
         self.deactivate();
-        setTimeout(function() {
+        $timeout(function() {
           if (scope) {
             scope.$destroy();
           }
@@ -307,7 +307,7 @@
             element.remove();
           }
           destroyed = true;
-        });
+        }, 0, false);
         foundationApi.unsubscribe(id);
       }
 
