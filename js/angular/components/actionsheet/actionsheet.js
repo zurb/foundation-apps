@@ -95,7 +95,7 @@
     function toggle() {
       content.toggle();
       container.toggle();
-      
+
       if (!$scope.$$phase) {
         content.$apply();
         container.$apply();
@@ -106,7 +106,7 @@
       content.show();
       container.show();
 
-      cif (!$scope.$$phase) {
+      if (!$scope.$$phase) {
         content.$apply();
         container.$apply();
       }
