@@ -163,7 +163,7 @@
 
   function Setup() {
     // Attach FastClick
-    if (FastClick) {
+    if (typeof(FastClick) !== 'undefined') {
       FastClick.attach(document.body);
     }
 
