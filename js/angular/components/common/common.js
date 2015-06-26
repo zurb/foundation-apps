@@ -117,7 +117,7 @@
     function link($scope, element, attrs) {
       var swipeDirection;
       var hammerElem;
-      if (Hammer) {
+      if (typeof(Hammer)!=='undefined') {
         hammerElem = new Hammer(element[0]);
         // set the options for swipe (to make them a bit more forgiving in detection)
         hammerElem.get('swipe').set({
@@ -143,9 +143,11 @@
         default:
           swipeDirection = 'swipe';
       }
-      hammerElem.on(swipeDirection, function() {
-        foundationApi.publish(attrs.id, 'close');
-      });
+      if(typeof(hammerElem) !== 'undefined'){
+        hammerElem.on(swipeDirection, function() {
+          foundationApi.publish(attrs.id, 'close');
+        });
+      }
     }
   }
 
