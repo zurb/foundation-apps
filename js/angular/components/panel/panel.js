@@ -95,7 +95,7 @@
           } else if (msg == 'toggle') {
             scope.toggle();
           }
-          
+
           if (!scope.$root.$$phase) {
             scope.$apply();
           }
@@ -106,7 +106,7 @@
         scope.hide = function() {
           if(scope.active){
             scope.active = false;
-            foundationApi.animate(element, scope.active, animationIn, animationOut);
+            foundationApi.animateAndNotify(element, scope.active, animationIn, animationOut);
           }
 
           return;
@@ -115,7 +115,7 @@
         scope.show = function() {
           if(!scope.active){
             scope.active = true;
-            foundationApi.animate(element, scope.active, animationIn, animationOut);
+            foundationApi.animateAndNotify(element, scope.active, animationIn, animationOut);
           }
 
           return;
@@ -123,8 +123,8 @@
 
         scope.toggle = function() {
           scope.active = !scope.active;
-          foundationApi.animate(element, scope.active, animationIn, animationOut);
-          
+          foundationApi.animateAndNotify(element, scope.active, animationIn, animationOut);
+
           return;
         };
 
