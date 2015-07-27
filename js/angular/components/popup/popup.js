@@ -19,12 +19,12 @@
 
     //target should be element ID
     function activate(target) {
-      foundationApi.publish(target, 'show');
+      foundationApi.publish(target, ['show']);
     }
 
     //target should be element ID
     function deactivate(target) {
-      foundationApi.publish(target, 'hide');
+      foundationApi.publish(target, ['hide']);
     }
 
     function toggle(target, popupTarget) {
