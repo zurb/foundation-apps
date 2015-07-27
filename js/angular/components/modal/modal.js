@@ -308,15 +308,11 @@
 
       function destroy() {
         self.deactivate();
-        setTimeout(function() {
-          if (scope) {
-            scope.$destroy();
-          }
-          if (element) {
-            element.remove();
-          }
+        $timeout(function() {
+          scope.$destroy();
+          element.remove();
           destroyed = true;
-        });
+        }, 0, false);
         foundationApi.unsubscribe(id);
       }
 

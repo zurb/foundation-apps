@@ -50,6 +50,7 @@
 
     controller.toggle = toggle;
     controller.hide = hide;
+    controller.show = show;
 
     controller.registerListener = function() {
       document.body.addEventListener('click', listenerLogic);
@@ -94,7 +95,17 @@
     function toggle() {
       content.toggle();
       container.toggle();
-      
+
+      if (!$scope.$$phase) {
+        content.$apply();
+        container.$apply();
+      }
+    }
+
+    function show() {
+      content.show();
+      container.show();
+
       if (!$scope.$$phase) {
         content.$apply();
         container.$apply();
@@ -142,6 +153,9 @@
             controller.hide();
           }
 
+          if (msg === 'show' || msg === 'open') {
+            controller.show();
+          }
         });
 
         controller.registerContainer(scope);
@@ -153,6 +167,11 @@
 
         scope.hide = function() {
           scope.active = false;
+          return;
+        };
+
+        scope.show = function() {
+          scope.active = true;
           return;
         };
       }
@@ -195,6 +214,12 @@
       scope.hide = function() {
         scope.active = false;
         controller.deregisterListener();
+        return;
+      };
+
+      scope.show = function() {
+        scope.active = true;
+        controller.registerListener();
         return;
       };
     }
