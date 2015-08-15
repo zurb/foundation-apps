@@ -100,7 +100,7 @@
         return styleObject;
       }
 
-      if ((str[0] === '"' && str[str.length - 1] === '"' || (str[0] === '\'' && str[str.length - 1] === '\'') {
+      if ((str[0] === '"' && str[str.length - 1] === '"') || (str[0] === '\'' && str[str.length - 1] === '\'')) {
         str = str.trim().slice(1, -1); // some browsers re-quote string style values
       }
       
