@@ -143,10 +143,8 @@
   DynamicRoutingConfig.$inject = ['$FoundationStateProvider'];
 
   function DynamicRoutingConfig(FoundationStateProvider) {
-    // Drop in the needed variable if Front Router is not being used
-    if (typeof foundationRoutes === 'undefined') {
-      foundationRoutes = [];
-    }
+    // Don't error out if Front Router is not being used
+    var foundationRoutes = foundationRoutes || [];
 
     FoundationStateProvider.registerDynamicRoutes(foundationRoutes);
   }
