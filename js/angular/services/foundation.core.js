@@ -168,7 +168,7 @@
     }
 
     // Attach viewport units buggyfill
-    if (viewportUnitsBuggyfill) {
+    if (typeof(viewportUnitsBuggyfill) !== 'undefined') {
       viewportUnitsBuggyfill.init();
     }
   }
