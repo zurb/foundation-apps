@@ -14,7 +14,7 @@
     "tether": "~0.6.5",
     "viewport-units-buggyfill": "~0.4.1"
   },
-  "homepage": "https://github.com/zurb/foundation-apps",
+  "homepage": "https://github.com/ppallesws/foundation-apps.git",
   "description": "A responsive, Angular-powered framework for web apps from ZURB.",
   "keywords": [
     "web apps",
