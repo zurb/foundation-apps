@@ -1,6 +1,6 @@
 {
-  "name": "foundation-apps",
-  "version": "1.1.0",
+  "name": "foundation-apps-custom",
+  "version": "0.0.100",
   "description": "A responsive, Angular-powered framework for web apps from ZURB.",
   "scripts": {
     "test": "gulp test",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/zurb/foundation-apps"
+    "url": "https://github.com/ppallesws/foundation-apps.git"
   },
   "keywords": [
     "Foundation",
