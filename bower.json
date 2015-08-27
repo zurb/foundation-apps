@@ -1,5 +1,5 @@
 {
-  "name": "foundation-apps",
+  "name": "foundation-apps-custom",
   "main": [
     "scss/foundation.scss",
     "dist/js/foundation-apps.js",
