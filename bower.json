@@ -39,7 +39,7 @@
   ],
   "devDependencies": {
     "allmighty-autocomplete": "*",
-    "angular-highlightjs": "~0.3.2",
+    "angular-highlightjs": "~0.4.3",
     "angular-mocks": "~1.4.4",
     "bootcamp": "~1.1.7",
     "jsdiff": "~1.0.8",
@@ -47,6 +47,7 @@
   },
   "resolutions": {
     "angular": "~1.4.4",
-    "angular-mocks": "~1.4.4"
+    "angular-mocks": "~1.4.4",
+    "angular-highlightjs": "~0.4.3"
   }
 }
