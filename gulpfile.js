@@ -43,8 +43,8 @@ var addVersions = function() {
     }
     path.basename = base;
     path.dirname = '';
-  })
-}
+  });
+};
 
 // 2. VARIABLES
 // - - - - - - - - - - - - - - -
@@ -97,7 +97,7 @@ var paths = {
       'docs/assets/js/app.js'
     ]
   }
-}
+};
 
 // 3. CLEANIN' FILES
 // - - - - - - - - - - - - - - -
