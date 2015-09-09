@@ -144,7 +144,7 @@
 
   function DynamicRoutingConfig(FoundationStateProvider) {
     // Don't error out if Front Router is not being used
-    var foundationRoutes = foundationRoutes || [];
+    var foundationRoutes = window.foundationRoutes || [];
 
     FoundationStateProvider.registerDynamicRoutes(foundationRoutes);
   }
