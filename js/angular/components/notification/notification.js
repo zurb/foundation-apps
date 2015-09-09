@@ -166,7 +166,7 @@
         };
 
         // close on swipe
-        if (Hammer) {
+        if (typeof(Hammer) !== 'undefined') {
           hammerElem = new Hammer(element[0]);
           // set the options for swipe (to make them a bit more forgiving in detection)
           hammerElem.get('swipe').set({
@@ -175,12 +175,13 @@
             velocity: 0.5 // and this is how fast the swipe must travel
           });
         }
-
-        hammerElem.on('swipe', function() {
-          if (scope.active) {
-            scope.hide();
-          }
-        });
+        if(typeof(hammerElem) !== 'undefined') {
+          hammerElem.on('swipe', function() {
+            if (scope.active) {
+              scope.hide();
+            }
+          });
+        }
       }
     }
   }
@@ -382,7 +383,7 @@
         element = angular.element(html);
 
         scope = $rootScope.$new();
-        
+
         for(var i = 0; i < props.length; i++) {
           if(config[props[i]]) {
             element.attr(props[i], config[props[i]]);

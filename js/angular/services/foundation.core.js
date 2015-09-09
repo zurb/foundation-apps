@@ -163,12 +163,12 @@
 
   function Setup() {
     // Attach FastClick
-    if (FastClick) {
+    if (typeof(FastClick) !== 'undefined') {
       FastClick.attach(document.body);
     }
 
     // Attach viewport units buggyfill
-    if (viewportUnitsBuggyfill) {
+    if (typeof(viewportUnitsBuggyfill) !== 'undefined') {
       viewportUnitsBuggyfill.init();
     }
   }
