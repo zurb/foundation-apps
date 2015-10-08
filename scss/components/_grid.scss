@@ -217,9 +217,9 @@ $block-grid-max-size: 6 !default;
 /*
   Frames are containers that stretch to the full dimmensions of the browser window.
 */
-@mixin grid-frame($size: expand, $orientation: horizontal, $wrap: false, $align: left, $order: 0) {
+@mixin grid-frame($size: expand, $orientation: horizontal, $wrap: false, $align: left, $order: 0, $height: 100vh) {
   display: flex;
-  height: 100vh;
+  height: $height;
   position: relative;
   overflow: hidden;
   backface-visibility: hidden;
@@ -235,10 +235,7 @@ $block-grid-max-size: 6 !default;
   Groups are collections of content items. They're the "rows" of Foundation for Apps.
 */
 @mixin grid-block($size: expand, $orientation: horizontal, $wrap: false, $align: left, $order: 0) {
-  @include grid-frame($size, $orientation, $wrap, $align, $order);
-
-  // Reset the height used by frames
-  height: auto;
+  @include grid-frame($size, $orientation, $wrap, $align, $order, auto);
 
   // Blocks will scroll by default if their content overflows
   @if ($orientation == vertical) {
