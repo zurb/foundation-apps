@@ -6,7 +6,7 @@
     <img ng-src="{{ image }}"/>
   </div>
   <div class="notification-content">
-    <h1>{{ title }}</h1>
+    <h1 ng-bind-html="title"></h1>
     <p ng-transclude></p>
   </div>
 </div>
