@@ -56,15 +56,20 @@
       element[0].style.transitionDuration = '';
       element.addClass(activeClass);
 
-      element.one(events.join(' '), function() {
-        finishAnimation();
-      });
+      element.on(events.join(' '), eventHandler);
 
-      setTimeout(function() {
+      var animationTimeout = setTimeout(function() {
         if(timedOut) {
           finishAnimation();
         }
       }, 3000);
+
+      function eventHandler(e) {
+        if (element[0] === e.target) {
+          clearTimeout(animationTimeout);
+          finishAnimation();
+        }
+      }
 
       function finishAnimation() {
         deregisterElement(element);
@@ -73,6 +78,7 @@
         element.removeClass(!activation ? activeGenericClass : ''); //if not active, remove active class
         reflow();
         timedOut = false;
+        element.off(events.join(' '), eventHandler);
       }
 
 

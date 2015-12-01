@@ -198,6 +198,19 @@ title: Grid
 </div>
 </hljs>
 
+<h4>Prevent Scrolling</h4>
+
+<p>By default, all content blocks scroll vertically. This allows you to create independently-scrolling panes of content in your apps. However, in CSS, if an element scrolls vertically, any horizontal overflow will be hidden. To disable scrolling on a block, just add the class `.noscroll`.</p>
+
+<hljs language="html">
+<div class="grid-block wrap">
+  <!-- Won't have scroll bars ever -->
+  <div class="small-6 grid-content noscroll"></div>
+  <!-- Will have scroll bars if there's enough content -->
+  <div class="small-6 grid-content"></div>
+</div>
+</hljs>
+
 <hr>
 
 <h4>Container</h4>

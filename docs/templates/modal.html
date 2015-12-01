@@ -36,7 +36,7 @@ controller: ModalController
 <hr>
 
 <h3>Using the Grid</h3>
-<p>You can embed a grid inside of a modal, complete with scrolling panels, fixed areas, and responsive adjustments. Start by nesting a grid block directly inside the modal container, and go from there. Note that you also need to add a <code>padding</code> class to the <code>zf-modal</code> element if you want the grid elements to be flush with the edge of the modal.</p>
+<p>You can embed a grid inside of a modal, complete with scrolling panels, fixed areas, and responsive adjustments. Start by nesting a grid block directly inside the modal container, and go from there. Note that you also need to add a <code>collapse</code> class to the <code>zf-modal</code> element if you want the grid elements to be flush with the edge of the modal.</p>
 
 <div class="grid-block">
   <div class="small-12 medium-6 grid-content">
@@ -89,7 +89,7 @@ controller: ModalController
 <hljs>
 <a zf-open="animatedModal" class="button">Fancy-esque Modal</a>
 
-<div zf-modal id="animatedModal" animation-in="slideInDown" animation-out="hingeOutFromMiddleY">
+<div zf-modal id="animatedModal" animation-in="slideInUp" animation-out="hingeOutFromMiddleY">
   <a zf-close class="close-button">&times;</a>
   <p><em>Slide to the left</em></p>
   <p class="text-right"><em>Slide to the right</em></p>
@@ -111,7 +111,7 @@ controller: ModalController
 <div class="grid-block">
   <div class="small-12 medium-6 grid-content">
 <hljs>
-<a zf-open="animatedModal" class="button">Itty-Bitty Modal</a>
+<a zf-open="dialogModal" class="button">Itty-Bitty Modal</a>
 
 <div zf-modal id="dialogModal" overlay="false" overlay-close="false" class="tiny dialog">
   <h4>Yo, do you <em>really</em> want to do this?</h4>
@@ -129,32 +129,32 @@ controller: ModalController
 
 <h3>Programmatic Modals</h3>
 
-<p>Modals can be created on the fly using our <code>ModalFactory</code>.  Clicking the button will execute the code shown below.</p>
+<p>Modals can be created on the fly using the <code>ModalFactory</code>. Clicking the button will execute the code shown below.</p>
 
-<div class="grid-content text-center">
-  <a class="button" ng-click="createModal()">Open modal</a>
-</div>
-<div class="grid-content">
+<a class="button" ng-click="createModal()">Open modal</a>
 <hljs language="javascript">
-  var modal = new ModalFactory({
-    class: 'tiny dialog',
-    overlay: true,
-    overlayClose: false,
-    templateUrl: 'partials/examples-dynamic-modal.html',
-    contentScope: {
-      close: function() {
-        modal.deactivate();
-        $timeout(function() {
-          modal.destroy();
-        }, 1000);
-      }
+var modal = new ModalFactory({
+  // Add CSS classes to the modal
+  // Can be a single string or an array of classes
+  class: 'tiny dialog',
+  // Set if the modal has a background overlay
+  overlay: true,
+  // Set if the modal can be closed by clicking on the overlay
+  overlayClose: false,
+  // Define a template to use for the modal
+  templateUrl: 'partials/examples-dynamic-modal.html',
+  // Allows you to pass in properties to the scope of the modal
+  contentScope: {
+    close: function() {
+      modal.deactivate();
+      $timeout(function() {
+        modal.destroy();
+      }, 1000);
     }
-  });
-  modal.activate();
+  }
+});
+modal.activate();
 </hljs>
-</div>
-
-<p>As you can see, the modal was specified to be a tiny dialog by setting the required classes for the <code>class</code> property of the config object passed to the <code>ModalFactory</code>.  The class property also supports arrays, if you wish to use <code>class: ['tiny', 'dialog']</code> instead.</p>
 
 <hr>
 
