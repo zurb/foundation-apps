@@ -5,7 +5,9 @@
     .service('FoundationAnimation', FoundationAnimation)
   ;
 
-  function FoundationAnimation() {
+  FoundationAnimation.$inject = ['$q'];
+
+  function FoundationAnimation($q) {
     var animations = [];
     var service = {};
 
@@ -33,6 +35,8 @@
     }
 
     function animate(element, futureState, animationIn, animationOut) {
+      var animationTimeout;
+      var deferred = $q.defer();
       var timedOut = true;
       var self = this;
       self.cancelAnimation = cancelAnimation;
@@ -41,28 +45,34 @@
       var activation = futureState;
       var initClass = activation ? initClasses[0] : initClasses[1];
       var activeClass = activation ? activeClasses[0] : activeClasses[1];
-      //stop animation
-      registerElement(element);
-      reset();
-      element.addClass(animationClass);
-      element.addClass(initClass);
 
-      element.addClass(activeGenericClass);
+      run();
+      return deferred.promise;
 
-      //force a "tick"
-      reflow();
+      function run() {
+        //stop animation
+        registerElement(element);
+        reset();
+        element.addClass(animationClass);
+        element.addClass(initClass);
 
-      //activate
-      element[0].style.transitionDuration = '';
-      element.addClass(activeClass);
+        element.addClass(activeGenericClass);
 
-      element.on(events.join(' '), eventHandler);
+        //force a "tick"
+        reflow();
 
-      var animationTimeout = setTimeout(function() {
-        if(timedOut) {
-          finishAnimation();
-        }
-      }, 3000);
+        //activate
+        element[0].style.transitionDuration = '';
+        element.addClass(activeClass);
+
+        element.on(events.join(' '), eventHandler);
+
+        var animationTimeout = setTimeout(function() {
+          if(timedOut) {
+            finishAnimation();
+          }
+        }, 3000);
+      }
 
       function eventHandler(e) {
         if (element[0] === e.target) {
@@ -79,13 +89,14 @@
         reflow();
         timedOut = false;
         element.off(events.join(' '), eventHandler);
+        deferred.resolve();
       }
-
 
       function cancelAnimation(element) {
         deregisterElement(element);
         angular.element(element).off(events.join(' ')); //kill all animation event handlers
         timedOut = false;
+        deferred.reject();
       }
 
       function registerElement(el) {
