@@ -67,7 +67,7 @@
 
         element.on(events.join(' '), eventHandler);
 
-        var animationTimeout = setTimeout(function() {
+        animationTimeout = setTimeout(function() {
           if(timedOut) {
             finishAnimation();
           }
