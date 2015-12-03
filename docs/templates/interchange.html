@@ -67,3 +67,84 @@ title: Interchange
     </zf-interchange>
   </div>
 </div>
+
+<hr>
+
+<h3>Interchange Directives</h3>
+<p>Interchange can also be achieved with our zf-if, zf-show, and zf-hide directives. These directives internally use <a href="https://docs.angularjs.org/api/ng/directive/ngIf">ng-if</a>, <a href="https://docs.angularjs.org/api/ng/directive/ngShow">ng-show</a>, and <a href="https://docs.angularjs.org/api/ng/directive/ngHide">ng-hide</a>, respectively, to achieve their interchange ability.  Simply pass the desired query into the directive and let it do its magic!</p>
+
+<h4>Named Queries</h4>
+<p>Any named breakpoint can be used as a query, the defaults being: <code>small</code>, <code>medium</code>, <code>large</code>, <code>xlarge</code>, and <code>xxlarge</code>.  Other supported queries include: <code>landscape</code>, <code>portrait</code>, and <code>retina</code>.</p>
+
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+<hljs language="html">
+<p zf-if="small">You are on a small or larger device.</p>
+<p zf-if="medium">You are on a medium or larger device.</p>
+<p zf-if="large">You are on a large or larger device.</p>
+<p zf-if="xlarge">You are on a xlarge or larger device.</p>
+<p zf-if="xxlarge">You are on a xxlarge or larger device.</p>
+<p zf-if="landscape">You are in a landscape orientation.</p>
+<p zf-if="portrait">You are in a portrait orientation.</p>
+<p zf-if="retina">You are on a retina device.</p>
+</hljs>
+  </div>
+  <div class="small-12 medium-6 grid-content">
+    <p zf-if="small">You are on a <strong>small or larger</strong> device.</p>
+    <p zf-if="medium">You are on a <strong>medium or larger</strong> device.</p>
+    <p zf-if="large">You are on a <strong>large or larger</strong> device.</p>
+    <p zf-if="xlarge">You are on a <strong>xlarge or larger</strong> device.</p>
+    <p zf-if="xxlarge">You are on a <strong>xxlarge or larger</strong> device.</p>
+    <p zf-if="landscape">You are in a <strong>landscape orientation</strong>.</p>
+    <p zf-if="portrait">You are in a <strong>portrait orientation</strong>.</p>
+    <p zf-if="retina">You are on a <strong>retina device</strong>.</p>
+  </div>
+</div>
+
+<hr>
+
+<h4>Only Operator</h4>
+<p>Named breakpoint queries support usage of the <code>only</code> operator.  When using the only operator, the result of the query will be true if the current media <strong>EXACTLY</strong> matches the query.</p>
+
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+<hljs language="html">
+<p zf-if="small only">You are only on a small device.</p>
+<p zf-if="medium only">You are only on a medium device.</p>
+<p zf-if="large only">You are only on a large device.</p>
+<p zf-if="xlarge only">You are only on a xlarge device.</p>
+<p zf-if="xxlarge only">You are only on a xxlarge device.</p>
+</hljs>
+  </div>
+  <div class="small-12 medium-6 grid-content">
+    <p zf-if="small only">You are only on a <strong>small</strong> device.</p>
+    <p zf-if="medium only">You are only on a <strong>medium</strong> device.</p>
+    <p zf-if="large only">You are only on a <strong>large</strong> device.</p>
+    <p zf-if="xlarge only">You are only on a <strong>xlarge</strong> device.</p>
+    <p zf-if="xxlarge only">You are only on a <strong>xxlarge</strong> device.</p>
+  </div>
+</div>
+
+<hr>
+
+<h4>Not Operator</h4>
+<p>Named breakpoint queries support usage of the <code>not</code> operator.  Usage of the <code>not</code> operator implies usage of the <code>only</code> operator.  When using the not operator, the result of the query will be true if the current media does <strong>NOT EXACTLY</strong> match the query.</p>
+
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+<hljs language="html">
+<p zf-if="not small">You are not on a small device.</p>
+<p zf-if="not medium">You are not on a medium device.</p>
+<p zf-if="not large">You are not on a large device.</p>
+<p zf-if="not xlarge">You are not on a xlarge device.</p>
+<p zf-if="not xxlarge">You are not on a xxlarge device.</p>
+</hljs>
+  </div>
+  <div class="small-12 medium-6 grid-content">
+    <p zf-if="not small">You are not on a <strong>small</strong> device.</p>
+    <p zf-if="not medium">You are not on a <strong>medium</strong> device.</p>
+    <p zf-if="not large">You are not on a <strong>large</strong> device.</p>
+    <p zf-if="not xlarge">You are not on a <strong>xlarge</strong> device.</p>
+    <p zf-if="not xxlarge">You are not on a <strong>xxlarge</strong> device.</p>
+  </div>
+</div>
