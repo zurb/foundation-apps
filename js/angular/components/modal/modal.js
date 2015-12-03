@@ -276,7 +276,7 @@
                 element.attr('animation-out', config[prop]);
                 break;
               case 'overlayClose':
-                element.attr('overlay-close', config[prop] ? 'true' : 'false'); // must be string, see postLink() above
+                element.attr('overlay-close', config[prop] === 'false' ? 'false' : 'true'); // must be string, see postLink() above
                 break;
               case 'class':
                 if (angular.isString(config[prop])) {
