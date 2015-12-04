@@ -183,7 +183,11 @@
     function link(scope, element, attrs) {
       element.on('click', function(e) {
         var tar = e.target;
-        if(tar.hasAttribute('zf-toggle') || tar.hasAttribute('zf-hard-toggle')){ return; }
+        var avoid = ['zf-toggle', 'zf-hard-toggle', 'zf-open', 'zf-close'].filter(function(e, i){
+          return e in tar.attributes;
+        });
+
+        if(avoid.length > 0){ return; }
 
         var activeElements = document.querySelectorAll('.is-active[zf-closable]');
 
