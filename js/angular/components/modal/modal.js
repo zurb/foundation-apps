@@ -147,9 +147,9 @@
     }
   }
 
-  ModalFactory.$inject = ['$http', '$templateCache', '$rootScope', '$compile', '$timeout', '$q', 'FoundationApi'];
+  ModalFactory.$inject = ['$templateRequest', '$rootScope', '$compile', '$timeout', '$q', '$controller', '$injector', 'FoundationApi'];
 
-  function ModalFactory($http, $templateCache, $rootScope, $compile, $timeout, $q, foundationApi) {
+  function ModalFactory($templateRequest, $rootScope, $compile, $timeout, $q, $controller, $injector, foundationApi) {
     return modalFactory;
 
     function modalFactory(config) {
@@ -160,7 +160,6 @@
           destroyed = false,
           html,
           element,
-          fetched,
           scope,
           contentScope
       ;
@@ -172,22 +171,6 @@
         'overlayClose',
         'class'
       ];
-
-      if(config.templateUrl) {
-        //get template
-        fetched = $http.get(config.templateUrl, {
-          cache: $templateCache
-        }).then(function (response) {
-          html = response.data;
-          assembleDirective();
-        });
-
-      } else if(config.template) {
-        //use provided template
-        fetched = true;
-        html = config.template;
-        assembleDirective();
-      }
 
       self.activate = activate;
       self.deactivate = deactivate;
@@ -238,7 +221,17 @@
       }
 
       function init(state) {
-        $q.when(fetched).then(function() {
+        var resolves = (config.resolve || {});
+
+        $q.all([getTemplatePromise(config)].concat(getResolvePromises(resolves))).then(function(htmlAndResolvedVars) {
+
+          scope = (config.scope || $rootScope).$new();
+
+          setupController(formatResolvesToController(resolves, htmlAndResolvedVars));
+
+          html = htmlAndResolvedVars[0];
+          assembleDirective();
+
           if(!attached && html.length > 0) {
             var modalEl = container.append(element);
 
@@ -251,6 +244,60 @@
         });
       }
 
+      function getTemplatePromise(config) {
+        return config.template ? $q.when(config.template) :
+          $templateRequest(angular.isFunction(config.templateUrl) ? (config.templateUrl)() : config.templateUrl);
+      }
+
+      function getResolvePromises(resolves) {
+        var promisesArr = [];
+        angular.forEach(resolves, function(value) {
+          if (angular.isFunction(value) || angular.isArray(value)) {
+            promisesArr.push($q.when($injector.invoke(value)));
+          } else if (angular.isString(value)) {
+            promisesArr.push($q.when($injector.get(value)));
+          } else {
+            promisesArr.push($q.when(value));
+          }
+        });
+        return promisesArr;
+      }
+
+      function formatResolvesToController(resolves, htmlAndResolvedVars) {
+        var namedResolves = {},
+            //skip template
+            resolveIter = 1;
+
+        angular.forEach(resolves, function(value, key) {
+          namedResolves[key] = htmlAndResolvedVars[resolveIter++];
+        });
+
+        return namedResolves;
+      }
+
+      function setupController(namedResolves) {
+        var ctrlInstance, ctrlLocals = {};
+
+        if(config.controller) {
+          ctrlLocals.$scope = scope;
+          ctrlLocals.modalInstance = self;
+
+          angular.forEach(namedResolves, function(value, key) {
+            ctrlLocals[key] = value
+          });
+
+          ctrlInstance = $controller(config.controller, ctrlLocals);
+
+          if (config.controllerAs) {
+            if (config.bindToController) {
+              angular.extend(ctrlInstance, scope);
+            }
+
+            scope[config.controllerAs] = ctrlInstance;
+          }
+        }
+      }
+
       function assembleDirective() {
         // check for duplicate elements to prevent factory from cloning modals
         if (document.getElementById(id)) {
@@ -260,8 +307,6 @@
         html = '<zf-modal id="' + id + '">' + html + '</zf-modal>';
 
         element = angular.element(html);
-
-        scope = $rootScope.$new();
 
         // account for directive attributes and modal classes
         for(var i = 0; i < props.length; i++) {
