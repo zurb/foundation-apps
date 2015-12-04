@@ -27,7 +27,7 @@
     service.toggleAnimate       = toggleAnimate;
     service.closeActiveElements = closeActiveElements;
     service.animate             = animate;
-    service.animateAndNotify    = animateAndNotify;
+    service.animateAndAdvise    = animateAndAdvise;
 
     return service;
 
@@ -109,7 +109,7 @@
           if (options.exclude !== parentId) {
             self.publish(parentId, 'close');
           }
-        })
+        });
       }
     }
 
@@ -117,7 +117,7 @@
       return FoundationAnimation.animate(element, futureState, animationIn, animationOut);
     }
 
-    function animateAndNotify(element, futureState, animationIn, animationOut) {
+    function animateAndAdvise(element, futureState, animationIn, animationOut) {
       var promise = FoundationAnimation.animate(element, futureState, animationIn, animationOut);
       promise.finally(function() {
         publish(element[0].id, futureState ? 'active-true' : 'active-false');

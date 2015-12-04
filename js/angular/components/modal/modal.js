@@ -63,7 +63,7 @@
 
       function postLink(scope, element, attrs) {
         var dialog = angular.element(element.children()[0]);
-        var animateFn = attrs.hasOwnProperty('zfAdvise') ? foundationApi.animateAndNotify : foundationApi.animate;
+        var animateFn = attrs.hasOwnProperty('zfAdvise') ? foundationApi.animateAndAdvise : foundationApi.animate;
 
         scope.active = scope.active || false;
         scope.overlay = attrs.overlay === 'false' ? false : true;

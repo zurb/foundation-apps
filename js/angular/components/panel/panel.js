@@ -45,7 +45,7 @@
 
     function compile(tElement, tAttrs, transclude) {
       var type = 'panel';
-      var animate = tAttrs.hasOwnProperty('zfAdvise') ? foundationApi.animateAndNotify : foundationApi.animate;
+      var animate = tAttrs.hasOwnProperty('zfAdvise') ? foundationApi.animateAndAdvise : foundationApi.animate;
 
       return {
         pre: preLink,
