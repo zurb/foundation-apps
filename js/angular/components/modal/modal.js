@@ -63,6 +63,7 @@
 
       function postLink(scope, element, attrs) {
         var dialog = angular.element(element.children()[0]);
+        var animateFn = attrs.hasOwnProperty('zfAdvise') ? foundationApi.animateAndNotify : foundationApi.animate;
 
         scope.active = scope.active || false;
         scope.overlay = attrs.overlay === 'false' ? false : true;
@@ -129,13 +130,13 @@
           // due to a bug where the overlay fadeIn is essentially covering up
           // the dialog's animation
           if (!scope.active) {
-            foundationApi.animate(element, scope.active, overlayIn, overlayOut);
+            animateFn(element, scope.active, overlayIn, overlayOut);
           }
           else {
             element.addClass('is-active');
           }
 
-          foundationApi.animate(dialog, scope.active, animationIn, animationOut);
+          animateFn(dialog, scope.active, animationIn, animationOut);
         }
 
         function init() {
