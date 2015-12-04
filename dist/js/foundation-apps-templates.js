@@ -118,19 +118,19 @@ angular.module('foundation').run(['$templateCache', function($templateCache) {
 }]);
 
 angular.module('foundation').run(['$templateCache', function($templateCache) {
+  $templateCache.put('components/popup/popup.html',
+    '<div class="popup" ng-class="{\'is-active\': active }" ng-transclude>\n' +
+    '</div>\n' +
+    '');
+}]);
+
+angular.module('foundation').run(['$templateCache', function($templateCache) {
   $templateCache.put('components/panel/panel.html',
     '<div\n' +
     '  class="panel"\n' +
     '  ng-class="positionClass"\n' +
     '  ng-transclude\n' +
     '  >\n' +
-    '</div>\n' +
-    '');
-}]);
-
-angular.module('foundation').run(['$templateCache', function($templateCache) {
-  $templateCache.put('components/popup/popup.html',
-    '<div class="popup" ng-class="{\'is-active\': active }" ng-transclude>\n' +
     '</div>\n' +
     '');
 }]);
