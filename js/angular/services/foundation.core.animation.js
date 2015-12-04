@@ -89,7 +89,7 @@
         reflow();
         timedOut = false;
         element.off(events.join(' '), eventHandler);
-        deferred.resolve();
+        deferred.resolve({element: element, active: activation});
       }
 
       function cancelAnimation(element) {
