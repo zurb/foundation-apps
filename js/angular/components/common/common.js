@@ -8,6 +8,7 @@
     .directive('zfEscClose', zfEscClose)
     .directive('zfSwipeClose', zfSwipeClose)
     .directive('zfHardToggle', zfHardToggle)
+    .directive('zfCloseAll', zfCloseAll)
   ;
 
   zfClose.$inject = ['FoundationApi'];
@@ -41,7 +42,6 @@
         }
         targetId = parentElement.attr('id');
       }
-
       element.on('click', function(e) {
         foundationApi.publish(targetId, 'close');
         e.preventDefault();
@@ -170,4 +170,42 @@
     }
   }
 
+  zfCloseAll.$inject = ['FoundationApi'];
+
+  function zfCloseAll(foundationApi) {
+    var directive = {
+      restrict: 'A',
+      link: link
+    };
+
+    return directive;
+
+    function link(scope, element, attrs) {
+      element.on('click', function(e) {
+        var tar = e.target;
+        if(tar.hasAttribute('zf-toggle') || tar.hasAttribute('zf-hard-toggle')){ return; }
+
+        var activeElements = document.querySelectorAll('.is-active[zf-closable]');
+
+        if(activeElements.length){
+          if(getParentsUntil(tar, 'zf-closable') === false){
+            e.preventDefault();
+            foundationApi.publish(activeElements[0].id, 'close');
+          }
+        }
+      });
+    }
+    /** special thanks to Chris Ferdinandi for this solution.
+     * http://gomakethings.com/climbing-up-and-down-the-dom-tree-with-vanilla-javascript/
+     */
+    function getParentsUntil(elem, parent) {
+      for ( ; elem && elem !== document.body; elem = elem.parentNode ) {
+        if(elem.hasAttribute(parent)){
+          if(elem.classList.contains('is-active')){ return elem; }
+          break;
+        }
+      }
+      return false;
+    }
+  }
 })();

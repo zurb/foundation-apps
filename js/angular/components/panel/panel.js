@@ -95,7 +95,7 @@
           } else if (msg == 'toggle') {
             scope.toggle();
           }
-          
+
           if (!scope.$root.$$phase) {
             scope.$apply();
           }
@@ -124,7 +124,7 @@
         scope.toggle = function() {
           scope.active = !scope.active;
           foundationApi.animate(element, scope.active, animationIn, animationOut);
-          
+
           return;
         };
 
