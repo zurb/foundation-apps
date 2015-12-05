@@ -171,6 +171,7 @@
         'animationOut',
         'overlay',
         'overlayClose',
+        'ignoreAllClose',
         'class'
       ];
 
@@ -278,6 +279,9 @@
                 break;
               case 'overlayClose':
                 element.attr('overlay-close', config[prop] === 'false' ? 'false' : 'true'); // must be string, see postLink() above
+                break;
+              case 'ignoreAllClose':
+                element.attr('zf-ignore-all-close', 'zf-ignore-all-close');
                 break;
               case 'class':
                 if (angular.isString(config[prop])) {
