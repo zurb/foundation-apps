@@ -189,30 +189,35 @@
 
         if(avoid.length > 0){ return; }
 
-        if (getParentsUntil(tar, 'zf-closable') === false) {
-          // if clicked element not inside closable component
-          e.preventDefault();
+        // check if clicked element is inside active closable parent
+        if (getParentsUntil(tar, 'zf-closable', true) !== false) {
+          // do nothing
+          return;
+        }
 
-          // close active elements
-          var activeElements = document.querySelectorAll('.is-active[zf-closable]');
-          if(activeElements.length > 0) {
-            for(var i = 0; i < activeElements.length; i++) {
-              if (!activeElements[i].hasAttribute('zf-ignore-all-close')) {
-                foundationApi.publish(activeElements[i].id, 'close');
-              }
+        // close all active elements
+        var activeElements = document.querySelectorAll('.is-active[zf-closable]');
+        if(activeElements.length > 0) {
+          for(var i = 0; i < activeElements.length; i++) {
+            if (!activeElements[i].hasAttribute('zf-ignore-all-close')) {
+              foundationApi.publish(activeElements[i].id, 'close');
             }
           }
         }
-        return;
+
+        if (getParentsUntil(tar, 'ui-sref', false) === false) {
+          // prevent default if target not inside ui-sref
+          e.preventDefault();
+        }
       });
     }
     /** special thanks to Chris Ferdinandi for this solution.
      * http://gomakethings.com/climbing-up-and-down-the-dom-tree-with-vanilla-javascript/
      */
-    function getParentsUntil(elem, parent) {
+    function getParentsUntil(elem, parent, checkActive) {
       for ( ; elem && elem !== document.body; elem = elem.parentNode ) {
         if(elem.hasAttribute(parent)){
-          if(elem.classList.contains('is-active')){ return elem; }
+          if(!checkActive || elem.classList.contains('is-active')){ return elem; }
           break;
         }
       }
