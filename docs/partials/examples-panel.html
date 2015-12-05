@@ -5,9 +5,10 @@
 </div>
 
 <!-- Positioned examples -->
-<div zf-panel zf-advise class="docs-example-panel" id="example-panel-left">
+<div zf-panel zf-advise zf-ignore-all-close class="docs-example-panel" id="example-panel-left">
   <a zf-close class="close-button">&times;</a>
   <p>This is a left panel.</p>
+  <p>It also has the `zf-ignore-all-close` attribute applied, so clicking on the body will not close this panel.</p>
 </div>
 <div zf-panel class="docs-example-panel" id="example-panel-right" position="right">
   <a zf-close class="close-button">&times;</a>
@@ -16,6 +17,7 @@
 <div zf-panel class="docs-example-panel" id="example-panel-top" position="top">
   <a zf-close class="close-button">&times;</a>
   <p>This is a top panel.</p>
+  <p>It also allows you to close the panel by clicking on the body while it's open.</p>
 </div>
 <div zf-panel class="docs-example-panel" id="example-panel-bottom" position="bottom">
   <a zf-close class="close-button">&times;</a>
