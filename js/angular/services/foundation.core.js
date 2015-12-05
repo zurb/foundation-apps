@@ -119,8 +119,10 @@
 
     function animateAndAdvise(element, futureState, animationIn, animationOut) {
       var promise = FoundationAnimation.animate(element, futureState, animationIn, animationOut);
-      promise.finally(function() {
+      promise.then(function() {
         publish(element[0].id, futureState ? 'active-true' : 'active-false');
+      }, function() {
+        publish(element[0].id, 'active-aborted');
       });
       return promise;
     }
