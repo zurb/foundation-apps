@@ -8,6 +8,7 @@ var fs           = require('fs');
 module.exports = function(options) {
   var configs = [];
   var directory = options.dir || process.cwd();
+  options.angular = options.angular || false;
 
   function bufferContents(file, enc, cb) {
     var config;
@@ -39,17 +40,25 @@ module.exports = function(options) {
   function endStream(cb) {
     var self = this;
     var appPath = options.path;
+    var content = "";
 
     configs.sort(function(a, b) {
       return a.url < b.url;
     });
 
+    if (options.angular) {
+      content = "angular.module('foundation.dynamicRouting').config(" +
+        "['$FoundationStateProvider', function(FoundationStateProvider)" +
+        "{ FoundationStateProvider.registerDynamicRoutes(" + JSON.stringify(configs) + "); }]); \n";
+    } else {
+      content = 'var foundationRoutes = ' + JSON.stringify(configs) + '; \n'
+    }
 
-    fs.writeFile(appPath, 'var foundationRoutes = ' + JSON.stringify(configs) + '; \n', function(err) {
+    // create file or append if exists
+    fs.appendFile(appPath, content, function(err) {
       if(err) throw err;
       cb();
     });
-
   }
 
   return through.obj(bufferContents, endStream);

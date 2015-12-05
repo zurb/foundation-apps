@@ -322,6 +322,7 @@ $motion-delay-long: 700ms !default;
   }
 
   @include transition-start($dir) {
+    @include transition-basics($duration, $timing, $delay);
     transition-property: transform, opacity;
     transform: rotate($start);
     @if $fade { opacity: if($dir == in, 0, 1); }
@@ -405,13 +406,13 @@ $motion-delay-long: 700ms !default;
   */
 
   // Slide
-  .slideInDown    { @include slide($from: top); }
-  .slideInLeft    { @include slide($from: right); }
   .slideInUp      { @include slide($from: bottom); }
   .slideInRight   { @include slide($from: left); }
-  .slideOutBottom { @include slide($dir: out, $from: bottom); }
-  .slideOutRight  { @include slide($dir: out, $from: right); }
+  .slideInDown    { @include slide($from: top); }
+  .slideInLeft    { @include slide($from: right); }
   .slideOutUp     { @include slide($dir: out, $from: top); }
+  .slideOutRight  { @include slide($dir: out, $from: right); }
+  .slideOutDown   { @include slide($dir: out, $from: bottom); }
   .slideOutLeft   { @include slide($dir: out, $from: left); }
 
   // Fade
@@ -511,7 +512,7 @@ $motion-delay-long: 700ms !default;
 }
 
 // Applied to the animating views
-.ui-animation {
+[ui-view] {
   &.ng-enter-active, &.ng-leave-active {
     position: absolute !important;
     backface-visibility: hidden;

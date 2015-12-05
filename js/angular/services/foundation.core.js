@@ -7,6 +7,7 @@
     .service('FoundationApi', FoundationApi)
     .service('FoundationAdapter', FoundationAdapter)
     .factory('Utils', Utils)
+    .run(Setup);
   ;
 
   FoundationApi.$inject = ['FoundationAnimation'];
@@ -26,6 +27,7 @@
     service.toggleAnimate       = toggleAnimate;
     service.closeActiveElements = closeActiveElements;
     service.animate             = animate;
+    service.animateAndAdvise    = animateAndAdvise;
 
     return service;
 
@@ -92,8 +94,8 @@
       options = options || {};
       var activeElements = document.querySelectorAll('.is-active[zf-closable]');
       // action sheets are nested zf-closable elements, so we have to target the parent
-      var nestedActiveElements = document.querySelectorAll('[zf-closable] > .is-active')
-      
+      var nestedActiveElements = document.querySelectorAll('[zf-closable] > .is-active');
+
       if (activeElements.length) {
         angular.forEach(activeElements, function(el) {
           if (options.exclude !== el.id) {
@@ -107,12 +109,22 @@
           if (options.exclude !== parentId) {
             self.publish(parentId, 'close');
           }
-        })
+        });
       }
     }
 
     function animate(element, futureState, animationIn, animationOut) {
-      FoundationAnimation.animate(element, futureState, animationIn, animationOut);
+      return FoundationAnimation.animate(element, futureState, animationIn, animationOut);
+    }
+
+    function animateAndAdvise(element, futureState, animationIn, animationOut) {
+      var promise = FoundationAnimation.animate(element, futureState, animationIn, animationOut);
+      promise.then(function() {
+        publish(element[0].id, futureState ? 'active-true' : 'active-false');
+      }, function() {
+        publish(element[0].id, 'active-aborted');
+      });
+      return promise;
     }
   }
 
@@ -157,6 +169,18 @@
           }, delay);
         }
       };
+    }
+  }
+
+  function Setup() {
+    // Attach FastClick
+    if (typeof(FastClick) !== 'undefined') {
+      FastClick.attach(document.body);
+    }
+
+    // Attach viewport units buggyfill
+    if (typeof(viewportUnitsBuggyfill) !== 'undefined') {
+      viewportUnitsBuggyfill.init();
     }
   }
 

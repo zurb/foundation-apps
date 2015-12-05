@@ -4,16 +4,18 @@
 
 .docs-search {
   @include hide-for-only(small);
-  padding: 1rem;
+  padding: 0.5rem;
   border-bottom: 1px solid #e7e7e7;
   overflow: visible;
+  margin-bottom: 1rem;
 }
 
 .autocomplete {
   input {
-    padding: 0.5em;
+    padding: 0.3em 0.5em;
     margin: 0;
     font-size: 0.8rem;
+    height: 2.1rem;
   }
 
   > ul {

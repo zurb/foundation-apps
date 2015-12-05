@@ -19,6 +19,8 @@
     .controller('MotionUIController', MotionUIController)
     .controller('NavController', NavController)
     .controller('AngularModsController', AngularModsController)
+    .controller('IconicController', IconicController)
+    .controller('ModalController', ModalController)
   ;
 
   config.$inject = ['$urlRouterProvider', '$locationProvider'];
@@ -35,9 +37,7 @@
       $locationProvider.hashPrefix('!');
   }
 
-  function run() {
-      FastClick.attach(document.body);
-  }
+  function run() {}
 
   track.$inject = ['$rootScope','$window', '$location'];
 
@@ -250,6 +250,70 @@
           return;
         }
       });
+    };
+  }
+
+  IconicController.$inject = ['$scope', '$timeout'];
+
+  function IconicController($scope, $timeout) {
+    var iconNum = 0,
+        icons = [{
+          icon: 'account',
+          iconAttrs: { state: 'login' }
+        },{
+          icon: 'account',
+          iconAttrs: { state: 'logout' }
+        },{
+          icon: 'chevron',
+          iconAttrs: { direction: 'right' }
+        },{
+          icon: 'chevron',
+          iconAttrs: { direction: 'left' }
+        }];
+
+    $scope.rotatingIcon = icons[0];
+    $scope.staticIcon = icons[0];
+    $scope.delayLoadedIcon = null;
+
+    rotateIcon();
+    loadIcon();
+
+    function rotateIcon() {
+      $timeout(function() {
+        if (++iconNum == icons.length) {
+          iconNum = 0;
+        }
+        $scope.rotatingIcon = icons[iconNum];
+        rotateIcon();
+      }, 3000);
+    };
+
+    function loadIcon() {
+      $timeout(function() {
+        $scope.delayLoadedIcon = icons[0];
+      });
+    }
+  }
+
+  ModalController.$inject = ['$scope', '$timeout', 'ModalFactory'];
+
+  function ModalController($scope, $timeout, ModalFactory) {
+    $scope.createModal = function() {
+      var modal = new ModalFactory({
+        class: 'tiny dialog',
+        overlay: true,
+        overlayClose: false,
+        templateUrl: 'partials/examples-dynamic-modal.html',
+        contentScope: {
+          close: function() {
+            modal.deactivate();
+            $timeout(function() {
+              modal.destroy();
+            }, 1000);
+          }
+        }
+      });
+      modal.activate();
     };
   }
 

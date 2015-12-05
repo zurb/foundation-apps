@@ -41,6 +41,7 @@
       margin: 0;
       background: transparent;
       position: relative;
+
       &::after {
         position: absolute;
         display: block;
@@ -52,15 +53,33 @@
   }
 
   &.vertical {
+    flex-wrap: nowrap;
+
     .grid-block {
-      height: 50px;
+      flex-basis: 50px;
+      flex-basis: auto;
+      flex-wrap: wrap;
 
       &:first-child {
         margin-bottom: 0.5rem;
       }
+    }
+  }
 
-      @include breakpoint(medium) {
-        height: auto;
+  &.vertical.medium-horizontal {
+    .grid-block:first-child {
+      margin-bottom: 1rem;
+    }
+
+    @include breakpoint(small only) {
+      flex-wrap: nowrap;
+
+      .grid-block {
+        flex-basis: 50px;
+
+        &:first-child {
+          margin-bottom: 0.5rem;
+        }
       }
     }
   }
@@ -86,4 +105,42 @@
   text-align: center;
   border: 1px solid #ccc;
   box-shadow: 0 4px 10px rgba(#000, 0.25);
+}
+
+.docs-example-valign {
+  > div {
+    width: 33%;
+    padding: 1rem;
+    color: white;
+
+    &:nth-child(1) {
+      background: #B2685C;
+    }
+    &:nth-child(2) {
+      background: #87B286;
+    }
+    &:nth-child(3) {
+      background: #87A1B2;
+      height: 200px;
+    }
+  }
+}
+
+.docs-example-valign-2 {
+  justify-content: space-around;
+
+  > div {
+    width: 45%;
+    padding: 1rem;
+    color: white;
+
+    &:nth-child(1) {
+      background: #B2685C;
+      height: 75px;
+    }
+    &:nth-child(2) {
+      background: #87B286;
+      height: 200px;
+    }
+  }
 }

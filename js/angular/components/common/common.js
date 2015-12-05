@@ -8,6 +8,7 @@
     .directive('zfEscClose', zfEscClose)
     .directive('zfSwipeClose', zfSwipeClose)
     .directive('zfHardToggle', zfHardToggle)
+    .directive('zfCloseAll', zfCloseAll)
   ;
 
   zfClose.$inject = ['FoundationApi'];
@@ -41,7 +42,6 @@
         }
         targetId = parentElement.attr('id');
       }
-
       element.on('click', function(e) {
         foundationApi.publish(targetId, 'close');
         e.preventDefault();
@@ -117,7 +117,7 @@
     function link($scope, element, attrs) {
       var swipeDirection;
       var hammerElem;
-      if (Hammer) {
+      if (typeof(Hammer)!=='undefined') {
         hammerElem = new Hammer(element[0]);
         // set the options for swipe (to make them a bit more forgiving in detection)
         hammerElem.get('swipe').set({
@@ -143,9 +143,11 @@
         default:
           swipeDirection = 'swipe';
       }
-      hammerElem.on(swipeDirection, function() {
-        foundationApi.publish(attrs.id, 'close');
-      });
+      if(typeof(hammerElem) !== 'undefined'){
+        hammerElem.on(swipeDirection, function() {
+          foundationApi.publish(attrs.id, 'close');
+        });
+      }
     }
   }
 
@@ -168,4 +170,47 @@
     }
   }
 
+  zfCloseAll.$inject = ['FoundationApi'];
+
+  function zfCloseAll(foundationApi) {
+    var directive = {
+      restrict: 'A',
+      link: link
+    };
+
+    return directive;
+
+    function link(scope, element, attrs) {
+      element.on('click', function(e) {
+        var tar = e.target;
+        var avoid = ['zf-toggle', 'zf-hard-toggle', 'zf-open', 'zf-close'].filter(function(e, i){
+          return e in tar.attributes;
+        });
+
+        if(avoid.length > 0){ return; }
+
+        var activeElements = document.querySelectorAll('.is-active[zf-closable]');
+
+        if(activeElements.length && !activeElements[0].hasAttribute('zf-ignore-all-close')){
+          if(getParentsUntil(tar, 'zf-closable') === false){
+            e.preventDefault();
+            foundationApi.publish(activeElements[0].id, 'close');
+          }
+        }
+        return;
+      });
+    }
+    /** special thanks to Chris Ferdinandi for this solution.
+     * http://gomakethings.com/climbing-up-and-down-the-dom-tree-with-vanilla-javascript/
+     */
+    function getParentsUntil(elem, parent) {
+      for ( ; elem && elem !== document.body; elem = elem.parentNode ) {
+        if(elem.hasAttribute(parent)){
+          if(elem.classList.contains('is-active')){ return elem; }
+          break;
+        }
+      }
+      return false;
+    }
+  }
 })();

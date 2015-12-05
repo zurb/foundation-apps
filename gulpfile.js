@@ -20,14 +20,14 @@
 // 1. LIBRARIES
 // - - - - - - - - - - - - - - -
 
-var gulp           = require('gulp'),
-    $              = require('gulp-load-plugins')(),
-    rimraf         = require('rimraf'),
-    runSequence    = require('run-sequence'),
-    modRewrite     = require('connect-modrewrite'),
-    routes         = require('./bin/gulp-dynamic-routing'),
-    merge          = require('merge-stream'),
-    settingsParser = require('settings-parser')
+var gulp        = require('gulp'),
+    $           = require('gulp-load-plugins')(),
+    rimraf      = require('rimraf'),
+    runSequence = require('run-sequence'),
+    modRewrite  = require('connect-modrewrite'),
+    routes      = require('./bin/gulp-dynamic-routing'),
+    merge       = require('merge-stream'),
+    octophant   = require('octophant')
 ;
 
 var addVersions = function() {
@@ -43,8 +43,8 @@ var addVersions = function() {
     }
     path.basename = base;
     path.dirname = '';
-  })
-}
+  });
+};
 
 // 2. VARIABLES
 // - - - - - - - - - - - - - - -
@@ -97,7 +97,7 @@ var paths = {
       'docs/assets/js/app.js'
     ]
   }
-}
+};
 
 // 3. CLEANIN' FILES
 // - - - - - - - - - - - - - - -
@@ -195,7 +195,7 @@ gulp.task('sass', function() {
 
 // Generate Sass settings file
 gulp.task('sass:settings', function() {
-  settingsParser([
+  octophant([
     'scss/_includes.scss',
     'scss/_global.scss',
     'scss/helpers/_breakpoints.scss',

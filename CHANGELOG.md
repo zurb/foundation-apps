@@ -1,3 +1,64 @@
+# Version 1.2 – Eiger
+
+### What's in Store?
+
+**We're planning a 1.3 release to transition between version 1.x and 2.x of Foundation for Apps.** Here's our current plan for 1.3:
+
+- The visual styles of many components will be improved. In many places we'll be bringing the styles more in line with Foundation for Sites 6.
+  - New Foundation for Apps projects will automatically get these styles.
+  - Existing projects will be able to opt-in to the new styles by changing a Sass variable.
+- The built-in motion module will be replaced with the external [Motion UI](https://github.com/zurb/motion-ui) library.
+  - The existing motion Sass file (`scss/components/_motion.scss`) will be removed.
+  - Transition class names have changed from `.camelCase` to `.kebab-case`.
+  - The syntax for existing transition and animation mixins has changed. Check out the [Motion UI documentation](https://github.com/zurb/motion-ui/tree/master/docs) for more details.
+  - New Foundation for Apps projects will include Motion UI as a dependency.
+- The dynamic routing module, now branded [Front Router](https://github.com/zurb/front-router), has been moved to an external Node library.
+  - New Foundation for Apps projects are currently referencing this library.
+  - In 1.5, the existing built-in library will be removed.
+- The Sass files will be rearranged to match the structure of [Foundation for Sites 6](https://github.com/zurb/foundation-sites/tree/develop/scss).
+  - The upgrade path will be relatively straightforward&mdash;you just need to change around some `@import` paths.
+- RTL support will be added.
+
+### General
+
+- Updated to Angular 1.4.
+- Updated to FastClick 1.0.6.
+- Updated to Normalize.css 3.0.3.
+- Added the precompiled Angular templates to `bower.json`'s `main` section. #534
+- Added forms to the export list. Previously, the CSS would output no matter what. #544
+- FastClick and viewport-units-buggyfill are now initialized within the Foundation code, which means you can remove it from your app's `run()` method.
+- Thanks to a few pull requests from @erikmellum, Foundation for Apps now works in Electron!
+
+### Features
+
+- **Interchange directives.** @soumak77 put together a set of `ng-if`-like directives that respond to media queries, like so:
+
+```html
+<div zf-if="medium"></div>
+<div zf-if="not large"></div>
+```
+
+- **Animation methods with promises.** `FoundationApi.animateAndAdvise` allows you to animate an element and get a promise back, which resolves when the animation finishes.
+- **Click outside of things to close them!** Panels and off-canvas menus can be configured to be closed when they're clicked/tapped outside of. To enable it, add the directive `zf-close-all` to the `<body>` element. #430
+- Front Router now outputs an entire Angular module instead of a global variable, to avoid polluting the global namespace.
+- Added the method `.isActive` to `ModalFactory`, which tells you if a modal is open. #580
+
+### Bug Fixes
+
+- Grid blocks with the `.shrink` class can no longer scroll. #568
+- Prevent JavaScript errors if an app loads without any CSS, such as when being loaded in a headless browser. #596
+- Fixed an "apply already in progress" error with action sheets. #558
+- Fixed a sizing issue in IE10 and 11 with grid items that used the `.up-*` grid classes.
+- Fixed Iconic images not working with Angular directives. #569
+- Prevent JavaScript errors when not using Front Router. #583
+- Fixed various menu issues related to alignment and Flexbox properties. #567
+- Fixed text inputs inside block lists having cut off text in Firefox. #566
+- Added `overflow-y: visible` to menu bar, to make working with dropdowns easier. #520
+- Modals now properly publish a `close` event when the overlay is hidden. #540
+- Fixed JavaScript errors popping up when clicking on elements inside of a panel. #548
+- Fixed arrows in `<select>` elements not appearing in IE10 and 11. #606
+- Fixed CSSO choking on Foundation's CSS. #650
+
 # Version 1.1 — Weisshorn
 
 *March 17, 2015*

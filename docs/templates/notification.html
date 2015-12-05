@@ -18,8 +18,8 @@ title: Notification
       autoclose="3000"
   	  zf-notify="test-docs-notifications">Dynamic Notification</a>
   	<a class="button" href="#" zf-open="static-example">Static Notification</a>
-    <zf-notification-set position="bottom-left" id="test-docs-notifications"></zf-notification-set>
-    <zf-notification-static id="static-example" title="My static notification" image="http://www.clipartbest.com/cliparts/acq/X8R/acqX8RdcM.jpeg" position="top left">
+    <zf-notification-set zf-advise position="bottom-left" id="test-docs-notifications"></zf-notification-set>
+    <zf-notification-static zf-advise id="static-example" title="My static notification" image="http://www.clipartbest.com/cliparts/acq/X8R/acqX8RdcM.jpeg" position="top left">
   	  This notification is static, it works similarly to a programmatic with some subtle differences. I'll stay here until you close me!
   	</zf-notification-static>
   </div>
@@ -39,7 +39,7 @@ title: Notification
 <!-- notification trigger -->
 <a class="button" href="#" zf-open="my-notify">Static Notification</a>
 <!-- notification content -->
-<zf-notification-static id="my-notify" title="My static notification" image="http://placehold.it/40x40">
+<zf-notification-static id="my-notify" zf-advise title="My static notification" image="http://placehold.it/40x40">
 	  <p>This notification is static, it works similarly to a programmatic with some subtle differences.</p>
 	</zf-notification-static>
 </hljs>
@@ -121,7 +121,7 @@ foundationApi.publish('main-notifications', { title: 'Test', content: 'Test2' })
   );
 
   // Use the style mixin to style the notification
-  @include notification-layout(
+  @include notification-style(
     $background: #fff, // Background color
     $color: #000, // Text color
     $padding: 1rem,

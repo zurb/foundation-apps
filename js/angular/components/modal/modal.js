@@ -4,6 +4,7 @@
   angular.module('foundation.modal', ['foundation.core'])
     .directive('zfModal', modalDirective)
     .factory('ModalFactory', ModalFactory)
+    .service('FoundationModal', FoundationModal)
   ;
 
   FoundationModal.$inject = ['FoundationApi', 'ModalFactory'];
@@ -62,6 +63,7 @@
 
       function postLink(scope, element, attrs) {
         var dialog = angular.element(element.children()[0]);
+        var animateFn = attrs.hasOwnProperty('zfAdvise') ? foundationApi.animateAndAdvise : foundationApi.animate;
 
         scope.active = scope.active || false;
         scope.overlay = attrs.overlay === 'false' ? false : true;
@@ -75,7 +77,7 @@
 
         scope.hideOverlay = function() {
           if(scope.overlayClose) {
-            scope.hide();
+            foundationApi.publish(attrs.id, 'close');
           }
         };
 
@@ -124,8 +126,17 @@
             element.css('background', 'transparent');
           }
 
-          foundationApi.animate(element, scope.active, overlayIn, overlayOut);
-          foundationApi.animate(dialog, scope.active, animationIn, animationOut);
+          // work around for modal animations
+          // due to a bug where the overlay fadeIn is essentially covering up
+          // the dialog's animation
+          if (!scope.active) {
+            animateFn(element, scope.active, overlayIn, overlayOut);
+          }
+          else {
+            element.addClass('is-active');
+          }
+
+          animateFn(dialog, scope.active, animationIn, animationOut);
         }
 
         function init() {
@@ -159,7 +170,8 @@
         'animationIn',
         'animationOut',
         'overlay',
-        'overlayClose'
+        'overlayClose',
+        'class'
       ];
 
       if(config.templateUrl) {
@@ -185,6 +197,7 @@
 
 
       return {
+        isActive: isActive,
         activate: activate,
         deactivate: deactivate,
         toggle: toggle,
@@ -195,6 +208,10 @@
         if(destroyed) {
           throw "Error: Modal was destroyed. Delete the object and create a new ModalFactory instance."
         }
+      }
+
+      function isActive() {
+        return !destroyed && scope && scope.active === true;
       }
 
       function activate() {
@@ -226,11 +243,12 @@
           if(!attached && html.length > 0) {
             var modalEl = container.append(element);
 
-            scope.active = state;
             $compile(element)(scope);
 
             attached = true;
           }
+
+          scope.active = state;
         });
       }
 
@@ -246,7 +264,7 @@
 
         scope = $rootScope.$new();
 
-        // account for directive attributes
+        // account for directive attributes and modal classes
         for(var i = 0; i < props.length; i++) {
           var prop = props[i];
 
@@ -258,8 +276,23 @@
               case 'animationOut':
                 element.attr('animation-out', config[prop]);
                 break;
+              case 'overlayClose':
+                element.attr('overlay-close', config[prop] === 'false' ? 'false' : 'true'); // must be string, see postLink() above
+                break;
+              case 'class':
+                if (angular.isString(config[prop])) {
+                  config[prop].split(' ').forEach(function(klass) {
+                    element.addClass(klass);
+                  });
+                } else if (angular.isArray(config[prop])) {
+                  config[prop].forEach(function(klass) {
+                    element.addClass(klass);
+                  });
+                }
+                break;
               default:
                 element.attr(prop, config[prop]);
+                break;
             }
           }
         }
@@ -276,11 +309,11 @@
 
       function destroy() {
         self.deactivate();
-        setTimeout(function() {
+        $timeout(function() {
           scope.$destroy();
           element.remove();
           destroyed = true;
-        }, 3000);
+        }, 0, false);
         foundationApi.unsubscribe(id);
       }
 

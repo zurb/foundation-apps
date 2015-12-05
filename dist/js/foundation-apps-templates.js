@@ -83,7 +83,7 @@ angular.module('foundation').run(['$templateCache', function($templateCache) {
     '    <img ng-src="{{ image }}"/>\n' +
     '  </div>\n' +
     '  <div class="notification-content">\n' +
-    '    <h1>{{ title }}</h1>\n' +
+    '    <h1 ng-bind-html="trustedTitle"></h1>\n' +
     '    <p ng-transclude></p>\n' +
     '  </div>\n' +
     '</div>\n' +
@@ -100,7 +100,7 @@ angular.module('foundation').run(['$templateCache', function($templateCache) {
     '    <img ng-src="{{ image }}"/>\n' +
     '  </div>\n' +
     '  <div class="notification-content">\n' +
-    '    <h1>{{ title }}</h1>\n' +
+    '    <h1 ng-bind-html="trustedTitle"></h1>\n' +
     '    <p ng-transclude></p>\n' +
     '  </div>\n' +
     '</div>\n' +

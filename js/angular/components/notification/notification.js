@@ -102,9 +102,9 @@
     }
   }
 
-  zfNotification.$inject = ['FoundationApi'];
+  zfNotification.$inject = ['FoundationApi', '$sce'];
 
-  function zfNotification(foundationApi) {
+  function zfNotification(foundationApi, $sce) {
     var directive = {
       restrict: 'EA',
       templateUrl: 'components/notification/notification.html',
@@ -134,23 +134,31 @@
 
       function preLink(scope, iElement, iAttrs) {
         iAttrs.$set('zf-closable', 'notification');
+        if (iAttrs['title']) {
+          scope.$watch('title', function(value) {
+            if (value) {
+              scope.trustedTitle = $sce.trustAsHtml(value);
+            }
+          });
+        }
       }
 
       function postLink(scope, element, attrs, controller) {
         scope.active = false;
         var animationIn  = attrs.animationIn || 'fadeIn';
         var animationOut = attrs.animationOut || 'fadeOut';
+        var animate = attrs.hasOwnProperty('zfAdvise') ? foundationApi.animateAndAdvise : foundationApi.animate;
         var hammerElem;
 
         //due to dynamic insertion of DOM, we need to wait for it to show up and get working!
         setTimeout(function() {
           scope.active = true;
-          foundationApi.animate(element, scope.active, animationIn, animationOut);
+          animate(element, scope.active, animationIn, animationOut);
         }, 50);
 
         scope.hide = function() {
           scope.active = false;
-          foundationApi.animate(element, scope.active, animationIn, animationOut);
+          animate(element, scope.active, animationIn, animationOut);
           setTimeout(function() {
             controller.removeNotification(scope.notifId);
           }, 50);
@@ -166,7 +174,7 @@
         };
 
         // close on swipe
-        if (Hammer) {
+        if (typeof(Hammer) !== 'undefined') {
           hammerElem = new Hammer(element[0]);
           // set the options for swipe (to make them a bit more forgiving in detection)
           hammerElem.get('swipe').set({
@@ -175,19 +183,20 @@
             velocity: 0.5 // and this is how fast the swipe must travel
           });
         }
-
-        hammerElem.on('swipe', function() {
-          if (scope.active) {
-            scope.hide();
-          }
-        });
+        if(typeof(hammerElem) !== 'undefined') {
+          hammerElem.on('swipe', function() {
+            if (scope.active) {
+              scope.hide();
+            }
+          });
+        }
       }
     }
   }
 
-  zfNotificationStatic.$inject = ['FoundationApi'];
+  zfNotificationStatic.$inject = ['FoundationApi', '$sce'];
 
-  function zfNotificationStatic(foundationApi) {
+  function zfNotificationStatic(foundationApi, $sce) {
     var directive = {
       restrict: 'EA',
       templateUrl: 'components/notification/notification-static.html',
@@ -215,6 +224,9 @@
 
       function preLink(scope, iElement, iAttrs, controller) {
         iAttrs.$set('zf-closable', type);
+        if (iAttrs['title']) {
+          scope.trustedTitle = $sce.trustAsHtml(iAttrs['title']);
+        }
       }
 
       function postLink(scope, element, attrs, controller) {
@@ -222,6 +234,7 @@
 
         var animationIn = attrs.animationIn || 'fadeIn';
         var animationOut = attrs.animationOut || 'fadeOut';
+        var animateFn = attrs.hasOwnProperty('zfAdvise') ? foundationApi.animateAndAdvise : foundationApi.animate;
 
         //setup
         foundationApi.subscribe(attrs.id, function(msg) {
@@ -246,30 +259,26 @@
                   scope.toggle();
                 }
               }, parseInt(scope.autoclose));
-            };
+            }
           }
-
-          foundationApi.animate(element, scope.active, animationIn, animationOut);
-          scope.$apply();
-
           return;
         });
 
         scope.hide = function() {
           scope.active = false;
-          foundationApi.animate(element, scope.active, animationIn, animationOut);
+          animateFn(element, scope.active, animationIn, animationOut);
           return;
         };
 
         scope.show = function() {
           scope.active = true;
-          foundationApi.animate(element, scope.active, animationIn, animationOut);
+          animateFn(element, scope.active, animationIn, animationOut);
           return;
         };
 
         scope.toggle = function() {
           scope.active = !scope.active;
-          foundationApi.animate(element, scope.active, animationIn, animationOut);
+          animateFn(element, scope.active, animationIn, animationOut);
           return;
         };
 
@@ -308,9 +317,9 @@
     }
   }
 
-  NotificationFactory.$inject = ['$http', '$templateCache', '$rootScope', '$compile', '$timeout', 'FoundationApi'];
+  NotificationFactory.$inject = ['$http', '$templateCache', '$rootScope', '$compile', '$timeout', 'FoundationApi', '$sce'];
 
-  function NotificationFactory($http, $templateCache, $rootScope, $compile, $timeout, foundationApi) {
+  function NotificationFactory($http, $templateCache, $rootScope, $compile, $timeout, foundationApi, $sce) {
     return notificationFactory;
 
     function notificationFactory(config) {
@@ -382,7 +391,7 @@
         element = angular.element(html);
 
         scope = $rootScope.$new();
-        
+
         for(var i = 0; i < props.length; i++) {
           if(config[props[i]]) {
             element.attr(props[i], config[props[i]]);

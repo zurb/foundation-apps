@@ -53,7 +53,7 @@
       return {
         pre: preLink,
         post: postLink
-      }
+      };
 
       function preLink(scope, iElement, iAttrs, controller) {
         iAttrs.$set('zf-closable', type);
@@ -77,7 +77,7 @@
           if (!scope.$root.$$phase) {
             scope.$apply();
           }
-          
+
           return;
         });
 

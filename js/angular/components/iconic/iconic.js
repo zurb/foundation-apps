@@ -62,9 +62,11 @@
       scope: {
         dynSrc: '=?',
         dynIcon: '=?',
+        dynIconAttrs: '=?',
         size: '@?',
         icon: '@',
-        iconDir: '@?'
+        iconDir: '@?',
+        iconAttrs: '=?'
       },
       compile: compile
     };
@@ -72,7 +74,7 @@
     return directive;
 
     function compile() {
-      var contents, assetPath;
+      var contents, origAttrs, lastIconAttrs, assetPath;
 
       return {
         pre: preLink,
@@ -80,6 +82,7 @@
       };
 
       function preLink(scope, element, attrs) {
+        var iconAttrsObj, iconAttr;
 
         if (scope.iconDir) {
           // path set via attribute
@@ -125,8 +128,18 @@
           element.addClass(iconicClass);
         }
 
-        // save contents of un-inject html, to use for dynamic re-injection
+        // add static icon attributes to iconic element
+        if (scope.iconAttrs) {
+          iconAttrsObj = angular.fromJson(scope.iconAttrs);
+          for (iconAttr in iconAttrsObj) {
+            // add data- to attribute name if not already present
+            attrs.$set(addDataDash(iconAttr), iconAttrsObj[iconAttr]);
+          }
+        }
+
+        // save contents and attributes of un-inject html, to use for dynamic re-injection
         contents = element[0].outerHTML;
+        origAttrs = element[0].attributes;
       }
 
       function postLink(scope, element, attrs) {
@@ -143,7 +156,7 @@
         if (scope.dynSrc) {
           scope.$watch('dynSrc', function (newVal, oldVal) {
             if (newVal && newVal !== oldVal) {
-              reinjectSvg(scope.dynSrc);
+              reinjectSvg(scope.dynSrc, scope.dynIconAttrs);
             }
           });
         }
@@ -151,19 +164,54 @@
         if (scope.dynIcon) {
           scope.$watch('dynIcon', function (newVal, oldVal) {
             if (newVal && newVal !== oldVal) {
-              reinjectSvg(assetPath + scope.dynIcon + '.svg');
+              reinjectSvg(assetPath + scope.dynIcon + '.svg', scope.dynIconAttrs);
             }
           });
         }
+        // handle dynamic updating of icon attrs
+        scope.$watch('dynIconAttrs', function (newVal, oldVal) {
+          if (newVal && newVal !== oldVal) {
+            if (scope.dynSrc) {
+              reinjectSvg(scope.dynSrc, scope.dynIconAttrs);
+            } else {
+              reinjectSvg(assetPath + scope.dynIcon + '.svg', scope.dynIconAttrs);
+            }
+          }
+        });
 
-        function reinjectSvg(newSrc) {
+        function reinjectSvg(newSrc, newAttrs) {
+          var iconAttr;
+
           if (svgElement) {
             // set html
             svgElement.empty();
             svgElement.append(angular.element(contents));
 
+            // remove 'data-icon' attribute added by injector as it
+            // will cause issues with reinjection when changing icons
+            svgElement.removeAttr('data-icon');
+
             // set new source
             svgElement.attr('data-src', newSrc);
+
+            // add additional icon attributes to iconic element
+            if (newAttrs) {
+              // remove previously added attributes
+              if (lastIconAttrs) {
+                for (iconAttr in lastIconAttrs) {
+                  svgElement.removeAttr(addDataDash(iconAttr));
+                }
+              }
+
+              // add newly added attributes
+              for (iconAttr in newAttrs) {
+                // add data- to attribute name if not already present
+                svgElement.attr(addDataDash(iconAttr), newAttrs[iconAttr]);
+              }
+            }
+
+            // store current attrs
+            lastIconAttrs = newAttrs;
 
             // reinject
             injectSvg(svgElement[0]);
@@ -173,12 +221,38 @@
         function injectSvg(element) {
           ico.inject(element, {
             each: function (injectedElem) {
-              // compile injected svg
-              var angElem = angular.element(injectedElem);
-              svgElement = $compile(angElem)(angElem.scope());
+
+              var i, angElem, elemScope;
+
+              // wrap raw element
+              angElem = angular.element(injectedElem);
+
+              for(i = 0; i < origAttrs.length; i++) {
+                // check if attribute should be ignored
+                if (origAttrs[i].name !== 'zf-iconic' &&
+                  origAttrs[i].name !== 'ng-transclude' &&
+                  origAttrs[i].name !== 'icon' &&
+                  origAttrs[i].name !== 'src') {
+                  // check if attribute already exists on svg
+                  if (angular.isUndefined(angElem.attr(origAttrs[i].name))) {
+                    // add attribute to svg
+                    angElem.attr(origAttrs[i].name, origAttrs[i].value);
+                  }
+                }
+              }
+
+              // compile
+              elemScope = angElem.scope();
+              if (elemScope) {
+                svgElement = $compile(angElem)(elemScope);
+              }
             }
           });
         }
+      }
+
+      function addDataDash(attr) {
+        return attr.indexOf('data-') !== 0 ? 'data-' + attr : attr;
       }
     }
   }

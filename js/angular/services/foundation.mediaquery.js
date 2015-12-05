@@ -37,26 +37,54 @@
     function init() {
       var mediaQueries;
       var extractedMedia;
-      var mediaObject;
+      var mediaQuerySizes;
+      var mediaMap;
+      var key;
 
       helpers.headerHelper(['foundation-mq']);
       extractedMedia = helpers.getStyle('.foundation-mq', 'font-family');
 
-      mediaQueries = helpers.parseStyleToObject((extractedMedia));
+      if (!extractedMedia.match(/([\w]+=[\d]+[a-z]*&?)+/)) {
+        extractedMedia = 'small=0&medium=40rem&large=75rem&xlarge=90rem&xxlarge=120rem';
+      }
 
-      for(var key in mediaQueries) {
+      mediaQueries = helpers.parseStyleToObject((extractedMedia));
+      mediaQuerySizes = [];
+
+      for(key in mediaQueries) {
+        mediaQuerySizes.push({ query: key, size: parseInt(mediaQueries[key].replace('rem', '')) });
         mediaQueries[key] = 'only screen and (min-width: ' + mediaQueries[key].replace('rem', 'em') + ')';
       }
 
+      // sort by increasing size
+      mediaQuerySizes.sort(function(a,b) {
+        return a.size > b.size ? 1 : (a.size < b.size ? -1 : 0);
+      });
+
+      mediaMap = {};
+      for (key = 0; key < mediaQuerySizes.length; key++) {
+        mediaMap[mediaQuerySizes[key].query] = {
+          up: null,
+          down: null
+        };
+
+        if (key+1 < mediaQuerySizes.length) {
+          mediaMap[mediaQuerySizes[key].query].up = mediaQuerySizes[key+1].query;
+        }
+
+        if (key !== 0) {
+          mediaMap[mediaQuerySizes[key].query].down = mediaQuerySizes[key-1].query;
+        }
+      }
 
       foundationApi.modifySettings({
-        mediaQueries: angular.extend(mediaQueries, namedQueries)
+        mediaQueries: angular.extend(mediaQueries, namedQueries),
+        mediaMap: mediaMap
       });
 
       window.addEventListener('resize', u.throttle(function() {
         foundationApi.publish('resize', 'window resized');
       }, 50));
-
     }
   }
 
@@ -96,8 +124,10 @@
         return styleObject;
       }
 
-      str = str.trim().slice(1, -1); // browsers re-quote string style values
-
+      if ((str[0] === '"' && str[str.length - 1] === '"') || (str[0] === '\'' && str[str.length - 1] === '\'')) {
+        str = str.trim().slice(1, -1); // some browsers re-quote string style values
+      }
+      
       if (!str) {
         return styleObject;
       }
@@ -129,16 +159,44 @@
   FoundationMQ.$inject = ['FoundationApi'];
 
   function FoundationMQ(foundationApi) {
-    var service = [];
+    var service = [],
+        mediaQueryResultCache = {},
+        queryMinWidthCache = {};
+
+    foundationApi.subscribe('resize', function() {
+      // any new resize event causes a clearing of the media cache
+      mediaQueryResultCache = {};
+    });
 
     service.getMediaQueries = getMediaQueries;
     service.match = match;
+    service.matchesMedia = matchesMedia;
+    service.matchesMediaOrSmaller = matchesMediaOrSmaller;
+    service.matchesMediaOnly = matchesMediaOnly;
     service.collectScenariosFromElement = collectScenariosFromElement;
 
     return service;
 
     function getMediaQueries() {
       return foundationApi.getSettings().mediaQueries;
+    }
+
+    function getNextLargestMediaQuery(media) {
+      var mediaMapEntry = foundationApi.getSettings().mediaMap[media];
+      if (mediaMapEntry) {
+        return mediaMapEntry.up;
+      } else {
+        return null;
+      }
+    }
+
+    function getNextSmallestMediaQuery(media) {
+      var mediaMapEntry = foundationApi.getSettings().mediaMap[media];
+      if (mediaMapEntry) {
+        return mediaMapEntry.down;
+      } else {
+        return null;
+      }
     }
 
     function match(scenarios) {
@@ -166,6 +224,57 @@
       return matches;
     }
 
+    function matchesMedia(query) {
+      if (angular.isUndefined(mediaQueryResultCache[query])) {
+        // cache miss, run media query
+        mediaQueryResultCache[query] = match([{media: query}]).length > 0;
+      }
+      return mediaQueryResultCache[query];
+    }
+
+    function matchesMediaOrSmaller(query) {
+      // In order to match the named breakpoint or smaller,
+      // the next largest named breakpoint cannot be matched
+      var nextLargestMedia = getNextLargestMediaQuery(query);
+      if (nextLargestMedia && matchesMedia(nextLargestMedia)) {
+        return false;
+      }
+
+      // Check to see if any smaller named breakpoint is matched
+      return matchesSmallerRecursive(query);
+
+      function matchesSmallerRecursive(query) {
+        var nextSmallestMedia;
+
+        if (matchesMedia(query)) {
+          // matches breakpoint
+          return true;
+        } else {
+          // check if matches smaller media
+          nextSmallestMedia = getNextSmallestMediaQuery(query);
+          if (!nextSmallestMedia) {
+            // no more smaller breakpoints
+            return false;
+          } else {
+            return matchesSmallerRecursive(nextSmallestMedia);
+          }
+        }
+      }
+    }
+
+    function matchesMediaOnly(query) {
+      // Check that media ONLY matches named breakpoint and nothing else
+      var nextLargestMedia = getNextLargestMediaQuery(query);
+
+      if (!nextLargestMedia) {
+        // reached max media size, run query for current media
+        return matchesMedia(query);
+      } else {
+        // must match named breakpoint, but not next largest
+        return matchesMedia(query) && !matchesMedia(nextLargestMedia);
+      }
+    }
+
     // Collects a scenario object and templates from element
     function collectScenariosFromElement(parentElement) {
       var scenarios = [];
@@ -176,7 +285,6 @@
 
       angular.forEach(elements, function(el) {
         var elem = angular.element(el);
-
 
         //if no source or no html, capture element itself
         if (!elem.attr('src') || !elem.attr('src').match(/.html$/)) {

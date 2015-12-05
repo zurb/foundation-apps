@@ -45,6 +45,7 @@
 
     function compile(tElement, tAttrs, transclude) {
       var type = 'panel';
+      var animate = tAttrs.hasOwnProperty('zfAdvise') ? foundationApi.animateAndAdvise : foundationApi.animate;
 
       return {
         pre: preLink,
@@ -61,21 +62,39 @@
         scope.active = false;
         var animationIn, animationOut;
         var globalQueries = foundationApi.getSettings().mediaQueries;
-
-        //urgh, there must be a better way
-        if(scope.position === 'left') {
-          animationIn  = attrs.animationIn || 'slideInRight';
-          animationOut = attrs.animationOut || 'slideOutLeft';
-        } else if (scope.position === 'right') {
-          animationIn  = attrs.animationIn || 'slideInLeft';
-          animationOut = attrs.animationOut || 'slideOutRight';
-        } else if (scope.position === 'top') {
-          animationIn  = attrs.animationIn || 'slideInDown';
-          animationOut = attrs.animationOut || 'slideOutUp';
-        } else if (scope.position === 'bottom') {
-          animationIn  = attrs.animationIn || 'slideInUp';
-          animationOut = attrs.animationOut || 'slideOutBottom';
-        }
+        var setAnim = {
+          left: function(){
+            animationIn  = attrs.animationIn || 'slideInRight';
+            animationOut = attrs.animationOut || 'slideOutLeft';
+          },
+          right: function(){
+            animationIn  = attrs.animationIn || 'slideInLeft';
+            animationOut = attrs.animationOut || 'slideOutRight';
+          },
+          top: function(){
+            animationIn  = attrs.animationIn || 'slideInDown';
+            animationOut = attrs.animationOut || 'slideOutUp';
+          },
+          bottom: function(){
+            animationIn  = attrs.animationIn || 'slideInUp';
+            animationOut = attrs.animationOut || 'slideOutDown';
+          }
+        };
+        setAnim[scope.position]();
+        //urgh, there must be a better way, ***there totally is btw***
+        // if(scope.position === 'left') {
+        //   animationIn  = attrs.animationIn || 'slideInRight';
+        //   animationOut = attrs.animationOut || 'slideOutLeft';
+        // } else if (scope.position === 'right') {
+        //   animationIn  = attrs.animationIn || 'slideInLeft';
+        //   animationOut = attrs.animationOut || 'slideOutRight';
+        // } else if (scope.position === 'top') {
+        //   animationIn  = attrs.animationIn || 'slideInDown';
+        //   animationOut = attrs.animationOut || 'slideOutUp';
+        // } else if (scope.position === 'bottom') {
+        //   animationIn  = attrs.animationIn || 'slideInUp';
+        //   animationOut = attrs.animationOut || 'slideOutDown';
+        // }
 
 
         //setup
@@ -83,7 +102,8 @@
           var panelPosition = $window.getComputedStyle(element[0]).getPropertyValue("position");
 
           // patch to prevent panel animation on larger screen devices
-          if (panelPosition !== 'absolute') {
+          // don't run animation on grid elements, only panel
+          if (panelPosition == 'static' || panelPosition == 'relative') {
             return;
           }
 
@@ -94,7 +114,7 @@
           } else if (msg == 'toggle') {
             scope.toggle();
           }
-          
+
           if (!scope.$root.$$phase) {
             scope.$apply();
           }
@@ -102,10 +122,12 @@
           return;
         });
 
+        // function finish(el)
+
         scope.hide = function() {
           if(scope.active){
             scope.active = false;
-            foundationApi.animate(element, scope.active, animationIn, animationOut);
+            animate(element, scope.active, animationIn, animationOut);
           }
 
           return;
@@ -114,7 +136,7 @@
         scope.show = function() {
           if(!scope.active){
             scope.active = true;
-            foundationApi.animate(element, scope.active, animationIn, animationOut);
+            animate(element, scope.active, animationIn, animationOut);
           }
 
           return;
@@ -122,19 +144,19 @@
 
         scope.toggle = function() {
           scope.active = !scope.active;
-          foundationApi.animate(element, scope.active, animationIn, animationOut);
-          
+          animate(element, scope.active, animationIn, animationOut);
+
           return;
         };
 
         element.on('click', function(e) {
-          //check sizing
-          var srcEl = e.srcElement;
+          // Check sizing
+          var srcEl = e.target;
 
-          if(!matchMedia(globalQueries.medium).matches && srcEl.href && srcEl.href.length > 0) {
-            //hide element if it can't match at least medium
+          if (!matchMedia(globalQueries.medium).matches && srcEl.href && srcEl.href.length > 0) {
+            // Hide element if it can't match at least medium
             scope.hide();
-            foundationApi.animate(element, scope.active, animationIn, animationOut);
+            animate(element, scope.active, animationIn, animationOut);
           }
         });
       }
