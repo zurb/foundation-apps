@@ -191,12 +191,13 @@
 
         var activeElements = document.querySelectorAll('.is-active[zf-closable]');
 
-        if(activeElements.length){
+        if(activeElements.length && !activeElements[0].hasAttribute('zf-ignore-all-close')){
           if(getParentsUntil(tar, 'zf-closable') === false){
             e.preventDefault();
             foundationApi.publish(activeElements[0].id, 'close');
           }
         }
+        return;
       });
     }
     /** special thanks to Chris Ferdinandi for this solution.
