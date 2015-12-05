@@ -11,7 +11,9 @@
     .service('FoundationAnimation', FoundationAnimation)
   ;
 
-  function FoundationAnimation() {
+  FoundationAnimation.$inject = ['$q'];
+
+  function FoundationAnimation($q) {
     var animations = [];
     var service = {};
 
@@ -39,6 +41,8 @@
     }
 
     function animate(element, futureState, animationIn, animationOut) {
+      var animationTimeout;
+      var deferred = $q.defer();
       var timedOut = true;
       var self = this;
       self.cancelAnimation = cancelAnimation;
@@ -47,30 +51,41 @@
       var activation = futureState;
       var initClass = activation ? initClasses[0] : initClasses[1];
       var activeClass = activation ? activeClasses[0] : activeClasses[1];
-      //stop animation
-      registerElement(element);
-      reset();
-      element.addClass(animationClass);
-      element.addClass(initClass);
 
-      element.addClass(activeGenericClass);
+      run();
+      return deferred.promise;
 
-      //force a "tick"
-      reflow();
+      function run() {
+        //stop animation
+        registerElement(element);
+        reset();
+        element.addClass(animationClass);
+        element.addClass(initClass);
 
-      //activate
-      element[0].style.transitionDuration = '';
-      element.addClass(activeClass);
+        element.addClass(activeGenericClass);
 
-      element.one(events.join(' '), function() {
-        finishAnimation();
-      });
+        //force a "tick"
+        reflow();
 
-      setTimeout(function() {
-        if(timedOut) {
+        //activate
+        element[0].style.transitionDuration = '';
+        element.addClass(activeClass);
+
+        element.on(events.join(' '), eventHandler);
+
+        animationTimeout = setTimeout(function() {
+          if(timedOut) {
+            finishAnimation();
+          }
+        }, 3000);
+      }
+
+      function eventHandler(e) {
+        if (element[0] === e.target) {
+          clearTimeout(animationTimeout);
           finishAnimation();
         }
-      }, 3000);
+      }
 
       function finishAnimation() {
         deregisterElement(element);
@@ -79,13 +94,15 @@
         element.removeClass(!activation ? activeGenericClass : ''); //if not active, remove active class
         reflow();
         timedOut = false;
+        element.off(events.join(' '), eventHandler);
+        deferred.resolve({element: element, active: activation});
       }
-
 
       function cancelAnimation(element) {
         deregisterElement(element);
         angular.element(element).off(events.join(' ')); //kill all animation event handlers
         timedOut = false;
+        deferred.reject();
       }
 
       function registerElement(el) {
@@ -143,6 +160,7 @@
     .service('FoundationApi', FoundationApi)
     .service('FoundationAdapter', FoundationAdapter)
     .factory('Utils', Utils)
+    .run(Setup);
   ;
 
   FoundationApi.$inject = ['FoundationAnimation'];
@@ -162,6 +180,7 @@
     service.toggleAnimate       = toggleAnimate;
     service.closeActiveElements = closeActiveElements;
     service.animate             = animate;
+    service.animateAndAdvise    = animateAndAdvise;
 
     return service;
 
@@ -228,8 +247,8 @@
       options = options || {};
       var activeElements = document.querySelectorAll('.is-active[zf-closable]');
       // action sheets are nested zf-closable elements, so we have to target the parent
-      var nestedActiveElements = document.querySelectorAll('[zf-closable] > .is-active')
-      
+      var nestedActiveElements = document.querySelectorAll('[zf-closable] > .is-active');
+
       if (activeElements.length) {
         angular.forEach(activeElements, function(el) {
           if (options.exclude !== el.id) {
@@ -243,12 +262,22 @@
           if (options.exclude !== parentId) {
             self.publish(parentId, 'close');
           }
-        })
+        });
       }
     }
 
     function animate(element, futureState, animationIn, animationOut) {
-      FoundationAnimation.animate(element, futureState, animationIn, animationOut);
+      return FoundationAnimation.animate(element, futureState, animationIn, animationOut);
+    }
+
+    function animateAndAdvise(element, futureState, animationIn, animationOut) {
+      var promise = FoundationAnimation.animate(element, futureState, animationIn, animationOut);
+      promise.then(function() {
+        publish(element[0].id, futureState ? 'active-true' : 'active-false');
+      }, function() {
+        publish(element[0].id, 'active-aborted');
+      });
+      return promise;
     }
   }
 
@@ -293,6 +322,18 @@
           }, delay);
         }
       };
+    }
+  }
+
+  function Setup() {
+    // Attach FastClick
+    if (typeof(FastClick) !== 'undefined') {
+      FastClick.attach(document.body);
+    }
+
+    // Attach viewport units buggyfill
+    if (typeof(viewportUnitsBuggyfill) !== 'undefined') {
+      viewportUnitsBuggyfill.init();
     }
   }
 
@@ -568,6 +609,9 @@
   DynamicRoutingConfig.$inject = ['$FoundationStateProvider'];
 
   function DynamicRoutingConfig(FoundationStateProvider) {
+    // Don't error out if Front Router is not being used
+    var foundationRoutes = window.foundationRoutes || [];
+
     FoundationStateProvider.registerDynamicRoutes(foundationRoutes);
   }
 
@@ -619,26 +663,54 @@
     function init() {
       var mediaQueries;
       var extractedMedia;
-      var mediaObject;
+      var mediaQuerySizes;
+      var mediaMap;
+      var key;
 
       helpers.headerHelper(['foundation-mq']);
       extractedMedia = helpers.getStyle('.foundation-mq', 'font-family');
 
-      mediaQueries = helpers.parseStyleToObject((extractedMedia));
+      if (!extractedMedia.match(/([\w]+=[\d]+[a-z]*&?)+/)) {
+        extractedMedia = 'small=0&medium=40rem&large=75rem&xlarge=90rem&xxlarge=120rem';
+      }
 
-      for(var key in mediaQueries) {
+      mediaQueries = helpers.parseStyleToObject((extractedMedia));
+      mediaQuerySizes = [];
+
+      for(key in mediaQueries) {
+        mediaQuerySizes.push({ query: key, size: parseInt(mediaQueries[key].replace('rem', '')) });
         mediaQueries[key] = 'only screen and (min-width: ' + mediaQueries[key].replace('rem', 'em') + ')';
       }
 
+      // sort by increasing size
+      mediaQuerySizes.sort(function(a,b) {
+        return a.size > b.size ? 1 : (a.size < b.size ? -1 : 0);
+      });
+
+      mediaMap = {};
+      for (key = 0; key < mediaQuerySizes.length; key++) {
+        mediaMap[mediaQuerySizes[key].query] = {
+          up: null,
+          down: null
+        };
+
+        if (key+1 < mediaQuerySizes.length) {
+          mediaMap[mediaQuerySizes[key].query].up = mediaQuerySizes[key+1].query;
+        }
+
+        if (key !== 0) {
+          mediaMap[mediaQuerySizes[key].query].down = mediaQuerySizes[key-1].query;
+        }
+      }
 
       foundationApi.modifySettings({
-        mediaQueries: angular.extend(mediaQueries, namedQueries)
+        mediaQueries: angular.extend(mediaQueries, namedQueries),
+        mediaMap: mediaMap
       });
 
       window.addEventListener('resize', u.throttle(function() {
         foundationApi.publish('resize', 'window resized');
       }, 50));
-
     }
   }
 
@@ -678,8 +750,10 @@
         return styleObject;
       }
 
-      str = str.trim().slice(1, -1); // browsers re-quote string style values
-
+      if ((str[0] === '"' && str[str.length - 1] === '"') || (str[0] === '\'' && str[str.length - 1] === '\'')) {
+        str = str.trim().slice(1, -1); // some browsers re-quote string style values
+      }
+      
       if (!str) {
         return styleObject;
       }
@@ -711,16 +785,44 @@
   FoundationMQ.$inject = ['FoundationApi'];
 
   function FoundationMQ(foundationApi) {
-    var service = [];
+    var service = [],
+        mediaQueryResultCache = {},
+        queryMinWidthCache = {};
+
+    foundationApi.subscribe('resize', function() {
+      // any new resize event causes a clearing of the media cache
+      mediaQueryResultCache = {};
+    });
 
     service.getMediaQueries = getMediaQueries;
     service.match = match;
+    service.matchesMedia = matchesMedia;
+    service.matchesMediaOrSmaller = matchesMediaOrSmaller;
+    service.matchesMediaOnly = matchesMediaOnly;
     service.collectScenariosFromElement = collectScenariosFromElement;
 
     return service;
 
     function getMediaQueries() {
       return foundationApi.getSettings().mediaQueries;
+    }
+
+    function getNextLargestMediaQuery(media) {
+      var mediaMapEntry = foundationApi.getSettings().mediaMap[media];
+      if (mediaMapEntry) {
+        return mediaMapEntry.up;
+      } else {
+        return null;
+      }
+    }
+
+    function getNextSmallestMediaQuery(media) {
+      var mediaMapEntry = foundationApi.getSettings().mediaMap[media];
+      if (mediaMapEntry) {
+        return mediaMapEntry.down;
+      } else {
+        return null;
+      }
     }
 
     function match(scenarios) {
@@ -748,6 +850,57 @@
       return matches;
     }
 
+    function matchesMedia(query) {
+      if (angular.isUndefined(mediaQueryResultCache[query])) {
+        // cache miss, run media query
+        mediaQueryResultCache[query] = match([{media: query}]).length > 0;
+      }
+      return mediaQueryResultCache[query];
+    }
+
+    function matchesMediaOrSmaller(query) {
+      // In order to match the named breakpoint or smaller,
+      // the next largest named breakpoint cannot be matched
+      var nextLargestMedia = getNextLargestMediaQuery(query);
+      if (nextLargestMedia && matchesMedia(nextLargestMedia)) {
+        return false;
+      }
+
+      // Check to see if any smaller named breakpoint is matched
+      return matchesSmallerRecursive(query);
+
+      function matchesSmallerRecursive(query) {
+        var nextSmallestMedia;
+
+        if (matchesMedia(query)) {
+          // matches breakpoint
+          return true;
+        } else {
+          // check if matches smaller media
+          nextSmallestMedia = getNextSmallestMediaQuery(query);
+          if (!nextSmallestMedia) {
+            // no more smaller breakpoints
+            return false;
+          } else {
+            return matchesSmallerRecursive(nextSmallestMedia);
+          }
+        }
+      }
+    }
+
+    function matchesMediaOnly(query) {
+      // Check that media ONLY matches named breakpoint and nothing else
+      var nextLargestMedia = getNextLargestMediaQuery(query);
+
+      if (!nextLargestMedia) {
+        // reached max media size, run query for current media
+        return matchesMedia(query);
+      } else {
+        // must match named breakpoint, but not next largest
+        return matchesMedia(query) && !matchesMedia(nextLargestMedia);
+      }
+    }
+
     // Collects a scenario object and templates from element
     function collectScenariosFromElement(parentElement) {
       var scenarios = [];
@@ -758,7 +911,6 @@
 
       angular.forEach(elements, function(el) {
         var elem = angular.element(el);
-
 
         //if no source or no html, capture element itself
         if (!elem.attr('src') || !elem.attr('src').match(/.html$/)) {
@@ -777,6 +929,114 @@
       };
     }
   }
+})();
+
+(function() {
+  'use strict';
+
+  angular.module('foundation.accordion', [])
+    .controller('ZfAccordionController', zfAccordionController)
+    .directive('zfAccordion', zfAccordion)
+    .directive('zfAccordionItem', zfAccordionItem)
+  ;
+
+  zfAccordionController.$inject = ['$scope'];
+
+  function zfAccordionController($scope) {
+    var controller = this;
+    var sections = controller.sections = $scope.sections = [];
+    var multiOpen = controller.multiOpen = $scope.multiOpen = $scope.multiOpen || false;
+    var collapsible = controller.collapsible = $scope.collapsible = $scope.multiOpen || $scope.collapsible || true; //multi open infers a collapsible true
+    var autoOpen = controller.autoOpen = $scope.autoOpen = $scope.autoOpen || true; //auto open opens first tab on render
+
+    controller.select = function(selectSection) {
+      sections.forEach(function(section) {
+        //if multi open is allowed, toggle a tab
+        if(controller.multiOpen) {
+          if(section.scope === selectSection) {
+            section.scope.active = !section.scope.active;
+          }
+        } else {
+          //non  multi open will close all tabs and open one
+          if(section.scope === selectSection) {
+            //if collapsible is allowed, a tab will toggle
+            section.scope.active = collapsible ? !section.scope.active : true;
+          } else {
+            section.scope.active = false;
+          }
+        }
+
+      });
+    };
+
+    controller.addSection = function addsection(sectionScope) {
+      sections.push({ scope: sectionScope });
+
+      if(sections.length === 1 && autoOpen === true) {
+        sections[0].active = true;
+        sections[0].scope.active = true;
+      }
+    };
+
+    controller.closeAll = function() {
+      sections.forEach(function(section) {
+        section.scope.active = false;
+      });
+    };
+  }
+
+  function zfAccordion() {
+    var directive = {
+      restrict: 'EA',
+      transclude: 'true',
+      replace: true,
+      templateUrl: 'components/accordion/accordion.html',
+      controller: 'ZfAccordionController',
+      scope: {
+        multiOpen: '@?',
+        collapsible: '@?',
+        autoOpen: '@?'
+      },
+      link: link
+    };
+
+    return directive;
+
+    function link(scope, element, attrs, controller) {
+      scope.multiOpen = controller.multiOpen = scope.multiOpen === "true" ? true : false;
+      scope.collapsible = controller.collapsible = scope.collapsible === "true" ? true : false;
+      scope.autoOpen = controller.autoOpen = scope.autoOpen === "true" ? true : false;
+    }
+  }
+
+  //accordion item
+  function zfAccordionItem() {
+    var directive = {
+        restrict: 'EA',
+        templateUrl: 'components/accordion/accordion-item.html',
+        transclude: true,
+        scope: {
+          title: '@'
+        },
+        require: '^zfAccordion',
+        replace: true,
+        controller: function() {},
+        link: link
+    };
+
+    return directive;
+
+    function link(scope, element, attrs, controller, transclude) {
+      scope.active = false;
+      controller.addSection(scope);
+
+      scope.activate = function() {
+        controller.select(scope);
+      };
+
+    }
+  }
+
 })();
 
 angular.module('markdown', [])
@@ -895,114 +1155,6 @@ angular.module('markdown', [])
 (function() {
   'use strict';
 
-  angular.module('foundation.accordion', [])
-    .controller('ZfAccordionController', zfAccordionController)
-    .directive('zfAccordion', zfAccordion)
-    .directive('zfAccordionItem', zfAccordionItem)
-  ;
-
-  zfAccordionController.$inject = ['$scope'];
-
-  function zfAccordionController($scope) {
-    var controller = this;
-    var sections = controller.sections = $scope.sections = [];
-    var multiOpen = controller.multiOpen = $scope.multiOpen = $scope.multiOpen || false;
-    var collapsible = controller.collapsible = $scope.collapsible = $scope.multiOpen || $scope.collapsible || true; //multi open infers a collapsible true
-    var autoOpen = controller.autoOpen = $scope.autoOpen = $scope.autoOpen || true; //auto open opens first tab on render
-
-    controller.select = function(selectSection) {
-      sections.forEach(function(section) {
-        //if multi open is allowed, toggle a tab
-        if(controller.multiOpen) {
-          if(section.scope === selectSection) {
-            section.scope.active = !section.scope.active;
-          }
-        } else {
-          //non  multi open will close all tabs and open one
-          if(section.scope === selectSection) {
-            //if collapsible is allowed, a tab will toggle
-            section.scope.active = collapsible ? !section.scope.active : true;
-          } else {
-            section.scope.active = false;
-          }
-        }
-
-      });
-    };
-
-    controller.addSection = function addsection(sectionScope) {
-      sections.push({ scope: sectionScope });
-
-      if(sections.length === 1 && autoOpen === true) {
-        sections[0].active = true;
-        sections[0].scope.active = true;
-      }
-    };
-
-    controller.closeAll = function() {
-      sections.forEach(function(section) {
-        section.scope.active = false;
-      });
-    };
-  }
-
-  function zfAccordion() {
-    var directive = {
-      restrict: 'EA',
-      transclude: 'true',
-      replace: true,
-      templateUrl: 'components/accordion/accordion.html',
-      controller: 'ZfAccordionController',
-      scope: {
-        multiOpen: '@?',
-        collapsible: '@?',
-        autoOpen: '@?'
-      },
-      link: link
-    };
-
-    return directive;
-
-    function link(scope, element, attrs, controller) {
-      scope.multiOpen = controller.multiOpen = scope.multiOpen === "true" ? true : false;
-      scope.collapsible = controller.collapsible = scope.collapsible === "true" ? true : false;
-      scope.autoOpen = controller.autoOpen = scope.autoOpen === "true" ? true : false;
-    }
-  }
-
-  //accordion item
-  function zfAccordionItem() {
-    var directive = {
-        restrict: 'EA',
-        templateUrl: 'components/accordion/accordion-item.html',
-        transclude: true,
-        scope: {
-          title: '@'
-        },
-        require: '^zfAccordion',
-        replace: true,
-        controller: function() {},
-        link: link
-    };
-
-    return directive;
-
-    function link(scope, element, attrs, controller, transclude) {
-      scope.active = false;
-      controller.addSection(scope);
-
-      scope.activate = function() {
-        controller.select(scope);
-      };
-
-    }
-  }
-
-})();
-
-(function() {
-  'use strict';
-
   angular.module('foundation.actionsheet', ['foundation.core'])
     .controller('ZfActionSheetController', zfActionSheetController)
     .directive('zfActionSheet', zfActionSheet)
@@ -1052,6 +1204,7 @@ angular.module('markdown', [])
 
     controller.toggle = toggle;
     controller.hide = hide;
+    controller.show = show;
 
     controller.registerListener = function() {
       document.body.addEventListener('click', listenerLogic);
@@ -1087,16 +1240,30 @@ angular.module('markdown', [])
       content.hide();
       container.hide();
 
-      content.$apply();
-      container.$apply();
+      if (!$scope.$$phase) {
+        content.$apply();
+        container.$apply();
+      }
     }
 
     function toggle() {
       content.toggle();
       container.toggle();
 
-      content.$apply();
-      container.$apply();
+      if (!$scope.$$phase) {
+        content.$apply();
+        container.$apply();
+      }
+    }
+
+    function show() {
+      content.show();
+      container.show();
+
+      if (!$scope.$$phase) {
+        content.$apply();
+        container.$apply();
+      }
     }
   }
 
@@ -1140,6 +1307,9 @@ angular.module('markdown', [])
             controller.hide();
           }
 
+          if (msg === 'show' || msg === 'open') {
+            controller.show();
+          }
         });
 
         controller.registerContainer(scope);
@@ -1151,6 +1321,11 @@ angular.module('markdown', [])
 
         scope.hide = function() {
           scope.active = false;
+          return;
+        };
+
+        scope.show = function() {
+          scope.active = true;
           return;
         };
       }
@@ -1195,6 +1370,12 @@ angular.module('markdown', [])
         controller.deregisterListener();
         return;
       };
+
+      scope.show = function() {
+        scope.active = true;
+        controller.registerListener();
+        return;
+      };
     }
   }
 
@@ -1237,6 +1418,7 @@ angular.module('markdown', [])
     .directive('zfEscClose', zfEscClose)
     .directive('zfSwipeClose', zfSwipeClose)
     .directive('zfHardToggle', zfHardToggle)
+    .directive('zfCloseAll', zfCloseAll)
   ;
 
   zfClose.$inject = ['FoundationApi'];
@@ -1270,7 +1452,6 @@ angular.module('markdown', [])
         }
         targetId = parentElement.attr('id');
       }
-
       element.on('click', function(e) {
         foundationApi.publish(targetId, 'close');
         e.preventDefault();
@@ -1346,7 +1527,7 @@ angular.module('markdown', [])
     function link($scope, element, attrs) {
       var swipeDirection;
       var hammerElem;
-      if (Hammer) {
+      if (typeof(Hammer)!=='undefined') {
         hammerElem = new Hammer(element[0]);
         // set the options for swipe (to make them a bit more forgiving in detection)
         hammerElem.get('swipe').set({
@@ -1372,9 +1553,11 @@ angular.module('markdown', [])
         default:
           swipeDirection = 'swipe';
       }
-      hammerElem.on(swipeDirection, function() {
-        foundationApi.publish(attrs.id, 'close');
-      });
+      if(typeof(hammerElem) !== 'undefined'){
+        hammerElem.on(swipeDirection, function() {
+          foundationApi.publish(attrs.id, 'close');
+        });
+      }
     }
   }
 
@@ -1397,6 +1580,49 @@ angular.module('markdown', [])
     }
   }
 
+  zfCloseAll.$inject = ['FoundationApi'];
+
+  function zfCloseAll(foundationApi) {
+    var directive = {
+      restrict: 'A',
+      link: link
+    };
+
+    return directive;
+
+    function link(scope, element, attrs) {
+      element.on('click', function(e) {
+        var tar = e.target;
+        var avoid = ['zf-toggle', 'zf-hard-toggle', 'zf-open', 'zf-close'].filter(function(e, i){
+          return e in tar.attributes;
+        });
+
+        if(avoid.length > 0){ return; }
+
+        var activeElements = document.querySelectorAll('.is-active[zf-closable]');
+
+        if(activeElements.length && !activeElements[0].hasAttribute('zf-ignore-all-close')){
+          if(getParentsUntil(tar, 'zf-closable') === false){
+            e.preventDefault();
+            foundationApi.publish(activeElements[0].id, 'close');
+          }
+        }
+        return;
+      });
+    }
+    /** special thanks to Chris Ferdinandi for this solution.
+     * http://gomakethings.com/climbing-up-and-down-the-dom-tree-with-vanilla-javascript/
+     */
+    function getParentsUntil(elem, parent) {
+      for ( ; elem && elem !== document.body; elem = elem.parentNode ) {
+        if(elem.hasAttribute(parent)){
+          if(elem.classList.contains('is-active')){ return elem; }
+          break;
+        }
+      }
+      return false;
+    }
+  }
 })();
 
 (function () {
@@ -1463,9 +1689,11 @@ angular.module('markdown', [])
       scope: {
         dynSrc: '=?',
         dynIcon: '=?',
+        dynIconAttrs: '=?',
         size: '@?',
         icon: '@',
-        iconDir: '@?'
+        iconDir: '@?',
+        iconAttrs: '=?'
       },
       compile: compile
     };
@@ -1473,7 +1701,7 @@ angular.module('markdown', [])
     return directive;
 
     function compile() {
-      var contents, assetPath;
+      var contents, origAttrs, lastIconAttrs, assetPath;
 
       return {
         pre: preLink,
@@ -1481,6 +1709,7 @@ angular.module('markdown', [])
       };
 
       function preLink(scope, element, attrs) {
+        var iconAttrsObj, iconAttr;
 
         if (scope.iconDir) {
           // path set via attribute
@@ -1526,8 +1755,18 @@ angular.module('markdown', [])
           element.addClass(iconicClass);
         }
 
-        // save contents of un-inject html, to use for dynamic re-injection
+        // add static icon attributes to iconic element
+        if (scope.iconAttrs) {
+          iconAttrsObj = angular.fromJson(scope.iconAttrs);
+          for (iconAttr in iconAttrsObj) {
+            // add data- to attribute name if not already present
+            attrs.$set(addDataDash(iconAttr), iconAttrsObj[iconAttr]);
+          }
+        }
+
+        // save contents and attributes of un-inject html, to use for dynamic re-injection
         contents = element[0].outerHTML;
+        origAttrs = element[0].attributes;
       }
 
       function postLink(scope, element, attrs) {
@@ -1544,7 +1783,7 @@ angular.module('markdown', [])
         if (scope.dynSrc) {
           scope.$watch('dynSrc', function (newVal, oldVal) {
             if (newVal && newVal !== oldVal) {
-              reinjectSvg(scope.dynSrc);
+              reinjectSvg(scope.dynSrc, scope.dynIconAttrs);
             }
           });
         }
@@ -1552,19 +1791,54 @@ angular.module('markdown', [])
         if (scope.dynIcon) {
           scope.$watch('dynIcon', function (newVal, oldVal) {
             if (newVal && newVal !== oldVal) {
-              reinjectSvg(assetPath + scope.dynIcon + '.svg');
+              reinjectSvg(assetPath + scope.dynIcon + '.svg', scope.dynIconAttrs);
             }
           });
         }
+        // handle dynamic updating of icon attrs
+        scope.$watch('dynIconAttrs', function (newVal, oldVal) {
+          if (newVal && newVal !== oldVal) {
+            if (scope.dynSrc) {
+              reinjectSvg(scope.dynSrc, scope.dynIconAttrs);
+            } else {
+              reinjectSvg(assetPath + scope.dynIcon + '.svg', scope.dynIconAttrs);
+            }
+          }
+        });
 
-        function reinjectSvg(newSrc) {
+        function reinjectSvg(newSrc, newAttrs) {
+          var iconAttr;
+
           if (svgElement) {
             // set html
             svgElement.empty();
             svgElement.append(angular.element(contents));
 
+            // remove 'data-icon' attribute added by injector as it
+            // will cause issues with reinjection when changing icons
+            svgElement.removeAttr('data-icon');
+
             // set new source
             svgElement.attr('data-src', newSrc);
+
+            // add additional icon attributes to iconic element
+            if (newAttrs) {
+              // remove previously added attributes
+              if (lastIconAttrs) {
+                for (iconAttr in lastIconAttrs) {
+                  svgElement.removeAttr(addDataDash(iconAttr));
+                }
+              }
+
+              // add newly added attributes
+              for (iconAttr in newAttrs) {
+                // add data- to attribute name if not already present
+                svgElement.attr(addDataDash(iconAttr), newAttrs[iconAttr]);
+              }
+            }
+
+            // store current attrs
+            lastIconAttrs = newAttrs;
 
             // reinject
             injectSvg(svgElement[0]);
@@ -1574,12 +1848,38 @@ angular.module('markdown', [])
         function injectSvg(element) {
           ico.inject(element, {
             each: function (injectedElem) {
-              // compile injected svg
-              var angElem = angular.element(injectedElem);
-              svgElement = $compile(angElem)(angElem.scope());
+
+              var i, angElem, elemScope;
+
+              // wrap raw element
+              angElem = angular.element(injectedElem);
+
+              for(i = 0; i < origAttrs.length; i++) {
+                // check if attribute should be ignored
+                if (origAttrs[i].name !== 'zf-iconic' &&
+                  origAttrs[i].name !== 'ng-transclude' &&
+                  origAttrs[i].name !== 'icon' &&
+                  origAttrs[i].name !== 'src') {
+                  // check if attribute already exists on svg
+                  if (angular.isUndefined(angElem.attr(origAttrs[i].name))) {
+                    // add attribute to svg
+                    angElem.attr(origAttrs[i].name, origAttrs[i].value);
+                  }
+                }
+              }
+
+              // compile
+              elemScope = angElem.scope();
+              if (elemScope) {
+                svgElement = $compile(angElem)(elemScope);
+              }
             }
           });
         }
+      }
+
+      function addDataDash(attr) {
+        return attr.indexOf('data-') !== 0 ? 'data-' + attr : attr;
       }
     }
   }
@@ -1679,6 +1979,173 @@ angular.module('markdown', [])
     }
   }
 
+  angular.module('foundation.interchange')
+  /*
+   * Final directive to perform media queries, other directives set up this one
+   * (See: http://stackoverflow.com/questions/19224028/add-directives-from-directive-in-angularjs)
+   */
+    .directive('zfQuery', zfQuery)
+  /*
+   * zf-if / zf-show / zf-hide
+   */
+    .directive('zfIf', zfQueryDirective('ng-if', 'zf-if'))
+    .directive('zfShow', zfQueryDirective('ng-show', 'zf-show'))
+    .directive('zfHide', zfQueryDirective('ng-hide', 'zf-hide'))
+  ;
+
+  /*
+   * This directive will configure ng-if/ng-show/ng-hide and zf-query directives and then recompile the element
+   */
+  function zfQueryDirective(angularDirective, directiveName) {
+    return ['$compile', 'FoundationApi', function ($compile, foundationApi) {
+      // create unique scope property for media query result, must be unique to avoid collision with other zf-query directives
+      // property set upon element compilation or else all similar directives (i.e. zf-if-*/zf-show-*/zf-hide-*) will get the same value
+      var queryResult;
+
+      return {
+        priority: 1000, // must compile directive before any others
+        terminal: true, // don't compile any other directive after this
+                        // we'll fix this with a recompile
+        restrict: 'A',
+        compile: compile
+      };
+
+      // From here onward, scope[queryResult] refers to the result of running the provided query
+      function compile(element, attrs) {
+        var previousParam;
+
+        // set unique property
+        queryResult = (directiveName + foundationApi.generateUuid()).replace(/-/g,'');
+
+        // set default configuration
+        element.attr('zf-query-not', false);
+        element.attr('zf-query-only', false);
+        element.attr('zf-query-or-smaller', false);
+        element.attr('zf-query-scope-prop', queryResult);
+
+        // parse directive attribute for query parameters
+        element.attr(directiveName).split(' ').forEach(function(param) {
+          if (param) {
+            // add zf-query directive and configuration attributes
+            switch (param) {
+              case "not":
+                element.attr('zf-query-not', true);
+                element.attr('zf-query-only', true);
+                break;
+              case "only":
+                element.attr('zf-query-only', true);
+                break;
+              case "or":
+                break;
+              case "smaller":
+                // allow usage of smaller keyword if preceeded by 'or' keyword
+                if (previousParam === "or") {
+                  element.attr('zf-query-or-smaller', true);
+                }
+                break;
+              default:
+                element.attr('zf-query', param);
+                break;
+            }
+
+            previousParam = param;
+          }
+        });
+
+        // add/update angular directive
+        if (!element.attr(angularDirective)) {
+          element.attr(angularDirective, queryResult);
+        } else {
+          element.attr(angularDirective, queryResult + ' && (' + element.attr(angularDirective) + ')');
+        }
+
+        // remove directive from current element to avoid infinite recompile
+        element.removeAttr(directiveName);
+        element.removeAttr('data-' + directiveName);
+
+        return {
+          pre: function (scope, element, attrs) {
+          },
+          post: function (scope, element, attrs) {
+            // recompile
+            $compile(element)(scope);
+          }
+        };
+      }
+    }];
+  }
+
+  zfQuery.$inject = ['FoundationApi', 'FoundationMQ'];
+  function zfQuery(foundationApi, foundationMQ) {
+    return {
+      priority: 601, // must compile before ng-if (600)
+      restrict: 'A',
+      compile: function compile(element, attrs) {
+        return compileWrapper(attrs['zfQueryScopeProp'],
+                              attrs['zfQuery'],
+                              attrs['zfQueryOnly'] === "true",
+                              attrs['zfQueryNot'] === "true",
+                              attrs['zfQueryOrSmaller'] === "true");
+      }
+    };
+
+    // parameters will be populated with values provided from zf-query-* attributes
+    function compileWrapper(queryResult, namedQuery, queryOnly, queryNot, queryOrSmaller) {
+      // set defaults
+      queryOnly = queryOnly || false;
+      queryNot = queryNot || false;
+
+      return {
+        pre: preLink,
+        post: postLink
+      };
+
+      // From here onward, scope[queryResult] refers to the result of running the provided query
+      function preLink(scope, element, attrs) {
+        // initially set media query result to false
+        scope[queryResult] = false;
+      }
+
+      function postLink(scope, element, attrs) {
+        // subscribe for resize events
+        foundationApi.subscribe('resize', function() {
+          var orignalVisibilty = scope[queryResult];
+          runQuery();
+          if (orignalVisibilty != scope[queryResult]) {
+            // digest if visibility changed
+            scope.$digest();
+          }
+        });
+
+        scope.$on("$destroy", function() {
+          foundationApi.unsubscribe('resize');
+        });
+
+        // run first media query check
+        runQuery();
+
+        function runQuery() {
+          if (!queryOnly) {
+            if (!queryOrSmaller) {
+              // Check if matches media or LARGER
+              scope[queryResult] = foundationMQ.matchesMedia(namedQuery);
+            } else {
+              // Check if matches media or SMALLER
+              scope[queryResult] = foundationMQ.matchesMediaOrSmaller(namedQuery);
+            }
+          } else {
+            if (!queryNot) {
+              // Check that media ONLY matches named query and nothing else
+              scope[queryResult] = foundationMQ.matchesMediaOnly(namedQuery);
+            } else {
+              // Check that media does NOT match named query
+              scope[queryResult] = !foundationMQ.matchesMediaOnly(namedQuery);
+            }
+          }
+        }
+      }
+    }
+  }
 })();
 
 (function() {
@@ -1687,6 +2154,7 @@ angular.module('markdown', [])
   angular.module('foundation.modal', ['foundation.core'])
     .directive('zfModal', modalDirective)
     .factory('ModalFactory', ModalFactory)
+    .service('FoundationModal', FoundationModal)
   ;
 
   FoundationModal.$inject = ['FoundationApi', 'ModalFactory'];
@@ -1745,6 +2213,7 @@ angular.module('markdown', [])
 
       function postLink(scope, element, attrs) {
         var dialog = angular.element(element.children()[0]);
+        var animateFn = attrs.hasOwnProperty('zfAdvise') ? foundationApi.animateAndAdvise : foundationApi.animate;
 
         scope.active = scope.active || false;
         scope.overlay = attrs.overlay === 'false' ? false : true;
@@ -1758,7 +2227,7 @@ angular.module('markdown', [])
 
         scope.hideOverlay = function() {
           if(scope.overlayClose) {
-            scope.hide();
+            foundationApi.publish(attrs.id, 'close');
           }
         };
 
@@ -1807,8 +2276,17 @@ angular.module('markdown', [])
             element.css('background', 'transparent');
           }
 
-          foundationApi.animate(element, scope.active, overlayIn, overlayOut);
-          foundationApi.animate(dialog, scope.active, animationIn, animationOut);
+          // work around for modal animations
+          // due to a bug where the overlay fadeIn is essentially covering up
+          // the dialog's animation
+          if (!scope.active) {
+            animateFn(element, scope.active, overlayIn, overlayOut);
+          }
+          else {
+            element.addClass('is-active');
+          }
+
+          animateFn(dialog, scope.active, animationIn, animationOut);
         }
 
         function init() {
@@ -1842,7 +2320,8 @@ angular.module('markdown', [])
         'animationIn',
         'animationOut',
         'overlay',
-        'overlayClose'
+        'overlayClose',
+        'class'
       ];
 
       if(config.templateUrl) {
@@ -1868,6 +2347,7 @@ angular.module('markdown', [])
 
 
       return {
+        isActive: isActive,
         activate: activate,
         deactivate: deactivate,
         toggle: toggle,
@@ -1878,6 +2358,10 @@ angular.module('markdown', [])
         if(destroyed) {
           throw "Error: Modal was destroyed. Delete the object and create a new ModalFactory instance."
         }
+      }
+
+      function isActive() {
+        return !destroyed && scope && scope.active === true;
       }
 
       function activate() {
@@ -1909,11 +2393,12 @@ angular.module('markdown', [])
           if(!attached && html.length > 0) {
             var modalEl = container.append(element);
 
-            scope.active = state;
             $compile(element)(scope);
 
             attached = true;
           }
+
+          scope.active = state;
         });
       }
 
@@ -1929,7 +2414,7 @@ angular.module('markdown', [])
 
         scope = $rootScope.$new();
 
-        // account for directive attributes
+        // account for directive attributes and modal classes
         for(var i = 0; i < props.length; i++) {
           var prop = props[i];
 
@@ -1941,8 +2426,23 @@ angular.module('markdown', [])
               case 'animationOut':
                 element.attr('animation-out', config[prop]);
                 break;
+              case 'overlayClose':
+                element.attr('overlay-close', config[prop] === 'false' ? 'false' : 'true'); // must be string, see postLink() above
+                break;
+              case 'class':
+                if (angular.isString(config[prop])) {
+                  config[prop].split(' ').forEach(function(klass) {
+                    element.addClass(klass);
+                  });
+                } else if (angular.isArray(config[prop])) {
+                  config[prop].forEach(function(klass) {
+                    element.addClass(klass);
+                  });
+                }
+                break;
               default:
                 element.attr(prop, config[prop]);
+                break;
             }
           }
         }
@@ -1959,11 +2459,11 @@ angular.module('markdown', [])
 
       function destroy() {
         self.deactivate();
-        setTimeout(function() {
+        $timeout(function() {
           scope.$destroy();
           element.remove();
           destroyed = true;
-        }, 3000);
+        }, 0, false);
         foundationApi.unsubscribe(id);
       }
 
@@ -2077,9 +2577,9 @@ angular.module('markdown', [])
     }
   }
 
-  zfNotification.$inject = ['FoundationApi'];
+  zfNotification.$inject = ['FoundationApi', '$sce'];
 
-  function zfNotification(foundationApi) {
+  function zfNotification(foundationApi, $sce) {
     var directive = {
       restrict: 'EA',
       templateUrl: 'components/notification/notification.html',
@@ -2109,23 +2609,31 @@ angular.module('markdown', [])
 
       function preLink(scope, iElement, iAttrs) {
         iAttrs.$set('zf-closable', 'notification');
+        if (iAttrs['title']) {
+          scope.$watch('title', function(value) {
+            if (value) {
+              scope.trustedTitle = $sce.trustAsHtml(value);
+            }
+          });
+        }
       }
 
       function postLink(scope, element, attrs, controller) {
         scope.active = false;
         var animationIn  = attrs.animationIn || 'fadeIn';
         var animationOut = attrs.animationOut || 'fadeOut';
+        var animate = attrs.hasOwnProperty('zfAdvise') ? foundationApi.animateAndAdvise : foundationApi.animate;
         var hammerElem;
 
         //due to dynamic insertion of DOM, we need to wait for it to show up and get working!
         setTimeout(function() {
           scope.active = true;
-          foundationApi.animate(element, scope.active, animationIn, animationOut);
+          animate(element, scope.active, animationIn, animationOut);
         }, 50);
 
         scope.hide = function() {
           scope.active = false;
-          foundationApi.animate(element, scope.active, animationIn, animationOut);
+          animate(element, scope.active, animationIn, animationOut);
           setTimeout(function() {
             controller.removeNotification(scope.notifId);
           }, 50);
@@ -2141,7 +2649,7 @@ angular.module('markdown', [])
         };
 
         // close on swipe
-        if (Hammer) {
+        if (typeof(Hammer) !== 'undefined') {
           hammerElem = new Hammer(element[0]);
           // set the options for swipe (to make them a bit more forgiving in detection)
           hammerElem.get('swipe').set({
@@ -2150,19 +2658,20 @@ angular.module('markdown', [])
             velocity: 0.5 // and this is how fast the swipe must travel
           });
         }
-
-        hammerElem.on('swipe', function() {
-          if (scope.active) {
-            scope.hide();
-          }
-        });
+        if(typeof(hammerElem) !== 'undefined') {
+          hammerElem.on('swipe', function() {
+            if (scope.active) {
+              scope.hide();
+            }
+          });
+        }
       }
     }
   }
 
-  zfNotificationStatic.$inject = ['FoundationApi'];
+  zfNotificationStatic.$inject = ['FoundationApi', '$sce'];
 
-  function zfNotificationStatic(foundationApi) {
+  function zfNotificationStatic(foundationApi, $sce) {
     var directive = {
       restrict: 'EA',
       templateUrl: 'components/notification/notification-static.html',
@@ -2190,6 +2699,9 @@ angular.module('markdown', [])
 
       function preLink(scope, iElement, iAttrs, controller) {
         iAttrs.$set('zf-closable', type);
+        if (iAttrs['title']) {
+          scope.trustedTitle = $sce.trustAsHtml(iAttrs['title']);
+        }
       }
 
       function postLink(scope, element, attrs, controller) {
@@ -2197,6 +2709,7 @@ angular.module('markdown', [])
 
         var animationIn = attrs.animationIn || 'fadeIn';
         var animationOut = attrs.animationOut || 'fadeOut';
+        var animateFn = attrs.hasOwnProperty('zfAdvise') ? foundationApi.animateAndAdvise : foundationApi.animate;
 
         //setup
         foundationApi.subscribe(attrs.id, function(msg) {
@@ -2221,30 +2734,26 @@ angular.module('markdown', [])
                   scope.toggle();
                 }
               }, parseInt(scope.autoclose));
-            };
+            }
           }
-
-          foundationApi.animate(element, scope.active, animationIn, animationOut);
-          scope.$apply();
-
           return;
         });
 
         scope.hide = function() {
           scope.active = false;
-          foundationApi.animate(element, scope.active, animationIn, animationOut);
+          animateFn(element, scope.active, animationIn, animationOut);
           return;
         };
 
         scope.show = function() {
           scope.active = true;
-          foundationApi.animate(element, scope.active, animationIn, animationOut);
+          animateFn(element, scope.active, animationIn, animationOut);
           return;
         };
 
         scope.toggle = function() {
           scope.active = !scope.active;
-          foundationApi.animate(element, scope.active, animationIn, animationOut);
+          animateFn(element, scope.active, animationIn, animationOut);
           return;
         };
 
@@ -2283,9 +2792,9 @@ angular.module('markdown', [])
     }
   }
 
-  NotificationFactory.$inject = ['$http', '$templateCache', '$rootScope', '$compile', '$timeout', 'FoundationApi'];
+  NotificationFactory.$inject = ['$http', '$templateCache', '$rootScope', '$compile', '$timeout', 'FoundationApi', '$sce'];
 
-  function NotificationFactory($http, $templateCache, $rootScope, $compile, $timeout, foundationApi) {
+  function NotificationFactory($http, $templateCache, $rootScope, $compile, $timeout, foundationApi, $sce) {
     return notificationFactory;
 
     function notificationFactory(config) {
@@ -2357,7 +2866,7 @@ angular.module('markdown', [])
         element = angular.element(html);
 
         scope = $rootScope.$new();
-        
+
         for(var i = 0; i < props.length; i++) {
           if(config[props[i]]) {
             element.attr(props[i], config[props[i]]);
@@ -2446,7 +2955,7 @@ angular.module('markdown', [])
       return {
         pre: preLink,
         post: postLink
-      }
+      };
 
       function preLink(scope, iElement, iAttrs, controller) {
         iAttrs.$set('zf-closable', type);
@@ -2470,7 +2979,7 @@ angular.module('markdown', [])
           if (!scope.$root.$$phase) {
             scope.$apply();
           }
-          
+
           return;
         });
 
@@ -2541,6 +3050,7 @@ angular.module('markdown', [])
 
     function compile(tElement, tAttrs, transclude) {
       var type = 'panel';
+      var animate = tAttrs.hasOwnProperty('zfAdvise') ? foundationApi.animateAndAdvise : foundationApi.animate;
 
       return {
         pre: preLink,
@@ -2557,21 +3067,39 @@ angular.module('markdown', [])
         scope.active = false;
         var animationIn, animationOut;
         var globalQueries = foundationApi.getSettings().mediaQueries;
-
-        //urgh, there must be a better way
-        if(scope.position === 'left') {
-          animationIn  = attrs.animationIn || 'slideInRight';
-          animationOut = attrs.animationOut || 'slideOutLeft';
-        } else if (scope.position === 'right') {
-          animationIn  = attrs.animationIn || 'slideInLeft';
-          animationOut = attrs.animationOut || 'slideOutRight';
-        } else if (scope.position === 'top') {
-          animationIn  = attrs.animationIn || 'slideInDown';
-          animationOut = attrs.animationOut || 'slideOutUp';
-        } else if (scope.position === 'bottom') {
-          animationIn  = attrs.animationIn || 'slideInUp';
-          animationOut = attrs.animationOut || 'slideOutBottom';
-        }
+        var setAnim = {
+          left: function(){
+            animationIn  = attrs.animationIn || 'slideInRight';
+            animationOut = attrs.animationOut || 'slideOutLeft';
+          },
+          right: function(){
+            animationIn  = attrs.animationIn || 'slideInLeft';
+            animationOut = attrs.animationOut || 'slideOutRight';
+          },
+          top: function(){
+            animationIn  = attrs.animationIn || 'slideInDown';
+            animationOut = attrs.animationOut || 'slideOutUp';
+          },
+          bottom: function(){
+            animationIn  = attrs.animationIn || 'slideInUp';
+            animationOut = attrs.animationOut || 'slideOutDown';
+          }
+        };
+        setAnim[scope.position]();
+        //urgh, there must be a better way, ***there totally is btw***
+        // if(scope.position === 'left') {
+        //   animationIn  = attrs.animationIn || 'slideInRight';
+        //   animationOut = attrs.animationOut || 'slideOutLeft';
+        // } else if (scope.position === 'right') {
+        //   animationIn  = attrs.animationIn || 'slideInLeft';
+        //   animationOut = attrs.animationOut || 'slideOutRight';
+        // } else if (scope.position === 'top') {
+        //   animationIn  = attrs.animationIn || 'slideInDown';
+        //   animationOut = attrs.animationOut || 'slideOutUp';
+        // } else if (scope.position === 'bottom') {
+        //   animationIn  = attrs.animationIn || 'slideInUp';
+        //   animationOut = attrs.animationOut || 'slideOutDown';
+        // }
 
 
         //setup
@@ -2579,7 +3107,8 @@ angular.module('markdown', [])
           var panelPosition = $window.getComputedStyle(element[0]).getPropertyValue("position");
 
           // patch to prevent panel animation on larger screen devices
-          if (panelPosition !== 'absolute') {
+          // don't run animation on grid elements, only panel
+          if (panelPosition == 'static' || panelPosition == 'relative') {
             return;
           }
 
@@ -2590,7 +3119,7 @@ angular.module('markdown', [])
           } else if (msg == 'toggle') {
             scope.toggle();
           }
-          
+
           if (!scope.$root.$$phase) {
             scope.$apply();
           }
@@ -2598,10 +3127,12 @@ angular.module('markdown', [])
           return;
         });
 
+        // function finish(el)
+
         scope.hide = function() {
           if(scope.active){
             scope.active = false;
-            foundationApi.animate(element, scope.active, animationIn, animationOut);
+            animate(element, scope.active, animationIn, animationOut);
           }
 
           return;
@@ -2610,7 +3141,7 @@ angular.module('markdown', [])
         scope.show = function() {
           if(!scope.active){
             scope.active = true;
-            foundationApi.animate(element, scope.active, animationIn, animationOut);
+            animate(element, scope.active, animationIn, animationOut);
           }
 
           return;
@@ -2618,19 +3149,19 @@ angular.module('markdown', [])
 
         scope.toggle = function() {
           scope.active = !scope.active;
-          foundationApi.animate(element, scope.active, animationIn, animationOut);
-          
+          animate(element, scope.active, animationIn, animationOut);
+
           return;
         };
 
         element.on('click', function(e) {
-          //check sizing
-          var srcEl = e.srcElement;
+          // Check sizing
+          var srcEl = e.target;
 
-          if(!matchMedia(globalQueries.medium).matches && srcEl.href && srcEl.href.length > 0) {
-            //hide element if it can't match at least medium
+          if (!matchMedia(globalQueries.medium).matches && srcEl.href && srcEl.href.length > 0) {
+            // Hide element if it can't match at least medium
             scope.hide();
-            foundationApi.animate(element, scope.active, animationIn, animationOut);
+            animate(element, scope.active, animationIn, animationOut);
           }
         });
       }
@@ -2660,12 +3191,12 @@ angular.module('markdown', [])
 
     //target should be element ID
     function activate(target) {
-      foundationApi.publish(target, 'show');
+      foundationApi.publish(target, ['show']);
     }
 
     //target should be element ID
     function deactivate(target) {
-      foundationApi.publish(target, 'hide');
+      foundationApi.publish(target, ['hide']);
     }
 
     function toggle(target, popupTarget) {
