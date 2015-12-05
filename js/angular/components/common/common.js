@@ -189,12 +189,18 @@
 
         if(avoid.length > 0){ return; }
 
-        var activeElements = document.querySelectorAll('.is-active[zf-closable]');
+        if (getParentsUntil(tar, 'zf-closable') === false) {
+          // if clicked element not inside closable component
+          e.preventDefault();
 
-        if(activeElements.length && !activeElements[0].hasAttribute('zf-ignore-all-close')){
-          if(getParentsUntil(tar, 'zf-closable') === false){
-            e.preventDefault();
-            foundationApi.publish(activeElements[0].id, 'close');
+          // close active elements
+          var activeElements = document.querySelectorAll('.is-active[zf-closable]');
+          if(activeElements.length > 0) {
+            for(var i = 0; i < activeElements.length; i++) {
+              if (!activeElements[i].hasAttribute('zf-ignore-all-close')) {
+                foundationApi.publish(activeElements[i].id, 'close');
+              }
+            }
           }
         }
         return;
