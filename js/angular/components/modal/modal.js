@@ -82,21 +82,30 @@
         };
 
         scope.hide = function() {
-          scope.active = false;
-          animate();
+          if (scope.active) {
+            scope.active = false;
+            adviseActiveChanged();
+            animate();
+          }
           return;
         };
 
         scope.show = function() {
-          scope.active = true;
-          animate();
-          dialog.tabIndex = -1;
-          dialog[0].focus();
+          if (!scope.active) {
+            scope.active = true;
+            adviseActiveChanged();
+
+            animate();
+            dialog.tabIndex = -1;
+            dialog[0].focus();
+          }
+
           return;
         };
 
         scope.toggle = function() {
           scope.active = !scope.active;
+          adviseActiveChanged();
           animate();
           return;
         };
@@ -120,6 +129,12 @@
           return;
         });
 
+        function adviseActiveChanged() {
+          if (!angular.isUndefined(attrs.zfAdvise)) {
+            foundationApi.publish(attrs.id, scope.active ? 'activated' : 'deactivated');
+          }
+        }
+
         function animate() {
           //animate both overlay and dialog
           if(!scope.overlay) {
@@ -130,7 +145,7 @@
           // due to a bug where the overlay fadeIn is essentially covering up
           // the dialog's animation
           if (!scope.active) {
-            animateFn(element, scope.active, overlayIn, overlayOut);
+            foundationApi.animate(element, scope.active, overlayIn, overlayOut);
           }
           else {
             element.addClass('is-active');

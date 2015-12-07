@@ -83,18 +83,27 @@
 
         scope.hide = function() {
           scope.active = false;
+          adviseActiveChanged();
           return;
         };
 
         scope.show = function() {
           scope.active = true;
+          adviseActiveChanged();
           return;
         };
 
         scope.toggle = function() {
           scope.active = !scope.active;
+          adviseActiveChanged();
           return;
         };
+
+        function adviseActiveChanged() {
+          if (!angular.isUndefined(attrs.zfAdvise)) {
+            foundationApi.publish(attrs.id, scope.active ? 'activated' : 'deactivated');
+          }
+        }
       }
     }
   }

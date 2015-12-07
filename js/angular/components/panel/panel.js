@@ -127,6 +127,7 @@
         scope.hide = function() {
           if(scope.active){
             scope.active = false;
+            adviseActiveChanged();
             animate(element, scope.active, animationIn, animationOut);
           }
 
@@ -136,6 +137,7 @@
         scope.show = function() {
           if(!scope.active){
             scope.active = true;
+            adviseActiveChanged();
             animate(element, scope.active, animationIn, animationOut);
           }
 
@@ -144,8 +146,8 @@
 
         scope.toggle = function() {
           scope.active = !scope.active;
+          adviseActiveChanged();
           animate(element, scope.active, animationIn, animationOut);
-
           return;
         };
 
@@ -159,6 +161,12 @@
             animate(element, scope.active, animationIn, animationOut);
           }
         });
+
+        function adviseActiveChanged() {
+          if (!angular.isUndefined(attrs.zfAdvise)) {
+            foundationApi.publish(attrs.id, scope.active ? 'activated' : 'deactivated');
+          }
+        }
       }
     }
   }
