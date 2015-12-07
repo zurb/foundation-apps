@@ -205,8 +205,12 @@
           }
         }
 
-        if (getParentsUntil(tar, 'ui-sref', false) === false) {
-          // prevent default if target not inside ui-sref
+        avoid = ['ui-sref', 'href'].filter(function(attr, i){
+          return getParentsUntil(tar, attr, false) !== false;
+        });
+
+        if(avoid.length == 0) {
+          // prevent default if target not inside parent with avoided attribute
           e.preventDefault();
         }
       });
