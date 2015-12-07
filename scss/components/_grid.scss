@@ -370,7 +370,14 @@ $block-grid-max-size: 6 !default;
         @include grid-block;
 
         // Override panel styles
-        &.panel { @include grid-panel-reset; }
+        &.panel {
+          &.is-active {
+            @include grid-panel-reset;
+          }
+          &:not(.is-active) {
+            display: none;
+          }
+        }
       }
     }
     .#{$size}-grid-content {
@@ -380,7 +387,14 @@ $block-grid-max-size: 6 !default;
         @include grid-content;
 
         // Override panel styles
-        &.panel { @include grid-panel-reset; }
+        &.panel {
+          &.is-active {
+            @include grid-panel-reset;
+          }
+          &:not(.is-active) {
+            display: none;
+          }
+        }
       }
     }
   }
