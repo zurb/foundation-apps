@@ -94,12 +94,10 @@
           if (!scope.active) {
             scope.active = true;
             adviseActiveChanged();
-
             animate();
             dialog.tabIndex = -1;
             dialog[0].focus();
           }
-
           return;
         };
 
@@ -109,8 +107,6 @@
           animate();
           return;
         };
-
-        init();
 
         //setup
         foundationApi.subscribe(attrs.id, function(msg) {
@@ -152,12 +148,6 @@
           }
 
           animateFn(dialog, scope.active, animationIn, animationOut);
-        }
-
-        function init() {
-          if(scope.active) {
-            scope.show();
-          }
         }
       }
     }
@@ -253,7 +243,7 @@
         }, 0, false);
       }
 
-      function init(state) {
+      function init() {
         $q.when(fetched).then(function() {
           if(!attached && html.length > 0) {
             var modalEl = container.append(element);
@@ -262,8 +252,6 @@
 
             attached = true;
           }
-
-          scope.active = state;
         });
       }
 
