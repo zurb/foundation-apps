@@ -125,8 +125,6 @@
           return;
         });
 
-        // function finish(el)
-
         scope.hide = function() {
           if(scope.active){
             scope.active = false;
