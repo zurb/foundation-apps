@@ -65,7 +65,7 @@
         var dialog = angular.element(element.children()[0]);
         var animateFn = attrs.hasOwnProperty('zfAdvise') ? foundationApi.animateAndAdvise : foundationApi.animate;
 
-        scope.active = scope.active || false;
+        scope.active = false;
         scope.overlay = attrs.overlay === 'false' ? false : true;
         scope.overlayClose = attrs.overlayClose === 'false' ? false : true;
 
@@ -164,6 +164,7 @@
           id = config.id || foundationApi.generateUuid(),
           attached = false,
           destroyed = false,
+          activated = false,
           html,
           element,
           fetched,
@@ -216,41 +217,52 @@
       }
 
       function isActive() {
-        return !destroyed && scope && scope.active === true;
+        return !destroyed && scope && activated;
       }
 
       function activate() {
         checkStatus();
         $timeout(function() {
-          init(true);
-          foundationApi.publish(id, 'show');
+          activated = true;
+          init('show');
         }, 0, false);
       }
 
       function deactivate() {
         checkStatus();
         $timeout(function() {
-          init(false);
-          foundationApi.publish(id, 'hide');
+          activated = false;
+          init('hide');
         }, 0, false);
       }
 
       function toggle() {
         checkStatus();
         $timeout(function() {
-          init(true);
-          foundationApi.publish(id, 'toggle');
+          activated = !activated;
+          init('toggle');
         }, 0, false);
       }
 
-      function init() {
+      function init(msg) {
         $q.when(fetched).then(function() {
+          var delayMsg = false;
+
           if(!attached && html.length > 0) {
-            var modalEl = container.append(element);
-
+            container.append(element);
             $compile(element)(scope);
-
             attached = true;
+
+            // delay message so directive can be compiled and respond to messages
+            delayMsg = true;
+          }
+
+          if (delayMsg) {
+            $timeout(function() {
+              foundationApi.publish(id, msg);
+            }, 0, false);
+          } else {
+            foundationApi.publish(id, msg);
           }
         });
       }
