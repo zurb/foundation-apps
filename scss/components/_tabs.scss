@@ -93,6 +93,10 @@ $tab-content-padding: $global-padding !default;
   .tab-contents {
     @include tab-content;
 
+    &.vertical {
+      flex: 1 1 auto; 
+    }
+
     .tab-content {
       @include tab-content-item;
     }
