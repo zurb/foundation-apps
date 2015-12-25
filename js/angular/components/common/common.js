@@ -190,7 +190,7 @@
         if(avoid.length > 0){ return; }
 
         // check if clicked element is inside active closable parent
-        if (getParentsUntil(tar, 'zf-closable', true) !== false) {
+        if (getParentsUntil(tar, 'zf-closable', 'is-active') !== false) {
           // do nothing
           return;
         }
@@ -206,23 +206,35 @@
         }
 
         avoid = ['ui-sref', 'href'].filter(function(attr, i){
-          return getParentsUntil(tar, attr, false) !== false;
+          return getParentsUntil(tar, attr) !== false;
         });
 
         if(avoid.length == 0) {
-          // prevent default if target not inside parent with avoided attribute
-          e.preventDefault();
+          // check for classes to avoid
+          avoid = ['switch'].filter(function(klass, i){
+            return getParentsUntil(tar, false, klass) !== false;
+          });
+
+         if(avoid.length == 0) {
+            // prevent default if target not inside parent with avoided attribute
+            // and not inside parent with avoided classes
+            e.preventDefault();
+          }
         }
       });
     }
     /** special thanks to Chris Ferdinandi for this solution.
      * http://gomakethings.com/climbing-up-and-down-the-dom-tree-with-vanilla-javascript/
      */
-    function getParentsUntil(elem, parent, checkActive) {
+    function getParentsUntil(elem, attrCheck, classCheck) {
       for ( ; elem && elem !== document.body; elem = elem.parentNode ) {
-        if(elem.hasAttribute(parent)){
-          if(!checkActive || elem.classList.contains('is-active')){ return elem; }
-          break;
+        if (attrCheck) {
+          if (elem.hasAttribute(attrCheck)) {
+            if(!classCheck || elem.classList.contains(classCheck)) { return elem; }
+            break;
+          }
+        } else {
+          if(!classCheck || elem.classList.contains(classCheck)) { return elem; }
         }
       }
       return false;
