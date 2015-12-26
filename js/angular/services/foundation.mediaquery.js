@@ -83,10 +83,10 @@
       });
 
       window.addEventListener('resize', u.throttle(function() {
-        foundationApi.publish('resize', 'window resized');
-
-        // any new resize event causes a clearing of the media cache
+        // any resize event causes a clearing of the media cache
         foundationMQ.clearCache();
+
+        foundationApi.publish('resize', 'window resized');
       }, 50));
     }
   }
