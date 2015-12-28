@@ -182,51 +182,38 @@
 
     function link(scope, element, attrs) {
       element.on('click', function(e) {
-        var tar = e.target;
-        var avoidAttrs = ['zf-toggle', 'zf-hard-toggle', 'zf-open', 'zf-close'].filter(function(e, i){
+        var tar = e.target, avoid, activeElements, closedElements, i;
+
+        // check if clicked target is designated to open/close another component
+        avoid = ['zf-toggle', 'zf-hard-toggle', 'zf-open', 'zf-close'].filter(function(e){
           return e in tar.attributes;
         });
-        var avoidClasses, avoidNodes;
-
-        if(avoidAttrs.length > 0){ return; }
+        if(avoid.length > 0) {
+          // do nothing
+          return;
+        }
 
         // check if clicked element is inside active closable parent
-        if (getParentsUntil(tar, 'zf-closable', 'is-active') !== false) {
+        if (getParentsUntil(tar, 'zf-closable') !== false) {
           // do nothing
           return;
         }
 
         // close all active elements
-        var activeElements = document.querySelectorAll('.is-active[zf-closable]');
+        activeElements = document.querySelectorAll('.is-active[zf-closable]');
+        closedElements = 0;
         if(activeElements.length > 0) {
-          for(var i = 0; i < activeElements.length; i++) {
+          for(i = 0; i < activeElements.length; i++) {
             if (!activeElements[i].hasAttribute('zf-ignore-all-close')) {
               foundationApi.publish(activeElements[i].id, 'close');
+              closedElements++;
             }
           }
-        }
 
-        avoidAttrs = ['ui-sref', 'href'].filter(function(attr, i){
-          return getParentsUntil(tar, attr) !== false;
-        });
-
-        if(avoidAttrs.length == 0) {
-          // check for classes to avoid
-          avoidClasses = ['switch'].filter(function(klass, i){
-            return getParentsUntil(tar, false, klass) !== false;
-          });
-
-         if(avoidClasses.length == 0) {
-           // check for nodes to avoid
-           avoidNodes = ['input'].filter(function(node, i){
-             return getParentsUntil(tar, false, false, node) !== false;
-           });
-
-          if(avoidNodes.length == 0) {
-             // prevent default if target not inside parent with
-             // avoided attribute, class, or node
-             e.preventDefault();
-           }
+          // if one or more elements were closed,
+          // prevent the default action
+          if (closedElements > 0) {
+            e.preventDefault();
           }
         }
       });
@@ -234,18 +221,11 @@
     /** special thanks to Chris Ferdinandi for this solution.
      * http://gomakethings.com/climbing-up-and-down-the-dom-tree-with-vanilla-javascript/
      */
-    function getParentsUntil(elem, attrCheck, classCheck, nodeCheck) {
+    function getParentsUntil(elem, parent) {
       for ( ; elem && elem !== document.body; elem = elem.parentNode ) {
-        if (nodeCheck && elem.nodeName == nodeCheck) {
-          return elem;
-        }
-        if (attrCheck) {
-          if (elem.hasAttribute(attrCheck)) {
-            if(!classCheck || elem.classList.contains(classCheck)) { return elem; }
-            break;
-          }
-        } else {
-          if(!classCheck || elem.classList.contains(classCheck)) { return elem; }
+        if(elem.hasAttribute(parent)){
+          if(elem.classList.contains('is-active')){ return elem; }
+          break;
         }
       }
       return false;
