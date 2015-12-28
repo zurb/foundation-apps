@@ -183,11 +183,12 @@
     function link(scope, element, attrs) {
       element.on('click', function(e) {
         var tar = e.target;
-        var avoid = ['zf-toggle', 'zf-hard-toggle', 'zf-open', 'zf-close'].filter(function(e, i){
+        var avoidAttrs = ['zf-toggle', 'zf-hard-toggle', 'zf-open', 'zf-close'].filter(function(e, i){
           return e in tar.attributes;
         });
+        var avoidClasses, avoidNodes;
 
-        if(avoid.length > 0){ return; }
+        if(avoidAttrs.length > 0){ return; }
 
         // check if clicked element is inside active closable parent
         if (getParentsUntil(tar, 'zf-closable', 'is-active') !== false) {
@@ -205,20 +206,27 @@
           }
         }
 
-        avoid = ['ui-sref', 'href'].filter(function(attr, i){
+        avoidAttrs = ['ui-sref', 'href'].filter(function(attr, i){
           return getParentsUntil(tar, attr) !== false;
         });
 
-        if(avoid.length == 0) {
+        if(avoidAttrs.length == 0) {
           // check for classes to avoid
-          avoid = ['switch'].filter(function(klass, i){
+          avoidClasses = ['switch'].filter(function(klass, i){
             return getParentsUntil(tar, false, klass) !== false;
           });
 
-         if(avoid.length == 0) {
-            // prevent default if target not inside parent with avoided attribute
-            // and not inside parent with avoided classes
-            e.preventDefault();
+         if(avoidClasses.length == 0) {
+           // check for nodes to avoid
+           avoidNodes = ['input'].filter(function(node, i){
+             return getParentsUntil(tar, false, false, node) !== false;
+           });
+
+          if(avoidNodes.length == 0) {
+             // prevent default if target not inside parent with
+             // avoided attribute, class, or node
+             e.preventDefault();
+           }
           }
         }
       });
@@ -226,8 +234,11 @@
     /** special thanks to Chris Ferdinandi for this solution.
      * http://gomakethings.com/climbing-up-and-down-the-dom-tree-with-vanilla-javascript/
      */
-    function getParentsUntil(elem, attrCheck, classCheck) {
+    function getParentsUntil(elem, attrCheck, classCheck, nodeCheck) {
       for ( ; elem && elem !== document.body; elem = elem.parentNode ) {
+        if (nodeCheck && elem.nodeName == nodeCheck) {
+          return elem;
+        }
         if (attrCheck) {
           if (elem.hasAttribute(attrCheck)) {
             if(!classCheck || elem.classList.contains(classCheck)) { return elem; }
