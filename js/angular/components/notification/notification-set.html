@@ -1,0 +1,9 @@
+<div class="notification-container {{position}}">
+  <zf-notification ng-repeat="notification in notifications"
+    title="notification.title"
+    image="notification.image"
+    notif-id = "notification.id"
+    color="notification.color"
+    autoclose="notification.autoclose"
+    >{{ notification.content }}</zf-notification>
+</div>

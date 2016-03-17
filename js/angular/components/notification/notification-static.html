@@ -1,0 +1,12 @@
+<div zf-swipe-close="swipe" class="static-notification {{ color }} {{ position }}">
+  <a href="#"
+    class="close-button"
+    ng-click="hide(); $event.preventDefault(); $event.stopPropagation()">&times;</a>
+  <div class="notification-icon" ng-if="image">
+    <img ng-src="{{ image }}"/>
+  </div>
+  <div class="notification-content">
+    <h1 ng-bind-html="trustedTitle"></h1>
+    <p ng-transclude></p>
+  </div>
+</div>
