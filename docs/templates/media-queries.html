@@ -1,0 +1,118 @@
+---
+name: media-queries
+url: /media-queries
+title: Media Queries
+---
+
+<h2>Media Queries</h2>
+<h3 class="subheader">CSS media queries allow us to adjust the display and orientation of content at different screen sizes.</h3>
+
+<hr>
+
+<h3>Default Media Queries</h3>
+
+<p>Foundation for Apps has three core breakpoint ranges, which you may recognize from Foundation for Sites.</p>
+
+<ul>
+  <li><strong>Small:</strong> any screen.</li>
+  <li><strong>Medium:</strong> any screen 640px or wider.</li>
+  <li><strong>Large:</strong> any screen 1024px or wider.</li>
+</ul>
+
+<p>Many components can be modified at different screen sizes using special <em>breakpoint classes</em>. For example, this HTML creates a menu bar that is vertical on small screens, and horizontal on medium-sized screens and larger.</p>
+
+<hljs language="html">
+<ul class="menu-bar vertical medium-horizontal">
+  <!-- ... -->
+</ul>
+</hljs>
+
+<p>The understanding of breakpoints is most important when working with <a ui-sref="grid">the grid</a>, which helps you create your responsive app layouts.</p>
+
+<hr>
+
+<h3>Changing the Breakpoints</h3>
+
+<p>The names of breakpoints, and their widths, are stored in a <code>$breakpoints</code> variable in your settings file.</p>
+
+<hljs language="scss">
+$breakpoints: (
+  small: rem-calc(0),
+  medium: rem-calc(640),
+  large: rem-calc(1200),
+  xlarge: rem-calc(1440),
+  xxlarge: rem-calc(1920),
+);
+</hljs>
+
+<p>Changing the widths of any of the breakpoints is as easy as changing the pixel values in this map. Note that here there are two extra breakpoints: <code>xlarge</code> and <code>xxlarge</code>. We don't use these for any components, and also don't output any CSS classes that use them by default.</p>
+
+<p>You can change that by modifying the <code>$breakpoint-classes</code> variable in your settings file. This is a list of breakpoint names. Adding or removing names from the list will change the CSS class output. It looks like this by default:</p>
+
+<hljs language="scss">
+$breakpoint-classes: (small medium large);
+</hljs>
+
+<p>For example, to get <code>xlarge</code> classes in your CSS, for use in the grid, menu bar, and more, just add it to the end of the list:</p>
+
+<hljs language="scss">
+$breakpoint-classes: (small medium large xlarge);
+</hljs>
+
+<hr>
+
+<h3>The Breakpoint Mixin</h3>
+
+<p>Our <code>breakpoint()</code> mixin makes it easy to write media queries. You can use the named breakpoints or a custom pixel, rem, or em value.</p>
+
+<p>To use the mixin, call it with <code>@include</code>, and then pass in the CSS content you want inside the curly braces.</p>
+
+<hljs language="scss">
+.element {
+  // Only affects medium screens and larger
+  @include breakpoint(medium) {
+    // All CSS in here goes inside the media query
+  }
+}
+</hljs>
+
+<p>The behavior of the media query can be changed by adding the keyword <code>down</code> or <code>only</code> after the breakpoint value, separated by a space.</p>
+
+<hljs language="scss">
+.element {
+  // Only affects medium screens and smaller
+  @include breakpoint(medium down) { }
+
+  // Only affects medium screens, not small or large
+  @include breakpoint(medium only) { }
+}
+</hljs>
+
+<p>It's also possible to pass in custom values. You can enter a <code>px</code>, <code>rem</code>, or<code>em</code> value—in the end, the value will be converted to <code>em</code>.</p>
+
+<hljs language="scss">
+.element {
+  // Converted to 20em
+  @include breakpoint(320px) { }
+
+  // Unitless values are assumed to be pixels
+  @include breakpoint(320) { }
+
+  // Converted to 40em
+  @include breakpoint(40rem) { }
+}
+</hljs>
+
+<p>Lastly, there are two special media queries that are not width-based: <code>portrait</code>, <code>landscape</code>, and <code>retina</code>. Using these keywords with the <code>breakpoint()</code> mixin will output a media query for device orientation or pixel density, rather than screen width.</p>
+
+<hljs language="scss">
+.element {
+  @include breakpoint(landscape) {
+    // CSS for landscape-oriented devices only
+  }
+
+  @include breakpoint(retina) {
+    // CSS for high-resolution displays only
+  }
+}
+</hljs>

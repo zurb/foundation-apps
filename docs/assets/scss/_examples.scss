@@ -1,0 +1,146 @@
+// Examples
+// --------
+// Overrides for component examples.
+
+.docs-example-badges .badge {
+  margin-right: 1rem;
+}
+
+.docs-example-panel {
+  text-align: center;
+  color: #666;
+  padding: 1rem;
+  padding-top: 2.5rem;
+
+  p {
+    font-size: 1.5rem;
+  }
+}
+
+.docs-grid-demo {
+  height: 100px;
+  margin: 0 0 1.5rem 0 !important;
+
+  &, .grid-block, .grid-content, .grid-container {
+    background: rgba($primary-color, 0.1);
+    padding: 0;
+    margin: 1rem;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+  }
+  .shrink {
+    width: 100px;
+  }
+
+  &.small-up-3 {
+    height: auto;
+
+    .grid-block {
+      height: 70px;
+      margin: 0;
+      background: transparent;
+      position: relative;
+
+      &::after {
+        position: absolute;
+        display: block;
+        content: '';
+        top: 1rem; left: 1rem; right: 1rem; bottom: 1rem;
+        background: rgba($primary-color, 0.1);
+      }
+    }
+  }
+
+  &.vertical {
+    flex-wrap: nowrap;
+
+    .grid-block {
+      flex-basis: 50px;
+      flex-basis: auto;
+      flex-wrap: wrap;
+
+      &:first-child {
+        margin-bottom: 0.5rem;
+      }
+    }
+  }
+
+  &.vertical.medium-horizontal {
+    .grid-block:first-child {
+      margin-bottom: 1rem;
+    }
+
+    @include breakpoint(small only) {
+      flex-wrap: nowrap;
+
+      .grid-block {
+        flex-basis: 50px;
+
+        &:first-child {
+          margin-bottom: 0.5rem;
+        }
+      }
+    }
+  }
+
+  .grid-container {
+    max-width: 400px;
+    height: 100px;
+    margin: 0 auto -1rem auto;
+  }
+
+  .small-offset-2 {
+    margin-left: percentage(2 / 12) !important;
+  }
+
+  .text {
+    font-size: 2rem;
+    align-items: center;
+    justify-content: center;
+    }
+  }
+
+.docs-example-dialog .modal {
+  text-align: center;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 10px rgba(#000, 0.25);
+}
+
+.docs-example-valign {
+  > div {
+    width: 33%;
+    padding: 1rem;
+    color: white;
+
+    &:nth-child(1) {
+      background: #B2685C;
+    }
+    &:nth-child(2) {
+      background: #87B286;
+    }
+    &:nth-child(3) {
+      background: #87A1B2;
+      height: 200px;
+    }
+  }
+}
+
+.docs-example-valign-2 {
+  justify-content: space-around;
+
+  > div {
+    width: 45%;
+    padding: 1rem;
+    color: white;
+
+    &:nth-child(1) {
+      background: #B2685C;
+      height: 75px;
+    }
+    &:nth-child(2) {
+      background: #87B286;
+      height: 200px;
+    }
+  }
+}

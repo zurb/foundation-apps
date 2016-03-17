@@ -1,0 +1,68 @@
+---
+name: popup
+url: /popup
+title: Popup
+---
+
+<h2>Popup</h2>
+
+<h3 class="subheader">A window that has content and can be placed anywhere, like a popup. Trigger it when a view is loaded or from a button click.</h3>
+
+<hr>
+
+<style>
+  .padding { padding: 1rem; }
+</style>
+
+<h3>Basic HTML</h3>
+
+<p>You can create popup with this basic directive</p>
+
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+<hljs>
+<a class="button" href="#" zf-popup-toggle="popup">Open Popup</a>
+<zf-popup id="popup" class="padding">
+  <!-- Popup content -->
+</zf-popup>
+</hljs>
+  </div>
+  <div class="small-12 medium-6 grid-content">
+    <a class="button" href="#" zf-popup-toggle="popup-2">Open Popup</a>
+    <zf-popup id="popup-2" class="padding">
+      <p>If the girl you love moves in with another guy once, it's more than enough. Twice, it's much too much.  Three times, it's the story of your life.</p>
+    </zf-popup>
+  </div>
+</div>
+
+<hr>
+
+<h3>Positioning</h3>
+
+<p>Popups use a library called Tether. Tether attaches an element to another element with absolute positioning; however, there is one caveat. If your popup is nested within a scrollable area (not `body`) but it's not the immediate parent of that element, it will lose its positioning.</p>
+
+<hr>
+
+<h3>Sass Mixins</h3>
+
+<p>Popups don't currently have any sizing classes, but you can use our mixins to style your own.</p>
+
+<hljs>
+.custom-popup {
+  // Use this mixin to override the default styles for panels
+  @include popup(
+    $width: $popup-width, // Should be an absolute value like px or rem
+    $background: $popup-background, // Background color
+    $radius: $popup-radius, // Border radius
+    $shadow: $popup-shadow, // Box shadow
+    $border: $popup-border // Border
+  );
+}
+</hljs>
+
+<h3>Sass Variables</h3>
+
+<p>Use these variables to customize the appearance of popups.</p>
+
+<hljs include="'partials/scss/popup.html'" language="scss">
+</hljs>

@@ -1,0 +1,137 @@
+---
+name: tabs
+url: /tabs
+title: Tabs
+---
+
+<h2>Tabs</h2>
+<h3 class="subheader">Tabs are elements that help you organize and navigate multiple documents in a single container. They can be used for switching between items in the container.</h3>
+
+<hr />
+
+<h3>Basic HTML</h3>
+
+<p>You can create automatic tabs with this basic directive:</p>
+
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+
+<hljs>
+<div zf-tabs>
+  <div zf-tab title="Tab 1">
+    Tab content 1
+  </div>
+  <div zf-tab title="Tab 2">
+    Tab content 2
+  </div>
+  <div zf-tab title="Tab 3">
+    Tab content 3
+  </div>
+</div>
+</hljs>
+  </div>
+
+  <div class="small-12 medium-6 grid-content">
+    <div zf-tabs>
+		  <div zf-tab title="Tab 1">
+		    Tab content 1
+		  </div>
+		  <div zf-tab title="Tab 2">
+		    Tab content 2
+		  </div>
+		  <div zf-tab title="Tab 3">
+		    Tab content 3
+		  </div>
+  	</div>
+	</div>
+</div>
+
+<hr />
+
+<h3>Advanced HTML</h3>
+
+<p>You can create Automatic tabs with displaced tab content with this basic directive:</p>
+
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+<hljs>
+<div zf-tabs id="displaced-tabs" displaced="true">
+  <div zf-tab title="Tab 1">
+    Tab 1
+  </div>
+  <div zf-tab title="Tab 2">
+    Tab 2
+  </div>
+  <div zf-tab title="Tab 3">
+    Tab 3
+  </div>
+</div>
+<!-- Displaced content -->
+<div zf-tab-content target="displaced-tabs">
+</div>
+</hljs>
+  </div>
+
+  <div class="small-12 medium-6 grid-content">
+    <div zf-tabs id="displaced-tabs" displaced="true">
+		  <div zf-tab title="Tab 1">
+		    Tab 1
+		  </div>
+		  <div zf-tab title="Tab 2">
+		    Tab 2
+		  </div>
+		  <div zf-tab title="Tab 3">
+		    Tab 3
+		  </div>
+		</div>
+		<div zf-tab-content target="displaced-tabs">
+		</div>
+	</div>
+</div>
+
+<hr>
+
+<h3>Sass Mixins</h3>
+
+<p>Use our mixins to write your own tab classes.</p>
+
+<hljs>
+// This is the container for your tabstrip
+.custom-tabs {
+  @include tabstrip(
+    $orientation: horizontal, // Can also be vertical
+    $background: #fff
+  );
+}
+// This is an individual tab
+.custom-tabs-item {
+  @include tabstrip-item(
+    $background: #fff, // Background color
+    $background-hover: #fff, // Background color on hover
+    $background-active: #fff, // Background color when active
+    $color: #000, // Text color
+    $color-active: #000, // Text color when active
+    $padding: 1rem
+  );
+}
+
+// This is the container for tab content panes
+.custom-tab-content {
+  @include tab-content(
+    $padding: 1rem
+  );
+}
+// This is an individual tab pane
+.custom-tab-content-item {
+  @include tab-content-item;
+}
+</hljs>
+
+<hr>
+
+<h3>Sass Variables</h3>
+
+<p>You can customize tabs with these variables in the `_settings.scss` file:</p>
+
+<hljs include="'partials/scss/tabs.html'" language="scss">
+</hljs>

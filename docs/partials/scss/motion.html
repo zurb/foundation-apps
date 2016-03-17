@@ -1,0 +1,59 @@
+// Classes to use when triggering in/out animations
+$motion-class: (
+  in: "ng-enter",
+  out: "ng-leave",
+);
+$motion-class-active: (
+  in: "ng-enter-active",
+  out: "ng-leave-active",
+);
+$motion-class-stagger: (
+  in: "ng-enter-stagger",
+  out: "ng-leave-stagger",
+);
+$motion-class-showhide: (
+  in: "ng-hide-remove",
+  out: "ng-hide-add",
+);
+$motion-class-showhide-active: (
+  in: "ng-hide-remove-active",
+  out: "ng-hide-add-active",
+);
+
+// Set if movement-based transitions should also fade the element in and out
+$motion-slide-and-fade: false;
+$motion-hinge-and-fade: true;
+$motion-scale-and-fade: true;
+$motion-spin-and-fade: true;
+
+// Default speed for transitions and animations
+$motion-duration-default: 500ms;
+
+// Slow and fast modifiders
+$motion-duration-slow: 750ms;
+$motion-duration-fast: 250ms;
+$motion-stagger-duration-default: 150ms;
+$motion-stagger-duration-short: 50ms;
+$motion-stagger-duration-long: 300ms;
+
+// Default timing function for transitions and animations
+$motion-timing-default: ease;
+
+// Built-in and custom easing functions
+// Every item in this map becomes a CSS class
+$motion-timings: (
+  linear: linear,
+  ease: ease,
+  easeIn: ease-in,
+  easeOut: ease-out,
+  easeInOut: ease-in-out,
+  bounceIn: cubic-bezier(0.485, 0.155, 0.240, 1.245),
+  bounceOut: cubic-bezier(0.485, 0.155, 0.515, 0.845),
+  bounceInOut: cubic-bezier(0.760, -0.245, 0.240, 1.245),
+);
+
+// Default delay for all transitions and animations
+$motion-delay-default: 0;
+// Short and long delay modifiers
+$motion-delay-short: 300ms;
+$motion-delay-long: 700ms; 

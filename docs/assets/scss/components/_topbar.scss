@@ -1,0 +1,129 @@
+// Top Bar
+// -------
+// The top-level navigation for the documentation.
+
+@font-face {
+  font-family:"zurb-logo";
+  font-weight: normal;
+  font-style: normal;
+  src: url("../fonts/zurb-webfont.eot");
+  src: url("../fonts/zurb-webfont.eot?#iefix") format('embedded-opentype'),
+       url("../fonts/zurb-webfont.woff") format('woff'),
+       url("../fonts/zurb-webfont.ttf") format('truetype'),
+       url("../fonts/zurb-webfont.svg") format('svg');
+}
+
+.global-nav {
+  overflow: hidden;
+  margin-bottom: 0px;
+  height: 45px;
+  background: #333;
+
+  ul.title-area { 
+    margin-bottom: 0px;
+    position: relative;
+    float: left;
+    width:auto;
+    list-style: none;
+    height: 100%;
+    display: flex;
+
+    li.name {
+      display: flex;
+
+      img.zurb-logo {
+        width: 72px !important;
+        height: 16px !important;
+        margin-right: 8px;
+      }
+
+      a { 
+        color: #fff;
+
+        @media only screen and (max-width: 769px) {
+          &.sidebar-button {
+            display: inline-block !important; 
+            z-index: 99;
+          }
+        }
+      }
+
+      h1 {
+        display: inline-flex;
+        justify-content: center;
+        padding: 0; 
+        margin: 0;
+        line-height: 18px;
+
+        a {
+          display: flex;
+          align-items: center;
+          font-family: "zurb-logo";
+          font-size: 36px;
+          font-weight: normal;
+          text-rendering: auto;
+          opacity: .75;
+          transition: opacity .25s ease-in-out;
+
+          &:hover {
+            opacity: 1;
+          }
+
+          span {
+            display: none;
+          }
+          strong {
+            font-family: Helvetica;
+            font-size: 17px;
+            margin-top: 4px;
+          }
+        }
+      }
+    }
+  }
+
+  ul.right {
+    margin-bottom: 0px;
+    float:right;
+    margin-right: none;
+
+    li {
+      display: block;
+      float: left;
+
+      a {
+        color: #fff;
+        font-size: 13px;
+        font-weight: bold;
+        line-height: 45px;
+        display: block;
+        padding: 0 15px;
+        border-left: 1px solid #4d4d4d;
+        background: #333;
+
+        &.avatar {
+          line-height: 0; 
+
+          img {
+            height: 47px;
+            display: block;
+            padding: 5px 0 7px;
+          } 
+        }
+
+        &.current {
+          &, &:hover { background: #484848; }
+        }
+        
+        &:hover {
+          color: #fff;
+          background: #3d3d3d;
+        }
+      }
+
+      a:not(.button) {
+        padding: 0 15px;
+      }
+    }
+  }
+}

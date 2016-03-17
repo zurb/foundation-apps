@@ -1,0 +1,111 @@
+---
+name: installation
+url: /installation
+title: Installation
+---
+
+<h2>Installation</h2>
+
+<h3 class="subheader">Ready to make sweet web apps? Use our CLI to quickly set up a blank project, or install our Sass and JavaScript components standalone.</h3>
+
+<hr>
+
+<h3>Quick Install: Using our CLI</h3>
+
+<p>Just like with Foundation for Sites, we wrote an awesome command-line tool to make setting up new Foundation for Apps projects a breeze. The CLI downloads a template project that uses Foundation, Angular, Sass, and Gulp. If you'd rather install our components into your own stack, see our advanced instructions below.</p>
+
+<div class="grid-block docs-install-req">
+  <div class="small-12 medium-6 grid-content">
+    <img src="assets/img/icons/node.jpg" class="docs-feature-icon" alt="">
+    <h5>Node.js</h5>
+    <p>Node allows you to run JavaScript outside of a web browser, and it powers several tools we use in the development process, like Bower and Gulp.</p>
+    <p><a href="http://nodejs.org/download/">Download Node.js &rarr;</a></p>
+  </div>
+  <div class="small-12 medium-6 grid-content">
+    <img src="assets/img/icons/git.jpg" class="docs-feature-icon" alt="">
+    <h5>Git</h5>
+    <p>Git is a version control system used to collaboratively develop software. The package manager Bower uses Git to download software onto your computer.</p>
+    <p><a href="http://git-scm.com/downloads">Download Git &rarr;</a></p>
+  </div>
+</div>
+
+<p>If you already have Node installed, make sure you have the newest version of npm&mdash;use <code>npm update -g update</code> to update. If you already have Ruby installed, make sure you're using at least version 1.8.7.</p>
+
+<hr>
+
+<h4>Install Instructions</h4>
+
+<p>With the above software installed, open up your command line. Start by installing the Foundation CLI, Bower, and Gulp using Node:</p>
+
+<hljs language="bash">
+npm install -g foundation-cli bower gulp
+</hljs>
+
+<p>You now have access to the <code>foundation-apps</code> command on your system! You'll use this to set up and update new projects. To build a new project, use this command:</p>
+
+<hljs language="bash">
+foundation-apps new myApp
+</hljs>
+
+<p>Change <code>myApp</code> to the name you'd like the folder to be. This will download our template stack, and install Foundation for Apps, Angular, and Gulp. The whole process takes between 30 seconds and a minute, depending on your Internet connection.</p>
+
+<p>Once the installer is done, navigate into the directory using <code>cd</code>:</p>
+
+<hljs language="bash">
+cd myApp
+</hljs>
+
+<p>Now you can build the app and begin working on it.</p>
+
+<hljs language="bash">
+foundation-apps watch
+</hljs>
+
+<p>This will assemble all of the pieces&mdash;the Sass, JavaScript, and view templates&mdash;into a new folder called <code>build</code>, which is your final app. The build process will also setup a temporary server that points to the finished app. You can get to the server by going to this URL in your browser:</p>
+
+<pre><code class="hljs">http://localhost:8080</code></pre>
+
+<hr>
+
+<section>
+  <h3>Manual Install</h3>
+
+  <p>Foundation for Apps can be installed manually through Bower or npm.</p>
+
+<hljs language="bash">
+bower install foundation-apps --save
+  npm install foundation-apps --save
+</hljs>
+
+  <p>The package includes these folders:</p>
+
+  <ul class="folder-list">
+    <li><strong>bin:</strong> the dynamic routing plugin for Gulp and ui-router.</li>
+    <li><strong>dist:</strong> compiled CSS and JavaScript files, in minified and unminified flavors.</li>
+    <li><strong>iconic:</strong> a set of 24 icons from the folks at <a href="http://useiconic.com">Iconic</a>.</li>
+    <li><strong>js:</strong> the Foundation Angular components, and a few external libraries.</li>
+    <li><strong>scss:</strong> the Sass files for each component.</li>
+  </ul>
+</section>
+
+<hr>
+
+<section>
+  <h3>CDN</h3>
+
+  <p>The folks at <a href="http://www.jsdelivr.com/">jsDeliver</a> are hosting the Foundation for Apps CSS and JavaScript on their CDN. Just add the files as <code>&lt;link&gt;</code> or <code>&lt;script&gt;</code> tags in the <code>&lt;head&gt;</code> of your HTML file.</p>
+
+<hljs language="html">
+<!-- CSS -->
+<link rel="stylesheet" href="http://cdn.jsdelivr.net/zurb/foundation-apps-1.2.0.css">
+<link rel="stylesheet" href="http://cdn.jsdelivr.net/zurb/foundation-apps-1.2.0.min.css">
+
+<!-- JavaScript -->
+<script src="http://cdn.jsdelivr.net/zurb/foundation-apps-1.2.0.js"></script>
+<script src="http://cdn.jsdelivr.net/zurb/foundation-apps-1.2.0.min.js"></script>
+
+<!-- JavaScript templates -->
+<script src="http://cdn.jsdelivr.net/zurb/foundation-apps-templates-1.2.0.js"></script>
+<script src="http://cdn.jsdelivr.net/zurb/foundation-apps-templates-1.2.0.min.js"></script>
+</hljs>
+</section>

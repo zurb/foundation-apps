@@ -1,0 +1,83 @@
+---
+name: functions-mixins
+url: /functions-mixins
+title: Functions and Mixins
+---
+
+<h2>Functions &amp; Mixins</h2>
+<h3 class="subheader">Take advantage of some handy functions we built into Foundation or customize our mixins to make your own component styles. We've included visibility functions and color theming as well.</h3>
+
+<hr>
+
+<h3>Functions</h3>
+
+<h4>Is It Light?</h4>
+
+<p>This function takes a background color, and returns an appropriate foreground color based on if the background is light or dark.</p>
+
+<hljs>
+.component {
+  $bg: dodgerblue;
+  background: $bg;
+  // By default, the function returns black if the background is light, or white if the background is black
+  color: isitlight($bg);
+  // However, you can override this. The first parameter is the dark color to return, while the second parameter is the light color
+  color: isitlight($bg, #333, #ccc);
+}
+</hljs>
+
+<h4>Smart Scale</h4>
+
+<p>This function takes a color, and makes it darker if the color is light, or lighter if the color is dark. We use this function to create appropriate offset colors for components.</p>
+
+<hljs>
+.component {
+  background: dodgerblue;
+  // Adjust the intensity of the scaling by adding a percentage value after the color. 5% is the default
+  border: 1px solid smartscale(dodgerblue, 10%);
+}
+</hljs>
+
+<h4>rem Calculation</h4>
+
+<p>Rems are very useful, but thinking in rems can be hard. Our rem calculation function will convert a pixel value to the correct rem value, based on the base font size of the document.</p>
+
+<hljs>
+.component {
+  font-size: rem-calc(20); // = 1.25rem
+}
+</hljs>
+
+<hr>
+
+<h3>Mixins</h3>
+
+<h4>CSS Triangle</h4>
+
+<p>Generates a CSS triangle, for use as a dropdown arrow, modal tail, or anything you can think of.</p>
+
+<hljs no-escape>
+.component {
+  &::after {
+    @include css-triangle(
+      $triangle-size: 10px, // Size of the triangle
+      $triangle-color: red, // Color of the triangle
+      $triangle-direction: top // Orientation of the triangle; can be top, right, bottom, or left
+    );
+  }
+}
+</hljs>
+
+<h4>Clearfix</h4>
+
+<p>If you have an element that only contains floated elements, you'll need to add a clearfix to give the container proper height.</p>
+
+<hljs>
+.component {
+  @include clearfix;
+  
+  .floaty-thing {
+    float: left;
+  }
+}
+</hljs>

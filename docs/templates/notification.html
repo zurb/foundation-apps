@@ -1,0 +1,148 @@
+---
+name: notification
+url: /notification
+title: Notification
+---
+
+<h2>Notification</h2>
+<h3 class="subheader">An alert that pins to the corner of the screen when triggered by JavaScript.</h3>
+
+<p>A custom action can be assigned to a notification as well. By default, all notifications can be swiped to close them. You can also set an `autoclose` attribute equal to a number (measured in milliseconds) to have the notification disappear after the specified amount of time. Please note that due to dynamic DOM insertion and animations, we recommend an autoclose value of at least 1000ms.</p>
+
+<div class="grid-block">
+  <div class="small-12 grid-content">
+  	<a class="button" href="#"
+  	  title="My notification"
+  	  content="Notification example that closes in 3 seconds!"
+  	  color="success"
+      autoclose="3000"
+  	  zf-notify="test-docs-notifications">Dynamic Notification</a>
+  	<a class="button" href="#" zf-open="static-example">Static Notification</a>
+    <zf-notification-set zf-advise position="bottom-left" id="test-docs-notifications"></zf-notification-set>
+    <zf-notification-static zf-advise id="static-example" title="My static notification" image="http://www.clipartbest.com/cliparts/acq/X8R/acqX8RdcM.jpeg" position="top left">
+  	  This notification is static, it works similarly to a programmatic with some subtle differences. I'll stay here until you close me!
+  	</zf-notification-static>
+  </div>
+</div>
+
+<hr>
+
+<h3 class="subheader">There are two ways to access a notification. One via the static method and also dynamically (programmatic).</h3>
+
+<h3>Basic HTML</h3>
+<p>The static method is best used for prototyping since it doesn't involve any programming.</p>
+
+<p>You can create a Static Notification with this basic HTML:</p>
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+<hljs>
+<!-- notification trigger -->
+<a class="button" href="#" zf-open="my-notify">Static Notification</a>
+<!-- notification content -->
+<zf-notification-static id="my-notify" zf-advise title="My static notification" image="http://placehold.it/40x40">
+	  <p>This notification is static, it works similarly to a programmatic with some subtle differences.</p>
+	</zf-notification-static>
+</hljs>
+  </div>
+  <div class="small-12 medium-6 grid-content">
+		<a class="button" href="#" zf-open="my-notify">Static Notification</a>
+		<zf-notification-static id="my-notify" title="My static notification" image="http://placehold.it/40x40" content="This notification is static, it works similarly to a programmatic with some subtle differences.">
+	</zf-notification-static>
+  </div>
+</div>
+
+<h3>Advanced HTML</h3>
+<p>The Foundation Api service is pretty useful, one function of it is to send information from directives, controllers, and other parts to other directives, controllers, etc. It's a messaging system for the entire application.</p>
+
+<p>You can create a Dynamic Notification with this basic HTML:</p>
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+    <hljs>
+    <!-- notification trigger -->
+    <a class="button" href="#"
+    	title="My notification"
+    	content="Notification example"
+    	color="success"
+      autoclose="3000"
+    	zf-notify="main-notifications">Dynamic Notification</a>
+    <zf-notification-set id="main-notifications" position="top-left"></zf-notification-set>
+    </hljs>
+  </div>
+  <div class="small-12 medium-6 grid-content">
+    <a class="button" href="#"
+		title="My notification"
+		content="Notification example"
+		color="success"
+    autoclose="3000"
+		zf-notify="main-notifications">Dynamic Notification</a>
+    <zf-notification-set id="main-notifications" position="top-left"></zf-notification-set>
+  </div>
+</div>
+
+<p>And then send it a notification with via FoundationApi:</p>
+
+<hljs>
+foundationApi.publish('main-notifications', { title: 'Test', content: 'Test2' });
+</hljs>
+
+<p>You can also use the `zf-notify` directive for simpler messages and prototyping:</p>
+
+<hljs>
+<a href="#" zf-notify title="Title of notification" content="Content of notification">Launch notification</a>
+</hljs>
+
+<h4>Additional Options</h4>
+
+<p>On top of setting a title and content, you can also set:</p>
+
+<ul>
+	<li>image - enter the source</li>
+	<li>position</li>
+	<li>color</li>
+</ul>
+
+<hr>
+
+<h3>Sass Mixins</h3>
+
+<p>Use our mixins to create custom notification styles.</p>
+
+<hljs>
+.custom-notification {
+  // Extend the base selector to get core styles
+  @extend %notification;
+
+  // Use the layout mixin to position and structure the notification
+  @include notification-layout(
+    $x: left, // Can be left, middle, or right
+    $y: top, // Can be top or bottom
+    $size: 200px, // Width of notification
+    $offset: 1rem // Offset from the edge of the window
+  );
+
+  // Use the style mixin to style the notification
+  @include notification-style(
+    $background: #fff, // Background color
+    $color: #000, // Text color
+    $padding: 1rem,
+    $radius: 4px
+  );
+
+  .custom-notification-icon {
+    @include notification-icon(
+      $size: 50px, // Width and height of the icon
+      $margin: 1rem, // Right-hand margin
+      $align: top // Can be top, middle, or bottom
+    );
+  }
+}
+</hljs>
+
+<hr>
+
+<h3>Sass Variables</h3>
+
+<p>You can customize notifications with these Sass variables:</p>
+
+<hljs include="'partials/scss/notification.html'" language="scss">
+</hljs>

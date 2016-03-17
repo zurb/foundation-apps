@@ -1,0 +1,501 @@
+---
+name: grid
+url: /grid
+title: Grid
+---
+
+<h2>The Grid</h2>
+<h3 class="subheader">Our new grid is built on Flexbox and includes many improvements over the Foundation 5 layout, including vertical grids, independently-scrollable panes, easier source ordering, and more.</h3>
+
+<hr>
+
+<h3>The Grid in Action</h3>
+
+<p>The new grid is a complex beast, with a lot of different options, especially when it comes to creating responsive layouts. Check out our template apps to see the grid in action, and get some ideas of how you can build your own responsive apps!</p>
+
+<a href="http://foundation.zurb.com/apps/resources.html" class="button">View Templates</a>
+
+<hr>
+
+<h3>The App Frame</h3>
+
+<p>For most apps, you'll want to contain all of your UI elements in the space of the window, and then make certain sections of the app scrollable. To achieve this, wrap your entire app in a grid frame:</p>
+
+<hljs language="html">
+<div class="grid-frame">
+  <div class="grid-block"></div>
+  <div class="grid-block"></div>
+</div>
+</hljs>
+
+<p>The app frame always takes up 100% of the width and 100% of the height of the user's browser window.</p>
+
+<hr>
+
+<h3>The Basics: Grid Blocks</h3>
+
+<p>Blocks are the... <em>building blocks</em> of apps in Foundation for Apps. They're flexbox-powered elements that can be intelligently sized, re-oriented, and re-ordered. Blocks are most analagous to rows in Foundation 5, but there's much more to them than that.</p>
+
+<hr>
+
+<h4>Automatic sizing</h4>
+
+<p>You're probably used to pairing grid classes with sizing classes, like `.small-12`, `.medium-6`, and so on. In Foundation for Apps, when grid blocks don't have sizing classes, they take up an even amount of space.</p>
+
+<hljs language="html">
+<div class="grid-block">
+  <div class="grid-block"></div>
+  <div class="grid-block"></div>
+</div>
+</hljs>
+
+<div class="docs-grid-demo grid-block">
+  <div class="grid-block"></div>
+  <div class="grid-block"></div>
+</div>
+
+<hljs language="html">
+<div class="grid-block">
+  <div class="grid-block"></div>
+  <div class="grid-block"></div>
+  <div class="grid-block"></div>
+</div>
+</hljs>
+
+<div class="docs-grid-demo grid-block">
+  <div class="grid-block"></div>
+  <div class="grid-block"></div>
+  <div class="grid-block"></div>
+</div>
+
+<p>While these blocks <em>expand</em> to fill available space, it's also possible to have a block <em>shrink</em>, which means it only takes up as much space as its content needs. This is useful for title bars, tabs, or any other content that's secondary to the main content area.</p>
+
+<hljs language="html">
+<div class="grid-block">
+  <div id="tabs" class="grid-block shrink"></div>
+  <div id="main" class="grid-block"></div>
+</div>
+</hljs>
+<hr>
+
+<div class="docs-grid-demo grid-block">
+  <div id="tabs" class="grid-block shrink"></div>
+  <div id="main" class="grid-block"></div>
+</div>
+
+<h4>Manual sizing</h4>
+
+<p>It's also possible to size the grid using column-based sizing classes. By default, the Foundation for Apps grid uses a 12-column grid, but you can change this by modifying the `$total-columns` variable in your settings file.</p>
+
+<hljs language="html">
+<div class="grid-block">
+  <div id="sidebar" class="medium-4 grid-block"></div>
+  <div id="main" class="medium-8 grid-block"></div>
+</div>
+</hljs>
+
+<div class="docs-grid-demo manual-size grid-block">
+  <div id="sidebar" class="medium-4 grid-block"></div>
+  <div id="main" class="medium-7 grid-block"></div>
+</div>
+
+<hr>
+
+<h4>Parent-level sizing</h4>
+
+<p>Lastly, the sizing of blocks can be set on the parent, rather than individual children. Add the class `[size]-up-[n]` to a parent block to automatically size all children to be the same width. `[size]` is a breakpoint, like `small` or `medium`, and `n` is the number of items to fit on each row. By default, `n` only goes up to six, but this can be changed by modifying the `$block-grid-max-size` variable in your settings file.</p>
+
+<hljs language="html">
+<div class="grid-block small-up-3">
+  <div class="grid-block"></div>
+  <div class="grid-block"></div>
+  <div class="grid-block"></div>
+  <div class="grid-block"></div>
+  <div class="grid-block"></div>
+  <div class="grid-block"></div>
+</div>
+</hljs>
+
+<div class="docs-grid-demo grid-block small-up-3">
+  <div class="grid-block"></div>
+  <div class="grid-block"></div>
+  <div class="grid-block"></div>
+  <div class="grid-block"></div>
+  <div class="grid-block"></div>
+  <div class="grid-block"></div>
+</div>
+
+<p>Note that this sizing method only works with horizontal grids.</p>
+
+<hr>
+
+<h3>Content Blocks</h3>
+
+<p>If basic blocks are the <em>rows</em> of a Foundation for Apps layout, then content blocks are the <em>columns</em>. They can be sized and re-ordered just like normal blocks, but they're meant to house actual content, not just more blocks.</p>
+
+<hljs language="html">
+<div class="grid-block">
+  <div class="grid-block">
+    <div class="grid-content"></div>
+    <div class="grid-content"></div>
+  </div>
+  <div class="grid-content"></div>
+</div>
+</hljs>
+
+<p>In the above example, you can see that `grid-content` elements are the bottommost elements of the basic layout. Use `grid-block` when you intend to keep nesting more blocks for your layout, and use `grid-content` when you're filling the element with "normal" content, like lists, text, tabs, or menus.</p>
+
+<hr>
+
+<h3>The Vertical Grid</h3>
+
+<p>By default, blocks in a grid are layed out horizontally. A grid can be reoriented to be vertical by adding the `vertical` class to a parent element.</p>
+
+<hljs language="html">
+<div class="vertical grid-block">
+  <div class="grid-block"></div>
+  <div class="grid-block"></div>
+</div>
+</hljs>
+
+<div class="docs-grid-demo vertical-demo vertical grid-block">
+  <div class="grid-block"></div>
+  <div class="grid-block"></div>
+</div>
+
+<p>This behavior doesn't cascade down to child blocks&mdash;they'll be horizontal by default also.</p>
+
+<p>You can also reorient the grid at different screen sizes by using adding breakpoint names to the classes.</p>
+
+<hljs language="html">
+<div class="vertical medium-horizontal grid-block">
+  <div class="grid-block"></div>
+  <div class="grid-block"></div>
+</div>
+</hljs>
+
+<div class="docs-grid-demo vertical medium-horizontal grid-block">
+  <div class="grid-block"></div>
+  <div class="grid-block"></div>
+</div>
+
+<hr>
+
+<h3>Other Options</h3>
+
+<p>There are many ways you can customize the grid, using either our grid classes or the grid mixins, which allow you to write cleaner, more semantic HTML.</p>
+
+<h4>Wrapping items</h4>
+
+<p>By default, every block in a grid will try to fit on the same line&mdash;this is how Flexbox works. However, you can also force grid items to wrap when they take up too much space by adding the class `wrap` to the parent block. In the below example, the four child blocks will display on two rows, two per row:</p>
+
+<hljs language="html">
+<div class="grid-block wrap">
+  <div class="small-6 grid-block"></div>
+  <div class="small-6 grid-block"></div>
+  <div class="small-6 grid-block"></div>
+  <div class="small-6 grid-block"></div>
+</div>
+</hljs>
+
+<h4>Prevent Scrolling</h4>
+
+<p>By default, all content blocks scroll vertically. This allows you to create independently-scrolling panes of content in your apps. However, in CSS, if an element scrolls vertically, any horizontal overflow will be hidden. To disable scrolling on a block, just add the class `.noscroll`.</p>
+
+<hljs language="html">
+<div class="grid-block wrap">
+  <!-- Won't have scroll bars ever -->
+  <div class="small-6 grid-content noscroll"></div>
+  <!-- Will have scroll bars if there's enough content -->
+  <div class="small-6 grid-content"></div>
+</div>
+</hljs>
+
+<hr>
+
+<h4>Container</h4>
+
+<p>By default, all grids stretch the full width and height available. However, it's possible to wrap a grid's content in a container with a maximum width.</p>
+
+<hljs language="html">
+<div class="grid-block">
+  <div class="grid-container">
+    <!-- Content! -->
+  </div>
+</div>
+</hljs>
+
+<div class="docs-grid-demo grid-content">
+  <div class="grid-container"></div>
+</div>
+
+<p>The container aligns to the center of the block it's inside by default, but this can be changed by adding the class `contain-left` or `contain-right` to the container.</p>
+
+<hr>
+
+<h4>Block Alignment</h4>
+
+<p>By default, all blocks in a grid align to the left of a grid, or the top if the grid is vertical. We can leverage the Flexbox `justify-content` property to easily re-align the blocks in a grid.</p>
+
+<hljs language="html">
+<div class="align-right grid-block">
+  <div class="small-4 grid-block"></div>
+  <div class="small-4 grid-block"></div>
+</div>
+</hljs>
+
+<div class="docs-grid-demo align-right grid-block">
+  <div class="small-4 grid-block"></div>
+  <div class="small-4 grid-block"></div>
+</div>
+
+<p>In this example, our blocks only take up eight columns of space, leaving four columns worth of empty space. By adding the `align-right` class to the parent block, the empty space will appear on the left instead of the right.</p>
+
+<p>Grids can be aligned in five ways:</p>
+
+<ul>
+  <li>`align-left`: Blocks clump together on the left. This is the default.</li>
+  <li>`align-right`: Blocks clump together on the right.</li>
+  <li>`align-center`: Blocks clump together in the middle.</li>
+  <li>`align-justify`: Blocks spread out so that the space <em>between</em> each one is the same.</li>
+  <li>`align-spaced`: Blocks spread out so that the space <em>around</em> each one is the same.</li>
+</ul>
+
+<h5>Center</h5>
+
+<div class="docs-grid-demo align-center grid-block">
+  <div class="small-4 grid-block"></div>
+  <div class="small-4 grid-block"></div>
+</div>
+
+<h5>Justify</h5>
+
+<div class="docs-grid-demo align-justify grid-block">
+  <div class="small-4 grid-block"></div>
+  <div class="small-4 grid-block"></div>
+</div>
+
+<h5>Spaced</h5>
+
+<div class="docs-grid-demo align-spaced grid-block">
+  <div class="small-4 grid-block"></div>
+  <div class="small-4 grid-block"></div>
+</div>
+
+<hr>
+
+<h4>Source Ordering</h4>
+
+<p>Blocks can be reordered to be different from the order they appear in the HTML. This is known as <em>source ordering</em>.</p>
+
+<hljs language="html">
+<div class="grid-block">
+  <div class="grid-block order-2">2</div>
+  <div class="grid-block order-1">1</div>
+</div>
+</hljs>
+
+<div class="docs-grid-demo grid-block">
+  <div class="grid-block order-2 text">2</div>
+  <div class="grid-block order-1 text">1</div>
+</div>
+
+<p>In the above example, the first child block will actually appear <em>after</em> the second one, because it has a lower order number. Blocks with the lower order (e.g. 1 is lower than 2) number appear first in the layout. If multiple blocks share an order, they're then grouped by their order in the HTML.</p>
+
+<hljs language="html">
+<div class="grid-block">
+  <!-- 3rd -->
+  <div class="grid-block order-2">3</div>
+  <!-- 1st -->
+  <div class="grid-block order-1">1</div>
+  <!-- 2nd -->
+  <div class="grid-block order-1">2</div>
+</div>
+</hljs>
+
+<div class="docs-grid-demo grid-block">
+  <div class="grid-block order-2 text">3</div>
+  <div class="grid-block order-1 text">1</div>
+  <div class="grid-block order-1 text">2</div>
+</div>
+
+<p>The ordering classes also come in responsive flavors, allowing you to reorder grid blocks at different screen sizes. In the below example, the two blocks will switch places on medium screens and larger.</p>
+
+<hljs language="html">
+<div class="grid-block">
+  <div class="grid-block medium-order-2">1</div>
+  <div class="grid-block medium-order-1">2</div>
+</div>
+</hljs>
+
+<div class="docs-grid-demo grid-block">
+  <div class="grid-block medium-order-2 text">1</div>
+  <div class="grid-block medium-order-1 text">2</div>
+</div>
+
+<hr>
+
+<h4>Offsets</h4>
+
+<p>The same offset classes from Foundation for Sites can be used in Foundation for Apps. To create a left-hand margin on a block, add the class `[size]-offset-[n]`, where `[size]` is a breakpoint name, and `[n]` is the number of columns to offset by. In the below example, the second column will be offset by 3, which is equal to 25% of the width of the entire container.</p>
+
+<hljs language="html">
+<div class="grid-block">
+  <div class="small-6 grid-block"></div>
+  <div class="small-2 small-offset-2 grid-block"></div>
+</div>
+</hljs>
+
+<div class="docs-grid-demo grid-block">
+  <div class="small-6 grid-block"></div>
+  <div class="small-2 small-offset-2 grid-block"></div>
+</div>
+
+<p>Offset classes allow you to fine-tune the spacing of blocks at different screen sizes. However, many common spacing options can also be achieved with the grid alignment classes described above.</p>
+
+<hr>
+
+<h3>Building with Mixins</h3>
+
+<p>The grid has many features, and to create a robust responsive design you'll need to use many of them, often times on the same element. That can lead to HTML like this:</p>
+
+<hljs language="html">
+<div zf-panel position="left" class="medium-grid-block medium-4 large-3"></div>
+</hljs>
+
+<p>Using the grid mixins, we can create the same grid element with one class:</p>
+
+<hljs language="scss">
+.sidebar {
+  // Panel on small screens
+  @extend %panel-base;
+  @include panel-position(left);
+
+  // Override styles to become a block on medium screens
+  @include breakpoint(medium) {
+    @include grid-panel-reset;
+    @include grid-block(4);
+  }
+
+  // Change size to 3 columns on large screens
+  @include breakpoint(large) {
+    @include grid-size(3);
+  }
+}
+</hljs>
+
+<p>Then our HTML looks like this (note that the `zf-panel` attribute is still required; this is what makes the panel function.):</p>
+
+<hljs language="html">
+<div zf-panel class="sidebar"></div>
+</hljs>
+
+<h4>Frames</h4>
+
+<p>The grid frame has its own mixin.</p>
+
+<hljs language="scss">
+.custom-frame {
+  // Orientation can be horizontal or vertical
+  @include grid-frame($orientation: vertical);
+}
+</hljs>
+
+<h4>Blocks</h4>
+
+<p>When creating a block, you can define all of its properties in one mixin, or use individual feature mixins instead.</p>
+
+<hljs language="scss">
+.custom-block {
+  @include grid-block(
+    $size: expand, // Can be expand, shrink, or a number of columns
+    $orientation: horizontal, // Set to vertical for a vertical grid
+    $wrap: false, // Set to true to make columns wrap if they get too wide
+    $align: left, // Can be left, right, center, justify, or spaced
+    $order: 0, // Can be any positive number
+  );
+}
+
+.custom-block {
+  @include grid-block;
+  @include grid-size(expand);
+  @include grid-orient(vertical);
+  @include grid-wrap(false);
+  @include grid-align(left);
+  @include grid-order(0);
+}
+</hljs>
+
+<p>When changing your layout at other breakpoints, we recommend using the feature mixins instead of using the base `grid-block` mixin again. This will prevent extraneous code from being output in your CSS.</p>
+
+<hljs language="scss">
+.custom-block {
+  @include grid-block(4);
+
+  // Only the size is changing, so only the size mixin is used
+  @include breakpoint(medium) {
+    @include grid-size(3);
+  }
+}
+</hljs>
+
+<h4>Content Blocks</h4>
+
+<p>Creating a content block (`grid-content` when using our classes), is similar to creating a standard grid block, and you have access to a few of the same options.</p>
+
+<hljs language="scss">
+.custom-grid-content {
+  @include grid-content(
+    $size: expand, // Can be expand, shrink, or a number of columns
+    $offset: 0, // Number of columns to offset to the right by
+    $order: 0, // Can be any positive number
+  );
+}
+</hljs>
+
+<h4>Parent-level Sizing</h4>
+
+<p>To create Foundation 5-style block grids, add the <code>grid-layout</code> mixin to your parent block, and set how many child blocks you want to appear on each row.</p>
+
+<hljs language="scss">
+.custom-block-grid {
+  // Each child block will be 100% width
+  @include grid-layout(1);
+
+  // Now 50%
+  @include breakpoint(medium) {
+    @include grid-layout(2);
+  }
+
+  // Now 33%
+  @include breakpoint(large) {
+    @include grid-layout(3);
+  }
+}
+</hljs>
+
+<h4>Containers</h4>
+
+<p>Don't forget the container! It has its own mixin as well. You can define a maximum width and a position.</p>
+
+<hljs language="scss">
+.custom-container {
+  @include grid-container(
+    $width: 800px, // Can be any unit with a value
+    $align: center // Can be left, right, or center
+  );
+}
+</hljs>
+
+<hr>
+
+<h3>Sass Variables</h3>
+
+<p>Adjust core grid settings using the grid variables in your settings file.</p>
+
+<hljs include="'partials/scss/grid.html'" language="scss">
+</hljs>
+
+<p>The <code>$total-columns</code> variable not only affects the math of column widths, but it also affects how many CSS classes are output. For example, increasing the number of columns to 16 will add new CSS classes like <code>small-13</code>, <code>medium-14</code>, and so on.</p>
+
+<p>Similarly, the <code>$block-grid-max-size</code> variable determines the highest block grid class that will be output to CSS. This means by default, the classes will range from <code>up-1</code> to <code>up-6</code>. However, the mixin is not affected by this variable, so even if <code>$block-grid-max-size</code> is set to 6, you can still use <code>@include grid-layout(7);</code> just fine.</p>

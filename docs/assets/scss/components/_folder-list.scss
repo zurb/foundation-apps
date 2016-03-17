@@ -1,0 +1,27 @@
+// Folder List
+// -----------
+// Add this class to a <ul> to ornament it with folder icons.
+
+.folder-list {
+  list-style-type: none;
+
+  strong {
+    font-family: monospace;
+    font-size: 1.25rem;
+    vertical-align: middle;
+  }
+  li {
+    position: relative;
+    padding-left: 1.5rem;
+
+    &::before {
+      content: url('../img/icons/folder.jpg');
+      display: block;
+      width: 16px;
+      height: 16px;
+      position: absolute;
+      top: 2px;
+      left: 0;
+    }
+  }
+}

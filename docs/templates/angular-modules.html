@@ -1,0 +1,519 @@
+---
+title: Angular Modules
+url: /angular-modules
+name: angular-modules
+controller: AngularModsController
+---
+
+<h2>Angular Modules</h2>
+
+<h3 class="subheader">Each of our UI components are packaged as an Angular module. You can import them all at once or pick and choose.</h3>
+
+<hr>
+
+<section>
+  <h3>Bootstrapping</h3>
+
+  <p>Our Bower/npm package, as well as the template stack, includes a sample <code>app.js</code> file which bootstraps an Angular application with UI Router, ng-animate, and every Foundation for Apps module.</p>
+
+  <p>In the below example, a module called <code>foundation</code> imported. This is a shorthand to import every UI component at once. However, it's also possible to import inidividual components, such as <code>foundation.modal</code> or <code>foundation.tabs</code>.</p>
+
+  <p>When writing your own bootstrapping code, the only essential configuration is setting up the <code>$urlProvider</code> and <code>$locationProvider</code></p>
+
+<hljs language="javascript">
+(function() {
+  'use strict';
+
+  angular.module('application', [
+    // Angular libraries
+    'ui.router',
+    'ngAnimate',
+
+    // Foundation UI components
+    'foundation',
+
+    // Routing with front matter
+    'foundation.dynamicRouting',
+
+    // Transitioning between views
+    'foundation.dynamicRouting.animations'
+  ])
+    .config(config)
+    .run(run)
+  ;
+
+  config.$inject = ['$urlRouterProvider', '$locationProvider'];
+
+  function config($urlProvider, $locationProvider) {
+    // Default to the index view if the URL loaded is not found
+    $urlProvider.otherwise('/');
+
+    // Use this to enable HTML5 mode
+    $locationProvider.html5Mode({
+      enabled: false,
+      requireBase: false
+    });
+
+    // Use this to set the prefix for hash-bangs
+    // Example: example.com/#!/page
+    $locationProvider.hashPrefix('!');
+  }
+
+  function run() {
+    // Enable FastClick to remove the 300ms click delay on touch devices
+    FastClick.attach(document.body);
+  }
+
+})();
+</hljs>
+</section>
+
+<hr>
+
+<section>
+  <h3 class="docs-module-name"><pre>foundation.core</pre> (Module)</h3>
+  <p>The core module should not be required directly, as nearly every other component requires it already. It includes a media query helper, the component API, and a few utilities.</p>
+
+  <section>
+    <h4 class="docs-module-name"><pre>foundationApi</pre> (Service)</h4>
+
+    <p>FoundationApi is what runs all of Foundation's modules. It's the master puppeteer. It currently has a total of 8 methods but will probably expand to have more.</p>
+
+<hljs language="javascript">
+FoundationApi.subscribe('identifier', callback)
+</hljs>
+
+    <p>FoundationApi has its own pub/sub system that is meant to work as a message system of sorts, or an event system. Basically, using a unique identifier, a directive (or other modules) can subscribe to any messages posted to that identifier. Each idenitifier can have its own list of subscribers (rather than a single subscriber). Make sure the callback accepts messages in a format your publishers are aware of. For example, most directive can be opened or closed by publishing <code>open</code>, <code>close</code>, or <code>toggle</code> to their identifier.</p>
+
+<hljs language="javascript">
+FoundationApi.unsubscribe('identifier', callback)
+</hljs>
+
+    <p>This method is used to unsubscribe any listeners from an object. Note that once a directive is unsubscribed, it will not contain any listeners until otherwise specified by re-initiating the <code>.subscribe</code> method. It takes in element's unique identifier as an argument with an optional callback to run after the element has been unsubscribed.</p>
+
+<hljs language="javascript">
+FoundationApi.publish('identifier', 'message')
+</hljs>
+
+    <p>The publishing part of the Api is as simple as the subscriber part. Note that you can publish to a non-existing identifier without getting any sort of error. This is a safeguard for directives or services that publish upon invokation but do not necessarily have any subscribers. One of them is the <code>resize</code> publisher in the Media Query initiator.</p>
+
+<hljs language="javascript">
+FoundationApi.getSettings()
+</hljs>
+
+    <p>FoundationApi has a <code>settings</code> object that can be shared between different modules which may want access to it. Because FoundationApi is an Angular service, it operates as a singleton so every module that has access is accessing the same exact instance of it. The only default setting so far is the <code>mediaQueries</code> object.</p>
+
+<hljs language="javascript">
+FoundationApi.modifySettings(tree)
+</hljs>
+
+    <p>Using Angular's <code>.extend()</code> function, FoundationApi can extend the settings object with custom settings. You may use these for yourself and your own setup.</p>
+
+<hljs language="javascript">
+FoundationApi.generateUuid()
+</hljs>
+
+    <p>FoundationApi keeps an internal store of unique IDs it generates. <code>generateUuid()</code> creates such IDs and saves them. This is to prevent any possible ID clashes. These IDs are used for several directives but you can use them for your own purposes.</p>
+
+<hljs language="javascript">
+FoundationApi.toggleAnimation(element, futureState)
+</hljs>
+
+    <p>A simple helper which either adds or removes an <code>activeClass</code> (<code>is-active</code>) from an element</p>
+
+<hljs language="javascript">
+FoundationApi.animate(element, futureState, animationIn, animationOut)
+</hljs>
+
+    <p>Another helper that works by replicating Angular's built-in <code>ngAnimate</code> functionality with several custom additions to work with Foundation's internal MotionUI. These are mostly for internal use; however, you can easily animate in and animate out any element the same way <code>$animate</code> works.</p>
+
+<hljs language="javascript">
+FoundationApi.animateAndAdvise(element, futureState, animationIn, animationOut)
+</hljs>
+
+    <p>Does the same thing as FoundationApi.animate, with the addition of firing an event at the completion of an animation. Events are <code>'active-true'</code> and <code>'active-false'</code>.</p>
+
+<hljs language="javascript">
+FoundationApi.closeActiveElements(options)
+</hljs>
+
+    <p>This utility is used to close all foundation closable elements. It selects any element that has an <code>is-active</code> class and an <code>zf-closable</code> attribute. You're welcome to make your own directives and plugins work with it. It publishes a <code>close</code> message to the ID of the selected element.</p>
+  </section>
+
+  <section>
+    <h4 class="docs-module-name"><pre>Utils</pre> (Factory)</h4>
+
+    <p>Utils is a small module which has a couple of simple methods. One of them is <code>throttle(func, delay)</code> which allows for simple throttling (and is used in the Media Query initiator)</p>
+  </section>
+</section>
+
+<hr>
+
+<section>
+  <h3 class="docs-module-name"><pre>foundation.mediaquery</pre> (Module)</h3>
+
+  <p class="docs-module-deps"><strong>Dependencies:</strong> <span class="pre">foundation.core</span></p>
+
+  <section>
+    <h4 class="docs-module-name"><pre>FoundationMQ</pre> (Service)</h4>
+
+    <p>FoundationMQ used to be a part of the Foundation Core but now is available as a supplement to the codebase. It has numerous functions including the Media Query Initiator</p>
+
+    <p>The Media Query initiator uses built-in foundation styles to create a <code>mediaQueries</code> setting under the FoundationApi. This is used for Interchange but it can be used for whatever you need. This module depends on Foundation for Apps css to be present but it will fail silently if you don't want to use this feature.</p>
+
+    <p>The Initiator also publishes an event to the <code>FoundationApi</code> called "resize" whenever the window is resized (throttled to happen 50ms at a time).</p>
+
+    <p>The FoundationMQ service is used to get the media query settings by shorthand instead of using FoundationAPI. There are several helper functions that allow Interchange to exist but can be used outside of Interchange as well to sort through various MediaQuery scenarios to get a list of media queries that match the current browser configuration and also to gather these scenarios from a parent element that holds Interchange-style elements</p>
+  </section>
+</section>
+
+<hr>
+
+<section>
+  <h3 class="docs-module-name"><pre>foundation.dynamicRouting</pre> (Module)</h3>
+
+  <p class="docs-module-deps"><strong>Dependencies:</strong> <span class="pre">ui.router</span></p>
+
+  <p>The Angular page describes how to take advantage of the Dynamic Routing; however, it does not discuss the code and the many different options that come with dynamic routing.</p>
+
+  <p>The dynamic router runs its own <code>.config</code> function when it's injected which digests out <code>foundationRoutes</code> object created by our gulp plugin.</p>
+
+  <p>The module also includes a <code>DefaultController</code> which exposes the variables declared in the front-matter.</p>
+</section>
+
+<hr>
+
+<section>
+  <h3 class="docs-module-name"><pre>foundation.dynamicRouting.animations</pre> (Module)</h3>
+
+  <p class="docs-module-deps"><strong>Dependencies:</strong> <span class="pre">ngAnimate</span>, <span class="pre">foundation.dynamicRouting</span></p>
+
+  <p>This module is an optional add-on which allows the dynamically routed views to animate as long as there is an <code>animationIn</code> and an <code>animationOut</code> in the front-matter of the template</p>
+</section>
+
+<hr>
+
+<section>
+  <h3 class="docs-module-name"><pre>foundation.common</pre> (Module)</h3>
+
+  <p class="docs-module-deps"><strong>Dependencies:</strong> <span class="pre">foundation.core</span></p>
+
+  <p>A set of common directives used to manipulate other Foundation components.</p>
+
+  <section>
+    <h4 class="docs-module-name"><pre>zf-open</pre> (Directive)</h4>
+
+    <p>When the element is clicked, opens the component with the ID specified.</p>
+
+<hljs language="html">
+<a zf-open="modal">Open modal</a>
+
+<div zf-modal id="modal">
+  <!-- ... -->
+</div>
+</hljs>
+  </section>
+
+  <section>
+    <h4 class="docs-module-name"><pre>zf-close</pre> (Directive)</h4>
+
+    <p>When the element is clicked, closes the component with the ID specified.</p>
+
+<hljs language="html">
+<a zf-close="modal">Close modal</a>
+
+<div zf-modal id="modal">
+  <!-- ... -->
+</div>
+</hljs>
+
+    <p>If placed directly inside a closable component, you don't need to specify an ID&mdash;the directive will automatically close the nearest closable parent.</p>
+
+<hljs language="html">
+<div zf-modal id="modal">
+  <a zf-close>Close modal</a>
+  <!-- ... -->
+</div>
+</hljs>
+  </section>
+
+  <section>
+    <h4 class="docs-module-name"><pre>zf-toggle</pre> (Directive)</h4>
+
+    <p>When the element is clicked, opens a component with the ID specified, if it's closed, or closes it if it's open.</p>
+
+<hljs language="html">
+<!-- Click once to open, a second time to close -->
+<a zf-toggle="panel">Toggle panel</a>
+
+<div zf-panel id="panel">
+  <!-- ... -->
+</div>
+</hljs>
+  </section>
+
+  <section>
+    <h4 class="docs-module-name"><pre>zf-hard-toggle</pre> (Directive)</h4>
+
+    <p>When the element is clicked, toggles the component with the ID specified (like <code>zf-toggle</code>), and also closes all other open components.</p>
+
+<hljs language="html">
+<a zf-hard-toggle="panelOne">Toggle panel</a>
+
+<!-- This panel will open or close -->
+<div zf-panel id="panelOne"><!-- ... --></div>
+<!-- This panel will always close -->
+<div zf-panel id="panelTwo"><!-- ... --></div>
+</hljs>
+  </section>
+
+  <section>
+    <h4 class="docs-module-name"><pre>zf-swipe-close</pre> (Directive)</h4>
+
+    <p>Works like <code>zf-close</code>, except it's triggered by swipe events instead of clicks. Requires the HammerJS touch library to be installed.</p>
+
+    <p>Specify a direction to swipe as the value of the directive.</p>
+
+<hljs language="html">
+<div zf-modal position="left" id="modal">
+  <a zf-swipe-close="left">Close modal</a>
+  <!-- ... -->
+</div>
+</hljs>
+  </section>
+
+  <section>
+    <h4 class="docs-module-name"><pre>zf-esc-close</pre> (Directive)</h4>
+
+    <p>Apply this directive to the <code>&lt;body&gt;</code> element, to enable pressing the <kbd>esc</kbd> key to close any open components.</p>
+
+<hljs language="html" no-escape>
+&lt;body zf-esc-close&gt;
+  &lt;!-- ... --&gt;
+&lt;/body&gt;
+</hljs>
+  </section>
+</section>
+
+<hr>
+
+<section>
+  <h3 class="docs-module-name"><pre>foundation.accordion</pre> (Module)</h3>
+
+  <p>Includes the <code>zf-accordion</code> and <code>zf-accordion-item</code> directives, for creating accordions.</p>
+
+  <p>Check out the <a ui-sref="accordion">documentation for accordions</a> to learn how to use them.</p>
+</section>
+
+<hr>
+
+<section>
+  <h3 class="docs-module-name"><pre>foundation.actionsheet</pre> (Module)</h3>
+
+  <p class="docs-module-deps"><strong>Dependencies:</strong> <span class="pre">foundation.core</span></p>
+
+  <p>Includes the <code>zf-action-sheet</code>, <code>zf-as-button</code>, and <code>zf-as-content</code> direcitves, for creating responsive dropdowns/action sheets.</p>
+
+  <p>This component supports the common API, which means it can be manipulated with <code>zf-open</code>, <code>zf-close</code>, and <code>zf-toggle</code></p>
+
+  <p>Check out the <a ui-sref="action-sheet">documentation for action sheets</a> to learn how to use them.</p>
+</section>
+
+<hr>
+
+<section>
+  <h3 class="docs-module-name"><pre>foundation.iconic</pre> (Module)</h3>
+
+  <p class="docs-module-deps"><strong>Dependencies:</strong> <span class="pre">ngSVGAttributes</span></p>
+
+  <p>We partnered with the folks at <a href="http://useiconic.com">Iconic</a> to include a sample of 24 icons from their responsive icon set. Foundation for Apps includes the Iconic JavaScript library, which we wrapped in an Angular module.</p>
+
+  <section>
+    <h4 class="docs-module-name"><pre>zf-iconic</pre> (Directive)</h4>
+
+    <p>A wrapper for the Iconic data attributes, which allows you to specify the name of an icon insteead of the entire file path.</p>
+
+<hljs>
+<img zf-iconic icon="thumb" size="medium">
+</hljs>
+  </section>
+
+  <section>
+    <h4 class="docs-module-name"><pre>Iconic</pre> (Service)</h4>
+
+    <p>A wrapper for the <code>IconicJS</code> object the Iconic JavaScript places on the <code>window</code> object. Learn more about how the Iconic JavaScript works <a href="https://useiconic.com/tools/iconic-js/">here</a>.</p>
+  </section>
+
+  <p>Check out the <a ui-sref="iconic">documentation for Iconic</a> to learn how to use it.</p>
+</section>
+
+<hr>
+
+<section>
+  <h3 class="docs-module-name"><pre>foundation.interchange</pre> (Module)</h3>
+
+  <p class="docs-module-deps"><strong>Dependencies:</strong> <span class="pre">foundation.core</span>, <span class="pre">foundation.mediaquery</span></p>
+
+  <p>Includes the <code>zf-interchange</code> directive for loading HTML partials responsively.</p>
+
+  <p>Check out the <a ui-sref="interchange">documentation for Interchange</a> to learn how to use it.</p>
+</section>
+
+<hr>
+
+<section>
+  <h3 class="docs-module-name"><pre>foundation.modal</pre> (Module)</h3>
+
+  <p class="docs-module-deps"><strong>Dependencies:</strong> <span class="pre">foundation.core</span></p>
+
+  <p>Includes the <code>zf-modal</code> directive for creating modals.</p>
+
+  <p>This component supports the common API, which means it can be manipulated with <code>zf-open</code>, <code>zf-close</code>, and <code>zf-toggle</code></p>
+
+  <p>This component can be animated with Motion UI, by adding the <code>animation-in</code> and <code>animation-out</code> attributes to the element.</p>
+
+  <section>
+    <h4 class="docs-module-name"><pre>Modal Factory</pre> (Factory)</h4>
+
+    <p>Another way to programatically create modals. It takes an object as an optional configuration as an argument. The <code>id</code> property is an optional id that you want to assign to your element, <code>templateUrl</code> (or alternatively <code>template</code> if you want to place the markup directly) is the path to the markup that the element should use, and <code>contentScope</code> creates a direct link between two scope variables. For example, if you had a modal nested inside another directive, you could use contentScope to directly link the controller scope to the directive scope. </p>
+<hljs language="javascript">
+$scope.foo = "Bloop!";
+$scope.bar = "Blee!";
+
+var config = {
+  id: 'your optional id here',
+  template: '{{foo}} {{bar}}',
+  contentScope: {
+    foo: $scope.foo,
+    bar: $scope.bar
+  },
+  animationIn: 'slideInFromTop'
+}
+
+$scope.modal = new ModalFactory(config);
+</hljs>
+
+<hljs language="html">
+<div class="button" ng-click="modal.activate()">Activate Modal, Captain!</div>
+</hljs>
+  <div class="button" ng-click="modal.activate()">Activate Modal, Captain!</div>
+  </section>
+
+  <p>Check out the <a ui-sref="modal">documentation for modals</a> to learn how to use them.</p>
+</section>
+
+<hr>
+
+<section>
+  <h3 class="docs-module-name"><pre>foundation.notification</pre> (Module)</h3>
+
+  <p class="docs-module-deps"><strong>Dependencies:</strong> <span class="pre">foundation.core</span></p>
+
+  <section>
+    <h4 class="docs-module-name"><pre>zf-static-notification</pre> (Directive)</h4>
+
+    <p>Creates a static notification. Use these for prototyping.</p>
+
+<hljs language="html">
+<zf-notification-static id="my-notify" title="Notification" image="http://placehold.it/40x40">
+  <p>This notification's content is static.</p>
+</zf-notification-static>
+</hljs>
+  </section>
+
+  <section>
+    <h4 class="docs-module-name"><pre>zf-notification-set</pre> (Direcitve)</h4>
+
+    <p>Creates an empty container to house multiple notifications.</p>
+
+<hljs>
+<zf-notification-set id="notifications" position="top-left"></zf-notification-set>
+</hljs>
+  </section>
+
+  <section>
+    <h4 class="docs-module-name"><pre>zf-notify</pre> (Directive)</h4>
+
+    <p>When an element with this directive is clicked, it adds a notification to the <code>zf-notification-set</code> element with the specified ID.</p>
+
+<hljs language="html">
+<a href="#" zf-notify title="Title of notification" content="Content of notification">Notify</a>
+</hljs>
+  </section>
+  <section>
+    <h4 class="docs-module-name"><pre>Notification Factory</pre> (Factory)</h4>
+
+    <p>Another way to programatically create notifications. It takes an object as a configuration as an argument. The <code>id</code> property is an optional id that you want to assign to your element and <code>position</code> property to set the property of the notification set.</p>
+<hljs language="javascript">
+// instantiate the notification set
+var notifSet = new NotificationFactory({
+  position: 'top-right'
+});
+
+// on some event, call the following
+notifSet.addNotification({
+      title: "Great success!",
+      content: "Congratulations",
+      color: 'success'
+    });
+</hljs>
+<div class="button" ng-click="addNotification()">Add a notification</div>
+  </section>
+
+  <p>Check out the <a ui-sref="notification">documentation for notifications</a> to learn how to use them.</p>
+
+</section>
+
+<hr>
+
+<section>
+  <h3 class="docs-module-name"><pre>foundation.offcanvas</pre> (Module)</h3>
+
+  <p class="docs-module-deps"><strong>Dependencies:</strong> <span class="pre">foundation.core</span></p>
+
+  <p>Includes the <code>zf-offcanvas</code> directive, for creating off-canvas panels.</p>
+
+  <p>This component supports the common API, which means it can be manipulated with <code>zf-open</code>, <code>zf-close</code>, and <code>zf-toggle</code></p>
+
+  <p>Check out the <a ui-sref="off-canvas">documentation for off-canvas</a> to learn how to use them.</p>
+</section>
+
+<hr>
+
+<section>
+  <h3 class="docs-module-name"><pre>foundation.panel</pre> (Module)</h3>
+
+  <p class="docs-module-deps"><strong>Dependencies:</strong> <span class="pre">foundation.core</span></p>
+
+  <p>Includes the <code>zf-panel</code> directive, for creating slide-out panels.</p>
+
+  <p>This component supports the common API, which means it can be manipulated with <code>zf-open</code>, <code>zf-close</code>, and <code>zf-toggle</code></p>
+
+  <p>Check out the <a ui-sref="panel">documentation for panels</a> to learn how to use them.</p>
+</section>
+
+<hr>
+
+<section>
+  <h3 class="docs-module-name"><pre>foundation.popup</pre> (Module)</h3>
+
+  <p class="docs-module-deps"><strong>Dependencies:</strong> <span class="pre">foundation.core</span></p>
+
+  <p>Includes the <code>zf-popup</code> directive, for creating fixed popup panels. Requires the <a href="http://github.hubspot.com/tether/">Tether</a> JavaScript library.</p>
+
+  <p>This component supports the common API, which means it can be manipulated with <code>zf-open</code>, <code>zf-close</code>, and <code>zf-toggle</code></p>
+
+  <p>Check out the <a ui-sref="popup">documentation for popups</a> to learn how to use them.</p>
+</section>
+
+<hr>
+
+<section>
+  <h3 class="docs-module-name"><pre>foundation.tabs</pre> (Module)</h3>
+
+  <p class="docs-module-deps"><strong>Dependencies:</strong> <span class="pre">foundation.core</span></p>
+
+  <p>Includes the <code>zf-tabs</code>, <code>zf-tab</code>, and <code>zf-tab-content</code> directives, for creating tabbed content.</p>
+
+  <p>Check out the <a ui-sref="tabs">documentation for tabs</a> to learn how to use them.</p>
+</section>

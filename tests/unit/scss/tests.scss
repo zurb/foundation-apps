@@ -1,0 +1,294 @@
+@import "helpers/functions";
+@import "bootcamp";
+
+@include runner-start;
+
+@include describe("Using") {
+  @include it("should check if a module is in use") {
+    $include-css: (
+      one: true,
+      two: false,
+    ) !global;
+
+    @include should(expect(using(one)), to(be(true)));
+    @include should(expect(using(two)), to(be(false)));
+  }
+}
+
+@include describe("Imported") {
+  @include it("should check if a module has already been imported") {
+    $modules: () !global;
+
+    @include should(expect(imported(test)), to(be(false)));
+    @include exports(test) {}
+    @include should(expect(imported(test)), to(be(true)));
+  }
+}
+
+@include describe("Map Serialize") {
+  @include it("should convert a Sass map into a JSON string") {
+    $input: (
+      small: 1em,
+      medium: 2em,
+      large: 3em,
+    );
+    $actual: map-serialize($input);
+    $expected: 'small=1em&medium=2em&large=3em';
+
+    @include should(expect($actual), to(be($expected)));
+  }
+}
+
+@include describe("Map Next") {
+  @include it("should return the value for the key after the given key") {
+    $input: (
+      one: 'One',
+      two: 'Two',
+      three: 'Three',
+    );
+    $actual: map-next($input, two);
+    $expected: map-get($input, three);
+
+    @include should(expect($actual), to(be($expected)));
+  }
+
+  @include it("should return null if the given key is last in the map") {
+    $input: (
+      one: 'One',
+      two: 'Two',
+      three: 'Three',
+    );
+    $actual: map-next($input, three);
+    $expected: null;
+
+    @include should(expect($actual), to(be($expected)));
+  }
+
+  @include it("should return null if the given key is not in the map") {
+    $input: (
+      one: 'One',
+      two: 'Two',
+      three: 'Three',
+    );
+    $actual: map-next($input, four);
+    $expected: null;
+
+    @include should(expect($actual), to(be($expected)));
+  }
+}
+
+@include describe("Is It Light") {
+  @include it("should return black if the input color is light") {
+    $actual: isitlight(#fff);
+    $expected: #000;
+
+    @include should(expect($actual), to(be($expected)));
+  }
+
+  @include it("should return white if the input color is dark") {
+    $actual: isitlight(#000);
+    $expected: #fff;
+
+    @include should(expect($actual), to(be($expected)));
+  }
+}
+
+@include describe("Smart Scale") {
+  @include it("should darken a light color") {
+    $color: #fff;
+    $scale: 5%;
+    $threshold: 60%;
+
+    $actual: smartscale($color, $scale, $threshold);
+    $expected: scale-color($color, $lightness: -$scale);
+
+    @include should(expect($actual), to(be($expected)));
+  }
+  @include it("should lighten a dark color") {
+    $color: #000;
+    $scale: 5%;
+    $threshold: 60%;
+
+    $actual: smartscale($color, $scale, $threshold);
+    $expected: scale-color($color, $lightness: $scale);
+
+    @include should(expect($actual), to(be($expected)));
+  }
+}
+
+@include describe("Has Value") {
+  @include it("should return false if the given value is not falsey") {
+    $boolean: hasvalue(true);
+    $number:  hasvalue(1px);
+    $color:   hasvalue(#000);
+    $list:    hasvalue(1px solid black);
+    
+    @include should(expect($boolean), to(be(true)));
+    @include should(expect($number), to(be(true)));
+    @include should(expect($color), to(be(true)));
+    @include should(expect($list), to(be(true)));
+  }
+  @include it("should return false if the given value is falsey") {
+    $zero:  hasvalue(0px);
+    $null:  hasvalue(null);
+    $none:  hasvalue(none);
+
+    @include should(expect($zero), to(be(false)));
+    @include should(expect($null), to(be(false)));
+    @include should(expect($none), to(be(false)));
+  }
+}
+
+@include describe("Get Side") {
+  @include it("should return correct sides when given one side value") {
+    $value: 1rem;
+    $actual: (
+      get-side($value, top),
+      get-side($value, right),
+      get-side($value, bottom),
+      get-side($value, left),
+    );
+    $expected: (1rem, 1rem, 1rem, 1rem,);
+
+    @include should(expect($actual), to(be($expected)));
+  }
+  @include it("should return correct sides when given two side values") {
+    $value: 1rem 2rem;
+    $actual: (
+      get-side($value, top),
+      get-side($value, right),
+      get-side($value, bottom),
+      get-side($value, left),
+    );
+    $expected: (1rem, 2rem, 1rem, 2rem,);
+
+    @include should(expect($actual), to(be($expected)));
+  }
+  @include it("should return correct sides when given three side values") {
+    $value: 1rem 2rem 3rem;
+    $actual: (
+      get-side($value, top),
+      get-side($value, right),
+      get-side($value, bottom),
+      get-side($value, left),
+    );
+    $expected: (1rem, 2rem, 3rem, 2rem,);
+
+    @include should(expect($actual), to(be($expected)));
+  }
+  @include it("should return correct sides when given four side values") {
+    $value: 1rem 2rem 3rem 4rem;
+    $actual: (
+      get-side($value, top),
+      get-side($value, right),
+      get-side($value, bottom),
+      get-side($value, left),
+    );
+    $expected: (1rem, 2rem, 3rem, 4rem,);
+
+    @include should(expect($actual), to(be($expected)));
+  }
+}
+
+@include describe("Get Border Value") {
+  @include it("should return the right value of a border property") {
+    $value: 10px dashed green;
+    $width: get-border-value($value, width);
+    $style: get-border-value($value, style);
+    $color: get-border-value($value, color);
+
+    @include should(expect($width), to(be(10px)));
+    @include should(expect($style), to(be(dashed)));
+    @include should(expect($color), to(be(green)));
+  }
+  @include it("should return a default value if a property is missing") {
+    $defaultWidth: get-border-value(solid black, width);
+    $defaultStyle: get-border-value(10px black, style);
+    $defaultColor: get-border-value(10px solid, color);
+
+    @include should(expect($defaultWidth), to(be(0)));
+    @include should(expect($defaultStyle), to(be(solid)));
+    @include should(expect($defaultColor), to(be(black)));
+  }
+}
+
+@include describe("Get Shadow Value") {
+  @include it("should return the right value of a shadow property") {
+    $value:  inset 1px 2px 3px 4px black;
+    $inset:  get-shadow-value($value, inset);
+    $xValue: get-shadow-value($value, x);
+    $yValue: get-shadow-value($value, y);
+    $size:   get-shadow-value($value, size);
+    $spread: get-shadow-value($value, spread);
+    $color:  get-shadow-value($value, color);
+
+    @include should(expect($inset), to(be(true)));
+    @include should(expect($xValue), to(be(1px)));
+    @include should(expect($yValue), to(be(2px)));
+    @include should(expect($size), to(be(3px)));
+    @include should(expect($spread), to(be(4px)));
+    @include should(expect($color), to(be(black)));
+  }
+  @include it("should return a default value if a property is missing") {
+    $noInset:  get-shadow-value(1px 2px 3px 4px black, inset);
+    $noXValue: get-shadow-value(black, x);
+    $noYValue: get-shadow-value(1px black, y);
+    $noSize:   get-shadow-value(1px 2px black, size);
+    $noSpread: get-shadow-value(1px 2px 3px black, spread);
+    $noColor:  get-shadow-value(1px 2px, color);
+
+    @include should(expect($noInset), to(be(false)));
+    @include should(expect($noXValue), to(be(0)));
+    @include should(expect($noYValue), to(be(0)));
+    @include should(expect($noSize), to(be(0)));
+    @include should(expect($noSpread), to(be(0)));
+    @include should(expect($noColor), to(be(black)));
+  }
+}
+
+@include describe("Strip Unit") {
+  @include it("should strip the unit from a number") {
+    $actual: strip-unit(20px);
+    $expected: 20;
+
+    @include should(expect($actual), to(be($expected)));
+  }
+  @include it("should return the same number when given a unitless value") {
+    $actual: strip-unit(20);
+    $expected: 20;
+
+    @include should(expect($actual), to(be($expected)));
+  }
+}
+
+@include describe("Turn to Degrees") {
+  @include it("should convert a turn value to the equivalent in degrees") {
+    $halfTurn:   turn-to-deg(0.5turn);
+    $fullTurn:   turn-to-deg(1turn);
+    $doubleTurn: turn-to-deg(2turn);
+
+    @include should(expect($halfTurn), to(be(180deg)));
+    @include should(expect($fullTurn), to(be(360deg)));
+    @include should(expect($doubleTurn), to(be(720deg)));
+  }
+}
+
+@include describe("Convert to Rem") {
+  @include it("should convert a unit to the equivalent in rems") {
+    $actual: rem-calc(32, $base-value: 16);
+    $expected: 2rem;
+
+    @include should(expect($actual), to(be($expected)));
+  }
+}
+
+@include describe("Rem Calculator") {
+  @include it("should convert an arbitrary number of values into rem equivalents") {
+    $actual: rem-calc(8 16 32 64, $base-value: 16);
+    $expected: 0.5rem 1rem 2rem 4rem;
+
+    @include should(expect($actual), to(be($expected)));
+  }
+}
+
+@include runner-end;

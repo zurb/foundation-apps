@@ -1,0 +1,208 @@
+---
+name: card
+url: /card
+title: Card
+---
+
+<h2>Card</h2>
+<h3 class="subheader">A card is a rectangular container that holds your content, makes it easy to digest, and separates it from other similar content.</h3>
+
+<hr>
+
+<div class="grid-block">
+  <div class="small-12 medium-6 large-4 grid-content">
+    <div class="card">
+      <img src="http://placekitten.com/g/400/200" />
+      <div class="card-divider">
+        This is content
+      </div>
+      <div class="card-section">
+        <h4>The Basics: Group and Block</h4>
+        <p>The most basic elements in the Foundation for Apps grid are the Group and Block.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<h3>Basic HTML</h3>
+<p>Wrapping your content with the <code>card</code> class creates the basic structure. Your text will be contained in a <code>card-section</code> class to give it the proper padding. You can create Tabs with this basic HTML:</p>
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+<div hljs>
+  <div class="card">
+    <div class="card-section">
+      <p>The most basic elements in the Foundation for Apps grid are the Group and Block.</p>
+    </div>
+  </div>
+</div>
+  </div>
+  <div class="small-12 medium-4 grid-content">
+    <div class="card">
+      <div class="card-section">
+        <p>The most basic elements in the Foundation for Apps grid are the Group and Block.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h3>Advanced HTML</h3>
+<p>Add an image and <code>card-divider</code> class and you have one fancy looking Card. You can create advanced versions of Card with this HTML:</p>
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+<div hljs>
+<div class="card">
+  <img src="http://placekitten.com/g/400/200" />
+  <div class="card-divider">
+    This is a header
+  </div>
+  <div class="card-section">
+    <h4>Look at This Swag Card</h4>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi iusto reprehenderit voluptatem odio deleniti provident aliquam qui magnam aspernatur necessitatibus.</p>
+  </div>
+</div>
+</div>
+  </div>
+  <div class="small-12 medium-5 grid-content">
+    <div class="grid-content">
+      <div class="card">
+        <img src="http://placekitten.com/g/400/200" />
+        <div class="card-divider">
+          This is a header
+        </div>
+        <div class="card-section">
+          <h4>Look at This Swag Card</h4>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi iusto reprehenderit voluptatem odio deleniti provident aliquam qui magnam aspernatur necessitatibus.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h3>Additional Options</h3>
+<p>Cards can be themed with our built-in coloring classes.</p>
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+<hljs>
+<div class="dark card">
+  <img src="http://placekitten.com/g/400/200" />
+  <div class="card-divider">
+    This is content
+  </div>
+  <div class="card-section">
+    <h4>The Basics: Group and Block</h4>
+    <p>The most basic elements in the Foundation for Apps grid are the Group and Block.</p>
+  </div>
+</div>
+</hljs>
+  </div>
+</div>
+
+<div class="grid-block small-up-1 medium-up-3">
+  <div class="grid-content">
+    <div class="dark card">
+      <img src="http://placekitten.com/g/400/200" />
+      <div class="card-divider">
+        This is content
+      </div>
+      <div class="card-section">
+        <h4>The Basics: Group and Block</h4>
+        <p>The most basic elements in the Foundation for Apps grid are the Group and Block.</p>
+      </div>
+    </div>
+  </div>
+  <div class="grid-content">
+    <div class="primary card">
+      <img src="http://placekitten.com/g/400/200" />
+      <div class="card-divider">
+        This is content
+      </div>
+      <div class="card-section">
+        <h4>The Basics: Group and Block</h4>
+        <p>The most basic elements in the Foundation for Apps grid are the Group and Block.</p>
+      </div>
+    </div>
+  </div>
+  <div class="grid-content">
+    <div class="success card">
+      <img src="http://placekitten.com/g/400/200" />
+      <div class="card-divider">
+        This is content
+      </div>
+      <div class="card-section">
+        <h4>The Basics: Group and Block</h4>
+        <p>The most basic elements in the Foundation for Apps grid are the Group and Block.</p>
+      </div>
+    </div>
+  </div>
+  <div class="grid-content">
+    <div class="warning card">
+      <img src="http://placekitten.com/g/400/200" />
+      <div class="card-divider">
+        This is content
+      </div>
+      <div class="card-section">
+        <h4>The Basics: Group and Block</h4>
+        <p>The most basic elements in the Foundation for Apps grid are the Group and Block.</p>
+      </div>
+    </div>
+  </div>
+  <div class="grid-content">
+    <div class="alert card">
+      <img src="http://placekitten.com/g/400/200" />
+      <div class="card-divider">
+        This is content
+      </div>
+      <div class="card-section">
+        <h4>The Basics: Group and Block</h4>
+        <p>The most basic elements in the Foundation for Apps grid are the Group and Block.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<h3>Sass Mixins</h3>
+
+<p>Use our mixins to build a card with a custom class.</p>
+
+<hljs>
+// This is a card container
+.custom-card {
+  @include card-container(
+    $background: #fff, // Background color
+    $color: #000, // Text color
+    $border: 1px solid #000, // Border
+    $radius: 4px, // Border radius
+    $shadow: 0 4px 10px black, // Box shadow
+    $padding: 1rem,
+    $margin: 1rem // Margin bottom
+  );
+}
+
+// This is a card divider
+.custom-card-divider {
+  @include card-divider(
+    $background: #ccc,
+    $padding: 1rem
+  );
+}
+
+// This is a card section
+.custom-card-section {
+  @include card-section(
+    $padding: 1rem
+  );
+}
+</hljs>
+
+<hr>
+
+<h3>Sass Variables</h3>
+
+<p>You can customize cards with these variables in _settings.scss:</p>
+
+<hljs include="'partials/scss/card.html'" language="scss">
+</hljs>

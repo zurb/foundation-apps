@@ -1,0 +1,257 @@
+---
+name: motion-ui
+url: /motion-ui
+controller: MotionUIController
+title: Motion UI
+---
+
+<h2>Motion UI</h2>
+<h3 class="subheader">Now you can rapidly prototype animated elements that integrate seamlessly into your site! We're using Sass mixins, CSS animations and transitions to make some really neat effects.</h3>
+
+<hr>
+
+<style type="text/css">
+  .square {
+    height: 100px;
+    width: 100px;
+    background-color: #00558b;
+    border-radius: 8px;
+    display: inline-block;
+    margin-bottom: 0.5rem;
+  }
+</style>
+
+<h3>Transitions</h3>
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+  <div id="demo-card-parent">
+    <img id="kitty" src="http://placekitten.com/g/600/300" />
+  </div>
+  </div>
+  <div class="small-12 medium-6 grid-content">
+    <form>
+
+      <div class="grid-content">
+        <label>Transition</label>
+        <ul class="segmented button-group" ng-init="animationFilter = 'enter'">
+          <li><input type="radio" id="demo-filter-enter" ng-model="animationFilter" name="filter" value="enter"><label for="demo-filter-enter">Enter</label></li>
+          <li><input type="radio" id="demo-filter-leave" ng-model="animationFilter" name="filter" value="leave"><label for="demo-filter-leave">Leave</label></li>
+        </ul>
+        <select ng-model="element.motion" name="" id="">
+          <optgroup ng-repeat="transition in transitions | filter: {direction: animationFilter}" label="{{transition.type}}">
+            <option ng-repeat="class in transition.classes" value="{{class}}">{{class}}</option>
+          </optgroup>
+        </select>
+      </div>
+      <div class="grid-content">
+        <label>Delay</label>
+        <ul class="segmented button-group" ng-init="element.delay = 'default'">
+          <li><input type="radio" id="demo-delay-default" ng-model="element.delay" name="delay" value="default"><label for="demo-delay-default">None</label></li>
+          <li><input type="radio" id="demo-delay-short" ng-model="element.delay" name="delay" value="delay"><label for="demo-delay-short">Short</label></li>
+          <li><input type="radio" id="demo-delay-long" ng-model="element.delay" name="delay" value="long-delay"><label for="demo-delay-long">Long</label></li>
+        </ul>
+      </div>
+      <div class="grid-content">
+        <label>Speed</label>
+        <ul class="segmented button-group" ng-init="element.duration = 'default'">
+          <li><input type="radio" id="demo-duration-slow" ng-model="element.duration" name="duration" value="slow"><label for="demo-duration-slow">Slow</label></li>
+          <li><input type="radio" id="demo-duration-default" ng-model="element.duration" name="duration" value="default"><label for="demo-duration-default">Default</label></li>
+          <li><input type="radio" id="demo-duration-fast" ng-model="element.duration" name="duration" value="fast"><label for="demo-duration-fast">Fast</label></li>
+        </ul>
+      </div>
+      <div class="grid-content">
+        <label>Easing</label>
+        <select ng-model="element.speed"name="" id="">
+            <option ng-repeat="speed in speeds" value="{{speed}}">{{speed}}</option>
+        </select>
+      </div>
+      <div class="grid-content">
+        <button ng-click="update(element)" class="button">Animate It!</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<hr>
+
+<h3>Animations</h3>
+<div class="docs-example-grid">
+  <div class="grid-block text-center">
+    <div class="small-12 medium-6 grid-content">
+      <div class="square linear" ng-class="animateSquare"></div>
+      <p><strong>class="square linear {{animateSquare}}"</strong></p>
+    </div>
+    <div class="small-12 medium-6 grid-content">
+      <button class="expand button" ng-click="animateSquare='wiggle'">Wiggle Wiggle Wiggle</button>
+      <button class="expand button" ng-click="animateSquare='shake'">Shake It, Shake It, Girl</button>
+      <button class="expand button" ng-click="animateSquare='spin-cw'">Spin Clockwise</button>
+      <button class="expand button" ng-click="animateSquare='spin-ccw'">Spin Counter Clockwise</button>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<section>
+  <h3>Animating Components</h3>
+
+  <p>Modals, notifications, and panels can be animated with the above motion classes. To add animation, use the `animation-in` and `animation-out` attributes.</p>
+
+<hljs language="html">
+<div zf-panel animation-in="slideInRight" animation-out="slideOutUp">
+  <!-- ... -->
+</div>
+</hljs>
+
+  <p>If you don't speficy an animation, the component will use a default. For example, a left-oriented panel will animate in to the right, and out to the left.</p>
+</section>
+
+<hr>
+
+<section>
+  <h3>Animating Views</h3>
+
+  <p>Views can be animated in and out as the user moves between pages. There are two ways to define these transitions. To set it using our routing plugin, add the animation classes to the front matter of your view template.</p>
+
+<hljs>
+---
+name: home
+url: /
+animationIn: slideInRight
+animationOut: slideOutRight
+---
+</hljs>
+
+  <p>Both properties are optional, but the effects look their best when both views have an in and out animation.</p>
+
+  <p>If you're using ui-router directly, you can pass in these same parameters when defining a state.</p>
+
+<hljs language="javascript">
+function config($stateProvider) {
+  $stateProvider.state('home', {
+    url: '/',
+    templateUrl: 'templates/home.html',
+    animation: {
+      enter: 'slideInRight',
+      leave: 'slideOutRight'
+    }
+  });
+}
+</hljs>
+</section>
+
+<section>
+  <h3>Other Angular Directives</h3>
+
+  <p>Our motion classes also work with any built-in Angular directive that supports ngAnimate, such as <code>ng-show</code>, <code>ng-hide</code>, <code>ng-if</code>, and <code>ng-repeat</code> Just add a motion class to the element with the directive.</p>
+
+  <p>Click me: <input type="checkbox" ng-model="checked"></p>
+  <div class="slideInRight slideOutRight" ng-hide="checked">
+    This text will slide in and out.
+  </div>
+</section>
+
+<hr>
+
+<h3>Sass Mixins</h3>
+
+<p>All of our motion classes are built using mixins, which you can use yourself to write custom, fine-tuned animations.</p>
+
+<h4>Slide</h4>
+
+<p>A sliding element can originate from any of the element's four sides, and optionally fade in and out as it slides.</p>
+
+<hljs>
+.customSlideIn {
+  @include slide(
+    $dir: in, // Specify in or out
+    $from: left, // Can be top, right, bottom, or left
+    $fade: true, // If true, the element fades simultaneously
+    $duration: 0.5s,
+    $timing: easeIn,
+    $delay: 0.25s
+  );
+}
+</hljs>
+
+<h4>Fade</h4>
+
+<p>Fading in and out works how you'd expect.</p>
+
+<hljs>
+.customFadeIn {
+  @include fade(
+    $dir: in, // Specify in or out
+    $from: 0, // Should be an opacity value between 0 and 1
+    $to: 1, // Same as above
+    $duration: 0.5s,
+    $timing: easeIn,
+    $delay: 0.25s
+  );
+}
+</hljs>
+
+<h4>Hinge</h4>
+
+<p>To create a hinge swing effect, specify the direction of the hinge, the axis to swing on, and the direction to swing.</p>
+
+<hljs>
+.customHingeIn {
+  @include hinge(
+    $dir: in, // Specify in or out
+    $from: left, // Can be top, right, bottom, or left
+    $axis: edge, // The swing can happen from the edge or center
+    $perspective: 2000px, // A higher number will make the effect more pronounced
+    $turn-origin: from-back, // The element can swing from its front or back side
+    $fade: true, // If true, the element fades simultaneously
+    $duration: 0.5s,
+    $timing: easeIn,
+    $delay: 0.25s
+  );
+}
+</hljs>
+
+<h4>Scale</h4>
+
+<p>Specify a start and end amount to scale, and optionally have the element fade in or out as well.</p>
+
+<hljs>
+.customScaleIn {
+  @include scale(
+    $dir: in, // Specify in or out
+    $from: 0.5, // 0.5 = 50% of the element's normal size
+    $to: 1.5, // 1.5 = 150%
+    $fade: true, // If true, the element fades simultaneously
+    $duration: 0.5s,
+    $timing: easeIn,
+    $delay: 0.25s
+  );
+}
+</hljs>
+
+<h4>Spin</h4>
+
+<p>To create a spinning element, specify the distance the element spins and what direction it goes. The turn amount uses the <code>turn</code> unit&mdash;</p>
+
+<hljs>
+.customSpinIn {
+  @include spin(
+    $dir: in, // Specify in or out
+    $amount: 0.75turn,
+    $ccw: false, // True makes the element spin counterclockwise
+    $fade: true, // If true, the element fades simultaneously
+    $duration: 0.5s,
+    $timing: easeIn,
+    $delay: 0.25s
+  );
+}
+</hljs>
+
+<hr>
+
+<h3>Sass Variables</h3>
+
+<p>The mixins allow you to fine-tune each animation, but you can also use the Sass settings variables to adjust global motion settings.</p>
+
+<hljs include="'partials/scss/motion.html'" language="scss">
+</hljs>

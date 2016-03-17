@@ -1,0 +1,116 @@
+---
+name: labels-badges
+url: /labels-badges
+title: Labels & Badges
+---
+
+<h2>Label &amp; Badges</h2>
+<h3 class="subheader">Labels &amp; Badges are useful to highlight content, use as tags for content type, and more. For example, you can attach a label that notes when something was updated.</h3>
+
+<hr>
+
+<div class="grid-block">
+	<div class="small-12 grid-content">
+		<span class="label">Default Label</span>
+		&nbsp;&nbsp;
+		<span class="badge">7</span>
+	</div>
+</div>
+
+<hr>
+
+<h3>Basic HTML</h3>
+
+<h4>Label</h4>
+<p>You can create Labels with this basic HTML:</p>
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+
+<hljs>
+<!-- Color classes -->
+<span class="label">Default Label</span>
+<span class="success label">Success Label</span>
+<span class="alert label">Alert Label</span>
+<span class="warning label">Warning Label</span>
+</hljs>
+  </div>
+
+  <div class="small-12 medium-6 grid-content">
+		<span class="label">Default Label</span>
+		<span class="success label">Success Label</span>
+		<span class="alert label">Alert Label</span>
+		<span class="warning label">Warning Label</span>
+	</div>
+</div>
+
+<h4>Badge</h4>
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+
+<hljs>
+<span class="badge">1</span>
+<span class="secondary badge">2</span>
+<span class="success badge">3</span>
+<span class="alert badge">A</span>
+<span class="warning badge">B</span>
+<span class="dark badge">C</span>
+</hljs>
+  </div>
+
+<div class="small-12 medium-6 grid-content">
+    <div class="grid-content docs-example-badges">
+			<span class="badge">1</span>
+			<span class="secondary badge">2</span>
+			<span class="success badge">3</span>
+			<span class="alert badge">A</span>
+      <span class="warning badge">B</span>
+			<span class="dark badge">C</span>
+		</div>
+	</div>
+</div>
+
+<hr>
+
+<h3>Sass Mixins</h3>
+
+<p>Use these mixins to create custom labels and badges.</p>
+
+<hljs>
+.custom-label {
+  @extend %label;
+
+  @include label-layout(
+    $fontsize: 1rem,
+    $padding: 0.25em
+  );
+
+  @include label-style(
+    $background: red,
+    $color: #fff,
+    $radius: 20px
+  );
+}
+
+.custom-badge {
+  @extend %badge;
+
+  @include badge-layout(
+    $fontsize: 1rem,
+    $padding: 0.25em
+  );
+
+  @include badge-style(
+    $background: red,
+    $color: #fff,
+    $radius: 1000px
+  );
+}
+</hljs>
+
+<hr>
+
+<h3>Sass Variables</h3>
+<p>You can customize labels and badges with these variables in the <code>_settings.scss</code> file:</p>
+
+<hljs include="'partials/scss/label.html'" language="scss">
+</hljs>

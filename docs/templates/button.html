@@ -1,0 +1,321 @@
+---
+name: button
+url: /button
+title: Button
+---
+
+<h2>Button</h2>
+<h3 class="subheader">Get more control with our buttons. Foundation has many easy to use button styles that you can customize or override to fit your needs.</h3>
+
+<hr />
+
+<div class="grid-block">
+	<div class="small-12 grid-content">
+		<a class="button" href="#">Default Button</a>
+		<a class="secondary button" href="#">Secondary Button</a>
+		<a class="success button" href="#">Success Button</a>
+		<a class="alert button" href="#">Alert Button</a>
+		<a class="warning button" href="#">Warning Button</a>
+		<a class="info button" href="#">Info Button</a>
+		<a class="dark button" href="#">Dark Button</a>
+	</div>
+</div>
+
+<hr />
+
+<h3>Basic HTML</h3>
+
+<p>A button is just an anchor tag with the <code>button</code> class. By setting the <code>$button-tag-selector</code> variable to <code>true</code>, plain <code>&lt;button&gt;</code> tags can be styled as buttons as well.</p>
+
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+<hljs>
+<a class="button" href="#">Default Button</a>
+</hljs>
+  </div>
+  <div class="small-12 medium-6 grid-content">
+    <a class="button" href="#">Default Button</a>
+  </div>
+</div>
+
+<h3>Colors</h3>
+
+<p>Give buttons more semantic meaning with our built-in coloring classes.</p>
+
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+<hljs>
+<a class="button" href="#">Primary Color</a>
+<a class="secondary button" href="#">Secondary Color</a>
+<a class="success button" href="#">Success Color</a>
+<a class="alert button" href="#">Alert Color</a>
+<a class="warning button" href="#">Warning Color</a>
+<a class="info button" href="#">Info Color</a>
+<a class="dark button" href="#">Dark Color</a>
+</hljs>
+  </div>
+  <div class="small-12 medium-6 grid-content">
+    <a class="button" href="#">Primary Color</a>
+		<a class="secondary button" href="#">Secondary Color</a>
+		<a class="success button" href="#">Success Color</a>
+		<a class="alert button" href="#">Alert Color</a>
+		<a class="warning button" href="#">Warning Color</a>
+		<a class="info button" href="#">Info Color</a>
+		<a class="dark button" href="#">Dark Color</a>
+  </div>
+</div>
+
+<h3>Sizes</h3>
+
+<p>Use these classes to change the size of a button.</p>
+
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+<hljs>
+<a class="tiny button" href="#">Tiny Button</a>
+<a class="small button" href="#">Small Button</a>
+<a class="button" href="#">Default Button</a>
+<a class="large button" href="#">Large Button</a>
+<a class="expand button" href="#">Expand Button</a>
+</hljs>
+  </div>
+  <div class="small-12 medium-6 grid-content">
+    <a class="tiny button" href="#">Tiny Button</a>
+    <br>
+		<a class="small button" href="#">Small Button</a>
+		<br>
+		<a class="button" href="#">Default Button</a>
+		<br>
+		<a class="large button" href="#">Large Button</a>
+		<br>
+		<a class="expand button" href="#">Expand Button</a>
+  </div>
+</div>
+
+<h3>Disabled Button</h3>
+
+<p>Adding a class of <code>disabled</code> will disable the hover state, and add a faded appearance.</p>
+
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+<hljs>
+<a href="#" class="button disabled">Disabled Button</a>
+</hljs>
+	</div>
+	<div class="small-12 medium-6 grid-content">
+		<a href="#" class="button disabled">Disabled Button</a>
+	</div>
+</div>
+
+<h3>Hollow Buttons</h3>
+
+<p>Buttons can be converted to a hollow style with the <code>hollow</code> class. All of the same coloring and sizing classes will work with it.</p>
+
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+<hljs>
+<a href="#" class="hollow button">Hollow Button</a>
+<a href="#" class="alert hollow button">Hollow Alert Button</a>
+<a href="#" class="success hollow button">Hollow Success Button</a>
+</hljs>
+  </div>
+  <div class="small-12 medium-6 grid-content">
+    <a href="#" class="hollow button">Hollow Button</a>
+    <a href="#" class="alert hollow button">Hollow Alert Button</a>
+    <a href="#" class="success hollow button">Hollow Success Button</a>
+  </div>
+</div>
+
+<hr>
+
+<h3>Button Groups</h3>
+
+<p>A button group is a series of buttons.</p>
+
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+<hljs>
+<ul class="button-group">
+  <li><a href="#">Button A</a></li>
+  <li><a href="#">Button B</a></li>
+  <li><a href="#">Button C</a></li>
+</ul>
+</hljs>
+  </div>
+  <div class="small-12 medium-6 grid-content">
+    <ul class="button-group">
+      <li><a href="#">Button A</a></li>
+      <li><a href="#">Button B</a></li>
+      <li><a href="#">Button C</a></li>
+    </ul>
+  </div>
+</div>
+
+<h4>Button Group Sizing &amp; Coloring</h4>
+
+<p>The same coloring and sizing classes for buttons can be used with button groups as well.</p>
+
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+<hljs>
+<ul class="button-group small success">
+  <li><a href="#">Button X</a></li>
+  <li><a href="#">Button Y</a></li>
+  <li><a href="#">Button Z</a></li>
+</ul>
+</hljs>
+  </div>
+  <div class="small-12 medium-6 grid-content">
+    <ul class="button-group small success">
+      <li><a href="#">Button X</a></li>
+      <li><a href="#">Button Y</a></li>
+      <li><a href="#">Button Z</a></li>
+    </ul>
+  </div>
+</div>
+
+<p>By default, the items of a button group will stack to the left. They can also expand out, so the button group becomes full-width, and each button becomes equal-width. To enable this behavior, add the class <code>expand</code> to the button group container.</p>
+
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+<hljs>
+<ul class="button-group expand">
+  <li><a href="#">Button I</a></li>
+  <li><a href="#">Button II</a></li>
+  <li><a href="#">Button III</a></li>
+</ul>
+</hljs>
+  </div>
+  <div class="small-12 medium-6 grid-content">
+    <ul class="button-group expand">
+      <li><a href="#">Button I</a></li>
+      <li><a href="#">Button II</a></li>
+      <li><a href="#">Button III</a></li>
+    </ul>
+  </div>
+</div>
+
+<p>Individual buttons in the group can be styled with coloring classes, or the <code>disabled</code> class.</p>
+
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+<hljs>
+<ul class="button-group">
+  <li class="success"><a href="#">Good Choice</a></li>
+  <li class="warning"><a href="#">Bad Choice</a></li>
+  <li class="disabled alert"><a href="#">Disabled Choice</a></li>
+</ul>
+</hljs>
+  </div>
+  <div class="small-12 medium-6 grid-content">
+    <ul class="button-group">
+      <li class="success"><a href="#">Good Choice</a></li>
+      <li class="warning"><a href="#">Bad Choice</a></li>
+      <li class="disabled alert"><a href="#">Disabled Choice</a></li>
+    </ul>
+  </div>
+</div>
+
+<h4>Segmented Button Group</h4>
+
+<p>The <code>segmented</code> class will give buttons a hollow look. Add an <code>is-active</code> class to an <code>&lt;li&gt;</code> in the button group to fill it in.</p>
+
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+<hljs>
+<ul class="button-group segmented">
+  <li class="is-active"><a href="#">Fork</a></li>
+  <li><a href="#">Spork</a></li>
+  <li><a href="#">Spoon</a></li>
+</ul>
+</hljs>
+  </div>
+  <div class="small-12 medium-6 grid-content">
+    <ul class="button-group segmented">
+      <li class="is-active"><a>Fork</a></li>
+      <li><a>Spork</a></li>
+      <li><a>Spoon</a></li>
+    </ul>
+  </div>
+</div>
+
+<h4>Input Groups</h4>
+
+<p>A series of radio inputs can be transformed into a segmented button group.</p>
+
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+<hljs>
+<ul class="button-group segmented">
+  <li>
+    <input type="radio" name="utensil" value="fork" id="utensilFork" checked>
+    <label for="utensilFork">Fork</label>
+  </li>
+  <li>
+    <input type="radio" name="utensil" value="spork" id="utensilSpork">
+    <label for="utensilSpork">Spork</label>
+  </li>
+  <li>
+    <input type="radio" name="utensil" value="spoon" id="utensilSpoon">
+    <label for="utensilSpoon">Spoon</label>
+  </li>
+</ul>
+</hljs>
+  </div>
+  <div class="small-12 medium-6 grid-content">
+    <ul class="button-group segmented">
+      <li>
+        <input type="radio" name="utensil" value="fork" id="utensilFork" checked>
+        <label for="utensilFork">Fork</label>
+      </li>
+      <li>
+        <input type="radio" name="utensil" value="spork" id="utensilSpork">
+        <label for="utensilSpork">Spork</label>
+      </li>
+      <li>
+        <input type="radio" name="utensil" value="spoon" id="utensilSpoon">
+        <label for="utensilSpoon">Spoon</label>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<hr>
+
+<h3>Sass Variables</h3>
+
+<p>Write a custom button class using our button mixins.</p>
+
+<hljs no-escape>
+.custom-button {
+  // Extend the base selector to get core styles
+  @extend %button;
+
+  // Use the size mixin to set a size
+  @include button-size(
+    $size: medium, // tiny, small, medium, or large
+    $expand: false
+  );
+
+  // Use the style mixin to set visual styles
+  @include button-style(
+    $background: #fff, // Background color
+    $background-hover: #fff, // Background color on hover. Use "auto" to generate automatically
+    $color: #000, // Text color
+    $style: solid // Can be solid or hollow
+  );
+
+  &.custom-disabled {
+    @include button-disabled;
+  }
+}
+</hljs>
+
+<hr>
+
+<h3>Sass Mixins</h3>
+
+<p>Buttons can be easily customized using our Sass variables.</p>
+
+<hljs include="'partials/scss/button.html'" language="scss">
+</hljs>

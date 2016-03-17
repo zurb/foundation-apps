@@ -1,0 +1,150 @@
+---
+name: interchange
+url: /interchange
+title: Interchange
+---
+
+<h2>Interchange</h2>
+<h3 class="subheader">A simple JavaScript solution for responsive images. But not just images, it can even load in HTML partials. Interchange uses media queries to dynamically load responsive content that is appropriate for different users' browsers.</h3>
+
+<hr>
+
+<zf-interchange>
+  <img media="small" src="assets/img/interchange/small.jpg">
+  <img media="medium" src="assets/img/interchange/medium.jpg">
+  <img media="large"src="assets/img/interchange/large.jpg">
+</zf-interchange>
+
+<hr>
+
+<p>Interchange allows you to specify what specific content to display based on the user's current screen size. This is great for loading up a mobile-friendly component on small devices, and a more robust or heavier load component on desktops.</p>
+
+<p>To set up Interchange, start with a container with the <code>zf-interchange</code> directive.</p>
+
+<hljs language="html">
+<div zf-interchange>
+</div>
+</hljs>
+
+<hr>
+
+<h3>Use with Images</h3>
+
+<p>A basic example of Interchange involves images. In the below example, we're loading images with a lower resolution (and thus a lower file size) on small screens, and progressively higher-res images on larger screens.</p>
+
+<p>Note the values of the <code>media</code> attributes on each item inside the container&mdash;these are the breakpoints defined in your Sass files. Check out the <a ui-sref="media-queries">documentation for media queries</a> to learn how these breakpoints can be changed.</p>
+
+<hljs language="html">
+<zf-interchange>
+  <img media="small" src="assets/img/small.jpg" />
+  <img media="medium" src="assets/img/medium.jpg" />
+  <img media="large"src="assets/img/large.jpg" />
+</zf-interchange>
+</hljs>
+
+<hr>
+
+<h3>Use with HTML</h3>
+<p>Interchange can also switch between entire chunks of HTML. These can be loaded as partials (external HTML files), or by dropping the content right into the tag.</p>
+
+<p class="card docs-callout">Note that partials are reloaded every time, meaning if the user's device scales from medium, to small, back to medium, the medium partial will be loaded twice.</p>
+
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+<hljs>
+<zf-interchange>
+  <div media="small" src="templates/interchange/partial_1.html"></div>
+  <div media="medium" src="templates/interchange/partial_2.html"></div>
+  <div media="large">You are on a <strong>large screen</strong>.</div>
+</zf-interchange>
+</hljs>
+  </div>
+  <div class="small-12 medium-6 grid-content">
+    <zf-interchange id="testid">
+      <div media="small" src="templates/interchange/partial_1.html"></div>
+      <div media="medium" src="templates/interchange/partial_2.html"></div>
+      <div media="large">You are on a <strong>large screen</strong>.</div>
+    </zf-interchange>
+  </div>
+</div>
+
+<hr>
+
+<h3>Interchange Directives</h3>
+<p>Interchange can also be achieved with our zf-if, zf-show, and zf-hide directives. These directives internally use <a href="https://docs.angularjs.org/api/ng/directive/ngIf">ng-if</a>, <a href="https://docs.angularjs.org/api/ng/directive/ngShow">ng-show</a>, and <a href="https://docs.angularjs.org/api/ng/directive/ngHide">ng-hide</a>, respectively, to achieve their interchange ability.  Simply pass the desired query into the directive and let it do its magic!</p>
+
+<h4>Named Queries</h4>
+<p>Any named breakpoint can be used as a query, the defaults being: <code>small</code>, <code>medium</code>, <code>large</code>, <code>xlarge</code>, and <code>xxlarge</code>.  Other supported queries include: <code>landscape</code>, <code>portrait</code>, and <code>retina</code>.</p>
+
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+<hljs language="html">
+<p zf-if="small">You are on a small or larger device.</p>
+<p zf-if="medium">You are on a medium or larger device.</p>
+<p zf-if="large">You are on a large or larger device.</p>
+<p zf-if="xlarge">You are on a xlarge or larger device.</p>
+<p zf-if="xxlarge">You are on a xxlarge or larger device.</p>
+<p zf-if="landscape">You are in a landscape orientation.</p>
+<p zf-if="portrait">You are in a portrait orientation.</p>
+<p zf-if="retina">You are on a retina device.</p>
+</hljs>
+  </div>
+  <div class="small-12 medium-6 grid-content">
+    <p zf-if="small">You are on a <strong>small or larger</strong> device.</p>
+    <p zf-if="medium">You are on a <strong>medium or larger</strong> device.</p>
+    <p zf-if="large">You are on a <strong>large or larger</strong> device.</p>
+    <p zf-if="xlarge">You are on a <strong>xlarge or larger</strong> device.</p>
+    <p zf-if="xxlarge">You are on a <strong>xxlarge or larger</strong> device.</p>
+    <p zf-if="landscape">You are in a <strong>landscape orientation</strong>.</p>
+    <p zf-if="portrait">You are in a <strong>portrait orientation</strong>.</p>
+    <p zf-if="retina">You are on a <strong>retina device</strong>.</p>
+  </div>
+</div>
+
+<hr>
+
+<h4>Only Operator</h4>
+<p>Named breakpoint queries support usage of the <code>only</code> operator.  When using the only operator, the result of the query will be true if the current media <strong>EXACTLY</strong> matches the query.</p>
+
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+<hljs language="html">
+<p zf-if="small only">You are only on a small device.</p>
+<p zf-if="medium only">You are only on a medium device.</p>
+<p zf-if="large only">You are only on a large device.</p>
+<p zf-if="xlarge only">You are only on a xlarge device.</p>
+<p zf-if="xxlarge only">You are only on a xxlarge device.</p>
+</hljs>
+  </div>
+  <div class="small-12 medium-6 grid-content">
+    <p zf-if="small only">You are only on a <strong>small</strong> device.</p>
+    <p zf-if="medium only">You are only on a <strong>medium</strong> device.</p>
+    <p zf-if="large only">You are only on a <strong>large</strong> device.</p>
+    <p zf-if="xlarge only">You are only on a <strong>xlarge</strong> device.</p>
+    <p zf-if="xxlarge only">You are only on a <strong>xxlarge</strong> device.</p>
+  </div>
+</div>
+
+<hr>
+
+<h4>Not Operator</h4>
+<p>Named breakpoint queries support usage of the <code>not</code> operator.  Usage of the <code>not</code> operator implies usage of the <code>only</code> operator.  When using the not operator, the result of the query will be true if the current media does <strong>NOT EXACTLY</strong> match the query.</p>
+
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+<hljs language="html">
+<p zf-if="not small">You are not on a small device.</p>
+<p zf-if="not medium">You are not on a medium device.</p>
+<p zf-if="not large">You are not on a large device.</p>
+<p zf-if="not xlarge">You are not on a xlarge device.</p>
+<p zf-if="not xxlarge">You are not on a xxlarge device.</p>
+</hljs>
+  </div>
+  <div class="small-12 medium-6 grid-content">
+    <p zf-if="not small">You are not on a <strong>small</strong> device.</p>
+    <p zf-if="not medium">You are not on a <strong>medium</strong> device.</p>
+    <p zf-if="not large">You are not on a <strong>large</strong> device.</p>
+    <p zf-if="not xlarge">You are not on a <strong>xlarge</strong> device.</p>
+    <p zf-if="not xxlarge">You are not on a <strong>xxlarge</strong> device.</p>
+  </div>
+</div>

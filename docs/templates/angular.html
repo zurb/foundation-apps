@@ -1,0 +1,263 @@
+---
+name: angular
+url: /angular
+title: Angular
+---
+
+<h2>Angular</h2>
+
+<h3 class="subheader">Foundation uses AngularJS in tons of neat ways, from dynamic routing to component directives. Learn about our Angular integration here.</h3>
+
+<hr>
+
+<div class="card docs-callout">
+  <p>Already a seasoned Angular developer? Check out our <a ui-sref="angular-modules">modules documentation</a> to learn how add our components to your Angular app.</p>
+</div>
+
+<hr>
+
+<section>
+  <h3>Dynamic Routing</h3>
+
+  <p>Views and state are fundamental to creating single-page web apps. To make defining routes faster, we wrote a special plugin that creates routes directly from each view's HTML file, so you don't have to write any JavaScript to set them up.</p>
+
+  <section>
+    <h4><pre>name</pre></h4>
+
+    <p><strong>Required.</strong> The name of the view. Refer to this when using <code>ui-sref</code> to link between views.</p>
+
+<hljs>
+---
+name: home
+url: /
+---
+</hljs>
+
+    <p>The <code>name</code> parameter can also use ui-router's dot notation to indicate a child view.</p>
+
+<hljs>
+---
+name: home.child
+url: /child
+---
+</hljs>
+  </section>
+
+  <section>
+    <h4><pre>url</pre></h4>
+
+    <p><strong>Required.</strong> Defines the URL at which a page can be directly accessed.</p>
+
+<hljs>
+---
+name: home
+url: /
+---
+</hljs>
+
+    <p>When setting up a child view, don't include the segment of the URL for the parent view&mdash;it will be inserted automatically.</p>
+
+<hljs>
+---
+name: parent.child
+url: /child
+---
+</hljs>
+
+    <p>In the above example, the final URL is <code>/parent/child</code>, assuming the URL of the parent view is <code>/parent</code>.</p>
+
+    <p>A URL can also contain parameters, which will be passed to the view's controller when it loads. Learn more about URL parameters on <a href="https://github.com/angular-ui/ui-router/wiki/URL-Routing#url-parameters">ui-router's</a> documentation.</p>
+
+<hljs>
+---
+name: post
+url: /post/:id
+---
+</hljs>
+  </section>
+
+  <section>
+    <h4><pre>animationIn</pre></h4>
+
+    <p>Sets a transition to play when the view animates in. Refer to the <a ui-sref="motion-ui">Motion UI</a> documentation to see the list of built-in transitions.</p>
+
+<hljs>
+---
+name: home
+url: /
+animationIn: slideInRight
+---
+</hljs>
+  </section>
+
+  <section>
+    <h4><pre>animationOut</pre></h4>
+
+    <p>Sets a transition to play when the view animates out. Refer to the <a ui-sref="motion-ui">Motion UI</a> documentation to see the list of built-in transitions.</p>
+
+<hljs>
+---
+name: home
+url: /
+animationIn: fadeIn
+animationOut: fadeOut
+---
+</hljs>
+  </section>
+
+  <section>
+    <h4><pre>parent</pre></h4>
+    
+    <p>Defines the parent view for the current one. You can use this as an alternative to the <code>parent.child</code> syntax.</p>
+
+<hljs>
+----
+name: child
+parent: parent
+url: /child
+----
+</hljs>
+  </section>
+
+  <section>
+    <h4><pre>controller</pre></h4>
+
+    <p>By default, all views use a controller called <code>DefaultController</code>, but this can be changed.</p>
+
+<hljs>
+---
+name: home
+url: /
+controller: HomeController
+---
+</hljs>
+
+    <p>Among other things, the default controller passes a bunch of data through. For instance, all of your front-matter settings will be accessible via <code>vars</code> in your template. <code>{{ vars.name }}</code> will return the name of your route while <code>{{ vars.path }}</code> will return the relative path to the template.</p>
+
+    <p>Note that override a controller disables front-matter settings (except dynamic routing). If you want to use your own controller AND keep this feature, you can extend the <code>DefaultController</code>:</p>
+
+<hljs>
+angular.module('application')
+    .controller('MyController', MyController)
+;
+
+MyController.$inject = ['$scope', '$stateParams', '$state', '$controller'];
+
+function MyController($scope, $stateParams, $state, $controller) {
+    angular.extend(this, $controller('DefaultController', {$scope: $scope, $stateParams: $stateParams, $state: $state}));
+    // Your code...
+}
+</hljs>
+  </section>
+
+  <section>
+    <h4><pre>abstract</pre></h4>
+
+    <p>Defines a state as abstract. Abstract states can have child states, but can't be navigated to directly. Check out the <a href="https://github.com/angular-ui/ui-router/wiki/Nested-States-%26-Nested-Views#abstract-states">ui-router documentation</a> to learn more.</p>
+
+<hljs>
+---
+name: home
+url: /
+abstract: true
+---
+</hljs>
+  </section>
+</section>
+
+<hr>
+
+<section>
+  <h3>Angular Includes</h3>
+
+  <p>An include is a chunk of HTML that exists in its own file, and can be dropped into any page using <code>ng-include</code>.</p>
+
+<hljs language="html">
+<div ng-include="'path/to/partial.html'"></div>
+</hljs>
+
+  <p>Note the use of single quotes inside the double quotes&mdash;this is required. The HTML inside the partial will be placed <em>inside</em> the element with <code>ng-include</code>.</p>
+</section>
+
+<hr>
+
+<section>
+  <h3>Enabling HTML5 Mode and working with Angular on a server</h3>
+
+  <p>To enable HTML5 mode with Angular (using regular URLs unprefixed by "\#"), a server has to support URL rewrites. The UI Router docs have a great <a href="https://github.com/angular-ui/ui-router/wiki/Frequently-Asked-Questions#how-to-configure-your-server-to-work-with-html5mode">write up</a> on working with the HTML5mode and how to enable it on a variety of servers.</p>
+
+  <p>Foundation for Apps supports this out of the box for the development environment; however, for production, additional steps will be necessary.</p>
+
+  <p>If you'd like to run Foundation for Apps without HTML5 mode there is a line of code in the <code>app.js</code> that can be commented out:</p>
+
+<hljs language="javascript">
+locationProvider.html5Mode({
+  enabled: true,
+  requireBase: true
+});
+</hljs>
+
+  <p>Note that Foundation for Apps cannot be run directly through the browser because it uses XMLHttpRequests to load up templates/partials for directives and pages. Running it directly will cause cross origin issues and will not work with linking.</p>
+
+  <p>If you are running in a subdirectory, try setting <code>requireBase</code> to the subdirectory name. So if you're running <code>domain.com/subdirectory</code>, set <code>requireBase: '/subdirectory/'</code>.</p>
+</section>
+
+<hr>
+
+<section>
+  <h3>Angular and UI Router Helpers</h3>
+
+  <p>There are some nuances of Angular itself and some of the libraries Foundation for Apps includes and uses that can make prototyping easier and quicker. Here's a rundown of some of these tools:</p>
+
+  <section>
+    <h4><pre>ui-sref</pre></h4>
+
+    <p>Instead of using <code>&lt;a href="/my/sub/page"&gt;</a></code> in a page to access another page, it's common practice to use the router. Foundation for Apps uses UI Router for its routing which allows for named route references. For instance, let's say there is a page with this front matter:</p>
+
+<hljs>
+---
+name: mypage
+url: my/sub/page
+---
+</hljs>
+
+    <p>You can easily link to it like so:</p>
+
+<hljs>
+<a ui-sref="mypage">my page</a>
+</hljs>
+
+    <p><code>ui-sref</code> can also take in parameters for pages that accept parameters. Here's another example page that uses parameters:</p>
+
+<hljs>
+name: inbox.message
+url: inbox/:id
+</hljs>
+
+    <p>The page can be accessed via:</p>
+
+<hljs>
+<a ui-sref="inbox.message({ id: 5 })">5th message</a>
+</hljs>
+
+  </section>
+
+  <section>
+    <h4><pre>ui-sref-active</pre></h4>
+
+    <p>Now let's say we want to create a menu of links and want to make sure that the active link gets an extra special class to indicate that it is, indeed, active. There are two very similar ways to do this. The first one is using <code>ui-sref-active</code>, you can place this directive on either the <code>ui-sref</code> element or on its parent. When active, it will add a class of your choosing:</p>
+
+<hljs>
+<ul>
+  <li ui-sref-active="my-active-class"><a ui-sref="mypage">My page</a></li>
+  <li ui-sref-active="my-active-class"><a ui-sref="myotherpage">My page</a></li>
+</ul>
+</hljs>
+
+    <p>The other way is using <code>ui-sref-active-eq</code> which works almost the same with one difference. Whenever accessing a child page, the parent page will show up as active whenever using <code>ui-sref-active</code>. The <code>ui-sref-active-eq</code> is triggered ONLY when a specific page is triggered, no matter what their parent is.</p>
+
+    <p>In the previous example with inbox and inbox.message, the inbox page would show up as active with <code>ui-sref-active</code> when on the inbox.message page. With <code>ui-sref-active-eq</code>, inbox would show up as active only when specifically on the inbox page.</p>
+
+    <p>If none of this makes sense, stick with <code>ui-sref-active-eq</code></p>
+  </section>
+</section>

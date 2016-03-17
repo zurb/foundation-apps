@@ -1,0 +1,275 @@
+---
+name: utilities
+url: /utilities
+title: Utilities
+---
+
+<h2>Utility Classes</h2>
+<h3 class="subheader">Foundation for Apps includes some helpful utility classes for visibility, text alignment, floats, and more.</h3>
+
+<hr>
+
+<h3>Visibility Classes</h3>
+
+<p>Our visibility classes work the same as they do in Foundation for Sites, allowing you to easily define when content is shown or hidden on various screen sizes. Add the class <code>show-for-[size]</code> to display an element on that size of screen and larger.</p>
+
+<p>Add the class <code>show-for-[size]-only</code> to display an element <em>only</em> at that screen size, not on any larger or smaller screens.</p>
+
+<p>To hide elements at certain screen sizes, use the classes <code>hide-for-[size]</code> and <code>hide-for-[size]-only</code></p>
+
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+<hljs>
+<p class="show-for-small">You are on a small or larger device.</p>
+<p class="show-for-medium">You are on a medium or larger device.</p>
+<p class="show-for-large">You are on a large or larger device.</p>
+<p class="show-for-small-only">You are on a small device.</p>
+<p class="show-for-medium-only">You are on a medium device.</p>
+<p class="show-for-large-only">You are on a large device.</p>
+<p class="show-for-landscape">You are in a landscape orientation.</p>
+<p class="show-for-portrait">You are in a portrait orientation.</p>
+</hljs>
+  </div>
+  <div class="small-12 medium-6 grid-content">
+    <p class="show-for-small">You are on a <strong>small or larger</strong> device.</p>
+    <p class="show-for-medium">You are on a <strong>medium or larger</strong> device.</p>
+    <p class="show-for-large">You are on a <strong>large or larger</strong> device.</p>
+    <p class="show-for-small-only">You are on a <strong>small</strong> device.</p>
+    <p class="show-for-medium-only">You are on a <strong>medium</strong> device.</p>
+    <p class="show-for-large-only">You are on a <strong>large</strong> device.</p>
+    <p class="show-for-landscape">You are on a <strong>landscape device</strong>.</p>
+    <p class="show-for-portrait">You are on a <strong>portrait device</strong>.</p>
+  </div>
+</div>
+
+<p>These classes are also available as mixins, if you'd rather not add these classes to your markup.</p>
+
+<hljs>
+.componentOne {
+  @include show-for(small);
+}
+.componentTwo {
+  @include hide-for(medium);
+}
+.componentThree {
+  @include show-for-only(large);
+}
+.componentFour {
+  @include hide-for-only(small);
+}
+</hljs>
+
+<hr>
+
+<h3>Text Alignment</h3>
+
+<p>Quickly align text with our text alignment classes.</p>
+
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+<hljs>
+<p class="text-left">Basic left-hand text</p>
+<p class="text-right">Saucy right-hand text</p>
+<p class="text-center">Sassy centered text</p>
+<p class="text-justify">Rachet justified text</p>
+</hljs>
+  </div>
+  <div class="small-12 medium-6 grid-content">
+    <p class="text-left">Basic <strong>left-hand</strong> text</p>
+    <p class="text-right">Saucy <strong>right-hand</strong> text</p>
+    <p class="text-center">Sassy <strong>centered</strong> text</p>
+    <p class="text-justify">Rachet <strong>justified</strong> text. Why's that text so justified, anyways? Why does it just stretch to the sides of the container?</p>
+  </div>
+</div>
+
+<br>
+
+<p>These classes also come in responsive flavors, meaning you can shift text alignment on different screen sizes.</p>
+
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+<hljs>
+<p class="text-left medium-text-center">This text is left-aligned on small screens, and center-aligned on medium screens and larger.</p>
+</hljs>
+  </div>
+  <div class="small-12 medium-6 grid-content">
+    <p class="text-left medium-text-center"><strong>This text is left-aligned on small screens, and center-aligned on medium screens and larger.</strong> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda, doloribus, sapiente. Quas aliquam, ea eaque. Earum nostrum laboriosam, quidem iusto sint! Quisquam voluptatem atque, corporis sapiente doloremque laborum fugiat dolores.</p>
+  </div>
+</div>
+
+<hr>
+
+<h3>Vertical Alignment</h3>
+
+<p>Using the magic of flexbox, we can vertically align a series of items in a row. We took these vertical alignment features and wrote a series of CSS classes to leverage them.</p>
+
+<p>To start, create a container that will hold each item.</p>
+
+<hljs language="html">
+<div class="v-align">
+  <!-- ... -->
+</div>
+</hljs>
+
+<p>By default, each item will align to the top of the container. Add the classes <code>align-top</code>, <code>align-center</code>, or <code>align-bottom</code> to individual elements in the container to change their alignment.</p>
+
+<hljs language="html">
+<div class="v-align">
+  <div class="align-bottom"></div>
+  <div class="align-center"></div>
+  <div class="align-top"></div>
+</div>
+</hljs>
+
+<div class="v-align docs-example-valign">
+  <div class="align-bottom">This is bottom-aligned!</div>
+  <div class="align-center">This is middle-aligned!</div>
+  <div class="align-top">This is top-aligned!</div>
+</div>
+
+<br><br>
+
+<p>These classes also come in responsive flavors, allowing you to change the alignment on different screen sizes. In the below example, the left box is top-aligned by default, and switches to center-aligned on medium-sized screens and larger.</p>
+
+<hljs language="html">
+<div class="v-align">
+  <div class="medium-align-center"></div>
+  <div class="align-top"></div>
+</div>
+</hljs>
+
+<div class="v-align docs-example-valign-2">
+  <div class="medium-align-center"></div>
+  <div class="align-top"></div>
+</div>
+
+<hr>
+
+<h3>Floats and Clearing</h3>
+
+<p>Float an element to the left or right using our float classes.</p>
+
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+<hljs>
+<a href="#" class="success button float-left">Left</a>
+<a href="#" class="alert button float-right">Right</a>
+</hljs>
+  </div>
+  <div class="small-12 medium-6 grid-content">
+    <a href="#" class="large success button float-left">Left</a>
+    <a href="#" class="large alert button float-right">Right</a>
+  </div>
+</div>
+
+<p>If you have a container with only floated elements, add the clearfix class to ensure it has a proper height.</p>
+
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+<hljs>
+<div class="clearfix">
+  <a href="#" class="success button float-left">Left</a>
+  <a href="#" class="alert button float-right">Right</a>
+</div>
+</hljs>
+  </div>
+  <div class="small-12 medium-6 grid-content">
+    <div class="clearfix" style="padding: 1rem; background-color: lightblue">
+      <a href="#" class="large success button float-left" style="margin: 0">Left</a>
+      <a href="#" class="large alert button float-right" style="margin: 0">Right</a>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<h3>Thumbnails</h3>
+<p>You can create thumbnails by adding a <code>thumbnail</code> class to an <code>&lt;img&gt;</code> element like so:</p>
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+<hljs>
+<a href="http://placehold.it/350x150">
+  <img class="thumbnail" src="http://placehold.it/350x150">
+</a>
+</hljs>
+  </div>
+  <div class="small-12 medium-4 grid-content">
+    <a href="/assets/img/matterhorn.jpg">
+      <img class="thumbnail" src="/assets/img/matterhorn.jpg">
+    </a>
+  </div>
+</div>
+
+<br>
+<br>
+
+<p>You can use the <code>thumbnails</code> class in a <code>&lt;ul&gt;</code>to affect all the images in it.</p>
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+<hljs>
+<ul class="thumbnails no-bullet">
+  <li>
+    <a href="http://placehold.it/350x150">
+      <img src="http://placehold.it/350x150">
+    </a>
+  </li>
+  <li>
+    <a href="http://placehold.it/350x150">
+      <img src="http://placehold.it/350x150">
+    </a>
+  </li>
+  <li>
+    <a href="http://placehold.it/350x150">
+      <img src="http://placehold.it/350x150">
+    </a>
+  </li>
+</ul>
+</hljs>
+  </div>
+  <div class="small-12 medium-3 grid-content">
+    <ul class="thumbnails no-bullet">
+      <li>
+        <a href="assets/img/matterhorn-small.jpg">
+          <img src="assets/img/matterhorn-small.jpg">
+        </a>
+      </li>
+      <li>
+        <a href="assets/img/matterhorn-small.jpg">
+          <img src="assets/img/matterhorn-small.jpg">
+        </a>
+      </li>
+      <li>
+        <a href="assets/img/matterhorn-small.jpg">
+          <img src="assets/img/matterhorn-small.jpg">
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<hr>
+
+<h3>Close Button</h3>
+<p>You can create a basic close button for components like panel and modal with this markup.</p>
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+<hljs>
+<div class="card">
+  <div class="card-section">
+    <a class="close-button">&times;</a>
+    <h4>Basic Card</h4>
+    <p>The close button automatically positions itself in the top-right corner of its parent. You can also add the <code>zf-close</code> directive to make it functional.</p>
+  </div>
+</div>
+</hljs>
+  </div>
+  <div class="small-12 medium-6 grid-content">
+    <div class="card" style="position: relative;">
+      <div class="card-section">
+        <a class="close-button">&times;</a>
+        <h4>Basic Card</h4>
+        <p>The close button automatically positions itself in the top-right corner of its parent. You can also add the <code>zf-close</code> directive to make it functional.</p>
+      </div>
+    </div>
+  </div>
+</div>

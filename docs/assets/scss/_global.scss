@@ -1,0 +1,132 @@
+// Global Styles
+// -------------
+// Odds and ends in the documentation styling. You might call it a shame file.
+
+.docs-main {
+  @include grid-content;
+
+  @include breakpoint(medium) {
+    @include grid-size(9);
+  }
+
+  @include breakpoint(large) {
+    @include grid-size(10);
+  }
+
+  > .grid-container {
+    margin-top: 1rem;
+  }
+  
+  .grid-block {
+    margin-left: -1rem;
+    margin-right: -1rem;
+    flex-wrap: wrap;
+    overflow: visible;
+  }
+
+  .grid-content {
+    overflow: visible;
+  }
+}
+
+h3.subheader {
+  font-size: 1.25rem;
+}
+
+.docs-whatis {
+  .subheader {
+    margin-bottom: 1.25rem;
+  }
+}
+
+.docs-toc {
+  margin-top: 2rem;
+
+  h5 {
+    margin-bottom: 0.75rem;
+    font-weight: bold;
+    text-align: center;
+  }
+  p:last-child {
+    margin-top: -1rem;
+  }
+}
+
+.docs-module-name {
+  color: #999;
+
+  > pre {
+    display: inline-block;
+    vertical-align: middle;
+    color: #000;
+  }
+}
+
+.docs-module-deps {
+  .pre {
+    font-family: monospace;
+    font-size: 1.25rem;
+  }
+}
+
+hr {
+  margin: 2.75rem 0 2.5rem 0;
+}
+
+.docs-callout {
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  background: #f7f7f7;
+
+  > p:last-child {
+    margin: 0;
+  }
+}
+
+.docs-install-req {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.docs-feature-icon {
+  display: block;
+  margin: 0 auto 1rem auto;
+  width: 87px;
+}
+
+.icon-label {
+  margin-left: 1rem;
+}
+
+.icon li {
+  margin-bottom: 1rem;
+}
+
+.button [class*="fi-"] {
+  position: relative;
+  top: 2px;
+}
+
+.position-absolute .ui-animation {
+  position: absolute;
+  
+  [zf-offcanvas], [zf-panel] {
+    display: none !important;
+  }
+}
+
+.fancy-button {
+  background-color: $success-color;
+  padding: 1rem;
+  width: 10rem;
+  color: #fff;
+}
+
+div.as-demo {
+  padding: 1rem;
+  margin: 1rem;
+  width: 5rem;
+  background-color: $success-color;
+  color: #fff;
+  display: inline;
+}

@@ -1,0 +1,472 @@
+---
+name: changelog
+url: /changelog
+title: Changelog
+---
+
+<h2>Changelog</h2>
+<h3 class="subheader">Foundation is open source and it can move fast. You can stay up to date with each new version here.</h3>
+
+<hr>
+
+<h3>How to update</h3>
+
+<p>If you're updating a project built with our template stack, the CLI will help you update:</p>
+
+<hljs language="bash">
+foundation-apps update
+</hljs>
+
+<p>It's also possible to update by hand. Open the <code>bower.json</code> and change your <code>foundation-apps</code> dependency to the version you want:</p>
+
+<hljs language="json">
+{
+  "dependencies": {
+    "foundation-apps": "1.0.3"
+  }
+}
+</hljs>
+
+<p>Save the file and then update with Bower:</p>
+
+<hljs language="bash">
+bower update
+</hljs>
+
+<hr>
+
+<h3>Version 1.2 – Eiger</h3>
+
+<h4>What's in Store?</h4>
+
+<p><strong>We're planning a 1.3 release to transition between version 1.x and 2.x of Foundation for Apps.</strong> Here's our current plan for 1.3:</p>
+
+<ul>
+<li>The visual styles of many components will be improved. In many places we'll be bringing the styles more in line with Foundation for Sites 6.
+<ul>
+<li>New Foundation for Apps projects will automatically get these styles.</li>
+<li>Existing projects will be able to opt-in to the new styles by changing a Sass variable.</li>
+</ul></li>
+<li>The built-in motion module will be replaced with the external <a href="https://github.com/zurb/motion-ui">Motion UI</a> library.
+<ul>
+<li>The existing motion Sass file (<code>scss/components/_motion.scss</code>) will be removed.</li>
+<li>Transition class names have changed from <code>.camelCase</code> to <code>.kebab-case</code>.</li>
+<li>The syntax for existing transition and animation mixins has changed. Check out the <a href="https://github.com/zurb/motion-ui/tree/master/docs">Motion UI documentation</a> for more details.</li>
+<li>New Foundation for Apps projects will include Motion UI as a dependency.</li>
+</ul></li>
+<li>The dynamic routing module, now branded <a href="https://github.com/zurb/front-router">Front Router</a>, has been moved to an external Node library.
+<ul>
+<li>New Foundation for Apps projects are currently referencing this library.</li>
+<li>In 1.5, the existing built-in library will be removed.</li>
+</ul></li>
+<li>The Sass files will be rearranged to match the structure of <a href="https://github.com/zurb/foundation-sites/tree/develop/scss">Foundation for Sites 6</a>.
+<ul>
+<li>The upgrade path will be relatively straightforward&mdash;you just need to change around some <code>@import</code> paths.</li>
+</ul></li>
+<li>RTL support will be added.</li>
+</ul>
+
+<h4>General</h4>
+
+<ul>
+<li>Updated to Angular 1.4.</li>
+<li>Updated to FastClick 1.0.6.</li>
+<li>Updated to Normalize.css 3.0.3.</li>
+<li>Added the precompiled Angular templates to <code>bower.json</code>'s <code>main</code> section. #534</li>
+<li>Added forms to the export list. Previously, the CSS would output no matter what. #544</li>
+<li>FastClick and viewport-units-buggyfill are now initialized within the Foundation code, which means you can remove it from your app's <code>run()</code> method.</li>
+<li>Thanks to a few pull requests from @erikmellum, Foundation for Apps now works in Electron!</li>
+</ul>
+
+<h4>Features</h4>
+
+<ul>
+<li><strong>Interchange directives.</strong> @soumak77 put together a set of <code>ng-if</code>-like directives that respond to media queries, like so:</li>
+</ul>
+
+<p>```html</p>
+
+<div zf-if="medium"></div>
+
+<div zf-if="not large"></div>
+
+<p>```</p>
+
+<ul>
+<li><strong>Animation methods with promises.</strong> <code>FoundationApi.animateAndAdvise</code> allows you to animate an element and get a promise back, which resolves when the animation finishes.</li>
+<li><strong>Click outside of things to close them!</strong> Panels and off-canvas menus can be configured to be closed when they're clicked/tapped outside of. To enable it, add the directive <code>zf-close-all</code> to the <code>&lt;body&gt;</code> element. #430</li>
+<li>Front Router now outputs an entire Angular module instead of a global variable, to avoid polluting the global namespace.</li>
+<li>Added the method <code>.isActive</code> to <code>ModalFactory</code>, which tells you if a modal is open. #580</li>
+</ul>
+
+<h4>Bug Fixes</h4>
+
+<ul>
+<li>Grid blocks with the <code>.shrink</code> class can no longer scroll. #568</li>
+<li>Prevent JavaScript errors if an app loads without any CSS, such as when being loaded in a headless browser. #596</li>
+<li>Fixed an "apply already in progress" error with action sheets. #558</li>
+<li>Fixed a sizing issue in IE10 and 11 with grid items that used the <code>.up-*</code> grid classes.</li>
+<li>Fixed Iconic images not working with Angular directives. #569</li>
+<li>Prevent JavaScript errors when not using Front Router. #583</li>
+<li>Fixed various menu issues related to alignment and Flexbox properties. #567</li>
+<li>Fixed text inputs inside block lists having cut off text in Firefox. #566</li>
+<li>Added <code>overflow-y: visible</code> to menu bar, to make working with dropdowns easier. #520</li>
+<li>Modals now properly publish a <code>close</code> event when the overlay is hidden. #540</li>
+<li>Fixed JavaScript errors popping up when clicking on elements inside of a panel. #548</li>
+<li>Fixed arrows in <code>&lt;select&gt;</code> elements not appearing in IE10 and 11. #606</li>
+<li>Fixed CSSO choking on Foundation's CSS. #650</li>
+</ul>
+
+
+<hr>
+
+<h3>Version 1.1 — Weisshorn</h3>
+
+<p><em>March 17, 2015</em></p>
+
+<h4>General</h4>
+
+<ul>
+<li><strong>The CLI has been updated to version 1.1.</strong> It includes a streamlined install process, better error-handling, better cross-platform support, and <em>no Ruby dependency</em>. Run <code>npm update -g foundation-cli</code> to get it.</li>
+<li><strong>The documentation is way better.</strong> We did a sweep of every docs page to fix typos, improve examples, and generally make things more clear. Enjoy!</li>
+<li><strong>Foundation for Apps is now libsass-first.</strong> We're still testing the codebase in both Ruby Sass 3.4+ and libsass 3.1+, but our documentation and template stack now compile with libsass by default. <strong>This means Ruby is no longer a hard dependency of the framework.</strong></li>
+<li><strong>Directive templates are now compiled to one file.</strong> We're using <a href="https://github.com/yaru22/ng-html2js">ng-html2js</a> to package up all of our directive templates into a single JavaScript file. This means you no longer need to include the <code>components</code> folder in a public directory! This method still works, but you can also just include the <code>templates.js</code> file and you're good to go.
+<ul>
+<li>The templates file is included in the Bower and npm packages, under <code>dist/js/foundation-apps-templates.js</code>.</li>
+<li>A third CDN URL has been created for the template files.</li>
+<li>Thanks to @MikaAK for submitting the pull request that implemented this!</li>
+</ul></li>
+</ul>
+
+<h4>Sass Variable Changes</h4>
+
+<p>These Sass variables changed. If you're upgrading an existing project, you'll need to update your <code>_settings.scss</code> file manually.</p>
+
+<ul>
+<li><strong>Added:</strong> <code>$button-background-hover: scale-color($button-background, $lightness: -15%)</code></li>
+<li><strong>Added:</strong> <code>$motion-class-showhide: (in: "ng-hide-remove", out: "ng-hide-add");</code></li>
+<li><strong>Added:</strong> <code>$motion-class-showhide-active: (in: "ng-hide-remove-active", out: "ng-hide-add-active");</code></li>
+<li><strong>Added:</strong> <code>$input-background-disabled: smartscale($input-background)</code></li>
+<li><strong>Added:</strong> <code>$input-cursor-disabled: not-allowed</code></li>
+<li><strong>Changed:</strong> <code>$button-tag-selector</code> is now <code>false</code> (previously <code>true</code>)</li>
+<li><strong>Removed:</strong> <code>$panel-animation-speed</code></li>
+</ul>
+
+<p><strong>You don't need to add the new variables to your settings file,</strong> unless you want to change their default values.</p>
+
+<p><strong>The old variables are still in the codebase, but aren't being used.</strong> They'll be permanently removed in version 1.2.</p>
+
+<h4>Template Changes</h4>
+
+<ul>
+<li>Sass is now compiled using libsass.</li>
+<li>Directive templates are compiled into a <code>templates.js</code> file, instead of being referenced using hardcoded paths to HTML files.</li>
+<li><strong>If you have an existing project, you don't need to change anything to upgrade to v1.1.</strong></li>
+</ul>
+
+<h4>New Features</h4>
+
+<ul>
+<li><strong>Improved view animation!</strong> In and out animations on views will now play simultaneously. Thanks to @AntJanus, @stryju, and @jeanieshark for all their hard work in solving this difficult problem!</li>
+<li><code>ui-view</code> elements no longer need the attribute <code>ng-class="['ui-animation']"</code> to animate properly; just having <code>ui-view</code> is enough.</li>
+<li>Prior to v1.1, view animations only worked if the states were created using our front matter routing plugin. Now you can enable view animation in manually-defined states by adding an <code>animation</code> property to the state object.</li>
+</ul>
+
+<hljs language="javascript">
+$stateProvider
+  .state('home', {
+    url: '/',
+    templateUrl: 'templates/home.html',
+    animation: {
+      enter: 'slideInDown',
+      leave: 'fadeOut'
+    }
+  });
+</hljs>
+
+<ul>
+<li>#461: Added a <code>$background-hover</code> parameter to the <code>button-style()</code> mixin. You can pass in a color, or the <code>auto</code> keyword to automatically set a color based on the <code>$background</code> parameter.</li>
+<li>#462: Added styles for disabled form elements. They're automatically applied to any <code>&lt;input&gt;</code> element with the <code>disabled</code> or <code>readonly</code> attributes, or a <code>&lt;fieldset&gt;</code> with <code>disabled</code>. The styles can also be added manually by adding the <code>.disabled</code> class.</li>
+<li>#475: The path the <code>zf-iconic</code> directive uses to search for icon files can now be changed width the <code>IconicProvider</code> provider. Use <code>IconicProvider.setAssetPath(path)</code> to set the path. Thanks to @gjungb for implementing this!</li>
+<li>#495: The front matter routing plugin now supports ui-router's abstract states. Just add <code>abstract: true</code> to a view template to make it go.</li>
+<li>Added support for ngAnimate's "show" and "hide" events. This means you can now use Motion UI classes with <code>ng-show</code> and <code>ng-hide</code>.</li>
+<li>Added a <code>.noscroll</code> class for grid blocks and content blocks. I bet you can guess what it does!</li>
+<li>You can now pass a scope to a modal created with <code>ModalFactory</code>, by passing it through the <code>contentScope</code> property on the modal's configuration object.</li>
+</ul>
+
+<h4>Bug Fixes</h4>
+
+<ul>
+<li>#191: <code>&lt;input type="range"&gt;</code> elements are properly styled in Internet Explorer 10+.</li>
+<li>#396: Prevent a <code>$digest already in progress</code> error from occuring with panels and off-canvas.</li>
+<li>#397: The <code>FoundationApi</code> service now has an <code>unsubscribe</code> method, which allows us to remove event listeners from elements that have been removed from the DOM.</li>
+<li>#467: The settings variables for buttons were placed above button group, which prevents an issue with undefined variables.</li>
+<li>#472: Fixed the <code>color</code> attribute of static notifications not applying.</li>
+<li>#478: Fixed an issue with modals where <code>scope.$root</code> could be <code>null</code> after a state change.</li>
+<li>#483: Fixed notifications with <code>autoclose</code> not automatically closing under some circumstances.</li>
+<li>#486: The <code>ModalFactory</code> factory will fetch the modal template before initialization.</li>
+<li>#489: Deprecated <code>$panel-animation-speed</code>, an unused Sass variable for panels. It will be removed in a future version of the framework.</li>
+<li>#511: Panels that have converted into a block won't play their in/out animations if triggered by an open or close event.</li>
+<li>#530: Visibility classes will not conflict with Angular's <code>.ng-hide</code> class.</li>
+<li>The <code>&lt;button&gt;</code> tag is no longer styled as a <code>.button</code> element by default.</li>
+<li>Any element with <code>zf-open</code>, <code>zf-close</code>, or <code>zf-toggle</code> applied gets the <code>cursor: pointer</code> property.</li>
+<li>Removed the dropdown arrow that Internet Explorer 10+ adds to <code>&lt;select&gt;</code> elements.</li>
+<li>Prevented ghosting issues in WebKit with views that are mid-transition, by adding <code>-webkit-transform-style: preserve3d</code>.</li>
+<li>Fixed landscape/portrait visibility classes not hiding properly.</li>
+<li>Images inside cards will stretch to the width of the container.</li>
+<li>Added a missing secondary coloring class to Iconic (<code>.iconic-color-secondary</code>).</li>
+</ul>
+
+<p><em>The British physicist John Tyndall was the first person to ascend Weisshorn. When the climb was at its most bleak, Tyndall strengthened his resolve with patriotic thoughts:</em></p>
+
+<blockquote>
+  <p>I thought of Englishmen in battle, of the qualities which had made them famous: it was mainly the quality of not knowing when to yield - of fighting for duty even after they had ceased to be animated by hope. Such thoughts helped to lift me over the rocks.</p>
+</blockquote>
+
+<hr>
+
+<h3>Version 1.0.3</h3>
+
+<p><em>February 16, 2015</em></p>
+
+<h4>General</h4>
+
+<ul>
+<li>The Bower and npm packages now include a <code>dist</code> folder, which contains compiled CSS and JavaScript files, in minified and unminified flavors.</li>
+<li>The Sass is now fully compatible with libsass. It's been tested in node-sass 1.2.3. Eventually our documentation and template stack will be compiled with node-sass instead of Ruby Sass, but we'll continue to test both.</li>
+</ul>
+
+<h4>Breaking Changes</h4>
+
+<p>These Sass variables changed. If you're updating an existing project, you'll need to update your <code>_settings.scss</code> file manually.</p>
+
+<ul>
+<li><strong>Added:</strong> <code>$badge-diameter: 1.5rem</code></li>
+<li><strong>Renamed:</strong> <code>$badge-font-color</code> is now <code>$badge-color</code></li>
+<li><strong>Removed:</strong> <code>$badge-padding</code></li>
+<li><strong>Removed:</strong> <code>$badge-radius</code></li>
+</ul>
+
+<p>The old variables are still in the codebase but aren't being used. They'll be permanently removed in version 1.1.</p>
+
+<h4>Template Changes</h4>
+
+<p>The Gulpfile used in the <a href="https://github.com/zurb/foundation-apps-template">template stack</a> now uses the <code>gulp-load-plugins</code> library to streamline use of plugins. <strong>If you have an existing project, you don't need to change anything to upgrade.</strong></p>
+
+<h4>New Features</h4>
+
+<ul>
+<li><strong>Stacking notifications.</strong> (#388) Dynamically-called notifications will now stack when you call more than one.</li>
+<li><strong>Responsive Iconic icons.</strong> (#408) Iconic icons are now fluid by default, which means they will adjust their geometry based on the width of the parent container.</li>
+<li><strong>Staggered animations.</strong> (#394) When using our motion classes in conjunction with the <code>ng-repeat</code>, you can now add a stagger class to make items animate in sequence. Add the class <code>.stagger</code>, <code>.short-stagger</code>, or <code>.long-stagger</code> to an element to enable the stagger effect.</li>
+<li>#376: Added <code>.info</code> and <code>.dark</code> coloring classes to buttons.</li>
+<li>#436: The items in a menu bar can be aligned with <code>.align-right</code>, <code>.align-center</code>, <code>.align-justify</code>, or <code>.align-spaced</code>. These classes mimic the behavior of the grid alignment classes.</li>
+<li>Notifications can now be assigned a timeout by adding the <code>autoclose</code> attribute. The value of <code>autoclose</code> is the number of milliseconds to wait before closing.</li>
+<li>The speed of all animations has been increased slightly. The default felt just a <em>little</em> too slow.</li>
+</ul>
+
+<h4>Bug Fixes</h4>
+
+<p><strong>CSS:</strong></p>
+
+<ul>
+<li>#194: Fixed modals not scrolling when they overflow their parent.</li>
+<li>#412: <code>&lt;button&gt;</code> and <code>&lt;input&gt;</code> elements can be used as prefix/postfix elements in forms now, in addition to <code>&lt;a&gt;</code>.</li>
+<li>#417: Added padding to <code>&lt;select&gt;</code> elements to prevent the text from overlapping with the arrow.</li>
+<li>#435: Fixed a misnamed parameter in the <code>grid-block()</code> mixin.</li>
+<li>#438: Fixed display issues with <code>&lt;select&gt;</code> elements in Firefox.</li>
+<li>#453: Fixed block list checkboxes being misaligned.</li>
+<li>Fixed the <code>.dialog</code> class and sizing classes of modals not working.</li>
+<li>The CSS for badges was refactored so they're sized with width and height instead of padding.</li>
+<li>The pointer cursor is now used when hovering over any anchor (<code>&lt;a&gt;</code>) or any element with the <code>ui-sref</code> attribute.</li>
+</ul>
+
+<p><strong>JavaScript:</strong></p>
+
+<ul>
+<li>#363: Fixed <code>zf-close</code> not working when placed outside of a component.</li>
+<li>#420: Fixed panel/block animations triggering even though the element is in block mode.</li>
+<li>#427: Fixed the <code>pin-at</code> directive not passing its value to Tether.</li>
+<li>#448: Fixed invalid <code>$scope.params</code> property on the DefaultController controller.</li>
+<li>If a component is closed or opened while a transition is in progress, the transition will reverse.</li>
+</ul>
+
+
+<hr>
+
+<h3>Version 1.0.2</h3>
+
+<p><em>December 23, 2014</em></p>
+
+<p><strong>Foundation for Apps is now on npm!</strong> <code>npm install foundation-apps</code></p>
+
+<p><strong>Upgrading from an older version?</strong> We changed how our Angular plugins are structured, which means an existing app's build process will need to be changed slightly.</p>
+
+<ul>
+<li><strong>If you're using our template stack as-is:</strong>
+<ul>
+<li>Replace your existing <code>Gulpfile.js</code> with the <a href="https://github.com/zurb/foundation-apps-template/blob/master/gulpfile.js">new Gulpfile</a>.</li>
+<li>Copy the <a href="https://github.com/zurb/foundation-apps-template/blob/master/client/assets/js/app.js">new app.js</a> file into the folder <code>client/assets/js/</code>.</li>
+</ul></li>
+<li>If you need to upgrade a project with a custom build process:
+<ul>
+<li>To capture every plugin's JavaScript files in a single blob, use <code>bower_components/foundation-apps/js/angular/**/*.js</code>.</li>
+<li>The Bower package no longer includes an <code>app.js</code> file. You can use our template stack's file as a baseline to write your own.</li>
+<li>To capture every plugin's HTML template, use <code>bower_components/foundation-apps/js/angular/components/**/*.html</code>.</li>
+</ul></li>
+</ul>
+
+<p><strong>Codebase changes:</strong></p>
+
+<ul>
+<li>#282: The Angular code has been refactored to be more streamlined and more modular. Each UI component now has its own folder, which includes the component's JavaScript and HTML template. The template stack has been updated to properly compile the new asset structure. <strong>If you're upgrading an existing project, follow the above instructions to get everything set.</strong>
+<ul>
+<li>The Bower package no longer includes an <code>app.js</code> file. Instead, a sample file has been included in the <code>client</code> folder of the template stack.</li>
+</ul></li>
+<li>#108: Every Sass function now has a unit test. Run <code>gulp sass:test</code> to run the test suite.</li>
+<li>#338: The Sass settings file is now automatically generated based on the variables inside each component's Sass file, with the command <code>gulp settings</code>. The <a href="https://github.com/zurb/foundation-settings-parser">settings parser plguin</a> will be maintained as a separate codebase. The plugin pulls the variables out of each Sass file, after which:
+<ul>
+<li>Every component's variables are combined into one settings file, organized by component.</li>
+<li>Each individual component's variables are output as an HTML partial, to be displayed on that component's documentation.</li>
+</ul></li>
+</ul>
+
+<p><strong>New features:</strong></p>
+
+<ul>
+<li><strong>Touch support!</strong> We added the <a href="http://ryanmullins.github.io/angular-hammer/">Hammer.js Angular library</a> to our codebase, which allows you to trigger functions with touch gestures, using directives like <code>hm-swipeup</code> and <code>hm-pinchin</code>.
+<ul>
+<li>We added one custom directive, <code>zf-touch-close</code>, which allows you to trigger the <code>close</code> event on an element by swiping. We'll add more features in future versions.</li>
+</ul></li>
+<li>#301: Menu bars can now switch between the expanded and condensed styles at different screen sizes, using these classes: <code>condense</code>, <code>medium-condense</code>, <code>large-condense</code>, <code>medium-expand</code>, <code>large-expand</code>.</li>
+<li>#335: Menu bars can now be wrapped in a <code>menu-bar-group</code> container, which allows two menu bars to sit on the same row, aligned to the left and the right. Learn more <a href="http://foundation.zurb.com/apps/docs/#!/menu-bar">here</a>.</li>
+<li>#342: The <code>src</code> attribute of an Iconic icon can now be dynamically inserted. Instead of <code>data-src</code>, define the icon's source with the <code>dyn-src</code> attribute on a <code>zf-iconic</code> element.</li>
+</ul>
+
+
+<hr>
+
+<h3>Version 1.0.1</h3>
+
+<p><em>December 12, 2014</em></p>
+
+<p>Lots of fixes for the Sass, JavaScript, and documentation. Thanks so much to everyone who's been giving feedback, reporting bugs, and most importantly, <em>fixing our typos</em> this past week.</p>
+
+<h4>CSS</h4>
+
+<ul>
+  <li>Fixed an alignment issue with action sheet dropdowns.</li>
+  <li>#157: Fixed misbehaving box shadows on panels.</li>
+  <li>#180: Added a PNG fallback for the SVG icons used in block lists, for IE10.</li>
+  <li>#212: Corrected a misused parameter in the `grid-frame()` and `grid-block()` mixins.</li>
+  <li>#215: Removed unused text direction variables.</li>
+  <li>#225: Fixed some components not working inside of an off-canvas menu because of selector specificity.</li>
+  <li>#226: Configured the Gulpfile to catch Sass errors instead of exiting.</li>
+  <li>#268: Changed `map-serialize()` to escape quotes in the outputted JSON.</li>
+  <li>#247: Set the `$accordion-title-background-active` variable to be relative to </li>`$accordion-title-background`.
+  <li>#261: `$tab-title-background-active` got the same treatment.</li>
+  <li>#295: Fixed a error that came up when creating a media query with `@include breakpoint(xxlarge only)`.</li>
+</ul>
+
+<h4>JavaScript</h4>
+
+<ul>
+  <li>Added the `zf-hard-toggle` directive, to force other open components to close when the targeted component opens.</li>
+  <li>Integrated the FastClick library.</li>
+  <li>#199: Modals can be configured to not close when clicked outside of.</li>
+  <li>#258: Accordions can be set to allow every item to be closed at once with `collapsible="true"`.</li>
+  <li>#260: Added the element restriction to action sheets.</li>
+  <li>#274: Added a timeout to hide elements that are missing an animationOut class.</li>
+  <li>#290: Updated the Gulpfile to properly run `copy` when template pages are added or removed.</li>
+</ul>
+
+<hr>
+
+<h3>Version 1.0.0 — Matterhorn</h3>
+
+<p>Welcome to Foundation for Apps 1.0.0! Thanks for swinging by to try it out.</p>
+
+<p>Our initial release of the framework includes:</p>
+<ul>
+  <li><strong>An awesome, responsive flexbox-based grid</strong> for creating robust, responsive app layouts.</li>
+  <li><strong>The Motion UI library</strong> for easily animating pages and components. You can also use our mixins to write custom animations.</li>
+  <li><strong>Our Gulp-powered Angular helpers</strong> which allow you to harness the power of the Angular UI Router library without writing any JavaScript.</li>
+</ul>
+
+<p>The framework also includes these sweet components:</p>
+<ul>
+ <li>Block list</li>
+ <li>Button</li>
+ <li>Button group</li>
+ <li>Card</li>
+ <li>Forms</li>
+ <li>Label and badge</li>
+ <li>Menu bar</li>
+ <li>Switch</li>
+ <li>Title bar</li>
+ <li>Typography</li>
+ <li>Visibility and utility classes</li>
+</ul>
+
+<p>These components are also available as Angular directives:</p>
+<ul>
+ <li>Accordion</li>
+ <li>Action sheet</li>
+ <li>Modal</li>
+ <li>Notification</li>
+ <li>Off-canvas</li>
+ <li>Panel</li>
+ <li>Popup</li>
+ <li>Tabs</li>
+</ul>
+
+<h4>How to Contribute</h4>
+
+<p>We love feedback! Help us find bugs and suggest improvements or new features. Follow us on Twitter at [@ZURBFoundation](https://twitter.com/zurbfoundation) to keep up-to-date with what's new, or to just shoot the breeze.</p>
+
+<p>If you find a problem or have an idea, open a [new issue](https://github.com/zurb/foundation-apps/issues) on GitHub. When filing a bug report, make sure you specify the browser and operating system you're on, and toss us a screenshot or show us how we can recreate the issue.</p>
+
+<h4>Known Issues</h4>
+
+<ul>
+ <li>Some issues with the flexbox grid in IE10</li>
+ <li>Mobile Safari doesn't place fixed-position elements (modals, notifications) at the </li>right z-index — <a href="https://github.com/zurb/foundation-apps/issues/190">#190</a>
+ <li>Range sliders aren't properly styled in IE10+ — <a href="https://github.com/zurb/foundation-apps/issues/191">#191</a></li>
+</ul>
+
+<hr>
+
+<h3>Version 1.0.0 RC1 — Mont Blanc</h3>
+
+<p>It's our 1.0 release candidate! Thanks for stopping by to take a look.</p>
+
+<h4>How to mess with it</h4>
+
+<p>If you want a quick way to jump in, check out our <a href="https://github.com/zurb/foundation-apps-template">starter template</a>, which has a basic directory structure and a blank index file for you to work with. Follow the instructions in the <a href="https://github.com/zurb/foundation-apps-template/blob/master/readme.md">readme</a> to get going.</p>
+
+<p>The first thing you'll probably want to check out is the grid. If you compile this repo on your machine, you can find the grid documentation at <a href="http://localhost:8080/#!/grid">http://localhost:8080/#!/grid</a>. You can also view the source of that file <a href="https://github.com/zurb/foundation-apps/blob/master/docs/templates/grid.html">here</a>.</p>
+
+<p>To incorporate our Sass components and Angular directives into your own project, install Foundation using Bower:</p>
+
+<hljs>
+bower install zurb/foundation-apps
+</hljs>
+
+<p>The JavaScript is organized into common components, specific directives, and vendor files. There's also a sample `app.js` that shows how to import the Foundation modules, but you'll likely want to set up your Angular application your own way.</p>
+
+<h4>How to contribute</h4>
+
+<p>We love feedback! We have a few <a href="https://github.com/zurb/foundation-apps/issues?q=is%3Aopen+is%3Aissue+label%3Adiscussion">discussion topics</a> open on our issue tracker, but if you have more specific feedback, please open a new issue! If you encounter any bugs, let us know as well. Be sure to specify the browser and operating system you're using, and show us how we can recreate the issue. Code samples are great!</p>
+
+<h4>What's left</h4>
+
+<p>The codebase is very close to feature-complete. Here are the things we're still working on:</p>
+<ul>
+ <li>Fully-working motion classes (see #113)</li>
+ <li>Loose ends on components (see #109, #110, #111)</li>
+ <li>Animation on directives (see #107)</li>
+ <li>Unit tests for Angular and Sass (see #106)</li>
+ <li>A finished settings file</li>
+ <li>The command-line interface (being built in a separate repo, currently private)</li>
+ <li>Testing, testing, testing</li>
+</ul>

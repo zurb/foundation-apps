@@ -1,0 +1,152 @@
+---
+name: sass
+url: /sass
+title: Using Sass
+---
+
+<h2>Using Sass</h2>
+<h3 class="subheader">All of the Foundation frameworks are written in Sass, which allows us to make the codebase customizable and flexible.</h3>
+
+<hr>
+
+<div class="card docs-callout">
+  <p>Not familiar with Sass? The <a href="http://sass-lang.com/guide">official tutorial</a> on sass-lang.com is a great place to start.</p>
+</div>
+
+<hr>
+
+<section>
+  <h3>Compatability</h3>
+
+  <img src="assets/img/logos/sass.svg" alt="Sass logo" class="float-right show-for-medium" style="width: 150px; height: 150px; margin-left: 1rem;">
+
+  <p><strong>Foundation for Apps can be compiled with Ruby Sass and libsass.</strong> We tend to stick to the latest versions of both compilers when possible. Our documentation and starter project are compiled with node-sass, a JavaScript port of libsass. The codebase works with these versions of each compiler:</p>
+
+  <ul>
+    <li>Ruby Sass <strong>3.4+</strong></li>
+    <li>node-sass <strong>1.2.3+</strong> (libsass <strong>3.1</strong>)</li>
+  </ul>
+
+  <section>
+    <h4>Autoprefixer Required</h4>
+
+    <p>We don't include vendor prefixes in our Sass files&mdash;instead, we use <a href="https://github.com/postcss/autoprefixer">Autoprefixer</a> to handle it for us. Our build process uses <a href="https://github.com/sindresorhus/gulp-autoprefixer">gulp-autoprefixer</a>, but there are <a href="https://github.com/postcss/autoprefixer#usage">other versions</a> that work with Grunt, Rails, Brunch, and more.</p>
+
+    <p>To get the proper browser support, use these Autoprefixer settings:</p>
+
+<hljs language="javascript">
+autoprefixer({
+  browsers: ['last 2 versions', 'ie 10']
+})
+</hljs>
+  </section>
+</section>
+
+<hr>
+
+<section>
+  <h3>Using the Framework</h3>
+
+  <p>If you're using the CLI to create a project, the Sass compilation process is already set up for you. If not, you can compile our Sass files yourself, or drop in a pre-built CSS file.</p>
+
+  <p>To get started, first install the framework files using Bower or npm.</p>
+
+<hljs language="bash">
+bower install foundation-apps --save
+</hljs>
+
+  <section>
+    <h4>Compiling Manually</h4>
+
+    <p>Next, add the framework files as an import path. How you do this depends on your build process, but the path is the same regardless: <code>bower_components/foundation-apps/scss</code></p>
+
+    <p>Here's an example using grunt-contrib-sass:</p>
+
+<hljs language="javascript">
+grunt.initConfig({
+  sass: {
+    dist: {
+      options: {
+        loadPath: ['bower_components/foundation-apps/scss']
+      }
+    }
+  }
+});
+</hljs>
+
+    <p>If you're using Compass, open your project's <code>config.rb</code> and add the import path there:</p>
+
+<hljs language="ruby">
+add_import_path "bower_components/foundation-apps/scss"
+</hljs>
+  </section>
+
+  <section>
+    <h4>Using the CSS File</h4>
+
+    <p>The Foundation for Apps Bower and npm packages include pre-compiled CSS files, in minified (compressed) and unminified flavors. If you're interested in editing the framework CSS directly, use the unminified file. For production, use the minified version.</p>
+
+<hljs language="html">
+<!-- Uncompressed version -->
+<link rel="stylesheet" href="bower_components/foundation-apps/dist/css/foundation-apps.css">
+
+<!-- Compressed version -->
+<link rel="stylesheet" href="bower_components/foundation-apps/dist/css/foundation-apps.min.css">
+</hljs>
+  </section>
+</section>
+
+<hr>
+
+<section>
+  <h3>The Settings File</h3>
+
+  <p>All Foundatiion projects include a <em>settings file</em>, named <code>_settings.scss</code>. If you're using the CLI to create a Foundation for Apps project, you can find the settings file under <code>client/assets/scss/</code>. If you're installing the framework standalone using Bower or npm, there's a settings file included in those packages, which you can move into your own Sass files to work with.</p>
+
+  <p>Every component includes a set of variables that modify core structural or visual styles. If there's something you can't customize with a variable, you'll need to write your own CSS to add it.</p>
+
+  <p>To change a default value, find the variable you're looking for, uncomment it by removing the slashes (<code>//</code>) at the start of the line, and change the value. Uncommenting signifies that you want the value to change, and also functions as a handy visual aid to see which defaults you're overriding.</p>
+
+  <p>Here's an example set of settings variables. These change the default styling of <a ui-sref="button">buttons</a>:</p>
+
+<hljs language="scss">
+$button-padding: 0.85em 1em !default;
+$button-margin: 0 $global-padding $global-padding 0 !default;
+$button-style: solid !default;
+$button-background: $primary-color !default;
+$button-color: auto !default;
+$button-radius: 0 !default;
+$button-sizes: (
+  tiny: 0.7,
+  small: 0.8,
+  medium: 1,
+  large: 1.3,
+) !default;
+$button-font-size: 0.9rem !default;
+$button-opacity-disabled: 0.5 !default;
+$button-tag-selector: true !default;
+</hljs>
+</section>
+
+<hr>
+
+<section>
+  <h3>Component Mixins</h3>
+
+  <p>Every Foundation component is written with multiple Sass mixins. We use these mixins to generate the final CSS output. But you don't need to use our built-in classes! Using the mixins, you can build your own class structure.</p>
+
+  <p>Here's a basic example, using the <code>button()</code> mixin.</p>
+
+<hljs>
+// Example mixin for custom button 
+.cta-button { 
+  @include button($size: large, $background: pink, $color: white); 
+}
+</hljs>
+
+  <p>Then you can use your custom button with this HTML:</p>
+
+<hljs>
+<a href="#" class="cta-button">Buy Now</a>
+</hljs>
+</section>

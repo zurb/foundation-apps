@@ -1,0 +1,139 @@
+---
+name: accordion
+url: /accordion
+title: Accordion
+---
+
+<h2>Accordion</h2>
+<h3 class="subheader">The trusty accordion allows you to create a series of vertical tabs containing various content.</h3>
+
+<hr />
+
+<zf-accordion>
+  <zf-accordion-item
+    title="Input your title here">
+    Content goes here
+  </zf-accordion-item>
+    <zf-accordion-item
+    title="Input your title here">
+    Content goes here
+  </zf-accordion-item>
+    <zf-accordion-item
+    title="Input your title here">
+    Content goes here
+  </zf-accordion-item>
+</zf-accordion>
+
+<hr />
+
+<h3>Basic HTML</h3>
+<p>You can create an accordion with this basic directive</p>
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+<hljs>
+  <zf-accordion>
+    <zf-accordion-item
+      title="Input your title here">
+      Content goes here
+    </zf-accordion-item>
+      <zf-accordion-item
+      title="Input your title here">
+      Content goes here
+    </zf-accordion-item>
+      <zf-accordion-item
+      title="Input your title here">
+      Content goes here
+    </zf-accordion-item>
+  </zf-accordion>
+</hljs>
+  </div>
+  <div class="small-12 medium-6 grid-content">
+    <zf-accordion>
+		  <zf-accordion-item
+		    title="Input your title here">
+		    Content goes here
+		  </zf-accordion-item>
+		    <zf-accordion-item
+		    title="Input your title here">
+		    Content goes here
+		  </zf-accordion-item>
+		    <zf-accordion-item
+		    title="Input your title here">
+		    Content goes here
+		  </zf-accordion-item>
+		</zf-accordion>
+  </div>
+</div>
+
+<hr>
+
+<h3>Advanced HTML</h3>
+<p>You can create advanced versions of an accordion with these additional directive options</p>
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+<hljs>
+<zf-accordion auto-open="false" collapsible="true" multi-open="true">
+  <zf-accordion-item
+    title="Auto Open">
+    Auto open opens the first tab on render.
+  </zf-accordion-item>
+    <zf-accordion-item
+    title="Collapsible">
+    Collapsible allows toggable tabs. Click on a tab to open or close it.
+  </zf-accordion-item>
+    <zf-accordion-item
+    title="Multi Open">
+    Multi open allows for multiple tabs to be open at once.
+  </zf-accordion-item>
+</zf-accordion>
+</hljs>
+  </div>
+  <div class="small-12 medium-6 grid-content">
+    <zf-accordion auto-open="false" collapsible="true" multi-open="true">
+      <zf-accordion-item
+        title="Auto Open">
+        Auto open opens the first tab on render. Defaults to "true"
+      </zf-accordion-item>
+        <zf-accordion-item
+        title="Collapsible">
+        Collapsible allows toggable tabs. Click on a tab to open or close it. Defaults to "false"
+      </zf-accordion-item>
+        <zf-accordion-item
+        title="Multi Open">
+        Multi open allows for multiple tabs to be open at once. Defaults to "false". When true, it forces collapsible to be "true" as well. It cannot be overriden.
+      </zf-accordion-item>
+    </zf-accordion>
+  </div>
+</div>
+
+<hr />
+
+<h3>Sass Mixins</h3>
+
+<p>Use our mixins to write a custom accordion. There are only mixins for the two components of accordion items: the title and the content.</p>
+
+<hljs>
+.custom-accordion-title {
+  @include accordion-title(
+    $background: #fff, // Default background
+    $background-hover: #fff, // Background on hover
+    $background-active: #fff, // Background when active
+    $color: #000, // Default color
+    $color-active: #000, // Color when active
+    $padding: 1rem
+  );
+}
+
+.custom-accordion-content {
+  @include accordion-content(
+    $padding: 1rem
+  );
+}
+</hljs>
+
+<hr>
+
+<h3>Sass Variables</h3>
+<p>You can customize the accordion with these variables in <code>_settings.scss</code></p>
+<hljs include="'partials/scss/accordion.html'" language="scss">
+</hljs>

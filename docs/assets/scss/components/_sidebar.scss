@@ -1,0 +1,69 @@
+// Sidebar
+// -------
+// The sidebar navigation menu.
+
+.docs-sidebar {
+  padding: 0 !important;
+  background: #f9f9f9 !important;
+  border-right: 1px solid #e7e7e7;
+  transition-timing-function: get-timing(bounceInOut) !important;
+
+  @media screen and (min-width: map-get($breakpoints, medium)) {
+    @include grid-panel-reset;
+    @include grid-block(3);
+    @include grid-orient(vertical);
+  }
+
+  @media screen and (min-width: map-get($breakpoints, large)) {
+    @include grid-size(2);
+  }
+
+  .button {
+    width: auto;
+    margin-left: $global-padding;
+    margin-right: $global-padding;
+    margin-bottom: 0;
+
+    @include breakpoint(small only) {
+      display: inline-block;
+      width: 50%;
+      margin-top: 1rem;
+    }
+  }
+
+  .menu-bar {
+    background: #f9f9f9 !important;
+
+    a {
+      font-size: .8rem;
+      color: $primary-color;
+      align-items: flex-start;
+      padding-top: 0.75rem;
+      padding-bottom: 0.75rem;
+    }
+
+    .title {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      color: #666;
+      font-weight: bold;
+      padding-top: 1rem;
+      padding-bottom: 0.25rem;
+    }
+  }
+
+  .has-js a::after {
+    content: 'JS';
+    background: #bbb;
+    font-weight: bold;
+    color: #fff;
+    font-size: rem-calc(10);
+    display: inline;
+    padding: 3px 5px;
+    border-radius: 3px;
+    margin-bottom: -7px;
+    position: relative;
+    top: -2px;
+    margin-left: 10px;
+  }
+}

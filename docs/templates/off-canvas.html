@@ -1,0 +1,111 @@
+---
+name: off-canvas
+url: /off-canvas
+title: Off Canvas
+---
+
+<h2>Off-canvas</h2>
+<h3 class="subheader">A container that is hidden off-screen and pushes its way in view when needed. It can be opened from the top, bottom, right, or left of the screen.</h3>
+
+<hr>
+
+<a class="button" href="#" zf-hard-toggle="example-canvas-top">Open Top Off-canvas</a>
+<a class="button" href="#" zf-hard-toggle="example-canvas-right">Open Right Off-canvas</a>
+<a class="button" href="#" zf-hard-toggle="example-canvas-bottom">Open Bottom Off-canvas</a>
+<a class="button" href="#" zf-hard-toggle="example-canvas-left">Open Left Off-canvas</a>
+
+<hr>
+
+<h3>Basic HTML</h3>
+
+<p>An off-canvas pane must be placed <em>before</em> the frame of your app. This allows the frame to animate in and out along with the pane.</p>
+
+<hljs>
+<zf-offcanvas position="left">
+  <!-- Off-canvas content -->
+</zf-offcanvas>
+<div class="grid-frame">
+  <!-- Main app content -->
+</div>
+</hljs>
+
+<p>The pane can be positioned at the top, right, bottom, or left of the screen with the `position` attribute.</p>
+
+<hljs>
+<zf-offcanvas position="left">
+</zf-offcanvas>
+
+<zf-offcanvas position="bottom">
+</zf-offcanvas>
+</hljs>
+
+Add the `zf-open`, `zf-close`, and `zf-toggle` directives to other elements to open and close the off-canvas pane.
+
+<hljs>
+<zf-offcanvas id="menu" position="left">
+  <a zf-close class="close-button">&times;</a>
+  <!-- Modal content -->
+</zf-offcanvas>
+
+<a zf-open="menu" class="button">Open Off-canvas</a>
+</hljs>
+
+<hr>
+
+<h3>Advanced HTML</h3>
+
+<p>Add the `detached` class to an off-canvas to change how the animation works. Instead of sliding with the frame, the off-canvas pane will stay in place, as the pane slides to reveal the pane.</p>
+
+<hljs>
+<zf-offcanvas position="left" class="detached">
+</zf-offcanvas>
+</hljs>
+
+<p>Lastly, the off-canvas pane supports the coloring classes `primary` and `dark`:</p>
+
+<hljs>
+<zf-offcanvas position="left" class="primary">
+</zf-offcanvas>
+</hljs>
+
+<hr>
+
+<h3>Sass Mixins</h3>
+
+<p>Use the off-canvas mixins to write your own custom classes for this component.</p>
+
+<hljs no-escape>
+.custom-off-canvas {
+  // Extend the off-canvas selector to get the basic structural styles
+  @extend %off-canvas;
+
+  // Use this mixin to set the position and size of the menu
+  // The shadow is also included in this mixin; its style will change depending on the position of the pane
+  @include off-canvas-layout(
+    $position: left, // Can be top, right, bottom, or left
+    $size: default, // Can be a px, rem, or em value. "default" will use the values in the settings variables
+    $shadow: $offcanvas-shadow // Pass in a shadow value with a Y offset, like 0 2px 10px black
+  );
+
+  // Use this mixin to define visual styles for the pane
+  @include off-canvas-style(
+    $background: $offcanvas-background, // Background color
+    $color: $offcanvas-color, // Text color
+    $padding: $offcanvas-padding // Padding inside the pane
+  );
+
+  &.custom-detached-class {
+    // Use this mixin to add the detached visual style
+    @include off-canvas-detached;
+  }
+}
+</hljs>
+
+<hr>
+
+<h3>Sass Variables</h3>
+
+<p>Use these variables to customize the basic off-canvas menu.</p>
+
+<hljs include="'partials/scss/off-canvas.html'" language="scss">
+</hljs>

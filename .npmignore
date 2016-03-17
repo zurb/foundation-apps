@@ -1,0 +1,12 @@
+.*
+bower_components
+build
+docs
+node_modules
+tests
+CONTRIBUTING.md
+Gemfile
+Gemfile.lock
+gulpfile.js
+karma.conf.js
+scss/_includes.scss

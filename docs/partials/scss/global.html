@@ -1,0 +1,48 @@
+// This sets 1rem to be 16px
+$rem-base: 16px;
+
+// The default font-size is set to 100% of the browser style sheet (usually 16px)
+// for compatibility with browser-based text zoom or user-set defaults.
+
+// Since the typical default browser font-size is 16px, that makes the calculation for grid size.
+// If you want your base font-size to be different and not have it affect the grid breakpoints,
+// set $rem-base to $base-font-size and make sure $base-font-size is a px value.
+$base-font-size: 100%;
+
+$base-line-height is 24px while $base-font-size is 16px
+$base-line-height: 1.5;
+
+// Text selector helpers
+$headers: "h1,h2,h3,h4,h5,h6";
+
+// We use these to define default font weights
+$font-weight-normal: normal;
+$font-weight-bold: bold;
+
+// We use these to control various global styles
+$body-background: #fff;
+$body-font-color: #222;
+$body-font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+$body-font-weight: $font-weight-normal;
+$body-font-style: normal;
+$body-antialiased: true;
+
+// Application Colors
+$primary-color: #00558b;
+$secondary-color: #f1f1f1;
+$alert-color: #F04124;
+$info-color: #A0D3E8;
+$success-color: #43AC6A;
+$warning-color: #F08A24;
+$dark-color: #232323;
+$gray: #dfdfdf;
+$gray-dark: darken($gray, 8);
+$gray-light: lighten($gray, 8);
+
+// We use these to make sure border radius matches unless we want it different.
+$global-radius: 4px;
+$global-rounded: 1000px;
+
+// We use this for default spacing
+$global-padding: 1rem;
+$global-spacing: rem-calc(15); 

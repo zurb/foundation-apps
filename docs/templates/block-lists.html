@@ -1,0 +1,280 @@
+---
+name: block-list
+url: /block-list
+title: Block List
+---
+
+<h2> Block List</h2>
+<h3 class="subheader">A useful list component that can accommodate a variety of styles and controls.</h3>
+
+<hr />
+
+<section class="block-list">
+  <header>List title</header>
+  <ul>
+    <!-- With a label -->
+    <li class="with-chevron"><a href="#">List item 1</a></li>
+    <li class="with-chevron"><a href="#">List item 2</a></li>
+    <li><a href="#">List item 3</a></li>
+  </ul>
+</section>
+
+<hr />
+
+<h3>Basic HTML</h3>
+<p>You can create a block list with this basic HTML</p>
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+
+<hljs>
+<section class="block-list">
+  <header>List title</header>
+  <ul>
+    <!-- With a label -->
+    <li class="with-chevron"><a href="#">List item 1</a></li>
+    <li class="with-chevron"><a href="#">List item 2</a></li>
+    <li><a href="#">List item 3</a></li>
+  </ul>
+</section>
+</hljs>
+
+  </div>
+  <div class="small-12 medium-6 grid-content">
+    <section class="block-list">
+      <header>List title</header>
+      <ul>
+        <!-- With a label -->
+        <li class="with-chevron"><a href="#">List item 1</a></li>
+        <li class="with-chevron"><a href="#">List item 2</a></li>
+        <li><a href="#">List item 3</a></li>
+      </ul>
+    </section>
+  </div>
+</div>
+
+<hr />
+
+<h3>Advanced HTML</h3>
+<p>You can create advanced versions of block lists that include form elements and icons with this HTML.</p>
+
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+
+<hljs>
+<section class="block-list">
+  <header>I'm a Checkbox</header>
+  <ul>
+    <li>
+      <input type="checkbox" id="life">
+      <label for="life">Yeah!</label>
+    </li>
+    <li>
+      <input type="checkbox" id="rad">
+      <label for="rad">Radical!</label>
+    </li>
+  </ul>
+</section>
+
+<section class="block-list">
+  <header>I Have Radio Buttons</header>
+  <ul>
+    <li>
+      <input type="radio" name="delicious" id="eggs" value="eggs" checked>
+      <label for="eggs">Eggs</label>
+    </li>
+    <li>
+      <input type="radio" name="delicious" id="bacon" value="bacon">
+      <label for="bacon">Bacon</label>
+    </li>
+    <li>
+      <input type="radio" name="delicious" id="toast" value="toast">
+      <label for="toast">Toast</label>
+    </li>
+  </ul>
+</section>
+
+<section class="block-list">
+  <header>Look, I gotta Switch</header>
+  <ul>
+    <li>
+      <span>Switch!</span>
+      <div class="switch">
+        <input type="checkbox" id="switchOne">
+        <label for="switchOne"></label>
+      </div>
+    </li>
+  </ul>
+</section>
+
+<section class="block-list">
+  <header>I Hold Forms</header>
+  <ul>
+    <li><input type="text" placeholder="User name"></li>
+    <li><input type="password" placeholder="Password"></li>
+  </ul>
+</section>
+
+<section class="block-list">
+  <header>I Even Have Selectboxes</header>
+  <ul>
+    <li class="with-dropdown"><select name="" id="">
+      <option>Now</option>
+      <option>Later</option>
+      <option>Eventually</option>
+      <option>Forever</option>
+    </select></li>
+  </ul>
+</section>
+</hljs>
+
+  </div>
+  <div class="small-12 medium-6 grid-content">
+    <section class="block-list">
+      <header>I'm a Checkbox</header>
+      <ul>
+        <li>
+          <input type="checkbox" id="life">
+          <label for="life">Yeah!</label>
+        </li>
+        <li>
+          <input type="checkbox" id="rad">
+          <label for="rad">Radical!</label>
+        </li>
+      </ul>
+    </section>
+
+    <section class="block-list">
+      <header>I Have Radio Buttons</header>
+      <ul>
+        <li>
+          <input type="radio" name="delicious" id="eggs" value="eggs" checked>
+          <label for="eggs">Eggs</label>
+        </li>
+        <li>
+          <input type="radio" name="delicious" id="bacon" value="bacon">
+          <label for="bacon">Bacon</label>
+        </li>
+        <li>
+          <input type="radio" name="delicious" id="toast" value="toast">
+          <label for="toast">Toast</label>
+        </li>
+      </ul>
+    </section>
+
+    <section class="block-list">
+      <header>Look, I gotta Switch</header>
+      <ul>
+        <li>
+          <span>Switch!</span>
+          <div class="switch">
+            <input type="checkbox" id="switchOne">
+            <label for="switchOne"></label>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <section class="block-list">
+      <header>I Hold Forms</header>
+      <ul>
+        <li><input type="text" placeholder="User name"></li>
+        <li><input type="password" placeholder="Password"></li>
+      </ul>
+    </section>
+
+    <section class="block-list">
+      <header>I Even Have Selectboxes</header>
+      <ul>
+        <li class="with-dropdown"><select name="" id="">
+          <option>Now</option>
+          <option>Later</option>
+          <option>Eventually</option>
+          <option>Forever</option>
+        </select></li>
+      </ul>
+    </section>
+  </div>
+</div>
+
+<hr>
+
+<h3>Sass Mixins</h3>
+
+<p>Use our Sass mixins to define your own markup structure for a block list.</p>
+
+<hljs no-escape>
+// This is the block list container
+.custom-block-list {
+  // This gets you basic styles
+  @include block-list-container(
+    $font-size: 1rem, // Base font size for entire list
+    $full-bleed: true // If true, negative margins are added on the left and right to push the list to the edge of the container
+  );
+
+  // This adds support for text fields, dropdowns, and radio/check inputs
+  @include block-list-inputs(
+    $color: #000, // Foreground color
+    $background, #fff, // Background color
+    $background-hover: #fff, // Background color of elements on hover
+    $padding: 1rem, //
+  );
+
+  // This adds support for icons
+  &.with-icons {
+    @include block-list-icons(
+      $size: 0.8, // This should be a decimal point. 0.8 makes the icon 80% the size of its parent
+      $item-selector: 'li' // This should be whatever tag or class your block list uses for items
+    );
+  }
+
+  // Define what tag or class your list items are with this mixin
+  li {
+    @include block-list-item(
+      $color: #000, // Color of items
+      $color-hover, // Color of items on hover
+      $color-disabled, // Color of items when disabled
+      $background: transparent, // Background color
+      $background-hover: #ccc, // Background color on hover
+      $border: 1px solid #ccc, // Top and bottom border of items
+      $padding: 1rem
+    );
+
+    // Add styles for list items with chevrons
+    &.with-chevron {
+      @include block-list-chevron(
+        $color: #000, // Color of chevron
+        $padding: 1rem, // Insert the same padding as the block list item here
+        $label-class: 'block-list-label' // Insert the class you're using for labels
+      );
+    }
+  }
+
+  // Define what tag or class your headers are with this mixin
+  header {
+    @include block-list-header(
+      $color: #000, // Text color
+      $font-size: 1rem, // Font size
+      $uppercase: true, // If true, the text becomes all-caps
+      $offset: 1rem // Left-side offset for text
+    );
+  }
+
+  // Define the class for labels
+  .block-list-label {
+    @include block-list-label(
+      $color: #999, // Color of label
+      $left-class: 'left', // Define a modifier class for left-aligned labels
+      $left-padding: 1rem // Padding to add when a label is left-aligned
+    );
+  }
+}
+</hljs>
+
+<hr>
+
+<h3>Sass Variables</h3>
+
+<p>You can customize block lists with these settings variables.</p>
+
+<hljs include="'partials/scss/block-list.html'" language="scss">
+</hljs>

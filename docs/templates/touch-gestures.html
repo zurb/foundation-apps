@@ -1,0 +1,64 @@
+---
+name: touch-gestures
+url: /touch-gestures
+title: Touch Gestures
+---
+
+<h2>Touch Gestures</h2>
+
+<h3 class="subheader">Touch gestures are often used in devices like tablets and phones to make apps more accessible and intuitive to use. We have integrated Hammer.JS into our Angular core to create easy-to-use directives for gesture-based actions.</h3>
+
+<hr>
+
+<section>
+  <h3>Hammer.js Required</h3>
+
+  <p>Our touch directives use the <a href="http://hammerjs.github.io/">Hammer.js</a>, library, which makes it easy to hook into common touch actions like swiping, pinching, rotating, and more. Our starter project (installed through the CLI) includes Hammer.js by default.</p>
+</section>
+
+<hr>
+
+<section>
+  <h3>Swipe to Close</h3>
+
+  <p>Add the <code>zf-swipe-close</code> directive to a closable element, such as a panel, off-canvas menu, modal, or notification, to trigger a close when the user swipes over the component. The swipe direction is set on the directive, and can be either <code>up</code>, <code>down</code>, <code>left</code>, or <code>right</code>.</p>
+
+  <section>
+    <h4>Example Panel</h4>
+
+    <p>Here's an example of the swipe-to-close directive applied to a panel.</p>
+
+    <div class="grid-block">
+      <div class="small-12 medium-6 grid-content">
+<hljs language="html">
+<div zf-panel zf-swipe-close="left" class="docs-example-panel" id="example-touch-panel">
+  <a zf-close class="close-button">&times;</a>
+  <p>Swipe to the left to close this panel.</p>
+</div>
+</hljs>
+      </div>
+      <div class="small-12 medium-6 grid-content">
+        <a class="button" zf-toggle="example-touch-panel">Swipe Panel</a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h4>Example Modal</h4>
+
+    <p>In this example, the user can swipe up to dismiss the modal. We paired this gesture with an animation that slides the modal up as it fades out, by setting <code>animation-out="slideOutUp"</code> on the element.</p>
+
+    <div class="grid-block">
+      <div class="small-12 medium-6 grid-content">
+<hljs language="html">
+<div zf-modal zf-swipe-close="up" animation-out="slideOutUp" id="example-touch-modal" class="tiny dialog">
+  <p>Swipe up on this modal to close it.</p>
+</div>
+</hljs>
+      </div>
+      <div class="small-12 medium-6 grid-content">
+        <a class="button" zf-toggle="example-touch-modal">Swipe Modal</a>
+      </div>
+    </div>
+  </section>
+</section>

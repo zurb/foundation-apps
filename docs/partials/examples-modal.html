@@ -1,0 +1,45 @@
+<!-- Basic modal example -->
+<div zf-modal zf-advise id="basicModal">
+  <a zf-close class="close-button">&times;</a>
+  <h3>Back in my days...</h3>
+  <p>There were 3 Star Wars movies and Disney only made cartoons.</p>
+</div>
+
+<!-- Advanced modal example -->
+<div zf-modal id="advancedModal" class="collapse">
+  <div class="grid-block vertical">
+    <div class="primary title-bar">
+      <div class="center title">Title Bar</div>
+      <span zf-close class="left"><a>Close</a></span>
+      <span zf-close class="right"><a>Done</a></span>
+    </div>
+    <div class="grid-content padding" style="padding-top: 1rem;">
+     <p>
+      <img src="assets/img/mountain.jpg">
+      </p>
+     <a zf-close class="button">OK</a>
+     <a zf-close class="button">Cancel</a>
+    </div>
+  </div>
+</div>
+
+<!-- Animated modal example -->
+<div zf-modal id="animatedModal" animation-in="slideInDown" animation-out="hingeOutFromMiddleY">
+  <a zf-close class="close-button">&times;</a>
+  <p><em>Slide to the left</em></p>
+  <p class="text-right"><em>Slide to the right</em></p>
+  <p class="text-center"><em>Hinge from the center</em></p>
+</div>
+
+<!-- Dialog modal example -->
+<div zf-modal id="dialogModal" overlay="false" overlay-close="false" class="tiny dialog docs-example-dialog">
+  <h4>Yo, do you <em>really</em> want to do this?</h4>
+  <br>
+  <a zf-close class="alert button">Yeah</a>
+  <a zf-close class="secondary button">Nah</a>
+</div>
+
+<!-- Touch modal example -->
+<div zf-modal zf-swipe-close="up" animation-out="slideOutUp" id="example-touch-modal" class="tiny dialog">
+  <p class="text-center">Swipe up on this modal to close it.</p>
+</div>

@@ -1,0 +1,91 @@
+---
+name: title-bar
+url: /title-bar
+title: Title Bar
+---
+
+<h2>Title Bar</h2>
+<h3 class="subheader">A navigational component which can display the current screen the user is on, along with additional controls or menu items.</h3>
+
+<div class="primary title-bar">
+  <div class="center title">Title Bar</div>
+  <span class="left"><a href="#">Left Link</a></span>
+  <span class="right"><a href="#">Right Link</a></span>
+</div>
+
+<hr />
+
+<h3>Basic HTML</h3>
+<p>You can create a title bar with this basic HTML. Title bars can have left-, right-, and center-aligned sections. You can use one, two, or all three of them in any combination.</p>
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+<hljs>
+<div class="title-bar">
+  <span class="title left">Left</span>
+  <span class="right"><a href="#">Right</a></span>
+</div>
+<br>
+<div class="primary title-bar">
+  <div class="center title">Center</div>
+  <span class="left"><a href="#">Left</a></span>
+  <span class="right"><a href="#">Right</a></span>
+</div>
+<br>
+<div class="dark title-bar">
+  <span class="title center">Center</span>
+  <span class="right"><a href="#">Right</a></span>
+</div>
+</hljs>
+  </div>
+  <div class="small-12 medium-6 grid-content">
+    <div class="title-bar">
+		  <span class="title left">Left Site Name</span>
+		  <span class="right"><a href="#">Right Link</a></span>
+		</div>
+		<br>
+		<div class="primary title-bar">
+		  <div class="center title">Center</div>
+		  <span class="left"><a href="#">Left</a></span>
+		  <span class="right"><a href="#">Right</a></span>
+		</div>
+		<br>
+		<div class="dark title-bar">
+		  <span class="title center">Center</span>
+		  <span class="right"><a href="#">Right</a></span>
+		</div>
+  </div>
+</div>
+
+<p>Note that in the above examples, the center section is <em>always</em> written first in the HTML, even though it's in the middle. When creating the three sections, always put the HTML tags for them in this order: center, left, then right.</p>
+
+<hr>
+
+<h3>Sass Mixins</h3>
+
+<p>Write a title bar with a custom class using our mixins.</p>
+
+<hljs>
+.custom-title-bar {
+  // Extend the base selector to get core structural styles
+  @extend %title-bar;
+
+  // Add visual styles with this mixin
+  @include title-bar-style(
+    $background: #fff, // Background color
+    $color: #000, // Text color
+    $border: 1px solid #000,
+    $padding: 1rem
+  );
+}
+</hljs>
+
+<p>Note that the names of the <code>left</code>, <code>right</code>, <code>center</code>, and <code>title</code> classes can be changed in the settings variables&mdash;see below.</p>
+
+<hr>
+
+<h3>Sass Variables</h3>
+
+<p>You can customize with Title Bar with these variables in _settings.scss:</p>
+
+<hljs include="'partials/scss/title-bar.html'" language="scss">
+</hljs>

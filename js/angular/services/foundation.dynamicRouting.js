@@ -46,7 +46,7 @@
             parent: page.parent || '',
             controller: getController(page),
             data: getData(page),
-            animation: buildAnimations(page),
+            animation: buildAnimations(page)
           };
 
           if (page.controllerAs) {
@@ -68,15 +68,12 @@
               '': buildState(page.path, page)
             }
           };
-
           angular.forEach(page.children, function(sub) {
             state.views[sub.name + '@' + page.name] = buildState(sub.path, page);
           });
-
           if (page.controllerAs) {
             state.controllerAs = page.controllerAs;
           }
-
           $stateProvider.state(page.name, state);
       });
     };

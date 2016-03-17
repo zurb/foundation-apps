@@ -1,0 +1,303 @@
+---
+name: menu-bar
+url: /menu-bar
+title: Menu Bar
+---
+
+<h2>Menu Bar</h2>
+<h3 class="subheader">Our menu bar gives you the ability to switch between different subtasks, views, or modes in an app. It can be used vertically or horizontally.</h3>
+
+<hr>
+
+<ul class="primary menu-bar icon-left">
+  <li><a href="#"><img src="http://placehold.it/25x25">Email</a></li>
+  <li><a href="#"><img src="http://placehold.it/25x25">Apps</a></li>
+  <li><a href="#"><img src="http://placehold.it/25x25">Messages</a></li>
+  <li><a href="#"><img src="http://placehold.it/25x25">Friends</a></li>
+</ul>
+
+<hr>
+
+<h3>Basic HTML</h3>
+
+<p>Creating a basic menu bar is as easy as writing an unordered list with links.</p>
+
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+<hljs>
+<ul class="menu-bar">
+  <li><a href="#">Item</a></li>
+  <li><a href="#">Item</a></li>
+  <li><a href="#">Item</a></li>
+</ul>
+</hljs>
+  </div>
+  <div class="small-12 medium-6 grid-content">
+    <ul class="menu-bar">
+      <li><a href="#">Item</a></li>
+      <li><a href="#">Item</a></li>
+      <li><a href="#">Item</a></li>
+    </ul>
+  </div>
+</div>
+
+<hr>
+
+<h3>Advanced HTML</h3>
+
+<h4>Orientation</h4>
+
+<p>By default, menu bars are horizontal, but they can also be vertically oriented by adding the `vertical` class.</p>
+
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+<hljs>
+<ul class="vertical menu-bar">
+  <li><a href="#">Item</a></li>
+  <li><a href="#">Item</a></li>
+  <li><a href="#">Item</a></li>
+</ul>
+</hljs>
+  </div>
+  <div class="small-12 medium-6 grid-content">
+    <ul class="vertical menu-bar">
+      <li><a href="#">Item</a></li>
+      <li><a href="#">Item</a></li>
+      <li><a href="#">Item</a></li>
+    </ul>
+  </div>
+</div>
+
+<p>The orientation classes also come in responsive flavors, allowing a menu bar to change orientation on different screen sizes. For example, the below menu will start out vertical on small screens and shift to horizontal on medium-sized screens and up.</p>
+
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+<hljs>
+<ul class="vertical medium-horizontal menu-bar">
+  <li><a href="#">Item</a></li>
+  <li><a href="#">Item</a></li>
+  <li><a href="#">Item</a></li>
+</ul>
+</hljs>
+  </div>
+  <div class="small-12 medium-6 grid-content">
+    <ul class="vertical medium-horizontal menu-bar">
+      <li><a href="#">Item</a></li>
+      <li><a href="#">Item</a></li>
+      <li><a href="#">Item</a></li>
+    </ul>
+  </div>
+</div>
+
+<h4>Spacing</h4>
+
+<p>The items of the menu bar automatically space out evenly. The items can also be condensed on the left instead of spread out, by adding the `condense` class to the menu bar container.</p>
+
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+<hljs>
+<ul class="condense menu-bar">
+  <li><a href="#">Item</a></li>
+  <li><a href="#">Item</a></li>
+  <li><a href="#">Item</a></li>
+</ul>
+</hljs>
+  </div>
+  <div class="small-12 medium-6 grid-content">
+    <ul class="condense menu-bar">
+      <li><a href="#">Item</a></li>
+      <li><a href="#">Item</a></li>
+      <li><a href="#">Item</a></li>
+    </ul>
+  </div>
+</div>
+
+<p>Using responsive classes, a menu bar can switch between being expanded and being condensed at different screen sizes. Use the classes <code>medium-condense</code>, <code>large-condense</code>, <code>medium-expand</code>, and <code>large-expand</code>.</p>
+
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+<hljs>
+<ul class="menu-bar condense medium-expand">
+  <li><a href="#">Item One</a></li>
+  <li><a href="#">Item Too</a></li>
+</ul>
+</hljs>
+  </div>
+  <div class="small-12 medium-6 grid-content">
+    <ul class="menu-bar condense medium-expand">
+      <li><a href="#">Item One</a></li>
+      <li><a href="#">Item Too</a></li>
+    </ul>
+  </div>
+</div>
+
+<h4>Coloring</h4>
+
+<p>The menu bar can be recolored to be dark, or match your primary color.</p>
+
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+<hljs>
+<ul class="dark menu-bar">
+  <li><a href="#">Dark</a></li>
+  <li><a href="#">Menu</a></li>
+  <li><a href="#">Bar</a></li>
+</ul>
+<ul class="primary menu-bar">
+  <li><a href="#">Primary</a></li>
+  <li><a href="#">Menu</a></li>
+  <li><a href="#">Bar</a></li>
+</ul>
+</hljs>
+  </div>
+  <div class="small-12 medium-6 grid-content">
+    <ul class="dark menu-bar">
+      <li><a href="#">Dark</a></li>
+      <li><a href="#">Menu</a></li>
+      <li><a href="#">Bar</a></li>
+    </ul>
+    <br>
+    <ul class="primary menu-bar">
+      <li><a href="#">Primary</a></li>
+      <li><a href="#">Menu</a></li>
+      <li><a href="#">Bar</a></li>
+    </ul>
+  </div>
+</div>
+
+<h4>Icons</h4>
+
+<p>The menu bar supports icons, which can be positioned above, below, to the left, or to the right of the text. Icons can also be used standalone&mdash;just drop the image into the <code>&lt;a&gt;</code> by itself.</p>
+
+<ul class="primary menu-bar">
+  <li><a href="https://twitter.com/ZURBfoundation"><span class="fi-social-twitter" style="font-size: 2rem;"></span>Twitter</a></li>
+  <li><a href="https://www.facebook.com/ZURB"><span class="fi-social-facebook" style="font-size: 2rem;"></span>Facebook</a></li>
+  <li><a href="https://github.com/zurb/foundation-apps"><span class="fi-social-github" style="font-size: 2rem;"></span>GitHub</a></li>
+</ul>
+
+<br>
+
+<p>By default, the icon is positioned above the text. However, this can be changed by adding the classes <code>icon-left</code>, <code>icon-right</code>, or <code>icon-bottom</code> to the menu bar container.</p>
+
+<hljs>
+<ul class="icon-left primary menu-bar">
+  <li><a href="#"><img zf-iconic icon="thumb" size="small" class="iconic-color-primary">Thumbs Up</a></li>
+  <li><a href="#"><img zf-iconic icon="thumb" size="small" class="iconic-color-primary">Like</a></li>
+  <li><a href="#"><img zf-iconic icon="thumb" size="small" class="iconic-color-primary">Bro!</a></li>
+</ul>
+</hljs>
+
+<ul class="icon-left primary menu-bar">
+  <li><a href="#"><img zf-iconic icon="thumb" size="small" class="iconic-color-primary">Thumbs Up</a></li>
+  <li><a href="#"><img zf-iconic icon="thumb" size="small" class="iconic-color-primary">Like</a></li>
+  <li><a href="#"><img zf-iconic icon="thumb" size="small" class="iconic-color-primary">Bro!</a></li>
+</ul>
+<br>
+<ul class="icon-right dark menu-bar">
+  <li><a href="#"><img zf-iconic icon="thumb" size="small" class="iconic-color-primary">Thumbs Up</a></li>
+  <li><a href="#"><img zf-iconic icon="thumb" size="small" class="iconic-color-primary">Like</a></li>
+  <li><a href="#"><img zf-iconic icon="thumb" size="small" class="iconic-color-primary">Bro!</a></li>
+</ul>
+
+<br>
+
+<p>These classes can also be used responsively! In the below code example, the menu bar's icons are top-aligned on small screens, and left-aligned on large screens.</p>
+
+<hljs>
+<ul class="icon-top large-icon-left menu-bar">
+  <li><a href="#"><img zf-iconic icon="thumb" size="small" class="iconic-color-primary">Thumbs Up</a></li>
+  <li><a href="#"><img zf-iconic icon="thumb" size="small" class="iconic-color-primary">Like</a></li>
+  <li><a href="#"><img zf-iconic icon="thumb" size="small" class="iconic-color-primary">Bro!</a></li>
+</ul>
+</hljs>
+
+<ul class="icon-top large-icon-left menu-bar">
+  <li><a href="#"><img zf-iconic icon="thumb" size="small" class="iconic-color-primary">Thumbs Up</a></li>
+  <li><a href="#"><img zf-iconic icon="thumb" size="small" class="iconic-color-primary">Like</a></li>
+  <li><a href="#"><img zf-iconic icon="thumb" size="small" class="iconic-color-primary">Bro!</a></li>
+</ul>
+
+<hr>
+
+<h3>Menu Group</h3>
+
+<p>Use the <code>menu-group</code> component to wrap two menu bars in a container, which will pin one to the left and one to the right.</p>
+
+<hljs>
+<div class="menu-group primary">
+  <div class="menu-group-left">
+    <ul class="menu-bar primary">
+      <li><a href="#">Item One</a></li>
+      <li><a href="#">Item Too</a></li>
+      <li><a href="#">Item Three</a></li>
+    </ul>
+  </div>
+  <div class="menu-group-right">
+    <ul class="icon-left primary menu-bar">
+      <li><a href="#"><img zf-iconic icon="thumb" size="small" class="iconic-color-primary">Item Aye</a></li>
+      <li><a href="#"><img zf-iconic icon="thumb" size="small" class="iconic-color-primary">Item Bee</a></li>
+    </ul>
+  </div>
+</div>
+</hljs>
+
+<div class="menu-group primary">
+  <div class="menu-group-left">
+    <ul class="menu-bar">
+      <li><a href="#">Item One</a></li>
+      <li><a href="#">Item Too</a></li>
+      <li><a href="#">Item Three</a></li>
+    </ul>
+  </div>
+  <div class="menu-group-right">
+    <ul class="icon-left primary menu-bar">
+      <li><a href="#"><img zf-iconic icon="thumb" size="small" class="iconic-color-primary">Item Aye</a></li>
+      <li><a href="#"><img zf-iconic icon="thumb" size="small" class="iconic-color-primary">Item Bee</a></li>
+    </ul>
+  </div>
+</div>
+
+<hr>
+
+<h3>Sass Mixins</h3>
+
+<p>Use the menu bar mixins to create this component with custom classes and settings.</p>
+
+<hljs>
+.custom-menu-bar {
+  // This placeholder selector gets you the core structural styles for the menu
+  @extend %menu-bar;
+
+  // Set the orientation and sizing of the menu bar
+  @include menu-bar-layout(
+    $orientation: horizontal, // Can be horizontal or vertical
+    $stretch: true // Set to false for a condensed menu
+  );
+
+  // Add styles for the menu bar items and text
+  @include menu-bar-style(
+    $background: #000, // Background color of items
+    $background-hover: #333, // Background color of item on hover
+    $background-active: #666, // Background color of an active item
+    $color: #fff, // Text color of items
+    $color-hover, // Text color of item on hover
+    $color-active, // Text color of item when active
+    $autocolor: false // When true, all the above colors will be derived from $background
+  );
+
+  // Add support for icons
+  @include menu-bar-icons(
+    $position: left, // Can be top, right, bottom, or left
+    $size: 20px // Can be px, em, or rem
+  );
+}
+</hljs>
+
+<hr>
+
+<h3>Sass Variables</h3>
+
+<p>Use these variables to change the core styles of the menu bar.</p>
+
+<hljs include="'partials/scss/menu-bar.html'" language="scss">
+</hljs>

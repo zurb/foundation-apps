@@ -1,0 +1,157 @@
+---
+name: action-sheet
+url: /action-sheet
+title: Action Sheet
+---
+
+<h2>Action Sheet</h2>
+<h3 class="subheader">Action sheets can be triggered in your app view to providing contextual actions on a component. They act as slide up menus on small devices and drop downs on larger screens.</h3>
+
+<hr>
+
+<div class="text-center">
+  <div zf-action-sheet>
+    <div zf-as-button title="Action Sheet"></div>
+    <div zf-as-content position="bottom">
+      <p>Share this</p>
+      <ul>
+        <li><a href="#">Twitter</a></li>
+        <li><a href="#">Facebook</a></li>
+        <li><a href="#">Mail</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<h3>Basic HTML</h3>
+<p>You can create an action sheet with this basic directive. The position attribute can be set as "top" or "bottom."</p>
+<div class="grid-block">
+  <div class="small-12 medium-6 grid-content">
+
+<hljs>
+<div zf-action-sheet>
+  <div zf-as-button title="I'm an Action Sheet"></div>
+  <div zf-as-content position="bottom">
+    <p>Tap to share</p>
+    <ul>
+      <li><a href="#">Twitter</a></li>
+      <li><a href="#">Facebook</a></li>
+      <li><a href="#">Mail</a></li>
+    </ul>
+  </div>
+</div>
+</hljs>
+  </div>
+  <div class="small-12 medium-6 grid-content">
+    <div zf-action-sheet>
+      <div zf-as-button title="I'm an Action Sheet"></div>
+      <div zf-as-content position="bottom">
+        <p>Tap to share</p>
+        <ul>
+          <li><a href="#">Twitter</a></li>
+          <li><a href="#">Facebook</a></li>
+          <li><a href="#">Mail</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<h3>Additional Options</h3>
+<p>To use custom content in the button, place the HTML mark up in between the custom zf tags.</p>
+
+<hljs>
+<zf-action-sheet id="my-actionsheet">
+  <zf-as-button><span class="fancy-button">I'm Fancy!</span></zf-as-button>
+  <zf-as-content position="top">
+    <p>This is my fancy content!</p>
+  </zf-as-content>
+</zf-action-sheet>
+</hljs>
+
+<zf-action-sheet id="my-actionsheet">
+  <zf-as-button><button class="button fancy-button">I'm Fancy!</button></zf-as-button>
+  <zf-as-content position="top">
+    <p>This is my fancy content!</p>
+  </zf-as-content>
+</zf-action-sheet>
+<hr>
+
+<h3>External Triggers</h3>
+<p>To use an entirely different element entirely to control the action sheet, use the following markup. Make sure that the ID for the action sheet and the toggle match up. The zf-as-button element is optional here, since you're using another element to trigger the action sheet.</p>
+
+<hljs>
+<a href="#" zf-hard-toggle="separate-actionsheet">Toggle</a>
+<a href="#" zf-hide="separate-actionsheet">Hide</a>
+<zf-action-sheet id="separate-actionsheet">
+  <zf-as-content position="top">
+    <p>Message for you, sir!</p>
+  </zf-as-content>
+</zf-action-sheet>
+</hljs>
+<button class="button secondary as-demo" zf-hard-toggle="separate-actionsheet">Toggle</button>
+<button class="button secondary as-demo" zf-hide="separate-actionsheet">Hide</button>
+<zf-action-sheet id="separate-actionsheet">
+  <zf-as-button title="Action Sheet"></zf-as-button>
+  <zf-as-content position="bottom">
+    Message for you, sir!
+  </zf-as-content>
+</zf-action-sheet>
+
+<hr>
+<h3>Sass Mixins</h3>
+
+<p>Create an action sheet with custom class names using our mixins.</p>
+
+<hljs language="scss">
+// This is the wrapper for your button and action sheet
+.custom-action-sheet-container {
+  position: relative;
+  display: inline-block;
+}
+
+// This is the action sheet itself
+.custom-action-sheet {
+  // These are the core styles for the sheet menu
+
+    $padding: 1rem,
+    $color: #000,
+    $border-color,
+    $background-hover: #ccc
+  );
+
+  // This mixin sets up styles for the mobile action sheet
+  @include action-sheet(
+    $position: bottom, // Can be top or bottom
+    $shadow: 0 3px 10px black,
+    $animate: transform opacity, // Properties to animate when the menu is shown and hidden. Remove "transform" or "opacity" to turn off those animations
+    $animation-speed: 0.25s, // Speed at which the menu animates in and out
+    $padding: 1rem,
+    $background: #fff // Background color
+  );
+
+  // This mixin sets up styles for the desktop popup menu
+  // Here we're only applying the styles on medium-sized screens and larger
+  @include breakpoint(medium) {
+    $position: bottom, // Can be top or bottom
+    $background: #fff, // Background color
+    $width: 300px, // Width of whole menu
+    $radius: 3px, // Border radius of menu
+    $shadow: 0 4px 10px black, // Box shadow of menu
+    $tail-size: 5px // Size of tail that is attached to the menu
+  }
+}
+</hljs>
+
+<hr>
+
+<h3>Sass Variables</h3>
+
+<p>Customize the base styles for action sheets with these settings variables.</p>
+
+<hljs include="'partials/scss/action-sheet.html'" language="scss">
+</hljs>

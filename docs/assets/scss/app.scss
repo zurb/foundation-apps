@@ -1,0 +1,26 @@
+// Foundaiton Documentation Styles
+// -------------------------------
+// Includes the entire framework along with styles specific to the docs.
+
+// Foundation for Apps
+@import "foundation";
+
+// Global styles
+@import "global";
+
+// Overrides for component examples
+@import "examples";
+
+// Docs-specific components
+@import "components/code";
+@import "components/compatability";
+@import "components/folder-list";
+@import "components/footer";
+@import "components/search";
+@import "components/sidebar";
+@import "components/topbar";
+
+.button [class*="fi-"] {
+	position: relative;
+	top:2px;
+}
