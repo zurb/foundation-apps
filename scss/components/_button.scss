@@ -194,7 +194,7 @@ $button-tag-selector: false !default;
       }
     }
 
-    &.disabled { @include button-disabled; }
+    &.disabled, &:disabled { @include button-disabled; }
   }
 
   @if $button-tag-selector {
