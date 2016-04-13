@@ -14,11 +14,11 @@
    - Source ordering
    - Offsets
 */
-
 /// @Foundation.settings
 // Grid
 $container-width: rem-calc(900) !default;
 $block-padding: $global-padding !default;
+$block-spacing: $global-spacing !default;
 $total-columns: 12 !default;
 $block-grid-max-size: 6 !default;
 ///
@@ -30,19 +30,35 @@ $block-grid-max-size: 6 !default;
 
   If set to a number, the block will be given a percentage width, based on the total number of columns (12 by default). Percentage widths don't work if a block is inside a vertical grid.
 
+  If $gutter-width set to a number that is not "0", grid blocks will have "justify-content: space-between" like flex styles with a fixed space. 
+  
   @group grid
 
   @param {number|string} $size - Sizing behavior of the block. Should be expand, shrink, or a number.
 
+  @param {number} $gutter-width - Size of fixed gutter to be added.
+
   @output The flex-basis, flex-grow, and flex-shrink properties.
 */
-@mixin grid-size($size: expand) {
-  @if (type-of($size) == 'number') {
+@mixin grid-size($size: expand, $gutter-width: 0) {
+
+  @if (type-of($size) == 'number' and strip-unit($gutter-width) != 0) {
     $pct: percentage($size / $total-columns);
+
+    // use calc to gutters between relative columns 
+    flex: 0 0 calc(#{$pct} - #{$gutter-width});
+    // max-width prevents columns from wrapping early in IE10/11
+    max-width: calc(#{$pct} - #{$gutter-width});
+  }
+
+  @else if (type-of($size) == 'number') {
+    $pct: percentage($size / $total-columns);
+
     flex: 0 0 $pct;
     // max-width prevents columns from wrapping early in IE10/11
     max-width: $pct;
   }
+
   @else if ($size == shrink) {
     flex: 0 0 auto;
     overflow: visible;
@@ -50,7 +66,9 @@ $block-grid-max-size: 6 !default;
   @else if ($size == expand) {
     flex: 1 1 auto;
   }
+
 }
+
 /*
   Set the orientation of blocks within this block. The grid is re-oriented by changing the flex direction of the block.
 
@@ -284,7 +302,7 @@ $block-grid-max-size: 6 !default;
 // - - - - - - - - - - - - - - - - - - - -
 
 // Shared styles for frames and blocks (parent elements)
-%block-core {
+%block-core {  
   // Change the direction children flow
   &.vertical { @include grid-orient(vertical); }
   @each $size in $breakpoint-classes {
@@ -301,7 +319,16 @@ $block-grid-max-size: 6 !default;
   &.align-spaced  { @include grid-align(spaced); }
 
   // Allow child elements to wrap
-  &.wrap { @include grid-wrap(true); }
+  &.wrap { 
+    @include grid-wrap(true); 
+  }
+
+  // Allow for gutters
+  // Set negative margins on parent block to crop gutters of direct children
+  &.gutters {
+    margin: -($block-spacing/2);
+  }
+
 }
 
 // Shared styles for blocks and content blocks (child elements)
@@ -311,6 +338,12 @@ $block-grid-max-size: 6 !default;
 
   // Prevent an element from scrolling
   &.noscroll { overflow: visible; }
+
+  // Add gutters to child blocks
+  .gutters > & {
+    margin: $block-spacing/2;
+  }
+
 }
 
 @include exports(grid) {
@@ -396,6 +429,10 @@ $block-grid-max-size: 6 !default;
         // Block sizing
         .#{$size}-#{$i} {
           @include grid-size($i);
+          // Block sizing with gutters
+          .gutters > & {
+            @include grid-size($i,$block-spacing);
+          }
         }
         // Source ordering
         .#{$size}-order-#{$i} {
