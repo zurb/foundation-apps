@@ -131,15 +131,20 @@ $block-selector: '[class*="grid-block"]';
     .text-#{$align} {
       text-align: $align;
     }
-    
-    @each $size in $breakpoint-classes {
-      @include breakpoint($size) {
+  }
+
+  @each $size in $breakpoint-classes {
+
+    @include breakpoint($size) {
+      @each $align in (left, right, center, justify) {
         .#{$size}-text-#{$align} {
           text-align: $align;
         }
       }
+    }
 
-      @include breakpoint($size only) {
+    @include breakpoint($size only) {
+      @each $align in (left, right, center, justify) {
         .#{$size}-only-text-#{$align} {
           text-align: $align;
         }
