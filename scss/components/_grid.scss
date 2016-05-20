@@ -174,8 +174,8 @@ $block-grid-max-size: 6 !default;
 */
 @mixin grid-nest($nest: true) {
   @if ($nest) {
-    margin-left: -1rem;
-    margin-right: -1rem;
+    margin-left: -($block-padding);
+    margin-right: -($block-padding);
   }
 }
 /*
@@ -274,7 +274,7 @@ $block-grid-max-size: 6 !default;
   list-style-type: none;
 
   > li, > div, > section {
-    padding: 0 1rem 1rem;
+    padding: 0 $block-padding $block-padding;
     flex: 0 0 percentage(1 / $up);
     max-width: percentage(1 / $up);
   }
