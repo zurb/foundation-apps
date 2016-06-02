@@ -40,7 +40,7 @@ $titlebar-item-classes: (
 
   // Denotes the title of the bar
   .#{$title} {
-    font-weight: bold;
+    font-weight: $font-weight-bold;
   }
 
   // Denotes left, right, and center sections of the bar
