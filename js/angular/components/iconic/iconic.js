@@ -221,7 +221,8 @@
         function injectSvg(element) {
           ico.inject(element, {
             each: function (injectedElem) {
-              var i, angElem;
+
+              var i, angElem, elemScope;
 
               // wrap raw element
               angElem = angular.element(injectedElem);
@@ -229,9 +230,9 @@
               for(i = 0; i < origAttrs.length; i++) {
                 // check if attribute should be ignored
                 if (origAttrs[i].name !== 'zf-iconic' &&
-                    origAttrs[i].name !== 'ng-transclude' &&
-                    origAttrs[i].name !== 'icon' &&
-                    origAttrs[i].name !== 'src') {
+                  origAttrs[i].name !== 'ng-transclude' &&
+                  origAttrs[i].name !== 'icon' &&
+                  origAttrs[i].name !== 'src') {
                   // check if attribute already exists on svg
                   if (angular.isUndefined(angElem.attr(origAttrs[i].name))) {
                     // add attribute to svg
@@ -241,7 +242,10 @@
               }
 
               // compile
-              svgElement = $compile(angElem)(angElem.scope());
+              elemScope = angElem.scope();
+              if (elemScope) {
+                svgElement = $compile(angElem)(elemScope);
+              }
             }
           });
         }

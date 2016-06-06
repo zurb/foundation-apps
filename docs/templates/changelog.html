@@ -35,6 +35,91 @@ bower update
 
 <hr>
 
+<h3>Version 1.2 – Eiger</h3>
+
+<h4>What's in Store?</h4>
+
+<p><strong>We're planning a 1.3 release to transition between version 1.x and 2.x of Foundation for Apps.</strong> Here's our current plan for 1.3:</p>
+
+<ul>
+<li>The visual styles of many components will be improved. In many places we'll be bringing the styles more in line with Foundation for Sites 6.
+<ul>
+<li>New Foundation for Apps projects will automatically get these styles.</li>
+<li>Existing projects will be able to opt-in to the new styles by changing a Sass variable.</li>
+</ul></li>
+<li>The built-in motion module will be replaced with the external <a href="https://github.com/zurb/motion-ui">Motion UI</a> library.
+<ul>
+<li>The existing motion Sass file (<code>scss/components/_motion.scss</code>) will be removed.</li>
+<li>Transition class names have changed from <code>.camelCase</code> to <code>.kebab-case</code>.</li>
+<li>The syntax for existing transition and animation mixins has changed. Check out the <a href="https://github.com/zurb/motion-ui/tree/master/docs">Motion UI documentation</a> for more details.</li>
+<li>New Foundation for Apps projects will include Motion UI as a dependency.</li>
+</ul></li>
+<li>The dynamic routing module, now branded <a href="https://github.com/zurb/front-router">Front Router</a>, has been moved to an external Node library.
+<ul>
+<li>New Foundation for Apps projects are currently referencing this library.</li>
+<li>In 1.5, the existing built-in library will be removed.</li>
+</ul></li>
+<li>The Sass files will be rearranged to match the structure of <a href="https://github.com/zurb/foundation-sites/tree/develop/scss">Foundation for Sites 6</a>.
+<ul>
+<li>The upgrade path will be relatively straightforward&mdash;you just need to change around some <code>@import</code> paths.</li>
+</ul></li>
+<li>RTL support will be added.</li>
+</ul>
+
+<h4>General</h4>
+
+<ul>
+<li>Updated to Angular 1.4.</li>
+<li>Updated to FastClick 1.0.6.</li>
+<li>Updated to Normalize.css 3.0.3.</li>
+<li>Added the precompiled Angular templates to <code>bower.json</code>'s <code>main</code> section. #534</li>
+<li>Added forms to the export list. Previously, the CSS would output no matter what. #544</li>
+<li>FastClick and viewport-units-buggyfill are now initialized within the Foundation code, which means you can remove it from your app's <code>run()</code> method.</li>
+<li>Thanks to a few pull requests from @erikmellum, Foundation for Apps now works in Electron!</li>
+</ul>
+
+<h4>Features</h4>
+
+<ul>
+<li><strong>Interchange directives.</strong> @soumak77 put together a set of <code>ng-if</code>-like directives that respond to media queries, like so:</li>
+</ul>
+
+<p>```html</p>
+
+<div zf-if="medium"></div>
+
+<div zf-if="not large"></div>
+
+<p>```</p>
+
+<ul>
+<li><strong>Animation methods with promises.</strong> <code>FoundationApi.animateAndAdvise</code> allows you to animate an element and get a promise back, which resolves when the animation finishes.</li>
+<li><strong>Click outside of things to close them!</strong> Panels and off-canvas menus can be configured to be closed when they're clicked/tapped outside of. To enable it, add the directive <code>zf-close-all</code> to the <code>&lt;body&gt;</code> element. #430</li>
+<li>Front Router now outputs an entire Angular module instead of a global variable, to avoid polluting the global namespace.</li>
+<li>Added the method <code>.isActive</code> to <code>ModalFactory</code>, which tells you if a modal is open. #580</li>
+</ul>
+
+<h4>Bug Fixes</h4>
+
+<ul>
+<li>Grid blocks with the <code>.shrink</code> class can no longer scroll. #568</li>
+<li>Prevent JavaScript errors if an app loads without any CSS, such as when being loaded in a headless browser. #596</li>
+<li>Fixed an "apply already in progress" error with action sheets. #558</li>
+<li>Fixed a sizing issue in IE10 and 11 with grid items that used the <code>.up-*</code> grid classes.</li>
+<li>Fixed Iconic images not working with Angular directives. #569</li>
+<li>Prevent JavaScript errors when not using Front Router. #583</li>
+<li>Fixed various menu issues related to alignment and Flexbox properties. #567</li>
+<li>Fixed text inputs inside block lists having cut off text in Firefox. #566</li>
+<li>Added <code>overflow-y: visible</code> to menu bar, to make working with dropdowns easier. #520</li>
+<li>Modals now properly publish a <code>close</code> event when the overlay is hidden. #540</li>
+<li>Fixed JavaScript errors popping up when clicking on elements inside of a panel. #548</li>
+<li>Fixed arrows in <code>&lt;select&gt;</code> elements not appearing in IE10 and 11. #606</li>
+<li>Fixed CSSO choking on Foundation's CSS. #650</li>
+</ul>
+
+
+<hr>
+
 <h3>Version 1.1 — Weisshorn</h3>
 
 <p><em>March 17, 2015</em></p>

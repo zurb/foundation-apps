@@ -128,6 +128,12 @@ FoundationApi.animate(element, futureState, animationIn, animationOut)
     <p>Another helper that works by replicating Angular's built-in <code>ngAnimate</code> functionality with several custom additions to work with Foundation's internal MotionUI. These are mostly for internal use; however, you can easily animate in and animate out any element the same way <code>$animate</code> works.</p>
 
 <hljs language="javascript">
+FoundationApi.animateAndAdvise(element, futureState, animationIn, animationOut)
+</hljs>
+
+    <p>Does the same thing as FoundationApi.animate, with the addition of firing an event at the completion of an animation. Events are <code>'active-true'</code> and <code>'active-false'</code>.</p>
+
+<hljs language="javascript">
 FoundationApi.closeActiveElements(options)
 </hljs>
 
@@ -258,7 +264,7 @@ FoundationApi.closeActiveElements(options)
 <div zf-panel id="panelOne"><!-- ... --></div>
 <!-- This panel will always close -->
 <div zf-panel id="panelTwo"><!-- ... --></div>
-</hljs>    
+</hljs>
   </section>
 
   <section>
@@ -334,7 +340,7 @@ FoundationApi.closeActiveElements(options)
 
   <section>
     <h4 class="docs-module-name"><pre>Iconic</pre> (Service)</h4>
-    
+
     <p>A wrapper for the <code>IconicJS</code> object the Iconic JavaScript places on the <code>window</code> object. Learn more about how the Iconic JavaScript works <a href="https://useiconic.com/tools/iconic-js/">here</a>.</p>
   </section>
 
@@ -357,7 +363,7 @@ FoundationApi.closeActiveElements(options)
 
 <section>
   <h3 class="docs-module-name"><pre>foundation.modal</pre> (Module)</h3>
-  
+
   <p class="docs-module-deps"><strong>Dependencies:</strong> <span class="pre">foundation.core</span></p>
 
   <p>Includes the <code>zf-modal</code> directive for creating modals.</p>
@@ -400,7 +406,7 @@ $scope.modal = new ModalFactory(config);
 
 <section>
   <h3 class="docs-module-name"><pre>foundation.notification</pre> (Module)</h3>
-  
+
   <p class="docs-module-deps"><strong>Dependencies:</strong> <span class="pre">foundation.core</span></p>
 
   <section>
@@ -453,7 +459,7 @@ notifSet.addNotification({
 </hljs>
 <div class="button" ng-click="addNotification()">Add a notification</div>
   </section>
-  
+
   <p>Check out the <a ui-sref="notification">documentation for notifications</a> to learn how to use them.</p>
 
 </section>
@@ -462,7 +468,7 @@ notifSet.addNotification({
 
 <section>
   <h3 class="docs-module-name"><pre>foundation.offcanvas</pre> (Module)</h3>
-  
+
   <p class="docs-module-deps"><strong>Dependencies:</strong> <span class="pre">foundation.core</span></p>
 
   <p>Includes the <code>zf-offcanvas</code> directive, for creating off-canvas panels.</p>
@@ -490,7 +496,7 @@ notifSet.addNotification({
 
 <section>
   <h3 class="docs-module-name"><pre>foundation.popup</pre> (Module)</h3>
-  
+
   <p class="docs-module-deps"><strong>Dependencies:</strong> <span class="pre">foundation.core</span></p>
 
   <p>Includes the <code>zf-popup</code> directive, for creating fixed popup panels. Requires the <a href="http://github.hubspot.com/tether/">Tether</a> JavaScript library.</p>
@@ -504,7 +510,7 @@ notifSet.addNotification({
 
 <section>
   <h3 class="docs-module-name"><pre>foundation.tabs</pre> (Module)</h3>
-  
+
   <p class="docs-module-deps"><strong>Dependencies:</strong> <span class="pre">foundation.core</span></p>
 
   <p>Includes the <code>zf-tabs</code>, <code>zf-tab</code>, and <code>zf-tab-content</code> directives, for creating tabbed content.</p>

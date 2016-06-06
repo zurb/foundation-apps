@@ -51,4 +51,19 @@
       padding-bottom: 0.25rem;
     }
   }
+
+  .has-js a::after {
+    content: 'JS';
+    background: #bbb;
+    font-weight: bold;
+    color: #fff;
+    font-size: rem-calc(10);
+    display: inline;
+    padding: 3px 5px;
+    border-radius: 3px;
+    margin-bottom: -7px;
+    position: relative;
+    top: -2px;
+    margin-left: 10px;
+  }
 }
