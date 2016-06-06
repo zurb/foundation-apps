@@ -156,7 +156,6 @@
           if (!matchMedia(globalQueries.medium).matches && srcEl.href && srcEl.href.length > 0) {
             // Hide element if it can't match at least medium
             scope.hide();
-            animate(element, scope.active, animationIn, animationOut);
           }
         });
       }
