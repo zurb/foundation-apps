@@ -113,6 +113,17 @@
           return;
         };
 
+        scope.$on('$destroy', function() {
+          foundationApi.unsubscribe(attrs.id);
+
+          scope.active = false;
+          if(tetherInit) {
+            tether.destroy();
+            element.remove();
+            tetherInit = false;
+          }
+        });
+
         function tetherElement(target) {
           if(tetherInit) {
             return;
