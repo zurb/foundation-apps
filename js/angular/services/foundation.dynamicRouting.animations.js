@@ -101,7 +101,11 @@
       }
 
       function resetParent() {
-        element.parent().removeClass('position-absolute');
+        var parent = element.parent();
+        if(!parent.length) {
+          return; // this view is already detached from the DOM, can happen in case of hectic clicking around
+        }
+        parent.removeClass('position-absolute');
         if(presetHeight !== true) {
           element.parent()[0].style.height = null;
         }
