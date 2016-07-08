@@ -47,6 +47,7 @@
             controller: getController(page),
             data: getData(page),
             animation: buildAnimations(page),
+            resolve: {}
           };
           
           $stateProvider.state(page.name, state);
