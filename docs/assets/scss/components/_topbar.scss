@@ -13,117 +13,287 @@
        url("../fonts/zurb-webfont.svg") format('svg');
 }
 
-.global-nav {
+$buildingblocks-color: #2BA6CB;
+$triggers-color: #E33100;
+$quips-color: #007D9B;
+$patterntap-color: #CDC81E;
+$university-color: #FF6908;
+$friday15-color: #b8d30b;
+$responsive-color: #008cba;
+$word-color: #555555;
+$background-color: #f6f6f6;
+$main-header-color: #333333;
+$property-nav-color: #444444;
+$secondary-button: #d7d7d7;
+$text-color: #333333;
+$paragraph-color: #7a7a7a;
+$top-bar: #333333;
+$topbar-background: #2c3840;
+$topbar-hover-color: lighten($topbar-background, 10%);
+
+.notable-logo {
+  display: inline-block;
+  height: 35px;
+  width: auto;
   overflow: hidden;
-  margin-bottom: 0px;
-  height: 45px;
-  background: #333;
+  display: inline-block !important;
+  font-family: "zurb-logo";
+  text-align: left;
+  a {
+    display: inline !important;
+    height: 30px;
+    cursor: pointer;
+    opacity: 0.75;
 
-  ul.title-area { 
-    margin-bottom: 0px;
-    position: relative;
-    float: left;
-    width:auto;
-    list-style: none;
-    height: 100%;
-    display: flex;
-
-    li.name {
-      display: flex;
-
-      img.zurb-logo {
-        width: 72px !important;
-        height: 16px !important;
-        margin-right: 8px;
-      }
-
-      a { 
-        color: #fff;
-
-        @media only screen and (max-width: 769px) {
-          &.sidebar-button {
-            display: inline-block !important; 
-            z-index: 99;
-          }
-        }
-      }
-
-      h1 {
-        display: inline-flex;
-        justify-content: center;
-        padding: 0; 
-        margin: 0;
-        line-height: 18px;
-
-        a {
-          display: flex;
-          align-items: center;
-          font-family: "zurb-logo";
-          font-size: 36px;
-          font-weight: normal;
-          text-rendering: auto;
-          opacity: .75;
-          transition: opacity .25s ease-in-out;
-
-          &:hover {
-            opacity: 1;
-          }
-
-          span {
-            display: none;
-          }
-          strong {
-            font-family: Helvetica;
-            font-size: 17px;
-            margin-top: 4px;
-          }
-        }
-      }
+    &:hover {
+      opacity: 1.0;
+      background-color: #2B3840 !important;
+    }
+    h1 {
+      display: inline-block !important;
+      color: white;
+      margin: 0;
+      font-family: "zurb-logo";
+      font-size: 2.375rem;
+      line-height: 42px;
+      padding-left: 1px;
+    }
+    h2 {
+      display: inline-block !important;
+      color: white;
+      padding-left: 5px;
+      margin: 0;
+      font-family: "proxima_nova_rgbold","proxima-nova","Helvetica Neue", Helvetica, Arial, sans-serif !important;
+      font-size: 17px;
+    }
+    img {
+      padding-top: 10px;
+      width: 25px;
+      height: 23px;
     }
   }
+}
 
-  ul.right {
-    margin-bottom: 0px;
-    float:right;
-    margin-right: none;
+.mobile-nav a {
+  font-size: 13px;
+  display: inline !important;
+  float: left;
+}
+
+.menu-group.dark {
+  background: #2B3840;
+  .menu-bar {
+    background: #2B3840;
+  }
+}
+
+.menu-bar.dark {
+  background: #2B3840;
+}
+
+.menu-group-left {
+  li {
+    float: left;
+  }
+  a {
+    color: rgba(255, 255, 255, 0.5) !important;
+    background-color: none;
+    transition: opacity .25s ease-in-out;
+    -moz-transition: opacity .25s ease-in-out;
+    -webkit-transition: opacity .25s ease-in-out;
+  }
+}
+
+.menu-group-right {
+  li {
+    border-left: solid 1px #3B4951;
+    a:hover {
+      background: #404D55 !important;
+    }
+  }
+}
+
+.active-library {
+  background-color: #3B4951;
+  a {
+    &:hover {
+      background-color: #3B4951 !important;
+      opacity: 1.0 !important;
+    }
+  }
+}
+
+.menu-bar.dark {
+  height: 45px;
+  margin-bottom: 0;
+  overflow: visible;
+  li a {
+    border-right: none;
+    font-family: "proxima_nova_rgbold","proxima-nova","Helvetica Neue",Helvetica,Arial,sans-serif !important;
+    #mobile-logo {
+      font-size: 15px;
+      font-family: "proxima_nova_rgbold","proxima-nova","Helvetica Neue",Helvetica,Arial,sans-serif !important;
+    }
+  }
+}
+
+#mobile-hr {
+  margin-left: -100px;
+  padding: 10px;
+  border-bottom: solid 1px #444444;
+  margin-bottom: 10px;
+}
+
+.title {
+  display: inline-block;
+  padding-top: 15px;
+  font-family: "proxima_nova_condensedSBd", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 900;
+  font-size: 14px;
+  text-transform: uppercase;
+  color: #727272;
+  a {
+    font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+    font-weight: 900;
+    font-size: 14px !important;
+    float: left !important;
+    color: #727272;
+  }
+}
+
+.has-dropdown {
+  position: relative;
+  display: inline-block;
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    list-style: none;
+    background: #2B3840;
+    left: -21px;
+    right: auto;
+    top: 45px;
+    z-index: 9999;
+
+    &.right-aligned {
+      left: auto;
+      right: -1px;
+    }
 
     li {
-      display: block;
-      float: left;
+      border: none;
+      padding-bottom: 5px;
+      line-height: 1;
+      min-width: 100%;
 
       a {
-        color: #fff;
-        font-size: 13px;
-        font-weight: bold;
-        line-height: 45px;
         display: block;
-        padding: 0 15px;
-        border-left: 1px solid #4d4d4d;
-        background: #333;
+        color: #ffffff;
+        font-weight: normal;
+        white-space: nowrap;
+        height: 100%;
+        padding: 16px;
 
-        &.avatar {
-          line-height: 0; 
-
-          img {
-            height: 47px;
-            display: block;
-            padding: 5px 0 7px;
-          } 
-        }
-
-        &.current {
-          &, &:hover { background: #484848; }
-        }
-        
         &:hover {
-          color: #fff;
-          background: #3d3d3d;
+          background: #404D55;
         }
-      }
-
-      a:not(.button) {
-        padding: 0 15px;
       }
     }
   }
+
+  &:hover .dropdown-content {
+    display: block;
+  }
+}
+
+.foundation-nav {
+  font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+  .getting-started {
+    transition: background 0.25s ease;
+    font-size: 0.9rem;
+    background: #2199E8;
+
+    &:hover {
+      background: #147DC2 !important;
+    }
+  }
+
+  .dropdown-content {
+    min-width: 200px;
+
+    li {
+      a {
+        font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+      }
+    }
+
+    .is-submenu-item {
+      color: #ffffff;
+      padding-left: 15px;
+      font-size: 0.75em;
+    }
+  }
+}
+
+#off-canvas {
+  background: $topbar-background;
+  // width: 335px;
+  ul {
+    margin-left: -30px;
+    margin-bottom: 0;
+  }
+  li {
+    list-style-type: none;
+    a {
+      color: white;
+      font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+      font-size: 20px;
+      opacity: 0.75;
+      line-height: 2;
+      border: none;
+    }
+  }
+  overflow-y: scroll;
+  &::-webkit-scrollbar { background: #232323; width: 6px; background: none; }
+  &::-webkit-scrollbar-track { border-radius: 10px; background: #232323; width: 6px; }
+  &::-webkit-scrollbar-thumb { border-radius: 10px; background: #444; width: 6px; }
+}
+
+#mobile-stack {
+  li {
+    margin-right: 10px;
+    h1{
+      font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+      margin: 0px;
+      font-size: 22px;
+      color: white;
+    }
+    &.logo img{
+      margin: 22px 15px 0 0;
+      width: 60px;
+      height: auto;
+      float: left;
+      opacity: 0.25;
+    }
+    p {
+      font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+      margin: 0px;
+      font-size: 14px;
+      padding-bottom: 15px;
+
+    }
+  }
+}
+
+.foundation-nav .nav-title {
+  color: #8a8a8a !important;
+  font-weight: bold;
+  padding: 10px;
+  padding-left: 15px;
+  font-size: 0.8em;
+  background: #2c3840;
+}
+
+.foundation-nav .dropdown-content li a {
+  font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
 }
