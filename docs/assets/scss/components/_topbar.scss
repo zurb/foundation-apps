@@ -6,11 +6,10 @@
   font-family:"zurb-logo";
   font-weight: normal;
   font-style: normal;
-  src: url("../fonts/zurb-webfont.eot");
-  src: url("../fonts/zurb-webfont.eot?#iefix") format('embedded-opentype'),
-       url("../fonts/zurb-webfont.woff") format('woff'),
-       url("../fonts/zurb-webfont.ttf") format('truetype'),
-       url("../fonts/zurb-webfont.svg") format('svg');
+  
+  src: 
+       url("http://s1-library.zurb.com/assets/zurb-webfont-41d8bc07819fd2cacc2791939a0da651.woff") format('woff'),
+       
 }
 
 $buildingblocks-color: #2BA6CB;
