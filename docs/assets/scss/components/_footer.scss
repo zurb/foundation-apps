@@ -177,10 +177,14 @@
         font-size: 12px;
         padding-left: 40px;
         line-height: 18px;
+        padding-top: 0px;
         &.title {
           font-size: 18px;
           margin-bottom: 5px;
           font-weight: 300;
+          font-family: "Proxima Nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
+          font-size: 18px;
+          text-transform: capitalize;
         }
       }
     }
