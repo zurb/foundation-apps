@@ -130,3 +130,22 @@ div.as-demo {
   color: #fff;
   display: inline;
 }
+
+.callout {
+  background: #FFF9C4;
+  color: #333;
+  border: 1px solid darken(#FFF9C4, 20%);
+  padding: 1rem;
+
+  .callout-title {
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0;
+    color: #999;
+    font-weight: bold;
+  }
+
+  p {
+    margin-bottom: 0;
+  }
+}
