@@ -94,10 +94,17 @@
         <!-- Main content -->
         <div class="docs-main" ng-show="$state.current.name.length">
           <div class="grid-container">
+            <h2>Foundation for Apps</h2>
+            <h3 class="subheader">We built Foundation for Apps to allow everyone from JavaScript newbies to experienced Angular Developers to build awesome, responsive web apps.</h3>
+            <div class="callout">
+              <p class="callout-title">Deprecation Notice</p>
+              <p>Foundation for Apps was an expirament into blah blah blah</p>
+            </div>
+            <hr>
             <a class="small secondary expand button hide-for-medium" zf-toggle="sidebar">Show Components</a>
             <div ng-class="['ui-animation']" ui-view autoscroll></div>
           </div>
-
+          
           <!-- Footer -->
           <div ng-include="'partials/zurb-footer.html'"></div>
           <!-- /Footer -->
