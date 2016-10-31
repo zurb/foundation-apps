@@ -1,3 +1,29 @@
+<style>
+.callout {
+  background: #FFF9C4;
+  color: #333;
+  border: 1px solid darken(#FFF9C4, 20%);
+  padding: 1rem;
+ }
+
+.callout .callout-title {
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0;
+    color: #999;
+    font-weight: bold;
+ }
+
+  .callout p {
+    margin-bottom: 0;
+}
+</style>
+
+<div class="callout">
+  <p class="callout-title">Deprecation Notice</p>
+  <p>We believe the best solution for the future of the web is a single, robust framework capable of developing webapps and websites, so we’ve made the decision to streamline our development and move Foundation for Apps into our <a href="http://zurb.com/playground/foundation-for-apps" target="_blank">experimental playground</a> to concentrate on Foundation for Sites. Foundation has, and will continue to push the web forward, and we’re incredibly excited about the future. You can follow along with the <a href="https://github.com/zurb/foundation-sites/wiki/Project-Roadmap" target="_blank">Foundation for Sites roadmap</a> to get more details on where the project is headed and learn how to get involved.</p>
+</div>
+
 # Foundation for Apps
 
 [![Build Status](https://travis-ci.org/zurb/foundation-apps.svg)](https://travis-ci.org/zurb/foundation-apps)
