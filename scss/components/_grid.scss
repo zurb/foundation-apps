@@ -383,6 +383,16 @@ $block-grid-max-size: 6 !default;
         &.panel { @include grid-panel-reset; }
       }
     }
+    .#{$size}-collapse {
+      @include breakpoint($size) {
+        &.grid-content { padding: 0; }
+      }
+    }
+    .#{$size}-uncollapse {
+      @include breakpoint($size) {
+        &.grid-content { padding: 0 $block-padding; }
+      }
+    }
   }
 
   // Sizing and ordering classes
