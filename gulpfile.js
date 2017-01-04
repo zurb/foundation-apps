@@ -173,6 +173,10 @@ gulp.task('css', ['sass'], function() {
   ];
   return gulp.src(dirs)
     .pipe($.concat('app.css'))
+    .pipe($.cssCondense({
+      compress: false,
+      lineBreaks: true
+    }))
     .pipe(gulp.dest('build/assets/css'))
   ;
 });
@@ -322,6 +326,7 @@ gulp.task('deploy:dist', ['clean:dist'], function(cb) {
     .pipe($.rename('foundation-apps.css'))
     .pipe(gulp.dest('./dist/css'))
     .pipe($.minifyCss())
+    .pipe($.cssCondense())
     .pipe($.rename('foundation-apps.min.css'))
     .pipe(gulp.dest('./dist/css'));
 
