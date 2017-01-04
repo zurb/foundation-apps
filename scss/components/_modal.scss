@@ -67,7 +67,7 @@ $modal-overlay-background: rgba(#333, 0.7) !default;
   @if $border != 0 {
     border: $border;
   }
-  @if $radius != 0 {
+  @if $radius != 0px {
     border-radius: $radius;
   }
   @if $shadow != none {
