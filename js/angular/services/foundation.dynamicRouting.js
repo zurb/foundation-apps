@@ -46,9 +46,13 @@
             parent: page.parent || '',
             controller: getController(page),
             data: getData(page),
-            animation: buildAnimations(page),
+            animation: buildAnimations(page)
           };
-          
+
+          if (page.controllerAs) {
+            state.controllerAs = page.controllerAs;
+          }
+
           $stateProvider.state(page.name, state);
         }
       });
@@ -64,17 +68,18 @@
               '': buildState(page.path, page)
             }
           };
-          
           angular.forEach(page.children, function(sub) {
             state.views[sub.name + '@' + page.name] = buildState(sub.path, page);
           });
-
+          if (page.controllerAs) {
+            state.controllerAs = page.controllerAs;
+          }
           $stateProvider.state(page.name, state);
       });
     };
 
     this.$get = angular.noop;
-    
+
     function getData(page) {
       var data = { vars: {} };
       if (page.data) {
@@ -88,7 +93,7 @@
       angular.extend(data.vars, page);
       return data;
     }
-    
+
     function buildState(path, state) {
       return {
         templateUrl: path,
