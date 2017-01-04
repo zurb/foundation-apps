@@ -498,8 +498,8 @@ $motion-delay-long: 700ms !default;
     &.long-delay  { animation-delay: $motion-delay-long !important; }
   }
   .stagger { @include stagger($motion-stagger-duration-default); }
-  .stort-stagger { @include stagger($motion-stagger-duration-default); }
-  .long-stagger { @include stagger($motion-stagger-duration-default); }
+  .stort-stagger { @include stagger($motion-stagger-duration-short); }
+  .long-stagger { @include stagger($motion-stagger-duration-long); }
 }
 
 // View animation classes
