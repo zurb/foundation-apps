@@ -44,10 +44,10 @@ npm install -g foundation-cli bower gulp
 <p>You now have access to the <code>foundation-apps</code> command on your system! You'll use this to set up and update new projects. To build a new project, use this command:</p>
 
 <hljs language="bash">
-foundation-apps new myApp
+foundation new
 </hljs>
 
-<p>Change <code>myApp</code> to the name you'd like the folder to be. This will download our template stack, and install Foundation for Apps, Angular, and Gulp. The whole process takes between 30 seconds and a minute, depending on your Internet connection.</p>
+<p>You will now be asked to select your project type and to give your project a name. The installer will create a directory based on the project name you provide.</p>
 
 <p>Once the installer is done, navigate into the directory using <code>cd</code>:</p>
 
@@ -58,12 +58,12 @@ cd myApp
 <p>Now you can build the app and begin working on it.</p>
 
 <hljs language="bash">
-foundation-apps watch
+npm start
 </hljs>
 
 <p>This will assemble all of the pieces&mdash;the Sass, JavaScript, and view templates&mdash;into a new folder called <code>build</code>, which is your final app. The build process will also setup a temporary server that points to the finished app. You can get to the server by going to this URL in your browser:</p>
 
-<pre><code class="hljs">http://localhost:8080</code></pre>
+<pre><code class="hljs">http://localhost:8079</code></pre>
 
 <hr>
 
@@ -73,7 +73,7 @@ foundation-apps watch
   <p>Foundation for Apps can be installed manually through Bower or npm.</p>
 
 <hljs language="bash">
-bower install foundation-apps --save
+  bower install foundation-apps --save
   npm install foundation-apps --save
 </hljs>
 
