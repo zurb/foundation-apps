@@ -268,7 +268,7 @@
         for(var i = 0; i < props.length; i++) {
           var prop = props[i];
 
-          if(config[prop]) {
+          if(config[prop] !== undefined) {
             switch (prop) {
               case 'animationIn':
                 element.attr('animation-in', config[prop]);
