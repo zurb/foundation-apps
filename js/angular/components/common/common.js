@@ -182,22 +182,40 @@
 
     function link(scope, element, attrs) {
       element.on('click', function(e) {
-        var tar = e.target;
-        var avoid = ['zf-toggle', 'zf-hard-toggle', 'zf-open', 'zf-close'].filter(function(e, i){
+        var tar = e.target, avoid, activeElements, closedElements, i;
+
+        // check if clicked target is designated to open/close another component
+        avoid = ['zf-toggle', 'zf-hard-toggle', 'zf-open', 'zf-close'].filter(function(e){
           return e in tar.attributes;
         });
+        if(avoid.length > 0) {
+          // do nothing
+          return;
+        }
 
-        if(avoid.length > 0){ return; }
+        // check if clicked element is inside active closable parent
+        if (getParentsUntil(tar, 'zf-closable') !== false) {
+          // do nothing
+          return;
+        }
 
-        var activeElements = document.querySelectorAll('.is-active[zf-closable]');
+        // close all active elements
+        activeElements = document.querySelectorAll('.is-active[zf-closable]');
+        closedElements = 0;
+        if(activeElements.length > 0) {
+          for(i = 0; i < activeElements.length; i++) {
+            if (!activeElements[i].hasAttribute('zf-ignore-all-close')) {
+              foundationApi.publish(activeElements[i].id, 'close');
+              closedElements++;
+            }
+          }
 
-        if(activeElements.length && !activeElements[0].hasAttribute('zf-ignore-all-close')){
-          if(getParentsUntil(tar, 'zf-closable') === false){
+          // if one or more elements were closed,
+          // prevent the default action
+          if (closedElements > 0) {
             e.preventDefault();
-            foundationApi.publish(activeElements[0].id, 'close');
           }
         }
-        return;
       });
     }
     /** special thanks to Chris Ferdinandi for this solution.
