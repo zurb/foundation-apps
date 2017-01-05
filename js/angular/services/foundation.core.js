@@ -118,11 +118,13 @@
     }
 
     function animateAndAdvise(element, futureState, animationIn, animationOut) {
+      var msgPrefix = "animation-" + (futureState ? "open" : "close");
+      publish(element[0].id, msgPrefix + "-started");
       var promise = FoundationAnimation.animate(element, futureState, animationIn, animationOut);
       promise.then(function() {
-        publish(element[0].id, futureState ? 'active-true' : 'active-false');
+        publish(element[0].id, msgPrefix + "-finished");
       }, function() {
-        publish(element[0].id, 'active-aborted');
+        publish(element[0].id, msgPrefix + "-aborted");
       });
       return promise;
     }

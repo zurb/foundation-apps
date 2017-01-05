@@ -153,11 +153,13 @@
         //due to dynamic insertion of DOM, we need to wait for it to show up and get working!
         setTimeout(function() {
           scope.active = true;
+          adviseActiveChanged();
           animate(element, scope.active, animationIn, animationOut);
         }, 50);
 
         scope.hide = function() {
           scope.active = false;
+          adviseActiveChanged();
           animate(element, scope.active, animationIn, animationOut);
           setTimeout(function() {
             controller.removeNotification(scope.notifId);
@@ -189,6 +191,12 @@
               scope.hide();
             }
           });
+        }
+
+        function adviseActiveChanged() {
+          if (!angular.isUndefined(attrs.zfAdvise)) {
+            foundationApi.publish(attrs.id, scope.active ? 'activated' : 'deactivated');
+          }
         }
       }
     }
@@ -265,23 +273,35 @@
         });
 
         scope.hide = function() {
-          scope.active = false;
-          animateFn(element, scope.active, animationIn, animationOut);
+          if (scope.active) {
+            scope.active = false;
+            adviseActiveChanged();
+            animateFn(element, scope.active, animationIn, animationOut);
+          }
           return;
         };
 
         scope.show = function() {
-          scope.active = true;
-          animateFn(element, scope.active, animationIn, animationOut);
+          if (!scope.active) {
+            scope.active = true;
+            adviseActiveChanged();
+            animateFn(element, scope.active, animationIn, animationOut);
+          }
           return;
         };
 
         scope.toggle = function() {
           scope.active = !scope.active;
+          adviseActiveChanged();
           animateFn(element, scope.active, animationIn, animationOut);
           return;
         };
 
+        function adviseActiveChanged() {
+          if (!angular.isUndefined(attrs.zfAdvise)) {
+            foundationApi.publish(attrs.id, scope.active ? 'activated' : 'deactivated');
+          }
+        }
       }
     }
   }
