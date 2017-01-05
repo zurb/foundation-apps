@@ -93,6 +93,10 @@ $button-tag-selector: false !default;
 ){
   @if $style == hollow {
     border: 1px solid $background;
+    padding-top: calc(#{get-side($button-padding, top)} - 1px);
+    padding-right: calc(#{get-side($button-padding, right)} - 1px);
+    padding-bottom: calc(#{get-side($button-padding, bottom)} - 1px);
+    padding-left: calc(#{get-side($button-padding, left)} - 1px);
     background: transparent;
     color: $background;
 
