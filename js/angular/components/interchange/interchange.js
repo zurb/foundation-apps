@@ -27,8 +27,32 @@
 
       var globalQueries = foundationMQ.getMediaQueries();
 
-      //setup
-      foundationApi.subscribe('resize', function(msg) {
+      // subscribe for resize events
+      foundationApi.subscribe('resize', resize);
+
+      scope.$on("$destroy", function() {
+        foundationApi.unsubscribe('resize', resize);
+      });
+
+      //init
+      foundationApi.publish('resize', 'initial resize');
+
+      function templateLoader(templateUrl) {
+        return $http.get(templateUrl, {cache: $templateCache});
+      }
+
+      function collectInformation(el) {
+        var data = foundationMQ.collectScenariosFromElement(el);
+
+        scenarios = data.scenarios;
+        innerTemplates = data.templates;
+      }
+
+      function checkScenario(scenario) {
+        return !current || current !== scenario;
+      }
+      
+      function resize(msg) {
         transclude(function(clone, newScope) {
           if(!scenarios || !innerTemplates) {
             collectInformation(clone);
@@ -68,25 +92,6 @@
             }
           }
         });
-
-      });
-
-      //init
-      foundationApi.publish('resize', 'initial resize');
-
-      function templateLoader(templateUrl) {
-        return $http.get(templateUrl, {cache: $templateCache});
-      }
-
-      function collectInformation(el) {
-        var data = foundationMQ.collectScenariosFromElement(el);
-
-        scenarios = data.scenarios;
-        innerTemplates = data.templates;
-      }
-
-      function checkScenario(scenario) {
-        return !current || current !== scenario;
       }
     }
   }
@@ -220,17 +225,10 @@
 
       function postLink(scope, element, attrs) {
         // subscribe for resize events
-        foundationApi.subscribe('resize', function() {
-          var orignalVisibilty = scope[queryResult];
-          runQuery();
-          if (orignalVisibilty != scope[queryResult]) {
-            // digest if visibility changed
-            scope.$digest();
-          }
-        });
+        foundationApi.subscribe('resize', resize);
 
         scope.$on("$destroy", function() {
-          foundationApi.unsubscribe('resize');
+          foundationApi.unsubscribe('resize', resize);
         });
 
         // run first media query check
@@ -253,6 +251,15 @@
               // Check that media does NOT match named query
               scope[queryResult] = !foundationMQ.matchesMediaOnly(namedQuery);
             }
+          }
+        }
+
+        function resize() {
+          var orignalVisibilty = scope[queryResult];
+          runQuery();
+          if (orignalVisibilty != scope[queryResult]) {
+            // digest if visibility changed
+            scope.$digest();
           }
         }
       }
