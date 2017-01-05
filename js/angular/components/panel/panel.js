@@ -46,6 +46,7 @@
     function compile(tElement, tAttrs, transclude) {
       var type = 'panel';
       var animate = tAttrs.hasOwnProperty('zfAdvise') ? foundationApi.animateAndAdvise : foundationApi.animate;
+      var forceAnimation = tAttrs.hasOwnProperty('forceAnimation');
 
       return {
         pre: preLink,
@@ -101,10 +102,12 @@
         foundationApi.subscribe(attrs.id, function(msg) {
           var panelPosition = $window.getComputedStyle(element[0]).getPropertyValue("position");
 
-          // patch to prevent panel animation on larger screen devices
-          // don't run animation on grid elements, only panel
-          if (panelPosition == 'static' || panelPosition == 'relative') {
-            return;
+          if (forceAnimation) {
+            // patch to prevent panel animation on larger screen devices
+            // don't run animation on grid elements, only panel
+            if (panelPosition == 'static' || panelPosition == 'relative') {
+              return;
+            }
           }
 
           if(msg == 'show' || msg == 'open') {
@@ -121,8 +124,6 @@
 
           return;
         });
-
-        // function finish(el)
 
         scope.hide = function() {
           if(scope.active){

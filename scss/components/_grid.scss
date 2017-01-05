@@ -1,4 +1,5 @@
 @import "panel";
+@import "motion";
 
 /*
   THE GRID
@@ -193,6 +194,23 @@ $block-grid-max-size: 6 !default;
   }
 }
 
+@mixin grid-panel-animating($isAnimating: true) {
+  $sel1:  map-get($motion-class, in);
+  $sel1A: map-get($motion-class-active, in);
+  $sel2:  map-get($motion-class, out);
+  $sel2A: map-get($motion-class-active, out);
+
+  @if ($isAnimating == true) {
+    &.#{$sel1}.#{$sel1A}, &.#{$sel2}.#{$sel2A} {
+      @content;
+    }
+  } @else {
+    &:not(.#{$sel1}):not(.#{$sel1A}):not(.#{$sel2}):not(.#{$sel2A}) {
+      @content;
+    }
+  }
+}
+
 /*
   Resets styles set by panels. Use this when a panel transforms into a block on larger screens.
 
@@ -370,7 +388,24 @@ $block-grid-max-size: 6 !default;
         @include grid-block;
 
         // Override panel styles
-        &.panel { @include grid-panel-reset; }
+        &.panel {
+          &.is-active {
+            @include grid-panel-animating(true) {
+              position: absolute;
+              display: block;
+            }
+            @include grid-panel-animating(false) {
+              @include grid-panel-reset;
+            }
+          }
+          &:not(.is-active) {
+            display: none;
+
+            @include grid-panel-animating(true) {
+              position: absolute;
+            }
+          }
+        }
       }
     }
     .#{$size}-grid-content {
@@ -380,7 +415,24 @@ $block-grid-max-size: 6 !default;
         @include grid-content;
 
         // Override panel styles
-        &.panel { @include grid-panel-reset; }
+        &.panel {
+          &.is-active {
+            @include grid-panel-animating(true) {
+              position: absolute;
+              display: block;
+            }
+            @include grid-panel-animating(false) {
+              @include grid-panel-reset;
+            }
+          }
+          &:not(.is-active) {
+            display: none;
+
+            @include grid-panel-animating(true) {
+              position: absolute;
+            }
+          }
+        }
       }
     }
   }
