@@ -83,6 +83,9 @@ $menubar-icon-spacing: $menubar-item-padding !default;
     > li > a {
       flex-flow: row nowrap;
     }
+    &.primary {
+      margin-bottom: 0;
+    }
   }
 
   /*
