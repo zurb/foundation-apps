@@ -354,6 +354,7 @@ $block-grid-max-size: 6 !default;
     }
   }
   .grid-container {
+    display: flex;
     @include grid-container;
 
     &.contain-left  { @include grid-container($align: left); }
