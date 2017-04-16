@@ -40,6 +40,8 @@ $motion-class-showhide-active: (
   in: "ng-hide-remove-active",
   out: "ng-hide-add-active",
 );
+$motion-class-move: "ng-move";
+$motion-class-move-active: "ng-move-active";
 
 // Set if movement-based transitions should also fade the element in and out
 $motion-slide-and-fade: false !default;
@@ -107,9 +109,11 @@ $motion-delay-long: 700ms !default;
 @mixin transition-start($dir) {
   $sel1: map-get($motion-class, $dir);
   $sel2: map-get($motion-class-showhide, $dir);
+  $sel3: $motion-class-move;
 
   &.#{$sel1},
-  &.#{$sel2} {
+  &.#{$sel2},
+  &.#{$sel3} {
     @content;
   }
 }
@@ -124,8 +128,12 @@ $motion-delay-long: 700ms !default;
   $sel2:  map-get($motion-class-showhide, $dir);
   $sel2A: map-get($motion-class-showhide-active, $dir);
 
+  $sel3:  $motion-class-move;
+  $sel3A: $motion-class-move-active;
+
   &.#{$sel1}.#{$sel1A},
-  &.#{$sel2}.#{$sel2A} {
+  &.#{$sel2}.#{$sel2A},
+  &.#{$sel3}.#{$sel3A} {
     @content;
   }
 }
